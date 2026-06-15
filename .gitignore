@@ -1,0 +1,5 @@
+.omx/
+
+docs/*
+!docs/reference/
+!docs/reference/**

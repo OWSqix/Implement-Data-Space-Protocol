@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+<head>
+    <meta charset='utf-8'>
+    <script src='https://www.w3.org/Tools/respec/respec-w3c' async class='remove'></script>
+    <script class='remove'>
+        var respecConfig = {
+            specStatus: "base",
+            publishDate: "2025-08-12",
+            latestVersion: "https://eclipse-dataspace-protocol-base.github.io/DataspaceProtocol/2025-1",
+            editors: [{
+               name: "Sebastian Steinbuss",
+               url: "https://github.com/ssteinbuss",
+               company: "International Data Spaces Association",
+               companyURL: "https://internationaldataspaces.org/",
+            }],
+            authors: [
+                {
+                  name: "Peter Koen",
+                  url: "https://github.com/PeterKoen-MSFT",
+                  company: "Microsoft"
+                },
+                {
+                  name: "Maarten Kollenstart",
+                  url: "https://github.com/mkollenstart",
+                  company: "TNO"
+                },
+                {
+                  name: "James Marino",
+                  url: "https://github.com/jimmarino",
+                  company: "Metaform Systems"
+                },
+                {
+                  name: "Julia Pampus",
+                  url: "https://github.com/juliapampus",
+                  company: "Fraunhofer ISST"
+                },
+                {
+                  name: "Anil Turkmayali",
+                  url: "https://github.com/anilturkmayali",
+                  company: "International Data Spaces Association"
+                },
+                {
+                  name: "Sebastian Steinbuss",
+                  url: "https://github.com/ssteinbuss",
+                  company: "International Data Spaces Association"
+                },
+                {
+                  name: "Arno Weiß",
+                  url: "https://github.com/arnoweiss",
+                  company: "SAP"
+                },
+              ],
+            github: {
+              branch: "main",
+              repoURL: "eclipse-dataspace-protocol-base/DataspaceProtocol",
+            },
+            xref: "web-platform",
+            lint: { "no-unused-dfns": false, "local-refs-exist": true },
+            format: "markdown",
+            maxTocLevel: 3,
+        };
+    </script>
+    <title>Dataspace Protocol Release 2025-1</title>
+</head>
+<body>
+<p class="copyright">
+    This document is licensed under <a href="https://www.apache.org/licenses/LICENSE-2.0.html">The Apache License, Version 2.0</a>.
+</p>
+<h1 id="title">Dataspace Protocol 2025-1</h1>
+<section id='abstract'>
+    <p>
+        The Dataspace Protocol is a specification designed to facilitate interoperable data sharing between
+        entities governed by usage control and based on Web technologies. This specification defines the schemas and
+        protocols required for entities to publish data, negotiate Agreements, and access data as part of a federation
+        of technical systems termed a Dataspace.
+    </p>
+</section>
+<section id='sotd'  class="override">
+    <h2>Status of this document</h2>
+    <p>
+        This version (2025-1) of the Dataspace Protocol specification is a release of the specification and considered to be
+        stable. Further changes shall not affect conformity. All changes made to the specification can be reviewed in
+        the GitHub repositories - up to and including `2024-1` under the governance of the <a href="https://github.com/International-Data-Spaces-Association/ids-specification">International Data Spaces Association</a>
+        and with the <a href="https://github.com/eclipse-dataspace-protocol-base/DataspaceProtocol">Eclipse Dataspace Working Group</a> ever since.
+    </p>
+</section>
+
+<section data-include="specifications/common/introduction.md" data-include-format="markdown">
+</section>
+
+<section data-include="specifications/common/scope.md" data-include-format="markdown">
+</section>
+
+<section data-include="specifications/common/terminology.md" data-include-format="markdown">
+</section>
+
+<section data-include="specifications/common/common.protocol.md" data-include-format="markdown">
+</section>
+
+<section data-include="specifications/catalog/catalog.protocol.md" data-include-format="markdown">
+</section>
+
+<section data-include="specifications/catalog/catalog.binding.https.md" data-include-format="markdown">
+</section>
+
+<section data-include="specifications/negotiation/contract.negotiation.protocol.md" data-include-format="markdown">
+</section>
+
+<section data-include="specifications/negotiation/contract.negotiation.binding.https.md" data-include-format="markdown">
+</section>
+
+<section data-include="specifications/transfer/transfer.process.protocol.md" data-include-format="markdown">
+</section>
+
+<section data-include="specifications/transfer/transfer.process.binding.https.md" data-include-format="markdown">
+</section>
+
+<section id='conformance'></section>
+
+<section id="lower-level-types" class="appendix" data-include="specifications/common/type.definitions.md" data-include-format="markdown">
+    <h1>Lower-level type definitions</h1>
+</section>
+
+<section id="tof" class="appendix">
+    <h1>Notes</h1>
+</section>
+
+</body>
+</html>
