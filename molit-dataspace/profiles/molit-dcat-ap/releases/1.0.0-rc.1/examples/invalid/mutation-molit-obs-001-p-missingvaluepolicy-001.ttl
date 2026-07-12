@@ -34,7 +34,7 @@ ex:observation-catalog a dcat:Catalog;
     dcat:themeTaxonomy <http://publications.europa.eu/resource/authority/data-theme>, <https://data.molit.go.kr/scheme/domain>;
     dcat:dataset ex:traffic-observation;
     dcat:record ex:traffic-observation-record;
-    molit:spatialDisclosureLevel <https://data.molit.go.kr/id/concept/spatial-disclosure-level/generalized>.
+    molit:spatialDisclosureLevel <https://data.molit.go.kr/id/concept/spatial-disclosure-level/exact>.
 ex:traffic-office a foaf:Agent;
     dct:type <http://purl.org/adms/publishertype/NationalAuthority>;
     foaf:name "교통 관측 담당기관"@ko.
@@ -52,7 +52,7 @@ ex:traffic-observation a dcat:Dataset, dcat:Resource, molit:ObservationDataset;
     dct:issued "2026-07-12"^^xsd:date;
     dct:modified "2026-07-12T09:00:00+09:00"^^xsd:dateTime;
     dct:spatial ex:republic-of-korea-core;
-    molit:spatialDisclosureLevel <https://data.molit.go.kr/id/concept/spatial-disclosure-level/generalized>;
+    molit:spatialDisclosureLevel <https://data.molit.go.kr/id/concept/spatial-disclosure-level/exact>;
     dct:type ex:observation-dataset-type;
     dct:identifier "traffic-observation-hourly-2026-07";
     dct:accessRights <http://publications.europa.eu/resource/authority/access-right/PUBLIC>;
@@ -67,6 +67,7 @@ ex:traffic-observation a dcat:Dataset, dcat:Resource, molit:ObservationDataset;
     molit:observedProperty obsprop:traffic-volume;
     molit:observationAggregation obsagg:sum;
     molit:aggregationPeriod "PT1H"^^xsd:duration;
+    molit:missingValuePolicy obsmissing:preserve-missing, "mutation-52365d4ab0cd-extra";
     molit:observationSubjectType obssubject:section;
     molit:observationUnit <https://data.molit.go.kr/id/unit/vehicle-per-hour>;
     molit:qualityStatus quality:assessed.

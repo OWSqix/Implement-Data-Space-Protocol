@@ -43,13 +43,9 @@
         sh:nodeKind sh:IRI ;
         sh:in (
             disclosure:exact
-            disclosure:generalized
-            disclosure:administrative-area
-            disclosure:bounding-box
-            disclosure:grid
             disclosure:withheld
         ) ;
-        sh:message "공개 공간 범위의 정밀도 수준을 통제어 IRI로 기록해야 한다."@ko
+        sh:message "RC.1 발행 graph의 공간 공개 수준은 기계 검증 가능한 exact 또는 withheld IRI여야 한다."@ko
     ], [ molit:requirementId "MOLIT-GEO-001-P-SPATIALRESOLUTIONINMETERS-001" ;
         sh:path dcat:spatialResolutionInMeters ;
         sh:datatype xsd:decimal ;
@@ -65,11 +61,9 @@
             sh:property [ sh:path dct:spatial ; sh:maxCount 0 ]
         ]
         [
-            sh:not [
-                sh:property [
-                    sh:path molit:spatialDisclosureLevel ;
-                    sh:hasValue disclosure:withheld
-                ]
+            sh:property [
+                sh:path molit:spatialDisclosureLevel ;
+                sh:hasValue disclosure:exact
             ] ;
             sh:property [
                 sh:path dct:spatial ;
@@ -112,16 +106,21 @@
     sh:targetSubjectsOf molit:spatialDisclosureLevel ;
     molit:requirementId "MOLIT-GEO-DISCLOSURE-001" ;
     molit:controlOwner "security-privacy-review" ;
-    sh:or (
+    sh:property [
+        molit:requirementId "MOLIT-GEO-DISCLOSURE-001-P-SPATIALDISCLOSURELEVEL-001" ;
+        sh:path molit:spatialDisclosureLevel ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:nodeKind sh:IRI ;
+        sh:in ( disclosure:exact disclosure:withheld )
+    ] ;
+    sh:xone (
         [
-            sh:not [
-                sh:property [
-                    sh:path molit:spatialDisclosureLevel ;
-                    sh:hasValue disclosure:withheld
-                ]
-            ]
+            sh:property [ sh:path molit:spatialDisclosureLevel ; sh:hasValue disclosure:exact ] ;
+            sh:property [ sh:path dct:spatial ; sh:minCount 1 ; sh:class dct:Location ]
         ]
         [
+            sh:property [ sh:path molit:spatialDisclosureLevel ; sh:hasValue disclosure:withheld ] ;
             sh:property [ sh:path dct:spatial ; sh:maxCount 0 ] ;
             sh:property [ sh:path dcat:bbox ; sh:maxCount 0 ] ;
             sh:property [ sh:path dcat:centroid ; sh:maxCount 0 ] ;
@@ -139,7 +138,7 @@
             sh:property [ sh:path geo:asDGGS ; sh:maxCount 0 ]
         ]
     ) ;
-    sh:message "비공개 공간 수준과 location 또는 geometry를 함께 게시할 수 없다."@ko .
+    sh:message "공간 공개 수준은 exact 또는 withheld 하나여야 한다. exact에는 location이 필요하고 withheld에는 location·bbox·centroid·geometry를 둘 수 없다."@ko .
 
 <https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#SpatialDisclosureSubjectTypeShape>
     a sh:NodeShape ;

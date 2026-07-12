@@ -1,0 +1,107 @@
+{
+  "schemaVersion": "molit.network-reference-policy/1",
+  "profileVersion": "1.0.0-rc.1",
+  "status": "candidate-technical-evidence",
+  "identity": {
+    "key": [
+      "networkAuthority",
+      "networkIdentifier",
+      "networkVersion"
+    ],
+    "checksumAlgorithm": "sha-256",
+    "collisionRule": "same-key-requires-exactly-one-record",
+    "checksumConflictRule": "same-key-with-different-checksum-is-a-conflict",
+    "crossEditionRule": "same-authority-and-network-identifier-allows-distinct-version-and-checksum"
+  },
+  "elementIdentifiers": {
+    "node": {
+      "pattern": "^[0-9]{10}$",
+      "sourceField": "NODE_ID",
+      "evidenceStatus": "observed-in-2026-07-01-source-sample"
+    },
+    "link": {
+      "pattern": "^[0-9]{10}$",
+      "sourceField": "LINK_ID",
+      "evidenceStatus": "observed-in-2026-07-01-source-sample"
+    },
+    "historyCode": {
+      "pattern": "^(?:NODE|LINK)[0-9]{4}$",
+      "sourceField": "HIST_TYPE"
+    },
+    "previousIdentifier": {
+      "pattern": "^[0-9]{10}$",
+      "sourceField": "HISTREMARK",
+      "meaning": "source-provided-previous-element-identifier; not owl:sameAs"
+    }
+  },
+  "coordinateOrder": {
+    "source": [
+      "east-x",
+      "north-y"
+    ],
+    "rdf": [
+      "north",
+      "east"
+    ],
+    "rule": "source tuple order is recorded separately and converted to the authority axis order of EPSG:5186 before RDF serialization"
+  },
+  "rdfProjection": {
+    "referenceClass": "https://data.molit.go.kr/def/molit-dcat-ap#NetworkReference",
+    "authorityProperty": "https://data.molit.go.kr/def/molit-dcat-ap#networkAuthority",
+    "identifierProperty": "https://data.molit.go.kr/def/molit-dcat-ap#networkIdentifier",
+    "versionProperty": "https://data.molit.go.kr/def/molit-dcat-ap#networkVersion",
+    "checksumProperty": "https://data.molit.go.kr/def/molit-dcat-ap#networkSnapshotChecksum",
+    "lifecycleStatusProperty": "https://data.molit.go.kr/def/molit-dcat-ap#networkLifecycleStatus",
+    "validFromProperty": "https://data.molit.go.kr/def/molit-dcat-ap#networkValidFrom",
+    "validUntilProperty": "https://data.molit.go.kr/def/molit-dcat-ap#networkValidUntil",
+    "replacementProperty": "http://purl.org/dc/terms/isReplacedBy",
+    "lifecycleStatusNamespace": "https://data.molit.go.kr/id/concept/network-lifecycle-status/"
+  },
+  "lifecycle": {
+    "statuses": [
+      "candidate",
+      "current",
+      "superseded",
+      "withdrawn"
+    ],
+    "transitions": [
+      {
+        "from": "candidate",
+        "to": "current"
+      },
+      {
+        "from": "candidate",
+        "to": "withdrawn"
+      },
+      {
+        "from": "current",
+        "to": "superseded"
+      },
+      {
+        "from": "current",
+        "to": "withdrawn"
+      }
+    ],
+    "transitionScope": "allowed state changes of one edition; not a relation between predecessor and successor editions",
+    "terminalStatuses": [
+      "superseded",
+      "withdrawn"
+    ],
+    "replacementTargetStatuses": [
+      "current",
+      "superseded",
+      "withdrawn"
+    ],
+    "replacementRule": "superseded requires exactly one in-graph successor; candidate, current and withdrawn prohibit a successor",
+    "tombstoneRule": "terminal edition identifiers remain resolvable with checksum, validity and replacement history"
+  },
+  "sourceEvidence": {
+    "path": "examples/source-evidence/standard-node-link-2026-07-01.json",
+    "archiveSha256": "219020fac55f2faab1029ec9306563a00968f9b27f3910b80c534583b750b9ab",
+    "reuseStatus": "institutional-redistribution-approval-pending",
+    "observedElementTypes": [
+      "link",
+      "node"
+    ]
+  }
+}

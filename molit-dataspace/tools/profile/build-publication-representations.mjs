@@ -112,7 +112,7 @@ function ontologyTable(source) {
   ].join("\n");
 }
 
-function publicationContract(release) {
+export function buildPublicationContract(release) {
   const representations = release.manifest.representationArtifacts;
   const profileIris = [...new Set([
     release.manifest.profileIri,
@@ -132,9 +132,16 @@ function publicationContract(release) {
     namespaceStatus: release.manifest.namespaceStatus,
     responseRules: {
       unsupportedAccept: 406,
+      notFound: 404,
+      defaultMediaType: "text/html",
       vary: ["Accept"],
       dynamicNetworkImports: false,
       exactByteArtifacts: true,
+      canonicalRedirect: {
+        trailingSlash: "remove",
+        status: 308,
+        preserveQuery: true,
+      },
     },
     resources: [
       {
@@ -146,7 +153,10 @@ function publicationContract(release) {
         },
       },
       {
-        iris: ["https://data.molit.go.kr/def/molit-dcat-ap"],
+        iris: [
+          "https://data.molit.go.kr/def/molit-dcat-ap",
+          `https://data.molit.go.kr/def/molit-dcat-ap/${release.version}`,
+        ],
         representations: {
           "application/ld+json": representations.ontologyJsonLd,
           "text/html": representations.ontologyHtml,
@@ -154,6 +164,7 @@ function publicationContract(release) {
         },
       },
     ],
+    tombstoneContract: "publication/tombstones.json",
     deploymentGate: "RA-NAMESPACE",
     notes: [
       "This file specifies representation selection; it does not claim that data.molit.go.kr is already deployed.",
@@ -188,7 +199,7 @@ export async function buildPublicationArtifacts({ check = false, version } = {})
     [representations.profileJsonLd, await turtleToJsonLd(profileTurtle)],
     [representations.ontologyJsonLd, await turtleToJsonLd(ontologyTurtle)],
     [release.manifest.publicationContract, `${JSON.stringify(
-      canonical(publicationContract(release)),
+      canonical(buildPublicationContract(release)),
       null,
       2,
     )}\n`],

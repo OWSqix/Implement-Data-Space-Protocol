@@ -30,7 +30,7 @@ ex:catalog a dcat:Catalog;
     dcat:themeTaxonomy <http://publications.europa.eu/resource/authority/data-theme>, <https://data.molit.go.kr/scheme/domain>;
     dcat:record ex:record-standard-node-link;
     dcat:dataset ex:standard-node-link-dataset;
-    molit:spatialDisclosureLevel <https://data.molit.go.kr/id/concept/spatial-disclosure-level/generalized>.
+    molit:spatialDisclosureLevel <https://data.molit.go.kr/id/concept/spatial-disclosure-level/exact>.
 ex:molit a foaf:Agent;
     dct:identifier "MOLIT";
     dct:type <http://purl.org/adms/publishertype/NationalAuthority>;
@@ -55,7 +55,7 @@ ex:standard-node-link-dataset a dcat:Dataset, dcat:Resource, molit:NetworkDatase
     dct:issued "2026-07-01"^^xsd:date;
     dct:modified "2026-07-01T00:00:00+09:00"^^xsd:dateTime;
     dct:spatial ex:republic-of-korea;
-    molit:spatialDisclosureLevel <https://data.molit.go.kr/id/concept/spatial-disclosure-level/generalized>;
+    molit:spatialDisclosureLevel <https://data.molit.go.kr/id/concept/spatial-disclosure-level/exact>;
     dct:identifier "its-standard-node-link-2026-07-01";
     dct:accrualPeriodicity <http://publications.europa.eu/resource/authority/frequency/IRREG>;
     dct:accessRights <http://publications.europa.eu/resource/authority/access-right/PUBLIC>;

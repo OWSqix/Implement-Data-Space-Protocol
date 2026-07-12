@@ -67,7 +67,9 @@ urn:kr:molit-dataspace:participant:{organization-id}
 
 이 namespace는 미승인 초안이며 외부 장기 식별자로 공개하지 않는다.
 
-## 4. 필수 metadata
+## 4. 연계·운영 canonical 목표 metadata
+
+이 표는 Platform Bridge와 운영 Catalog의 목표 모델이다. MOLIT DCAT-AP 1.0.0-rc.1의 현행 규범표가 아니다. RC.1 cardinality와 datatype은 release의 requirement ledger와 SHACL을 정본으로 삼는다.
 
 | 구분 | 필드 | 조건 | 검증 규칙 |
 | --- | --- | --- | --- |
@@ -79,7 +81,7 @@ urn:kr:molit-dataspace:participant:{organization-id}
 | Offering Provider | canonical `providerParticipantId` | DSP Catalog 필수 | Offer·Agreement의 Provider Participant와 권한 증거 연결 |
 | 운영책임 | canonical `connectorOperatorId`, `deliveryOperatorId` | DSP Catalog 필수 | Connector와 실제 전달 운영자를 구분 |
 | 분류 | `dcat:theme`, `dcat:keyword` | 필수 | 승인된 국토교통 taxonomy 사용 |
-| 발행·수정 | `dct:issued`, `dct:modified` | 필수 | 원천 정밀도에 맞는 `xsd:date` 또는 `xsd:dateTime`; dateTime에는 timezone 필수, timestamp를 `xsd:date`로 표기하지 않음 |
+| 발행·수정 | `dct:issued`, `dct:modified` | 목표: 필수. RC.1: `modified` 필수, `issued` 선택 | 목표 운영모델은 dateTime timezone을 요구한다. RC.1은 `xsd:date`·`xsd:dateTime`을 허용하며 timezone을 강제하지 않으므로 이 항목을 RC.1 적합성 주장에 사용하지 않음 |
 | 갱신 | `dct:accrualPeriodicity` | 조건부 필수 | source update와 Catalog sync를 구분 |
 | 시간범위 | `dct:temporal` | 시계열 필수 | 시작·종료, open interval 허용 규칙 명시 |
 | 공간범위 | `dct:spatial` | 공개 가능한 공간자료 필수 | 행정구역 또는 geometry·BBOX; `withheld` 공개 projection에는 위치 자체를 넣지 않음 |

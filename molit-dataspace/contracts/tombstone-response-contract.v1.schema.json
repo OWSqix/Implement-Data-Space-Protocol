@@ -1,0 +1,74 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://data.molit.go.kr/schema/tombstone-response-contract.v1.json",
+  "title": "MOLIT deprecated-term tombstone response contract",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "profileVersion",
+    "status",
+    "namespaceStatus",
+    "deploymentGate",
+    "strategy",
+    "entries",
+    "notes"
+  ],
+  "properties": {
+    "schemaVersion": { "const": "molit.tombstone-response-contract/1" },
+    "profileVersion": { "const": "1.0.0-rc.1" },
+    "status": { "const": "candidate-deployment-contract" },
+    "namespaceStatus": { "const": "proposed-not-yet-dereferenceable" },
+    "deploymentGate": { "const": "RA-NAMESPACE" },
+    "strategy": { "const": "hash-iri-retained-description" },
+    "entries": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "termIri",
+          "dereferenceIri",
+          "versionedDereferenceIri",
+          "httpStatus",
+          "lifecycleStatus",
+          "retention",
+          "replacementIris",
+          "mediaTypes"
+        ],
+        "properties": {
+          "termIri": {
+            "type": "string",
+            "format": "uri",
+            "pattern": "^https://data[.]molit[.]go[.]kr/def/molit-dcat-ap#"
+          },
+          "dereferenceIri": {
+            "const": "https://data.molit.go.kr/def/molit-dcat-ap"
+          },
+          "versionedDereferenceIri": {
+            "const": "https://data.molit.go.kr/def/molit-dcat-ap/1.0.0-rc.1"
+          },
+          "httpStatus": { "const": 200 },
+          "lifecycleStatus": { "const": "deprecated" },
+          "retention": { "const": "indefinite" },
+          "replacementIris": {
+            "type": "array",
+            "minItems": 1,
+            "uniqueItems": true,
+            "items": { "type": "string", "format": "uri" }
+          },
+          "mediaTypes": {
+            "const": ["application/ld+json", "text/html", "text/turtle"]
+          }
+        }
+      }
+    },
+    "notes": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "type": "string", "minLength": 1 }
+    }
+  }
+}

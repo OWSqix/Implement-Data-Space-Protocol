@@ -36,7 +36,7 @@ ex:catalog a dcat:Catalog;
     dcat:themeTaxonomy <http://publications.europa.eu/resource/authority/data-theme>, <https://data.molit.go.kr/scheme/domain>;
     dcat:record ex:record-road-network;
     dcat:dataset ex:road-network;
-    molit:spatialDisclosureLevel <https://data.molit.go.kr/id/concept/spatial-disclosure-level/generalized>.
+    molit:spatialDisclosureLevel <https://data.molit.go.kr/id/concept/spatial-disclosure-level/exact>.
 ex:molit a foaf:Agent;
     dct:identifier "MOLIT";
     dct:type <http://purl.org/adms/publishertype/NationalAuthority>;
@@ -63,7 +63,7 @@ ex:road-network a dcat:Dataset, dcat:Resource, molit:NetworkDataset, molit:Spati
     dct:issued "2026-07-01"^^xsd:date;
     dct:modified "2026-07-11T23:00:00+09:00"^^xsd:dateTime;
     dct:spatial ex:republic-of-korea;
-    molit:spatialDisclosureLevel <https://data.molit.go.kr/id/concept/spatial-disclosure-level/generalized>;
+    molit:spatialDisclosureLevel <https://data.molit.go.kr/id/concept/spatial-disclosure-level/exact>;
     dct:identifier "molit-road-network-2026-07";
     dct:accrualPeriodicity <http://publications.europa.eu/resource/authority/frequency/MONTHLY>;
     dct:accessRights <http://publications.europa.eu/resource/authority/access-right/PUBLIC>;
@@ -81,7 +81,7 @@ ex:road-network a dcat:Dataset, dcat:Resource, molit:NetworkDataset, molit:Spati
     molit:networkReference ex:standard-node-link-2026-07;
     molit:qualityStatus quality:assessed.
 ex:republic-of-korea-geometry a locn:Geometry;
-    geo:asGML "<gml:Point srsName=\"http://www.opengis.net/def/crs/OGC/1.3/CRS84\" xmlns:gml=\"http://www.opengis.net/gml/3.2\"><gml:pos>128 36</gml:pos></gml:Point>"^^geo:gmlLiteral;
+    geo:asGML "<gml:Point srsName=\"http://www.opengis.net/def/crs/OGC/1.3/CRS84\" srsDimension=\"2\" xmlns:gml=\"http://www.opengis.net/gml/3.2\"><gml:pos>128 36</gml:pos></gml:Point>"^^geo:gmlLiteral;
     geo:asWKT "<http://www.opengis.net/def/crs/OGC/1.3/CRS84> POLYGON((124 33,132 33,132 39,124 39,124 33))"^^geo:wktLiteral;
     geo:hasSerialization <urn:molit:mutation:477758881089-extra>.
 ex:road-data-office a foaf:Agent;

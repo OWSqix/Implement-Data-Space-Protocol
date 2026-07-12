@@ -1,6 +1,6 @@
 {
   "artifactLock": {
-    "sha256": "a3eb59704f029c17337194ee78f37bf98f7936aad2bcf6c9825ba63893c1476a",
+    "sha256": "886bb8bc6fde440e08a11e6fccbc667a99b18646cb90edbd5dd048370455d097",
     "status": "verified"
   },
   "cases": [
@@ -24,12 +24,11 @@
       "fixtureId": "NEG-MUT-AGENT-001-P-NAME-001",
       "id": "FULL-NEG-MUT-AGENT-001-P-NAME-001",
       "input": "examples/invalid/mutation-molit-agent-001-p-name-001.ttl",
-      "inputSha256": "8d239f13b1a179d97f7b62ffc6f939b90557f3cfbb5119b10b420b36ee8bf51c",
+      "inputSha256": "8983b47b866316ad99210a55e5ff3200ef05776e65410f5c0eac25ac9a1ba25a",
       "localImports": [],
       "materializedBundleSha256": "95dbce17d9397ffae6d680b9c34a7d014d45e95ade100d3f2847c3c70a43fe3e",
       "profile": "core",
       "requirementIds": [
-        "MOLIT-AGENT-001",
         "MOLIT-AGENT-001-P-NAME-001"
       ]
     },
@@ -53,7 +52,7 @@
       "fixtureId": "NEG-MUT-CAT-001-P-DATASET-001",
       "id": "FULL-NEG-MUT-CAT-001-P-DATASET-001",
       "input": "examples/invalid/mutation-molit-cat-001-p-dataset-001.ttl",
-      "inputSha256": "2e71a5eec1026470bb4ae471746986fe678c073fa04576951e28d5f8619d0844",
+      "inputSha256": "ff9f7cd97a9d8f228a693dfa72fb7af9bc5f4c3e93a582ab844cc07524753599",
       "localImports": [],
       "materializedBundleSha256": "95dbce17d9397ffae6d680b9c34a7d014d45e95ade100d3f2847c3c70a43fe3e",
       "profile": "core",
@@ -81,12 +80,11 @@
       "fixtureId": "NEG-MUT-CAT-001-P-DESCRIPTION-001",
       "id": "FULL-NEG-MUT-CAT-001-P-DESCRIPTION-001",
       "input": "examples/invalid/mutation-molit-cat-001-p-description-001.ttl",
-      "inputSha256": "47f29ad6f57f7f8526bb4a5f3b7c3980b27b42e90702730d500679159ba81e8b",
+      "inputSha256": "8a908d285848a958fba6a7edfd7f464891a7f7d264d9ea72cd7951357157b02d",
       "localImports": [],
       "materializedBundleSha256": "95dbce17d9397ffae6d680b9c34a7d014d45e95ade100d3f2847c3c70a43fe3e",
       "profile": "core",
       "requirementIds": [
-        "MOLIT-CAT-001",
         "MOLIT-CAT-001-P-DESCRIPTION-001"
       ]
     },
@@ -110,7 +108,7 @@
       "fixtureId": "NEG-MUT-CAT-001-P-LANGUAGE-001",
       "id": "FULL-NEG-MUT-CAT-001-P-LANGUAGE-001",
       "input": "examples/invalid/mutation-molit-cat-001-p-language-001.ttl",
-      "inputSha256": "5eaa0e86b62e318dc512d4c53de4c00b6aec2572f93839b1a26466a57a7e97b0",
+      "inputSha256": "884c0d0cf43b614f6d67e8b89e90b2aec325dbfcbe9a687287a2c599abe36dad",
       "localImports": [],
       "materializedBundleSha256": "95dbce17d9397ffae6d680b9c34a7d014d45e95ade100d3f2847c3c70a43fe3e",
       "profile": "core",
@@ -138,7 +136,7 @@
       "fixtureId": "NEG-MUT-CAT-001-P-PUBLISHER-001",
       "id": "FULL-NEG-MUT-CAT-001-P-PUBLISHER-001",
       "input": "examples/invalid/mutation-molit-cat-001-p-publisher-001.ttl",
-      "inputSha256": "82f6394f880e3a1e580609f9274fd4d7d6529c19d2fdb0961d5686b7115e40d2",
+      "inputSha256": "5a5d21726c20ad1b119ca4d35d3c9dd6165bc0c68b0d19241a20b6c646ed0c69",
       "localImports": [],
       "materializedBundleSha256": "95dbce17d9397ffae6d680b9c34a7d014d45e95ade100d3f2847c3c70a43fe3e",
       "profile": "core",
@@ -166,13 +164,12 @@
       "fixtureId": "NEG-MUT-CAT-001-P-RECORD-001",
       "id": "FULL-NEG-MUT-CAT-001-P-RECORD-001",
       "input": "examples/invalid/mutation-molit-cat-001-p-record-001.ttl",
-      "inputSha256": "d4069c33132c800d787c1d182eb9a7302a01bd0a08a844a56c0de2b46e99e9a4",
+      "inputSha256": "e26af73135113b89939ad50d916ad8d51b8b71ef8da07dafbe95f9af3fa1a65c",
       "localImports": [],
       "materializedBundleSha256": "95dbce17d9397ffae6d680b9c34a7d014d45e95ade100d3f2847c3c70a43fe3e",
       "profile": "core",
       "requirementIds": [
-        "MOLIT-CAT-001-P-RECORD-001",
-        "MOLIT-CAT-REL-001"
+        "MOLIT-CAT-001-P-RECORD-001"
       ]
     },
     {
@@ -195,7 +192,7 @@
       "fixtureId": "NEG-MUT-CAT-001-P-TITLE-001",
       "id": "FULL-NEG-MUT-CAT-001-P-TITLE-001",
       "input": "examples/invalid/mutation-molit-cat-001-p-title-001.ttl",
-      "inputSha256": "1aac80b76522d5a88a9211835192d79f92946644b6d1a4237f478717e7b616ee",
+      "inputSha256": "335e63311b7dda5ad61ea837ae73f3fd64740cf52e1ea35134e583a0550c3c30",
       "localImports": [],
       "materializedBundleSha256": "95dbce17d9397ffae6d680b9c34a7d014d45e95ade100d3f2847c3c70a43fe3e",
       "profile": "core",
@@ -223,7 +220,7 @@
       "fixtureId": "NEG-MUT-CAT-REL-001-P-PATH-DA00F2B2F6-001",
       "id": "FULL-NEG-MUT-CAT-REL-001-P-PATH-DA00F2B2F6-001",
       "input": "examples/invalid/mutation-molit-cat-rel-001-p-path-da00f2b2f6-001.ttl",
-      "inputSha256": "4be230e7d37641f5764d18fac1b861e48153ac36bd9a5aece5782db18c76765a",
+      "inputSha256": "730323355cb1203351f0ebe71cc69f66ae4e9383fb5b414358ab1b131e302096",
       "localImports": [],
       "materializedBundleSha256": "95dbce17d9397ffae6d680b9c34a7d014d45e95ade100d3f2847c3c70a43fe3e",
       "profile": "core",
@@ -232,7 +229,7 @@
       ]
     },
     {
-      "bundleSha256": "3934aac6dfd2a5b8c53143158298b334999feac36c16ab02f28ef66efaa4ce1c",
+      "bundleSha256": "0e4df46b14ca8298b8ccc5f953cb9b364ef885419a1aafceee6160b63a76a65f",
       "decision": "violates",
       "engines": {
         "jena": {
@@ -251,13 +248,39 @@
       "fixtureId": "NEG-MUT-CV-CHECKSUM-001-P-ALGORITHM-001",
       "id": "FULL-NEG-MUT-CV-CHECKSUM-001-P-ALGORITHM-001",
       "input": "examples/invalid/mutation-molit-cv-checksum-001-p-algorithm-001.ttl",
-      "inputSha256": "1fd4e21a0a41da391a04ea58a0462756f98bc09cbc69c08771eabadc7c35836c",
+      "inputSha256": "032ea8c8b8a5b22a2a639f6702f6980d699702fd4196944c3614cd161b1e721f",
       "localImports": [],
-      "materializedBundleSha256": "0ede55078a0d6439b7dc23ff146a01f6b3a8eacf2b953c1eecd88d2ea93fa122",
+      "materializedBundleSha256": "e2f6e7bd9a2e67e008b8e7d8ca5cb62f2fb1021c63c456e9e3165e40aa656e87",
       "profile": "geo",
       "requirementIds": [
-        "MOLIT-CV-CHECKSUM-001",
-        "MOLIT-CV-CHECKSUM-001-P-ALGORITHM-001",
+        "MOLIT-CV-CHECKSUM-001-P-ALGORITHM-001"
+      ]
+    },
+    {
+      "bundleSha256": "0e4df46b14ca8298b8ccc5f953cb9b364ef885419a1aafceee6160b63a76a65f",
+      "decision": "violates",
+      "engines": {
+        "jena": {
+          "conforms": false,
+          "resultCount": 2
+        },
+        "node": {
+          "conforms": false,
+          "resultCount": 2
+        },
+        "pyshacl": {
+          "conforms": false,
+          "resultCount": 2
+        }
+      },
+      "fixtureId": "NEG-MUT-CV-CHECKSUM-002",
+      "id": "FULL-NEG-MUT-CV-CHECKSUM-002",
+      "input": "examples/invalid/mutation-molit-cv-checksum-002.ttl",
+      "inputSha256": "a3d210848997684e84bec216b33141acd7af1f3995e2eb04ecf334a14cfa8ce9",
+      "localImports": [],
+      "materializedBundleSha256": "e2f6e7bd9a2e67e008b8e7d8ca5cb62f2fb1021c63c456e9e3165e40aa656e87",
+      "profile": "geo",
+      "requirementIds": [
         "MOLIT-CV-CHECKSUM-002"
       ]
     },
@@ -281,12 +304,11 @@
       "fixtureId": "NEG-MUT-CV-MEDIATYPE-001-P-COMPRESSFORMAT-001",
       "id": "FULL-NEG-MUT-CV-MEDIATYPE-001-P-COMPRESSFORMAT-001",
       "input": "examples/invalid/mutation-molit-cv-mediatype-001-p-compressformat-001.ttl",
-      "inputSha256": "f89d3ad12d353bc5342cee39766dab762c6cfc2891b4bdb8f001c7e0f733d619",
+      "inputSha256": "51957e41f1653c6ea6eb76b041c22dad1af0d4a187a4a12b5f92a24afc179d71",
       "localImports": [],
       "materializedBundleSha256": "95dbce17d9397ffae6d680b9c34a7d014d45e95ade100d3f2847c3c70a43fe3e",
       "profile": "core",
       "requirementIds": [
-        "MOLIT-CV-MEDIATYPE-001",
         "MOLIT-CV-MEDIATYPE-001-P-COMPRESSFORMAT-001"
       ]
     },
@@ -296,21 +318,21 @@
       "engines": {
         "jena": {
           "conforms": false,
-          "resultCount": 4
+          "resultCount": 1
         },
         "node": {
           "conforms": false,
-          "resultCount": 4
+          "resultCount": 1
         },
         "pyshacl": {
           "conforms": false,
-          "resultCount": 4
+          "resultCount": 1
         }
       },
       "fixtureId": "NEG-MUT-CV-MEDIATYPE-001-P-MEDIATYPE-001",
       "id": "FULL-NEG-MUT-CV-MEDIATYPE-001-P-MEDIATYPE-001",
       "input": "examples/invalid/mutation-molit-cv-mediatype-001-p-mediatype-001.ttl",
-      "inputSha256": "17facafe6c97ce98197b5b4ad7f735726c55ef20cdb14fad25c5f451d41c2e78",
+      "inputSha256": "d9706b859b19b69d72e4a1a85587f47f11170849f5507ffa16039de520742b41",
       "localImports": [],
       "materializedBundleSha256": "95dbce17d9397ffae6d680b9c34a7d014d45e95ade100d3f2847c3c70a43fe3e",
       "profile": "core",
@@ -338,7 +360,7 @@
       "fixtureId": "NEG-MUT-CV-MEDIATYPE-001-P-PACKAGEFORMAT-001",
       "id": "FULL-NEG-MUT-CV-MEDIATYPE-001-P-PACKAGEFORMAT-001",
       "input": "examples/invalid/mutation-molit-cv-mediatype-001-p-packageformat-001.ttl",
-      "inputSha256": "e3c11d7ec01a66d13e9bcf51f26d5cf76c0bfec2c09eefc40a055847438aa73e",
+      "inputSha256": "c1f2aa9161e15efe3d2c102b4ec24929b9c587f7b06f10d12c944cd61275abfe",
       "localImports": [],
       "materializedBundleSha256": "95dbce17d9397ffae6d680b9c34a7d014d45e95ade100d3f2847c3c70a43fe3e",
       "profile": "core",
@@ -366,12 +388,46 @@
       "fixtureId": "NEG-MUT-CV-MEDIATYPE-001-P-TYPE-001",
       "id": "FULL-NEG-MUT-CV-MEDIATYPE-001-P-TYPE-001",
       "input": "examples/invalid/mutation-molit-cv-mediatype-001-p-type-001.ttl",
-      "inputSha256": "b5752400bd6d5f5b481f2845546b41ee64114c26647ce6367ada863be8301fc0",
+      "inputSha256": "c4ec0e1830008f34a29d3c6e905686963314e45cc6d47b7726602e4f4b5761d5",
       "localImports": [],
       "materializedBundleSha256": "95dbce17d9397ffae6d680b9c34a7d014d45e95ade100d3f2847c3c70a43fe3e",
       "profile": "core",
       "requirementIds": [
         "MOLIT-CV-MEDIATYPE-001-P-TYPE-001"
+      ]
+    },
+    {
+      "bundleSha256": "c4c36a4ce9d18346fe686c032207dd7c28af56fb22715b980d70cab0dda46957",
+      "decision": "violates",
+      "engines": {
+        "jena": {
+          "conforms": false,
+          "resultCount": 10
+        },
+        "node": {
+          "conforms": false,
+          "resultCount": 10
+        },
+        "pyshacl": {
+          "conforms": false,
+          "resultCount": 10
+        }
+      },
+      "fixtureId": "NEG-MUT-DEPRECATED-LOCAL-001",
+      "id": "FULL-NEG-MUT-DEPRECATED-LOCAL-001",
+      "input": "examples/invalid/mutation-molit-deprecated-local-001.ttl",
+      "inputSha256": "e8f996bb94b696a800c01bae59502c1b77a71f6a73e743268cf77c34e665d919",
+      "localImports": [
+        {
+          "iri": "https://github.com/SEMICeu/ADMS-AP/raw/master/purl.org/ADMS_SKOS_v1.00.rdf",
+          "relative": "vocabulary/adms-status-1.0-compat.ttl",
+          "sha256": "5e40be073f4d5343dff428ebfe41ef07a03c884699a9043e4a595e54e3deb889"
+        }
+      ],
+      "materializedBundleSha256": "22e7353818569c86208092f3c5eba09ddb5dc973ea7fb896ce536f79b64beb34",
+      "profile": "publication-policy",
+      "requirementIds": [
+        "MOLIT-DEPRECATED-LOCAL-001"
       ]
     },
     {
@@ -394,12 +450,11 @@
       "fixtureId": "NEG-MUT-DS-001-P-ACCESSRIGHTS-001",
       "id": "FULL-NEG-MUT-DS-001-P-ACCESSRIGHTS-001",
       "input": "examples/invalid/mutation-molit-ds-001-p-accessrights-001.ttl",
-      "inputSha256": "1f6ea3345cc8a0f31c69bd8ff76773c1f97947ba61c30ac9bb5042bf6f05dcd0",
+      "inputSha256": "95fb12ef210d812e305cf5a9ceb1c7b0ad87c1096a2424af41e35a245b3279d8",
       "localImports": [],
       "materializedBundleSha256": "95dbce17d9397ffae6d680b9c34a7d014d45e95ade100d3f2847c3c70a43fe3e",
       "profile": "core",
       "requirementIds": [
-        "MOLIT-DS-001",
         "MOLIT-DS-001-P-ACCESSRIGHTS-001"
       ]
     },
@@ -423,7 +478,7 @@
       "fixtureId": "NEG-MUT-DS-001-P-DESCRIPTION-001",
       "id": "FULL-NEG-MUT-DS-001-P-DESCRIPTION-001",
       "input": "examples/invalid/mutation-molit-ds-001-p-description-001.ttl",
-      "inputSha256": "08bb52ad903195d8e95526ef050e9bd7799538036391447196d82e7864812106",
+      "inputSha256": "6405e2bedc4f01b5f3baca22e6a0845cf4e8a73ff55de60b6e4320f26bec1b48",
       "localImports": [],
       "materializedBundleSha256": "95dbce17d9397ffae6d680b9c34a7d014d45e95ade100d3f2847c3c70a43fe3e",
       "profile": "core",
@@ -451,7 +506,7 @@
       "fixtureId": "NEG-MUT-DS-001-P-IDENTIFIER-001",
       "id": "FULL-NEG-MUT-DS-001-P-IDENTIFIER-001",
       "input": "examples/invalid/mutation-molit-ds-001-p-identifier-001.ttl",
-      "inputSha256": "c8f6cff0306d036fea553e31944830e04a8961b3159e956c428d9d37339a32bb",
+      "inputSha256": "36e5ec10fc656b68ff73d1dfeb95fe0838cb3093590a65d1049090466817fd00",
       "localImports": [],
       "materializedBundleSha256": "95dbce17d9397ffae6d680b9c34a7d014d45e95ade100d3f2847c3c70a43fe3e",
       "profile": "core",
@@ -479,7 +534,7 @@
       "fixtureId": "NEG-MUT-DS-001-P-ISSUED-001",
       "id": "FULL-NEG-MUT-DS-001-P-ISSUED-001",
       "input": "examples/invalid/mutation-molit-ds-001-p-issued-001.ttl",
-      "inputSha256": "a798f41bcee4fd0e97c4fc97a1d7c7bb13df2ef25a4f1ef02e6875c209956877",
+      "inputSha256": "79147b13fb0333b04dda9a85a0049832df78484ee94a4f23947ae23d2add1d8d",
       "localImports": [],
       "materializedBundleSha256": "95dbce17d9397ffae6d680b9c34a7d014d45e95ade100d3f2847c3c70a43fe3e",
       "profile": "core",
@@ -507,7 +562,7 @@
       "fixtureId": "NEG-MUT-DS-001-P-MODIFIED-001",
       "id": "FULL-NEG-MUT-DS-001-P-MODIFIED-001",
       "input": "examples/invalid/mutation-molit-ds-001-p-modified-001.ttl",
-      "inputSha256": "20951b9093a87cc641f2602c2bef95718e19aa022d34ae7a715b35bd0e7ad798",
+      "inputSha256": "bc2e52177eeb211e967ac5a0c0f86567f01845dc01127f0910edf1e2fb0bce47",
       "localImports": [],
       "materializedBundleSha256": "95dbce17d9397ffae6d680b9c34a7d014d45e95ade100d3f2847c3c70a43fe3e",
       "profile": "core",
@@ -521,21 +576,21 @@
       "engines": {
         "jena": {
           "conforms": false,
-          "resultCount": 3
+          "resultCount": 1
         },
         "node": {
           "conforms": false,
-          "resultCount": 3
+          "resultCount": 1
         },
         "pyshacl": {
           "conforms": false,
-          "resultCount": 3
+          "resultCount": 1
         }
       },
       "fixtureId": "NEG-MUT-DS-001-P-PATH-0E31B21B99-001",
       "id": "FULL-NEG-MUT-DS-001-P-PATH-0E31B21B99-001",
       "input": "examples/invalid/mutation-molit-ds-001-p-path-0e31b21b99-001.ttl",
-      "inputSha256": "2e71a5eec1026470bb4ae471746986fe678c073fa04576951e28d5f8619d0844",
+      "inputSha256": "0f67866d79b7398337bc1c5179a7ac0bd3eaf98c30ddea76560191e488f7f323",
       "localImports": [],
       "materializedBundleSha256": "95dbce17d9397ffae6d680b9c34a7d014d45e95ade100d3f2847c3c70a43fe3e",
       "profile": "core",
@@ -549,21 +604,21 @@
       "engines": {
         "jena": {
           "conforms": false,
-          "resultCount": 4
+          "resultCount": 1
         },
         "node": {
           "conforms": false,
-          "resultCount": 4
+          "resultCount": 1
         },
         "pyshacl": {
           "conforms": false,
-          "resultCount": 4
+          "resultCount": 1
         }
       },
       "fixtureId": "NEG-MUT-DS-001-P-PATH-30F94DAB87-001",
       "id": "FULL-NEG-MUT-DS-001-P-PATH-30F94DAB87-001",
       "input": "examples/invalid/mutation-molit-ds-001-p-path-30f94dab87-001.ttl",
-      "inputSha256": "4be230e7d37641f5764d18fac1b861e48153ac36bd9a5aece5782db18c76765a",
+      "inputSha256": "f79e16cb52ba7a09599192d6e07ed73eb7665cdc2b933281a75470a1d1b1f090",
       "localImports": [],
       "materializedBundleSha256": "95dbce17d9397ffae6d680b9c34a7d014d45e95ade100d3f2847c3c70a43fe3e",
       "profile": "core",
@@ -591,7 +646,7 @@
       "fixtureId": "NEG-MUT-DS-001-P-PUBLISHER-001",
       "id": "FULL-NEG-MUT-DS-001-P-PUBLISHER-001",
       "input": "examples/invalid/mutation-molit-ds-001-p-publisher-001.ttl",
-      "inputSha256": "abe2026f41c4e8c63137ffb1ec873d04099616d77b9196fee3b32ffb9f596cce",
+      "inputSha256": "9d06dcf445482a15ad36b6351f9d8068e8853947db7cae5b1105afd06fe2b019",
       "localImports": [],
       "materializedBundleSha256": "95dbce17d9397ffae6d680b9c34a7d014d45e95ade100d3f2847c3c70a43fe3e",
       "profile": "core",
@@ -605,21 +660,21 @@
       "engines": {
         "jena": {
           "conforms": false,
-          "resultCount": 2
+          "resultCount": 1
         },
         "node": {
           "conforms": false,
-          "resultCount": 2
+          "resultCount": 1
         },
         "pyshacl": {
           "conforms": false,
-          "resultCount": 2
+          "resultCount": 1
         }
       },
       "fixtureId": "NEG-MUT-DS-001-P-THEME-001",
       "id": "FULL-NEG-MUT-DS-001-P-THEME-001",
       "input": "examples/invalid/mutation-molit-ds-001-p-theme-001.ttl",
-      "inputSha256": "99dc0ca2a0e7b97ac7676b3473f7676fb4f45eaa16eb7b786f5958be8cc46fb8",
+      "inputSha256": "3d26cc0af93c80e463a529ad6c96507eedd8fa2cbb63ae5a0194e04833a2a0f4",
       "localImports": [],
       "materializedBundleSha256": "95dbce17d9397ffae6d680b9c34a7d014d45e95ade100d3f2847c3c70a43fe3e",
       "profile": "core",
@@ -647,7 +702,7 @@
       "fixtureId": "NEG-MUT-DS-001-P-THEME-002",
       "id": "FULL-NEG-MUT-DS-001-P-THEME-002",
       "input": "examples/invalid/mutation-molit-ds-001-p-theme-002.ttl",
-      "inputSha256": "99dc0ca2a0e7b97ac7676b3473f7676fb4f45eaa16eb7b786f5958be8cc46fb8",
+      "inputSha256": "f66f709e3c075e7446a69158289c37cd2e4ec42c0b0621021f85f6eb69a64c6e",
       "localImports": [],
       "materializedBundleSha256": "95dbce17d9397ffae6d680b9c34a7d014d45e95ade100d3f2847c3c70a43fe3e",
       "profile": "core",
@@ -675,7 +730,7 @@
       "fixtureId": "NEG-MUT-DS-001-P-TITLE-001",
       "id": "FULL-NEG-MUT-DS-001-P-TITLE-001",
       "input": "examples/invalid/mutation-molit-ds-001-p-title-001.ttl",
-      "inputSha256": "b342d11856380fd819128e76f6295afd038c17a98984416124210e197bd69cd3",
+      "inputSha256": "8a9c553624853702b632d51961b24300181912993f3a415a736758d0cd223dbf",
       "localImports": [],
       "materializedBundleSha256": "95dbce17d9397ffae6d680b9c34a7d014d45e95ade100d3f2847c3c70a43fe3e",
       "profile": "core",
@@ -684,7 +739,35 @@
       ]
     },
     {
-      "bundleSha256": "3934aac6dfd2a5b8c53143158298b334999feac36c16ab02f28ef66efaa4ce1c",
+      "bundleSha256": "0e4df46b14ca8298b8ccc5f953cb9b364ef885419a1aafceee6160b63a76a65f",
+      "decision": "violates",
+      "engines": {
+        "jena": {
+          "conforms": false,
+          "resultCount": 3
+        },
+        "node": {
+          "conforms": false,
+          "resultCount": 3
+        },
+        "pyshacl": {
+          "conforms": false,
+          "resultCount": 3
+        }
+      },
+      "fixtureId": "NEG-MUT-GEO-001",
+      "id": "FULL-NEG-MUT-GEO-001",
+      "input": "examples/invalid/mutation-molit-geo-001.ttl",
+      "inputSha256": "3fb9f38b018c2d526c243efee75aa33a28cfcbeafe83c8140b6e3f89b01cb93e",
+      "localImports": [],
+      "materializedBundleSha256": "e2f6e7bd9a2e67e008b8e7d8ca5cb62f2fb1021c63c456e9e3165e40aa656e87",
+      "profile": "geo",
+      "requirementIds": [
+        "MOLIT-GEO-001"
+      ]
+    },
+    {
+      "bundleSha256": "0e4df46b14ca8298b8ccc5f953cb9b364ef885419a1aafceee6160b63a76a65f",
       "decision": "violates",
       "engines": {
         "jena": {
@@ -703,45 +786,44 @@
       "fixtureId": "NEG-MUT-GEO-001-P-REFERENCESYSTEM-001",
       "id": "FULL-NEG-MUT-GEO-001-P-REFERENCESYSTEM-001",
       "input": "examples/invalid/mutation-molit-geo-001-p-referencesystem-001.ttl",
-      "inputSha256": "f17c146246d3fca0c77dd8aab24873f1de23231bb6437c79b0e5a83e0809ec6b",
+      "inputSha256": "d303eadeb02b13184894ff5354fa1acf70b7bc706afa3e79e4b7c4c50ce9cf72",
       "localImports": [],
-      "materializedBundleSha256": "0ede55078a0d6439b7dc23ff146a01f6b3a8eacf2b953c1eecd88d2ea93fa122",
+      "materializedBundleSha256": "e2f6e7bd9a2e67e008b8e7d8ca5cb62f2fb1021c63c456e9e3165e40aa656e87",
       "profile": "geo",
       "requirementIds": [
-        "MOLIT-GEO-001",
         "MOLIT-GEO-001-P-REFERENCESYSTEM-001"
       ]
     },
     {
-      "bundleSha256": "3934aac6dfd2a5b8c53143158298b334999feac36c16ab02f28ef66efaa4ce1c",
+      "bundleSha256": "0e4df46b14ca8298b8ccc5f953cb9b364ef885419a1aafceee6160b63a76a65f",
       "decision": "violates",
       "engines": {
         "jena": {
           "conforms": false,
-          "resultCount": 3
+          "resultCount": 4
         },
         "node": {
           "conforms": false,
-          "resultCount": 3
+          "resultCount": 4
         },
         "pyshacl": {
           "conforms": false,
-          "resultCount": 3
+          "resultCount": 4
         }
       },
       "fixtureId": "NEG-MUT-GEO-001-P-SPATIALDISCLOSURELEVEL-001",
       "id": "FULL-NEG-MUT-GEO-001-P-SPATIALDISCLOSURELEVEL-001",
       "input": "examples/invalid/mutation-molit-geo-001-p-spatialdisclosurelevel-001.ttl",
-      "inputSha256": "a6753257c747f86ae9e98b82c31f617445f8422bde6528de472fed9d6d270408",
+      "inputSha256": "ccb4cc46215bc1993cdff6857041540092a9acd06c9965f7479260a5f3746e79",
       "localImports": [],
-      "materializedBundleSha256": "0ede55078a0d6439b7dc23ff146a01f6b3a8eacf2b953c1eecd88d2ea93fa122",
+      "materializedBundleSha256": "e2f6e7bd9a2e67e008b8e7d8ca5cb62f2fb1021c63c456e9e3165e40aa656e87",
       "profile": "geo",
       "requirementIds": [
         "MOLIT-GEO-001-P-SPATIALDISCLOSURELEVEL-001"
       ]
     },
     {
-      "bundleSha256": "3934aac6dfd2a5b8c53143158298b334999feac36c16ab02f28ef66efaa4ce1c",
+      "bundleSha256": "0e4df46b14ca8298b8ccc5f953cb9b364ef885419a1aafceee6160b63a76a65f",
       "decision": "violates",
       "engines": {
         "jena": {
@@ -760,16 +842,16 @@
       "fixtureId": "NEG-MUT-GEO-001-P-SPATIALRESOLUTIONINMETERS-001",
       "id": "FULL-NEG-MUT-GEO-001-P-SPATIALRESOLUTIONINMETERS-001",
       "input": "examples/invalid/mutation-molit-geo-001-p-spatialresolutioninmeters-001.ttl",
-      "inputSha256": "f9eec531e918615a7e29686cf075474c0ff4c9fc47abf9dbb7a2dc75c93b328a",
+      "inputSha256": "24296b47c6d8d8cbf6c1781e12fa8856119a87844849fd9bde6580171eb65d92",
       "localImports": [],
-      "materializedBundleSha256": "0ede55078a0d6439b7dc23ff146a01f6b3a8eacf2b953c1eecd88d2ea93fa122",
+      "materializedBundleSha256": "e2f6e7bd9a2e67e008b8e7d8ca5cb62f2fb1021c63c456e9e3165e40aa656e87",
       "profile": "geo",
       "requirementIds": [
         "MOLIT-GEO-001-P-SPATIALRESOLUTIONINMETERS-001"
       ]
     },
     {
-      "bundleSha256": "3934aac6dfd2a5b8c53143158298b334999feac36c16ab02f28ef66efaa4ce1c",
+      "bundleSha256": "0e4df46b14ca8298b8ccc5f953cb9b364ef885419a1aafceee6160b63a76a65f",
       "decision": "violates",
       "engines": {
         "jena": {
@@ -788,17 +870,16 @@
       "fixtureId": "NEG-MUT-GEO-001-P-TYPE-001",
       "id": "FULL-NEG-MUT-GEO-001-P-TYPE-001",
       "input": "examples/invalid/mutation-molit-geo-001-p-type-001.ttl",
-      "inputSha256": "aa0cf78ff163df8da6fbb40dfb39d9a0972f6793eeff266f12159bf88891b5e2",
+      "inputSha256": "a6904a1c5020fd0765b9e67b590c17769e2689f195dfd3c553cdf75f14b5e870",
       "localImports": [],
-      "materializedBundleSha256": "0ede55078a0d6439b7dc23ff146a01f6b3a8eacf2b953c1eecd88d2ea93fa122",
+      "materializedBundleSha256": "e2f6e7bd9a2e67e008b8e7d8ca5cb62f2fb1021c63c456e9e3165e40aa656e87",
       "profile": "geo",
       "requirementIds": [
-        "MOLIT-GEO-001-P-TYPE-001",
-        "MOLIT-GEO-DISCLOSURE-002"
+        "MOLIT-GEO-001-P-TYPE-001"
       ]
     },
     {
-      "bundleSha256": "3934aac6dfd2a5b8c53143158298b334999feac36c16ab02f28ef66efaa4ce1c",
+      "bundleSha256": "0e4df46b14ca8298b8ccc5f953cb9b364ef885419a1aafceee6160b63a76a65f",
       "decision": "violates",
       "engines": {
         "jena": {
@@ -817,16 +898,72 @@
       "fixtureId": "NEG-MUT-GEO-DISCLOSURE-001",
       "id": "FULL-NEG-MUT-GEO-DISCLOSURE-001",
       "input": "examples/invalid/mutation-molit-geo-disclosure-001.ttl",
-      "inputSha256": "1a6839c3fa92abca567c43dd143ac0acf845deea8672bd5b2131ef883bd62900",
+      "inputSha256": "a33312e4ff1d3cd87102dbd6298624c6b8e4d97e753d24eee0382bab9f256c64",
       "localImports": [],
-      "materializedBundleSha256": "0ede55078a0d6439b7dc23ff146a01f6b3a8eacf2b953c1eecd88d2ea93fa122",
+      "materializedBundleSha256": "e2f6e7bd9a2e67e008b8e7d8ca5cb62f2fb1021c63c456e9e3165e40aa656e87",
       "profile": "geo",
       "requirementIds": [
         "MOLIT-GEO-DISCLOSURE-001"
       ]
     },
     {
-      "bundleSha256": "3934aac6dfd2a5b8c53143158298b334999feac36c16ab02f28ef66efaa4ce1c",
+      "bundleSha256": "0e4df46b14ca8298b8ccc5f953cb9b364ef885419a1aafceee6160b63a76a65f",
+      "decision": "violates",
+      "engines": {
+        "jena": {
+          "conforms": false,
+          "resultCount": 3
+        },
+        "node": {
+          "conforms": false,
+          "resultCount": 3
+        },
+        "pyshacl": {
+          "conforms": false,
+          "resultCount": 3
+        }
+      },
+      "fixtureId": "NEG-MUT-GEO-DISCLOSURE-001-P-SPATIALDISCLOSURELEVEL-001",
+      "id": "FULL-NEG-MUT-GEO-DISCLOSURE-001-P-SPATIALDISCLOSURELEVEL-001",
+      "input": "examples/invalid/mutation-molit-geo-disclosure-001-p-spatialdisclosurelevel-001.ttl",
+      "inputSha256": "5352c641e9d3f33af73a6facae1cd34395daff1c5b1a51d2cd1a389f6b0f0c0a",
+      "localImports": [],
+      "materializedBundleSha256": "e2f6e7bd9a2e67e008b8e7d8ca5cb62f2fb1021c63c456e9e3165e40aa656e87",
+      "profile": "geo",
+      "requirementIds": [
+        "MOLIT-GEO-DISCLOSURE-001-P-SPATIALDISCLOSURELEVEL-001"
+      ]
+    },
+    {
+      "bundleSha256": "0e4df46b14ca8298b8ccc5f953cb9b364ef885419a1aafceee6160b63a76a65f",
+      "decision": "violates",
+      "engines": {
+        "jena": {
+          "conforms": false,
+          "resultCount": 2
+        },
+        "node": {
+          "conforms": false,
+          "resultCount": 2
+        },
+        "pyshacl": {
+          "conforms": false,
+          "resultCount": 2
+        }
+      },
+      "fixtureId": "NEG-MUT-GEO-DISCLOSURE-002",
+      "id": "FULL-NEG-MUT-GEO-DISCLOSURE-002",
+      "input": "examples/invalid/mutation-molit-geo-disclosure-002.ttl",
+      "inputSha256": "a6904a1c5020fd0765b9e67b590c17769e2689f195dfd3c553cdf75f14b5e870",
+      "localImports": [],
+      "materializedBundleSha256": "e2f6e7bd9a2e67e008b8e7d8ca5cb62f2fb1021c63c456e9e3165e40aa656e87",
+      "profile": "geo",
+      "requirementIds": [
+        "MOLIT-GEO-DISCLOSURE-002"
+      ]
+    },
+    {
+      "bundleSha256": "0e4df46b14ca8298b8ccc5f953cb9b364ef885419a1aafceee6160b63a76a65f",
       "decision": "violates",
       "engines": {
         "jena": {
@@ -845,16 +982,16 @@
       "fixtureId": "NEG-MUT-GEO-ENCODING-001",
       "id": "FULL-NEG-MUT-GEO-ENCODING-001",
       "input": "examples/invalid/mutation-molit-geo-encoding-001.ttl",
-      "inputSha256": "c1d56503357d60805bc2083a455574cb10fe33ca058aadf32b35c2a7ecfecbaa",
+      "inputSha256": "d9413e8526ed969b4fae8fac4c6ba29865c1dff1d2bc3373b12acc6d27532057",
       "localImports": [],
-      "materializedBundleSha256": "0ede55078a0d6439b7dc23ff146a01f6b3a8eacf2b953c1eecd88d2ea93fa122",
+      "materializedBundleSha256": "e2f6e7bd9a2e67e008b8e7d8ca5cb62f2fb1021c63c456e9e3165e40aa656e87",
       "profile": "geo",
       "requirementIds": [
         "MOLIT-GEO-ENCODING-001"
       ]
     },
     {
-      "bundleSha256": "3934aac6dfd2a5b8c53143158298b334999feac36c16ab02f28ef66efaa4ce1c",
+      "bundleSha256": "0e4df46b14ca8298b8ccc5f953cb9b364ef885419a1aafceee6160b63a76a65f",
       "decision": "violates",
       "engines": {
         "jena": {
@@ -873,16 +1010,16 @@
       "fixtureId": "NEG-MUT-GEO-ENCODING-002",
       "id": "FULL-NEG-MUT-GEO-ENCODING-002",
       "input": "examples/invalid/mutation-molit-geo-encoding-002.ttl",
-      "inputSha256": "417d115abcae829629cc2849c37d4e7ea20437cf565d0f1ebc682f5c008d0c42",
+      "inputSha256": "76a36ea3c17c2b2592549d38e76bc7fedd2afa7a01d3a22ee1ee6a06c5620ab3",
       "localImports": [],
-      "materializedBundleSha256": "0ede55078a0d6439b7dc23ff146a01f6b3a8eacf2b953c1eecd88d2ea93fa122",
+      "materializedBundleSha256": "e2f6e7bd9a2e67e008b8e7d8ca5cb62f2fb1021c63c456e9e3165e40aa656e87",
       "profile": "geo",
       "requirementIds": [
         "MOLIT-GEO-ENCODING-002"
       ]
     },
     {
-      "bundleSha256": "3934aac6dfd2a5b8c53143158298b334999feac36c16ab02f28ef66efaa4ce1c",
+      "bundleSha256": "0e4df46b14ca8298b8ccc5f953cb9b364ef885419a1aafceee6160b63a76a65f",
       "decision": "violates",
       "engines": {
         "jena": {
@@ -901,16 +1038,16 @@
       "fixtureId": "NEG-MUT-GEO-ENCODING-003",
       "id": "FULL-NEG-MUT-GEO-ENCODING-003",
       "input": "examples/invalid/mutation-molit-geo-encoding-003.ttl",
-      "inputSha256": "9485264cc7f8151553f19fcfc72ba928ff56f2c1191143ff9d74455d22bb3068",
+      "inputSha256": "069ecc3fe9d6e85f85954aa684c9fe1c207ae77dc86f37f92ae11050394220ce",
       "localImports": [],
-      "materializedBundleSha256": "0ede55078a0d6439b7dc23ff146a01f6b3a8eacf2b953c1eecd88d2ea93fa122",
+      "materializedBundleSha256": "e2f6e7bd9a2e67e008b8e7d8ca5cb62f2fb1021c63c456e9e3165e40aa656e87",
       "profile": "geo",
       "requirementIds": [
         "MOLIT-GEO-ENCODING-003"
       ]
     },
     {
-      "bundleSha256": "3934aac6dfd2a5b8c53143158298b334999feac36c16ab02f28ef66efaa4ce1c",
+      "bundleSha256": "0e4df46b14ca8298b8ccc5f953cb9b364ef885419a1aafceee6160b63a76a65f",
       "decision": "violates",
       "engines": {
         "jena": {
@@ -929,16 +1066,16 @@
       "fixtureId": "NEG-MUT-GEO-ENCODING-004",
       "id": "FULL-NEG-MUT-GEO-ENCODING-004",
       "input": "examples/invalid/mutation-molit-geo-encoding-004.ttl",
-      "inputSha256": "5e90421ea94a1ea33b59b961a337ac3ab05caed9d873fd2f76a72f277c9b0570",
+      "inputSha256": "1f22836a671797146063a5e2e7d3f72dd9cd76b616e0c8ebd71d04a0ad8d814c",
       "localImports": [],
-      "materializedBundleSha256": "0ede55078a0d6439b7dc23ff146a01f6b3a8eacf2b953c1eecd88d2ea93fa122",
+      "materializedBundleSha256": "e2f6e7bd9a2e67e008b8e7d8ca5cb62f2fb1021c63c456e9e3165e40aa656e87",
       "profile": "geo",
       "requirementIds": [
         "MOLIT-GEO-ENCODING-004"
       ]
     },
     {
-      "bundleSha256": "3934aac6dfd2a5b8c53143158298b334999feac36c16ab02f28ef66efaa4ce1c",
+      "bundleSha256": "0e4df46b14ca8298b8ccc5f953cb9b364ef885419a1aafceee6160b63a76a65f",
       "decision": "violates",
       "engines": {
         "jena": {
@@ -957,17 +1094,16 @@
       "fixtureId": "NEG-MUT-GEO-ENCODING-005-P-ASDGGS-001",
       "id": "FULL-NEG-MUT-GEO-ENCODING-005-P-ASDGGS-001",
       "input": "examples/invalid/mutation-molit-geo-encoding-005-p-asdggs-001.ttl",
-      "inputSha256": "fdbefdbd033ad2f9161203dd45b3a031d6ed92401720a5ca7b09630ab0cb25df",
+      "inputSha256": "4219f2e4583fde14b0255a6278d6eba24575c60ee61aab1c9278f7f861829c2a",
       "localImports": [],
-      "materializedBundleSha256": "0ede55078a0d6439b7dc23ff146a01f6b3a8eacf2b953c1eecd88d2ea93fa122",
+      "materializedBundleSha256": "e2f6e7bd9a2e67e008b8e7d8ca5cb62f2fb1021c63c456e9e3165e40aa656e87",
       "profile": "geo",
       "requirementIds": [
-        "MOLIT-GEO-ENCODING-005",
         "MOLIT-GEO-ENCODING-005-P-ASDGGS-001"
       ]
     },
     {
-      "bundleSha256": "3934aac6dfd2a5b8c53143158298b334999feac36c16ab02f28ef66efaa4ce1c",
+      "bundleSha256": "0e4df46b14ca8298b8ccc5f953cb9b364ef885419a1aafceee6160b63a76a65f",
       "decision": "violates",
       "engines": {
         "jena": {
@@ -986,16 +1122,16 @@
       "fixtureId": "NEG-MUT-GEO-ENCODING-005-P-ASGEOJSON-001",
       "id": "FULL-NEG-MUT-GEO-ENCODING-005-P-ASGEOJSON-001",
       "input": "examples/invalid/mutation-molit-geo-encoding-005-p-asgeojson-001.ttl",
-      "inputSha256": "c79e203a0b4dd504912d4d66cb1b3828ca400ed9566121415e9a81ee75c8be21",
+      "inputSha256": "0bdc9de4675a1a32faa7eb7035cbc2fdd35456f6434e677f145fed10f3dcb478",
       "localImports": [],
-      "materializedBundleSha256": "0ede55078a0d6439b7dc23ff146a01f6b3a8eacf2b953c1eecd88d2ea93fa122",
+      "materializedBundleSha256": "e2f6e7bd9a2e67e008b8e7d8ca5cb62f2fb1021c63c456e9e3165e40aa656e87",
       "profile": "geo",
       "requirementIds": [
         "MOLIT-GEO-ENCODING-005-P-ASGEOJSON-001"
       ]
     },
     {
-      "bundleSha256": "3934aac6dfd2a5b8c53143158298b334999feac36c16ab02f28ef66efaa4ce1c",
+      "bundleSha256": "0e4df46b14ca8298b8ccc5f953cb9b364ef885419a1aafceee6160b63a76a65f",
       "decision": "violates",
       "engines": {
         "jena": {
@@ -1014,16 +1150,16 @@
       "fixtureId": "NEG-MUT-GEO-ENCODING-005-P-ASKML-001",
       "id": "FULL-NEG-MUT-GEO-ENCODING-005-P-ASKML-001",
       "input": "examples/invalid/mutation-molit-geo-encoding-005-p-askml-001.ttl",
-      "inputSha256": "29a09a37f04bceb127e2b2f5a8e0d043214141e01973debdb2b65fd7bfd430f2",
+      "inputSha256": "bf17d70b28066e1c279d58426d7e6fdf166a7a955b884bb1ebae5d0d8b695712",
       "localImports": [],
-      "materializedBundleSha256": "0ede55078a0d6439b7dc23ff146a01f6b3a8eacf2b953c1eecd88d2ea93fa122",
+      "materializedBundleSha256": "e2f6e7bd9a2e67e008b8e7d8ca5cb62f2fb1021c63c456e9e3165e40aa656e87",
       "profile": "geo",
       "requirementIds": [
         "MOLIT-GEO-ENCODING-005-P-ASKML-001"
       ]
     },
     {
-      "bundleSha256": "3934aac6dfd2a5b8c53143158298b334999feac36c16ab02f28ef66efaa4ce1c",
+      "bundleSha256": "0e4df46b14ca8298b8ccc5f953cb9b364ef885419a1aafceee6160b63a76a65f",
       "decision": "violates",
       "engines": {
         "jena": {
@@ -1042,47 +1178,72 @@
       "fixtureId": "NEG-MUT-GEO-ENCODING-005-P-HASSERIALIZATION-001",
       "id": "FULL-NEG-MUT-GEO-ENCODING-005-P-HASSERIALIZATION-001",
       "input": "examples/invalid/mutation-molit-geo-encoding-005-p-hasserialization-001.ttl",
-      "inputSha256": "752af780630da567887ea649cc679b3c017b20acc9348dbfada879d61be754e7",
+      "inputSha256": "5710d30f4c789761fad75235950a5323a8de80e68a2f0b91cf8646dadb1d6be4",
       "localImports": [],
-      "materializedBundleSha256": "0ede55078a0d6439b7dc23ff146a01f6b3a8eacf2b953c1eecd88d2ea93fa122",
+      "materializedBundleSha256": "e2f6e7bd9a2e67e008b8e7d8ca5cb62f2fb1021c63c456e9e3165e40aa656e87",
       "profile": "geo",
       "requirementIds": [
         "MOLIT-GEO-ENCODING-005-P-HASSERIALIZATION-001"
       ]
     },
     {
-      "bundleSha256": "3934aac6dfd2a5b8c53143158298b334999feac36c16ab02f28ef66efaa4ce1c",
+      "bundleSha256": "0e4df46b14ca8298b8ccc5f953cb9b364ef885419a1aafceee6160b63a76a65f",
       "decision": "violates",
       "engines": {
         "jena": {
           "conforms": false,
-          "resultCount": 3
+          "resultCount": 5
         },
         "node": {
           "conforms": false,
-          "resultCount": 3
+          "resultCount": 5
         },
         "pyshacl": {
           "conforms": false,
-          "resultCount": 3
+          "resultCount": 5
         }
       },
       "fixtureId": "NEG-MUT-GEO-LINK-001-P-PATH-BFC98936CC-001",
       "id": "FULL-NEG-MUT-GEO-LINK-001-P-PATH-BFC98936CC-001",
       "input": "examples/invalid/mutation-molit-geo-link-001-p-path-bfc98936cc-001.ttl",
-      "inputSha256": "1c64c64c2d72ef2da64471b75da4a18988eadfc3e5e6c796d3f2a2a287f5e9ac",
+      "inputSha256": "ee41dd9da84bc1a8bc0f1c1f33df74b9200287b505fe38ba1d04ded6ea018cab",
       "localImports": [],
-      "materializedBundleSha256": "0ede55078a0d6439b7dc23ff146a01f6b3a8eacf2b953c1eecd88d2ea93fa122",
+      "materializedBundleSha256": "e2f6e7bd9a2e67e008b8e7d8ca5cb62f2fb1021c63c456e9e3165e40aa656e87",
       "profile": "geo",
       "requirementIds": [
-        "MOLIT-GEO-LINK-001",
-        "MOLIT-GEO-LINK-001-P-PATH-BFC98936CC-001",
-        "MOLIT-GEO-LINK-002",
+        "MOLIT-GEO-LINK-001-P-PATH-BFC98936CC-001"
+      ]
+    },
+    {
+      "bundleSha256": "0e4df46b14ca8298b8ccc5f953cb9b364ef885419a1aafceee6160b63a76a65f",
+      "decision": "violates",
+      "engines": {
+        "jena": {
+          "conforms": false,
+          "resultCount": 5
+        },
+        "node": {
+          "conforms": false,
+          "resultCount": 5
+        },
+        "pyshacl": {
+          "conforms": false,
+          "resultCount": 5
+        }
+      },
+      "fixtureId": "NEG-MUT-GEO-LINK-002-P-PATH-D6567CFAEC-001",
+      "id": "FULL-NEG-MUT-GEO-LINK-002-P-PATH-D6567CFAEC-001",
+      "input": "examples/invalid/mutation-molit-geo-link-002-p-path-d6567cfaec-001.ttl",
+      "inputSha256": "ee41dd9da84bc1a8bc0f1c1f33df74b9200287b505fe38ba1d04ded6ea018cab",
+      "localImports": [],
+      "materializedBundleSha256": "e2f6e7bd9a2e67e008b8e7d8ca5cb62f2fb1021c63c456e9e3165e40aa656e87",
+      "profile": "geo",
+      "requirementIds": [
         "MOLIT-GEO-LINK-002-P-PATH-D6567CFAEC-001"
       ]
     },
     {
-      "bundleSha256": "3934aac6dfd2a5b8c53143158298b334999feac36c16ab02f28ef66efaa4ce1c",
+      "bundleSha256": "0e4df46b14ca8298b8ccc5f953cb9b364ef885419a1aafceee6160b63a76a65f",
       "decision": "violates",
       "engines": {
         "jena": {
@@ -1101,17 +1262,16 @@
       "fixtureId": "NEG-MUT-GEO-PROFILE-001-P-CONFORMSTO-001",
       "id": "FULL-NEG-MUT-GEO-PROFILE-001-P-CONFORMSTO-001",
       "input": "examples/invalid/mutation-molit-geo-profile-001-p-conformsto-001.ttl",
-      "inputSha256": "64eb04ee4cb35014ec43f667244ef9ff508af0e488d4ddde1c3e343379ca7a54",
+      "inputSha256": "be61dc479336b050827f1ccdbe8d8ae642b943dc39f6e3d40453308b95f53857",
       "localImports": [],
-      "materializedBundleSha256": "0ede55078a0d6439b7dc23ff146a01f6b3a8eacf2b953c1eecd88d2ea93fa122",
+      "materializedBundleSha256": "e2f6e7bd9a2e67e008b8e7d8ca5cb62f2fb1021c63c456e9e3165e40aa656e87",
       "profile": "geo",
       "requirementIds": [
-        "MOLIT-GEO-PROFILE-001",
         "MOLIT-GEO-PROFILE-001-P-CONFORMSTO-001"
       ]
     },
     {
-      "bundleSha256": "3934aac6dfd2a5b8c53143158298b334999feac36c16ab02f28ef66efaa4ce1c",
+      "bundleSha256": "0e4df46b14ca8298b8ccc5f953cb9b364ef885419a1aafceee6160b63a76a65f",
       "decision": "violates",
       "engines": {
         "jena": {
@@ -1130,17 +1290,16 @@
       "fixtureId": "NEG-MUT-GEO-PROFILE-002-P-CONFORMSTO-001",
       "id": "FULL-NEG-MUT-GEO-PROFILE-002-P-CONFORMSTO-001",
       "input": "examples/invalid/mutation-molit-geo-profile-002-p-conformsto-001.ttl",
-      "inputSha256": "cc0eba38bcecce34fdbf75e02f6b08b6cbc73098d46e98595b42ecb210ade5f2",
+      "inputSha256": "a80ef2761448f9caf9fd97caf5b1cfd75ab849c5971bc7b77c06f8d8ea163616",
       "localImports": [],
-      "materializedBundleSha256": "0ede55078a0d6439b7dc23ff146a01f6b3a8eacf2b953c1eecd88d2ea93fa122",
+      "materializedBundleSha256": "e2f6e7bd9a2e67e008b8e7d8ca5cb62f2fb1021c63c456e9e3165e40aa656e87",
       "profile": "geo",
       "requirementIds": [
-        "MOLIT-GEO-PROFILE-002",
         "MOLIT-GEO-PROFILE-002-P-CONFORMSTO-001"
       ]
     },
     {
-      "bundleSha256": "3934aac6dfd2a5b8c53143158298b334999feac36c16ab02f28ef66efaa4ce1c",
+      "bundleSha256": "0e4df46b14ca8298b8ccc5f953cb9b364ef885419a1aafceee6160b63a76a65f",
       "decision": "violates",
       "engines": {
         "jena": {
@@ -1159,16 +1318,16 @@
       "fixtureId": "NEG-MUT-GEO-TYPE-001",
       "id": "FULL-NEG-MUT-GEO-TYPE-001",
       "input": "examples/invalid/mutation-molit-geo-type-001.ttl",
-      "inputSha256": "e9ba2e745c72cbf02b870e27919b1ca8f507b6d01e01528061210a2873f52e1a",
+      "inputSha256": "ef9e023d42765837582924860879f620230024b25a3a0e95fb9d0282db5b00b8",
       "localImports": [],
-      "materializedBundleSha256": "0ede55078a0d6439b7dc23ff146a01f6b3a8eacf2b953c1eecd88d2ea93fa122",
+      "materializedBundleSha256": "e2f6e7bd9a2e67e008b8e7d8ca5cb62f2fb1021c63c456e9e3165e40aa656e87",
       "profile": "geo",
       "requirementIds": [
         "MOLIT-GEO-TYPE-001"
       ]
     },
     {
-      "bundleSha256": "3934aac6dfd2a5b8c53143158298b334999feac36c16ab02f28ef66efaa4ce1c",
+      "bundleSha256": "0e4df46b14ca8298b8ccc5f953cb9b364ef885419a1aafceee6160b63a76a65f",
       "decision": "violates",
       "engines": {
         "jena": {
@@ -1187,16 +1346,16 @@
       "fixtureId": "NEG-MUT-GEO-TYPE-002",
       "id": "FULL-NEG-MUT-GEO-TYPE-002",
       "input": "examples/invalid/mutation-molit-geo-type-002.ttl",
-      "inputSha256": "710980d16e7c556f25cb1a5369deaf1051326a73edb3e55fc4cc2860ab02f82d",
+      "inputSha256": "a582d371d60310c007faaca1c2d881a54ec7618ae492f3a50f1ee5aee995a4bd",
       "localImports": [],
-      "materializedBundleSha256": "0ede55078a0d6439b7dc23ff146a01f6b3a8eacf2b953c1eecd88d2ea93fa122",
+      "materializedBundleSha256": "e2f6e7bd9a2e67e008b8e7d8ca5cb62f2fb1021c63c456e9e3165e40aa656e87",
       "profile": "geo",
       "requirementIds": [
         "MOLIT-GEO-TYPE-002"
       ]
     },
     {
-      "bundleSha256": "3934aac6dfd2a5b8c53143158298b334999feac36c16ab02f28ef66efaa4ce1c",
+      "bundleSha256": "0e4df46b14ca8298b8ccc5f953cb9b364ef885419a1aafceee6160b63a76a65f",
       "decision": "violates",
       "engines": {
         "jena": {
@@ -1215,101 +1374,100 @@
       "fixtureId": "NEG-MUT-GEO-TYPE-003",
       "id": "FULL-NEG-MUT-GEO-TYPE-003",
       "input": "examples/invalid/mutation-molit-geo-type-003.ttl",
-      "inputSha256": "9485264cc7f8151553f19fcfc72ba928ff56f2c1191143ff9d74455d22bb3068",
+      "inputSha256": "069ecc3fe9d6e85f85954aa684c9fe1c207ae77dc86f37f92ae11050394220ce",
       "localImports": [],
-      "materializedBundleSha256": "0ede55078a0d6439b7dc23ff146a01f6b3a8eacf2b953c1eecd88d2ea93fa122",
+      "materializedBundleSha256": "e2f6e7bd9a2e67e008b8e7d8ca5cb62f2fb1021c63c456e9e3165e40aa656e87",
       "profile": "geo",
       "requirementIds": [
         "MOLIT-GEO-TYPE-003"
       ]
     },
     {
-      "bundleSha256": "3934aac6dfd2a5b8c53143158298b334999feac36c16ab02f28ef66efaa4ce1c",
+      "bundleSha256": "0e4df46b14ca8298b8ccc5f953cb9b364ef885419a1aafceee6160b63a76a65f",
       "decision": "violates",
       "engines": {
         "jena": {
           "conforms": false,
-          "resultCount": 2
+          "resultCount": 3
         },
         "node": {
           "conforms": false,
-          "resultCount": 2
+          "resultCount": 3
         },
         "pyshacl": {
           "conforms": false,
-          "resultCount": 2
+          "resultCount": 3
         }
       },
       "fixtureId": "NEG-MUT-GEO-TYPE-004",
       "id": "FULL-NEG-MUT-GEO-TYPE-004",
       "input": "examples/invalid/mutation-molit-geo-type-004.ttl",
-      "inputSha256": "a1011bbb92a5ea4d39c4791d54b9043a865973c82856d2e5a4c519978e477011",
+      "inputSha256": "355831b17c989b393e2c43f4c1511008fee453b19d4d3ba10a7c9cedaf4dbc72",
       "localImports": [],
-      "materializedBundleSha256": "0ede55078a0d6439b7dc23ff146a01f6b3a8eacf2b953c1eecd88d2ea93fa122",
+      "materializedBundleSha256": "e2f6e7bd9a2e67e008b8e7d8ca5cb62f2fb1021c63c456e9e3165e40aa656e87",
       "profile": "geo",
       "requirementIds": [
         "MOLIT-GEO-TYPE-004"
       ]
     },
     {
-      "bundleSha256": "5f4ad2367096cdd95b2db5f0dc8c45c81bc1f80875da5d897d6a3f34ad66583b",
+      "bundleSha256": "c51e36e3f8b644260174e243399e1c2f7bce935a7652a659a7a6db3b1b7ca195",
       "decision": "violates",
       "engines": {
         "jena": {
           "conforms": false,
-          "resultCount": 1
+          "resultCount": 3
         },
         "node": {
           "conforms": false,
-          "resultCount": 1
+          "resultCount": 3
         },
         "pyshacl": {
           "conforms": false,
-          "resultCount": 1
+          "resultCount": 3
         }
       },
       "fixtureId": "NEG-MUT-NET-001-P-NETWORKREFERENCE-001",
       "id": "FULL-NEG-MUT-NET-001-P-NETWORKREFERENCE-001",
       "input": "examples/invalid/mutation-molit-net-001-p-networkreference-001.ttl",
-      "inputSha256": "1e1d68aaf005b8ee570a29272f0f60e91d6ef298ed13d81e649e11dc9ca82942",
+      "inputSha256": "a57f1a394025bf3c20b62002b49f6e429b3ce17039b091b0d69e2562564b44c2",
       "localImports": [],
-      "materializedBundleSha256": "5a307dcf477a5df8e0926708d227b10870e8488c8efe44b0de75f8a2b508d123",
+      "materializedBundleSha256": "1d2391e5179d38eb8b8bbbcba942ed91d513117df703c987c5abaea0b61e9497",
       "profile": "network",
       "requirementIds": [
-        "MOLIT-NET-001",
         "MOLIT-NET-001-P-NETWORKREFERENCE-001"
       ]
     },
     {
-      "bundleSha256": "5f4ad2367096cdd95b2db5f0dc8c45c81bc1f80875da5d897d6a3f34ad66583b",
+      "bundleSha256": "c51e36e3f8b644260174e243399e1c2f7bce935a7652a659a7a6db3b1b7ca195",
       "decision": "violates",
       "engines": {
         "jena": {
           "conforms": false,
-          "resultCount": 1
+          "resultCount": 3
         },
         "node": {
           "conforms": false,
-          "resultCount": 1
+          "resultCount": 3
         },
         "pyshacl": {
           "conforms": false,
-          "resultCount": 1
+          "resultCount": 3
         }
       },
       "fixtureId": "NEG-MUT-NET-001-P-TRANSPORTMODE-001",
       "id": "FULL-NEG-MUT-NET-001-P-TRANSPORTMODE-001",
       "input": "examples/invalid/mutation-molit-net-001-p-transportmode-001.ttl",
-      "inputSha256": "c7de17f88f1b97c1bc4a9fb2049332a76a41806a99c9d6d20e775f433386df17",
+      "inputSha256": "eccc7f91aa9060303eb901885f4c0a2f0763232ab1e529d2962665dc42f4c043",
       "localImports": [],
-      "materializedBundleSha256": "5a307dcf477a5df8e0926708d227b10870e8488c8efe44b0de75f8a2b508d123",
+      "materializedBundleSha256": "1d2391e5179d38eb8b8bbbcba942ed91d513117df703c987c5abaea0b61e9497",
       "profile": "network",
       "requirementIds": [
         "MOLIT-NET-001-P-TRANSPORTMODE-001"
       ]
     },
     {
-      "bundleSha256": "5f4ad2367096cdd95b2db5f0dc8c45c81bc1f80875da5d897d6a3f34ad66583b",
+      "bundleSha256": "c51e36e3f8b644260174e243399e1c2f7bce935a7652a659a7a6db3b1b7ca195",
       "decision": "violates",
       "engines": {
         "jena": {
@@ -1328,16 +1486,16 @@
       "fixtureId": "NEG-MUT-NET-001-P-TYPE-001",
       "id": "FULL-NEG-MUT-NET-001-P-TYPE-001",
       "input": "examples/invalid/mutation-molit-net-001-p-type-001.ttl",
-      "inputSha256": "c5f59caed346ce8dc9f889540f2154f740c1c28e4b380d380802da7b5c69c19c",
+      "inputSha256": "f450d0338801b260db57223135848e4dbbb3907a0dea54eba97a15b662d4ccaf",
       "localImports": [],
-      "materializedBundleSha256": "5a307dcf477a5df8e0926708d227b10870e8488c8efe44b0de75f8a2b508d123",
+      "materializedBundleSha256": "1d2391e5179d38eb8b8bbbcba942ed91d513117df703c987c5abaea0b61e9497",
       "profile": "network",
       "requirementIds": [
         "MOLIT-NET-001-P-TYPE-001"
       ]
     },
     {
-      "bundleSha256": "5f4ad2367096cdd95b2db5f0dc8c45c81bc1f80875da5d897d6a3f34ad66583b",
+      "bundleSha256": "c51e36e3f8b644260174e243399e1c2f7bce935a7652a659a7a6db3b1b7ca195",
       "decision": "violates",
       "engines": {
         "jena": {
@@ -1356,74 +1514,72 @@
       "fixtureId": "NEG-MUT-NET-002-P-TYPE-001",
       "id": "FULL-NEG-MUT-NET-002-P-TYPE-001",
       "input": "examples/invalid/mutation-molit-net-002-p-type-001.ttl",
-      "inputSha256": "c4e90a64aee8c89cd163273138c3821066a3aa29ed3d571edfde1209dabb0f7e",
+      "inputSha256": "d6fb203cf3574572369af74d09dc9f6dd06d221161f77a65c3542afa2455ab96",
       "localImports": [],
-      "materializedBundleSha256": "5a307dcf477a5df8e0926708d227b10870e8488c8efe44b0de75f8a2b508d123",
+      "materializedBundleSha256": "1d2391e5179d38eb8b8bbbcba942ed91d513117df703c987c5abaea0b61e9497",
       "profile": "network",
       "requirementIds": [
-        "MOLIT-NET-002",
         "MOLIT-NET-002-P-TYPE-001"
       ]
     },
     {
-      "bundleSha256": "5f4ad2367096cdd95b2db5f0dc8c45c81bc1f80875da5d897d6a3f34ad66583b",
+      "bundleSha256": "c51e36e3f8b644260174e243399e1c2f7bce935a7652a659a7a6db3b1b7ca195",
       "decision": "violates",
       "engines": {
         "jena": {
           "conforms": false,
-          "resultCount": 1
+          "resultCount": 3
         },
         "node": {
           "conforms": false,
-          "resultCount": 1
+          "resultCount": 3
         },
         "pyshacl": {
           "conforms": false,
-          "resultCount": 1
+          "resultCount": 3
         }
       },
       "fixtureId": "NEG-MUT-NET-REF-001-P-NETWORKAUTHORITY-001",
       "id": "FULL-NEG-MUT-NET-REF-001-P-NETWORKAUTHORITY-001",
       "input": "examples/invalid/mutation-molit-net-ref-001-p-networkauthority-001.ttl",
-      "inputSha256": "5c33f29288bfc366e2e80d3c834722f754522a5646367634d244e56de053f744",
+      "inputSha256": "39090d6b4759a2a2d597e7c84a198f6bbbce183955901c97eb07809e4ad20be5",
       "localImports": [],
-      "materializedBundleSha256": "5a307dcf477a5df8e0926708d227b10870e8488c8efe44b0de75f8a2b508d123",
+      "materializedBundleSha256": "1d2391e5179d38eb8b8bbbcba942ed91d513117df703c987c5abaea0b61e9497",
       "profile": "network",
       "requirementIds": [
-        "MOLIT-NET-REF-001",
         "MOLIT-NET-REF-001-P-NETWORKAUTHORITY-001"
       ]
     },
     {
-      "bundleSha256": "5f4ad2367096cdd95b2db5f0dc8c45c81bc1f80875da5d897d6a3f34ad66583b",
+      "bundleSha256": "c51e36e3f8b644260174e243399e1c2f7bce935a7652a659a7a6db3b1b7ca195",
       "decision": "violates",
       "engines": {
         "jena": {
           "conforms": false,
-          "resultCount": 1
+          "resultCount": 2
         },
         "node": {
           "conforms": false,
-          "resultCount": 1
+          "resultCount": 2
         },
         "pyshacl": {
           "conforms": false,
-          "resultCount": 1
+          "resultCount": 2
         }
       },
       "fixtureId": "NEG-MUT-NET-REF-001-P-NETWORKELEMENTTYPE-001",
       "id": "FULL-NEG-MUT-NET-REF-001-P-NETWORKELEMENTTYPE-001",
       "input": "examples/invalid/mutation-molit-net-ref-001-p-networkelementtype-001.ttl",
-      "inputSha256": "75d7196391a85975917cec57ba813c518126fdae096dace1dcfc2a05f2fac29c",
+      "inputSha256": "78e66ac52b4eeb00c625473cf04c426229d91df7cfef54b3fc88dcfc60f39fb8",
       "localImports": [],
-      "materializedBundleSha256": "5a307dcf477a5df8e0926708d227b10870e8488c8efe44b0de75f8a2b508d123",
+      "materializedBundleSha256": "1d2391e5179d38eb8b8bbbcba942ed91d513117df703c987c5abaea0b61e9497",
       "profile": "network",
       "requirementIds": [
         "MOLIT-NET-REF-001-P-NETWORKELEMENTTYPE-001"
       ]
     },
     {
-      "bundleSha256": "5f4ad2367096cdd95b2db5f0dc8c45c81bc1f80875da5d897d6a3f34ad66583b",
+      "bundleSha256": "c51e36e3f8b644260174e243399e1c2f7bce935a7652a659a7a6db3b1b7ca195",
       "decision": "violates",
       "engines": {
         "jena": {
@@ -1442,16 +1598,16 @@
       "fixtureId": "NEG-MUT-NET-REF-001-P-NETWORKIDENTIFIER-001",
       "id": "FULL-NEG-MUT-NET-REF-001-P-NETWORKIDENTIFIER-001",
       "input": "examples/invalid/mutation-molit-net-ref-001-p-networkidentifier-001.ttl",
-      "inputSha256": "c0ba1414686d27a3c584ef50388f28cd296b082b2b5dbfe98b80ad5c9b75ed15",
+      "inputSha256": "1035d80539b5d1c0e0f883060199d927c5e6df93f2880f907dc843f04c61dcb1",
       "localImports": [],
-      "materializedBundleSha256": "5a307dcf477a5df8e0926708d227b10870e8488c8efe44b0de75f8a2b508d123",
+      "materializedBundleSha256": "1d2391e5179d38eb8b8bbbcba942ed91d513117df703c987c5abaea0b61e9497",
       "profile": "network",
       "requirementIds": [
         "MOLIT-NET-REF-001-P-NETWORKIDENTIFIER-001"
       ]
     },
     {
-      "bundleSha256": "5f4ad2367096cdd95b2db5f0dc8c45c81bc1f80875da5d897d6a3f34ad66583b",
+      "bundleSha256": "c51e36e3f8b644260174e243399e1c2f7bce935a7652a659a7a6db3b1b7ca195",
       "decision": "violates",
       "engines": {
         "jena": {
@@ -1470,16 +1626,128 @@
       "fixtureId": "NEG-MUT-NET-REF-001-P-NETWORKVERSION-001",
       "id": "FULL-NEG-MUT-NET-REF-001-P-NETWORKVERSION-001",
       "input": "examples/invalid/mutation-molit-net-ref-001-p-networkversion-001.ttl",
-      "inputSha256": "c6749c5ec918a9ffaaeb7f438bd48f2ef2efe0c8c5ae99dd3c8afec1d85aa0b4",
+      "inputSha256": "edab2be79555018138e76c3a9442df207750af0c93bea75bb36a7b3e360e0d46",
       "localImports": [],
-      "materializedBundleSha256": "5a307dcf477a5df8e0926708d227b10870e8488c8efe44b0de75f8a2b508d123",
+      "materializedBundleSha256": "1d2391e5179d38eb8b8bbbcba942ed91d513117df703c987c5abaea0b61e9497",
       "profile": "network",
       "requirementIds": [
         "MOLIT-NET-REF-001-P-NETWORKVERSION-001"
       ]
     },
     {
-      "bundleSha256": "5f4ad2367096cdd95b2db5f0dc8c45c81bc1f80875da5d897d6a3f34ad66583b",
+      "bundleSha256": "c51e36e3f8b644260174e243399e1c2f7bce935a7652a659a7a6db3b1b7ca195",
+      "decision": "violates",
+      "engines": {
+        "jena": {
+          "conforms": false,
+          "resultCount": 2
+        },
+        "node": {
+          "conforms": false,
+          "resultCount": 2
+        },
+        "pyshacl": {
+          "conforms": false,
+          "resultCount": 2
+        }
+      },
+      "fixtureId": "NEG-MUT-NET-REF-IRI-001",
+      "id": "FULL-NEG-MUT-NET-REF-IRI-001",
+      "input": "examples/invalid/mutation-molit-net-ref-iri-001.ttl",
+      "inputSha256": "240dc34eab6b6fe87311eea9a0c38f0b89b92deb5d4f53106c2b9939fdd871f2",
+      "localImports": [],
+      "materializedBundleSha256": "1d2391e5179d38eb8b8bbbcba942ed91d513117df703c987c5abaea0b61e9497",
+      "profile": "network",
+      "requirementIds": [
+        "MOLIT-NET-REF-IRI-001"
+      ]
+    },
+    {
+      "bundleSha256": "c51e36e3f8b644260174e243399e1c2f7bce935a7652a659a7a6db3b1b7ca195",
+      "decision": "violates",
+      "engines": {
+        "jena": {
+          "conforms": false,
+          "resultCount": 3
+        },
+        "node": {
+          "conforms": false,
+          "resultCount": 3
+        },
+        "pyshacl": {
+          "conforms": false,
+          "resultCount": 3
+        }
+      },
+      "fixtureId": "NEG-MUT-NET-REPLACEMENT-001",
+      "id": "FULL-NEG-MUT-NET-REPLACEMENT-001",
+      "input": "examples/invalid/mutation-molit-net-replacement-001.ttl",
+      "inputSha256": "4302bd7296ffed2cdc23a17196b41a88bd60c639d990424d188700b20e004a0c",
+      "localImports": [],
+      "materializedBundleSha256": "1d2391e5179d38eb8b8bbbcba942ed91d513117df703c987c5abaea0b61e9497",
+      "profile": "network",
+      "requirementIds": [
+        "MOLIT-NET-REPLACEMENT-001"
+      ]
+    },
+    {
+      "bundleSha256": "c51e36e3f8b644260174e243399e1c2f7bce935a7652a659a7a6db3b1b7ca195",
+      "decision": "violates",
+      "engines": {
+        "jena": {
+          "conforms": false,
+          "resultCount": 1
+        },
+        "node": {
+          "conforms": false,
+          "resultCount": 1
+        },
+        "pyshacl": {
+          "conforms": false,
+          "resultCount": 1
+        }
+      },
+      "fixtureId": "NEG-MUT-NET-SAMEAS-001-P-INCOMING-001",
+      "id": "FULL-NEG-MUT-NET-SAMEAS-001-P-INCOMING-001",
+      "input": "examples/invalid/mutation-molit-net-sameas-001-p-incoming-001.ttl",
+      "inputSha256": "3d1156bfd1e07551c0abada7da66cc1b4d6d2591d6198a26e18e4587ade8d288",
+      "localImports": [],
+      "materializedBundleSha256": "1d2391e5179d38eb8b8bbbcba942ed91d513117df703c987c5abaea0b61e9497",
+      "profile": "network",
+      "requirementIds": [
+        "MOLIT-NET-SAMEAS-001-P-INCOMING-001"
+      ]
+    },
+    {
+      "bundleSha256": "c51e36e3f8b644260174e243399e1c2f7bce935a7652a659a7a6db3b1b7ca195",
+      "decision": "violates",
+      "engines": {
+        "jena": {
+          "conforms": false,
+          "resultCount": 1
+        },
+        "node": {
+          "conforms": false,
+          "resultCount": 1
+        },
+        "pyshacl": {
+          "conforms": false,
+          "resultCount": 1
+        }
+      },
+      "fixtureId": "NEG-MUT-NET-SAMEAS-001-P-OUTGOING-001",
+      "id": "FULL-NEG-MUT-NET-SAMEAS-001-P-OUTGOING-001",
+      "input": "examples/invalid/mutation-molit-net-sameas-001-p-outgoing-001.ttl",
+      "inputSha256": "8ed860614cede6b9487f5705442ea03e9485984cdbfab571ef4c60b5a2566caa",
+      "localImports": [],
+      "materializedBundleSha256": "1d2391e5179d38eb8b8bbbcba942ed91d513117df703c987c5abaea0b61e9497",
+      "profile": "network",
+      "requirementIds": [
+        "MOLIT-NET-SAMEAS-001-P-OUTGOING-001"
+      ]
+    },
+    {
+      "bundleSha256": "c51e36e3f8b644260174e243399e1c2f7bce935a7652a659a7a6db3b1b7ca195",
       "decision": "violates",
       "engines": {
         "jena": {
@@ -1498,17 +1766,16 @@
       "fixtureId": "NEG-MUT-NET-SNAPSHOT-001-P-NETWORKIDENTIFIER-001",
       "id": "FULL-NEG-MUT-NET-SNAPSHOT-001-P-NETWORKIDENTIFIER-001",
       "input": "examples/invalid/mutation-molit-net-snapshot-001-p-networkidentifier-001.ttl",
-      "inputSha256": "5e352c7223ff4f8f66e50ce75f204acfec9e33d4dd98acb680293cbd532fa906",
+      "inputSha256": "9e18c20d2ebd43d844d8d3588ffdc4e08d751185c9263bb397c0736ee63bdc44",
       "localImports": [],
-      "materializedBundleSha256": "5a307dcf477a5df8e0926708d227b10870e8488c8efe44b0de75f8a2b508d123",
+      "materializedBundleSha256": "1d2391e5179d38eb8b8bbbcba942ed91d513117df703c987c5abaea0b61e9497",
       "profile": "network",
       "requirementIds": [
-        "MOLIT-NET-SNAPSHOT-001",
         "MOLIT-NET-SNAPSHOT-001-P-NETWORKIDENTIFIER-001"
       ]
     },
     {
-      "bundleSha256": "5f4ad2367096cdd95b2db5f0dc8c45c81bc1f80875da5d897d6a3f34ad66583b",
+      "bundleSha256": "c51e36e3f8b644260174e243399e1c2f7bce935a7652a659a7a6db3b1b7ca195",
       "decision": "violates",
       "engines": {
         "jena": {
@@ -1527,72 +1794,72 @@
       "fixtureId": "NEG-MUT-NET-SNAPSHOT-001-P-NETWORKLIFECYCLESTATUS-001",
       "id": "FULL-NEG-MUT-NET-SNAPSHOT-001-P-NETWORKLIFECYCLESTATUS-001",
       "input": "examples/invalid/mutation-molit-net-snapshot-001-p-networklifecyclestatus-001.ttl",
-      "inputSha256": "0fd2b3d2cd01106ef2229b11c083d4077fe59a2a38abdfdd431bccd99b52862d",
+      "inputSha256": "1247e37a0aabb3d5daee8b4a9307433b8f1763f92fc5eb9cdfc6dbebcfc771f9",
       "localImports": [],
-      "materializedBundleSha256": "5a307dcf477a5df8e0926708d227b10870e8488c8efe44b0de75f8a2b508d123",
+      "materializedBundleSha256": "1d2391e5179d38eb8b8bbbcba942ed91d513117df703c987c5abaea0b61e9497",
       "profile": "network",
       "requirementIds": [
         "MOLIT-NET-SNAPSHOT-001-P-NETWORKLIFECYCLESTATUS-001"
       ]
     },
     {
-      "bundleSha256": "5f4ad2367096cdd95b2db5f0dc8c45c81bc1f80875da5d897d6a3f34ad66583b",
+      "bundleSha256": "c51e36e3f8b644260174e243399e1c2f7bce935a7652a659a7a6db3b1b7ca195",
       "decision": "violates",
       "engines": {
         "jena": {
           "conforms": false,
-          "resultCount": 1
+          "resultCount": 3
         },
         "node": {
           "conforms": false,
-          "resultCount": 1
+          "resultCount": 3
         },
         "pyshacl": {
           "conforms": false,
-          "resultCount": 1
+          "resultCount": 3
         }
       },
       "fixtureId": "NEG-MUT-NET-SNAPSHOT-001-P-NETWORKSNAPSHOTCHECKSUM-001",
       "id": "FULL-NEG-MUT-NET-SNAPSHOT-001-P-NETWORKSNAPSHOTCHECKSUM-001",
       "input": "examples/invalid/mutation-molit-net-snapshot-001-p-networksnapshotchecksum-001.ttl",
-      "inputSha256": "1c090c046d0bba2246163fc7e7eb714bab1354b393993492b82b911fb3039310",
+      "inputSha256": "112ce7b949d8ebbb21f66486074cfa073c8ada31a74452da7f595d63a2e77606",
       "localImports": [],
-      "materializedBundleSha256": "5a307dcf477a5df8e0926708d227b10870e8488c8efe44b0de75f8a2b508d123",
+      "materializedBundleSha256": "1d2391e5179d38eb8b8bbbcba942ed91d513117df703c987c5abaea0b61e9497",
       "profile": "network",
       "requirementIds": [
         "MOLIT-NET-SNAPSHOT-001-P-NETWORKSNAPSHOTCHECKSUM-001"
       ]
     },
     {
-      "bundleSha256": "5f4ad2367096cdd95b2db5f0dc8c45c81bc1f80875da5d897d6a3f34ad66583b",
+      "bundleSha256": "c51e36e3f8b644260174e243399e1c2f7bce935a7652a659a7a6db3b1b7ca195",
       "decision": "violates",
       "engines": {
         "jena": {
           "conforms": false,
-          "resultCount": 1
+          "resultCount": 2
         },
         "node": {
           "conforms": false,
-          "resultCount": 1
+          "resultCount": 2
         },
         "pyshacl": {
           "conforms": false,
-          "resultCount": 1
+          "resultCount": 2
         }
       },
       "fixtureId": "NEG-MUT-NET-SNAPSHOT-001-P-NETWORKVALIDFROM-001",
       "id": "FULL-NEG-MUT-NET-SNAPSHOT-001-P-NETWORKVALIDFROM-001",
       "input": "examples/invalid/mutation-molit-net-snapshot-001-p-networkvalidfrom-001.ttl",
-      "inputSha256": "4a60000d03ae0ac71b49d880ebf59c9aa279b210d589c0ccf67814af16dc7089",
+      "inputSha256": "02c5bc08361784e8bce6c25b609bcfbe36a4254c2e919dc5aaba5cc288b0f914",
       "localImports": [],
-      "materializedBundleSha256": "5a307dcf477a5df8e0926708d227b10870e8488c8efe44b0de75f8a2b508d123",
+      "materializedBundleSha256": "1d2391e5179d38eb8b8bbbcba942ed91d513117df703c987c5abaea0b61e9497",
       "profile": "network",
       "requirementIds": [
         "MOLIT-NET-SNAPSHOT-001-P-NETWORKVALIDFROM-001"
       ]
     },
     {
-      "bundleSha256": "5f4ad2367096cdd95b2db5f0dc8c45c81bc1f80875da5d897d6a3f34ad66583b",
+      "bundleSha256": "c51e36e3f8b644260174e243399e1c2f7bce935a7652a659a7a6db3b1b7ca195",
       "decision": "violates",
       "engines": {
         "jena": {
@@ -1611,18 +1878,16 @@
       "fixtureId": "NEG-MUT-NET-SNAPSHOT-001-P-NETWORKVALIDUNTIL-001",
       "id": "FULL-NEG-MUT-NET-SNAPSHOT-001-P-NETWORKVALIDUNTIL-001",
       "input": "examples/invalid/mutation-molit-net-snapshot-001-p-networkvaliduntil-001.ttl",
-      "inputSha256": "7ed8f6984e52f06ea507cbdfbd5413ad782becefdc78e87abfde8094a70884cb",
+      "inputSha256": "5fc9fb76bbd49336f2ee97b81d88d1c9062c2be7bf25d8c3d6220ea217fed441",
       "localImports": [],
-      "materializedBundleSha256": "5a307dcf477a5df8e0926708d227b10870e8488c8efe44b0de75f8a2b508d123",
+      "materializedBundleSha256": "1d2391e5179d38eb8b8bbbcba942ed91d513117df703c987c5abaea0b61e9497",
       "profile": "network",
       "requirementIds": [
-        "MOLIT-NET-SNAPSHOT-001-P-NETWORKVALIDUNTIL-001",
-        "MOLIT-NET-VALIDITY-001",
-        "MOLIT-NET-VALIDITY-001-P-NETWORKVALIDFROM-001"
+        "MOLIT-NET-SNAPSHOT-001-P-NETWORKVALIDUNTIL-001"
       ]
     },
     {
-      "bundleSha256": "5f4ad2367096cdd95b2db5f0dc8c45c81bc1f80875da5d897d6a3f34ad66583b",
+      "bundleSha256": "c51e36e3f8b644260174e243399e1c2f7bce935a7652a659a7a6db3b1b7ca195",
       "decision": "violates",
       "engines": {
         "jena": {
@@ -1641,64 +1906,91 @@
       "fixtureId": "NEG-MUT-NET-SNAPSHOT-001-P-NETWORKVERSION-001",
       "id": "FULL-NEG-MUT-NET-SNAPSHOT-001-P-NETWORKVERSION-001",
       "input": "examples/invalid/mutation-molit-net-snapshot-001-p-networkversion-001.ttl",
-      "inputSha256": "1f1d498bcf40001988fcdd039cef00dc4e1f6d19caacce2cb25bb8a355856f56",
+      "inputSha256": "55127b7cf89b075b21700d554085d734ba7d71064e29dee6e44597ba9bcd906b",
       "localImports": [],
-      "materializedBundleSha256": "5a307dcf477a5df8e0926708d227b10870e8488c8efe44b0de75f8a2b508d123",
+      "materializedBundleSha256": "1d2391e5179d38eb8b8bbbcba942ed91d513117df703c987c5abaea0b61e9497",
       "profile": "network",
       "requirementIds": [
         "MOLIT-NET-SNAPSHOT-001-P-NETWORKVERSION-001"
       ]
     },
     {
-      "bundleSha256": "c490ad741e996f81ae0898e8f3d3bf9b06e58e243b7c58c8318a78183208101a",
+      "bundleSha256": "c51e36e3f8b644260174e243399e1c2f7bce935a7652a659a7a6db3b1b7ca195",
       "decision": "violates",
       "engines": {
         "jena": {
           "conforms": false,
-          "resultCount": 1
+          "resultCount": 2
         },
         "node": {
           "conforms": false,
-          "resultCount": 1
+          "resultCount": 2
         },
         "pyshacl": {
           "conforms": false,
-          "resultCount": 1
+          "resultCount": 2
+        }
+      },
+      "fixtureId": "NEG-MUT-NET-VALIDITY-001-P-NETWORKVALIDFROM-001",
+      "id": "FULL-NEG-MUT-NET-VALIDITY-001-P-NETWORKVALIDFROM-001",
+      "input": "examples/invalid/mutation-molit-net-validity-001-p-networkvalidfrom-001.ttl",
+      "inputSha256": "5fc9fb76bbd49336f2ee97b81d88d1c9062c2be7bf25d8c3d6220ea217fed441",
+      "localImports": [],
+      "materializedBundleSha256": "1d2391e5179d38eb8b8bbbcba942ed91d513117df703c987c5abaea0b61e9497",
+      "profile": "network",
+      "requirementIds": [
+        "MOLIT-NET-VALIDITY-001-P-NETWORKVALIDFROM-001"
+      ]
+    },
+    {
+      "bundleSha256": "ec9cca3f6f2e6d610f8c13214edc218f40f26409aed8c8862b1085f6acfdd99c",
+      "decision": "violates",
+      "engines": {
+        "jena": {
+          "conforms": false,
+          "resultCount": 2
+        },
+        "node": {
+          "conforms": false,
+          "resultCount": 2
+        },
+        "pyshacl": {
+          "conforms": false,
+          "resultCount": 2
         }
       },
       "fixtureId": "NEG-MUT-OBS-001-P-AGGREGATIONPERIOD-001",
       "id": "FULL-NEG-MUT-OBS-001-P-AGGREGATIONPERIOD-001",
       "input": "examples/invalid/mutation-molit-obs-001-p-aggregationperiod-001.ttl",
-      "inputSha256": "42ee60bde3959e3793230813fc7740574840d73c437e9d670b67a42e03697558",
+      "inputSha256": "6f34b22ab0e5655246edd558590dde1809fa94f0096aa8f23740f1e1d2a63de6",
       "localImports": [],
       "materializedBundleSha256": "75b8ee98982636f69450b1497f01d15a2834a8d3bf0ca8311ca10d39da550ffe",
       "profile": "observation",
       "requirementIds": [
-        "MOLIT-OBS-001",
         "MOLIT-OBS-001-P-AGGREGATIONPERIOD-001"
       ]
     },
     {
-      "bundleSha256": "c490ad741e996f81ae0898e8f3d3bf9b06e58e243b7c58c8318a78183208101a",
+      "bundleSha256": "ec9cca3f6f2e6d610f8c13214edc218f40f26409aed8c8862b1085f6acfdd99c",
       "decision": "violates",
       "engines": {
         "jena": {
           "conforms": false,
-          "resultCount": 1
+          "resultCount": 3
         },
         "node": {
           "conforms": false,
-          "resultCount": 1
+          "resultCount": 3
         },
         "pyshacl": {
           "conforms": false,
-          "resultCount": 1
+          "resultCount": 3
         }
       },
       "fixtureId": "NEG-MUT-OBS-001-P-MISSINGVALUEPOLICY-001",
       "id": "FULL-NEG-MUT-OBS-001-P-MISSINGVALUEPOLICY-001",
       "input": "examples/invalid/mutation-molit-obs-001-p-missingvaluepolicy-001.ttl",
-      "inputSha256": "fd0b841e99b06aecc3a3ccef0b5cdea69ccae4d5e6c62f69c99078d71202af01",
+      "inputSha256": "fa04d0a416d1097a640874a1cfc2b6cbcb6b64a52cbf30e2481a7e5dc2627438",
       "localImports": [],
       "materializedBundleSha256": "75b8ee98982636f69450b1497f01d15a2834a8d3bf0ca8311ca10d39da550ffe",
       "profile": "observation",
@@ -1707,26 +1999,26 @@
       ]
     },
     {
-      "bundleSha256": "c490ad741e996f81ae0898e8f3d3bf9b06e58e243b7c58c8318a78183208101a",
+      "bundleSha256": "ec9cca3f6f2e6d610f8c13214edc218f40f26409aed8c8862b1085f6acfdd99c",
       "decision": "violates",
       "engines": {
         "jena": {
           "conforms": false,
-          "resultCount": 1
+          "resultCount": 3
         },
         "node": {
           "conforms": false,
-          "resultCount": 1
+          "resultCount": 3
         },
         "pyshacl": {
           "conforms": false,
-          "resultCount": 1
+          "resultCount": 3
         }
       },
       "fixtureId": "NEG-MUT-OBS-001-P-OBSERVATIONAGGREGATION-001",
       "id": "FULL-NEG-MUT-OBS-001-P-OBSERVATIONAGGREGATION-001",
       "input": "examples/invalid/mutation-molit-obs-001-p-observationaggregation-001.ttl",
-      "inputSha256": "01c669526c7cde07925092ba19bb24905c2a24301891e734dd99a308797c209c",
+      "inputSha256": "f9784e58d0e1bb46a8aa8c5f3b11c789f848d58885d066446f1fd00c5e8a9aeb",
       "localImports": [],
       "materializedBundleSha256": "75b8ee98982636f69450b1497f01d15a2834a8d3bf0ca8311ca10d39da550ffe",
       "profile": "observation",
@@ -1735,26 +2027,26 @@
       ]
     },
     {
-      "bundleSha256": "c490ad741e996f81ae0898e8f3d3bf9b06e58e243b7c58c8318a78183208101a",
+      "bundleSha256": "ec9cca3f6f2e6d610f8c13214edc218f40f26409aed8c8862b1085f6acfdd99c",
       "decision": "violates",
       "engines": {
         "jena": {
           "conforms": false,
-          "resultCount": 1
+          "resultCount": 3
         },
         "node": {
           "conforms": false,
-          "resultCount": 1
+          "resultCount": 3
         },
         "pyshacl": {
           "conforms": false,
-          "resultCount": 1
+          "resultCount": 3
         }
       },
       "fixtureId": "NEG-MUT-OBS-001-P-OBSERVATIONSUBJECTTYPE-001",
       "id": "FULL-NEG-MUT-OBS-001-P-OBSERVATIONSUBJECTTYPE-001",
       "input": "examples/invalid/mutation-molit-obs-001-p-observationsubjecttype-001.ttl",
-      "inputSha256": "345dc81c63cbc8668341bbf5bf0fdc328124e0f0e49ad1d8a8bc0f75dde4d479",
+      "inputSha256": "e65ffad3c3e0652f7c1f8a9888bad02c2207a1739bb418134becae4e4793050f",
       "localImports": [],
       "materializedBundleSha256": "75b8ee98982636f69450b1497f01d15a2834a8d3bf0ca8311ca10d39da550ffe",
       "profile": "observation",
@@ -1763,7 +2055,7 @@
       ]
     },
     {
-      "bundleSha256": "c490ad741e996f81ae0898e8f3d3bf9b06e58e243b7c58c8318a78183208101a",
+      "bundleSha256": "ec9cca3f6f2e6d610f8c13214edc218f40f26409aed8c8862b1085f6acfdd99c",
       "decision": "violates",
       "engines": {
         "jena": {
@@ -1782,7 +2074,7 @@
       "fixtureId": "NEG-MUT-OBS-001-P-OBSERVATIONUNIT-001",
       "id": "FULL-NEG-MUT-OBS-001-P-OBSERVATIONUNIT-001",
       "input": "examples/invalid/mutation-molit-obs-001-p-observationunit-001.ttl",
-      "inputSha256": "c6b57966c265358a52f7c6df953b56f8bd05c73a4899e981d2a8a2f210c4c2f1",
+      "inputSha256": "d348fb616390da91452b6db795228e0ed9e32c4c1359cef86eda12201ccb9235",
       "localImports": [],
       "materializedBundleSha256": "75b8ee98982636f69450b1497f01d15a2834a8d3bf0ca8311ca10d39da550ffe",
       "profile": "observation",
@@ -1791,36 +2083,35 @@
       ]
     },
     {
-      "bundleSha256": "c490ad741e996f81ae0898e8f3d3bf9b06e58e243b7c58c8318a78183208101a",
+      "bundleSha256": "ec9cca3f6f2e6d610f8c13214edc218f40f26409aed8c8862b1085f6acfdd99c",
       "decision": "violates",
       "engines": {
         "jena": {
           "conforms": false,
-          "resultCount": 2
+          "resultCount": 3
         },
         "node": {
           "conforms": false,
-          "resultCount": 2
+          "resultCount": 3
         },
         "pyshacl": {
           "conforms": false,
-          "resultCount": 2
+          "resultCount": 3
         }
       },
       "fixtureId": "NEG-MUT-OBS-001-P-OBSERVEDPROPERTY-001",
       "id": "FULL-NEG-MUT-OBS-001-P-OBSERVEDPROPERTY-001",
       "input": "examples/invalid/mutation-molit-obs-001-p-observedproperty-001.ttl",
-      "inputSha256": "331650cb81aadc42fca5a5e46f0792554ff4f237864dcda8695d527c6f633a40",
+      "inputSha256": "ba8755e1fac6ea3c044d92cf0fb72284aa1bd2482dbee1a1adea3f6957be50a4",
       "localImports": [],
       "materializedBundleSha256": "75b8ee98982636f69450b1497f01d15a2834a8d3bf0ca8311ca10d39da550ffe",
       "profile": "observation",
       "requirementIds": [
-        "MOLIT-OBS-001-P-OBSERVEDPROPERTY-001",
-        "MOLIT-OBS-UNIT-001"
+        "MOLIT-OBS-001-P-OBSERVEDPROPERTY-001"
       ]
     },
     {
-      "bundleSha256": "c490ad741e996f81ae0898e8f3d3bf9b06e58e243b7c58c8318a78183208101a",
+      "bundleSha256": "ec9cca3f6f2e6d610f8c13214edc218f40f26409aed8c8862b1085f6acfdd99c",
       "decision": "violates",
       "engines": {
         "jena": {
@@ -1839,7 +2130,7 @@
       "fixtureId": "NEG-MUT-OBS-001-P-TEMPORAL-001",
       "id": "FULL-NEG-MUT-OBS-001-P-TEMPORAL-001",
       "input": "examples/invalid/mutation-molit-obs-001-p-temporal-001.ttl",
-      "inputSha256": "baebb88654bcb36fc5ce560293648acbf4898ec4427b346abc2da289c11edf5c",
+      "inputSha256": "301ac0ed84cc2644ae090fe242187575a3501d97c046ec5b5e1ab5279418863c",
       "localImports": [],
       "materializedBundleSha256": "75b8ee98982636f69450b1497f01d15a2834a8d3bf0ca8311ca10d39da550ffe",
       "profile": "observation",
@@ -1848,7 +2139,7 @@
       ]
     },
     {
-      "bundleSha256": "c490ad741e996f81ae0898e8f3d3bf9b06e58e243b7c58c8318a78183208101a",
+      "bundleSha256": "ec9cca3f6f2e6d610f8c13214edc218f40f26409aed8c8862b1085f6acfdd99c",
       "decision": "violates",
       "engines": {
         "jena": {
@@ -1867,7 +2158,7 @@
       "fixtureId": "NEG-MUT-OBS-001-P-TEMPORALRESOLUTION-001",
       "id": "FULL-NEG-MUT-OBS-001-P-TEMPORALRESOLUTION-001",
       "input": "examples/invalid/mutation-molit-obs-001-p-temporalresolution-001.ttl",
-      "inputSha256": "f02ab54295d5bd3d8fda2d07a9a6c47728c144dd4ec9fdb64ef00dea04aafd86",
+      "inputSha256": "6ace2ebed3556c7151e446154a99736be2c35c7728433d8be2bff471787bac8d",
       "localImports": [],
       "materializedBundleSha256": "75b8ee98982636f69450b1497f01d15a2834a8d3bf0ca8311ca10d39da550ffe",
       "profile": "observation",
@@ -1876,7 +2167,7 @@
       ]
     },
     {
-      "bundleSha256": "c490ad741e996f81ae0898e8f3d3bf9b06e58e243b7c58c8318a78183208101a",
+      "bundleSha256": "ec9cca3f6f2e6d610f8c13214edc218f40f26409aed8c8862b1085f6acfdd99c",
       "decision": "violates",
       "engines": {
         "jena": {
@@ -1895,12 +2186,40 @@
       "fixtureId": "NEG-MUT-OBS-001-P-TYPE-001",
       "id": "FULL-NEG-MUT-OBS-001-P-TYPE-001",
       "input": "examples/invalid/mutation-molit-obs-001-p-type-001.ttl",
-      "inputSha256": "d2a452fb6ea10bcb9f56afa1e15d981e549c191ac8ad156e0712b6a8cf3895d0",
+      "inputSha256": "145c3eda8cfbbfc1d7fb75e74e1b14a9a858cdfa61f019c71ec57123f7dfcb1c",
       "localImports": [],
       "materializedBundleSha256": "75b8ee98982636f69450b1497f01d15a2834a8d3bf0ca8311ca10d39da550ffe",
       "profile": "observation",
       "requirementIds": [
         "MOLIT-OBS-001-P-TYPE-001"
+      ]
+    },
+    {
+      "bundleSha256": "ec9cca3f6f2e6d610f8c13214edc218f40f26409aed8c8862b1085f6acfdd99c",
+      "decision": "violates",
+      "engines": {
+        "jena": {
+          "conforms": false,
+          "resultCount": 2
+        },
+        "node": {
+          "conforms": false,
+          "resultCount": 2
+        },
+        "pyshacl": {
+          "conforms": false,
+          "resultCount": 2
+        }
+      },
+      "fixtureId": "NEG-MUT-OBS-UNIT-001",
+      "id": "FULL-NEG-MUT-OBS-UNIT-001",
+      "input": "examples/invalid/mutation-molit-obs-unit-001.ttl",
+      "inputSha256": "516b7dd99dfac9d3df839fc932ea18e7c1b6429d8417fb01f301822ddeba008d",
+      "localImports": [],
+      "materializedBundleSha256": "75b8ee98982636f69450b1497f01d15a2834a8d3bf0ca8311ca10d39da550ffe",
+      "profile": "observation",
+      "requirementIds": [
+        "MOLIT-OBS-UNIT-001"
       ]
     },
     {
@@ -1923,12 +2242,11 @@
       "fixtureId": "NEG-MUT-OFFER-001-P-DESCRIBESOFFERINGDATASET-001",
       "id": "FULL-NEG-MUT-OFFER-001-P-DESCRIBESOFFERINGDATASET-001",
       "input": "examples/invalid/mutation-molit-offer-001-p-describesofferingdataset-001.ttl",
-      "inputSha256": "31a252af72d6809527853309c2a437ae6b1241f89443b0332faac141e4f564ca",
+      "inputSha256": "98fd24c8786124f5c602b91df782a1343f713f422747d0b88cef8e6c19d667f4",
       "localImports": [],
       "materializedBundleSha256": "f4c3dfc25d840def48a2c57f19103915465fb7fb0ce5c504be19d644c5e039d1",
       "profile": "dataspace-offering",
       "requirementIds": [
-        "MOLIT-OFFER-001",
         "MOLIT-OFFER-001-P-DESCRIBESOFFERINGDATASET-001"
       ]
     },
@@ -1952,7 +2270,7 @@
       "fixtureId": "NEG-MUT-OFFER-001-P-IDENTIFIER-001",
       "id": "FULL-NEG-MUT-OFFER-001-P-IDENTIFIER-001",
       "input": "examples/invalid/mutation-molit-offer-001-p-identifier-001.ttl",
-      "inputSha256": "5100eede3bf0db0fcf172003c4839eb4c9581e25cd2c42e84b0802b7055dc52b",
+      "inputSha256": "c9cb5db1fd66a61f97693d5a0288fcec431e8f0eeb020fe778119fe5500f2d39",
       "localImports": [],
       "materializedBundleSha256": "f4c3dfc25d840def48a2c57f19103915465fb7fb0ce5c504be19d644c5e039d1",
       "profile": "dataspace-offering",
@@ -1966,21 +2284,21 @@
       "engines": {
         "jena": {
           "conforms": false,
-          "resultCount": 1
+          "resultCount": 2
         },
         "node": {
           "conforms": false,
-          "resultCount": 1
+          "resultCount": 2
         },
         "pyshacl": {
           "conforms": false,
-          "resultCount": 1
+          "resultCount": 2
         }
       },
       "fixtureId": "NEG-MUT-OFFER-001-P-MODIFIED-001",
       "id": "FULL-NEG-MUT-OFFER-001-P-MODIFIED-001",
       "input": "examples/invalid/mutation-molit-offer-001-p-modified-001.ttl",
-      "inputSha256": "77745f1372fa678898958307e279aae44fc088da3a00a4a7db70996e90e39003",
+      "inputSha256": "0b119d8487a7c78969d536894ebf803dc970683a0e6f51572012e55bb6b07872",
       "localImports": [],
       "materializedBundleSha256": "f4c3dfc25d840def48a2c57f19103915465fb7fb0ce5c504be19d644c5e039d1",
       "profile": "dataspace-offering",
@@ -1994,21 +2312,21 @@
       "engines": {
         "jena": {
           "conforms": false,
-          "resultCount": 1
+          "resultCount": 3
         },
         "node": {
           "conforms": false,
-          "resultCount": 1
+          "resultCount": 3
         },
         "pyshacl": {
           "conforms": false,
-          "resultCount": 1
+          "resultCount": 3
         }
       },
       "fixtureId": "NEG-MUT-OFFER-001-P-OFFERINGREADINESSSTATUS-001",
       "id": "FULL-NEG-MUT-OFFER-001-P-OFFERINGREADINESSSTATUS-001",
       "input": "examples/invalid/mutation-molit-offer-001-p-offeringreadinessstatus-001.ttl",
-      "inputSha256": "53d96f84c921654667358a74ff77774c98cd71fe879cf470a392dd25b06e226b",
+      "inputSha256": "efb7b616b7cf08d103b3aa7f17711fdb5861e22b9bc13f56506a55c0a10584b0",
       "localImports": [],
       "materializedBundleSha256": "f4c3dfc25d840def48a2c57f19103915465fb7fb0ce5c504be19d644c5e039d1",
       "profile": "dataspace-offering",
@@ -2022,21 +2340,21 @@
       "engines": {
         "jena": {
           "conforms": false,
-          "resultCount": 2
+          "resultCount": 1
         },
         "node": {
           "conforms": false,
-          "resultCount": 2
+          "resultCount": 1
         },
         "pyshacl": {
           "conforms": false,
-          "resultCount": 2
+          "resultCount": 1
         }
       },
       "fixtureId": "NEG-MUT-OFFER-001-P-TITLE-001",
       "id": "FULL-NEG-MUT-OFFER-001-P-TITLE-001",
       "input": "examples/invalid/mutation-molit-offer-001-p-title-001.ttl",
-      "inputSha256": "194285ac3a56fe690aed77548065a9692efc81ceb03b72a7fbce0511a635b668",
+      "inputSha256": "25f0f582e68ece9b4cb4a7ac1a079f321ab165fefe38401cdb81e87bd2a94c23",
       "localImports": [],
       "materializedBundleSha256": "f4c3dfc25d840def48a2c57f19103915465fb7fb0ce5c504be19d644c5e039d1",
       "profile": "dataspace-offering",
@@ -2050,26 +2368,25 @@
       "engines": {
         "jena": {
           "conforms": false,
-          "resultCount": 2
+          "resultCount": 3
         },
         "node": {
           "conforms": false,
-          "resultCount": 2
+          "resultCount": 3
         },
         "pyshacl": {
           "conforms": false,
-          "resultCount": 2
+          "resultCount": 3
         }
       },
       "fixtureId": "NEG-MUT-OFFER-LINK-001-P-DESCRIBESOFFERINGDATASET-001",
       "id": "FULL-NEG-MUT-OFFER-LINK-001-P-DESCRIBESOFFERINGDATASET-001",
       "input": "examples/invalid/mutation-molit-offer-link-001-p-describesofferingdataset-001.ttl",
-      "inputSha256": "9f5a4ae233b2bb16d2df9ca453fb560b994a9270ab20fa4c2c6381c7e592ae2a",
+      "inputSha256": "efcef00ba690d070806dfd17846d564df7df8905c869a6b83604df5d5d1167ea",
       "localImports": [],
       "materializedBundleSha256": "f4c3dfc25d840def48a2c57f19103915465fb7fb0ce5c504be19d644c5e039d1",
       "profile": "dataspace-offering",
       "requirementIds": [
-        "MOLIT-OFFER-LINK-001",
         "MOLIT-OFFER-LINK-001-P-DESCRIBESOFFERINGDATASET-001"
       ]
     },
@@ -2093,12 +2410,11 @@
       "fixtureId": "NEG-MUT-PROFILE-CORE-001-P-CONFORMSTO-001",
       "id": "FULL-NEG-MUT-PROFILE-CORE-001-P-CONFORMSTO-001",
       "input": "examples/invalid/mutation-molit-profile-core-001-p-conformsto-001.ttl",
-      "inputSha256": "cf7562e8861fecf9b5bcccff533b2eb21fb26e121a7bee914f0255ba1d16ee06",
+      "inputSha256": "a6c9ffa694b1ac632eb97d8d42cd315633d5ecbd18f28e2d2ace15be3fc3fd6a",
       "localImports": [],
       "materializedBundleSha256": "95dbce17d9397ffae6d680b9c34a7d014d45e95ade100d3f2847c3c70a43fe3e",
       "profile": "core",
       "requirementIds": [
-        "MOLIT-PROFILE-CORE-001",
         "MOLIT-PROFILE-CORE-001-P-CONFORMSTO-001"
       ]
     },
@@ -2122,17 +2438,16 @@
       "fixtureId": "NEG-MUT-PROFILE-CORE-002-P-CONFORMSTO-001",
       "id": "FULL-NEG-MUT-PROFILE-CORE-002-P-CONFORMSTO-001",
       "input": "examples/invalid/mutation-molit-profile-core-002-p-conformsto-001.ttl",
-      "inputSha256": "59ad0cdf075f14d3954a5dad37eb10a634fc40d419b31e8277b9e599880b556a",
+      "inputSha256": "6f3937c25806d13f86af4c3de6071813bacc0c3007a770ba3e2a6edb72a9eb90",
       "localImports": [],
       "materializedBundleSha256": "95dbce17d9397ffae6d680b9c34a7d014d45e95ade100d3f2847c3c70a43fe3e",
       "profile": "core",
       "requirementIds": [
-        "MOLIT-PROFILE-CORE-002",
         "MOLIT-PROFILE-CORE-002-P-CONFORMSTO-001"
       ]
     },
     {
-      "bundleSha256": "5f4ad2367096cdd95b2db5f0dc8c45c81bc1f80875da5d897d6a3f34ad66583b",
+      "bundleSha256": "c51e36e3f8b644260174e243399e1c2f7bce935a7652a659a7a6db3b1b7ca195",
       "decision": "violates",
       "engines": {
         "jena": {
@@ -2151,17 +2466,16 @@
       "fixtureId": "NEG-MUT-PROFILE-NET-001-P-CONFORMSTO-001",
       "id": "FULL-NEG-MUT-PROFILE-NET-001-P-CONFORMSTO-001",
       "input": "examples/invalid/mutation-molit-profile-net-001-p-conformsto-001.ttl",
-      "inputSha256": "6dafd8360a6c38b0f52fd3bb02d7c25af15949dc3463408b718e006dc45e85f7",
+      "inputSha256": "2db0cf9df8e10ba1b4c884063111b097bfa4b2a0ed3db88ca865690849d6c417",
       "localImports": [],
-      "materializedBundleSha256": "5a307dcf477a5df8e0926708d227b10870e8488c8efe44b0de75f8a2b508d123",
+      "materializedBundleSha256": "1d2391e5179d38eb8b8bbbcba942ed91d513117df703c987c5abaea0b61e9497",
       "profile": "network",
       "requirementIds": [
-        "MOLIT-PROFILE-NET-001",
         "MOLIT-PROFILE-NET-001-P-CONFORMSTO-001"
       ]
     },
     {
-      "bundleSha256": "5f4ad2367096cdd95b2db5f0dc8c45c81bc1f80875da5d897d6a3f34ad66583b",
+      "bundleSha256": "c51e36e3f8b644260174e243399e1c2f7bce935a7652a659a7a6db3b1b7ca195",
       "decision": "violates",
       "engines": {
         "jena": {
@@ -2180,17 +2494,16 @@
       "fixtureId": "NEG-MUT-PROFILE-NET-002-P-CONFORMSTO-001",
       "id": "FULL-NEG-MUT-PROFILE-NET-002-P-CONFORMSTO-001",
       "input": "examples/invalid/mutation-molit-profile-net-002-p-conformsto-001.ttl",
-      "inputSha256": "d648def17ace953dbbbf6e3667e0845dace5e9a77c2b75758c3df32921d64255",
+      "inputSha256": "129f7c12e1f1c78daba5e9f5544ac78ace86a894a4c75587a3f233d324309507",
       "localImports": [],
-      "materializedBundleSha256": "5a307dcf477a5df8e0926708d227b10870e8488c8efe44b0de75f8a2b508d123",
+      "materializedBundleSha256": "1d2391e5179d38eb8b8bbbcba942ed91d513117df703c987c5abaea0b61e9497",
       "profile": "network",
       "requirementIds": [
-        "MOLIT-PROFILE-NET-002",
         "MOLIT-PROFILE-NET-002-P-CONFORMSTO-001"
       ]
     },
     {
-      "bundleSha256": "c490ad741e996f81ae0898e8f3d3bf9b06e58e243b7c58c8318a78183208101a",
+      "bundleSha256": "ec9cca3f6f2e6d610f8c13214edc218f40f26409aed8c8862b1085f6acfdd99c",
       "decision": "violates",
       "engines": {
         "jena": {
@@ -2209,17 +2522,16 @@
       "fixtureId": "NEG-MUT-PROFILE-OBS-001-P-CONFORMSTO-001",
       "id": "FULL-NEG-MUT-PROFILE-OBS-001-P-CONFORMSTO-001",
       "input": "examples/invalid/mutation-molit-profile-obs-001-p-conformsto-001.ttl",
-      "inputSha256": "e2f20aad0ff786bce104df242e8fccbe319dd86b800e2c2ff92f3f691eec2025",
+      "inputSha256": "c5dff292e62206a7d05d47bd37e1fdf5a5cbe002e3112d8564efbcf4154743b9",
       "localImports": [],
       "materializedBundleSha256": "75b8ee98982636f69450b1497f01d15a2834a8d3bf0ca8311ca10d39da550ffe",
       "profile": "observation",
       "requirementIds": [
-        "MOLIT-PROFILE-OBS-001",
         "MOLIT-PROFILE-OBS-001-P-CONFORMSTO-001"
       ]
     },
     {
-      "bundleSha256": "c490ad741e996f81ae0898e8f3d3bf9b06e58e243b7c58c8318a78183208101a",
+      "bundleSha256": "ec9cca3f6f2e6d610f8c13214edc218f40f26409aed8c8862b1085f6acfdd99c",
       "decision": "violates",
       "engines": {
         "jena": {
@@ -2238,12 +2550,11 @@
       "fixtureId": "NEG-MUT-PROFILE-OBS-002-P-CONFORMSTO-001",
       "id": "FULL-NEG-MUT-PROFILE-OBS-002-P-CONFORMSTO-001",
       "input": "examples/invalid/mutation-molit-profile-obs-002-p-conformsto-001.ttl",
-      "inputSha256": "8d3153ffc8efa0e9bd4ad6bd9083dd4705da2a0595f3ec74f5ed0235662bac99",
+      "inputSha256": "87eff0c3eb762b309aea47d2dd1239558ecab592a7759e5574b1791540760877",
       "localImports": [],
       "materializedBundleSha256": "75b8ee98982636f69450b1497f01d15a2834a8d3bf0ca8311ca10d39da550ffe",
       "profile": "observation",
       "requirementIds": [
-        "MOLIT-PROFILE-OBS-002",
         "MOLIT-PROFILE-OBS-002-P-CONFORMSTO-001"
       ]
     },
@@ -2267,12 +2578,11 @@
       "fixtureId": "NEG-MUT-PROFILE-OFFER-001-P-CONFORMSTO-001",
       "id": "FULL-NEG-MUT-PROFILE-OFFER-001-P-CONFORMSTO-001",
       "input": "examples/invalid/mutation-molit-profile-offer-001-p-conformsto-001.ttl",
-      "inputSha256": "097d4d94ef4d7e2002aaca2de3c8683f315797f14f310809cfb4668535d0d946",
+      "inputSha256": "178f1503f213e57d4aa8219ff809a54002f7a9463284ab1422fdb9b06d643cf0",
       "localImports": [],
       "materializedBundleSha256": "f4c3dfc25d840def48a2c57f19103915465fb7fb0ce5c504be19d644c5e039d1",
       "profile": "dataspace-offering",
       "requirementIds": [
-        "MOLIT-PROFILE-OFFER-001",
         "MOLIT-PROFILE-OFFER-001-P-CONFORMSTO-001"
       ]
     },
@@ -2296,17 +2606,16 @@
       "fixtureId": "NEG-MUT-PROFILE-OFFER-002-P-CONFORMSTO-001",
       "id": "FULL-NEG-MUT-PROFILE-OFFER-002-P-CONFORMSTO-001",
       "input": "examples/invalid/mutation-molit-profile-offer-002-p-conformsto-001.ttl",
-      "inputSha256": "801110cbe2aa645aed9a8cff7d225e8dccd3f9754fbd749ba553cd11513a7791",
+      "inputSha256": "21bd78879061c90a3128758bef938f9d680b837a4efe9d2ef2245f0675bbab6c",
       "localImports": [],
       "materializedBundleSha256": "f4c3dfc25d840def48a2c57f19103915465fb7fb0ce5c504be19d644c5e039d1",
       "profile": "dataspace-offering",
       "requirementIds": [
-        "MOLIT-PROFILE-OFFER-002",
         "MOLIT-PROFILE-OFFER-002-P-CONFORMSTO-001"
       ]
     },
     {
-      "bundleSha256": "9d2fbe58f84b7bc661c51406a1fce874a5656060672a8e4fb69e488ee8997425",
+      "bundleSha256": "5bfe46684e39676901bd748db4003188c645356fe0b66cc509ca8c20013eace6",
       "decision": "violates",
       "engines": {
         "jena": {
@@ -2325,17 +2634,16 @@
       "fixtureId": "NEG-MUT-PROFILE-QUAL-001-P-CONFORMSTO-001",
       "id": "FULL-NEG-MUT-PROFILE-QUAL-001-P-CONFORMSTO-001",
       "input": "examples/invalid/mutation-molit-profile-qual-001-p-conformsto-001.ttl",
-      "inputSha256": "704f6fa6c657aa3c0205ceec62b724c31a427391387bcfa81043d3bae8ce829b",
+      "inputSha256": "262e5151d532af369ffb23e3ee39853ca0122bbbc1b496ab2925c6c1012f8797",
       "localImports": [],
-      "materializedBundleSha256": "7d7b50aab1119ab7bb88e842506fbe3216ba8086e705991681eac4a9d4cc300b",
+      "materializedBundleSha256": "e21d86a7b82e9ec44495045300ba552d8a341952522eb3364cac35c5be3063a9",
       "profile": "quality",
       "requirementIds": [
-        "MOLIT-PROFILE-QUAL-001",
         "MOLIT-PROFILE-QUAL-001-P-CONFORMSTO-001"
       ]
     },
     {
-      "bundleSha256": "9d2fbe58f84b7bc661c51406a1fce874a5656060672a8e4fb69e488ee8997425",
+      "bundleSha256": "5bfe46684e39676901bd748db4003188c645356fe0b66cc509ca8c20013eace6",
       "decision": "violates",
       "engines": {
         "jena": {
@@ -2354,12 +2662,11 @@
       "fixtureId": "NEG-MUT-PROFILE-QUAL-002-P-CONFORMSTO-001",
       "id": "FULL-NEG-MUT-PROFILE-QUAL-002-P-CONFORMSTO-001",
       "input": "examples/invalid/mutation-molit-profile-qual-002-p-conformsto-001.ttl",
-      "inputSha256": "cb1ef164dfe84f80f023537b206ae3e1c5e61b942cc52d81bd412e747bd02f83",
+      "inputSha256": "ad987a6f1962325063f62d7554a4e41dbfdc981d486b1d3927a56002b60ac2c9",
       "localImports": [],
-      "materializedBundleSha256": "7d7b50aab1119ab7bb88e842506fbe3216ba8086e705991681eac4a9d4cc300b",
+      "materializedBundleSha256": "e21d86a7b82e9ec44495045300ba552d8a341952522eb3364cac35c5be3063a9",
       "profile": "quality",
       "requirementIds": [
-        "MOLIT-PROFILE-QUAL-002",
         "MOLIT-PROFILE-QUAL-002-P-CONFORMSTO-001"
       ]
     },
@@ -2383,7 +2690,7 @@
       "fixtureId": "NEG-MUT-PROFILE-SELECTION-GEOSPARQL-001",
       "id": "FULL-NEG-MUT-PROFILE-SELECTION-GEOSPARQL-001",
       "input": "examples/invalid/mutation-molit-profile-selection-geosparql-001.ttl",
-      "inputSha256": "ebbbeb5e9e9766021e49efd4d18c8aa90ff584d1b994141e9ebe2ff8e788c7f0",
+      "inputSha256": "de1d69cafae30f26bbbff19bf9d505af6a4441b52a5c3fbc57531aaebdf5c1fe",
       "localImports": [],
       "materializedBundleSha256": "95dbce17d9397ffae6d680b9c34a7d014d45e95ade100d3f2847c3c70a43fe3e",
       "profile": "core",
@@ -2411,7 +2718,7 @@
       "fixtureId": "NEG-MUT-PROFILE-SELECTION-MARKER-001",
       "id": "FULL-NEG-MUT-PROFILE-SELECTION-MARKER-001",
       "input": "examples/invalid/mutation-molit-profile-selection-marker-001.ttl",
-      "inputSha256": "0fef7558af747a8644e883422337ece779c5381f2ca3cd75a7b8a93e26e9e548",
+      "inputSha256": "a41d3066d154822b0acb68dec7a7cabad17ecca5ddc36ff713138350cf4e63ae",
       "localImports": [],
       "materializedBundleSha256": "95dbce17d9397ffae6d680b9c34a7d014d45e95ade100d3f2847c3c70a43fe3e",
       "profile": "core",
@@ -2420,7 +2727,7 @@
       ]
     },
     {
-      "bundleSha256": "9d2fbe58f84b7bc661c51406a1fce874a5656060672a8e4fb69e488ee8997425",
+      "bundleSha256": "5bfe46684e39676901bd748db4003188c645356fe0b66cc509ca8c20013eace6",
       "decision": "violates",
       "engines": {
         "jena": {
@@ -2439,17 +2746,16 @@
       "fixtureId": "NEG-MUT-QUAL-001-P-QUALITYSTATUS-001",
       "id": "FULL-NEG-MUT-QUAL-001-P-QUALITYSTATUS-001",
       "input": "examples/invalid/mutation-molit-qual-001-p-qualitystatus-001.ttl",
-      "inputSha256": "23105dca029d1db4fd0675795b6f88944377568ff3aa4baca0f2eab71c340eb5",
+      "inputSha256": "e7924e0d1494153131c764993620dae184886463d7f0c9e442d9cc799f8082c1",
       "localImports": [],
-      "materializedBundleSha256": "7d7b50aab1119ab7bb88e842506fbe3216ba8086e705991681eac4a9d4cc300b",
+      "materializedBundleSha256": "e21d86a7b82e9ec44495045300ba552d8a341952522eb3364cac35c5be3063a9",
       "profile": "quality",
       "requirementIds": [
-        "MOLIT-QUAL-001",
         "MOLIT-QUAL-001-P-QUALITYSTATUS-001"
       ]
     },
     {
-      "bundleSha256": "9d2fbe58f84b7bc661c51406a1fce874a5656060672a8e4fb69e488ee8997425",
+      "bundleSha256": "5bfe46684e39676901bd748db4003188c645356fe0b66cc509ca8c20013eace6",
       "decision": "violates",
       "engines": {
         "jena": {
@@ -2468,102 +2774,212 @@
       "fixtureId": "NEG-MUT-QUAL-LINK-001-P-PATH-7CC75844D0-001",
       "id": "FULL-NEG-MUT-QUAL-LINK-001-P-PATH-7CC75844D0-001",
       "input": "examples/invalid/mutation-molit-qual-link-001-p-path-7cc75844d0-001.ttl",
-      "inputSha256": "f0bf90ef6ff2a8ea918166bb40cc119fabdaeb10c679b88513bba001ac82176d",
+      "inputSha256": "90db8104d9fb726a6342acd2a9dd3911771ffd059ae30aac960b4f0c3e5c0636",
       "localImports": [],
-      "materializedBundleSha256": "7d7b50aab1119ab7bb88e842506fbe3216ba8086e705991681eac4a9d4cc300b",
+      "materializedBundleSha256": "e21d86a7b82e9ec44495045300ba552d8a341952522eb3364cac35c5be3063a9",
       "profile": "quality",
       "requirementIds": [
-        "MOLIT-QUAL-LINK-001",
         "MOLIT-QUAL-LINK-001-P-PATH-7CC75844D0-001"
       ]
     },
     {
-      "bundleSha256": "9d2fbe58f84b7bc661c51406a1fce874a5656060672a8e4fb69e488ee8997425",
+      "bundleSha256": "5bfe46684e39676901bd748db4003188c645356fe0b66cc509ca8c20013eace6",
       "decision": "violates",
       "engines": {
         "jena": {
           "conforms": false,
-          "resultCount": 2
+          "resultCount": 3
         },
         "node": {
           "conforms": false,
-          "resultCount": 2
+          "resultCount": 3
         },
         "pyshacl": {
           "conforms": false,
-          "resultCount": 2
+          "resultCount": 3
+        }
+      },
+      "fixtureId": "NEG-MUT-QUAL-MAP-001",
+      "id": "FULL-NEG-MUT-QUAL-MAP-001",
+      "input": "examples/invalid/mutation-molit-qual-map-001.ttl",
+      "inputSha256": "acda802dc64ec2ca6c36c59ee3cb3d6b08d909a6638c9c7eaeadf372d4c5dd88",
+      "localImports": [],
+      "materializedBundleSha256": "e21d86a7b82e9ec44495045300ba552d8a341952522eb3364cac35c5be3063a9",
+      "profile": "quality",
+      "requirementIds": [
+        "MOLIT-QUAL-MAP-001"
+      ]
+    },
+    {
+      "bundleSha256": "5bfe46684e39676901bd748db4003188c645356fe0b66cc509ca8c20013eace6",
+      "decision": "violates",
+      "engines": {
+        "jena": {
+          "conforms": false,
+          "resultCount": 4
+        },
+        "node": {
+          "conforms": false,
+          "resultCount": 4
+        },
+        "pyshacl": {
+          "conforms": false,
+          "resultCount": 4
         }
       },
       "fixtureId": "NEG-MUT-QUAL-MAP-001-P-MAPPEDQUALITYMETRIC-001",
       "id": "FULL-NEG-MUT-QUAL-MAP-001-P-MAPPEDQUALITYMETRIC-001",
       "input": "examples/invalid/mutation-molit-qual-map-001-p-mappedqualitymetric-001.ttl",
-      "inputSha256": "a264c0cfc4ef705664a83837ee1e9726528cd66a34241fea6d1a387b4d371284",
+      "inputSha256": "566a9a5adf4900c2757a2eb1a948815e7ddf9498e9e69a53981a5f04f5fb6e19",
       "localImports": [],
-      "materializedBundleSha256": "7d7b50aab1119ab7bb88e842506fbe3216ba8086e705991681eac4a9d4cc300b",
+      "materializedBundleSha256": "e21d86a7b82e9ec44495045300ba552d8a341952522eb3364cac35c5be3063a9",
       "profile": "quality",
       "requirementIds": [
-        "MOLIT-QUAL-MAP-001",
         "MOLIT-QUAL-MAP-001-P-MAPPEDQUALITYMETRIC-001"
       ]
     },
     {
-      "bundleSha256": "9d2fbe58f84b7bc661c51406a1fce874a5656060672a8e4fb69e488ee8997425",
+      "bundleSha256": "5bfe46684e39676901bd748db4003188c645356fe0b66cc509ca8c20013eace6",
       "decision": "violates",
       "engines": {
         "jena": {
           "conforms": false,
-          "resultCount": 2
+          "resultCount": 3
         },
         "node": {
           "conforms": false,
-          "resultCount": 2
+          "resultCount": 3
         },
         "pyshacl": {
           "conforms": false,
-          "resultCount": 2
+          "resultCount": 3
         }
       },
       "fixtureId": "NEG-MUT-QUAL-MAP-001-P-QUALITYLOSSDISPOSITION-001",
       "id": "FULL-NEG-MUT-QUAL-MAP-001-P-QUALITYLOSSDISPOSITION-001",
       "input": "examples/invalid/mutation-molit-qual-map-001-p-qualitylossdisposition-001.ttl",
-      "inputSha256": "59bff82cee34aee802d81b67e92fb363f07658db03cbeff915cef90f7f29a3d5",
+      "inputSha256": "a111fb22fa22d65ac85ba19d483cb845fbec31f2ddb0bb6bfb92da74468e3c9a",
       "localImports": [],
-      "materializedBundleSha256": "7d7b50aab1119ab7bb88e842506fbe3216ba8086e705991681eac4a9d4cc300b",
+      "materializedBundleSha256": "e21d86a7b82e9ec44495045300ba552d8a341952522eb3364cac35c5be3063a9",
       "profile": "quality",
       "requirementIds": [
         "MOLIT-QUAL-MAP-001-P-QUALITYLOSSDISPOSITION-001"
       ]
     },
     {
-      "bundleSha256": "9d2fbe58f84b7bc661c51406a1fce874a5656060672a8e4fb69e488ee8997425",
+      "bundleSha256": "5bfe46684e39676901bd748db4003188c645356fe0b66cc509ca8c20013eace6",
       "decision": "violates",
       "engines": {
         "jena": {
           "conforms": false,
-          "resultCount": 1
+          "resultCount": 3
         },
         "node": {
           "conforms": false,
-          "resultCount": 1
+          "resultCount": 3
         },
         "pyshacl": {
           "conforms": false,
-          "resultCount": 1
+          "resultCount": 3
         }
       },
       "fixtureId": "NEG-MUT-QUAL-MAP-001-P-SOURCEQUALITYELEMENT-001",
       "id": "FULL-NEG-MUT-QUAL-MAP-001-P-SOURCEQUALITYELEMENT-001",
       "input": "examples/invalid/mutation-molit-qual-map-001-p-sourcequalityelement-001.ttl",
-      "inputSha256": "b515dcbea32a6a18367e1a393ac5d06bdb91a7c3c13439ed63c87f1aa9c6c106",
+      "inputSha256": "4c4a86706ae586c49143d30de52502e2e05362a0545d0aeb688118e39c6deccb",
       "localImports": [],
-      "materializedBundleSha256": "7d7b50aab1119ab7bb88e842506fbe3216ba8086e705991681eac4a9d4cc300b",
+      "materializedBundleSha256": "e21d86a7b82e9ec44495045300ba552d8a341952522eb3364cac35c5be3063a9",
       "profile": "quality",
       "requirementIds": [
         "MOLIT-QUAL-MAP-001-P-SOURCEQUALITYELEMENT-001"
       ]
     },
     {
-      "bundleSha256": "9d2fbe58f84b7bc661c51406a1fce874a5656060672a8e4fb69e488ee8997425",
+      "bundleSha256": "5bfe46684e39676901bd748db4003188c645356fe0b66cc509ca8c20013eace6",
+      "decision": "violates",
+      "engines": {
+        "jena": {
+          "conforms": false,
+          "resultCount": 4
+        },
+        "node": {
+          "conforms": false,
+          "resultCount": 4
+        },
+        "pyshacl": {
+          "conforms": false,
+          "resultCount": 4
+        }
+      },
+      "fixtureId": "NEG-MUT-QUAL-MAP-LINK-001-P-DISPOSITION-001",
+      "id": "FULL-NEG-MUT-QUAL-MAP-LINK-001-P-DISPOSITION-001",
+      "input": "examples/invalid/mutation-molit-qual-map-link-001-p-disposition-001.ttl",
+      "inputSha256": "368ae405b79e7daa1fd2db832657057ed3e1aff218ec663d93d8bf9cce49a279",
+      "localImports": [],
+      "materializedBundleSha256": "e21d86a7b82e9ec44495045300ba552d8a341952522eb3364cac35c5be3063a9",
+      "profile": "quality",
+      "requirementIds": [
+        "MOLIT-QUAL-MAP-LINK-001-P-DISPOSITION-001"
+      ]
+    },
+    {
+      "bundleSha256": "5bfe46684e39676901bd748db4003188c645356fe0b66cc509ca8c20013eace6",
+      "decision": "violates",
+      "engines": {
+        "jena": {
+          "conforms": false,
+          "resultCount": 4
+        },
+        "node": {
+          "conforms": false,
+          "resultCount": 4
+        },
+        "pyshacl": {
+          "conforms": false,
+          "resultCount": 4
+        }
+      },
+      "fixtureId": "NEG-MUT-QUAL-MAP-LINK-001-P-METRIC-001",
+      "id": "FULL-NEG-MUT-QUAL-MAP-LINK-001-P-METRIC-001",
+      "input": "examples/invalid/mutation-molit-qual-map-link-001-p-metric-001.ttl",
+      "inputSha256": "368ae405b79e7daa1fd2db832657057ed3e1aff218ec663d93d8bf9cce49a279",
+      "localImports": [],
+      "materializedBundleSha256": "e21d86a7b82e9ec44495045300ba552d8a341952522eb3364cac35c5be3063a9",
+      "profile": "quality",
+      "requirementIds": [
+        "MOLIT-QUAL-MAP-LINK-001-P-METRIC-001"
+      ]
+    },
+    {
+      "bundleSha256": "5bfe46684e39676901bd748db4003188c645356fe0b66cc509ca8c20013eace6",
+      "decision": "violates",
+      "engines": {
+        "jena": {
+          "conforms": false,
+          "resultCount": 3
+        },
+        "node": {
+          "conforms": false,
+          "resultCount": 3
+        },
+        "pyshacl": {
+          "conforms": false,
+          "resultCount": 3
+        }
+      },
+      "fixtureId": "NEG-MUT-QUAL-MEASURE-001",
+      "id": "FULL-NEG-MUT-QUAL-MEASURE-001",
+      "input": "examples/invalid/mutation-molit-qual-measure-001.ttl",
+      "inputSha256": "b0a5f7f9e65d6a38618f874d6926b4240eafbc830655fcb84aa9730b17441c76",
+      "localImports": [],
+      "materializedBundleSha256": "e21d86a7b82e9ec44495045300ba552d8a341952522eb3364cac35c5be3063a9",
+      "profile": "quality",
+      "requirementIds": [
+        "MOLIT-QUAL-MEASURE-001"
+      ]
+    },
+    {
+      "bundleSha256": "5bfe46684e39676901bd748db4003188c645356fe0b66cc509ca8c20013eace6",
       "decision": "violates",
       "engines": {
         "jena": {
@@ -2582,131 +2998,184 @@
       "fixtureId": "NEG-MUT-QUAL-MEASURE-001-P-COMPUTEDON-001",
       "id": "FULL-NEG-MUT-QUAL-MEASURE-001-P-COMPUTEDON-001",
       "input": "examples/invalid/mutation-molit-qual-measure-001-p-computedon-001.ttl",
-      "inputSha256": "b90cff3f948e8bbd104ef9a712e8ef237905f70763592e9755e123275b4db923",
+      "inputSha256": "09668cd637b079dcc78fdaa43dbf9652b9537eb542a70364d22cb38da3ab860a",
       "localImports": [],
-      "materializedBundleSha256": "7d7b50aab1119ab7bb88e842506fbe3216ba8086e705991681eac4a9d4cc300b",
+      "materializedBundleSha256": "e21d86a7b82e9ec44495045300ba552d8a341952522eb3364cac35c5be3063a9",
       "profile": "quality",
       "requirementIds": [
         "MOLIT-QUAL-MEASURE-001-P-COMPUTEDON-001"
       ]
     },
     {
-      "bundleSha256": "9d2fbe58f84b7bc661c51406a1fce874a5656060672a8e4fb69e488ee8997425",
+      "bundleSha256": "5bfe46684e39676901bd748db4003188c645356fe0b66cc509ca8c20013eace6",
       "decision": "violates",
       "engines": {
         "jena": {
           "conforms": false,
-          "resultCount": 2
+          "resultCount": 3
         },
         "node": {
           "conforms": false,
-          "resultCount": 2
+          "resultCount": 3
         },
         "pyshacl": {
           "conforms": false,
-          "resultCount": 2
+          "resultCount": 3
         }
       },
       "fixtureId": "NEG-MUT-QUAL-MEASURE-001-P-ISMEASUREMENTOF-001",
       "id": "FULL-NEG-MUT-QUAL-MEASURE-001-P-ISMEASUREMENTOF-001",
       "input": "examples/invalid/mutation-molit-qual-measure-001-p-ismeasurementof-001.ttl",
-      "inputSha256": "48ad0835b62d5cb19bf99d72115ad4fb773227b81756fe7cbddeeedbbc48f291",
+      "inputSha256": "018ffac29a3e794c2549a011c50b2bf059fae6ee627f39d216915e0a907ed250",
       "localImports": [],
-      "materializedBundleSha256": "7d7b50aab1119ab7bb88e842506fbe3216ba8086e705991681eac4a9d4cc300b",
+      "materializedBundleSha256": "e21d86a7b82e9ec44495045300ba552d8a341952522eb3364cac35c5be3063a9",
       "profile": "quality",
       "requirementIds": [
-        "MOLIT-QUAL-MEASURE-001-P-ISMEASUREMENTOF-001",
-        "MOLIT-QUAL-MEASURE-002"
+        "MOLIT-QUAL-MEASURE-001-P-ISMEASUREMENTOF-001"
       ]
     },
     {
-      "bundleSha256": "9d2fbe58f84b7bc661c51406a1fce874a5656060672a8e4fb69e488ee8997425",
+      "bundleSha256": "5bfe46684e39676901bd748db4003188c645356fe0b66cc509ca8c20013eace6",
       "decision": "violates",
       "engines": {
         "jena": {
           "conforms": false,
-          "resultCount": 2
+          "resultCount": 3
         },
         "node": {
           "conforms": false,
-          "resultCount": 2
+          "resultCount": 3
         },
         "pyshacl": {
           "conforms": false,
-          "resultCount": 2
+          "resultCount": 3
+        }
+      },
+      "fixtureId": "NEG-MUT-QUAL-MEASURE-001-P-QUALITYRESULTCONCEPT-001",
+      "id": "FULL-NEG-MUT-QUAL-MEASURE-001-P-QUALITYRESULTCONCEPT-001",
+      "input": "examples/invalid/mutation-molit-qual-measure-001-p-qualityresultconcept-001.ttl",
+      "inputSha256": "d0fcdac860e42279de636a36e3c40e1909b893011597330f73787c307afcf5fa",
+      "localImports": [],
+      "materializedBundleSha256": "e21d86a7b82e9ec44495045300ba552d8a341952522eb3364cac35c5be3063a9",
+      "profile": "quality",
+      "requirementIds": [
+        "MOLIT-QUAL-MEASURE-001-P-QUALITYRESULTCONCEPT-001"
+      ]
+    },
+    {
+      "bundleSha256": "5bfe46684e39676901bd748db4003188c645356fe0b66cc509ca8c20013eace6",
+      "decision": "violates",
+      "engines": {
+        "jena": {
+          "conforms": false,
+          "resultCount": 4
+        },
+        "node": {
+          "conforms": false,
+          "resultCount": 4
+        },
+        "pyshacl": {
+          "conforms": false,
+          "resultCount": 4
         }
       },
       "fixtureId": "NEG-MUT-QUAL-MEASURE-001-P-UNITMEASURE-001",
       "id": "FULL-NEG-MUT-QUAL-MEASURE-001-P-UNITMEASURE-001",
       "input": "examples/invalid/mutation-molit-qual-measure-001-p-unitmeasure-001.ttl",
-      "inputSha256": "690c738421c178d72dae79a3372cfe70be9dd19ca9fcac72ed94a77d12acfacd",
+      "inputSha256": "e05a7b2662725ddbf8a79f4b2c1930c1d88adf7f41511268df0ba6013e9cab96",
       "localImports": [],
-      "materializedBundleSha256": "7d7b50aab1119ab7bb88e842506fbe3216ba8086e705991681eac4a9d4cc300b",
+      "materializedBundleSha256": "e21d86a7b82e9ec44495045300ba552d8a341952522eb3364cac35c5be3063a9",
       "profile": "quality",
       "requirementIds": [
         "MOLIT-QUAL-MEASURE-001-P-UNITMEASURE-001"
       ]
     },
     {
-      "bundleSha256": "9d2fbe58f84b7bc661c51406a1fce874a5656060672a8e4fb69e488ee8997425",
+      "bundleSha256": "5bfe46684e39676901bd748db4003188c645356fe0b66cc509ca8c20013eace6",
       "decision": "violates",
       "engines": {
         "jena": {
           "conforms": false,
-          "resultCount": 1
+          "resultCount": 2
         },
         "node": {
           "conforms": false,
-          "resultCount": 1
+          "resultCount": 2
         },
         "pyshacl": {
           "conforms": false,
-          "resultCount": 1
+          "resultCount": 2
         }
       },
       "fixtureId": "NEG-MUT-QUAL-MEASURE-001-P-VALUE-001",
       "id": "FULL-NEG-MUT-QUAL-MEASURE-001-P-VALUE-001",
       "input": "examples/invalid/mutation-molit-qual-measure-001-p-value-001.ttl",
-      "inputSha256": "2957344143c8645aa151913571deb4b76a93d6c13d53426589baa83451a31b1a",
+      "inputSha256": "5be994fbaef4d108eef0434441b78ea3f07244f3e8d000ffe995af85b277c937",
       "localImports": [],
-      "materializedBundleSha256": "7d7b50aab1119ab7bb88e842506fbe3216ba8086e705991681eac4a9d4cc300b",
+      "materializedBundleSha256": "e21d86a7b82e9ec44495045300ba552d8a341952522eb3364cac35c5be3063a9",
       "profile": "quality",
       "requirementIds": [
-        "MOLIT-QUAL-MEASURE-001",
         "MOLIT-QUAL-MEASURE-001-P-VALUE-001"
       ]
     },
     {
-      "bundleSha256": "9d2fbe58f84b7bc661c51406a1fce874a5656060672a8e4fb69e488ee8997425",
+      "bundleSha256": "5bfe46684e39676901bd748db4003188c645356fe0b66cc509ca8c20013eace6",
       "decision": "violates",
       "engines": {
         "jena": {
           "conforms": false,
-          "resultCount": 1
+          "resultCount": 3
         },
         "node": {
           "conforms": false,
-          "resultCount": 1
+          "resultCount": 3
         },
         "pyshacl": {
           "conforms": false,
-          "resultCount": 1
+          "resultCount": 3
+        }
+      },
+      "fixtureId": "NEG-MUT-QUAL-MEASURE-002",
+      "id": "FULL-NEG-MUT-QUAL-MEASURE-002",
+      "input": "examples/invalid/mutation-molit-qual-measure-002.ttl",
+      "inputSha256": "b0a5f7f9e65d6a38618f874d6926b4240eafbc830655fcb84aa9730b17441c76",
+      "localImports": [],
+      "materializedBundleSha256": "e21d86a7b82e9ec44495045300ba552d8a341952522eb3364cac35c5be3063a9",
+      "profile": "quality",
+      "requirementIds": [
+        "MOLIT-QUAL-MEASURE-002"
+      ]
+    },
+    {
+      "bundleSha256": "5bfe46684e39676901bd748db4003188c645356fe0b66cc509ca8c20013eace6",
+      "decision": "violates",
+      "engines": {
+        "jena": {
+          "conforms": false,
+          "resultCount": 3
+        },
+        "node": {
+          "conforms": false,
+          "resultCount": 3
+        },
+        "pyshacl": {
+          "conforms": false,
+          "resultCount": 3
         }
       },
       "fixtureId": "NEG-MUT-QUAL-PROV-001-P-QUALITYEVALUATIONMETHOD-001",
       "id": "FULL-NEG-MUT-QUAL-PROV-001-P-QUALITYEVALUATIONMETHOD-001",
       "input": "examples/invalid/mutation-molit-qual-prov-001-p-qualityevaluationmethod-001.ttl",
-      "inputSha256": "adc3bd083ce626fda8ed16d5eb42571fa25eeca6fb457ebc3cd8e14da10b610e",
+      "inputSha256": "c5e18f1d460d05f25eb8adb6311372f99f5737359a95b9f14535715d3591533e",
       "localImports": [],
-      "materializedBundleSha256": "7d7b50aab1119ab7bb88e842506fbe3216ba8086e705991681eac4a9d4cc300b",
+      "materializedBundleSha256": "e21d86a7b82e9ec44495045300ba552d8a341952522eb3364cac35c5be3063a9",
       "profile": "quality",
       "requirementIds": [
-        "MOLIT-QUAL-PROV-001",
         "MOLIT-QUAL-PROV-001-P-QUALITYEVALUATIONMETHOD-001"
       ]
     },
     {
-      "bundleSha256": "9d2fbe58f84b7bc661c51406a1fce874a5656060672a8e4fb69e488ee8997425",
+      "bundleSha256": "5bfe46684e39676901bd748db4003188c645356fe0b66cc509ca8c20013eace6",
       "decision": "violates",
       "engines": {
         "jena": {
@@ -2725,68 +3194,96 @@
       "fixtureId": "NEG-MUT-QUAL-PROV-001-P-QUALITYEVALUATIONSCOPE-001",
       "id": "FULL-NEG-MUT-QUAL-PROV-001-P-QUALITYEVALUATIONSCOPE-001",
       "input": "examples/invalid/mutation-molit-qual-prov-001-p-qualityevaluationscope-001.ttl",
-      "inputSha256": "5edc4ac697f1fde9ff001c922644d3f40d6c1bd1a94e737720b2592b96f5859a",
+      "inputSha256": "3c986395c0dfde5d1e8bcdfc8bf9e00eb8633bbdda95d389bc1d7f6ff7cb2edf",
       "localImports": [],
-      "materializedBundleSha256": "7d7b50aab1119ab7bb88e842506fbe3216ba8086e705991681eac4a9d4cc300b",
+      "materializedBundleSha256": "e21d86a7b82e9ec44495045300ba552d8a341952522eb3364cac35c5be3063a9",
       "profile": "quality",
       "requirementIds": [
         "MOLIT-QUAL-PROV-001-P-QUALITYEVALUATIONSCOPE-001"
       ]
     },
     {
-      "bundleSha256": "9d2fbe58f84b7bc661c51406a1fce874a5656060672a8e4fb69e488ee8997425",
+      "bundleSha256": "5bfe46684e39676901bd748db4003188c645356fe0b66cc509ca8c20013eace6",
       "decision": "violates",
       "engines": {
         "jena": {
           "conforms": false,
-          "resultCount": 1
+          "resultCount": 2
         },
         "node": {
           "conforms": false,
-          "resultCount": 1
+          "resultCount": 2
         },
         "pyshacl": {
           "conforms": false,
-          "resultCount": 1
+          "resultCount": 2
         }
       },
       "fixtureId": "NEG-MUT-QUAL-PROV-001-P-QUALITYMAPPINGSTATEMENT-001",
       "id": "FULL-NEG-MUT-QUAL-PROV-001-P-QUALITYMAPPINGSTATEMENT-001",
       "input": "examples/invalid/mutation-molit-qual-prov-001-p-qualitymappingstatement-001.ttl",
-      "inputSha256": "c816037501bb83c31f7dc087f5cef2ed4987550de30e34470b4850c97604c350",
+      "inputSha256": "3e158f203fab841faba6f6d7463c5cd91fcc3ba8395168634855eedb09db1dab",
       "localImports": [],
-      "materializedBundleSha256": "7d7b50aab1119ab7bb88e842506fbe3216ba8086e705991681eac4a9d4cc300b",
+      "materializedBundleSha256": "e21d86a7b82e9ec44495045300ba552d8a341952522eb3364cac35c5be3063a9",
       "profile": "quality",
       "requirementIds": [
         "MOLIT-QUAL-PROV-001-P-QUALITYMAPPINGSTATEMENT-001"
       ]
     },
     {
-      "bundleSha256": "9d2fbe58f84b7bc661c51406a1fce874a5656060672a8e4fb69e488ee8997425",
+      "bundleSha256": "5bfe46684e39676901bd748db4003188c645356fe0b66cc509ca8c20013eace6",
       "decision": "violates",
       "engines": {
         "jena": {
           "conforms": false,
-          "resultCount": 1
+          "resultCount": 3
         },
         "node": {
           "conforms": false,
-          "resultCount": 1
+          "resultCount": 3
         },
         "pyshacl": {
           "conforms": false,
-          "resultCount": 1
+          "resultCount": 3
         }
       },
       "fixtureId": "NEG-MUT-QUAL-PROV-001-P-QUALITYRESULTKIND-001",
       "id": "FULL-NEG-MUT-QUAL-PROV-001-P-QUALITYRESULTKIND-001",
       "input": "examples/invalid/mutation-molit-qual-prov-001-p-qualityresultkind-001.ttl",
-      "inputSha256": "078d19934fa3318dcf827a2819eb9996130e1571a0c72c024aa81831b55a9901",
+      "inputSha256": "b83900aab3d44833fd6603e1db2c62b773743e38607699cc265f129d7284f334",
       "localImports": [],
-      "materializedBundleSha256": "7d7b50aab1119ab7bb88e842506fbe3216ba8086e705991681eac4a9d4cc300b",
+      "materializedBundleSha256": "e21d86a7b82e9ec44495045300ba552d8a341952522eb3364cac35c5be3063a9",
       "profile": "quality",
       "requirementIds": [
         "MOLIT-QUAL-PROV-001-P-QUALITYRESULTKIND-001"
+      ]
+    },
+    {
+      "bundleSha256": "5bfe46684e39676901bd748db4003188c645356fe0b66cc509ca8c20013eace6",
+      "decision": "violates",
+      "engines": {
+        "jena": {
+          "conforms": false,
+          "resultCount": 3
+        },
+        "node": {
+          "conforms": false,
+          "resultCount": 3
+        },
+        "pyshacl": {
+          "conforms": false,
+          "resultCount": 3
+        }
+      },
+      "fixtureId": "NEG-MUT-QUAL-STATUS-001",
+      "id": "FULL-NEG-MUT-QUAL-STATUS-001",
+      "input": "examples/invalid/mutation-molit-qual-status-001.ttl",
+      "inputSha256": "907e5bbc3ecf2824c80878135e4f3a30dcf91126cd4410cb7d16670804286508",
+      "localImports": [],
+      "materializedBundleSha256": "e21d86a7b82e9ec44495045300ba552d8a341952522eb3364cac35c5be3063a9",
+      "profile": "quality",
+      "requirementIds": [
+        "MOLIT-QUAL-STATUS-001"
       ]
     },
     {
@@ -2809,12 +3306,11 @@
       "fixtureId": "NEG-MUT-REC-001-P-LANGUAGE-001",
       "id": "FULL-NEG-MUT-REC-001-P-LANGUAGE-001",
       "input": "examples/invalid/mutation-molit-rec-001-p-language-001.ttl",
-      "inputSha256": "990489eb39abc0b2a3dd1e2bf6d46c42cd2b2739135ea46900539c32b65303d2",
+      "inputSha256": "e64f00f1e9d33d7a5f14716dd808369a172532f7785ad1110a225981b4dfefd7",
       "localImports": [],
       "materializedBundleSha256": "95dbce17d9397ffae6d680b9c34a7d014d45e95ade100d3f2847c3c70a43fe3e",
       "profile": "core",
       "requirementIds": [
-        "MOLIT-REC-001",
         "MOLIT-REC-001-P-LANGUAGE-001"
       ]
     },
@@ -2838,7 +3334,7 @@
       "fixtureId": "NEG-MUT-REC-001-P-MODIFIED-001",
       "id": "FULL-NEG-MUT-REC-001-P-MODIFIED-001",
       "input": "examples/invalid/mutation-molit-rec-001-p-modified-001.ttl",
-      "inputSha256": "f393c3a4e13896d3a6f92f2d8a784184c1a5feec358e080cef430fb0bfccf3e0",
+      "inputSha256": "9230214bd7d8f8ebede5a1328ba623e08ea62afbfa19f415ed091947c4430fb7",
       "localImports": [],
       "materializedBundleSha256": "95dbce17d9397ffae6d680b9c34a7d014d45e95ade100d3f2847c3c70a43fe3e",
       "profile": "core",
@@ -2866,7 +3362,7 @@
       "fixtureId": "NEG-MUT-REC-001-P-PRIMARYTOPIC-001",
       "id": "FULL-NEG-MUT-REC-001-P-PRIMARYTOPIC-001",
       "input": "examples/invalid/mutation-molit-rec-001-p-primarytopic-001.ttl",
-      "inputSha256": "4be230e7d37641f5764d18fac1b861e48153ac36bd9a5aece5782db18c76765a",
+      "inputSha256": "a2e7a1f28675924c700865f9f7e49adbfea9b83c306450e5375a446f1c540ded",
       "localImports": [],
       "materializedBundleSha256": "95dbce17d9397ffae6d680b9c34a7d014d45e95ade100d3f2847c3c70a43fe3e",
       "profile": "core",
@@ -2894,7 +3390,7 @@
       "fixtureId": "NEG-MUT-REC-001-P-TITLE-001",
       "id": "FULL-NEG-MUT-REC-001-P-TITLE-001",
       "input": "examples/invalid/mutation-molit-rec-001-p-title-001.ttl",
-      "inputSha256": "8db141c9743c6d7e4e3e89e0ed96f20df11bf3f8b3b46431297232da02e3e6dc",
+      "inputSha256": "889b8fc7a1a978adbf70e7b8b10ee68e1e75c9c76aa3743bd29264e83bdcdf3e",
       "localImports": [],
       "materializedBundleSha256": "95dbce17d9397ffae6d680b9c34a7d014d45e95ade100d3f2847c3c70a43fe3e",
       "profile": "core",
@@ -2903,7 +3399,7 @@
       ]
     },
     {
-      "bundleSha256": "e75aaa5881e1487050c63ba17d7a8b3cc6f1d2ebe2ddb060caa9aa7b2d8fa20d",
+      "bundleSha256": "c4c36a4ce9d18346fe686c032207dd7c28af56fb22715b980d70cab0dda46957",
       "decision": "violates",
       "engines": {
         "jena": {
@@ -2922,7 +3418,7 @@
       "fixtureId": "NEG-MUT-REC-DIST-001-P-CHECKSUM-001",
       "id": "FULL-NEG-MUT-REC-DIST-001-P-CHECKSUM-001",
       "input": "examples/invalid/mutation-molit-rec-dist-001-p-checksum-001.ttl",
-      "inputSha256": "96ff50375a3f12e5b8395720699f1babe776b28713066d7c0508cda1d8cd2ee3",
+      "inputSha256": "aa950e519c96040d8c40a9e14dc193651da255c0032bec108e2bd1fb8e937bfe",
       "localImports": [
         {
           "iri": "https://github.com/SEMICeu/ADMS-AP/raw/master/purl.org/ADMS_SKOS_v1.00.rdf",
@@ -2930,34 +3426,33 @@
           "sha256": "5e40be073f4d5343dff428ebfe41ef07a03c884699a9043e4a595e54e3deb889"
         }
       ],
-      "materializedBundleSha256": "ee0451cd653d1cb8e15856e4fcf812c373cb5d0205a1397515c73ef58f3588e9",
+      "materializedBundleSha256": "22e7353818569c86208092f3c5eba09ddb5dc973ea7fb896ce536f79b64beb34",
       "profile": "publication-policy",
       "requirementIds": [
-        "MOLIT-REC-DIST-001",
         "MOLIT-REC-DIST-001-P-CHECKSUM-001"
       ]
     },
     {
-      "bundleSha256": "e75aaa5881e1487050c63ba17d7a8b3cc6f1d2ebe2ddb060caa9aa7b2d8fa20d",
+      "bundleSha256": "c4c36a4ce9d18346fe686c032207dd7c28af56fb22715b980d70cab0dda46957",
       "decision": "violates",
       "engines": {
         "jena": {
           "conforms": false,
-          "resultCount": 2
+          "resultCount": 1
         },
         "node": {
           "conforms": false,
-          "resultCount": 2
+          "resultCount": 1
         },
         "pyshacl": {
           "conforms": false,
-          "resultCount": 2
+          "resultCount": 1
         }
       },
       "fixtureId": "NEG-MUT-REC-DS-001-P-CONTACTPOINT-001",
       "id": "FULL-NEG-MUT-REC-DS-001-P-CONTACTPOINT-001",
       "input": "examples/invalid/mutation-molit-rec-ds-001-p-contactpoint-001.ttl",
-      "inputSha256": "17297a95c07dfa2605948f067330c43b97051d734b29b57f64bf3c5f81c6e08d",
+      "inputSha256": "6b805a8c7d17d48005139a3d348db31413b454b2378340ea30acd9faa29bfa15",
       "localImports": [
         {
           "iri": "https://github.com/SEMICeu/ADMS-AP/raw/master/purl.org/ADMS_SKOS_v1.00.rdf",
@@ -2965,15 +3460,14 @@
           "sha256": "5e40be073f4d5343dff428ebfe41ef07a03c884699a9043e4a595e54e3deb889"
         }
       ],
-      "materializedBundleSha256": "ee0451cd653d1cb8e15856e4fcf812c373cb5d0205a1397515c73ef58f3588e9",
+      "materializedBundleSha256": "22e7353818569c86208092f3c5eba09ddb5dc973ea7fb896ce536f79b64beb34",
       "profile": "publication-policy",
       "requirementIds": [
-        "MOLIT-REC-DS-001",
         "MOLIT-REC-DS-001-P-CONTACTPOINT-001"
       ]
     },
     {
-      "bundleSha256": "e75aaa5881e1487050c63ba17d7a8b3cc6f1d2ebe2ddb060caa9aa7b2d8fa20d",
+      "bundleSha256": "c4c36a4ce9d18346fe686c032207dd7c28af56fb22715b980d70cab0dda46957",
       "decision": "violates",
       "engines": {
         "jena": {
@@ -2992,7 +3486,7 @@
       "fixtureId": "NEG-MUT-REC-DS-001-P-PROVENANCE-001",
       "id": "FULL-NEG-MUT-REC-DS-001-P-PROVENANCE-001",
       "input": "examples/invalid/mutation-molit-rec-ds-001-p-provenance-001.ttl",
-      "inputSha256": "6ea2bf9e536ea6dec29bb13b21efec169fd4eae8e1c0d83613e80801b71246bb",
+      "inputSha256": "b2ecbaca5fb2adc653ca3d6c999e4096632ec1187ecb1b6074975ee70481a1fd",
       "localImports": [
         {
           "iri": "https://github.com/SEMICeu/ADMS-AP/raw/master/purl.org/ADMS_SKOS_v1.00.rdf",
@@ -3000,14 +3494,14 @@
           "sha256": "5e40be073f4d5343dff428ebfe41ef07a03c884699a9043e4a595e54e3deb889"
         }
       ],
-      "materializedBundleSha256": "ee0451cd653d1cb8e15856e4fcf812c373cb5d0205a1397515c73ef58f3588e9",
+      "materializedBundleSha256": "22e7353818569c86208092f3c5eba09ddb5dc973ea7fb896ce536f79b64beb34",
       "profile": "publication-policy",
       "requirementIds": [
         "MOLIT-REC-DS-001-P-PROVENANCE-001"
       ]
     },
     {
-      "bundleSha256": "e75aaa5881e1487050c63ba17d7a8b3cc6f1d2ebe2ddb060caa9aa7b2d8fa20d",
+      "bundleSha256": "c4c36a4ce9d18346fe686c032207dd7c28af56fb22715b980d70cab0dda46957",
       "decision": "violates",
       "engines": {
         "jena": {
@@ -3026,7 +3520,7 @@
       "fixtureId": "NEG-MUT-REC-QUAL-001-P-QUALIFICATIONEVIDENCE-001",
       "id": "FULL-NEG-MUT-REC-QUAL-001-P-QUALIFICATIONEVIDENCE-001",
       "input": "examples/invalid/mutation-molit-rec-qual-001-p-qualificationevidence-001.ttl",
-      "inputSha256": "a0ddb6259e993b6ceaa9cac6ac72b052ad5fd48e03a6c8b2c8d733bd8bed9fde",
+      "inputSha256": "0d8ad20b757ebddaab48fa43f78db90edab8e8404d9c06ca1c49f9fb295d9033",
       "localImports": [
         {
           "iri": "https://github.com/SEMICeu/ADMS-AP/raw/master/purl.org/ADMS_SKOS_v1.00.rdf",
@@ -3034,10 +3528,9 @@
           "sha256": "5e40be073f4d5343dff428ebfe41ef07a03c884699a9043e4a595e54e3deb889"
         }
       ],
-      "materializedBundleSha256": "ee0451cd653d1cb8e15856e4fcf812c373cb5d0205a1397515c73ef58f3588e9",
+      "materializedBundleSha256": "22e7353818569c86208092f3c5eba09ddb5dc973ea7fb896ce536f79b64beb34",
       "profile": "publication-policy",
       "requirementIds": [
-        "MOLIT-REC-QUAL-001",
         "MOLIT-REC-QUAL-001-P-QUALIFICATIONEVIDENCE-001"
       ]
     },
@@ -3061,12 +3554,11 @@
       "fixtureId": "NEG-MUT-SVC-001-P-ENDPOINTURL-001",
       "id": "FULL-NEG-MUT-SVC-001-P-ENDPOINTURL-001",
       "input": "examples/invalid/mutation-molit-svc-001-p-endpointurl-001.ttl",
-      "inputSha256": "771ade00b4ad2ed80f07d440bd565ab6265a5dfe1d8c3d0442dfbdc5f9659184",
+      "inputSha256": "2d64fd9dd72cc4e8339efc0c3c1faeefee8fbebd2a9a0a243c66d62d5ed271b7",
       "localImports": [],
       "materializedBundleSha256": "95dbce17d9397ffae6d680b9c34a7d014d45e95ade100d3f2847c3c70a43fe3e",
       "profile": "core",
       "requirementIds": [
-        "MOLIT-SVC-001",
         "MOLIT-SVC-001-P-ENDPOINTURL-001"
       ]
     },
@@ -3090,7 +3582,7 @@
       "fixtureId": "NEG-MUT-SVC-001-P-SERVESDATASET-001",
       "id": "FULL-NEG-MUT-SVC-001-P-SERVESDATASET-001",
       "input": "examples/invalid/mutation-molit-svc-001-p-servesdataset-001.ttl",
-      "inputSha256": "36d1318f474424be9715b965c077060410d4c4b37a7e4d2bb9deb8bf65bae13b",
+      "inputSha256": "61fd76c381296754c28449f1ce46cc8ab4a378c7d1be90e37c9588ef804134ed",
       "localImports": [],
       "materializedBundleSha256": "95dbce17d9397ffae6d680b9c34a7d014d45e95ade100d3f2847c3c70a43fe3e",
       "profile": "core",
@@ -3118,7 +3610,7 @@
       "fixtureId": "NEG-MUT-SVC-001-P-THEME-001",
       "id": "FULL-NEG-MUT-SVC-001-P-THEME-001",
       "input": "examples/invalid/mutation-molit-svc-001-p-theme-001.ttl",
-      "inputSha256": "f49cdaa8219264aa79e7b4fdb1d72d864bec4d5ab425723d2ebad0a180d270a0",
+      "inputSha256": "99a637d7dbf2fb4b3476f8b62dc2064c0a07c67b00a2e0f5cb7564c89c5a0a36",
       "localImports": [],
       "materializedBundleSha256": "95dbce17d9397ffae6d680b9c34a7d014d45e95ade100d3f2847c3c70a43fe3e",
       "profile": "core",
@@ -3146,7 +3638,7 @@
       "fixtureId": "NEG-MUT-SVC-001-P-TITLE-001",
       "id": "FULL-NEG-MUT-SVC-001-P-TITLE-001",
       "input": "examples/invalid/mutation-molit-svc-001-p-title-001.ttl",
-      "inputSha256": "39113a935e2a828da242137c11fcad583d0e407083ef977a9bb1c5676aa55370",
+      "inputSha256": "b107e3037813d21f91bc85d010d4904af3710ad6933ae20249ddab50cb77e243",
       "localImports": [],
       "materializedBundleSha256": "95dbce17d9397ffae6d680b9c34a7d014d45e95ade100d3f2847c3c70a43fe3e",
       "profile": "core",
@@ -3174,28 +3666,23 @@
       "fixtureId": "POS-CORE-CORE-CATALOG",
       "id": "FULL-POS-CORE-CORE-CATALOG",
       "input": "examples/valid/core-catalog.ttl",
-      "inputSha256": "197d7253020458210f6446bada33c64e1108f09fb69bad28f583b9b253abcc99",
+      "inputSha256": "890359af8412318e1aac11055207e850b571f38e47205aa868c423b40bef1e0f",
       "localImports": [],
       "materializedBundleSha256": "95dbce17d9397ffae6d680b9c34a7d014d45e95ade100d3f2847c3c70a43fe3e",
       "profile": "core",
       "requirementIds": [
-        "MOLIT-AGENT-001",
         "MOLIT-AGENT-001-P-NAME-001",
-        "MOLIT-CAT-001",
         "MOLIT-CAT-001-P-DATASET-001",
         "MOLIT-CAT-001-P-DESCRIPTION-001",
         "MOLIT-CAT-001-P-LANGUAGE-001",
         "MOLIT-CAT-001-P-PUBLISHER-001",
         "MOLIT-CAT-001-P-RECORD-001",
         "MOLIT-CAT-001-P-TITLE-001",
-        "MOLIT-CAT-REL-001",
         "MOLIT-CAT-REL-001-P-PATH-DA00F2B2F6-001",
-        "MOLIT-CV-MEDIATYPE-001",
         "MOLIT-CV-MEDIATYPE-001-P-COMPRESSFORMAT-001",
         "MOLIT-CV-MEDIATYPE-001-P-MEDIATYPE-001",
         "MOLIT-CV-MEDIATYPE-001-P-PACKAGEFORMAT-001",
         "MOLIT-CV-MEDIATYPE-001-P-TYPE-001",
-        "MOLIT-DS-001",
         "MOLIT-DS-001-P-ACCESSRIGHTS-001",
         "MOLIT-DS-001-P-DESCRIPTION-001",
         "MOLIT-DS-001-P-IDENTIFIER-001",
@@ -3207,13 +3694,10 @@
         "MOLIT-DS-001-P-THEME-001",
         "MOLIT-DS-001-P-THEME-002",
         "MOLIT-DS-001-P-TITLE-001",
-        "MOLIT-PROFILE-CORE-001",
         "MOLIT-PROFILE-CORE-001-P-CONFORMSTO-001",
-        "MOLIT-PROFILE-CORE-002",
         "MOLIT-PROFILE-CORE-002-P-CONFORMSTO-001",
         "MOLIT-PROFILE-SELECTION-GEOSPARQL-001",
         "MOLIT-PROFILE-SELECTION-MARKER-001",
-        "MOLIT-REC-001",
         "MOLIT-REC-001-P-LANGUAGE-001",
         "MOLIT-REC-001-P-MODIFIED-001",
         "MOLIT-REC-001-P-PRIMARYTOPIC-001",
@@ -3240,12 +3724,11 @@
       "fixtureId": "POS-CORE-SECTOR-AND-SERVICE-CATALOG",
       "id": "FULL-POS-CORE-SECTOR-AND-SERVICE-CATALOG",
       "input": "examples/valid/sector-and-service-catalog.ttl",
-      "inputSha256": "e5850fe33cd08e0a6920070f21dfada8f128dfc74253c7683dba54e326244ea3",
+      "inputSha256": "22ddc5f7463a4e364897c0781ee1b226507a97db09a78c4cf897e52bb860019e",
       "localImports": [],
       "materializedBundleSha256": "95dbce17d9397ffae6d680b9c34a7d014d45e95ade100d3f2847c3c70a43fe3e",
       "profile": "core",
       "requirementIds": [
-        "MOLIT-SVC-001",
         "MOLIT-SVC-001-P-ENDPOINTURL-001",
         "MOLIT-SVC-001-P-SERVESDATASET-001",
         "MOLIT-SVC-001-P-THEME-001",
@@ -3272,27 +3755,23 @@
       "fixtureId": "POS-DATASPACE-OFFERING-DATASPACE-OFFERING-CATALOG",
       "id": "FULL-POS-DATASPACE-OFFERING-DATASPACE-OFFERING-CATALOG",
       "input": "examples/valid/dataspace-offering-catalog.ttl",
-      "inputSha256": "80934db1f3d5cd44f7b1bd2d56d1da042d8c09cdfde067c8f7baea630670b823",
+      "inputSha256": "0399d5322b532b9f86ff8ea84fe5fc5bb2ee02c42704735e840372a19e1ddaa9",
       "localImports": [],
       "materializedBundleSha256": "f4c3dfc25d840def48a2c57f19103915465fb7fb0ce5c504be19d644c5e039d1",
       "profile": "dataspace-offering",
       "requirementIds": [
-        "MOLIT-OFFER-001",
         "MOLIT-OFFER-001-P-DESCRIBESOFFERINGDATASET-001",
         "MOLIT-OFFER-001-P-IDENTIFIER-001",
         "MOLIT-OFFER-001-P-MODIFIED-001",
         "MOLIT-OFFER-001-P-OFFERINGREADINESSSTATUS-001",
         "MOLIT-OFFER-001-P-TITLE-001",
-        "MOLIT-OFFER-LINK-001",
         "MOLIT-OFFER-LINK-001-P-DESCRIBESOFFERINGDATASET-001",
-        "MOLIT-PROFILE-OFFER-001",
         "MOLIT-PROFILE-OFFER-001-P-CONFORMSTO-001",
-        "MOLIT-PROFILE-OFFER-002",
         "MOLIT-PROFILE-OFFER-002-P-CONFORMSTO-001"
       ]
     },
     {
-      "bundleSha256": "3934aac6dfd2a5b8c53143158298b334999feac36c16ab02f28ef66efaa4ce1c",
+      "bundleSha256": "0e4df46b14ca8298b8ccc5f953cb9b364ef885419a1aafceee6160b63a76a65f",
       "decision": "conforms",
       "engines": {
         "jena": {
@@ -3311,12 +3790,11 @@
       "fixtureId": "POS-GEO-GEO-CATALOG",
       "id": "FULL-POS-GEO-GEO-CATALOG",
       "input": "examples/valid/geo-catalog.ttl",
-      "inputSha256": "000b345cbac66df16cb5be7995d45e6f89b99a1253d3ade1ca9f599d71950829",
+      "inputSha256": "2b02602b101a10039d87310e2684cf2ae6ff5fa2a08966e70b4045c8719a25b3",
       "localImports": [],
-      "materializedBundleSha256": "0ede55078a0d6439b7dc23ff146a01f6b3a8eacf2b953c1eecd88d2ea93fa122",
+      "materializedBundleSha256": "e2f6e7bd9a2e67e008b8e7d8ca5cb62f2fb1021c63c456e9e3165e40aa656e87",
       "profile": "geo",
       "requirementIds": [
-        "MOLIT-CV-CHECKSUM-001",
         "MOLIT-CV-CHECKSUM-001-P-ALGORITHM-001",
         "MOLIT-CV-CHECKSUM-002",
         "MOLIT-GEO-001",
@@ -3325,23 +3803,19 @@
         "MOLIT-GEO-001-P-SPATIALRESOLUTIONINMETERS-001",
         "MOLIT-GEO-001-P-TYPE-001",
         "MOLIT-GEO-DISCLOSURE-001",
+        "MOLIT-GEO-DISCLOSURE-001-P-SPATIALDISCLOSURELEVEL-001",
         "MOLIT-GEO-DISCLOSURE-002",
         "MOLIT-GEO-ENCODING-001",
         "MOLIT-GEO-ENCODING-002",
         "MOLIT-GEO-ENCODING-003",
         "MOLIT-GEO-ENCODING-004",
-        "MOLIT-GEO-ENCODING-005",
         "MOLIT-GEO-ENCODING-005-P-ASDGGS-001",
         "MOLIT-GEO-ENCODING-005-P-ASGEOJSON-001",
         "MOLIT-GEO-ENCODING-005-P-ASKML-001",
         "MOLIT-GEO-ENCODING-005-P-HASSERIALIZATION-001",
-        "MOLIT-GEO-LINK-001",
         "MOLIT-GEO-LINK-001-P-PATH-BFC98936CC-001",
-        "MOLIT-GEO-LINK-002",
         "MOLIT-GEO-LINK-002-P-PATH-D6567CFAEC-001",
-        "MOLIT-GEO-PROFILE-001",
         "MOLIT-GEO-PROFILE-001-P-CONFORMSTO-001",
-        "MOLIT-GEO-PROFILE-002",
         "MOLIT-GEO-PROFILE-002-P-CONFORMSTO-001",
         "MOLIT-GEO-TYPE-001",
         "MOLIT-GEO-TYPE-002",
@@ -3350,7 +3824,7 @@
       ]
     },
     {
-      "bundleSha256": "5f4ad2367096cdd95b2db5f0dc8c45c81bc1f80875da5d897d6a3f34ad66583b",
+      "bundleSha256": "c51e36e3f8b644260174e243399e1c2f7bce935a7652a659a7a6db3b1b7ca195",
       "decision": "conforms",
       "engines": {
         "jena": {
@@ -3369,39 +3843,36 @@
       "fixtureId": "POS-NETWORK-NETWORK-CATALOG",
       "id": "FULL-POS-NETWORK-NETWORK-CATALOG",
       "input": "examples/valid/network-catalog.ttl",
-      "inputSha256": "eae0d3b7cc6c4486a75b428a8dafd5ac7590129a4191be4df0a0060ab52ce83c",
+      "inputSha256": "d7299314ef1084563c92bb496ec4a51efafcc75df76a1973f7dc73617bffd028",
       "localImports": [],
-      "materializedBundleSha256": "5a307dcf477a5df8e0926708d227b10870e8488c8efe44b0de75f8a2b508d123",
+      "materializedBundleSha256": "1d2391e5179d38eb8b8bbbcba942ed91d513117df703c987c5abaea0b61e9497",
       "profile": "network",
       "requirementIds": [
-        "MOLIT-NET-001",
         "MOLIT-NET-001-P-NETWORKREFERENCE-001",
         "MOLIT-NET-001-P-TRANSPORTMODE-001",
         "MOLIT-NET-001-P-TYPE-001",
-        "MOLIT-NET-002",
         "MOLIT-NET-002-P-TYPE-001",
-        "MOLIT-NET-REF-001",
         "MOLIT-NET-REF-001-P-NETWORKAUTHORITY-001",
         "MOLIT-NET-REF-001-P-NETWORKELEMENTTYPE-001",
         "MOLIT-NET-REF-001-P-NETWORKIDENTIFIER-001",
         "MOLIT-NET-REF-001-P-NETWORKVERSION-001",
-        "MOLIT-NET-SNAPSHOT-001",
+        "MOLIT-NET-REF-IRI-001",
+        "MOLIT-NET-REPLACEMENT-001",
+        "MOLIT-NET-SAMEAS-001-P-INCOMING-001",
+        "MOLIT-NET-SAMEAS-001-P-OUTGOING-001",
         "MOLIT-NET-SNAPSHOT-001-P-NETWORKIDENTIFIER-001",
         "MOLIT-NET-SNAPSHOT-001-P-NETWORKLIFECYCLESTATUS-001",
         "MOLIT-NET-SNAPSHOT-001-P-NETWORKSNAPSHOTCHECKSUM-001",
         "MOLIT-NET-SNAPSHOT-001-P-NETWORKVALIDFROM-001",
         "MOLIT-NET-SNAPSHOT-001-P-NETWORKVALIDUNTIL-001",
         "MOLIT-NET-SNAPSHOT-001-P-NETWORKVERSION-001",
-        "MOLIT-NET-VALIDITY-001",
         "MOLIT-NET-VALIDITY-001-P-NETWORKVALIDFROM-001",
-        "MOLIT-PROFILE-NET-001",
         "MOLIT-PROFILE-NET-001-P-CONFORMSTO-001",
-        "MOLIT-PROFILE-NET-002",
         "MOLIT-PROFILE-NET-002-P-CONFORMSTO-001"
       ]
     },
     {
-      "bundleSha256": "c490ad741e996f81ae0898e8f3d3bf9b06e58e243b7c58c8318a78183208101a",
+      "bundleSha256": "ec9cca3f6f2e6d610f8c13214edc218f40f26409aed8c8862b1085f6acfdd99c",
       "decision": "conforms",
       "engines": {
         "jena": {
@@ -3420,12 +3891,11 @@
       "fixtureId": "POS-OBSERVATION-OBSERVATION-CATALOG",
       "id": "FULL-POS-OBSERVATION-OBSERVATION-CATALOG",
       "input": "examples/valid/observation-catalog.ttl",
-      "inputSha256": "397259b51ac85a2e2898625e0de5a8bb949e5f4dbdd9976afdf2a6593120f4f0",
+      "inputSha256": "627f69f6d55b71559c10e03a6575260ff8ed41073fda74cb586244351774c481",
       "localImports": [],
       "materializedBundleSha256": "75b8ee98982636f69450b1497f01d15a2834a8d3bf0ca8311ca10d39da550ffe",
       "profile": "observation",
       "requirementIds": [
-        "MOLIT-OBS-001",
         "MOLIT-OBS-001-P-AGGREGATIONPERIOD-001",
         "MOLIT-OBS-001-P-MISSINGVALUEPOLICY-001",
         "MOLIT-OBS-001-P-OBSERVATIONAGGREGATION-001",
@@ -3436,14 +3906,12 @@
         "MOLIT-OBS-001-P-TEMPORALRESOLUTION-001",
         "MOLIT-OBS-001-P-TYPE-001",
         "MOLIT-OBS-UNIT-001",
-        "MOLIT-PROFILE-OBS-001",
         "MOLIT-PROFILE-OBS-001-P-CONFORMSTO-001",
-        "MOLIT-PROFILE-OBS-002",
         "MOLIT-PROFILE-OBS-002-P-CONFORMSTO-001"
       ]
     },
     {
-      "bundleSha256": "e75aaa5881e1487050c63ba17d7a8b3cc6f1d2ebe2ddb060caa9aa7b2d8fa20d",
+      "bundleSha256": "c4c36a4ce9d18346fe686c032207dd7c28af56fb22715b980d70cab0dda46957",
       "decision": "conforms",
       "engines": {
         "jena": {
@@ -3462,7 +3930,7 @@
       "fixtureId": "POS-PUBLICATION-POLICY-GEO-CATALOG",
       "id": "FULL-POS-PUBLICATION-POLICY-GEO-CATALOG",
       "input": "examples/valid/geo-catalog.ttl",
-      "inputSha256": "000b345cbac66df16cb5be7995d45e6f89b99a1253d3ade1ca9f599d71950829",
+      "inputSha256": "2b02602b101a10039d87310e2684cf2ae6ff5fa2a08966e70b4045c8719a25b3",
       "localImports": [
         {
           "iri": "https://github.com/SEMICeu/ADMS-AP/raw/master/purl.org/ADMS_SKOS_v1.00.rdf",
@@ -3470,18 +3938,16 @@
           "sha256": "5e40be073f4d5343dff428ebfe41ef07a03c884699a9043e4a595e54e3deb889"
         }
       ],
-      "materializedBundleSha256": "ee0451cd653d1cb8e15856e4fcf812c373cb5d0205a1397515c73ef58f3588e9",
+      "materializedBundleSha256": "22e7353818569c86208092f3c5eba09ddb5dc973ea7fb896ce536f79b64beb34",
       "profile": "publication-policy",
       "requirementIds": [
-        "MOLIT-REC-DIST-001",
         "MOLIT-REC-DIST-001-P-CHECKSUM-001",
-        "MOLIT-REC-DS-001",
         "MOLIT-REC-DS-001-P-CONTACTPOINT-001",
         "MOLIT-REC-DS-001-P-PROVENANCE-001"
       ]
     },
     {
-      "bundleSha256": "e75aaa5881e1487050c63ba17d7a8b3cc6f1d2ebe2ddb060caa9aa7b2d8fa20d",
+      "bundleSha256": "c4c36a4ce9d18346fe686c032207dd7c28af56fb22715b980d70cab0dda46957",
       "decision": "conforms",
       "engines": {
         "jena": {
@@ -3508,15 +3974,15 @@
           "sha256": "5e40be073f4d5343dff428ebfe41ef07a03c884699a9043e4a595e54e3deb889"
         }
       ],
-      "materializedBundleSha256": "ee0451cd653d1cb8e15856e4fcf812c373cb5d0205a1397515c73ef58f3588e9",
+      "materializedBundleSha256": "22e7353818569c86208092f3c5eba09ddb5dc973ea7fb896ce536f79b64beb34",
       "profile": "publication-policy",
       "requirementIds": [
-        "MOLIT-REC-QUAL-001",
+        "MOLIT-DEPRECATED-LOCAL-001",
         "MOLIT-REC-QUAL-001-P-QUALIFICATIONEVIDENCE-001"
       ]
     },
     {
-      "bundleSha256": "9d2fbe58f84b7bc661c51406a1fce874a5656060672a8e4fb69e488ee8997425",
+      "bundleSha256": "5bfe46684e39676901bd748db4003188c645356fe0b66cc509ca8c20013eace6",
       "decision": "conforms",
       "engines": {
         "jena": {
@@ -3535,34 +4001,33 @@
       "fixtureId": "POS-QUALITY-QUALITY-CATALOG",
       "id": "FULL-POS-QUALITY-QUALITY-CATALOG",
       "input": "examples/valid/quality-catalog.ttl",
-      "inputSha256": "2c4b31c217a352c4471bed05cfe19a2764894cb732be5fb372d7be28ae5c8642",
+      "inputSha256": "57a8ada107fa5ff9e55a64eb01a3eaedd3de8e173235c5ee90d9af247ca7ac60",
       "localImports": [],
-      "materializedBundleSha256": "7d7b50aab1119ab7bb88e842506fbe3216ba8086e705991681eac4a9d4cc300b",
+      "materializedBundleSha256": "e21d86a7b82e9ec44495045300ba552d8a341952522eb3364cac35c5be3063a9",
       "profile": "quality",
       "requirementIds": [
-        "MOLIT-PROFILE-QUAL-001",
         "MOLIT-PROFILE-QUAL-001-P-CONFORMSTO-001",
-        "MOLIT-PROFILE-QUAL-002",
         "MOLIT-PROFILE-QUAL-002-P-CONFORMSTO-001",
-        "MOLIT-QUAL-001",
         "MOLIT-QUAL-001-P-QUALITYSTATUS-001",
-        "MOLIT-QUAL-LINK-001",
         "MOLIT-QUAL-LINK-001-P-PATH-7CC75844D0-001",
         "MOLIT-QUAL-MAP-001",
         "MOLIT-QUAL-MAP-001-P-MAPPEDQUALITYMETRIC-001",
         "MOLIT-QUAL-MAP-001-P-QUALITYLOSSDISPOSITION-001",
         "MOLIT-QUAL-MAP-001-P-SOURCEQUALITYELEMENT-001",
+        "MOLIT-QUAL-MAP-LINK-001-P-DISPOSITION-001",
+        "MOLIT-QUAL-MAP-LINK-001-P-METRIC-001",
         "MOLIT-QUAL-MEASURE-001",
         "MOLIT-QUAL-MEASURE-001-P-COMPUTEDON-001",
         "MOLIT-QUAL-MEASURE-001-P-ISMEASUREMENTOF-001",
+        "MOLIT-QUAL-MEASURE-001-P-QUALITYRESULTCONCEPT-001",
         "MOLIT-QUAL-MEASURE-001-P-UNITMEASURE-001",
         "MOLIT-QUAL-MEASURE-001-P-VALUE-001",
         "MOLIT-QUAL-MEASURE-002",
-        "MOLIT-QUAL-PROV-001",
         "MOLIT-QUAL-PROV-001-P-QUALITYEVALUATIONMETHOD-001",
         "MOLIT-QUAL-PROV-001-P-QUALITYEVALUATIONSCOPE-001",
         "MOLIT-QUAL-PROV-001-P-QUALITYMAPPINGSTATEMENT-001",
-        "MOLIT-QUAL-PROV-001-P-QUALITYRESULTKIND-001"
+        "MOLIT-QUAL-PROV-001-P-QUALITYRESULTKIND-001",
+        "MOLIT-QUAL-STATUS-001"
       ]
     }
   ],
@@ -3585,7 +4050,7 @@
   },
   "gatePassed": true,
   "implementation": {
-    "nodeSha256": "9a0cea9593b9b50628c30f050e135f2297ea7f59f98a709e08f2a1e8805a23f5",
+    "nodeSha256": "3b3aeae142dec8a17e6393c53cf35590a0560293d2437f8bb29bf8efcbe1656f",
     "pythonSha256": "bc196483a92df79af708e58b74aacf1b97470209d5c7ecbb3515c9a4520cbf37"
   },
   "mode": "full",
@@ -3601,8 +4066,24 @@
       "excludedFromCrossEngineMatrix": true,
       "implementation": "scanCoreProfileRouting",
       "reason": "전체 그래프를 보고 core와 geo 모듈의 오선택을 막는 라우팅 검사다. fixture가 연결된 SHACL routing shape는 별도로 full matrix에 포함한다."
+    },
+    {
+      "controlId": "MOLIT-GEO-LEXICAL-PREFLIGHT-001",
+      "excludedFromCrossEngineMatrix": true,
+      "implementation": "scanPublicGraph",
+      "reason": "SHACL은 datatype·CRS·geometry type의 교환 가능한 최소 구문을 판정한다. 닫힌 Polygon, GML 3.2 Point 구조, 2차원·크기 한계와 active XML 차단은 공식 Node publication preflight가 별도로 판정하며 SHACL 3-engine 동일성 주장에 포함하지 않는다.",
+      "requirementIds": [
+        "MOLIT-GEO-ENCODING-001",
+        "MOLIT-GEO-ENCODING-002",
+        "MOLIT-GEO-ENCODING-003",
+        "MOLIT-GEO-ENCODING-004"
+      ]
     }
   ],
+  "normativeBoundary": {
+    "nodePublicationPreflight": "Parser-backed public-graph controls execute before SHACL and may reject a graph that the bounded SHACL regex subset accepts.",
+    "shaclMatrix": "Node rdf-validate-shacl, pySHACL and Jena execute only the materialized SHACL bundle and locked support graph."
+  },
   "offlinePolicy": {
     "inheritedClasspath": false,
     "inheritedJavaOptions": false,
@@ -3617,11 +4098,11 @@
   "profileVersion": "1.0.0-rc.1",
   "releaseEvidenceEligible": true,
   "requirementCoverage": {
-    "caseRegistrySha256": "88fee74d87328a118c03608c0f2205cc916e9a4d59943cdd2ca1916b70c9a551",
-    "deduplicatedFixtures": 119,
-    "requirementRegistrySha256": "633572fcebbff7dcf3b3c03d82f02d8b7c4d44f8b090eb62620c5cf74c99181c",
-    "requirements": 156,
-    "traceabilityReportSha256": "19c8551375f7634d0c28d4993a0ac1ad0569e4eca15d0324102cc208586c3862"
+    "caseRegistrySha256": "0080dd8fcedcc704e7890de0de44d7cc32fdb468727bf20a8dd7157d1fe9d0be",
+    "deduplicatedFixtures": 138,
+    "requirementRegistrySha256": "a35dff40895c6b4151e4e98a41ff786d497e396a5ddc7b0dbb4eb911d2077915",
+    "requirements": 129,
+    "traceabilityReportSha256": "e57f22658ef5b3d58830a2a397e7808e9d3faf18d783bd3cdb223ef55d60bc50"
   },
   "schemaVersion": "molit.rc-shacl-engine-matrix/1",
   "scope": "Approved SHACL requirement fixtures, deduplicated by fixture ID and executed in a declared conformance class; JavaScript preflight controls are listed separately",

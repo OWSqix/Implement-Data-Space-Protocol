@@ -8,6 +8,7 @@
 @prefix geo: <http://www.opengis.net/ont/geosparql#>.
 @prefix metric: <https://data.molit.go.kr/id/metric/>.
 @prefix molit: <https://data.molit.go.kr/def/molit-dcat-ap#>.
+@prefix qcategory: <https://data.molit.go.kr/id/concept/quality-result-category/>.
 @prefix qloss: <https://data.molit.go.kr/id/concept/quality-loss-disposition/>.
 @prefix qmethod: <https://data.molit.go.kr/id/concept/quality-evaluation-method/>.
 @prefix qresult: <https://data.molit.go.kr/id/concept/quality-result-kind/>.
@@ -32,7 +33,7 @@ ex:observation-catalog a dcat:Catalog;
     dcat:themeTaxonomy <http://publications.europa.eu/resource/authority/data-theme>, <https://data.molit.go.kr/scheme/domain>;
     dcat:dataset ex:traffic-observation;
     dcat:record ex:traffic-observation-record;
-    molit:spatialDisclosureLevel <https://data.molit.go.kr/id/concept/spatial-disclosure-level/generalized>.
+    molit:spatialDisclosureLevel <https://data.molit.go.kr/id/concept/spatial-disclosure-level/exact>.
 ex:traffic-office a foaf:Agent;
     dct:type <http://purl.org/adms/publishertype/NationalAuthority>;
     foaf:name "교통 관측 담당기관"@ko.
@@ -50,7 +51,7 @@ ex:traffic-observation a dcat:Dataset, dcat:Resource, molit:ObservationDataset;
     dct:issued "2026-07-12"^^xsd:date;
     dct:modified "2026-07-12T09:00:00+09:00"^^xsd:dateTime;
     dct:spatial ex:republic-of-korea-core;
-    molit:spatialDisclosureLevel <https://data.molit.go.kr/id/concept/spatial-disclosure-level/generalized>;
+    molit:spatialDisclosureLevel <https://data.molit.go.kr/id/concept/spatial-disclosure-level/exact>;
     dct:type ex:observation-dataset-type;
     dct:identifier "traffic-observation-hourly-2026-07";
     dct:accessRights <http://publications.europa.eu/resource/authority/access-right/PUBLIC>;
@@ -61,7 +62,7 @@ ex:traffic-observation a dcat:Dataset, dcat:Resource, molit:ObservationDataset;
     dcat:keyword "교통량"@ko, "시간대별 관측"@ko;
     dcat:contactPoint ex:traffic-data-contact;
     dcat:distribution ex:traffic-observation-csv;
-    dqv:hasQualityMeasurement ex:traffic-completeness;
+    dqv:hasQualityMeasurement ex:traffic-completeness, ex:traffic-timeliness-status;
     molit:qualityStatus quality:assessed.
 ex:traffic-observation-record a dcat:CatalogRecord;
     dct:title "시간대별 교통량 관측 레코드"@ko;
@@ -96,9 +97,19 @@ ex:traffic-completeness a dqv:QualityMeasurement;
     dqv:isMeasurementOf metric:completeness;
     dqv:value 98.7;
     molit:qualityEvaluationMethod qmethod:whole-population;
+    molit:qualityEvaluationScope "all published observation rows in the declared temporal extent", "mutation-4b92cdc282de-extra";
     molit:qualityResultKind qresult:quantitative;
     molit:qualityMappingStatement ex:traffic-completeness-mapping;
     sdmx-attribute:unitMeasure <http://qudt.org/vocab/unit/PERCENT>.
+ex:traffic-timeliness-status a dqv:QualityMeasurement;
+    dqv:computedOn ex:traffic-observation;
+    dqv:isMeasurementOf metric:currency-status;
+    dqv:value "current";
+    molit:qualityEvaluationMethod qmethod:rule-based;
+    molit:qualityEvaluationScope "publication timestamp compared with the source update timestamp";
+    molit:qualityResultKind qresult:categorical;
+    molit:qualityMappingStatement ex:traffic-timeliness-mapping;
+    molit:qualityResultConcept qcategory:current.
 <https://data.molit.go.kr/dataset/traffic-observation/access> a rdfs:Resource.
 <https://data.molit.go.kr/dataset/traffic-observation/download> a rdfs:Resource.
 <https://www.iana.org/assignments/media-types/text/csv> a dct:MediaType.
@@ -106,5 +117,11 @@ ex:traffic-completeness-mapping a molit:QualityMappingStatement;
     molit:sourceQualityElement ex:source-completeness-element;
     molit:mappedQualityMetric metric:completeness;
     molit:qualityLossDisposition qloss:lossless.
+ex:traffic-timeliness-mapping a molit:QualityMappingStatement;
+    molit:sourceQualityElement ex:source-timeliness-element;
+    molit:mappedQualityMetric metric:currency-status;
+    molit:qualityLossDisposition qloss:lossless.
 ex:source-completeness-element a skos:Concept;
     skos:prefLabel "원천 완전성 측정항목"@ko, "Source completeness element"@en.
+ex:source-timeliness-element a skos:Concept;
+    skos:prefLabel "원천 최신성 측정항목"@ko, "Source timeliness element"@en.

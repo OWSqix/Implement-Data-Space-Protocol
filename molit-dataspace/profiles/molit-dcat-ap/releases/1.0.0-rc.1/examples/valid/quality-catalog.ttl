@@ -8,6 +8,7 @@
 @prefix geo: <http://www.opengis.net/ont/geosparql#> .
 @prefix metric: <https://data.molit.go.kr/id/metric/> .
 @prefix molit: <https://data.molit.go.kr/def/molit-dcat-ap#> .
+@prefix qcategory: <https://data.molit.go.kr/id/concept/quality-result-category/> .
 @prefix qloss: <https://data.molit.go.kr/id/concept/quality-loss-disposition/> .
 @prefix qmethod: <https://data.molit.go.kr/id/concept/quality-evaluation-method/> .
 @prefix qresult: <https://data.molit.go.kr/id/concept/quality-result-kind/> .
@@ -34,7 +35,7 @@ ex:observation-catalog
         <https://data.molit.go.kr/scheme/domain> ;
     dcat:dataset ex:traffic-observation ;
     dcat:record ex:traffic-observation-record ;
-    molit:spatialDisclosureLevel <https://data.molit.go.kr/id/concept/spatial-disclosure-level/generalized> .
+    molit:spatialDisclosureLevel <https://data.molit.go.kr/id/concept/spatial-disclosure-level/exact> .
 
 ex:traffic-observation-record
     a dcat:CatalogRecord ;
@@ -68,9 +69,10 @@ ex:traffic-observation
         "시간대별 관측"@ko ;
     dcat:contactPoint ex:traffic-data-contact ;
     dcat:distribution ex:traffic-observation-csv ;
-    dqv:hasQualityMeasurement ex:traffic-completeness ;
+    dqv:hasQualityMeasurement ex:traffic-completeness,
+        ex:traffic-timeliness-status ;
     molit:qualityStatus quality:assessed ;
-    molit:spatialDisclosureLevel <https://data.molit.go.kr/id/concept/spatial-disclosure-level/generalized> .
+    molit:spatialDisclosureLevel <https://data.molit.go.kr/id/concept/spatial-disclosure-level/exact> .
 
 ex:traffic-completeness
     a dqv:QualityMeasurement ;
@@ -88,6 +90,28 @@ ex:traffic-completeness-mapping
     molit:sourceQualityElement ex:source-completeness-element ;
     molit:mappedQualityMetric metric:completeness ;
     molit:qualityLossDisposition qloss:lossless .
+
+ex:traffic-timeliness-status
+    a dqv:QualityMeasurement ;
+    dqv:computedOn ex:traffic-observation ;
+    dqv:isMeasurementOf metric:currency-status ;
+    dqv:value "current" ;
+    molit:qualityEvaluationMethod qmethod:rule-based ;
+    molit:qualityEvaluationScope "publication timestamp compared with the source update timestamp" ;
+    molit:qualityResultKind qresult:categorical ;
+    molit:qualityResultConcept qcategory:current ;
+    molit:qualityMappingStatement ex:traffic-timeliness-mapping .
+
+ex:traffic-timeliness-mapping
+    a molit:QualityMappingStatement ;
+    molit:sourceQualityElement ex:source-timeliness-element ;
+    molit:mappedQualityMetric metric:currency-status ;
+    molit:qualityLossDisposition qloss:lossless .
+
+ex:source-timeliness-element
+    a skos:Concept ;
+    skos:prefLabel "원천 최신성 측정항목"@ko,
+        "Source timeliness element"@en .
 
 ex:source-completeness-element
     a skos:Concept ;

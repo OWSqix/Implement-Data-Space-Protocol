@@ -97,9 +97,15 @@ RC.1은 DQV projection에 다음 로컬 의미를 추가했다.
 | 생명주기 | `molit:networkLifecycleStatus` | candidate·current·superseded·withdrawn 후보값 |
 | 유효기간 | `molit:networkValidFrom`, `molit:networkValidUntil` | `xsd:date`, 종료일은 선택 |
 
-version 없는 참조와 `owl:sameAs` 기반 병합은 거부한다. 이 구조는 합성 fixture로 시험했다.
+Version 없는 참조와 `owl:sameAs` 기반 병합은 거부한다. 합성 fixture뿐 아니라 국가교통정보센터의 2026-07-01 표준 노드·링크 표본 1 link·2 node로 식별자 문법, 판, checksum, 변경 이력과 좌표 순서를 시험했다.
 
-국가교통정보센터의 `[2026-07-01]NODELINKDATA.zip`은 257,182,267 byte이며 관찰 SHA-256은 `219020fac55f2faab1029ec9306563a00968f9b27f3910b80c534583b750b9ab`이다. PRJ 매개변수는 EPSG:5186과 일치하지만 EPSG authority code가 없다. 원본 ingest·crosswalk·회귀 fixture 시험 전에는 5186이 명시됐다고 기록하지 않는다. 근거: `C-086`.
+국가교통정보센터의 `[2026-07-01]NODELINKDATA.zip`은 257,182,267 byte이며 관찰 SHA-256은 `219020fac55f2faab1029ec9306563a00968f9b27f3910b80c534583b750b9ab`이다.
+
+PRJ에는 EPSG authority code가 없지만 투영 매개변수는 release에 고정한 EPSG:5186 정의와 일치한다.
+
+따라서 근거에는 “원천이 EPSG:5186을 명시했다”가 아니라 “고정 정의와 매개변수를 대조해 EPSG:5186으로 식별했다”고 기록한다.
+
+근거: `C-086`과 `examples/source-evidence/standard-node-link-2026-07-01.json`.
 
 ### 4.2 기본교통정보와 관측 단위
 
@@ -268,7 +274,7 @@ EPSG:4326과 CRS84를 같은 값으로 취급하지 않는다. EPSG:3857이 RC a
 | `REL-MAP-001` | 기관 실물 mapping 미검증 | 전수 또는 승인 표본 보고서·fixture·digest |
 | `CRS-COVERAGE-001` | 실제 CRS 폭과 변환 정확도 미확정 | corpus 분포·authority snapshot·geometry 시험 |
 | `REL-VOC-001` | 국내 권위식별자와 변경정책 미승인 | 운영기관·registry·철회·version 정책 |
-| `TRANSPORT-UNIT-001` | 교통 관측속도 의미와 단위 projection 미정 | 관측모델·crosswalk·ITS fixture |
+| `TRANSPORT-UNIT-001` | 후보 관측모델은 구현했으나 기관 ITS payload의 단위 projection 미검증 | 원천 필드·코드·집계경계가 있는 기관 fixture와 승인 crosswalk |
 
 RC.1의 `RA-CRS=fixed`는 CRS84·4326·3857·5179·5186에 한정한 변환 policy, geometry subset 왕복시험과 EPSG:5186 표준노드링크 표본 1건을 근거로 한다. 이는 legacy `CRS-COVERAGE-001`이 제기한 전체 기관 corpus coverage를 해결했다는 판정이 아니다.
 

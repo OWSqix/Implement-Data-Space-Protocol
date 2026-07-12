@@ -40,7 +40,7 @@ ex:catalog
         <https://data.molit.go.kr/scheme/domain> ;
     dcat:record ex:record-road-network ;
     dcat:dataset ex:road-network ;
-    molit:spatialDisclosureLevel <https://data.molit.go.kr/id/concept/spatial-disclosure-level/generalized> .
+    molit:spatialDisclosureLevel <https://data.molit.go.kr/id/concept/spatial-disclosure-level/exact> .
 
 ex:record-road-network
     a dcat:CatalogRecord ;
@@ -86,7 +86,7 @@ ex:road-network
         <https://w3id.org/mobilitydcat-ap/transport-mode/truck> ;
     molit:networkReference ex:standard-node-link-2026-07 ;
     molit:qualityStatus quality:assessed ;
-    molit:spatialDisclosureLevel <https://data.molit.go.kr/id/concept/spatial-disclosure-level/generalized> .
+    molit:spatialDisclosureLevel <https://data.molit.go.kr/id/concept/spatial-disclosure-level/exact> .
 
 ex:road-network-csv
     a dcat:Distribution ;
@@ -141,7 +141,7 @@ ex:republic-of-korea
 
 ex:republic-of-korea-geometry
     a locn:Geometry ;
-    geo:asGML "<gml:Point srsName=\"http://www.opengis.net/def/crs/OGC/1.3/CRS84\" xmlns:gml=\"http://www.opengis.net/gml/3.2\"><gml:pos>128 36</gml:pos></gml:Point>"^^geo:gmlLiteral ;
+    geo:asGML "<gml:Point srsName=\"http://www.opengis.net/def/crs/OGC/1.3/CRS84\" srsDimension=\"2\" xmlns:gml=\"http://www.opengis.net/gml/3.2\"><gml:pos>128 36</gml:pos></gml:Point>"^^geo:gmlLiteral ;
     geo:asWKT "<http://www.opengis.net/def/crs/OGC/1.3/CRS84> POLYGON((124 33,132 33,132 39,124 39,124 33))"^^geo:wktLiteral .
 
 ex:period-2026-07

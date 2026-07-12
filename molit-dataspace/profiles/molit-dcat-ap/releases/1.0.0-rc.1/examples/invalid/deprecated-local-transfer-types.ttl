@@ -1,0 +1,7 @@
+# Expected requirement: MOLIT-DEPRECATED-LOCAL-001.
+# 이 fixture는 0.1.0 호환 읽기가 아니라 신규 graph에서 폐기 유형을 다시 쓰는 경우를 나타낸다.
+@prefix ex: <https://data.molit.go.kr/id/example/> .
+@prefix molit: <https://data.molit.go.kr/def/molit-dcat-ap#> .
+
+ex:legacy-transfer-dataset a molit:TransferableDataset .
+ex:legacy-transfer-distribution a molit:TransferDistribution .

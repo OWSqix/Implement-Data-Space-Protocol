@@ -11,6 +11,7 @@
     "namespaceStatus",
     "responseRules",
     "resources",
+    "tombstoneContract",
     "deploymentGate",
     "notes"
   ],
@@ -32,13 +33,22 @@
       "additionalProperties": false,
       "required": [
         "unsupportedAccept",
+        "notFound",
+        "defaultMediaType",
         "vary",
         "dynamicNetworkImports",
-        "exactByteArtifacts"
+        "exactByteArtifacts",
+        "canonicalRedirect"
       ],
       "properties": {
         "unsupportedAccept": {
           "const": 406
+        },
+        "notFound": {
+          "const": 404
+        },
+        "defaultMediaType": {
+          "const": "text/html"
         },
         "vary": {
           "const": ["Accept"]
@@ -48,6 +58,22 @@
         },
         "exactByteArtifacts": {
           "const": true
+        },
+        "canonicalRedirect": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["trailingSlash", "status", "preserveQuery"],
+          "properties": {
+            "trailingSlash": {
+              "const": "remove"
+            },
+            "status": {
+              "const": 308
+            },
+            "preserveQuery": {
+              "const": true
+            }
+          }
         }
       }
     },
@@ -84,6 +110,9 @@
     },
     "deploymentGate": {
       "const": "RA-NAMESPACE"
+    },
+    "tombstoneContract": {
+      "const": "publication/tombstones.json"
     },
     "notes": {
       "type": "array",

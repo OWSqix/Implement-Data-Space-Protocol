@@ -85,6 +85,18 @@ const nodeOnlyPreflightControls = Object.freeze([
     implementation: "scanCoreProfileRouting",
     reason: "전체 그래프를 보고 core와 geo 모듈의 오선택을 막는 라우팅 검사다. fixture가 연결된 SHACL routing shape는 별도로 full matrix에 포함한다.",
   }),
+  Object.freeze({
+    controlId: "MOLIT-GEO-LEXICAL-PREFLIGHT-001",
+    excludedFromCrossEngineMatrix: true,
+    implementation: "scanPublicGraph",
+    requirementIds: [
+      "MOLIT-GEO-ENCODING-001",
+      "MOLIT-GEO-ENCODING-002",
+      "MOLIT-GEO-ENCODING-003",
+      "MOLIT-GEO-ENCODING-004",
+    ],
+    reason: "SHACL은 datatype·CRS·geometry type의 교환 가능한 최소 구문을 판정한다. 닫힌 Polygon, GML 3.2 Point 구조, 2차원·크기 한계와 active XML 차단은 공식 Node publication preflight가 별도로 판정하며 SHACL 3-engine 동일성 주장에 포함하지 않는다.",
+  }),
 ]);
 const decoder = new TextDecoder("utf-8", { fatal: true });
 const XSD_BOOLEAN = "http://www.w3.org/2001/XMLSchema#boolean";
@@ -787,6 +799,10 @@ export async function buildRcShaclMatrixCandidate({
     },
     mode,
     nodeOnlyPreflightControls,
+    normativeBoundary: {
+      nodePublicationPreflight: "Parser-backed public-graph controls execute before SHACL and may reject a graph that the bounded SHACL regex subset accepts.",
+      shaclMatrix: "Node rdf-validate-shacl, pySHACL and Jena execute only the materialized SHACL bundle and locked support graph.",
+    },
     offlinePolicy: {
       inheritedClasspath: false,
       inheritedJavaOptions: false,

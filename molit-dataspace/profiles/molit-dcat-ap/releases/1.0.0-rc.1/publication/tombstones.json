@@ -1,0 +1,40 @@
+{
+  "schemaVersion": "molit.tombstone-response-contract/1",
+  "profileVersion": "1.0.0-rc.1",
+  "status": "candidate-deployment-contract",
+  "namespaceStatus": "proposed-not-yet-dereferenceable",
+  "deploymentGate": "RA-NAMESPACE",
+  "strategy": "hash-iri-retained-description",
+  "entries": [
+    {
+      "termIri": "https://data.molit.go.kr/def/molit-dcat-ap#TransferableDataset",
+      "dereferenceIri": "https://data.molit.go.kr/def/molit-dcat-ap",
+      "versionedDereferenceIri": "https://data.molit.go.kr/def/molit-dcat-ap/1.0.0-rc.1",
+      "httpStatus": 200,
+      "lifecycleStatus": "deprecated",
+      "retention": "indefinite",
+      "replacementIris": [
+        "http://www.w3.org/ns/dcat#Dataset",
+        "https://data.molit.go.kr/def/molit-dcat-ap#DataspaceOfferingMetadata"
+      ],
+      "mediaTypes": ["application/ld+json", "text/html", "text/turtle"]
+    },
+    {
+      "termIri": "https://data.molit.go.kr/def/molit-dcat-ap#TransferDistribution",
+      "dereferenceIri": "https://data.molit.go.kr/def/molit-dcat-ap",
+      "versionedDereferenceIri": "https://data.molit.go.kr/def/molit-dcat-ap/1.0.0-rc.1",
+      "httpStatus": 200,
+      "lifecycleStatus": "deprecated",
+      "retention": "indefinite",
+      "replacementIris": [
+        "http://www.w3.org/ns/dcat#Distribution",
+        "https://data.molit.go.kr/def/molit-dcat-ap#DataspaceOfferingMetadata"
+      ],
+      "mediaTypes": ["application/ld+json", "text/html", "text/turtle"]
+    }
+  ],
+  "notes": [
+    "Hash IRI fragment는 HTTP 요청에 전송되지 않으므로 ontology document가 폐기 상태·대체 IRI·change note를 계속 제공한다.",
+    "이 계약은 배포 후 응답을 정하며 data.molit.go.kr namespace가 현재 운영 중이라고 주장하지 않는다."
+  ]
+}

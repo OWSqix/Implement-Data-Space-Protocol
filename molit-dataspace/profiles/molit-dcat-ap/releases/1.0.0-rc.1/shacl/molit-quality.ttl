@@ -3,6 +3,7 @@
 @prefix dqv: <http://www.w3.org/ns/dqv#> .
 @prefix metric: <https://data.molit.go.kr/id/metric/> .
 @prefix molit: <https://data.molit.go.kr/def/molit-dcat-ap#> .
+@prefix qcategory: <https://data.molit.go.kr/id/concept/quality-result-category/> .
 @prefix qloss: <https://data.molit.go.kr/id/concept/quality-loss-disposition/> .
 @prefix qmethod: <https://data.molit.go.kr/id/concept/quality-evaluation-method/> .
 @prefix qresult: <https://data.molit.go.kr/id/concept/quality-result-kind/> .
@@ -33,11 +34,37 @@
         sh:message "데이터셋에는 품질 평가 상태 IRI가 하나 있어야 한다."@ko
     ] .
 
+<https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#DatasetQualityEvidenceShape>
+    a sh:NodeShape ;
+    sh:targetClass dcat:Dataset ;
+    molit:requirementId "MOLIT-QUAL-STATUS-001" ;
+    molit:controlOwner "data-quality" ;
+    sh:xone (
+        [
+            sh:property [ sh:path molit:qualityStatus ; sh:hasValue quality:not-assessed ] ;
+            sh:property [ sh:path dqv:hasQualityMeasurement ; sh:maxCount 0 ]
+        ]
+        [
+            sh:property [
+                sh:path molit:qualityStatus ;
+                sh:in ( quality:assessed quality:warning quality:failed quality:stale )
+            ] ;
+            sh:property [
+                sh:path dqv:hasQualityMeasurement ;
+                sh:minCount 1 ;
+                sh:nodeKind sh:IRI ;
+                sh:class dqv:QualityMeasurement
+            ]
+        ]
+    ) ;
+    sh:message "미평가 데이터셋에는 품질 측정값이 없어야 하며, 평가·주의·기준 미달·최신성 만료 상태에는 하나 이상의 DQV 측정값이 있어야 한다."@ko .
+
 <https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#QualityMeasurementShape>
     a sh:NodeShape ;
     sh:targetClass dqv:QualityMeasurement ;
     molit:requirementId "MOLIT-QUAL-MEASURE-001" ;
     molit:controlOwner "data-quality" ;
+    molit:remediation "Align dqv:value and unitMeasure with the declared qualityResultKind, then rerun the quality conformance lane." ;
     sh:property [ molit:requirementId "MOLIT-QUAL-MEASURE-001-P-COMPUTEDON-001" ;
         sh:path dqv:computedOn ;
         sh:minCount 1 ;
@@ -55,21 +82,18 @@
             metric:temporal-accuracy
             metric:logical-consistency
             metric:timeliness
+            metric:validation-conformance
+            metric:currency-status
+            metric:assessment-note
         ) ;
         sh:message "품질 측정항목은 승인된 품질 metric IRI여야 한다."@ko
     ], [ molit:requirementId "MOLIT-QUAL-MEASURE-001-P-VALUE-001" ;
         sh:path dqv:value ;
         sh:minCount 1 ;
         sh:maxCount 1 ;
-        sh:or (
-            [ sh:datatype xsd:decimal ]
-            [ sh:datatype xsd:double ]
-            [ sh:datatype xsd:integer ]
-        ) ;
-        sh:message "품질 측정값은 숫자 하나여야 한다."@ko
+        sh:message "품질 측정값은 결과 유형에 맞는 값 하나여야 한다."@ko
     ], [ molit:requirementId "MOLIT-QUAL-MEASURE-001-P-UNITMEASURE-001" ;
         sh:path sdmx-attribute:unitMeasure ;
-        sh:minCount 1 ;
         sh:maxCount 1 ;
         sh:nodeKind sh:IRI ;
         sh:in (
@@ -80,62 +104,200 @@
             <http://qudt.org/vocab/unit/HR>
             <http://qudt.org/vocab/unit/DAY>
         ) ;
-        sh:message "측정 단위는 QUDT Unit IRI를 사용해야 한다."@ko
-    ] .
+        sh:message "단위를 쓰는 결과는 승인된 QUDT Unit IRI를 하나만 사용해야 한다."@ko
+    ], [ molit:requirementId "MOLIT-QUAL-MEASURE-001-P-QUALITYRESULTCONCEPT-001" ;
+        sh:path molit:qualityResultConcept ;
+        sh:maxCount 1 ;
+        sh:nodeKind sh:IRI ;
+        sh:class skos:Concept ;
+        sh:message "범주형 품질 결과 개념은 SKOS Concept IRI 하나로 기록해야 한다."@ko
+    ] ;
+    sh:xone (
+        [
+            sh:property [
+                sh:path molit:qualityResultKind ;
+                sh:hasValue qresult:quantitative
+            ] ;
+            sh:property [
+                sh:path dqv:value ;
+                sh:minCount 1 ;
+                sh:maxCount 1 ;
+                sh:datatype xsd:decimal
+            ] ;
+            sh:property [
+                sh:path sdmx-attribute:unitMeasure ;
+                sh:minCount 1 ;
+                sh:maxCount 1 ;
+                sh:nodeKind sh:IRI ;
+                sh:in (
+                    <http://qudt.org/vocab/unit/PERCENT>
+                    <http://qudt.org/vocab/unit/M>
+                    <http://qudt.org/vocab/unit/SEC>
+                    <http://qudt.org/vocab/unit/MIN>
+                    <http://qudt.org/vocab/unit/HR>
+                    <http://qudt.org/vocab/unit/DAY>
+                )
+            ] ;
+            sh:property [
+                sh:path molit:qualityResultConcept ;
+                sh:maxCount 0
+            ]
+        ]
+        [
+            sh:property [
+                sh:path molit:qualityResultKind ;
+                sh:hasValue qresult:boolean
+            ] ;
+            sh:property [
+                sh:path dqv:value ;
+                sh:minCount 1 ;
+                sh:maxCount 1 ;
+                sh:datatype xsd:boolean
+            ] ;
+            sh:property [
+                sh:path sdmx-attribute:unitMeasure ;
+                sh:maxCount 0
+            ] ;
+            sh:property [
+                sh:path molit:qualityResultConcept ;
+                sh:maxCount 0
+            ]
+        ]
+        [
+            sh:property [
+                sh:path molit:qualityResultKind ;
+                sh:hasValue qresult:categorical
+            ] ;
+            sh:property [
+                sh:path dqv:value ;
+                sh:minCount 1 ;
+                sh:maxCount 1 ;
+                sh:datatype xsd:string ;
+                sh:minLength 1
+            ] ;
+            sh:property [
+                sh:path sdmx-attribute:unitMeasure ;
+                sh:maxCount 0
+            ] ;
+            sh:property [
+                sh:path molit:qualityResultConcept ;
+                sh:minCount 1 ;
+                sh:maxCount 1 ;
+                sh:nodeKind sh:IRI ;
+                sh:class skos:Concept
+            ]
+        ]
+        [
+            sh:property [
+                sh:path molit:qualityResultKind ;
+                sh:hasValue qresult:descriptive
+            ] ;
+            sh:property [
+                sh:path dqv:value ;
+                sh:minCount 1 ;
+                sh:maxCount 1 ;
+                sh:datatype xsd:string ;
+                sh:minLength 1
+            ] ;
+            sh:property [
+                sh:path sdmx-attribute:unitMeasure ;
+                sh:maxCount 0
+            ] ;
+            sh:property [
+                sh:path molit:qualityResultConcept ;
+                sh:maxCount 0
+            ]
+        ]
+    ) ;
+    sh:message "qualityResultKind에 따라 dqv:value의 자료형과 단위 사용 여부를 맞춰야 한다."@ko .
 
 <https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#QualityMetricSemanticsShape>
     a sh:NodeShape ;
     sh:targetClass dqv:QualityMeasurement ;
     molit:requirementId "MOLIT-QUAL-MEASURE-002" ;
     molit:controlOwner "data-quality" ;
-    sh:or (
+    sh:xone (
         [
-            sh:property [ sh:path dqv:isMeasurementOf ; sh:hasValue metric:completeness ] ;
-            sh:property [ sh:path dqv:value ; sh:minInclusive 0 ; sh:maxInclusive 100 ] ;
             sh:property [
-                sh:path sdmx-attribute:unitMeasure ;
-                sh:hasValue <http://qudt.org/vocab/unit/PERCENT>
-            ]
+                sh:path molit:qualityResultKind ;
+                sh:hasValue qresult:quantitative
+            ] ;
+            sh:or (
+                [
+                    sh:property [ sh:path dqv:isMeasurementOf ; sh:hasValue metric:completeness ] ;
+                    sh:property [ sh:path dqv:value ; sh:minInclusive 0 ; sh:maxInclusive 100 ] ;
+                    sh:property [
+                        sh:path sdmx-attribute:unitMeasure ;
+                        sh:hasValue <http://qudt.org/vocab/unit/PERCENT>
+                    ]
+                ]
+                [
+                    sh:property [ sh:path dqv:isMeasurementOf ; sh:hasValue metric:logical-consistency ] ;
+                    sh:property [ sh:path dqv:value ; sh:minInclusive 0 ; sh:maxInclusive 100 ] ;
+                    sh:property [
+                        sh:path sdmx-attribute:unitMeasure ;
+                        sh:hasValue <http://qudt.org/vocab/unit/PERCENT>
+                    ]
+                ]
+                [
+                    sh:property [ sh:path dqv:isMeasurementOf ; sh:hasValue metric:positional-accuracy ] ;
+                    sh:property [ sh:path dqv:value ; sh:minInclusive 0 ] ;
+                    sh:property [
+                        sh:path sdmx-attribute:unitMeasure ;
+                        sh:hasValue <http://qudt.org/vocab/unit/M>
+                    ]
+                ]
+                [
+                    sh:property [ sh:path dqv:isMeasurementOf ; sh:hasValue metric:temporal-accuracy ] ;
+                    sh:property [ sh:path dqv:value ; sh:minInclusive 0 ] ;
+                    sh:property [
+                        sh:path sdmx-attribute:unitMeasure ;
+                        sh:hasValue <http://qudt.org/vocab/unit/SEC>
+                    ]
+                ]
+                [
+                    sh:property [ sh:path dqv:isMeasurementOf ; sh:hasValue metric:timeliness ] ;
+                    sh:property [ sh:path dqv:value ; sh:minInclusive 0 ] ;
+                    sh:property [
+                        sh:path sdmx-attribute:unitMeasure ;
+                        sh:in (
+                            <http://qudt.org/vocab/unit/SEC>
+                            <http://qudt.org/vocab/unit/MIN>
+                            <http://qudt.org/vocab/unit/HR>
+                            <http://qudt.org/vocab/unit/DAY>
+                        )
+                    ]
+                ]
+            )
         ]
         [
-            sh:property [ sh:path dqv:isMeasurementOf ; sh:hasValue metric:logical-consistency ] ;
-            sh:property [ sh:path dqv:value ; sh:minInclusive 0 ; sh:maxInclusive 100 ] ;
-            sh:property [
-                sh:path sdmx-attribute:unitMeasure ;
-                sh:hasValue <http://qudt.org/vocab/unit/PERCENT>
-            ]
+            sh:property [ sh:path molit:qualityResultKind ; sh:hasValue qresult:boolean ] ;
+            sh:property [ sh:path dqv:isMeasurementOf ; sh:hasValue metric:validation-conformance ]
         ]
         [
-            sh:property [ sh:path dqv:isMeasurementOf ; sh:hasValue metric:positional-accuracy ] ;
-            sh:property [ sh:path dqv:value ; sh:minInclusive 0 ] ;
-            sh:property [
-                sh:path sdmx-attribute:unitMeasure ;
-                sh:hasValue <http://qudt.org/vocab/unit/M>
-            ]
+            sh:property [ sh:path molit:qualityResultKind ; sh:hasValue qresult:categorical ] ;
+            sh:property [ sh:path dqv:isMeasurementOf ; sh:hasValue metric:currency-status ] ;
+            sh:xone (
+                [
+                    sh:property [ sh:path molit:qualityResultConcept ; sh:hasValue qcategory:current ] ;
+                    sh:property [ sh:path dqv:value ; sh:hasValue "current" ]
+                ]
+                [
+                    sh:property [ sh:path molit:qualityResultConcept ; sh:hasValue qcategory:outdated ] ;
+                    sh:property [ sh:path dqv:value ; sh:hasValue "outdated" ]
+                ]
+                [
+                    sh:property [ sh:path molit:qualityResultConcept ; sh:hasValue qcategory:unknown ] ;
+                    sh:property [ sh:path dqv:value ; sh:hasValue "unknown" ]
+                ]
+            )
         ]
         [
-            sh:property [ sh:path dqv:isMeasurementOf ; sh:hasValue metric:temporal-accuracy ] ;
-            sh:property [ sh:path dqv:value ; sh:minInclusive 0 ] ;
-            sh:property [
-                sh:path sdmx-attribute:unitMeasure ;
-                sh:hasValue <http://qudt.org/vocab/unit/SEC>
-            ]
-        ]
-        [
-            sh:property [ sh:path dqv:isMeasurementOf ; sh:hasValue metric:timeliness ] ;
-            sh:property [ sh:path dqv:value ; sh:minInclusive 0 ] ;
-            sh:property [
-                sh:path sdmx-attribute:unitMeasure ;
-                sh:in (
-                    <http://qudt.org/vocab/unit/SEC>
-                    <http://qudt.org/vocab/unit/MIN>
-                    <http://qudt.org/vocab/unit/HR>
-                    <http://qudt.org/vocab/unit/DAY>
-                )
-            ]
+            sh:property [ sh:path molit:qualityResultKind ; sh:hasValue qresult:descriptive ] ;
+            sh:property [ sh:path dqv:isMeasurementOf ; sh:hasValue metric:assessment-note ]
         ]
     ) ;
-    sh:message "품질 측정값은 측정항목별 허용 단위와 값 범위를 따라야 한다."@ko .
+    sh:message "품질 결과 유형은 해당 유형용 metric, 값 범위, 단위와 범주 코드를 함께 따라야 한다."@ko .
 
 <https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#QualityMeasurementDatasetCoherenceShape>
     a sh:NodeShape ;
@@ -147,6 +309,27 @@
         sh:equals dqv:computedOn ;
         sh:message "A quality measurement must be computed on exactly the dataset or datasets that link to it with dqv:hasQualityMeasurement."@en ;
         sh:message "품질 측정값의 dqv:computedOn 집합은 해당 측정값을 dqv:hasQualityMeasurement로 연결한 데이터셋 집합과 일치해야 한다."@ko
+    ] .
+
+<https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#QualityMeasurementMappingCoherenceShape>
+    a sh:NodeShape ;
+    sh:targetClass dqv:QualityMeasurement ;
+    molit:requirementId "MOLIT-QUAL-MAP-LINK-001" ;
+    molit:controlOwner "data-quality" ;
+    sh:property [
+        molit:requirementId "MOLIT-QUAL-MAP-LINK-001-P-METRIC-001" ;
+        sh:path ( molit:qualityMappingStatement molit:mappedQualityMetric ) ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:equals dqv:isMeasurementOf ;
+        sh:message "측정값의 dqv:isMeasurementOf와 연결된 매핑의 mappedQualityMetric은 같은 metric이어야 한다."@ko
+    ], [
+        molit:requirementId "MOLIT-QUAL-MAP-LINK-001-P-DISPOSITION-001" ;
+        sh:path ( molit:qualityMappingStatement molit:qualityLossDisposition ) ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:in ( qloss:lossless qloss:reversible-loss qloss:irreversible-loss ) ;
+        sh:message "실제 DQV 측정값에 연결된 매핑은 보존·가역 손실·비가역 손실 중 하나여야 한다. unmapped와 not-published 항목은 측정값 없이 별도 ledger에 기록한다."@ko
     ] .
 
 <https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#QualityEvaluationProvenanceShape>

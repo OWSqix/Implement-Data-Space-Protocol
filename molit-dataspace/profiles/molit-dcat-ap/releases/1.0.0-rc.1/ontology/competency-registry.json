@@ -460,6 +460,32 @@
             "type": "uri",
             "value": "https://data.molit.go.kr/id/concept/quality-result-kind/quantitative"
           }
+        },
+        {
+          "measurement": {
+            "type": "uri",
+            "value": "https://data.molit.go.kr/id/example/traffic-timeliness-status"
+          },
+          "metric": {
+            "type": "uri",
+            "value": "https://data.molit.go.kr/id/metric/currency-status"
+          },
+          "value": {
+            "type": "literal",
+            "value": "current"
+          },
+          "method": {
+            "type": "uri",
+            "value": "https://data.molit.go.kr/id/concept/quality-evaluation-method/rule-based"
+          },
+          "scope": {
+            "type": "literal",
+            "value": "publication timestamp compared with the source update timestamp"
+          },
+          "resultKind": {
+            "type": "uri",
+            "value": "https://data.molit.go.kr/id/concept/quality-result-kind/categorical"
+          }
         }
       ]
     },
@@ -494,6 +520,28 @@
           "targetMetric": {
             "type": "uri",
             "value": "https://data.molit.go.kr/id/metric/completeness"
+          },
+          "loss": {
+            "type": "uri",
+            "value": "https://data.molit.go.kr/id/concept/quality-loss-disposition/lossless"
+          }
+        },
+        {
+          "measurement": {
+            "type": "uri",
+            "value": "https://data.molit.go.kr/id/example/traffic-timeliness-status"
+          },
+          "mapping": {
+            "type": "uri",
+            "value": "https://data.molit.go.kr/id/example/traffic-timeliness-mapping"
+          },
+          "sourceElement": {
+            "type": "uri",
+            "value": "https://data.molit.go.kr/id/example/source-timeliness-element"
+          },
+          "targetMetric": {
+            "type": "uri",
+            "value": "https://data.molit.go.kr/id/metric/currency-status"
           },
           "loss": {
             "type": "uri",

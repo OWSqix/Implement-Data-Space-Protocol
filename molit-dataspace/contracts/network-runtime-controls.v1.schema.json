@@ -1,0 +1,58 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://data.molit.go.kr/schema/network-runtime-controls.v1.json",
+  "title": "MOLIT network whole-graph runtime controls",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "profileVersion", "registryStatus", "controls"],
+  "properties": {
+    "schemaVersion": { "const": "molit.network-runtime-controls/1" },
+    "profileVersion": { "const": "1.0.0-rc.1" },
+    "registryStatus": { "const": "approved-technical-candidate" },
+    "controls": {
+      "type": "array",
+      "minItems": 4,
+      "uniqueItems": true,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "controlId",
+          "conformanceClass",
+          "scope",
+          "obligation",
+          "severity",
+          "sourceClause",
+          "normativeStatement",
+          "implementation",
+          "positiveCaseIds",
+          "negativeCaseIds",
+          "remediation"
+        ],
+        "properties": {
+          "controlId": { "type": "string", "pattern": "^MOLIT-NET-[A-Z0-9-]+$" },
+          "conformanceClass": { "const": "network" },
+          "scope": { "const": "whole-rdf-graph-runtime" },
+          "obligation": { "const": "MUST" },
+          "severity": { "const": "Violation" },
+          "sourceClause": { "type": "string", "pattern": "^MOLIT-NET-[A-Z0-9-]+$" },
+          "normativeStatement": { "type": "string", "minLength": 20 },
+          "implementation": { "const": "src/profile/network-reference-integrity.mjs#validateNetworkReferenceGraph" },
+          "positiveCaseIds": {
+            "type": "array",
+            "minItems": 1,
+            "uniqueItems": true,
+            "items": { "type": "string", "pattern": "^NETWORK-EDITION-[A-Z0-9-]+$" }
+          },
+          "negativeCaseIds": {
+            "type": "array",
+            "minItems": 1,
+            "uniqueItems": true,
+            "items": { "type": "string", "pattern": "^NETWORK-EDITION-[A-Z0-9-]+$" }
+          },
+          "remediation": { "type": "string", "minLength": 20 }
+        }
+      }
+    }
+  }
+}

@@ -40,7 +40,7 @@ ex:catalog
         <https://data.molit.go.kr/scheme/domain> ;
     dcat:record ex:record-road-network ;
     dcat:dataset ex:road-network ;
-    molit:spatialDisclosureLevel <https://data.molit.go.kr/id/concept/spatial-disclosure-level/generalized> .
+    molit:spatialDisclosureLevel <https://data.molit.go.kr/id/concept/spatial-disclosure-level/exact> .
 
 ex:record-road-network
     a dcat:CatalogRecord ;
@@ -86,7 +86,7 @@ ex:road-network
         <https://w3id.org/mobilitydcat-ap/transport-mode/truck> ;
     molit:networkReference ex:standard-node-link-2026-07 ;
     molit:qualityStatus quality:assessed ;
-    molit:spatialDisclosureLevel <https://data.molit.go.kr/id/concept/spatial-disclosure-level/generalized> .
+    molit:spatialDisclosureLevel <https://data.molit.go.kr/id/concept/spatial-disclosure-level/exact> .
 
 ex:road-network-csv
     a dcat:Distribution ;

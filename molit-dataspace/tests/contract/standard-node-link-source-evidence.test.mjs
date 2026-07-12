@@ -20,6 +20,7 @@ const sha256 = (value) => createHash("sha256").update(value).digest("hex");
 test("NODELINK-SOURCE-001: the observed archive identity and rights boundary are explicit", () => {
   assert.equal(evidence.schemaVersion, "molit.standard-node-link-source-evidence/1");
   assert.equal(evidence.source.sourceRecordId, "DF_217");
+  assert.equal(evidence.source.publisher, "국토교통부 국가교통정보센터");
   assert.equal(evidence.source.sourceFileSequence, "0");
   assert.equal(evidence.source.datasetVersion, "2026-07-01");
   assert.equal(evidence.source.archiveBytes, 257_182_267);
@@ -27,6 +28,7 @@ test("NODELINK-SOURCE-001: the observed archive identity and rights boundary are
   assert.equal(evidence.source.reuseStatus, "institutional-redistribution-approval-pending");
   assert.match(evidence.source.copyrightPolicy, /^https:\/\/www[.]its[.]go[.]kr\//u);
   assert.doesNotMatch(JSON.stringify(evidence), /creativecommons|CC BY/iu);
+  assert.equal(evidence.archiveComponents.at(-1).path, "내역서.csv");
 });
 
 test("NODELINK-SOURCE-002: the retained PRJ bytes identify the pinned EPSG:5186 parameters", () => {
@@ -49,6 +51,11 @@ test("NODELINK-SOURCE-002: the retained PRJ bytes identify the pinned EPSG:5186 
 
 test("NODELINK-SOURCE-003: the link endpoints, identifier grammar and axis conversion agree", () => {
   const { link, nodes } = evidence.sample;
+  assert.equal(link.fields.ROAD_NAME, "이방대합로");
+  assert.deepEqual(nodes.map(({ fields }) => fields.NODE_NAME), [
+    "이방면 장천리 1150-11",
+    "이방면 장천리 542-5",
+  ]);
   assert.match(link.fields.LINK_ID, /^\d{10}$/u);
   assert.deepEqual(
     new Set([link.fields.F_NODE, link.fields.T_NODE]),

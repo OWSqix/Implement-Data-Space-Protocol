@@ -10,6 +10,7 @@
 @prefix qudt: <http://qudt.org/schema/qudt/> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
 @prefix skos: <http://www.w3.org/2004/02/skos/core#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
@@ -103,8 +104,8 @@ molit:ObservationDataset
     rdfs:isDefinedBy <https://data.molit.go.kr/def/molit-dcat-ap> ;
     rdfs:label "관측 데이터셋"@ko,
         "Observation dataset"@en ;
-    skos:definition "교통량, 속도, 통행시간 또는 시설 상태처럼 시간에 따라 관측한 값을 제공하며 관측항목, 관측대상 유형, 집계, 결측 처리와 단위를 함께 기술하는 데이터셋."@ko,
-        "A dataset providing time-dependent observations such as traffic volume, speed, travel time or facility status, together with observed-property, subject-type, aggregation, missing-value and unit semantics."@en ;
+    skos:definition "교통량, 속도 또는 통행시간의 시계열 관측값을 제공하며 관측항목, 관측대상 유형, 집계, 결측 처리와 단위를 함께 기술하는 데이터셋. 시설 상태 관측은 RC.1 범위가 아니다."@ko,
+        "A dataset providing time-dependent traffic-volume, speed or travel-time observations together with observed-property, subject-type, aggregation, missing-value and unit semantics; facility-status observations are outside RC.1."@en ;
     rdfs:seeAlso <http://www.w3.org/ns/sosa/ObservationCollection> ;
     rdfs:comment "The class describes catalogue metadata for a dataset. It is not declared equivalent to a SOSA observation or observation collection."@en ;
     adms:status molit-status:candidate ;
@@ -404,8 +405,8 @@ molit:qualityEvaluationMethod
     rdfs:isDefinedBy <https://data.molit.go.kr/def/molit-dcat-ap> ;
     rdfs:label "품질 평가 방법"@ko,
         "quality evaluation method"@en ;
-    skos:definition "품질 측정값을 산출한 평가방법 통제값을 연결한다. 세부 알고리즘과 매개변수는 해당 방법 문서의 판을 참조한다."@ko,
-        "Links a quality measurement to a controlled evaluation-method value. Detailed algorithms and parameters refer to the applicable method-document edition."@en ;
+    skos:definition "품질 측정값을 산출한 절차의 방법 유형을 분류한다. RC.1은 실행 알고리즘, 매개변수, 수행주체나 재현 가능성을 이 값만으로 주장하지 않는다."@ko,
+        "Classifies the method category of the procedure that produced a quality measurement; RC.1 does not use this value alone to identify an executable algorithm, parameters, agent or reproducibility."@en ;
     adms:status molit-status:candidate ;
     owl:versionInfo "1.0.0-rc.1" .
 
@@ -418,6 +419,18 @@ molit:qualityEvaluationScope
         "quality evaluation scope"@en ;
     skos:definition "품질 측정값을 Dataset 전체로 오해하지 않도록 실제 평가 모집단, 표본, 속성 또는 기간을 기술하는 문자열."@ko,
         "A string describing the evaluated population, sample, attribute or period so that a measurement is not mistaken for a whole-dataset result."@en ;
+    adms:status molit-status:candidate ;
+    owl:versionInfo "1.0.0-rc.1" .
+
+molit:qualityResultConcept
+    a owl:ObjectProperty ;
+    rdfs:domain dqv:QualityMeasurement ;
+    rdfs:range skos:Concept ;
+    rdfs:isDefinedBy <https://data.molit.go.kr/def/molit-dcat-ap> ;
+    rdfs:label "품질 결과 개념"@ko,
+        "quality result concept"@en ;
+    skos:definition "범주형 품질 결과의 통제 개념을 가리킨다. DQV의 dqv:value에는 이 개념의 코드나 표기값을 literal로 기록한다."@ko,
+        "Links a categorical quality result to its controlled concept while dqv:value retains a literal code or notation as required by DQV."@en ;
     adms:status molit-status:candidate ;
     owl:versionInfo "1.0.0-rc.1" .
 
@@ -509,6 +522,8 @@ molit:spatialDisclosureLevel
 
 molit:requirementId
     a owl:AnnotationProperty ;
+    rdfs:domain sh:Shape ;
+    rdfs:range xsd:string ;
     rdfs:isDefinedBy <https://data.molit.go.kr/def/molit-dcat-ap> ;
     rdfs:label "요구사항 식별자"@ko,
         "requirement identifier"@en ;
@@ -519,6 +534,8 @@ molit:requirementId
 
 molit:remediation
     a owl:AnnotationProperty ;
+    rdfs:domain sh:Shape ;
+    rdfs:range xsd:string ;
     rdfs:isDefinedBy <https://data.molit.go.kr/def/molit-dcat-ap> ;
     rdfs:label "수정 지침"@ko,
         "remediation"@en ;
@@ -529,6 +546,8 @@ molit:remediation
 
 molit:controlOwner
     a owl:AnnotationProperty ;
+    rdfs:domain sh:Shape ;
+    rdfs:range xsd:string ;
     rdfs:isDefinedBy <https://data.molit.go.kr/def/molit-dcat-ap> ;
     rdfs:label "통제 책임 역할"@ko,
         "control owner role"@en ;

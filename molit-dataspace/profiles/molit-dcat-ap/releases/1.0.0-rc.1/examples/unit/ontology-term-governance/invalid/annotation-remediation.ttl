@@ -1,0 +1,6 @@
+@prefix ex: <urn:molit:term-governance:annotation:> .
+@prefix molit: <https://data.molit.go.kr/def/molit-dcat-ap#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+
+ex:shape a sh:NodeShape ;
+    molit:remediation "short" .

@@ -3920,12 +3920,12 @@ _:n3-440 <http://www.w3.org/ns/shacl#nodeKind> <http://www.w3.org/ns/shacl#IRI>;
     <http://www.w3.org/ns/shacl#flags> "i".
 <https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#SpatialDatasetShape> a <http://www.w3.org/ns/shacl#NodeShape>;
     <http://www.w3.org/ns/shacl#targetClass> <https://data.molit.go.kr/def/molit-dcat-ap#SpatialDataset>;
-    <http://www.w3.org/ns/shacl#property> _:n3-441, _:n3-442, _:n3-452, _:n3-459;
+    <http://www.w3.org/ns/shacl#property> _:n3-441, _:n3-442, _:n3-452, _:n3-455;
     <https://data.molit.go.kr/def/molit-dcat-ap#requirementId> "MOLIT-GEO-001";
     <https://data.molit.go.kr/def/molit-dcat-ap#controlOwner> "geospatial-governance";
     <http://www.w3.org/ns/shacl#message> "공간 공개 수준이 비공개이면 location, bbox, centroid 또는 geometry serialization을 공개 graph에 넣을 수 없다."@ko;
-    <http://www.w3.org/ns/shacl#or> _:n3-469;
-    <http://www.w3.org/ns/shacl#xone> _:n3-460.
+    <http://www.w3.org/ns/shacl#or> _:n3-464;
+    <http://www.w3.org/ns/shacl#xone> _:n3-456.
 _:n3-441 <http://www.w3.org/ns/shacl#path> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type>;
     <https://data.molit.go.kr/def/molit-dcat-ap#requirementId> "MOLIT-GEO-001-P-TYPE-001";
     <http://www.w3.org/ns/shacl#message> "확장 유형과 함께 dcat:Dataset 유형을 명시해야 한다."@ko;
@@ -3960,247 +3960,252 @@ _:n3-452 <http://www.w3.org/ns/shacl#nodeKind> <http://www.w3.org/ns/shacl#IRI>;
     <http://www.w3.org/ns/shacl#minCount> 1;
     <http://www.w3.org/ns/shacl#maxCount> 1;
     <https://data.molit.go.kr/def/molit-dcat-ap#requirementId> "MOLIT-GEO-001-P-SPATIALDISCLOSURELEVEL-001";
-    <http://www.w3.org/ns/shacl#message> "공개 공간 범위의 정밀도 수준을 통제어 IRI로 기록해야 한다."@ko;
+    <http://www.w3.org/ns/shacl#message> "RC.1 발행 graph의 공간 공개 수준은 기계 검증 가능한 exact 또는 withheld IRI여야 한다."@ko;
     <http://www.w3.org/ns/shacl#in> _:n3-453.
 _:n3-453 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <https://data.molit.go.kr/id/concept/spatial-disclosure-level/exact>;
     <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:n3-454.
-_:n3-454 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <https://data.molit.go.kr/id/concept/spatial-disclosure-level/generalized>;
-    <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:n3-455.
-_:n3-455 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <https://data.molit.go.kr/id/concept/spatial-disclosure-level/administrative-area>;
-    <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:n3-456.
-_:n3-456 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <https://data.molit.go.kr/id/concept/spatial-disclosure-level/bounding-box>;
-    <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:n3-457.
-_:n3-457 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <https://data.molit.go.kr/id/concept/spatial-disclosure-level/grid>;
-    <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:n3-458.
-_:n3-458 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <https://data.molit.go.kr/id/concept/spatial-disclosure-level/withheld>;
+_:n3-454 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <https://data.molit.go.kr/id/concept/spatial-disclosure-level/withheld>;
     <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> <http://www.w3.org/1999/02/22-rdf-syntax-ns#nil>.
-_:n3-459 <http://www.w3.org/ns/shacl#path> <http://www.w3.org/ns/dcat#spatialResolutionInMeters>;
+_:n3-455 <http://www.w3.org/ns/shacl#path> <http://www.w3.org/ns/dcat#spatialResolutionInMeters>;
     <http://www.w3.org/ns/shacl#datatype> <http://www.w3.org/2001/XMLSchema#decimal>;
     <https://data.molit.go.kr/def/molit-dcat-ap#requirementId> "MOLIT-GEO-001-P-SPATIALRESOLUTIONINMETERS-001";
     <http://www.w3.org/ns/shacl#message> "공간 해상도는 0보다 큰 미터 단위 xsd:decimal이어야 한다."@ko;
     <http://www.w3.org/ns/shacl#minExclusive> 0.
+_:n3-456 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> _:n3-457;
+    <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:n3-460.
+_:n3-457 <http://www.w3.org/ns/shacl#property> _:n3-458, _:n3-459.
+_:n3-458 <http://www.w3.org/ns/shacl#path> <https://data.molit.go.kr/def/molit-dcat-ap#spatialDisclosureLevel>;
+    <http://www.w3.org/ns/shacl#hasValue> <https://data.molit.go.kr/id/concept/spatial-disclosure-level/withheld>.
+_:n3-459 <http://www.w3.org/ns/shacl#path> <http://purl.org/dc/terms/spatial>;
+    <http://www.w3.org/ns/shacl#maxCount> 0.
 _:n3-460 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> _:n3-461;
-    <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:n3-464.
+    <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> <http://www.w3.org/1999/02/22-rdf-syntax-ns#nil>.
 _:n3-461 <http://www.w3.org/ns/shacl#property> _:n3-462, _:n3-463.
 _:n3-462 <http://www.w3.org/ns/shacl#path> <https://data.molit.go.kr/def/molit-dcat-ap#spatialDisclosureLevel>;
-    <http://www.w3.org/ns/shacl#hasValue> <https://data.molit.go.kr/id/concept/spatial-disclosure-level/withheld>.
+    <http://www.w3.org/ns/shacl#hasValue> <https://data.molit.go.kr/id/concept/spatial-disclosure-level/exact>.
 _:n3-463 <http://www.w3.org/ns/shacl#path> <http://purl.org/dc/terms/spatial>;
-    <http://www.w3.org/ns/shacl#maxCount> 0.
+    <http://www.w3.org/ns/shacl#minCount> 1;
+    <http://www.w3.org/ns/shacl#class> <http://purl.org/dc/terms/Location>.
 _:n3-464 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> _:n3-465;
-    <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> <http://www.w3.org/1999/02/22-rdf-syntax-ns#nil>.
-_:n3-465 <http://www.w3.org/ns/shacl#property> _:n3-468;
-    <http://www.w3.org/ns/shacl#not> _:n3-466.
+    <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:n3-468.
+_:n3-465 <http://www.w3.org/ns/shacl#not> _:n3-466.
 _:n3-467 <http://www.w3.org/ns/shacl#path> <https://data.molit.go.kr/def/molit-dcat-ap#spatialDisclosureLevel>;
     <http://www.w3.org/ns/shacl#hasValue> <https://data.molit.go.kr/id/concept/spatial-disclosure-level/withheld>.
 _:n3-466 <http://www.w3.org/ns/shacl#property> _:n3-467.
-_:n3-468 <http://www.w3.org/ns/shacl#path> <http://purl.org/dc/terms/spatial>;
-    <http://www.w3.org/ns/shacl#minCount> 1;
-    <http://www.w3.org/ns/shacl#class> <http://purl.org/dc/terms/Location>.
-_:n3-469 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> _:n3-470;
-    <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:n3-473.
-_:n3-470 <http://www.w3.org/ns/shacl#not> _:n3-471.
-_:n3-472 <http://www.w3.org/ns/shacl#path> <https://data.molit.go.kr/def/molit-dcat-ap#spatialDisclosureLevel>;
-    <http://www.w3.org/ns/shacl#hasValue> <https://data.molit.go.kr/id/concept/spatial-disclosure-level/withheld>.
-_:n3-471 <http://www.w3.org/ns/shacl#property> _:n3-472.
-_:n3-473 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> _:n3-474;
+_:n3-468 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> _:n3-469;
     <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> <http://www.w3.org/1999/02/22-rdf-syntax-ns#nil>.
-_:n3-474 <http://www.w3.org/ns/shacl#property> _:n3-475, _:n3-476, _:n3-477, _:n3-478, _:n3-479, _:n3-480, _:n3-481, _:n3-482, _:n3-483, _:n3-484, _:n3-485, _:n3-486, _:n3-487, _:n3-488, _:n3-489.
-_:n3-475 <http://www.w3.org/ns/shacl#path> <http://purl.org/dc/terms/spatial>;
+_:n3-469 <http://www.w3.org/ns/shacl#property> _:n3-470, _:n3-471, _:n3-472, _:n3-473, _:n3-474, _:n3-475, _:n3-476, _:n3-477, _:n3-478, _:n3-479, _:n3-480, _:n3-481, _:n3-482, _:n3-483, _:n3-484.
+_:n3-470 <http://www.w3.org/ns/shacl#path> <http://purl.org/dc/terms/spatial>;
     <http://www.w3.org/ns/shacl#maxCount> 0.
-_:n3-476 <http://www.w3.org/ns/shacl#path> <http://www.w3.org/ns/dcat#bbox>;
+_:n3-471 <http://www.w3.org/ns/shacl#path> <http://www.w3.org/ns/dcat#bbox>;
     <http://www.w3.org/ns/shacl#maxCount> 0.
-_:n3-477 <http://www.w3.org/ns/shacl#path> <http://www.w3.org/ns/dcat#centroid>;
+_:n3-472 <http://www.w3.org/ns/shacl#path> <http://www.w3.org/ns/dcat#centroid>;
     <http://www.w3.org/ns/shacl#maxCount> 0.
-_:n3-478 <http://www.w3.org/ns/shacl#path> <http://www.w3.org/ns/locn#geometry>;
+_:n3-473 <http://www.w3.org/ns/shacl#path> <http://www.w3.org/ns/locn#geometry>;
     <http://www.w3.org/ns/shacl#maxCount> 0.
-_:n3-479 <http://www.w3.org/ns/shacl#path> <http://www.opengis.net/ont/geosparql#defaultGeometry>;
+_:n3-474 <http://www.w3.org/ns/shacl#path> <http://www.opengis.net/ont/geosparql#defaultGeometry>;
     <http://www.w3.org/ns/shacl#maxCount> 0.
-_:n3-480 <http://www.w3.org/ns/shacl#path> <http://www.opengis.net/ont/geosparql#hasDefaultGeometry>;
+_:n3-475 <http://www.w3.org/ns/shacl#path> <http://www.opengis.net/ont/geosparql#hasDefaultGeometry>;
     <http://www.w3.org/ns/shacl#maxCount> 0.
-_:n3-481 <http://www.w3.org/ns/shacl#path> <http://www.opengis.net/ont/geosparql#hasGeometry>;
+_:n3-476 <http://www.w3.org/ns/shacl#path> <http://www.opengis.net/ont/geosparql#hasGeometry>;
     <http://www.w3.org/ns/shacl#maxCount> 0.
-_:n3-482 <http://www.w3.org/ns/shacl#path> <http://www.opengis.net/ont/geosparql#hasBoundingBox>;
+_:n3-477 <http://www.w3.org/ns/shacl#path> <http://www.opengis.net/ont/geosparql#hasBoundingBox>;
     <http://www.w3.org/ns/shacl#maxCount> 0.
-_:n3-483 <http://www.w3.org/ns/shacl#path> <http://www.opengis.net/ont/geosparql#hasCentroid>;
+_:n3-478 <http://www.w3.org/ns/shacl#path> <http://www.opengis.net/ont/geosparql#hasCentroid>;
     <http://www.w3.org/ns/shacl#maxCount> 0.
-_:n3-484 <http://www.w3.org/ns/shacl#path> <http://www.opengis.net/ont/geosparql#hasSerialization>;
+_:n3-479 <http://www.w3.org/ns/shacl#path> <http://www.opengis.net/ont/geosparql#hasSerialization>;
     <http://www.w3.org/ns/shacl#maxCount> 0.
-_:n3-485 <http://www.w3.org/ns/shacl#path> <http://www.opengis.net/ont/geosparql#asWKT>;
+_:n3-480 <http://www.w3.org/ns/shacl#path> <http://www.opengis.net/ont/geosparql#asWKT>;
     <http://www.w3.org/ns/shacl#maxCount> 0.
-_:n3-486 <http://www.w3.org/ns/shacl#path> <http://www.opengis.net/ont/geosparql#asGML>;
+_:n3-481 <http://www.w3.org/ns/shacl#path> <http://www.opengis.net/ont/geosparql#asGML>;
     <http://www.w3.org/ns/shacl#maxCount> 0.
-_:n3-487 <http://www.w3.org/ns/shacl#path> <http://www.opengis.net/ont/geosparql#asGeoJSON>;
+_:n3-482 <http://www.w3.org/ns/shacl#path> <http://www.opengis.net/ont/geosparql#asGeoJSON>;
     <http://www.w3.org/ns/shacl#maxCount> 0.
-_:n3-488 <http://www.w3.org/ns/shacl#path> <http://www.opengis.net/ont/geosparql#asKML>;
+_:n3-483 <http://www.w3.org/ns/shacl#path> <http://www.opengis.net/ont/geosparql#asKML>;
     <http://www.w3.org/ns/shacl#maxCount> 0.
-_:n3-489 <http://www.w3.org/ns/shacl#path> <http://www.opengis.net/ont/geosparql#asDGGS>;
+_:n3-484 <http://www.w3.org/ns/shacl#path> <http://www.opengis.net/ont/geosparql#asDGGS>;
     <http://www.w3.org/ns/shacl#maxCount> 0.
 <https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#SpatialDisclosureSafetyShape> a <http://www.w3.org/ns/shacl#NodeShape>;
+    <http://www.w3.org/ns/shacl#property> _:n3-485;
     <https://data.molit.go.kr/def/molit-dcat-ap#requirementId> "MOLIT-GEO-DISCLOSURE-001";
     <https://data.molit.go.kr/def/molit-dcat-ap#controlOwner> "security-privacy-review";
-    <http://www.w3.org/ns/shacl#message> "비공개 공간 수준과 location 또는 geometry를 함께 게시할 수 없다."@ko;
-    <http://www.w3.org/ns/shacl#or> _:n3-490;
-    <http://www.w3.org/ns/shacl#targetSubjectsOf> <https://data.molit.go.kr/def/molit-dcat-ap#spatialDisclosureLevel>.
-_:n3-490 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> _:n3-491;
-    <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:n3-494.
-_:n3-491 <http://www.w3.org/ns/shacl#not> _:n3-492.
-_:n3-493 <http://www.w3.org/ns/shacl#path> <https://data.molit.go.kr/def/molit-dcat-ap#spatialDisclosureLevel>;
-    <http://www.w3.org/ns/shacl#hasValue> <https://data.molit.go.kr/id/concept/spatial-disclosure-level/withheld>.
-_:n3-492 <http://www.w3.org/ns/shacl#property> _:n3-493.
-_:n3-494 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> _:n3-495;
+    <http://www.w3.org/ns/shacl#message> "공간 공개 수준은 exact 또는 withheld 하나여야 한다. exact에는 location이 필요하고 withheld에는 location·bbox·centroid·geometry를 둘 수 없다."@ko;
+    <http://www.w3.org/ns/shacl#targetSubjectsOf> <https://data.molit.go.kr/def/molit-dcat-ap#spatialDisclosureLevel>;
+    <http://www.w3.org/ns/shacl#xone> _:n3-488.
+_:n3-485 <http://www.w3.org/ns/shacl#nodeKind> <http://www.w3.org/ns/shacl#IRI>;
+    <http://www.w3.org/ns/shacl#path> <https://data.molit.go.kr/def/molit-dcat-ap#spatialDisclosureLevel>;
+    <http://www.w3.org/ns/shacl#minCount> 1;
+    <http://www.w3.org/ns/shacl#maxCount> 1;
+    <https://data.molit.go.kr/def/molit-dcat-ap#requirementId> "MOLIT-GEO-DISCLOSURE-001-P-SPATIALDISCLOSURELEVEL-001";
+    <http://www.w3.org/ns/shacl#in> _:n3-486.
+_:n3-486 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <https://data.molit.go.kr/id/concept/spatial-disclosure-level/exact>;
+    <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:n3-487.
+_:n3-487 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <https://data.molit.go.kr/id/concept/spatial-disclosure-level/withheld>;
     <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> <http://www.w3.org/1999/02/22-rdf-syntax-ns#nil>.
-_:n3-495 <http://www.w3.org/ns/shacl#property> _:n3-496, _:n3-497, _:n3-498, _:n3-499, _:n3-500, _:n3-501, _:n3-502, _:n3-503, _:n3-504, _:n3-505, _:n3-506, _:n3-507, _:n3-508, _:n3-509, _:n3-510.
-_:n3-496 <http://www.w3.org/ns/shacl#path> <http://purl.org/dc/terms/spatial>;
+_:n3-488 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> _:n3-489;
+    <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:n3-492.
+_:n3-489 <http://www.w3.org/ns/shacl#property> _:n3-490, _:n3-491.
+_:n3-490 <http://www.w3.org/ns/shacl#path> <https://data.molit.go.kr/def/molit-dcat-ap#spatialDisclosureLevel>;
+    <http://www.w3.org/ns/shacl#hasValue> <https://data.molit.go.kr/id/concept/spatial-disclosure-level/exact>.
+_:n3-491 <http://www.w3.org/ns/shacl#path> <http://purl.org/dc/terms/spatial>;
+    <http://www.w3.org/ns/shacl#minCount> 1;
+    <http://www.w3.org/ns/shacl#class> <http://purl.org/dc/terms/Location>.
+_:n3-492 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> _:n3-493;
+    <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> <http://www.w3.org/1999/02/22-rdf-syntax-ns#nil>.
+_:n3-493 <http://www.w3.org/ns/shacl#property> _:n3-494, _:n3-495, _:n3-496, _:n3-497, _:n3-498, _:n3-499, _:n3-500, _:n3-501, _:n3-502, _:n3-503, _:n3-504, _:n3-505, _:n3-506, _:n3-507, _:n3-508, _:n3-509.
+_:n3-494 <http://www.w3.org/ns/shacl#path> <https://data.molit.go.kr/def/molit-dcat-ap#spatialDisclosureLevel>;
+    <http://www.w3.org/ns/shacl#hasValue> <https://data.molit.go.kr/id/concept/spatial-disclosure-level/withheld>.
+_:n3-495 <http://www.w3.org/ns/shacl#path> <http://purl.org/dc/terms/spatial>;
     <http://www.w3.org/ns/shacl#maxCount> 0.
-_:n3-497 <http://www.w3.org/ns/shacl#path> <http://www.w3.org/ns/dcat#bbox>;
+_:n3-496 <http://www.w3.org/ns/shacl#path> <http://www.w3.org/ns/dcat#bbox>;
     <http://www.w3.org/ns/shacl#maxCount> 0.
-_:n3-498 <http://www.w3.org/ns/shacl#path> <http://www.w3.org/ns/dcat#centroid>;
+_:n3-497 <http://www.w3.org/ns/shacl#path> <http://www.w3.org/ns/dcat#centroid>;
     <http://www.w3.org/ns/shacl#maxCount> 0.
-_:n3-499 <http://www.w3.org/ns/shacl#path> <http://www.w3.org/ns/locn#geometry>;
+_:n3-498 <http://www.w3.org/ns/shacl#path> <http://www.w3.org/ns/locn#geometry>;
     <http://www.w3.org/ns/shacl#maxCount> 0.
-_:n3-500 <http://www.w3.org/ns/shacl#path> <http://www.opengis.net/ont/geosparql#defaultGeometry>;
+_:n3-499 <http://www.w3.org/ns/shacl#path> <http://www.opengis.net/ont/geosparql#defaultGeometry>;
     <http://www.w3.org/ns/shacl#maxCount> 0.
-_:n3-501 <http://www.w3.org/ns/shacl#path> <http://www.opengis.net/ont/geosparql#hasDefaultGeometry>;
+_:n3-500 <http://www.w3.org/ns/shacl#path> <http://www.opengis.net/ont/geosparql#hasDefaultGeometry>;
     <http://www.w3.org/ns/shacl#maxCount> 0.
-_:n3-502 <http://www.w3.org/ns/shacl#path> <http://www.opengis.net/ont/geosparql#hasGeometry>;
+_:n3-501 <http://www.w3.org/ns/shacl#path> <http://www.opengis.net/ont/geosparql#hasGeometry>;
     <http://www.w3.org/ns/shacl#maxCount> 0.
-_:n3-503 <http://www.w3.org/ns/shacl#path> <http://www.opengis.net/ont/geosparql#hasBoundingBox>;
+_:n3-502 <http://www.w3.org/ns/shacl#path> <http://www.opengis.net/ont/geosparql#hasBoundingBox>;
     <http://www.w3.org/ns/shacl#maxCount> 0.
-_:n3-504 <http://www.w3.org/ns/shacl#path> <http://www.opengis.net/ont/geosparql#hasCentroid>;
+_:n3-503 <http://www.w3.org/ns/shacl#path> <http://www.opengis.net/ont/geosparql#hasCentroid>;
     <http://www.w3.org/ns/shacl#maxCount> 0.
-_:n3-505 <http://www.w3.org/ns/shacl#path> <http://www.opengis.net/ont/geosparql#hasSerialization>;
+_:n3-504 <http://www.w3.org/ns/shacl#path> <http://www.opengis.net/ont/geosparql#hasSerialization>;
     <http://www.w3.org/ns/shacl#maxCount> 0.
-_:n3-506 <http://www.w3.org/ns/shacl#path> <http://www.opengis.net/ont/geosparql#asWKT>;
+_:n3-505 <http://www.w3.org/ns/shacl#path> <http://www.opengis.net/ont/geosparql#asWKT>;
     <http://www.w3.org/ns/shacl#maxCount> 0.
-_:n3-507 <http://www.w3.org/ns/shacl#path> <http://www.opengis.net/ont/geosparql#asGML>;
+_:n3-506 <http://www.w3.org/ns/shacl#path> <http://www.opengis.net/ont/geosparql#asGML>;
     <http://www.w3.org/ns/shacl#maxCount> 0.
-_:n3-508 <http://www.w3.org/ns/shacl#path> <http://www.opengis.net/ont/geosparql#asGeoJSON>;
+_:n3-507 <http://www.w3.org/ns/shacl#path> <http://www.opengis.net/ont/geosparql#asGeoJSON>;
     <http://www.w3.org/ns/shacl#maxCount> 0.
-_:n3-509 <http://www.w3.org/ns/shacl#path> <http://www.opengis.net/ont/geosparql#asKML>;
+_:n3-508 <http://www.w3.org/ns/shacl#path> <http://www.opengis.net/ont/geosparql#asKML>;
     <http://www.w3.org/ns/shacl#maxCount> 0.
-_:n3-510 <http://www.w3.org/ns/shacl#path> <http://www.opengis.net/ont/geosparql#asDGGS>;
+_:n3-509 <http://www.w3.org/ns/shacl#path> <http://www.opengis.net/ont/geosparql#asDGGS>;
     <http://www.w3.org/ns/shacl#maxCount> 0.
 <https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#SpatialDisclosureSubjectTypeShape> a <http://www.w3.org/ns/shacl#NodeShape>;
     <https://data.molit.go.kr/def/molit-dcat-ap#requirementId> "MOLIT-GEO-DISCLOSURE-002";
     <https://data.molit.go.kr/def/molit-dcat-ap#controlOwner> "geospatial-governance";
     <http://www.w3.org/ns/shacl#message> "공간 공개 수준은 Dataset, Catalog, DatasetSeries 또는 DataService에만 지정한다."@ko;
-    <http://www.w3.org/ns/shacl#or> _:n3-511;
+    <http://www.w3.org/ns/shacl#or> _:n3-510;
     <http://www.w3.org/ns/shacl#targetSubjectsOf> <https://data.molit.go.kr/def/molit-dcat-ap#spatialDisclosureLevel>.
-_:n3-511 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> _:n3-512;
-    <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:n3-514.
-_:n3-512 <http://www.w3.org/ns/shacl#property> _:n3-513.
-_:n3-513 <http://www.w3.org/ns/shacl#path> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type>;
+_:n3-510 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> _:n3-511;
+    <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:n3-513.
+_:n3-511 <http://www.w3.org/ns/shacl#property> _:n3-512.
+_:n3-512 <http://www.w3.org/ns/shacl#path> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type>;
     <http://www.w3.org/ns/shacl#hasValue> <http://www.w3.org/ns/dcat#Dataset>.
-_:n3-514 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> _:n3-515;
-    <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:n3-517.
-_:n3-515 <http://www.w3.org/ns/shacl#property> _:n3-516.
-_:n3-516 <http://www.w3.org/ns/shacl#path> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type>;
+_:n3-513 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> _:n3-514;
+    <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:n3-516.
+_:n3-514 <http://www.w3.org/ns/shacl#property> _:n3-515.
+_:n3-515 <http://www.w3.org/ns/shacl#path> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type>;
     <http://www.w3.org/ns/shacl#hasValue> <http://www.w3.org/ns/dcat#Catalog>.
-_:n3-517 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> _:n3-518;
-    <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:n3-520.
-_:n3-518 <http://www.w3.org/ns/shacl#property> _:n3-519.
-_:n3-519 <http://www.w3.org/ns/shacl#path> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type>;
+_:n3-516 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> _:n3-517;
+    <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:n3-519.
+_:n3-517 <http://www.w3.org/ns/shacl#property> _:n3-518.
+_:n3-518 <http://www.w3.org/ns/shacl#path> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type>;
     <http://www.w3.org/ns/shacl#hasValue> <http://www.w3.org/ns/dcat#DatasetSeries>.
-_:n3-520 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> _:n3-521;
+_:n3-519 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> _:n3-520;
     <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> <http://www.w3.org/1999/02/22-rdf-syntax-ns#nil>.
-_:n3-521 <http://www.w3.org/ns/shacl#property> _:n3-522.
-_:n3-522 <http://www.w3.org/ns/shacl#path> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type>;
+_:n3-520 <http://www.w3.org/ns/shacl#property> _:n3-521.
+_:n3-521 <http://www.w3.org/ns/shacl#path> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type>;
     <http://www.w3.org/ns/shacl#hasValue> <http://www.w3.org/ns/dcat#DataService>.
 <https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#LocationGeometryLinkShape> a <http://www.w3.org/ns/shacl#NodeShape>;
-    <http://www.w3.org/ns/shacl#property> _:n3-523;
+    <http://www.w3.org/ns/shacl#property> _:n3-522;
     <https://data.molit.go.kr/def/molit-dcat-ap#requirementId> "MOLIT-GEO-LINK-001";
     <https://data.molit.go.kr/def/molit-dcat-ap#controlOwner> "geospatial-governance";
     <http://www.w3.org/ns/shacl#targetSubjectsOf> <http://www.w3.org/ns/dcat#bbox>, <http://www.w3.org/ns/locn#geometry>, <http://www.w3.org/ns/dcat#centroid>, <http://www.opengis.net/ont/geosparql#defaultGeometry>, <http://www.opengis.net/ont/geosparql#hasDefaultGeometry>, <http://www.opengis.net/ont/geosparql#hasGeometry>, <http://www.opengis.net/ont/geosparql#hasBoundingBox>, <http://www.opengis.net/ont/geosparql#hasCentroid>.
-_:n3-523 <http://www.w3.org/ns/shacl#path> _:n3-524;
+_:n3-522 <http://www.w3.org/ns/shacl#path> _:n3-523;
     <http://www.w3.org/ns/shacl#minCount> 1;
     <https://data.molit.go.kr/def/molit-dcat-ap#requirementId> "MOLIT-GEO-LINK-001-P-PATH-BFC98936CC-001";
     <http://www.w3.org/ns/shacl#message> "geometry를 사용하는 모든 Catalog·Dataset·DatasetSeries·DataService에 공간 공개 수준이 있어야 한다."@ko;
-    <http://www.w3.org/ns/shacl#node> _:n3-525.
-_:n3-524 <http://www.w3.org/ns/shacl#inversePath> <http://purl.org/dc/terms/spatial>.
-_:n3-526 <http://www.w3.org/ns/shacl#path> <https://data.molit.go.kr/def/molit-dcat-ap#spatialDisclosureLevel>;
+    <http://www.w3.org/ns/shacl#node> _:n3-524.
+_:n3-523 <http://www.w3.org/ns/shacl#inversePath> <http://purl.org/dc/terms/spatial>.
+_:n3-525 <http://www.w3.org/ns/shacl#path> <https://data.molit.go.kr/def/molit-dcat-ap#spatialDisclosureLevel>;
     <http://www.w3.org/ns/shacl#minCount> 1.
-_:n3-525 <http://www.w3.org/ns/shacl#property> _:n3-526.
+_:n3-524 <http://www.w3.org/ns/shacl#property> _:n3-525.
 <https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#GeometryLiteralLinkShape> a <http://www.w3.org/ns/shacl#NodeShape>;
-    <http://www.w3.org/ns/shacl#property> _:n3-527;
+    <http://www.w3.org/ns/shacl#property> _:n3-526;
     <https://data.molit.go.kr/def/molit-dcat-ap#requirementId> "MOLIT-GEO-LINK-002";
     <https://data.molit.go.kr/def/molit-dcat-ap#controlOwner> "geospatial-governance";
     <http://www.w3.org/ns/shacl#targetSubjectsOf> <http://www.opengis.net/ont/geosparql#hasSerialization>, <http://www.opengis.net/ont/geosparql#asWKT>, <http://www.opengis.net/ont/geosparql#asGML>, <http://www.opengis.net/ont/geosparql#asGeoJSON>, <http://www.opengis.net/ont/geosparql#asKML>, <http://www.opengis.net/ont/geosparql#asDGGS>.
-_:n3-527 <http://www.w3.org/ns/shacl#path> _:n3-528;
+_:n3-526 <http://www.w3.org/ns/shacl#path> _:n3-527;
     <http://www.w3.org/ns/shacl#minCount> 1;
     <https://data.molit.go.kr/def/molit-dcat-ap#requirementId> "MOLIT-GEO-LINK-002-P-PATH-D6567CFAEC-001";
     <http://www.w3.org/ns/shacl#message> "geometry serialization을 사용하는 모든 카탈로그 자원에 공간 공개 수준이 있어야 한다."@ko;
-    <http://www.w3.org/ns/shacl#node> _:n3-561.
-_:n3-530 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> _:n3-531;
-    <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:n3-532.
-_:n3-531 <http://www.w3.org/ns/shacl#inversePath> <http://www.w3.org/ns/locn#geometry>.
-_:n3-532 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> _:n3-533;
-    <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> <http://www.w3.org/1999/02/22-rdf-syntax-ns#nil>.
-_:n3-533 <http://www.w3.org/ns/shacl#inversePath> <http://purl.org/dc/terms/spatial>.
+    <http://www.w3.org/ns/shacl#node> _:n3-560.
 _:n3-529 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> _:n3-530;
-    <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:n3-534.
+    <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:n3-531.
+_:n3-530 <http://www.w3.org/ns/shacl#inversePath> <http://www.w3.org/ns/locn#geometry>.
+_:n3-531 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> _:n3-532;
+    <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> <http://www.w3.org/1999/02/22-rdf-syntax-ns#nil>.
+_:n3-532 <http://www.w3.org/ns/shacl#inversePath> <http://purl.org/dc/terms/spatial>.
+_:n3-528 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> _:n3-529;
+    <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:n3-533.
+_:n3-533 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> _:n3-534;
+    <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:n3-538.
 _:n3-534 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> _:n3-535;
-    <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:n3-539.
-_:n3-535 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> _:n3-536;
-    <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:n3-537.
-_:n3-536 <http://www.w3.org/ns/shacl#inversePath> <http://www.opengis.net/ont/geosparql#hasGeometry>.
-_:n3-537 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> _:n3-538;
+    <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:n3-536.
+_:n3-535 <http://www.w3.org/ns/shacl#inversePath> <http://www.opengis.net/ont/geosparql#hasGeometry>.
+_:n3-536 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> _:n3-537;
     <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> <http://www.w3.org/1999/02/22-rdf-syntax-ns#nil>.
-_:n3-538 <http://www.w3.org/ns/shacl#inversePath> <http://purl.org/dc/terms/spatial>.
+_:n3-537 <http://www.w3.org/ns/shacl#inversePath> <http://purl.org/dc/terms/spatial>.
+_:n3-538 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> _:n3-539;
+    <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:n3-543.
 _:n3-539 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> _:n3-540;
-    <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:n3-544.
-_:n3-540 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> _:n3-541;
-    <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:n3-542.
-_:n3-541 <http://www.w3.org/ns/shacl#inversePath> <http://www.opengis.net/ont/geosparql#hasDefaultGeometry>.
-_:n3-542 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> _:n3-543;
+    <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:n3-541.
+_:n3-540 <http://www.w3.org/ns/shacl#inversePath> <http://www.opengis.net/ont/geosparql#hasDefaultGeometry>.
+_:n3-541 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> _:n3-542;
     <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> <http://www.w3.org/1999/02/22-rdf-syntax-ns#nil>.
-_:n3-543 <http://www.w3.org/ns/shacl#inversePath> <http://purl.org/dc/terms/spatial>.
+_:n3-542 <http://www.w3.org/ns/shacl#inversePath> <http://purl.org/dc/terms/spatial>.
+_:n3-543 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> _:n3-544;
+    <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:n3-548.
 _:n3-544 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> _:n3-545;
-    <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:n3-549.
-_:n3-545 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> _:n3-546;
-    <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:n3-547.
-_:n3-546 <http://www.w3.org/ns/shacl#inversePath> <http://www.opengis.net/ont/geosparql#defaultGeometry>.
-_:n3-547 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> _:n3-548;
+    <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:n3-546.
+_:n3-545 <http://www.w3.org/ns/shacl#inversePath> <http://www.opengis.net/ont/geosparql#defaultGeometry>.
+_:n3-546 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> _:n3-547;
     <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> <http://www.w3.org/1999/02/22-rdf-syntax-ns#nil>.
-_:n3-548 <http://www.w3.org/ns/shacl#inversePath> <http://purl.org/dc/terms/spatial>.
+_:n3-547 <http://www.w3.org/ns/shacl#inversePath> <http://purl.org/dc/terms/spatial>.
+_:n3-548 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> _:n3-549;
+    <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:n3-553.
 _:n3-549 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> _:n3-550;
-    <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:n3-554.
-_:n3-550 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> _:n3-551;
-    <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:n3-552.
-_:n3-551 <http://www.w3.org/ns/shacl#inversePath> <http://www.opengis.net/ont/geosparql#hasBoundingBox>.
-_:n3-552 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> _:n3-553;
+    <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:n3-551.
+_:n3-550 <http://www.w3.org/ns/shacl#inversePath> <http://www.opengis.net/ont/geosparql#hasBoundingBox>.
+_:n3-551 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> _:n3-552;
     <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> <http://www.w3.org/1999/02/22-rdf-syntax-ns#nil>.
-_:n3-553 <http://www.w3.org/ns/shacl#inversePath> <http://purl.org/dc/terms/spatial>.
+_:n3-552 <http://www.w3.org/ns/shacl#inversePath> <http://purl.org/dc/terms/spatial>.
+_:n3-553 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> _:n3-554;
+    <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:n3-558.
 _:n3-554 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> _:n3-555;
-    <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:n3-559.
-_:n3-555 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> _:n3-556;
-    <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:n3-557.
-_:n3-556 <http://www.w3.org/ns/shacl#inversePath> <http://www.opengis.net/ont/geosparql#hasCentroid>.
-_:n3-557 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> _:n3-558;
+    <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:n3-556.
+_:n3-555 <http://www.w3.org/ns/shacl#inversePath> <http://www.opengis.net/ont/geosparql#hasCentroid>.
+_:n3-556 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> _:n3-557;
     <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> <http://www.w3.org/1999/02/22-rdf-syntax-ns#nil>.
-_:n3-558 <http://www.w3.org/ns/shacl#inversePath> <http://purl.org/dc/terms/spatial>.
-_:n3-559 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> _:n3-560;
+_:n3-557 <http://www.w3.org/ns/shacl#inversePath> <http://purl.org/dc/terms/spatial>.
+_:n3-558 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> _:n3-559;
     <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> <http://www.w3.org/1999/02/22-rdf-syntax-ns#nil>.
-_:n3-560 <http://www.w3.org/ns/shacl#inversePath> <http://purl.org/dc/terms/spatial>.
-_:n3-528 <http://www.w3.org/ns/shacl#alternativePath> _:n3-529.
-_:n3-562 <http://www.w3.org/ns/shacl#path> <https://data.molit.go.kr/def/molit-dcat-ap#spatialDisclosureLevel>;
+_:n3-559 <http://www.w3.org/ns/shacl#inversePath> <http://purl.org/dc/terms/spatial>.
+_:n3-527 <http://www.w3.org/ns/shacl#alternativePath> _:n3-528.
+_:n3-561 <http://www.w3.org/ns/shacl#path> <https://data.molit.go.kr/def/molit-dcat-ap#spatialDisclosureLevel>;
     <http://www.w3.org/ns/shacl#minCount> 1.
-_:n3-561 <http://www.w3.org/ns/shacl#property> _:n3-562.
+_:n3-560 <http://www.w3.org/ns/shacl#property> _:n3-561.
 <https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#UnsupportedGeometrySerializationShape> a <http://www.w3.org/ns/shacl#NodeShape>;
-    <http://www.w3.org/ns/shacl#property> _:n3-563, _:n3-564, _:n3-565, _:n3-566;
+    <http://www.w3.org/ns/shacl#property> _:n3-562, _:n3-563, _:n3-564, _:n3-565;
     <https://data.molit.go.kr/def/molit-dcat-ap#requirementId> "MOLIT-GEO-ENCODING-005";
     <https://data.molit.go.kr/def/molit-dcat-ap#controlOwner> "geospatial-governance";
     <http://www.w3.org/ns/shacl#message> "1.0.0-rc.1 공개 profile은 CRS를 검증할 수 있는 WKT와 GML geometry serialization만 허용한다."@ko;
     <http://www.w3.org/ns/shacl#targetSubjectsOf> <http://www.opengis.net/ont/geosparql#hasSerialization>, <http://www.opengis.net/ont/geosparql#asGeoJSON>, <http://www.opengis.net/ont/geosparql#asKML>, <http://www.opengis.net/ont/geosparql#asDGGS>.
-_:n3-563 <http://www.w3.org/ns/shacl#path> <http://www.opengis.net/ont/geosparql#asGeoJSON>;
+_:n3-562 <http://www.w3.org/ns/shacl#path> <http://www.opengis.net/ont/geosparql#asGeoJSON>;
     <http://www.w3.org/ns/shacl#maxCount> 0;
     <https://data.molit.go.kr/def/molit-dcat-ap#requirementId> "MOLIT-GEO-ENCODING-005-P-ASGEOJSON-001".
-_:n3-564 <http://www.w3.org/ns/shacl#path> <http://www.opengis.net/ont/geosparql#asKML>;
+_:n3-563 <http://www.w3.org/ns/shacl#path> <http://www.opengis.net/ont/geosparql#asKML>;
     <http://www.w3.org/ns/shacl#maxCount> 0;
     <https://data.molit.go.kr/def/molit-dcat-ap#requirementId> "MOLIT-GEO-ENCODING-005-P-ASKML-001".
-_:n3-565 <http://www.w3.org/ns/shacl#path> <http://www.opengis.net/ont/geosparql#asDGGS>;
+_:n3-564 <http://www.w3.org/ns/shacl#path> <http://www.opengis.net/ont/geosparql#asDGGS>;
     <http://www.w3.org/ns/shacl#maxCount> 0;
     <https://data.molit.go.kr/def/molit-dcat-ap#requirementId> "MOLIT-GEO-ENCODING-005-P-ASDGGS-001".
-_:n3-566 <http://www.w3.org/ns/shacl#path> <http://www.opengis.net/ont/geosparql#hasSerialization>;
+_:n3-565 <http://www.w3.org/ns/shacl#path> <http://www.opengis.net/ont/geosparql#hasSerialization>;
     <http://www.w3.org/ns/shacl#maxCount> 0;
     <https://data.molit.go.kr/def/molit-dcat-ap#requirementId> "MOLIT-GEO-ENCODING-005-P-HASSERIALIZATION-001".
 <https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#WktGeometryCrsShape> a <http://www.w3.org/ns/shacl#NodeShape>;
@@ -4221,32 +4226,32 @@ _:n3-566 <http://www.w3.org/ns/shacl#path> <http://www.opengis.net/ont/geosparql
     <https://data.molit.go.kr/def/molit-dcat-ap#requirementId> "MOLIT-GEO-ENCODING-003";
     <https://data.molit.go.kr/def/molit-dcat-ap#controlOwner> "geospatial-governance";
     <http://www.w3.org/ns/shacl#message> "bbox와 centroid는 CRS84, EPSG:4326, 3857, 5179 또는 5186을 명시한 WKT 또는 GML literal이어야 한다."@ko;
-    <http://www.w3.org/ns/shacl#or> _:n3-567;
+    <http://www.w3.org/ns/shacl#or> _:n3-566;
     <http://www.w3.org/ns/shacl#targetObjectsOf> <http://www.w3.org/ns/dcat#bbox>, <http://www.w3.org/ns/dcat#centroid>.
-_:n3-567 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> _:n3-568;
-    <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:n3-569.
-_:n3-568 <http://www.w3.org/ns/shacl#datatype> <http://www.opengis.net/ont/geosparql#wktLiteral>;
+_:n3-566 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> _:n3-567;
+    <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:n3-568.
+_:n3-567 <http://www.w3.org/ns/shacl#datatype> <http://www.opengis.net/ont/geosparql#wktLiteral>;
     <http://www.w3.org/ns/shacl#pattern> "^<http://www[.]opengis[.]net/def/crs/(OGC/1[.]3/CRS84|EPSG/0/(4326|3857|5179|5186))>\\s+".
-_:n3-569 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> _:n3-570;
+_:n3-568 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> _:n3-569;
     <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> <http://www.w3.org/1999/02/22-rdf-syntax-ns#nil>.
-_:n3-570 <http://www.w3.org/ns/shacl#datatype> <http://www.opengis.net/ont/geosparql#gmlLiteral>;
+_:n3-569 <http://www.w3.org/ns/shacl#datatype> <http://www.opengis.net/ont/geosparql#gmlLiteral>;
     <http://www.w3.org/ns/shacl#pattern> "^\\s*(<[?]xml[^>]*>\\s*)?<[^>]*\\ssrsName\\s*=\\s*['\"]http://www[.]opengis[.]net/def/crs/(OGC/1[.]3/CRS84|EPSG/0/(4326|3857|5179|5186))['\"][^>]*>".
 <https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#LocationGeometryEncodingShape> a <http://www.w3.org/ns/shacl#NodeShape>;
     <https://data.molit.go.kr/def/molit-dcat-ap#requirementId> "MOLIT-GEO-ENCODING-004";
     <https://data.molit.go.kr/def/molit-dcat-ap#controlOwner> "geospatial-governance";
     <http://www.w3.org/ns/shacl#message> "locn:geometry는 geometry node IRI·blank node 또는 CRS84, EPSG:4326, 3857, 5179, 5186을 명시한 WKT·GML literal이어야 한다."@ko;
-    <http://www.w3.org/ns/shacl#or> _:n3-571;
+    <http://www.w3.org/ns/shacl#or> _:n3-570;
     <http://www.w3.org/ns/shacl#targetObjectsOf> <http://www.w3.org/ns/locn#geometry>.
-_:n3-571 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> _:n3-572;
-    <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:n3-573.
-_:n3-572 <http://www.w3.org/ns/shacl#nodeKind> <http://www.w3.org/ns/shacl#BlankNodeOrIRI>.
-_:n3-573 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> _:n3-574;
-    <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:n3-575.
-_:n3-574 <http://www.w3.org/ns/shacl#datatype> <http://www.opengis.net/ont/geosparql#wktLiteral>;
+_:n3-570 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> _:n3-571;
+    <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:n3-572.
+_:n3-571 <http://www.w3.org/ns/shacl#nodeKind> <http://www.w3.org/ns/shacl#BlankNodeOrIRI>.
+_:n3-572 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> _:n3-573;
+    <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:n3-574.
+_:n3-573 <http://www.w3.org/ns/shacl#datatype> <http://www.opengis.net/ont/geosparql#wktLiteral>;
     <http://www.w3.org/ns/shacl#pattern> "^<http://www[.]opengis[.]net/def/crs/(OGC/1[.]3/CRS84|EPSG/0/(4326|3857|5179|5186))>\\s+".
-_:n3-575 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> _:n3-576;
+_:n3-574 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> _:n3-575;
     <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> <http://www.w3.org/1999/02/22-rdf-syntax-ns#nil>.
-_:n3-576 <http://www.w3.org/ns/shacl#datatype> <http://www.opengis.net/ont/geosparql#gmlLiteral>;
+_:n3-575 <http://www.w3.org/ns/shacl#datatype> <http://www.opengis.net/ont/geosparql#gmlLiteral>;
     <http://www.w3.org/ns/shacl#pattern> "^\\s*(<[?]xml[^>]*>\\s*)?<[^>]*\\ssrsName\\s*=\\s*['\"]http://www[.]opengis[.]net/def/crs/(OGC/1[.]3/CRS84|EPSG/0/(4326|3857|5179|5186))['\"][^>]*>".
 <https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#WktGeometryTypeShape> a <http://www.w3.org/ns/shacl#NodeShape>;
     <http://www.w3.org/ns/shacl#datatype> <http://www.opengis.net/ont/geosparql#wktLiteral>;

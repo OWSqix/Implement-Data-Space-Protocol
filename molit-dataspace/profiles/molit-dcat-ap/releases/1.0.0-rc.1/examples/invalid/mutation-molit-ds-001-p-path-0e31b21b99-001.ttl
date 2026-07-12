@@ -27,8 +27,9 @@ ex:observation-catalog a dcat:Catalog;
     dct:spatial ex:republic-of-korea-core;
     foaf:homepage <https://data.molit.go.kr/>;
     dcat:themeTaxonomy <http://publications.europa.eu/resource/authority/data-theme>, <https://data.molit.go.kr/scheme/domain>;
+    dcat:dataset ex:traffic-observation;
     dcat:record ex:traffic-observation-record;
-    molit:spatialDisclosureLevel <https://data.molit.go.kr/id/concept/spatial-disclosure-level/generalized>.
+    molit:spatialDisclosureLevel <https://data.molit.go.kr/id/concept/spatial-disclosure-level/exact>.
 ex:traffic-office a foaf:Agent;
     dct:type <http://purl.org/adms/publishertype/NationalAuthority>;
     foaf:name "교통 관측 담당기관"@ko.
@@ -46,7 +47,7 @@ ex:traffic-observation a dcat:Dataset, dcat:Resource;
     dct:issued "2026-07-12"^^xsd:date;
     dct:modified "2026-07-12T09:00:00+09:00"^^xsd:dateTime;
     dct:spatial ex:republic-of-korea-core;
-    molit:spatialDisclosureLevel <https://data.molit.go.kr/id/concept/spatial-disclosure-level/generalized>;
+    molit:spatialDisclosureLevel <https://data.molit.go.kr/id/concept/spatial-disclosure-level/exact>;
     dct:type ex:observation-dataset-type;
     dct:identifier "traffic-observation-hourly-2026-07";
     dct:accessRights <http://publications.europa.eu/resource/authority/access-right/PUBLIC>;
@@ -95,3 +96,4 @@ ex:traffic-completeness a dqv:QualityMeasurement;
 <https://data.molit.go.kr/dataset/traffic-observation/access> a rdfs:Resource.
 <https://data.molit.go.kr/dataset/traffic-observation/download> a rdfs:Resource.
 <https://www.iana.org/assignments/media-types/text/csv> a dct:MediaType.
+<urn:molit:mutation:031afd72de93-extra> dcat:dataset ex:traffic-observation.

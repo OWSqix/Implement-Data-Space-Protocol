@@ -34,6 +34,18 @@
         {
           "kind": "requirement-coverage",
           "value": "profiles/molit-dcat-ap/releases/1.0.0-rc.1/requirements/coverage-blockers.json"
+        },
+        {
+          "kind": "repository-file",
+          "value": "profiles/molit-dcat-ap/releases/1.0.0-rc.1/requirements/upstream-requirement-inventory.json"
+        },
+        {
+          "kind": "command",
+          "value": "npm run profile:requirements:upstream:verify"
+        },
+        {
+          "kind": "command",
+          "value": "npm run profile:requirements:upstream:engines"
         }
       ]
     },
@@ -61,6 +73,14 @@
         {
           "kind": "command",
           "value": "npm run profile:ontology:verify"
+        },
+        {
+          "kind": "repository-file",
+          "value": "profiles/molit-dcat-ap/releases/1.0.0-rc.1/ontology/term-governance.json"
+        },
+        {
+          "kind": "command",
+          "value": "npm run profile:ontology:governance:verify"
         }
       ]
     },
@@ -106,6 +126,10 @@
         {
           "kind": "repository-file",
           "value": "profiles/molit-dcat-ap/releases/1.0.0-rc.1/examples/invalid/ontology-in-candidate-graph.ttl"
+        },
+        {
+          "kind": "command",
+          "value": "node --test tests/profile/ontology-dataset-boundary.test.mjs"
         }
       ]
     },
@@ -121,6 +145,10 @@
         {
           "kind": "command",
           "value": "node --test tests/contract/crs-geometry-transformation.test.mjs"
+        },
+        {
+          "kind": "command",
+          "value": "node --test tests/contract/rc-geo-preflight-boundary.test.mjs"
         },
         {
           "kind": "repository-file",
@@ -140,6 +168,30 @@
         {
           "kind": "repository-file",
           "value": "profiles/molit-dcat-ap/releases/1.0.0-rc.1/shacl/molit-observation.ttl"
+        },
+        {
+          "kind": "repository-file",
+          "value": "profiles/molit-dcat-ap/releases/1.0.0-rc.1/policy/network-reference-policy.json"
+        },
+        {
+          "kind": "repository-file",
+          "value": "profiles/molit-dcat-ap/releases/1.0.0-rc.1/examples/source-evidence/network-edition-lifecycle-cases.json"
+        },
+        {
+          "kind": "repository-file",
+          "value": "profiles/molit-dcat-ap/releases/1.0.0-rc.1/requirements/network-runtime-controls.json"
+        },
+        {
+          "kind": "repository-file",
+          "value": "profiles/molit-dcat-ap/releases/1.0.0-rc.1/shacl/molit-quality.ttl"
+        },
+        {
+          "kind": "command",
+          "value": "npm run profile:network:verify"
+        },
+        {
+          "kind": "command",
+          "value": "node --test tests/profile/quality-result-kind.test.mjs"
         }
       ]
     },
@@ -215,6 +267,10 @@
         {
           "kind": "git-control",
           "value": "release-gate evaluates that every RC path is tracked and the RC subtree is clean at HEAD"
+        },
+        {
+          "kind": "command",
+          "value": "npm run release:eol:verify"
         }
       ]
     },
@@ -272,6 +328,14 @@
         {
           "kind": "command",
           "value": "npm run profile:publication:verify"
+        },
+        {
+          "kind": "repository-file",
+          "value": "profiles/molit-dcat-ap/releases/1.0.0-rc.1/publication/institutional-approval-provenance.candidate.json"
+        },
+        {
+          "kind": "repository-file",
+          "value": "profiles/molit-dcat-ap/releases/1.0.0-rc.1/publication/tombstones.json"
         }
       ]
     },
@@ -291,6 +355,10 @@
         {
           "kind": "repository-file",
           "value": "tools/profile/run-rc-shacl-matrix.mjs"
+        },
+        {
+          "kind": "command",
+          "value": "npm run profile:rc:shacl-matrix:verify"
         }
       ]
     },
@@ -303,6 +371,14 @@
       "blocksCandidate": false,
       "blocksRecommendation": false,
       "evidence": [
+        {
+          "kind": "repository-file",
+          "value": "evidence/validators/molit-rc-serialization-parity.v1.json"
+        },
+        {
+          "kind": "command",
+          "value": "npm run profile:rc:serialization-parity:verify"
+        },
         {
           "kind": "repository-file",
           "value": "tools/profile/run-rc-serialization-parity.mjs"
@@ -324,7 +400,7 @@
       "evidence": [
         {
           "kind": "external-action",
-          "value": "the operating authority must sign the reviewed artifact lock with an institution-controlled Ed25519 key and publish approval provenance"
+          "value": "the operating authority must sign the reviewed artifact lock with an institution-controlled Ed25519 key and publish the detached signature and approval envelopes outside the locked release"
         }
       ]
     },

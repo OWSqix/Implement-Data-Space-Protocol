@@ -9,7 +9,8 @@
   "resources": [
     {
       "iris": [
-        "https://data.molit.go.kr/def/molit-dcat-ap"
+        "https://data.molit.go.kr/def/molit-dcat-ap",
+        "https://data.molit.go.kr/def/molit-dcat-ap/1.0.0-rc.1"
       ],
       "representations": {
         "application/ld+json": "serializations/molit-dcat-ap.jsonld",
@@ -42,13 +43,21 @@
     }
   ],
   "responseRules": {
+    "canonicalRedirect": {
+      "preserveQuery": true,
+      "status": 308,
+      "trailingSlash": "remove"
+    },
+    "defaultMediaType": "text/html",
     "dynamicNetworkImports": false,
     "exactByteArtifacts": true,
+    "notFound": 404,
     "unsupportedAccept": 406,
     "vary": [
       "Accept"
     ]
   },
   "schemaVersion": "molit.content-negotiation-contract/1",
-  "status": "candidate-deployment-contract"
+  "status": "candidate-deployment-contract",
+  "tombstoneContract": "publication/tombstones.json"
 }

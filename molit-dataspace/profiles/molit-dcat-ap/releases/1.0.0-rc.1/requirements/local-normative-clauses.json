@@ -1,0 +1,749 @@
+{
+  "schemaVersion": "molit.local-normative-clauses/1",
+  "profileVersion": "1.0.0-rc.1",
+  "registryStatus": "approved",
+  "clauses": [
+    {
+      "clauseId": "MOLIT-CAT-001-P-DATASET-001",
+      "requirementId": "MOLIT-CAT-001-P-DATASET-001",
+      "sourceStandard": "MOLIT DCAT-AP 1.0 core module",
+      "normativeStatement": "[ko] 카탈로그에는 데이터셋이 하나 이상 있어야 한다.",
+      "adoptionRationale": "A catalogue with no dataset cannot serve the discovery function asserted by this profile. The minimum also exercises catalogue-to-dataset traversal in every conforming fixture."
+    },
+    {
+      "clauseId": "MOLIT-CAT-001-P-LANGUAGE-001",
+      "requirementId": "MOLIT-CAT-001-P-LANGUAGE-001",
+      "sourceStandard": "MOLIT DCAT-AP 1.0 core module",
+      "normativeStatement": "[ko] 카탈로그 언어에는 EU 언어 코드 KOR을 포함해야 한다.",
+      "adoptionRationale": "The KOR marker gives domestic catalogues a deterministic language-negotiation and indexing baseline. It does not prohibit additional language codes."
+    },
+    {
+      "clauseId": "MOLIT-CAT-001-P-RECORD-001",
+      "requirementId": "MOLIT-CAT-001-P-RECORD-001",
+      "sourceStandard": "MOLIT DCAT-AP 1.0 core module",
+      "normativeStatement": "[ko] 수집 이력을 추적할 CatalogRecord가 하나 이상 있어야 한다.",
+      "adoptionRationale": "A CatalogRecord is required to retain harvest and update provenance separately from dataset metadata. This supports repeatable catalogue synchronization."
+    },
+    {
+      "clauseId": "MOLIT-CAT-REL-001-P-PATH-DA00F2B2F6-001",
+      "requirementId": "MOLIT-CAT-REL-001-P-PATH-DA00F2B2F6-001",
+      "sourceStandard": "MOLIT DCAT-AP 1.0 core module",
+      "normativeStatement": "[en] Each CatalogRecord primary topic must be exactly one of the datasets listed by the same Catalog, and every listed dataset must have a record.\n[ko] CatalogRecord의 primary topic 집합은 같은 Catalog의 dcat:dataset 집합과 일치해야 한다.",
+      "adoptionRationale": "Catalogue membership and record topics must agree so harvesters do not create dangling or duplicate dataset entries. The rule preserves the same dataset set across both DCAT navigation paths."
+    },
+    {
+      "clauseId": "MOLIT-DS-001-P-IDENTIFIER-001",
+      "requirementId": "MOLIT-DS-001-P-IDENTIFIER-001",
+      "sourceStandard": "MOLIT DCAT-AP 1.0 core module",
+      "normativeStatement": "[ko] 데이터셋의 발급기관 범위 안에서 고유한 식별자 하나가 필요하다.",
+      "adoptionRationale": "An agency-scoped identifier is the reconciliation key used during repeated harvests. Requiring one stable value prevents title changes from creating duplicate datasets."
+    },
+    {
+      "clauseId": "MOLIT-DS-001-P-ISSUED-001",
+      "requirementId": "MOLIT-DS-001-P-ISSUED-001",
+      "sourceStandard": "MOLIT DCAT-AP 1.0 core module",
+      "normativeStatement": "[ko] 발행일은 xsd:date 또는 xsd:dateTime이어야 한다.",
+      "adoptionRationale": "Typed publication and modification dates support incremental harvesting and freshness checks. Limiting the value count avoids conflicting update order."
+    },
+    {
+      "clauseId": "MOLIT-DS-001-P-MODIFIED-001",
+      "requirementId": "MOLIT-DS-001-P-MODIFIED-001",
+      "sourceStandard": "MOLIT DCAT-AP 1.0 core module",
+      "normativeStatement": "[ko] 수정일은 xsd:date 또는 xsd:dateTime 값 하나여야 한다.",
+      "adoptionRationale": "Typed publication and modification dates support incremental harvesting and freshness checks. Limiting the value count avoids conflicting update order."
+    },
+    {
+      "clauseId": "MOLIT-DS-001-P-PATH-0E31B21B99-001",
+      "requirementId": "MOLIT-DS-001-P-PATH-0E31B21B99-001",
+      "sourceStandard": "MOLIT DCAT-AP 1.0 core module",
+      "normativeStatement": "[ko] 게시 Dataset은 하나 이상의 dcat:Catalog에 포함돼야 한다.",
+      "adoptionRationale": "Catalogue membership and record topics must agree so harvesters do not create dangling or duplicate dataset entries. The rule preserves the same dataset set across both DCAT navigation paths."
+    },
+    {
+      "clauseId": "MOLIT-DS-001-P-PATH-30F94DAB87-001",
+      "requirementId": "MOLIT-DS-001-P-PATH-30F94DAB87-001",
+      "sourceStandard": "MOLIT DCAT-AP 1.0 core module",
+      "normativeStatement": "[ko] 게시 Dataset에는 하나 이상의 dcat:CatalogRecord가 있어야 한다.",
+      "adoptionRationale": "Catalogue membership and record topics must agree so harvesters do not create dangling or duplicate dataset entries. The rule preserves the same dataset set across both DCAT navigation paths."
+    },
+    {
+      "clauseId": "MOLIT-GEO-001",
+      "requirementId": "MOLIT-GEO-001",
+      "sourceStandard": "MOLIT DCAT-AP 1.0 spatial module",
+      "normativeStatement": "[ko] 공간 공개 수준이 비공개이면 location, bbox, centroid 또는 geometry serialization을 공개 graph에 넣을 수 없다.",
+      "adoptionRationale": "The rule prevents precise coordinates from bypassing the declared spatial disclosure level. Publication systems can therefore apply one enforceable boundary before exposing a public graph."
+    },
+    {
+      "clauseId": "MOLIT-GEO-001-P-REFERENCESYSTEM-001",
+      "requirementId": "MOLIT-GEO-001-P-REFERENCESYSTEM-001",
+      "sourceStandard": "MOLIT DCAT-AP 1.0 spatial module",
+      "normativeStatement": "[ko] 공간 공개 수준이 비공개이면 location, bbox, centroid 또는 geometry serialization을 공개 graph에 넣을 수 없다.\n[ko] 공간 데이터셋에는 OGC CRS IRI를 GeoDCAT-AP referenceSystem으로 지정해야 한다.",
+      "adoptionRationale": "Explicit, allowlisted CRS and serialization rules make geometry parsing and coordinate transformation deterministic. The restricted RC.1 subset is used because the publication preflight cannot safely validate arbitrary geometry encodings."
+    },
+    {
+      "clauseId": "MOLIT-GEO-001-P-SPATIALDISCLOSURELEVEL-001",
+      "requirementId": "MOLIT-GEO-001-P-SPATIALDISCLOSURELEVEL-001",
+      "sourceStandard": "MOLIT DCAT-AP 1.0 spatial module",
+      "normativeStatement": "[ko] 공간 공개 수준이 비공개이면 location, bbox, centroid 또는 geometry serialization을 공개 graph에 넣을 수 없다.\n[ko] RC.1 발행 graph의 공간 공개 수준은 기계 검증 가능한 exact 또는 withheld IRI여야 한다.",
+      "adoptionRationale": "The rule prevents precise coordinates from bypassing the declared spatial disclosure level. Publication systems can therefore apply one enforceable boundary before exposing a public graph."
+    },
+    {
+      "clauseId": "MOLIT-GEO-001-P-SPATIALRESOLUTIONINMETERS-001",
+      "requirementId": "MOLIT-GEO-001-P-SPATIALRESOLUTIONINMETERS-001",
+      "sourceStandard": "MOLIT DCAT-AP 1.0 spatial module",
+      "normativeStatement": "[ko] 공간 공개 수준이 비공개이면 location, bbox, centroid 또는 geometry serialization을 공개 graph에 넣을 수 없다.\n[ko] 공간 해상도는 0보다 큰 미터 단위 xsd:decimal이어야 한다.",
+      "adoptionRationale": "A positive metric resolution lets consumers compare spatial fitness without interpreting provider-specific text. Metres are used as the common unit at the catalogue boundary."
+    },
+    {
+      "clauseId": "MOLIT-GEO-001-P-TYPE-001",
+      "requirementId": "MOLIT-GEO-001-P-TYPE-001",
+      "sourceStandard": "MOLIT DCAT-AP 1.0 spatial module",
+      "normativeStatement": "[ko] 공간 공개 수준이 비공개이면 location, bbox, centroid 또는 geometry serialization을 공개 graph에 넣을 수 없다.\n[ko] 확장 유형과 함께 dcat:Dataset 유형을 명시해야 한다.",
+      "adoptionRationale": "The condition keeps spatial metadata inside the explicitly supported RC.1 model. This gives catalogue validators and downstream map services the same interpretation of the published graph."
+    },
+    {
+      "clauseId": "MOLIT-GEO-DISCLOSURE-001",
+      "requirementId": "MOLIT-GEO-DISCLOSURE-001",
+      "sourceStandard": "MOLIT DCAT-AP 1.0 spatial module",
+      "normativeStatement": "[ko] 공간 공개 수준은 exact 또는 withheld 하나여야 한다. exact에는 location이 필요하고 withheld에는 location·bbox·centroid·geometry를 둘 수 없다.",
+      "adoptionRationale": "The rule prevents precise coordinates from bypassing the declared spatial disclosure level. Publication systems can therefore apply one enforceable boundary before exposing a public graph."
+    },
+    {
+      "clauseId": "MOLIT-GEO-DISCLOSURE-001-P-SPATIALDISCLOSURELEVEL-001",
+      "requirementId": "MOLIT-GEO-DISCLOSURE-001-P-SPATIALDISCLOSURELEVEL-001",
+      "sourceStandard": "MOLIT DCAT-AP 1.0 spatial module",
+      "normativeStatement": "[ko] 공간 공개 수준은 exact 또는 withheld 하나여야 한다. exact에는 location이 필요하고 withheld에는 location·bbox·centroid·geometry를 둘 수 없다.",
+      "adoptionRationale": "The closed value and cardinality rule makes the disclosure assertion explicit and prevents an unrecognised policy value from bypassing the spatial safety branch."
+    },
+    {
+      "clauseId": "MOLIT-GEO-DISCLOSURE-002",
+      "requirementId": "MOLIT-GEO-DISCLOSURE-002",
+      "sourceStandard": "MOLIT DCAT-AP 1.0 spatial module",
+      "normativeStatement": "[ko] 공간 공개 수준은 Dataset, Catalog, DatasetSeries 또는 DataService에만 지정한다.",
+      "adoptionRationale": "The rule prevents precise coordinates from bypassing the declared spatial disclosure level. Publication systems can therefore apply one enforceable boundary before exposing a public graph."
+    },
+    {
+      "clauseId": "MOLIT-GEO-ENCODING-001",
+      "requirementId": "MOLIT-GEO-ENCODING-001",
+      "sourceStandard": "MOLIT DCAT-AP 1.0 spatial module",
+      "normativeStatement": "[ko] GeoSPARQL WKT literal은 선두에 CRS84, EPSG:4326, 3857, 5179 또는 5186 IRI를 명시해야 한다.",
+      "adoptionRationale": "Explicit, allowlisted CRS and serialization rules make geometry parsing and coordinate transformation deterministic. The restricted RC.1 subset is used because the publication preflight cannot safely validate arbitrary geometry encodings."
+    },
+    {
+      "clauseId": "MOLIT-GEO-ENCODING-002",
+      "requirementId": "MOLIT-GEO-ENCODING-002",
+      "sourceStandard": "MOLIT DCAT-AP 1.0 spatial module",
+      "normativeStatement": "[ko] GeoSPARQL GML literal의 루트 geometry 요소는 CRS84, EPSG:4326, 3857, 5179 또는 5186 srsName을 명시해야 한다.",
+      "adoptionRationale": "Explicit, allowlisted CRS and serialization rules make geometry parsing and coordinate transformation deterministic. The restricted RC.1 subset is used because the publication preflight cannot safely validate arbitrary geometry encodings."
+    },
+    {
+      "clauseId": "MOLIT-GEO-ENCODING-003",
+      "requirementId": "MOLIT-GEO-ENCODING-003",
+      "sourceStandard": "MOLIT DCAT-AP 1.0 spatial module",
+      "normativeStatement": "[ko] bbox와 centroid는 CRS84, EPSG:4326, 3857, 5179 또는 5186을 명시한 WKT 또는 GML literal이어야 한다.",
+      "adoptionRationale": "Explicit, allowlisted CRS and serialization rules make geometry parsing and coordinate transformation deterministic. The restricted RC.1 subset is used because the publication preflight cannot safely validate arbitrary geometry encodings."
+    },
+    {
+      "clauseId": "MOLIT-GEO-ENCODING-004",
+      "requirementId": "MOLIT-GEO-ENCODING-004",
+      "sourceStandard": "MOLIT DCAT-AP 1.0 spatial module",
+      "normativeStatement": "[ko] locn:geometry는 geometry node IRI·blank node 또는 CRS84, EPSG:4326, 3857, 5179, 5186을 명시한 WKT·GML literal이어야 한다.",
+      "adoptionRationale": "Explicit, allowlisted CRS and serialization rules make geometry parsing and coordinate transformation deterministic. The restricted RC.1 subset is used because the publication preflight cannot safely validate arbitrary geometry encodings."
+    },
+    {
+      "clauseId": "MOLIT-GEO-ENCODING-005-P-ASDGGS-001",
+      "requirementId": "MOLIT-GEO-ENCODING-005-P-ASDGGS-001",
+      "sourceStandard": "MOLIT DCAT-AP 1.0 spatial module",
+      "normativeStatement": "[ko] 1.0.0-rc.1 공개 profile은 CRS를 검증할 수 있는 WKT와 GML geometry serialization만 허용한다.",
+      "adoptionRationale": "Explicit, allowlisted CRS and serialization rules make geometry parsing and coordinate transformation deterministic. The restricted RC.1 subset is used because the publication preflight cannot safely validate arbitrary geometry encodings."
+    },
+    {
+      "clauseId": "MOLIT-GEO-ENCODING-005-P-ASGEOJSON-001",
+      "requirementId": "MOLIT-GEO-ENCODING-005-P-ASGEOJSON-001",
+      "sourceStandard": "MOLIT DCAT-AP 1.0 spatial module",
+      "normativeStatement": "[ko] 1.0.0-rc.1 공개 profile은 CRS를 검증할 수 있는 WKT와 GML geometry serialization만 허용한다.",
+      "adoptionRationale": "Explicit, allowlisted CRS and serialization rules make geometry parsing and coordinate transformation deterministic. The restricted RC.1 subset is used because the publication preflight cannot safely validate arbitrary geometry encodings."
+    },
+    {
+      "clauseId": "MOLIT-GEO-ENCODING-005-P-ASKML-001",
+      "requirementId": "MOLIT-GEO-ENCODING-005-P-ASKML-001",
+      "sourceStandard": "MOLIT DCAT-AP 1.0 spatial module",
+      "normativeStatement": "[ko] 1.0.0-rc.1 공개 profile은 CRS를 검증할 수 있는 WKT와 GML geometry serialization만 허용한다.",
+      "adoptionRationale": "Explicit, allowlisted CRS and serialization rules make geometry parsing and coordinate transformation deterministic. The restricted RC.1 subset is used because the publication preflight cannot safely validate arbitrary geometry encodings."
+    },
+    {
+      "clauseId": "MOLIT-GEO-ENCODING-005-P-HASSERIALIZATION-001",
+      "requirementId": "MOLIT-GEO-ENCODING-005-P-HASSERIALIZATION-001",
+      "sourceStandard": "MOLIT DCAT-AP 1.0 spatial module",
+      "normativeStatement": "[ko] 1.0.0-rc.1 공개 profile은 CRS를 검증할 수 있는 WKT와 GML geometry serialization만 허용한다.",
+      "adoptionRationale": "Explicit, allowlisted CRS and serialization rules make geometry parsing and coordinate transformation deterministic. The restricted RC.1 subset is used because the publication preflight cannot safely validate arbitrary geometry encodings."
+    },
+    {
+      "clauseId": "MOLIT-GEO-LINK-001-P-PATH-BFC98936CC-001",
+      "requirementId": "MOLIT-GEO-LINK-001-P-PATH-BFC98936CC-001",
+      "sourceStandard": "MOLIT DCAT-AP 1.0 spatial module",
+      "normativeStatement": "[ko] geometry를 사용하는 모든 Catalog·Dataset·DatasetSeries·DataService에 공간 공개 수준이 있어야 한다.",
+      "adoptionRationale": "The rule prevents precise coordinates from bypassing the declared spatial disclosure level. Publication systems can therefore apply one enforceable boundary before exposing a public graph."
+    },
+    {
+      "clauseId": "MOLIT-GEO-LINK-002-P-PATH-D6567CFAEC-001",
+      "requirementId": "MOLIT-GEO-LINK-002-P-PATH-D6567CFAEC-001",
+      "sourceStandard": "MOLIT DCAT-AP 1.0 spatial module",
+      "normativeStatement": "[ko] geometry serialization을 사용하는 모든 카탈로그 자원에 공간 공개 수준이 있어야 한다.",
+      "adoptionRationale": "The rule prevents precise coordinates from bypassing the declared spatial disclosure level. Publication systems can therefore apply one enforceable boundary before exposing a public graph."
+    },
+    {
+      "clauseId": "MOLIT-GEO-PROFILE-001-P-CONFORMSTO-001",
+      "requirementId": "MOLIT-GEO-PROFILE-001-P-CONFORMSTO-001",
+      "sourceStandard": "MOLIT DCAT-AP 1.0 geo profile module",
+      "normativeStatement": "[ko] Geo 카탈로그에는 Geo subprofile release IRI만 metadata profile marker로 지정해야 한다.",
+      "adoptionRationale": "The marker selects one validation bundle without guessing from payload content. Deterministic routing prevents a graph from claiming a weaker module than the vocabulary it uses."
+    },
+    {
+      "clauseId": "MOLIT-GEO-PROFILE-002-P-CONFORMSTO-001",
+      "requirementId": "MOLIT-GEO-PROFILE-002-P-CONFORMSTO-001",
+      "sourceStandard": "MOLIT DCAT-AP 1.0 geo profile module",
+      "normativeStatement": "[ko] Geo CatalogRecord에는 Geo subprofile release IRI만 metadata profile marker로 지정해야 한다.",
+      "adoptionRationale": "The marker selects one validation bundle without guessing from payload content. Deterministic routing prevents a graph from claiming a weaker module than the vocabulary it uses."
+    },
+    {
+      "clauseId": "MOLIT-GEO-TYPE-001",
+      "requirementId": "MOLIT-GEO-TYPE-001",
+      "sourceStandard": "MOLIT DCAT-AP 1.0 spatial module",
+      "normativeStatement": "[en] The candidate WKT subset supports explicit-CRS 2D Point, LineString and single-ring Polygon only.",
+      "adoptionRationale": "The RC.1 parser and publication preflight implement only this geometry subset. Constraining the advertised type prevents syntactically accepted data from implying unsupported geometry processing."
+    },
+    {
+      "clauseId": "MOLIT-GEO-TYPE-002",
+      "requirementId": "MOLIT-GEO-TYPE-002",
+      "sourceStandard": "MOLIT DCAT-AP 1.0 spatial module",
+      "normativeStatement": "[en] The candidate GML subset supports GML 3.2 Point only.",
+      "adoptionRationale": "The RC.1 parser and publication preflight implement only this geometry subset. Constraining the advertised type prevents syntactically accepted data from implying unsupported geometry processing."
+    },
+    {
+      "clauseId": "MOLIT-GEO-TYPE-003",
+      "requirementId": "MOLIT-GEO-TYPE-003",
+      "sourceStandard": "MOLIT DCAT-AP 1.0 spatial module",
+      "normativeStatement": "[en] dcat:bbox must be a closed, single-ring 2D WKT Polygon in the candidate profile.",
+      "adoptionRationale": "The RC.1 parser and publication preflight implement only this geometry subset. Constraining the advertised type prevents syntactically accepted data from implying unsupported geometry processing."
+    },
+    {
+      "clauseId": "MOLIT-GEO-TYPE-004",
+      "requirementId": "MOLIT-GEO-TYPE-004",
+      "sourceStandard": "MOLIT DCAT-AP 1.0 spatial module",
+      "normativeStatement": "[en] dcat:centroid must be a 2D WKT Point in the candidate profile.",
+      "adoptionRationale": "The RC.1 parser and publication preflight implement only this geometry subset. Constraining the advertised type prevents syntactically accepted data from implying unsupported geometry processing."
+    },
+    {
+      "clauseId": "MOLIT-NET-001-P-NETWORKREFERENCE-001",
+      "requirementId": "MOLIT-NET-001-P-NETWORKREFERENCE-001",
+      "sourceStandard": "MOLIT DCAT-AP 1.0 network module",
+      "normativeStatement": "[ko] 교통망 데이터셋에는 발급기관 범위를 보존한 망 참조 IRI가 하나 있어야 한다.",
+      "adoptionRationale": "Authority, identifier and edition form the portable key used to join network data across platforms. Requiring each part avoids local database keys that cannot be resolved outside the provider."
+    },
+    {
+      "clauseId": "MOLIT-NET-001-P-TRANSPORTMODE-001",
+      "requirementId": "MOLIT-NET-001-P-TRANSPORTMODE-001",
+      "sourceStandard": "MOLIT DCAT-AP 1.0 network module",
+      "normativeStatement": "[ko] 교통수단은 mobilityDCAT-AP Transport Mode 통제어 IRI를 사용해야 한다.",
+      "adoptionRationale": "A controlled IRI is required so route, link and mode categories can be joined without provider-specific labels. The value remains comparable across catalogue and connector implementations."
+    },
+    {
+      "clauseId": "MOLIT-NET-001-P-TYPE-001",
+      "requirementId": "MOLIT-NET-001-P-TYPE-001",
+      "sourceStandard": "MOLIT DCAT-AP 1.0 network module",
+      "normativeStatement": "[ko] 확장 유형과 함께 dcat:Dataset 유형을 명시해야 한다.",
+      "adoptionRationale": "The explicit network dataset type activates the versioned-reference rules instead of relying on property-name inference. This keeps validation routing stable as the ontology evolves."
+    },
+    {
+      "clauseId": "MOLIT-NET-002-P-TYPE-001",
+      "requirementId": "MOLIT-NET-002-P-TYPE-001",
+      "sourceStandard": "MOLIT DCAT-AP 1.0 network module",
+      "normativeStatement": "[ko] networkReference를 사용하는 자원은 molit:NetworkDataset 유형을 명시해야 한다.",
+      "adoptionRationale": "The explicit network dataset type activates the versioned-reference rules instead of relying on property-name inference. This keeps validation routing stable as the ontology evolves."
+    },
+    {
+      "clauseId": "MOLIT-NET-REF-001-P-NETWORKAUTHORITY-001",
+      "requirementId": "MOLIT-NET-REF-001-P-NETWORKAUTHORITY-001",
+      "sourceStandard": "MOLIT DCAT-AP 1.0 network module",
+      "normativeStatement": "[ko] 교통망 식별자와 버전의 발급기관 IRI 하나가 필요하다.",
+      "adoptionRationale": "Authority, identifier and edition form the portable key used to join network data across platforms. Requiring each part avoids local database keys that cannot be resolved outside the provider."
+    },
+    {
+      "clauseId": "MOLIT-NET-REF-001-P-NETWORKELEMENTTYPE-001",
+      "requirementId": "MOLIT-NET-REF-001-P-NETWORKELEMENTTYPE-001",
+      "sourceStandard": "MOLIT DCAT-AP 1.0 network module",
+      "normativeStatement": "[ko] 망 요소 유형은 국토교통 망 요소 통제어 IRI여야 한다.",
+      "adoptionRationale": "A controlled IRI is required so route, link and mode categories can be joined without provider-specific labels. The value remains comparable across catalogue and connector implementations."
+    },
+    {
+      "clauseId": "MOLIT-NET-REF-001-P-NETWORKIDENTIFIER-001",
+      "requirementId": "MOLIT-NET-REF-001-P-NETWORKIDENTIFIER-001",
+      "sourceStandard": "MOLIT DCAT-AP 1.0 network module",
+      "normativeStatement": "[ko] 교통망 식별자 하나가 필요하다.",
+      "adoptionRationale": "Authority, identifier and edition form the portable key used to join network data across platforms. Requiring each part avoids local database keys that cannot be resolved outside the provider."
+    },
+    {
+      "clauseId": "MOLIT-NET-REF-001-P-NETWORKVERSION-001",
+      "requirementId": "MOLIT-NET-REF-001-P-NETWORKVERSION-001",
+      "sourceStandard": "MOLIT DCAT-AP 1.0 network module",
+      "normativeStatement": "[ko] 교통망 버전 하나가 필요하다.",
+      "adoptionRationale": "Authority, identifier and edition form the portable key used to join network data across platforms. Requiring each part avoids local database keys that cannot be resolved outside the provider."
+    },
+    {
+      "clauseId": "MOLIT-NET-REF-IRI-001",
+      "requirementId": "MOLIT-NET-REF-IRI-001",
+      "sourceStandard": "MOLIT DCAT-AP 1.0 network module",
+      "normativeStatement": "[ko] NetworkReference는 판 공유와 tombstone 해석이 가능한 IRI여야 한다.",
+      "adoptionRationale": "A persistent IRI lets multiple datasets share one edition reference and lets withdrawn or superseded editions remain dereferenceable. Blank-node identity cannot provide that lifecycle boundary."
+    },
+    {
+      "clauseId": "MOLIT-NET-REPLACEMENT-001",
+      "requirementId": "MOLIT-NET-REPLACEMENT-001",
+      "sourceStandard": "MOLIT DCAT-AP 1.0 network module",
+      "normativeStatement": "[ko] superseded 판은 종료일과 graph 안의 후속 판 IRI 하나가 필요하다. withdrawn 판은 종료일이 필요하며 candidate·current·withdrawn 판에는 dct:isReplacedBy를 두지 않는다.",
+      "adoptionRationale": "A resolvable successor preserves joins across network editions. Active and withdrawn editions prohibit a successor so that the replacement relation has one lifecycle meaning."
+    },
+    {
+      "clauseId": "MOLIT-NET-SAMEAS-001-P-INCOMING-001",
+      "requirementId": "MOLIT-NET-SAMEAS-001-P-INCOMING-001",
+      "sourceStandard": "MOLIT DCAT-AP 1.0 network module",
+      "normativeStatement": "[ko] 다른 자원이 NetworkReference를 owl:sameAs 대상으로 선언할 수 없다.",
+      "adoptionRationale": "Rejecting inverse identity assertions closes the same edition-collapse path even when owl:sameAs is asserted on another resource."
+    },
+    {
+      "clauseId": "MOLIT-NET-SAMEAS-001-P-OUTGOING-001",
+      "requirementId": "MOLIT-NET-SAMEAS-001-P-OUTGOING-001",
+      "sourceStandard": "MOLIT DCAT-AP 1.0 network module",
+      "normativeStatement": "[ko] NetworkReference에는 판 차이를 지우는 owl:sameAs를 사용할 수 없다.",
+      "adoptionRationale": "Network editions retain distinct checksums and validity intervals. OWL identity would collapse those edition boundaries and make historical joins unsound."
+    },
+    {
+      "clauseId": "MOLIT-NET-SNAPSHOT-001-P-NETWORKIDENTIFIER-001",
+      "requirementId": "MOLIT-NET-SNAPSHOT-001-P-NETWORKIDENTIFIER-001",
+      "sourceStandard": "MOLIT DCAT-AP 1.0 network module",
+      "normativeStatement": "[en] Network identifiers must use the profile's portable lexical form.",
+      "adoptionRationale": "Authority, identifier and edition form the portable key used to join network data across platforms. Requiring each part avoids local database keys that cannot be resolved outside the provider."
+    },
+    {
+      "clauseId": "MOLIT-NET-SNAPSHOT-001-P-NETWORKLIFECYCLESTATUS-001",
+      "requirementId": "MOLIT-NET-SNAPSHOT-001-P-NETWORKLIFECYCLESTATUS-001",
+      "sourceStandard": "MOLIT DCAT-AP 1.0 network module",
+      "normativeStatement": "[en] State one approved network snapshot lifecycle status.",
+      "adoptionRationale": "Lifecycle and validity fields let a connector choose the correct network edition for an observation date. The rule prevents overlapping or reversed periods from being treated as interchangeable snapshots."
+    },
+    {
+      "clauseId": "MOLIT-NET-SNAPSHOT-001-P-NETWORKSNAPSHOTCHECKSUM-001",
+      "requirementId": "MOLIT-NET-SNAPSHOT-001-P-NETWORKSNAPSHOTCHECKSUM-001",
+      "sourceStandard": "MOLIT DCAT-AP 1.0 network module",
+      "normativeStatement": "[en] State one SHA-256 network snapshot checksum as a canonical 64-digit lowercase xsd:hexBinary value.",
+      "adoptionRationale": "A SHA-256 digest binds a network reference to the exact snapshot bytes. Consumers can reject silent replacement while retaining the same identifier and edition."
+    },
+    {
+      "clauseId": "MOLIT-NET-SNAPSHOT-001-P-NETWORKVALIDFROM-001",
+      "requirementId": "MOLIT-NET-SNAPSHOT-001-P-NETWORKVALIDFROM-001",
+      "sourceStandard": "MOLIT DCAT-AP 1.0 network module",
+      "normativeStatement": "[en] State the first date on which this network snapshot is valid.",
+      "adoptionRationale": "Lifecycle and validity fields let a connector choose the correct network edition for an observation date. The rule prevents overlapping or reversed periods from being treated as interchangeable snapshots."
+    },
+    {
+      "clauseId": "MOLIT-NET-SNAPSHOT-001-P-NETWORKVALIDUNTIL-001",
+      "requirementId": "MOLIT-NET-SNAPSHOT-001-P-NETWORKVALIDUNTIL-001",
+      "sourceStandard": "MOLIT DCAT-AP 1.0 network module",
+      "normativeStatement": "[en] When known, state the last date on which this network snapshot is valid.",
+      "adoptionRationale": "Lifecycle and validity fields let a connector choose the correct network edition for an observation date. The rule prevents overlapping or reversed periods from being treated as interchangeable snapshots."
+    },
+    {
+      "clauseId": "MOLIT-NET-SNAPSHOT-001-P-NETWORKVERSION-001",
+      "requirementId": "MOLIT-NET-SNAPSHOT-001-P-NETWORKVERSION-001",
+      "sourceStandard": "MOLIT DCAT-AP 1.0 network module",
+      "normativeStatement": "[en] Network versions must use the profile's portable lexical form.",
+      "adoptionRationale": "Authority, identifier and edition form the portable key used to join network data across platforms. Requiring each part avoids local database keys that cannot be resolved outside the provider."
+    },
+    {
+      "clauseId": "MOLIT-NET-VALIDITY-001-P-NETWORKVALIDFROM-001",
+      "requirementId": "MOLIT-NET-VALIDITY-001-P-NETWORKVALIDFROM-001",
+      "sourceStandard": "MOLIT DCAT-AP 1.0 network module",
+      "normativeStatement": "[en] networkValidFrom must not be later than networkValidUntil when an end date is stated.",
+      "adoptionRationale": "Lifecycle and validity fields let a connector choose the correct network edition for an observation date. The rule prevents overlapping or reversed periods from being treated as interchangeable snapshots."
+    },
+    {
+      "clauseId": "MOLIT-OBS-001-P-AGGREGATIONPERIOD-001",
+      "requirementId": "MOLIT-OBS-001-P-AGGREGATIONPERIOD-001",
+      "sourceStandard": "MOLIT DCAT-AP 1.0 observation module",
+      "normativeStatement": "[en] State the time window used to compute one aggregate value; do not infer it from temporal resolution.",
+      "adoptionRationale": "Aggregation method, window and sampling interval describe different operations and cannot be inferred from one another. Recording them separately prevents consumers from comparing unlike statistics."
+    },
+    {
+      "clauseId": "MOLIT-OBS-001-P-MISSINGVALUEPOLICY-001",
+      "requirementId": "MOLIT-OBS-001-P-MISSINGVALUEPOLICY-001",
+      "sourceStandard": "MOLIT DCAT-AP 1.0 observation module",
+      "normativeStatement": "[en] State how missing observations are represented.",
+      "adoptionRationale": "A declared missing-value policy distinguishes absent observations from zero or suppressed values. This is required before a consumer can calculate coverage or aggregates."
+    },
+    {
+      "clauseId": "MOLIT-OBS-001-P-OBSERVATIONAGGREGATION-001",
+      "requirementId": "MOLIT-OBS-001-P-OBSERVATIONAGGREGATION-001",
+      "sourceStandard": "MOLIT DCAT-AP 1.0 observation module",
+      "normativeStatement": "[en] State exactly one approved aggregation method.",
+      "adoptionRationale": "Aggregation method, window and sampling interval describe different operations and cannot be inferred from one another. Recording them separately prevents consumers from comparing unlike statistics."
+    },
+    {
+      "clauseId": "MOLIT-OBS-001-P-OBSERVATIONSUBJECTTYPE-001",
+      "requirementId": "MOLIT-OBS-001-P-OBSERVATIONSUBJECTTYPE-001",
+      "sourceStandard": "MOLIT DCAT-AP 1.0 observation module",
+      "normativeStatement": "[en] State the kind of feature to which observations apply.",
+      "adoptionRationale": "The observation subject and period bound what the series measures. Explicit scope prevents a dataset-level description from being mistaken for record-level observation semantics."
+    },
+    {
+      "clauseId": "MOLIT-OBS-001-P-OBSERVATIONUNIT-001",
+      "requirementId": "MOLIT-OBS-001-P-OBSERVATIONUNIT-001",
+      "sourceStandard": "MOLIT DCAT-AP 1.0 observation module",
+      "normativeStatement": "[en] Use the approved QUDT unit for the selected observation property.",
+      "adoptionRationale": "Property and QUDT unit must be checked together to prevent numerically valid but semantically incomparable observations. The pair is the minimum needed for safe aggregation across providers."
+    },
+    {
+      "clauseId": "MOLIT-OBS-001-P-OBSERVEDPROPERTY-001",
+      "requirementId": "MOLIT-OBS-001-P-OBSERVEDPROPERTY-001",
+      "sourceStandard": "MOLIT DCAT-AP 1.0 observation module",
+      "normativeStatement": "[en] Select exactly one approved observation property for a homogeneous observation dataset.",
+      "adoptionRationale": "Property and QUDT unit must be checked together to prevent numerically valid but semantically incomparable observations. The pair is the minimum needed for safe aggregation across providers."
+    },
+    {
+      "clauseId": "MOLIT-OBS-001-P-TEMPORAL-001",
+      "requirementId": "MOLIT-OBS-001-P-TEMPORAL-001",
+      "sourceStandard": "MOLIT DCAT-AP 1.0 observation module",
+      "normativeStatement": "[en] An observation dataset must state its observation period.",
+      "adoptionRationale": "The observation subject and period bound what the series measures. Explicit scope prevents a dataset-level description from being mistaken for record-level observation semantics."
+    },
+    {
+      "clauseId": "MOLIT-OBS-001-P-TEMPORALRESOLUTION-001",
+      "requirementId": "MOLIT-OBS-001-P-TEMPORALRESOLUTION-001",
+      "sourceStandard": "MOLIT DCAT-AP 1.0 observation module",
+      "normativeStatement": "[en] Observation interval must be one ISO 8601 xsd:duration value.",
+      "adoptionRationale": "Aggregation method, window and sampling interval describe different operations and cannot be inferred from one another. Recording them separately prevents consumers from comparing unlike statistics."
+    },
+    {
+      "clauseId": "MOLIT-OBS-001-P-TYPE-001",
+      "requirementId": "MOLIT-OBS-001-P-TYPE-001",
+      "sourceStandard": "MOLIT DCAT-AP 1.0 observation module",
+      "normativeStatement": "[en] An ObservationDataset must also state rdf:type dcat:Dataset.",
+      "adoptionRationale": "The dataset type activates the observation constraints and keeps the graph compatible with DCAT discovery. Validator routing must not depend on informal titles or endpoint conventions."
+    },
+    {
+      "clauseId": "MOLIT-OBS-UNIT-001",
+      "requirementId": "MOLIT-OBS-UNIT-001",
+      "sourceStandard": "MOLIT DCAT-AP 1.0 observation module",
+      "normativeStatement": "[en] Observation property and QUDT unit are not semantically compatible.",
+      "adoptionRationale": "Property and QUDT unit must be checked together to prevent numerically valid but semantically incomparable observations. The pair is the minimum needed for safe aggregation across providers."
+    },
+    {
+      "clauseId": "MOLIT-OFFER-001-P-DESCRIBESOFFERINGDATASET-001",
+      "requirementId": "MOLIT-OFFER-001-P-DESCRIBESOFFERINGDATASET-001",
+      "sourceStandard": "MOLIT DCAT-AP 1.0 offering module",
+      "normativeStatement": "[en] Offering metadata must identify exactly one catalogued dataset.",
+      "adoptionRationale": "An offering is useful only when it resolves to one catalogued dataset. The link prevents detached offer records and gives policy negotiation a stable metadata subject."
+    },
+    {
+      "clauseId": "MOLIT-OFFER-001-P-IDENTIFIER-001",
+      "requirementId": "MOLIT-OFFER-001-P-IDENTIFIER-001",
+      "sourceStandard": "MOLIT DCAT-AP 1.0 offering module",
+      "normativeStatement": "[en] Offering metadata must have one registry-scoped identifier.",
+      "adoptionRationale": "A registry-scoped identifier supports reconciliation when offering records are harvested from several providers. It is distinct from the dataset identifier and connector endpoint."
+    },
+    {
+      "clauseId": "MOLIT-OFFER-001-P-MODIFIED-001",
+      "requirementId": "MOLIT-OFFER-001-P-MODIFIED-001",
+      "sourceStandard": "MOLIT DCAT-AP 1.0 offering module",
+      "normativeStatement": "[en] Offering metadata must state its last modification date.",
+      "adoptionRationale": "The modification date lets catalogues refresh offering metadata without treating every harvest as a new offer. It also gives reviewers a freshness boundary."
+    },
+    {
+      "clauseId": "MOLIT-OFFER-001-P-OFFERINGREADINESSSTATUS-001",
+      "requirementId": "MOLIT-OFFER-001-P-OFFERINGREADINESSSTATUS-001",
+      "sourceStandard": "MOLIT DCAT-AP 1.0 offering module",
+      "normativeStatement": "[en] Use a candidate readiness status. This profile does not assert operational DSP approval.",
+      "adoptionRationale": "Readiness is catalogue metadata, not proof of DSP contract negotiation or transfer authorization. The controlled state prevents a planned offering from being presented as operationally approved."
+    },
+    {
+      "clauseId": "MOLIT-OFFER-LINK-001-P-DESCRIBESOFFERINGDATASET-001",
+      "requirementId": "MOLIT-OFFER-LINK-001-P-DESCRIBESOFFERINGDATASET-001",
+      "sourceStandard": "MOLIT DCAT-AP 1.0 offering module",
+      "normativeStatement": "[en] The described resource must be a catalogued DCAT dataset.",
+      "adoptionRationale": "An offering is useful only when it resolves to one catalogued dataset. The link prevents detached offer records and gives policy negotiation a stable metadata subject."
+    },
+    {
+      "clauseId": "MOLIT-PROFILE-CORE-001-P-CONFORMSTO-001",
+      "requirementId": "MOLIT-PROFILE-CORE-001-P-CONFORMSTO-001",
+      "sourceStandard": "MOLIT DCAT-AP 1.0 core profile module",
+      "normativeStatement": "[ko] Core 카탈로그에는 Core release IRI만 metadata profile marker로 지정해야 한다.",
+      "adoptionRationale": "The marker selects one validation bundle without guessing from payload content. Deterministic routing prevents a graph from claiming a weaker module than the vocabulary it uses."
+    },
+    {
+      "clauseId": "MOLIT-PROFILE-CORE-002-P-CONFORMSTO-001",
+      "requirementId": "MOLIT-PROFILE-CORE-002-P-CONFORMSTO-001",
+      "sourceStandard": "MOLIT DCAT-AP 1.0 core profile module",
+      "normativeStatement": "[ko] Core CatalogRecord에는 Core release IRI만 metadata profile marker로 지정해야 한다.",
+      "adoptionRationale": "The marker selects one validation bundle without guessing from payload content. Deterministic routing prevents a graph from claiming a weaker module than the vocabulary it uses."
+    },
+    {
+      "clauseId": "MOLIT-PROFILE-NET-001-P-CONFORMSTO-001",
+      "requirementId": "MOLIT-PROFILE-NET-001-P-CONFORMSTO-001",
+      "sourceStandard": "MOLIT DCAT-AP 1.0 network profile module",
+      "normativeStatement": "[en] Catalog must declare the selected network release IRI as its MOLIT profile marker.",
+      "adoptionRationale": "The marker selects one validation bundle without guessing from payload content. Deterministic routing prevents a graph from claiming a weaker module than the vocabulary it uses."
+    },
+    {
+      "clauseId": "MOLIT-PROFILE-NET-002-P-CONFORMSTO-001",
+      "requirementId": "MOLIT-PROFILE-NET-002-P-CONFORMSTO-001",
+      "sourceStandard": "MOLIT DCAT-AP 1.0 network profile module",
+      "normativeStatement": "[en] CatalogRecord must declare the selected network release IRI as its MOLIT profile marker.",
+      "adoptionRationale": "The marker selects one validation bundle without guessing from payload content. Deterministic routing prevents a graph from claiming a weaker module than the vocabulary it uses."
+    },
+    {
+      "clauseId": "MOLIT-PROFILE-OBS-001-P-CONFORMSTO-001",
+      "requirementId": "MOLIT-PROFILE-OBS-001-P-CONFORMSTO-001",
+      "sourceStandard": "MOLIT DCAT-AP 1.0 observation profile module",
+      "normativeStatement": "[en] Catalog must declare the selected observation release IRI as its MOLIT profile marker.",
+      "adoptionRationale": "The marker selects one validation bundle without guessing from payload content. Deterministic routing prevents a graph from claiming a weaker module than the vocabulary it uses."
+    },
+    {
+      "clauseId": "MOLIT-PROFILE-OBS-002-P-CONFORMSTO-001",
+      "requirementId": "MOLIT-PROFILE-OBS-002-P-CONFORMSTO-001",
+      "sourceStandard": "MOLIT DCAT-AP 1.0 observation profile module",
+      "normativeStatement": "[en] CatalogRecord must declare the selected observation release IRI as its MOLIT profile marker.",
+      "adoptionRationale": "The marker selects one validation bundle without guessing from payload content. Deterministic routing prevents a graph from claiming a weaker module than the vocabulary it uses."
+    },
+    {
+      "clauseId": "MOLIT-PROFILE-OFFER-001-P-CONFORMSTO-001",
+      "requirementId": "MOLIT-PROFILE-OFFER-001-P-CONFORMSTO-001",
+      "sourceStandard": "MOLIT DCAT-AP 1.0 dataspace offering profile module",
+      "normativeStatement": "[en] Catalog must declare the selected dataspace-offering release IRI as its MOLIT profile marker.",
+      "adoptionRationale": "The marker selects one validation bundle without guessing from payload content. Deterministic routing prevents a graph from claiming a weaker module than the vocabulary it uses."
+    },
+    {
+      "clauseId": "MOLIT-PROFILE-OFFER-002-P-CONFORMSTO-001",
+      "requirementId": "MOLIT-PROFILE-OFFER-002-P-CONFORMSTO-001",
+      "sourceStandard": "MOLIT DCAT-AP 1.0 dataspace offering profile module",
+      "normativeStatement": "[en] CatalogRecord must declare the selected dataspace-offering release IRI as its MOLIT profile marker.",
+      "adoptionRationale": "The marker selects one validation bundle without guessing from payload content. Deterministic routing prevents a graph from claiming a weaker module than the vocabulary it uses."
+    },
+    {
+      "clauseId": "MOLIT-PROFILE-QUAL-001-P-CONFORMSTO-001",
+      "requirementId": "MOLIT-PROFILE-QUAL-001-P-CONFORMSTO-001",
+      "sourceStandard": "MOLIT DCAT-AP 1.0 quality profile module",
+      "normativeStatement": "[en] Catalog must declare the selected quality release IRI as its MOLIT profile marker.",
+      "adoptionRationale": "The marker selects one validation bundle without guessing from payload content. Deterministic routing prevents a graph from claiming a weaker module than the vocabulary it uses."
+    },
+    {
+      "clauseId": "MOLIT-PROFILE-QUAL-002-P-CONFORMSTO-001",
+      "requirementId": "MOLIT-PROFILE-QUAL-002-P-CONFORMSTO-001",
+      "sourceStandard": "MOLIT DCAT-AP 1.0 quality profile module",
+      "normativeStatement": "[en] CatalogRecord must declare the selected quality release IRI as its MOLIT profile marker.",
+      "adoptionRationale": "The marker selects one validation bundle without guessing from payload content. Deterministic routing prevents a graph from claiming a weaker module than the vocabulary it uses."
+    },
+    {
+      "clauseId": "MOLIT-PROFILE-SELECTION-GEOSPARQL-001",
+      "requirementId": "MOLIT-PROFILE-SELECTION-GEOSPARQL-001",
+      "sourceStandard": "MOLIT DCAT-AP 1.0 core profile module",
+      "normativeStatement": "[ko] GeoSPARQL 1.1 class 또는 property를 사용한 graph는 Geo subprofile로 검증해야 한다.",
+      "adoptionRationale": "The marker selects one validation bundle without guessing from payload content. Deterministic routing prevents a graph from claiming a weaker module than the vocabulary it uses."
+    },
+    {
+      "clauseId": "MOLIT-PROFILE-SELECTION-MARKER-001",
+      "requirementId": "MOLIT-PROFILE-SELECTION-MARKER-001",
+      "sourceStandard": "MOLIT DCAT-AP 1.0 core profile module",
+      "normativeStatement": "[ko] 국토교통 공간 유형·property, GeoDCAT-AP property 또는 LOCN geometry를 사용한 graph는 Geo subprofile로 검증해야 한다.",
+      "adoptionRationale": "The marker selects one validation bundle without guessing from payload content. Deterministic routing prevents a graph from claiming a weaker module than the vocabulary it uses."
+    },
+    {
+      "clauseId": "MOLIT-QUAL-LINK-001-P-PATH-7CC75844D0-001",
+      "requirementId": "MOLIT-QUAL-LINK-001-P-PATH-7CC75844D0-001",
+      "sourceStandard": "MOLIT DCAT-AP 1.0 quality module",
+      "normativeStatement": "[en] A quality measurement must be computed on exactly the dataset or datasets that link to it with dqv:hasQualityMeasurement.\n[ko] 품질 측정값의 dqv:computedOn 집합은 해당 측정값을 dqv:hasQualityMeasurement로 연결한 데이터셋 집합과 일치해야 한다.",
+      "adoptionRationale": "The bidirectional dataset link prevents a quality result from being attached to a different dataset than the one measured. This is necessary when measurements are harvested independently."
+    },
+    {
+      "clauseId": "MOLIT-QUAL-MAP-001",
+      "requirementId": "MOLIT-QUAL-MAP-001",
+      "sourceStandard": "MOLIT DCAT-AP 1.0 quality module",
+      "normativeStatement": "[en] Every non-lossless mapping must explain the lost, unmapped or unpublished information.\n[en] Identify at most one target DQV metric; unmapped and not-published entries have none.\n[en] Identify the source quality element.\n[en] Preserved or lossy mappings require one target metric; unmapped or not-published entries must not invent one.\n[en] State whether the source quality result was preserved, recoverable, lost, unmapped, or withheld.",
+      "adoptionRationale": "Transformation loss must remain visible when source quality information is mapped into DQV. A separate disposition and mapping statement prevent omitted fields from being reported as successfully preserved."
+    },
+    {
+      "clauseId": "MOLIT-QUAL-MAP-001-P-MAPPEDQUALITYMETRIC-001",
+      "requirementId": "MOLIT-QUAL-MAP-001-P-MAPPEDQUALITYMETRIC-001",
+      "sourceStandard": "MOLIT DCAT-AP 1.0 quality module",
+      "normativeStatement": "[en] Identify at most one target DQV metric; unmapped and not-published entries have none.",
+      "adoptionRationale": "Transformation loss must remain visible when source quality information is mapped into DQV. A separate disposition and mapping statement prevent omitted fields from being reported as successfully preserved."
+    },
+    {
+      "clauseId": "MOLIT-QUAL-MAP-001-P-QUALITYLOSSDISPOSITION-001",
+      "requirementId": "MOLIT-QUAL-MAP-001-P-QUALITYLOSSDISPOSITION-001",
+      "sourceStandard": "MOLIT DCAT-AP 1.0 quality module",
+      "normativeStatement": "[en] State whether the source quality result was preserved, recoverable, lost, unmapped, or withheld.",
+      "adoptionRationale": "Transformation loss must remain visible when source quality information is mapped into DQV. A separate disposition and mapping statement prevent omitted fields from being reported as successfully preserved."
+    },
+    {
+      "clauseId": "MOLIT-QUAL-MAP-001-P-SOURCEQUALITYELEMENT-001",
+      "requirementId": "MOLIT-QUAL-MAP-001-P-SOURCEQUALITYELEMENT-001",
+      "sourceStandard": "MOLIT DCAT-AP 1.0 quality module",
+      "normativeStatement": "[en] Identify the source quality element.",
+      "adoptionRationale": "Transformation loss must remain visible when source quality information is mapped into DQV. A separate disposition and mapping statement prevent omitted fields from being reported as successfully preserved."
+    },
+    {
+      "clauseId": "MOLIT-QUAL-MAP-LINK-001-P-DISPOSITION-001",
+      "requirementId": "MOLIT-QUAL-MAP-LINK-001-P-DISPOSITION-001",
+      "sourceStandard": "MOLIT DCAT-AP 1.0 quality module",
+      "normativeStatement": "[ko] 실제 DQV 측정값에 연결된 매핑은 보존·가역 손실·비가역 손실 중 하나여야 한다. unmapped와 not-published 항목은 측정값 없이 별도 ledger에 기록한다.",
+      "adoptionRationale": "A published DQV measurement cannot simultaneously assert that no target metric was mapped or published. Unmapped and withheld source elements remain standalone loss-ledger entries."
+    },
+    {
+      "clauseId": "MOLIT-QUAL-MAP-LINK-001-P-METRIC-001",
+      "requirementId": "MOLIT-QUAL-MAP-LINK-001-P-METRIC-001",
+      "sourceStandard": "MOLIT DCAT-AP 1.0 quality module",
+      "normativeStatement": "[ko] 측정값의 dqv:isMeasurementOf와 연결된 매핑의 mappedQualityMetric은 같은 metric이어야 한다.",
+      "adoptionRationale": "The source-to-DQV mapping and the published measurement must identify the same metric; otherwise the loss ledger cannot explain the value being published."
+    },
+    {
+      "clauseId": "MOLIT-QUAL-MEASURE-001",
+      "requirementId": "MOLIT-QUAL-MEASURE-001",
+      "sourceStandard": "MOLIT DCAT-AP 1.0 quality module",
+      "normativeStatement": "[ko] qualityResultKind에 따라 dqv:value의 자료형과 단위 사용 여부를 맞춰야 한다.",
+      "adoptionRationale": "Result kind, metric, value datatype and unit are validated as one measurement contract. This prevents a syntactically valid literal from being compared under the wrong metric or scale."
+    },
+    {
+      "clauseId": "MOLIT-QUAL-MEASURE-001-P-COMPUTEDON-001",
+      "requirementId": "MOLIT-QUAL-MEASURE-001-P-COMPUTEDON-001",
+      "sourceStandard": "MOLIT DCAT-AP 1.0 quality module",
+      "normativeStatement": "[ko] 품질 측정값은 측정 대상 데이터셋 하나를 가리켜야 한다.\n[ko] qualityResultKind에 따라 dqv:value의 자료형과 단위 사용 여부를 맞춰야 한다.",
+      "adoptionRationale": "Result kind, metric, value datatype and unit are validated as one measurement contract. This prevents a syntactically valid literal from being compared under the wrong metric or scale."
+    },
+    {
+      "clauseId": "MOLIT-QUAL-MEASURE-001-P-ISMEASUREMENTOF-001",
+      "requirementId": "MOLIT-QUAL-MEASURE-001-P-ISMEASUREMENTOF-001",
+      "sourceStandard": "MOLIT DCAT-AP 1.0 quality module",
+      "normativeStatement": "[ko] 품질 측정항목은 승인된 품질 metric IRI여야 한다.\n[ko] qualityResultKind에 따라 dqv:value의 자료형과 단위 사용 여부를 맞춰야 한다.",
+      "adoptionRationale": "Result kind, metric, value datatype and unit are validated as one measurement contract. This prevents a syntactically valid literal from being compared under the wrong metric or scale."
+    },
+    {
+      "clauseId": "MOLIT-QUAL-MEASURE-001-P-QUALITYRESULTCONCEPT-001",
+      "requirementId": "MOLIT-QUAL-MEASURE-001-P-QUALITYRESULTCONCEPT-001",
+      "sourceStandard": "MOLIT DCAT-AP 1.0 quality module",
+      "normativeStatement": "[ko] 범주형 품질 결과 개념은 SKOS Concept IRI 하나로 기록해야 한다.\n[ko] qualityResultKind에 따라 dqv:value의 자료형과 단위 사용 여부를 맞춰야 한다.",
+      "adoptionRationale": "DQV defines dqv:value as a datatype property and GeoDCAT-AP requires a literal value. The separate concept link preserves controlled semantics without violating that range."
+    },
+    {
+      "clauseId": "MOLIT-QUAL-MEASURE-001-P-UNITMEASURE-001",
+      "requirementId": "MOLIT-QUAL-MEASURE-001-P-UNITMEASURE-001",
+      "sourceStandard": "MOLIT DCAT-AP 1.0 quality module",
+      "normativeStatement": "[ko] 단위를 쓰는 결과는 승인된 QUDT Unit IRI를 하나만 사용해야 한다.\n[ko] qualityResultKind에 따라 dqv:value의 자료형과 단위 사용 여부를 맞춰야 한다.",
+      "adoptionRationale": "Result kind, metric, value datatype and unit are validated as one measurement contract. This prevents a syntactically valid literal from being compared under the wrong metric or scale."
+    },
+    {
+      "clauseId": "MOLIT-QUAL-MEASURE-001-P-VALUE-001",
+      "requirementId": "MOLIT-QUAL-MEASURE-001-P-VALUE-001",
+      "sourceStandard": "MOLIT DCAT-AP 1.0 quality module",
+      "normativeStatement": "[ko] 품질 측정값은 결과 유형에 맞는 값 하나여야 한다.\n[ko] qualityResultKind에 따라 dqv:value의 자료형과 단위 사용 여부를 맞춰야 한다.",
+      "adoptionRationale": "Result kind, metric, value datatype and unit are validated as one measurement contract. This prevents a syntactically valid literal from being compared under the wrong metric or scale."
+    },
+    {
+      "clauseId": "MOLIT-QUAL-MEASURE-002",
+      "requirementId": "MOLIT-QUAL-MEASURE-002",
+      "sourceStandard": "MOLIT DCAT-AP 1.0 quality module",
+      "normativeStatement": "[ko] 품질 결과 유형은 해당 유형용 metric, 값 범위, 단위와 범주 코드를 함께 따라야 한다.",
+      "adoptionRationale": "Result kind, metric, value datatype and unit are validated as one measurement contract. This prevents a syntactically valid literal from being compared under the wrong metric or scale."
+    },
+    {
+      "clauseId": "MOLIT-QUAL-PROV-001-P-QUALITYEVALUATIONMETHOD-001",
+      "requirementId": "MOLIT-QUAL-PROV-001-P-QUALITYEVALUATIONMETHOD-001",
+      "sourceStandard": "MOLIT DCAT-AP 1.0 quality module",
+      "normativeStatement": "[en] State one approved quality evaluation method.",
+      "adoptionRationale": "Method and evaluation scope are required to reproduce or challenge a quality result. A number without its population, fields, period or procedure is not comparable evidence."
+    },
+    {
+      "clauseId": "MOLIT-QUAL-PROV-001-P-QUALITYEVALUATIONSCOPE-001",
+      "requirementId": "MOLIT-QUAL-PROV-001-P-QUALITYEVALUATIONSCOPE-001",
+      "sourceStandard": "MOLIT DCAT-AP 1.0 quality module",
+      "normativeStatement": "[en] State the population, fields, time range or spatial extent evaluated by the measurement.",
+      "adoptionRationale": "Method and evaluation scope are required to reproduce or challenge a quality result. A number without its population, fields, period or procedure is not comparable evidence."
+    },
+    {
+      "clauseId": "MOLIT-QUAL-PROV-001-P-QUALITYMAPPINGSTATEMENT-001",
+      "requirementId": "MOLIT-QUAL-PROV-001-P-QUALITYMAPPINGSTATEMENT-001",
+      "sourceStandard": "MOLIT DCAT-AP 1.0 quality module",
+      "normativeStatement": "[en] Link each measurement to one loss-ledger entry; a DQV-native measurement records a lossless self-mapping.",
+      "adoptionRationale": "Transformation loss must remain visible when source quality information is mapped into DQV. A separate disposition and mapping statement prevent omitted fields from being reported as successfully preserved."
+    },
+    {
+      "clauseId": "MOLIT-QUAL-PROV-001-P-QUALITYRESULTKIND-001",
+      "requirementId": "MOLIT-QUAL-PROV-001-P-QUALITYRESULTKIND-001",
+      "sourceStandard": "MOLIT DCAT-AP 1.0 quality module",
+      "normativeStatement": "[en] State the quality result kind.",
+      "adoptionRationale": "Result kind, metric, value datatype and unit are validated as one measurement contract. This prevents a syntactically valid literal from being compared under the wrong metric or scale."
+    },
+    {
+      "clauseId": "MOLIT-QUAL-STATUS-001",
+      "requirementId": "MOLIT-QUAL-STATUS-001",
+      "sourceStandard": "MOLIT DCAT-AP 1.0 quality module",
+      "normativeStatement": "[ko] 미평가 데이터셋에는 품질 측정값이 없어야 하며, 평가·주의·기준 미달·최신성 만료 상태에는 하나 이상의 DQV 측정값이 있어야 한다.",
+      "adoptionRationale": "A status without measurement evidence would contradict the quality-status vocabulary. The not-assessed branch also prevents stale measurements from being presented as an unevaluated dataset."
+    },
+    {
+      "clauseId": "MOLIT-REC-001-P-MODIFIED-001",
+      "requirementId": "MOLIT-REC-001-P-MODIFIED-001",
+      "sourceStandard": "MOLIT DCAT-AP 1.0 core module",
+      "normativeStatement": "[ko] CatalogRecord 수정일은 xsd:date 또는 xsd:dateTime 값 하나여야 한다.",
+      "adoptionRationale": "Typed publication and modification dates support incremental harvesting and freshness checks. Limiting the value count avoids conflicting update order."
+    },
+    {
+      "clauseId": "MOLIT-REC-001-P-PRIMARYTOPIC-001",
+      "requirementId": "MOLIT-REC-001-P-PRIMARYTOPIC-001",
+      "sourceStandard": "MOLIT DCAT-AP 1.0 core module",
+      "normativeStatement": "[ko] CatalogRecord는 데이터셋 하나를 foaf:primaryTopic으로 가리켜야 한다.",
+      "adoptionRationale": "Catalogue membership and record topics must agree so harvesters do not create dangling or duplicate dataset entries. The rule preserves the same dataset set across both DCAT navigation paths."
+    },
+    {
+      "clauseId": "MOLIT-REC-DIST-001-P-CHECKSUM-001",
+      "requirementId": "MOLIT-REC-DIST-001-P-CHECKSUM-001",
+      "sourceStandard": "MOLIT DCAT-AP 1.0 recommended module",
+      "normativeStatement": "[ko] 파일 배포본에는 SPDX checksum을 권고한다.",
+      "adoptionRationale": "A checksum lets a consumer verify that a downloaded distribution matches the catalogued file. It remains a recommendation because some service-only distributions do not expose stable bytes."
+    },
+    {
+      "clauseId": "MOLIT-REC-DS-001-P-CONTACTPOINT-001",
+      "requirementId": "MOLIT-REC-DS-001-P-CONTACTPOINT-001",
+      "sourceStandard": "MOLIT DCAT-AP 1.0 recommended module",
+      "normativeStatement": "[ko] 운영 문의를 받을 기관 연락 지점을 권고한다. 승인된 기관 role mailbox를 사용하며 1.0.0-rc.1에서는 전화번호를 게시하지 않는다.",
+      "adoptionRationale": "An institutional role mailbox provides an accountable support route without publishing a personal phone number. The recommendation follows the public-metadata privacy boundary."
+    },
+    {
+      "clauseId": "MOLIT-REC-DS-001-P-PROVENANCE-001",
+      "requirementId": "MOLIT-REC-DS-001-P-PROVENANCE-001",
+      "sourceStandard": "MOLIT DCAT-AP 1.0 recommended module",
+      "normativeStatement": "[ko] 공개 가능한 기관 단위 계보 설명을 권고한다.",
+      "adoptionRationale": "Dataset-level provenance lets a reviewer trace collection and transformation without exposing internal operational records. It is recommended until a sector-wide provenance minimum is adopted."
+    },
+    {
+      "clauseId": "MOLIT-REC-QUAL-001-P-QUALIFICATIONEVIDENCE-001",
+      "requirementId": "MOLIT-REC-QUAL-001-P-QUALIFICATIONEVIDENCE-001",
+      "sourceStandard": "MOLIT DCAT-AP 1.0 recommended module",
+      "normativeStatement": "[ko] 운영 자격을 검토할 때 사용하는 외부 registry 증거 IRI를 권고한다.",
+      "adoptionRationale": "A registry evidence IRI makes an operational qualification claim independently reviewable. The link does not itself grant connector access or prove current DSP eligibility."
+    },
+    {
+      "clauseId": "MOLIT-SVC-001-P-ENDPOINTURL-001",
+      "requirementId": "MOLIT-SVC-001-P-ENDPOINTURL-001",
+      "sourceStandard": "MOLIT DCAT-AP 1.0 core module",
+      "normativeStatement": "[ko] DataService에는 공개 가능한 endpointURL이 있어야 한다.",
+      "adoptionRationale": "A public endpoint URL makes a DataService actionable after discovery. Access authorization and DSP transfer policy are still evaluated outside this metadata check."
+    },
+    {
+      "clauseId": "MOLIT-SVC-001-P-SERVESDATASET-001",
+      "requirementId": "MOLIT-SVC-001-P-SERVESDATASET-001",
+      "sourceStandard": "MOLIT DCAT-AP 1.0 core module",
+      "normativeStatement": "[ko] DataService가 제공하는 데이터셋을 하나 이상 연결해야 한다.",
+      "adoptionRationale": "The service-to-dataset link lets a consumer resolve which catalogued resources an endpoint serves. It prevents an endpoint record from being published without a discoverable subject."
+    }
+  ]
+}

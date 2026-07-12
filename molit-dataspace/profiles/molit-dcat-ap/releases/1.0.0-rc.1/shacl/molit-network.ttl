@@ -3,8 +3,10 @@
 @prefix mobilitydcatap: <https://w3id.org/mobilitydcat-ap#> .
 @prefix netlife: <https://data.molit.go.kr/id/concept/network-lifecycle-status/> .
 @prefix net: <https://data.molit.go.kr/id/concept/network-element-type/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix dcat: <http://www.w3.org/ns/dcat#> .
+@prefix dct: <http://purl.org/dc/terms/> .
 @prefix sh: <http://www.w3.org/ns/shacl#> .
 @prefix skos: <http://www.w3.org/2004/02/skos/core#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
@@ -20,10 +22,11 @@
         sh:message "확장 유형과 함께 dcat:Dataset 유형을 명시해야 한다."@ko
     ], [ molit:requirementId "MOLIT-NET-001-P-NETWORKREFERENCE-001" ;
         sh:path molit:networkReference ;
+        sh:nodeKind sh:IRI ;
         sh:class molit:NetworkReference ;
         sh:minCount 1 ;
         sh:maxCount 1 ;
-        sh:message "교통망 데이터셋에는 발급기관 범위를 보존한 망 참조가 하나 있어야 한다."@ko
+        sh:message "교통망 데이터셋에는 발급기관 범위를 보존한 망 참조 IRI가 하나 있어야 한다."@ko
     ], [ molit:requirementId "MOLIT-NET-001-P-TRANSPORTMODE-001" ;
         sh:path mobilitydcatap:transportMode ;
         sh:minCount 1 ;
@@ -116,6 +119,14 @@
         sh:message "망 요소 유형은 국토교통 망 요소 통제어 IRI여야 한다."@ko
     ] .
 
+<https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#NetworkReferenceIriShape>
+    a sh:NodeShape ;
+    sh:targetClass molit:NetworkReference ;
+    sh:nodeKind sh:IRI ;
+    molit:requirementId "MOLIT-NET-REF-IRI-001" ;
+    molit:controlOwner "network-data-governance" ;
+    sh:message "NetworkReference는 판 공유와 tombstone 해석이 가능한 IRI여야 한다."@ko .
+
 <https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#NetworkSnapshotIdentityShape>
     a sh:NodeShape ;
     sh:targetClass molit:NetworkReference ;
@@ -134,8 +145,8 @@
         sh:minCount 1 ;
         sh:maxCount 1 ;
         sh:datatype xsd:hexBinary ;
-        sh:pattern "^[0-9A-Fa-f]{64}$" ;
-        sh:message "State one SHA-256 network snapshot checksum as a 64-digit xsd:hexBinary value."@en
+        sh:pattern "^[0-9a-f]{64}$" ;
+        sh:message "State one SHA-256 network snapshot checksum as a canonical 64-digit lowercase xsd:hexBinary value."@en
     ], [ molit:requirementId "MOLIT-NET-SNAPSHOT-001-P-NETWORKLIFECYCLESTATUS-001" ;
         sh:path molit:networkLifecycleStatus ;
         sh:minCount 1 ;
@@ -154,6 +165,55 @@
         sh:maxCount 1 ;
         sh:datatype xsd:date ;
         sh:message "When known, state the last date on which this network snapshot is valid."@en
+    ] .
+
+<https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#NetworkReplacementShape>
+    a sh:NodeShape ;
+    sh:targetClass molit:NetworkReference ;
+    molit:requirementId "MOLIT-NET-REPLACEMENT-001" ;
+    molit:controlOwner "network-data-governance" ;
+    sh:xone (
+        [
+            sh:property [ sh:path molit:networkLifecycleStatus ; sh:hasValue netlife:superseded ] ;
+            sh:property [ sh:path molit:networkValidUntil ; sh:minCount 1 ; sh:maxCount 1 ] ;
+            sh:property [
+                sh:path dct:isReplacedBy ;
+                sh:minCount 1 ;
+                sh:maxCount 1 ;
+                sh:nodeKind sh:IRI ;
+                sh:class molit:NetworkReference
+            ]
+        ]
+        [
+            sh:property [
+                sh:path molit:networkLifecycleStatus ;
+                sh:in ( netlife:candidate netlife:current )
+            ] ;
+            sh:property [ sh:path dct:isReplacedBy ; sh:maxCount 0 ]
+        ]
+        [
+            sh:property [ sh:path molit:networkLifecycleStatus ; sh:hasValue netlife:withdrawn ] ;
+            sh:property [ sh:path molit:networkValidUntil ; sh:minCount 1 ; sh:maxCount 1 ] ;
+            sh:property [ sh:path dct:isReplacedBy ; sh:maxCount 0 ]
+        ]
+    ) ;
+    sh:message "superseded 판은 종료일과 graph 안의 후속 판 IRI 하나가 필요하다. withdrawn 판은 종료일이 필요하며 candidate·current·withdrawn 판에는 dct:isReplacedBy를 두지 않는다."@ko .
+
+<https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#NetworkReferenceIdentitySeparationShape>
+    a sh:NodeShape ;
+    sh:targetClass molit:NetworkReference ;
+    molit:requirementId "MOLIT-NET-SAMEAS-001" ;
+    molit:controlOwner "network-data-governance" ;
+    sh:property [
+        molit:requirementId "MOLIT-NET-SAMEAS-001-P-OUTGOING-001" ;
+        sh:path owl:sameAs ;
+        sh:maxCount 0 ;
+        sh:message "NetworkReference에는 판 차이를 지우는 owl:sameAs를 사용할 수 없다."@ko
+    ], [
+        molit:requirementId "MOLIT-NET-SAMEAS-001-P-INCOMING-001" ;
+        sh:path [ sh:inversePath owl:sameAs ] ;
+        sh:maxCount 0 ;
+        sh:message "다른 자원이 NetworkReference를 owl:sameAs 대상으로 선언할 수 없다."@ko
     ] .
 
 <https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#NetworkSnapshotValidityShape>

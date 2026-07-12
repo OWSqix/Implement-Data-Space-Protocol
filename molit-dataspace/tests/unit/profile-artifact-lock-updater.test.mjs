@@ -5,6 +5,7 @@ import {
   mkdtemp,
   readFile,
   rm,
+  symlink,
   writeFile,
 } from "node:fs/promises";
 import { tmpdir } from "node:os";
@@ -13,6 +14,7 @@ import test from "node:test";
 import {
   listReleaseMachineArtifacts,
   releaseMachineExtensions,
+  verifyArtifactLock,
 } from "../../src/profile/registry.mjs";
 import { updateArtifactLock } from "../../tools/profile/update-artifact-lock.mjs";
 
@@ -195,4 +197,88 @@ test("ST-SUPPLY-002: XML and RDF machine artifacts cannot bypass inventory revie
       await rm(injectedPath, { force: true });
     }
   }
+});
+
+test("ST-SUPPLY-003: a no-op lock update is independent of the wall clock", async (t) => {
+  const releaseRoot = await mkdtemp(path.join(tmpdir(), "molit-profile-lock-time-"));
+  t.after(() => rm(releaseRoot, { force: true, recursive: true }));
+  const manifestBytes = Buffer.from("{\"version\":\"test\"}\n", "utf8");
+  await writeFile(path.join(releaseRoot, "manifest.json"), manifestBytes);
+  const lockPath = path.join(releaseRoot, "artifact-lock.json");
+  await writeFile(lockPath, `${JSON.stringify({
+    artifacts: [{
+      license: "test-only",
+      origin: "local",
+      path: "manifest.json",
+      sha256: digest(manifestBytes),
+      version: "test",
+    }],
+    generatedAt: "2024-01-01",
+    networkFetchAtRuntime: false,
+    profileVersion: "test",
+    schemaVersion: "molit.profile-artifact-lock/1",
+  }, null, 2)}\n`, "utf8");
+
+  const RealDate = globalThis.Date;
+  const clock = (isoDate) => class extends RealDate {
+    constructor() {
+      super(`${isoDate}T00:00:00Z`);
+    }
+  };
+  try {
+    globalThis.Date = clock("2026-01-01");
+    await updateArtifactLock({ releaseRoot });
+    const first = await readFile(lockPath);
+    globalThis.Date = clock("2027-12-31");
+    await updateArtifactLock({ releaseRoot });
+    const second = await readFile(lockPath);
+    assert.deepEqual(second, first);
+    assert.equal(JSON.parse(second).generatedAt, "2024-01-01");
+  } finally {
+    globalThis.Date = RealDate;
+  }
+});
+
+test("ST-SUPPLY-004: updater and verifier reject release junctions before inventory", async (t) => {
+  const parent = await mkdtemp(path.join(tmpdir(), "molit-profile-lock-link-"));
+  t.after(() => rm(parent, { force: true, recursive: true }));
+  const releaseRoot = path.join(parent, "release");
+  const externalRoot = path.join(parent, "external");
+  await Promise.all([mkdir(releaseRoot), mkdir(externalRoot)]);
+  await writeFile(path.join(externalRoot, "mutable.ttl"), "<urn:s> <urn:p> <urn:o> .\n");
+  await symlink(
+    externalRoot,
+    path.join(releaseRoot, "linked"),
+    process.platform === "win32" ? "junction" : "dir",
+  );
+  const manifest = {
+    artifactInventoryPolicy: "all-release-files",
+    lockFile: "artifact-lock.json",
+    version: "test",
+  };
+  const manifestBytes = Buffer.from(`${JSON.stringify(manifest)}\n`, "utf8");
+  const manifestPath = path.join(releaseRoot, "manifest.json");
+  await writeFile(manifestPath, manifestBytes);
+  await writeFile(path.join(releaseRoot, "artifact-lock.json"), `${JSON.stringify({
+    artifacts: [{
+      license: "test-only",
+      origin: "local",
+      path: "manifest.json",
+      sha256: digest(manifestBytes),
+      version: "test",
+    }],
+    profileVersion: "test",
+    schemaVersion: "molit.profile-artifact-lock/1",
+  })}\n`);
+  const release = {
+    manifest,
+    manifestPath,
+    releaseRoot,
+    version: "test",
+  };
+  const rejectsLink = (error) => error.code === "PROFILE_RELEASE_SYMLINK_NOT_ALLOWED"
+    && error.details.path === "linked";
+  await assert.rejects(listReleaseMachineArtifacts(release), rejectsLink);
+  await assert.rejects(verifyArtifactLock(release), rejectsLink);
+  await assert.rejects(updateArtifactLock({ releaseRoot }), rejectsLink);
 });

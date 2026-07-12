@@ -2,6 +2,7 @@
 @prefix dqv: <http://www.w3.org/ns/dqv#> .
 @prefix metric: <https://data.molit.go.kr/id/metric/> .
 @prefix molit-scheme: <https://data.molit.go.kr/scheme/> .
+@prefix qcategory: <https://data.molit.go.kr/id/concept/quality-result-category/> .
 @prefix quality: <https://data.molit.go.kr/id/concept/quality-status/> .
 @prefix skos: <http://www.w3.org/2004/02/skos/core#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
@@ -25,7 +26,7 @@ quality:not-assessed a skos:Concept ; skos:inScheme molit-scheme:quality-status 
 quality:assessed a skos:Concept ; skos:inScheme molit-scheme:quality-status ; skos:prefLabel "평가 완료"@ko, "Assessed"@en ; skos:definition "승인된 품질 평가 절차를 완료한 상태. 우수 등급을 뜻하지 않는다."@ko, "An approved quality-assessment procedure is complete; this does not assert a high quality grade."@en ; skos:topConceptOf molit-scheme:quality-status .
 quality:warning a skos:Concept ; skos:inScheme molit-scheme:quality-status ; skos:prefLabel "주의"@ko, "Warning"@en ; skos:definition "평가가 완료됐으나 하나 이상의 측정항목에 검토가 필요한 상태."@ko, "Assessment is complete, but one or more metrics require review."@en ; skos:topConceptOf molit-scheme:quality-status .
 quality:failed a skos:Concept ; skos:inScheme molit-scheme:quality-status ; skos:prefLabel "기준 미달"@ko, "Failed"@en ; skos:definition "하나 이상의 필수 품질 기준을 충족하지 못한 상태."@ko, "One or more mandatory quality thresholds were not met."@en ; skos:topConceptOf molit-scheme:quality-status .
-quality:stale a skos:Concept ; skos:inScheme molit-scheme:quality-status ; skos:prefLabel "최신성 만료"@ko, "Stale"@en ; skos:definition "품질 측정일이 운영 최신성 정책의 유효기간을 지난 상태."@ko, "The quality measurement date is outside the validity period set by the operating currency policy."@en ; skos:topConceptOf molit-scheme:quality-status .
+quality:stale a skos:Concept ; skos:inScheme molit-scheme:quality-status ; skos:prefLabel "최신성 만료"@ko, "Stale"@en ; skos:definition "발행자가 명시한 평가 방법과 범위의 최신성 기준을 벗어났다고 판정한 상태. RC.1 SHACL은 현재 시각과 기준시간을 계산하지 않고 연결된 측정 증거의 존재만 검사한다."@ko, "A publisher assertion that the measurement is outside the currency threshold identified by its method and scope; RC.1 SHACL does not compute current time or the threshold and checks only that measurement evidence is linked."@en ; skos:topConceptOf molit-scheme:quality-status .
 
 molit-scheme:quality-metric
     a skos:ConceptScheme ;
@@ -34,25 +35,52 @@ molit-scheme:quality-metric
     skos:note "License for locally authored concepts is pending owner approval."@en ;
     skos:prefLabel "국토교통 품질 측정항목"@ko,
         "MOLIT quality metrics"@en ;
-    skos:definition "국토교통 Dataset의 완전성, 위치·시간 정확도, 논리 일관성과 적시성을 DQV로 게시하기 위한 제한된 후보 측정항목 집합."@ko,
-        "A limited candidate set of DQV metrics for publishing completeness, positional and temporal accuracy, logical consistency and timeliness of MOLIT datasets."@en ;
+    skos:definition "국토교통 Dataset의 수치 품질, 검증 통과 여부, 최신성 범주와 평가 설명을 DQV로 게시하기 위한 제한된 후보 측정항목 집합."@ko,
+        "A limited candidate set of DQV metrics for publishing numeric quality, validation outcomes, currency categories and assessment notes for MOLIT datasets."@en ;
     skos:hasTopConcept metric:completeness,
         metric:positional-accuracy,
         metric:temporal-accuracy,
         metric:logical-consistency,
-        metric:timeliness .
+        metric:timeliness,
+        metric:validation-conformance,
+        metric:currency-status,
+        metric:assessment-note .
 
-metric:completeness a dqv:Metric, skos:Concept ; skos:inScheme molit-scheme:quality-metric ; skos:prefLabel "완전성"@ko, "Completeness"@en ; skos:definition "필수 레코드 또는 속성 중 값이 존재하고 유효한 항목의 비율. 0부터 100까지의 QUDT PERCENT로 기록한다."@ko, "The percentage of required records or attributes that are present and valid, expressed as QUDT PERCENT from 0 to 100."@en ; skos:topConceptOf molit-scheme:quality-metric .
-metric:positional-accuracy a dqv:Metric, skos:Concept ; skos:inScheme molit-scheme:quality-metric ; skos:prefLabel "위치 정확도"@ko, "Positional accuracy"@en ; skos:definition "기준 위치와 관측 위치 사이의 비음수 오차를 미터로 나타낸 값. 값이 작을수록 오차가 작다."@ko, "A non-negative positional error between reference and observed positions in metres; a lower value means a smaller error."@en ; skos:topConceptOf molit-scheme:quality-metric .
-metric:temporal-accuracy a dqv:Metric, skos:Concept ; skos:inScheme molit-scheme:quality-metric ; skos:prefLabel "시간 정확도"@ko, "Temporal accuracy"@en ; skos:definition "기준 시각과 기록 시각 사이의 비음수 절대 오차를 초로 나타낸 값."@ko, "A non-negative absolute error between reference and recorded time in seconds."@en ; skos:topConceptOf molit-scheme:quality-metric .
-metric:logical-consistency a dqv:Metric, skos:Concept ; skos:inScheme molit-scheme:quality-metric ; skos:prefLabel "논리 일관성"@ko, "Logical consistency"@en ; skos:definition "적용한 논리 규칙 중 통과한 규칙의 비율. 0부터 100까지의 QUDT PERCENT로 기록한다."@ko, "The percentage of evaluated logical rules that passed, expressed as QUDT PERCENT from 0 to 100."@en ; skos:topConceptOf molit-scheme:quality-metric .
-metric:timeliness a dqv:Metric, skos:Concept ; skos:inScheme molit-scheme:quality-metric ; skos:prefLabel "적시성"@ko, "Timeliness"@en ; skos:definition "원천 사건 또는 갱신 시각부터 공개 시각까지의 비음수 경과시간. 초·분·시간·일 단위를 사용하며 값이 작을수록 빠르다."@ko, "The non-negative elapsed time from a source event or update to publication, expressed in seconds, minutes, hours or days; a lower value is more timely."@en ; skos:topConceptOf molit-scheme:quality-metric .
+metric:completeness a dqv:Metric, skos:Concept ; dqv:expectedDataType xsd:decimal ; skos:inScheme molit-scheme:quality-metric ; skos:prefLabel "완전성"@ko, "Completeness"@en ; skos:definition "필수 레코드 또는 속성 중 값이 존재하고 유효한 항목의 비율. 0부터 100까지의 QUDT PERCENT로 기록한다."@ko, "The percentage of required records or attributes that are present and valid, expressed as QUDT PERCENT from 0 to 100."@en ; skos:topConceptOf molit-scheme:quality-metric .
+metric:positional-accuracy a dqv:Metric, skos:Concept ; dqv:expectedDataType xsd:decimal ; skos:inScheme molit-scheme:quality-metric ; skos:prefLabel "위치 정확도"@ko, "Positional accuracy"@en ; skos:definition "기준 위치와 관측 위치 사이의 비음수 오차를 미터로 나타낸 값. 값이 작을수록 오차가 작다."@ko, "A non-negative positional error between reference and observed positions in metres; a lower value means a smaller error."@en ; skos:topConceptOf molit-scheme:quality-metric .
+metric:temporal-accuracy a dqv:Metric, skos:Concept ; dqv:expectedDataType xsd:decimal ; skos:inScheme molit-scheme:quality-metric ; skos:prefLabel "시간 정확도"@ko, "Temporal accuracy"@en ; skos:definition "기준 시각과 기록 시각 사이의 비음수 절대 오차를 초로 나타낸 값."@ko, "A non-negative absolute error between reference and recorded time in seconds."@en ; skos:topConceptOf molit-scheme:quality-metric .
+metric:logical-consistency a dqv:Metric, skos:Concept ; dqv:expectedDataType xsd:decimal ; skos:inScheme molit-scheme:quality-metric ; skos:prefLabel "논리 일관성"@ko, "Logical consistency"@en ; skos:definition "적용한 논리 규칙 중 통과한 규칙의 비율. 0부터 100까지의 QUDT PERCENT로 기록한다."@ko, "The percentage of evaluated logical rules that passed, expressed as QUDT PERCENT from 0 to 100."@en ; skos:topConceptOf molit-scheme:quality-metric .
+metric:timeliness a dqv:Metric, skos:Concept ; dqv:expectedDataType xsd:decimal ; skos:inScheme molit-scheme:quality-metric ; skos:prefLabel "적시성"@ko, "Timeliness"@en ; skos:definition "원천 사건 또는 갱신 시각부터 공개 시각까지의 비음수 경과시간. 초·분·시간·일 단위를 사용하며 값이 작을수록 빠르다."@ko, "The non-negative elapsed time from a source event or update to publication, expressed in seconds, minutes, hours or days; a lower value is more timely."@en ; skos:topConceptOf molit-scheme:quality-metric .
+metric:validation-conformance a dqv:Metric, skos:Concept ; dqv:expectedDataType xsd:boolean ; skos:inScheme molit-scheme:quality-metric ; skos:prefLabel "검증 규칙 통과 여부"@ko, "Validation conformance"@en ; skos:definition "평가 범위에 선언된 모든 검증 규칙을 통과했는지 나타내는 논리값. 적용 규칙 집합은 평가 범위와 방법 기록에서 식별한다."@ko, "A boolean stating whether every validation rule declared for the evaluation scope passed; the rule set is identified by the method and scope records."@en ; skos:topConceptOf molit-scheme:quality-metric .
+metric:currency-status a dqv:Metric, skos:Concept ; dqv:expectedDataType xsd:string ; skos:inScheme molit-scheme:quality-metric ; skos:prefLabel "최신성 범주"@ko, "Currency status"@en ; skos:definition "평가 시점의 최신성 판정을 current, outdated 또는 unknown 범주로 기록한다. 적용 기준시간은 평가 방법과 범위 기록에서 식별한다."@ko, "A current, outdated or unknown currency category at evaluation time; the applicable age threshold is identified by the method and scope records."@en ; skos:topConceptOf molit-scheme:quality-metric .
+metric:assessment-note a dqv:Metric, skos:Concept ; dqv:expectedDataType xsd:string ; skos:inScheme molit-scheme:quality-metric ; skos:prefLabel "평가 설명"@ko, "Assessment note"@en ; skos:definition "구조화된 수치나 판정으로 보존되지 않은 품질 관찰을 짧은 문자열로 기록한다. 자동 비교용 metric이 아니다."@ko, "A short textual quality observation not preserved as a structured number or decision; it is not an automatically comparable metric."@en ; skos:topConceptOf molit-scheme:quality-metric .
+
+molit-scheme:quality-result-category
+    a skos:ConceptScheme ;
+    dct:issued "2026-07-13"^^xsd:date ;
+    dct:title "품질 결과 범주"@ko ;
+    skos:note "License for locally authored concepts is pending owner approval."@en ;
+    skos:prefLabel "품질 결과 범주"@ko,
+        "Quality result categories"@en ;
+    skos:definition "범주형 DQV 측정값에서 literal 코드와 함께 연결하는 제한된 통제 개념."@ko,
+        "Controlled concepts linked alongside literal codes in categorical DQV measurements."@en ;
+    skos:hasTopConcept qcategory:current,
+        qcategory:outdated,
+        qcategory:unknown .
+
+qcategory:current a skos:Concept ; skos:inScheme molit-scheme:quality-result-category ; skos:notation "current" ; skos:prefLabel "현행"@ko, "Current"@en ; skos:definition "적용 최신성 기준 안에 있는 상태."@ko, "Within the applicable currency threshold."@en ; skos:topConceptOf molit-scheme:quality-result-category .
+qcategory:outdated a skos:Concept ; skos:inScheme molit-scheme:quality-result-category ; skos:notation "outdated" ; skos:prefLabel "기준시간 초과"@ko, "Outdated"@en ; skos:definition "적용 최신성 기준시간을 지난 상태."@ko, "Outside the applicable currency threshold."@en ; skos:topConceptOf molit-scheme:quality-result-category .
+qcategory:unknown a skos:Concept ; skos:inScheme molit-scheme:quality-result-category ; skos:notation "unknown" ; skos:prefLabel "판정 불가"@ko, "Unknown"@en ; skos:definition "필요한 시각 또는 기준 증거가 없어 최신성을 판정할 수 없는 상태."@ko, "Currency cannot be decided because required time or threshold evidence is absent."@en ; skos:topConceptOf molit-scheme:quality-result-category .
 
 # RC.1 local-term governance. The candidate status is not institutional approval.
 @prefix adms: <http://www.w3.org/ns/adms#> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix term-status: <https://data.molit.go.kr/id/concept/term-status/> .
+
+xsd:boolean a rdfs:Datatype .
+xsd:decimal a rdfs:Datatype .
+xsd:string a rdfs:Datatype .
 
 <https://data.molit.go.kr/id/concept/quality-status/assessed>
     rdfs:isDefinedBy <https://data.molit.go.kr/scheme/quality-status> ;
@@ -81,6 +109,41 @@ metric:timeliness a dqv:Metric, skos:Concept ; skos:inScheme molit-scheme:qualit
 
 <https://data.molit.go.kr/id/metric/completeness>
     rdfs:isDefinedBy <https://data.molit.go.kr/scheme/quality-metric> ;
+    owl:versionInfo "1.0.0-rc.1" ;
+    adms:status term-status:candidate .
+
+<https://data.molit.go.kr/id/metric/validation-conformance>
+    rdfs:isDefinedBy <https://data.molit.go.kr/scheme/quality-metric> ;
+    owl:versionInfo "1.0.0-rc.1" ;
+    adms:status term-status:candidate .
+
+<https://data.molit.go.kr/id/metric/assessment-note>
+    rdfs:isDefinedBy <https://data.molit.go.kr/scheme/quality-metric> ;
+    owl:versionInfo "1.0.0-rc.1" ;
+    adms:status term-status:candidate .
+
+<https://data.molit.go.kr/id/metric/currency-status>
+    rdfs:isDefinedBy <https://data.molit.go.kr/scheme/quality-metric> ;
+    owl:versionInfo "1.0.0-rc.1" ;
+    adms:status term-status:candidate .
+
+<https://data.molit.go.kr/id/concept/quality-result-category/current>
+    rdfs:isDefinedBy <https://data.molit.go.kr/scheme/quality-result-category> ;
+    owl:versionInfo "1.0.0-rc.1" ;
+    adms:status term-status:candidate .
+
+<https://data.molit.go.kr/id/concept/quality-result-category/outdated>
+    rdfs:isDefinedBy <https://data.molit.go.kr/scheme/quality-result-category> ;
+    owl:versionInfo "1.0.0-rc.1" ;
+    adms:status term-status:candidate .
+
+<https://data.molit.go.kr/id/concept/quality-result-category/unknown>
+    rdfs:isDefinedBy <https://data.molit.go.kr/scheme/quality-result-category> ;
+    owl:versionInfo "1.0.0-rc.1" ;
+    adms:status term-status:candidate .
+
+<https://data.molit.go.kr/scheme/quality-result-category>
+    rdfs:isDefinedBy <https://data.molit.go.kr/scheme/quality-result-category> ;
     owl:versionInfo "1.0.0-rc.1" ;
     adms:status term-status:candidate .
 

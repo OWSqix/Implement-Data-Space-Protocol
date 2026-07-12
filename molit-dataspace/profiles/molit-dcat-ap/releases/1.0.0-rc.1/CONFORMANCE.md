@@ -56,6 +56,14 @@ Provider가 직접 작성하지 않은 원천 record를 변환했다면 source r
 
 Validator는 manifest v2의 module 정의, exact locked artifact와 validation dataset policy를 사용한다. Runtime network import, remote JSON-LD context와 임의 entailment를 사용하지 않는다.
 
+직렬화 parity evidence는 Core 양성 fixture에 대한 Jena smoke test를 남긴다.
+
+별도로 7개 non-diagnostic profile의 모든 requirement-linked 양성·음성 fixture를 Turtle, RDF/XML, JSON-LD, N-Triples, N-Quads로 변환한다.
+
+각 변환은 RDFC-1.0 canonical graph digest와 Node SHACL 판정이 원본과 같은지 검사한다.
+
+Profile별 fixture·requirement·format 수와 requirement registry, case registry digest를 report에 기록한다.
+
 ## 4. Module 선언
 
 ### 4.1 Conformance Module
@@ -137,9 +145,15 @@ entailment: none
 
 Bundle만 실행하면 공식 CLI의 parse·public graph·profile alias·complexity preflight 전체를 재현하지 못할 수 있다. 동등한 기술 적합성을 주장하려면 preflight와 conformance case도 구현하거나 공식 CLI report를 제출한다.
 
+특히 WKT Polygon 폐합, 좌표 차원·개수, GML 3.2 Point element 구조와 active XML 차단은 parser-backed publication preflight다.
+
+SHACL의 datatype·CRS·geometry-type 정규식 판정과 섞어 “세 engine 동일 판정”이라고 부르지 않는다. SHACL matrix는 materialized shape graph의 판정만 비교한다.
+
+Node preflight 결과는 별도 control ID와 evidence로 기록한다.
+
 ## 6. Requirement 판정
 
-`requirements/profile-requirements.json`은 로컬 constraint를 property 단위로 식별한다. 각 record는 다음 연결을 가져야 한다.
+`requirements/profile-requirements.json`은 로컬 constraint를 property 단위로 식별하고, `includedRequirementRegistries`로 고정 upstream 원장을 결합한다. 포함 JSON과 검토용 CSV의 digest, status, 양성·음성 격리 수, blocker 수와 통합 합계 중 하나라도 맞지 않으면 단일 원장 Gate가 실패한다. 각 record는 다음 연결을 가져야 한다.
 
 ```text
 requirement ID
@@ -153,7 +167,17 @@ requirement ID
 
 `requirements/conformance-cases.json`의 `TODO`, 빈 fixture 연결 또는 미검토 상태는 요구사항 coverage 완료로 세지 않는다. 모든 blocking requirement에 승인된 양성·음성 case가 있어야 발행 후보가 된다.
 
-Upstream DCAT-AP·GeoDCAT-AP requirement와 로컬 requirement를 같은 출처로 표시하지 않는다.
+로컬 음성 case는 전체 profile을 다시 실행해 독립 atomic family 하나만 실패해야 한다. `sh:NodeConstraintComponent`의 detail child는 wrapper 대신 child family로 센다.
+
+다른 leaf나 로컬 원장에 귀속되지 않은 upstream result가 함께 나오면 해당 case를 쓰지 않는다.
+
+전체 profile에서 격리하지 못한 조건은 원본 constraint와 owner target만 복사한 `constraint-unit` test overlay로 검사한다. 이 overlay는 적합성 증거용이며 발행 bundle의 규범 범위를 바꾸지 않는다.
+
+Upstream DCAT-AP·GeoDCAT-AP requirement와 로컬 requirement를 같은 출처로 표시하지 않는다. Upstream 원문 PropertyShape는 test-only `sh:targetNode` overlay로 다른 shape와 분리한다.
+
+Blank node shape는 원문 quad를 보존한 결정적 skolem copy임을 검증한다.
+
+원문에 실제 constraint component가 없는 폐기 URI 행은 upstream 적합성으로 세지 않는다. 로컬 publication-policy wrapper로 운용했음을 기록한다.
 
 Ontology 의미시험은 `npm run profile:ontology:verify`로 실행한다. 이 명령은 여섯 module 양성 fixture의 Catalog ASK, 열세 competency query의 정확한 binding과 OWL-RL closure를 검사한다. SHACL 적합성시험을 대신하지 않으며 두 Gate를 모두 통과해야 한다.
 
@@ -165,11 +189,19 @@ Core 적합성은 DCAT-AP 3.0.1과 국토교통 공통 constraint를 통과했�
 
 ### 7.2 Geo
 
-Geo 적합성은 GeoDCAT-AP 3.1.0과 RC.1 공간 공개·CRS·geometry subset을 통과했다는 주장이다. 모든 GeoDCAT-AP 구현 또는 임의 geometry 변환 정확도를 뜻하지 않는다.
+Geo 적합성은 GeoDCAT-AP 3.1.0과 RC.1 공간 공개·CRS·geometry subset을 통과했다는 주장이다. 공간 공개수준은 기계 검증 가능한 `exact`와 `withheld`만 허용한다.
+
+`exact` 통과는 profile이 제출값을 추가로 가리지 않았다는 뜻이며 비공개 원천과의 동일성을 입증하지 않는다. 모든 GeoDCAT-AP 구현 또는 임의 geometry 변환 정확도를 뜻하지 않는다.
+
+GML 양성 fixture는 `srsDimension="2"`를 명시한 GML 3.2 Point다. WKT Point·LineString·single-ring Polygon의 parser 왕복과 좌표변환 시험은 Node preflight evidence이며 SHACL regex만 실행한 외부 engine의 geometry 계산 정확도를 뜻하지 않는다.
 
 ### 7.3 Network
 
 Network 적합성은 Geo 기반, Transport Mode 1.0.0 값과 NetworkReference identifier·edition·checksum·lifecycle·validity를 통과했다는 주장이다.
+
+CLI는 SHACL 통과 뒤 전체 NetworkReference 집합에서 동일 edition key의 checksum 충돌을 검사한다. `dct:isReplacedBy` 후속 판, 후속 판 허용 상태와 유효기간 비중첩도 검사한다.
+
+같은 판의 상태변경 event history는 RC.1 입력에 없으므로 검사하지 않는다.
 
 실제 표준 노드·링크 배포물과의 동일성은 checksum 대상과 기관 fixture가 있어야 별도로 입증된다.
 
@@ -179,7 +211,11 @@ Observation 적합성은 관측항목·대상·집계·결측·단위 조합을 
 
 ### 7.5 Quality
 
-Quality 적합성은 DQV 측정, Dataset 관계, 방법·범위·결과 유형과 별도 mapping loss statement를 통과했다는 주장이다. KS X ISO 19157 적합성이나 제품사양 합격을 뜻하지 않는다.
+Quality 적합성은 상태와 측정 증거의 존재관계, DQV 측정, Dataset 관계, 방법 유형·범위·결과 유형·metric 조합과 별도 mapping loss statement를 통과했다는 주장이다.
+
+방법 유형과 범위만으로 실행 알고리즘의 재현성을 주장하지 않는다. `stale`의 현재 시각·기준시간 계산도 RC.1 SHACL 범위가 아니다.
+
+KS X ISO 19157 적합성이나 제품사양 합격을 뜻하지 않는다.
 
 ### 7.6 Dataspace offering
 
@@ -242,15 +278,15 @@ Diagnostic report를 conformance report로 이름 바꾸지 않는다.
 기술 적합성과 publication policy를 모두 통과해도 다음 항목이 열려 있으면 발행할 수 없다.
 
 - 운영기관 owner·governance 승인
-- Namespace dereference와 content negotiation
+- 실제 HTTPS Namespace dereference와 content negotiation 배포
 - 로컬 공개 라이선스
-- Detached signature와 signer trust
+- 기관 소유 키의 detached signature와 signer trust
 - 국내 표준 조항·실물 fixture
 - 국내 권위 vocabulary
-- CRS·관측 단위·품질 손실 실증
+- 기관 CRS corpus·ITS 관측 단위·ISO 19157 품질 손실 실증
 - 운영·rollback runbook
 
-Machine acceptance register가 `releaseEligible=false`이면 사람이 작성한 요약문으로 상태를 바꾸지 않는다.
+Machine acceptance report의 `candidateEligible` 또는 `recommendationEligible`이 false이면 사람이 작성한 요약문으로 해당 상태를 바꾸지 않는다. RC 기술후보 판정과 기관 Recommendation 판정은 서로 다른 blocker 집합을 사용한다.
 
 ## 12. 독립 구현자 제출물
 

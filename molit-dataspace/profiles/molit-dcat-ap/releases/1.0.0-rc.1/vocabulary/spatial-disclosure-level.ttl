@@ -11,8 +11,8 @@ molit-scheme:spatial-disclosure-level
     skos:note "License for locally authored concepts is pending owner approval."@en ;
     skos:prefLabel "공간 공개 정밀도"@ko,
         "Spatial disclosure levels"@en ;
-    skos:definition "공개 카탈로그에 원 geometry를 어느 수준으로 일반화하거나 제거했는지 표시하는 후보 분류체계. 접근권한 또는 보안등급이 아니다."@ko,
-        "A candidate scheme indicating how source geometry is generalized or removed in a public catalogue; it is not an access right or security classification."@en ;
+    skos:definition "공개 카탈로그의 공간정보가 profile 수준에서 그대로 게시되는지 제거되는지 표시하는 후보 분류체계. 접근권한 또는 보안등급이 아니다. RC.1 발행 Gate는 exact와 withheld만 허용한다."@ko,
+        "A candidate scheme indicating whether spatial information is published without profile-level redaction or removed; it is not an access right or security classification. The RC.1 publication gate permits exact and withheld only."@en ;
     skos:hasTopConcept disclosure:exact,
         disclosure:generalized,
         disclosure:administrative-area,
@@ -24,8 +24,8 @@ disclosure:exact
     a skos:Concept ;
     skos:inScheme molit-scheme:spatial-disclosure-level ;
     skos:prefLabel "원 정밀도"@ko, "Exact"@en ;
-    skos:definition "원천 데이터의 좌표 정밀도와 geometry를 일반화하지 않고 공개한 수준."@ko,
-        "A level at which source coordinate precision and geometry are disclosed without generalization."@en ;
+    skos:definition "profile에 제출된 공간정보를 추가 일반화나 제거 없이 공개하는 수준. SHACL 통과가 제출값과 비공개 원천의 동일성을 입증하지는 않는다."@ko,
+        "A level publishing the submitted spatial information without additional profile-level generalization or removal; SHACL conformance does not prove equality with a non-public source."@en ;
     skos:topConceptOf molit-scheme:spatial-disclosure-level .
 
 disclosure:generalized

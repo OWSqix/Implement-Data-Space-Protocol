@@ -1,0 +1,394 @@
+{
+  "schemaVersion": "molit.network-edition-lifecycle-cases/1",
+  "profileVersion": "1.0.0-rc.1",
+  "cases": [
+    {
+      "id": "NETWORK-EDITION-HISTORY-VALID",
+      "expected": "valid",
+      "records": [
+        {
+          "networkAuthority": "https://data.molit.go.kr/id/organization/molit",
+          "networkIdentifier": "MOLIT-STANDARD-NODE-LINK",
+          "networkVersion": "2026-06-01",
+          "networkSnapshotChecksum": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+          "networkLifecycleStatus": "superseded",
+          "networkValidFrom": "2026-06-01",
+          "networkValidUntil": "2026-06-30",
+          "replacementKey": "[\"https://data.molit.go.kr/id/organization/molit\",\"MOLIT-STANDARD-NODE-LINK\",\"2026-07-01\"]"
+        },
+        {
+          "networkAuthority": "https://data.molit.go.kr/id/organization/molit",
+          "networkIdentifier": "MOLIT-STANDARD-NODE-LINK",
+          "networkVersion": "2026-07-01",
+          "networkSnapshotChecksum": "219020fac55f2faab1029ec9306563a00968f9b27f3910b80c534583b750b9ab",
+          "networkLifecycleStatus": "current",
+          "networkValidFrom": "2026-07-01",
+          "networkValidUntil": null,
+          "replacementKey": null
+        }
+      ]
+    },
+    {
+      "id": "NETWORK-EDITION-SAME-KEY-CHECKSUM-CONFLICT",
+      "expected": "NETWORK_IDENTITY_CHECKSUM_CONFLICT",
+      "records": [
+        {
+          "networkAuthority": "https://data.molit.go.kr/id/organization/molit",
+          "networkIdentifier": "MOLIT-STANDARD-NODE-LINK",
+          "networkVersion": "2026-07-01",
+          "networkSnapshotChecksum": "219020fac55f2faab1029ec9306563a00968f9b27f3910b80c534583b750b9ab",
+          "networkLifecycleStatus": "current",
+          "networkValidFrom": "2026-07-01",
+          "networkValidUntil": null,
+          "replacementKey": null
+        },
+        {
+          "networkAuthority": "https://data.molit.go.kr/id/organization/molit",
+          "networkIdentifier": "MOLIT-STANDARD-NODE-LINK",
+          "networkVersion": "2026-07-01",
+          "networkSnapshotChecksum": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "networkLifecycleStatus": "current",
+          "networkValidFrom": "2026-07-01",
+          "networkValidUntil": null,
+          "replacementKey": null
+        }
+      ]
+    },
+    {
+      "id": "NETWORK-EDITION-VALIDITY-OVERLAP",
+      "expected": "NETWORK_REPLACEMENT_VALIDITY_OVERLAP",
+      "records": [
+        {
+          "networkAuthority": "https://data.molit.go.kr/id/organization/molit",
+          "networkIdentifier": "MOLIT-STANDARD-NODE-LINK",
+          "networkVersion": "2026-06-01",
+          "networkSnapshotChecksum": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+          "networkLifecycleStatus": "superseded",
+          "networkValidFrom": "2026-06-01",
+          "networkValidUntil": "2026-07-02",
+          "replacementKey": "[\"https://data.molit.go.kr/id/organization/molit\",\"MOLIT-STANDARD-NODE-LINK\",\"2026-07-01\"]"
+        },
+        {
+          "networkAuthority": "https://data.molit.go.kr/id/organization/molit",
+          "networkIdentifier": "MOLIT-STANDARD-NODE-LINK",
+          "networkVersion": "2026-07-01",
+          "networkSnapshotChecksum": "219020fac55f2faab1029ec9306563a00968f9b27f3910b80c534583b750b9ab",
+          "networkLifecycleStatus": "current",
+          "networkValidFrom": "2026-07-01",
+          "networkValidUntil": null,
+          "replacementKey": null
+        }
+      ]
+    },
+    {
+      "id": "NETWORK-EDITION-SAME-KEY-DUPLICATE",
+      "expected": "NETWORK_IDENTITY_DUPLICATE",
+      "records": [
+        {
+          "networkAuthority": "https://data.molit.go.kr/id/organization/molit",
+          "networkIdentifier": "MOLIT-STANDARD-NODE-LINK",
+          "networkVersion": "2026-07-01",
+          "networkSnapshotChecksum": "219020fac55f2faab1029ec9306563a00968f9b27f3910b80c534583b750b9ab",
+          "networkLifecycleStatus": "current",
+          "networkValidFrom": "2026-07-01",
+          "networkValidUntil": null,
+          "replacementKey": null
+        },
+        {
+          "networkAuthority": "https://data.molit.go.kr/id/organization/molit",
+          "networkIdentifier": "MOLIT-STANDARD-NODE-LINK",
+          "networkVersion": "2026-07-01",
+          "networkSnapshotChecksum": "219020fac55f2faab1029ec9306563a00968f9b27f3910b80c534583b750b9ab",
+          "networkLifecycleStatus": "current",
+          "networkValidFrom": "2026-07-01",
+          "networkValidUntil": null,
+          "replacementKey": null
+        }
+      ]
+    },
+    {
+      "id": "NETWORK-EDITION-SUPERSEDED-WITHOUT-SUCCESSOR",
+      "expected": "NETWORK_TERMINAL_REPLACEMENT_INVALID",
+      "records": [
+        {
+          "networkAuthority": "https://data.molit.go.kr/id/organization/molit",
+          "networkIdentifier": "MOLIT-STANDARD-NODE-LINK",
+          "networkVersion": "2026-06-01",
+          "networkSnapshotChecksum": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+          "networkLifecycleStatus": "superseded",
+          "networkValidFrom": "2026-06-01",
+          "networkValidUntil": "2026-06-30",
+          "replacementKey": null
+        }
+      ]
+    },
+    {
+      "id": "NETWORK-EDITION-EQUAL-BOUNDARY-OVERLAP",
+      "expected": "NETWORK_REPLACEMENT_VALIDITY_OVERLAP",
+      "records": [
+        {
+          "networkAuthority": "https://data.molit.go.kr/id/organization/molit",
+          "networkIdentifier": "MOLIT-STANDARD-NODE-LINK",
+          "networkVersion": "2026-06-01",
+          "networkSnapshotChecksum": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+          "networkLifecycleStatus": "superseded",
+          "networkValidFrom": "2026-06-01",
+          "networkValidUntil": "2026-07-01",
+          "replacementKey": "[\"https://data.molit.go.kr/id/organization/molit\",\"MOLIT-STANDARD-NODE-LINK\",\"2026-07-01\"]"
+        },
+        {
+          "networkAuthority": "https://data.molit.go.kr/id/organization/molit",
+          "networkIdentifier": "MOLIT-STANDARD-NODE-LINK",
+          "networkVersion": "2026-07-01",
+          "networkSnapshotChecksum": "219020fac55f2faab1029ec9306563a00968f9b27f3910b80c534583b750b9ab",
+          "networkLifecycleStatus": "current",
+          "networkValidFrom": "2026-07-01",
+          "networkValidUntil": null,
+          "replacementKey": null
+        }
+      ]
+    },
+    {
+      "id": "NETWORK-EDITION-THREE-VERSION-HISTORY-VALID",
+      "expected": "valid",
+      "records": [
+        {
+          "networkAuthority": "https://data.molit.go.kr/id/organization/molit",
+          "networkIdentifier": "MOLIT-STANDARD-NODE-LINK",
+          "networkVersion": "2026-05-01",
+          "networkSnapshotChecksum": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+          "networkLifecycleStatus": "superseded",
+          "networkValidFrom": "2026-05-01",
+          "networkValidUntil": "2026-05-31",
+          "replacementKey": "[\"https://data.molit.go.kr/id/organization/molit\",\"MOLIT-STANDARD-NODE-LINK\",\"2026-06-01\"]"
+        },
+        {
+          "networkAuthority": "https://data.molit.go.kr/id/organization/molit",
+          "networkIdentifier": "MOLIT-STANDARD-NODE-LINK",
+          "networkVersion": "2026-06-01",
+          "networkSnapshotChecksum": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+          "networkLifecycleStatus": "superseded",
+          "networkValidFrom": "2026-06-01",
+          "networkValidUntil": "2026-06-30",
+          "replacementKey": "[\"https://data.molit.go.kr/id/organization/molit\",\"MOLIT-STANDARD-NODE-LINK\",\"2026-07-01\"]"
+        },
+        {
+          "networkAuthority": "https://data.molit.go.kr/id/organization/molit",
+          "networkIdentifier": "MOLIT-STANDARD-NODE-LINK",
+          "networkVersion": "2026-07-01",
+          "networkSnapshotChecksum": "219020fac55f2faab1029ec9306563a00968f9b27f3910b80c534583b750b9ab",
+          "networkLifecycleStatus": "current",
+          "networkValidFrom": "2026-07-01",
+          "networkValidUntil": null,
+          "replacementKey": null
+        }
+      ]
+    },
+    {
+      "id": "NETWORK-EDITION-SUCCESSOR-IDENTIFIER-MISMATCH",
+      "expected": "NETWORK_REPLACEMENT_IDENTITY_INVALID",
+      "records": [
+        {
+          "networkAuthority": "https://data.molit.go.kr/id/organization/molit",
+          "networkIdentifier": "MOLIT-STANDARD-NODE-LINK",
+          "networkVersion": "2026-06-01",
+          "networkSnapshotChecksum": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+          "networkLifecycleStatus": "superseded",
+          "networkValidFrom": "2026-06-01",
+          "networkValidUntil": "2026-06-30",
+          "replacementKey": "[\"https://data.molit.go.kr/id/organization/molit\",\"OTHER-NETWORK\",\"2026-07-01\"]"
+        },
+        {
+          "networkAuthority": "https://data.molit.go.kr/id/organization/molit",
+          "networkIdentifier": "OTHER-NETWORK",
+          "networkVersion": "2026-07-01",
+          "networkSnapshotChecksum": "219020fac55f2faab1029ec9306563a00968f9b27f3910b80c534583b750b9ab",
+          "networkLifecycleStatus": "current",
+          "networkValidFrom": "2026-07-01",
+          "networkValidUntil": null,
+          "replacementKey": null
+        }
+      ]
+    },
+    {
+      "id": "NETWORK-EDITION-SELF-SUCCESSOR",
+      "expected": "NETWORK_REPLACEMENT_IDENTITY_INVALID",
+      "records": [
+        {
+          "networkAuthority": "https://data.molit.go.kr/id/organization/molit",
+          "networkIdentifier": "MOLIT-STANDARD-NODE-LINK",
+          "networkVersion": "2026-06-01",
+          "networkSnapshotChecksum": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+          "networkLifecycleStatus": "superseded",
+          "networkValidFrom": "2026-06-01",
+          "networkValidUntil": "2026-06-30",
+          "replacementKey": "[\"https://data.molit.go.kr/id/organization/molit\",\"MOLIT-STANDARD-NODE-LINK\",\"2026-06-01\"]"
+        }
+      ]
+    },
+    {
+      "id": "NETWORK-EDITION-SUCCESSOR-STATUS-INVALID",
+      "expected": "NETWORK_LIFECYCLE_TRANSITION_INVALID",
+      "records": [
+        {
+          "networkAuthority": "https://data.molit.go.kr/id/organization/molit",
+          "networkIdentifier": "MOLIT-STANDARD-NODE-LINK",
+          "networkVersion": "2026-06-01",
+          "networkSnapshotChecksum": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+          "networkLifecycleStatus": "superseded",
+          "networkValidFrom": "2026-06-01",
+          "networkValidUntil": "2026-06-30",
+          "replacementKey": "[\"https://data.molit.go.kr/id/organization/molit\",\"MOLIT-STANDARD-NODE-LINK\",\"2026-07-01\"]"
+        },
+        {
+          "networkAuthority": "https://data.molit.go.kr/id/organization/molit",
+          "networkIdentifier": "MOLIT-STANDARD-NODE-LINK",
+          "networkVersion": "2026-07-01",
+          "networkSnapshotChecksum": "219020fac55f2faab1029ec9306563a00968f9b27f3910b80c534583b750b9ab",
+          "networkLifecycleStatus": "candidate",
+          "networkValidFrom": "2026-07-01",
+          "networkValidUntil": null,
+          "replacementKey": null
+        }
+      ]
+    },
+    {
+      "id": "NETWORK-EDITION-CANDIDATE-VALID",
+      "expected": "valid",
+      "records": [
+        {
+          "networkAuthority": "https://data.molit.go.kr/id/organization/molit",
+          "networkIdentifier": "MOLIT-STANDARD-NODE-LINK",
+          "networkVersion": "2026-07-01",
+          "networkSnapshotChecksum": "219020fac55f2faab1029ec9306563a00968f9b27f3910b80c534583b750b9ab",
+          "networkLifecycleStatus": "candidate",
+          "networkValidFrom": "2026-07-01",
+          "networkValidUntil": null,
+          "replacementKey": null
+        }
+      ]
+    },
+    {
+      "id": "NETWORK-EDITION-WITHDRAWN-VALID",
+      "expected": "valid",
+      "records": [
+        {
+          "networkAuthority": "https://data.molit.go.kr/id/organization/molit",
+          "networkIdentifier": "MOLIT-STANDARD-NODE-LINK",
+          "networkVersion": "2026-07-01",
+          "networkSnapshotChecksum": "219020fac55f2faab1029ec9306563a00968f9b27f3910b80c534583b750b9ab",
+          "networkLifecycleStatus": "withdrawn",
+          "networkValidFrom": "2026-07-01",
+          "networkValidUntil": "2026-07-31",
+          "replacementKey": null
+        }
+      ]
+    },
+    {
+      "id": "NETWORK-EDITION-CANDIDATE-WITH-SUCCESSOR",
+      "expected": "NETWORK_ACTIVE_REPLACEMENT_INVALID",
+      "records": [
+        {
+          "networkAuthority": "https://data.molit.go.kr/id/organization/molit",
+          "networkIdentifier": "MOLIT-STANDARD-NODE-LINK",
+          "networkVersion": "2026-07-01",
+          "networkSnapshotChecksum": "219020fac55f2faab1029ec9306563a00968f9b27f3910b80c534583b750b9ab",
+          "networkLifecycleStatus": "candidate",
+          "networkValidFrom": "2026-07-01",
+          "networkValidUntil": null,
+          "replacementKey": "[\"https://data.molit.go.kr/id/organization/molit\",\"MOLIT-STANDARD-NODE-LINK\",\"2026-08-01\"]"
+        }
+      ]
+    },
+    {
+      "id": "NETWORK-EDITION-WITHDRAWN-WITH-SUCCESSOR",
+      "expected": "NETWORK_ACTIVE_REPLACEMENT_INVALID",
+      "records": [
+        {
+          "networkAuthority": "https://data.molit.go.kr/id/organization/molit",
+          "networkIdentifier": "MOLIT-STANDARD-NODE-LINK",
+          "networkVersion": "2026-07-01",
+          "networkSnapshotChecksum": "219020fac55f2faab1029ec9306563a00968f9b27f3910b80c534583b750b9ab",
+          "networkLifecycleStatus": "withdrawn",
+          "networkValidFrom": "2026-07-01",
+          "networkValidUntil": "2026-07-31",
+          "replacementKey": "[\"https://data.molit.go.kr/id/organization/molit\",\"MOLIT-STANDARD-NODE-LINK\",\"2026-08-01\"]"
+        }
+      ]
+    },
+    {
+      "id": "NETWORK-EDITION-ACTIVE-WITH-SUCCESSOR",
+      "expected": "NETWORK_ACTIVE_REPLACEMENT_INVALID",
+      "records": [
+        {
+          "networkAuthority": "https://data.molit.go.kr/id/organization/molit",
+          "networkIdentifier": "MOLIT-STANDARD-NODE-LINK",
+          "networkVersion": "2026-07-01",
+          "networkSnapshotChecksum": "219020fac55f2faab1029ec9306563a00968f9b27f3910b80c534583b750b9ab",
+          "networkLifecycleStatus": "current",
+          "networkValidFrom": "2026-07-01",
+          "networkValidUntil": null,
+          "replacementKey": "[\"https://data.molit.go.kr/id/organization/molit\",\"MOLIT-STANDARD-NODE-LINK\",\"2026-08-01\"]"
+        }
+      ]
+    },
+    {
+      "id": "NETWORK-EDITION-SUCCESSOR-NOT-FOUND",
+      "expected": "NETWORK_REPLACEMENT_NOT_FOUND",
+      "records": [
+        {
+          "networkAuthority": "https://data.molit.go.kr/id/organization/molit",
+          "networkIdentifier": "MOLIT-STANDARD-NODE-LINK",
+          "networkVersion": "2026-06-01",
+          "networkSnapshotChecksum": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+          "networkLifecycleStatus": "superseded",
+          "networkValidFrom": "2026-06-01",
+          "networkValidUntil": "2026-06-30",
+          "replacementKey": "[\"https://data.molit.go.kr/id/organization/molit\",\"MOLIT-STANDARD-NODE-LINK\",\"2026-07-01\"]"
+        }
+      ]
+    },
+    {
+      "id": "NETWORK-EDITION-SUCCESSOR-IDENTITY-MISMATCH",
+      "expected": "NETWORK_REPLACEMENT_IDENTITY_INVALID",
+      "records": [
+        {
+          "networkAuthority": "https://data.molit.go.kr/id/organization/molit",
+          "networkIdentifier": "MOLIT-STANDARD-NODE-LINK",
+          "networkVersion": "2026-06-01",
+          "networkSnapshotChecksum": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+          "networkLifecycleStatus": "superseded",
+          "networkValidFrom": "2026-06-01",
+          "networkValidUntil": "2026-06-30",
+          "replacementKey": "[\"https://data.molit.go.kr/id/organization/other-authority\",\"MOLIT-STANDARD-NODE-LINK\",\"2026-07-01\"]"
+        },
+        {
+          "networkAuthority": "https://data.molit.go.kr/id/organization/other-authority",
+          "networkIdentifier": "MOLIT-STANDARD-NODE-LINK",
+          "networkVersion": "2026-07-01",
+          "networkSnapshotChecksum": "219020fac55f2faab1029ec9306563a00968f9b27f3910b80c534583b750b9ab",
+          "networkLifecycleStatus": "current",
+          "networkValidFrom": "2026-07-01",
+          "networkValidUntil": null,
+          "replacementKey": null
+        }
+      ]
+    },
+    {
+      "id": "NETWORK-EDITION-WITHDRAWN-WITHOUT-END",
+      "expected": "NETWORK_TERMINAL_VALIDITY_INVALID",
+      "records": [
+        {
+          "networkAuthority": "https://data.molit.go.kr/id/organization/molit",
+          "networkIdentifier": "MOLIT-STANDARD-NODE-LINK",
+          "networkVersion": "2026-07-01",
+          "networkSnapshotChecksum": "219020fac55f2faab1029ec9306563a00968f9b27f3910b80c534583b750b9ab",
+          "networkLifecycleStatus": "withdrawn",
+          "networkValidFrom": "2026-07-01",
+          "networkValidUntil": null,
+          "replacementKey": null
+        }
+      ]
+    }
+  ]
+}

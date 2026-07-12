@@ -1710,6 +1710,37 @@
       ],
       "releaseGateRequired": true,
       "currentlyBlocksRelease": true
+    },
+    {
+      "id": "BS-ONTOLOGY-MERGE",
+      "severity": "P1",
+      "finding": "외부 소비자가 W3C DCAT 등 ontology vocabulary graph를 candidate data graph에 병합하면 schema triple이 검증대상이 되어 원래 적합한 instance graph의 판정이 바뀔 수 있다.",
+      "status": "fixed",
+      "evidence": [
+        {
+          "kind": "repository-file",
+          "path": "src/profile/rdf-loader.mjs"
+        },
+        {
+          "kind": "repository-file",
+          "path": "profiles/molit-dcat-ap/releases/1.0.0-rc.1/examples/invalid/ontology-in-candidate-graph.ttl"
+        },
+        {
+          "kind": "repository-file",
+          "path": "tests/profile/ontology-dataset-boundary.test.mjs"
+        },
+        {
+          "kind": "repository-file",
+          "path": "profiles/molit-dcat-ap/releases/1.0.0-rc.1/index.md"
+        },
+        {
+          "kind": "control-id",
+          "value": "MOLIT-SEM-DATASET-BOUNDARY-001",
+          "status": "implemented"
+        }
+      ],
+      "releaseGateRequired": true,
+      "currentlyBlocksRelease": false
     }
   ]
 }

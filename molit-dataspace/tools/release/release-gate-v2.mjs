@@ -56,6 +56,52 @@ const requiredRcAcceptancePolicy = new Map([
     status: "deferred-nonblocking",
   }],
 ]);
+const requiredRcEvidenceCommands = new Map([
+  ["RA-REQUIREMENTS", [
+    "npm run profile:requirements:verify",
+    "npm run profile:requirements:upstream:verify",
+    "npm run profile:requirements:upstream:engines",
+  ]],
+  ["RA-ONTOLOGY", [
+    "npm run profile:ontology:verify",
+    "npm run profile:ontology:governance:verify",
+  ]],
+  ["RA-ONTOLOGY-MERGE", [
+    "node --test tests/profile/ontology-dataset-boundary.test.mjs",
+  ]],
+  ["RA-CRS", [
+    "node --test tests/contract/crs-geometry-transformation.test.mjs",
+    "node --test tests/contract/rc-geo-preflight-boundary.test.mjs",
+  ]],
+  ["RA-DOMAIN-MODULES", [
+    "npm run profile:network:verify",
+    "node --test tests/profile/quality-result-kind.test.mjs",
+  ]],
+  ["RA-RUNTIME", [
+    "node --test tests/unit/isolated-validator.test.mjs",
+  ]],
+  ["RA-INTEGRITY", [
+    "node --test tests/contract/detached-release-signature.test.mjs",
+  ]],
+  ["RA-GIT", [
+    "npm run release:eol:verify",
+  ]],
+  ["RA-VOCABULARY-REGISTRY", [
+    "npm run profile:vocabulary:verify",
+  ]],
+  ["RA-SEMANTIC-DIFF", [
+    "npm run profile:semantic-diff:verify",
+  ]],
+  ["RA-PUBLICATION-REPRESENTATIONS", [
+    "npm run profile:publication:verify",
+  ]],
+  ["RA-MULTI-ENGINE-MATRIX", [
+    "npm run profile:rc:shacl-matrix:verify",
+  ]],
+  ["RA-SERIALIZATION-PARITY", [
+    "npm run profile:rc:serialization-parity:verify",
+  ]],
+]);
 
 function digest(bytes) {
   return createHash("sha256").update(bytes).digest("hex");
@@ -160,17 +206,46 @@ export async function assertReleaseAcceptanceRegister(register, profileVersion) 
       return item && Object.entries(expected).some(([field, value]) => item[field] !== value);
     })
     .map(([id]) => id);
+  const evidenceCommandMismatches = [...requiredRcEvidenceCommands]
+    .flatMap(([id, expectedCommands]) => {
+      const item = itemById.get(id);
+      if (!item) return [];
+      const actualCommands = new Set((Array.isArray(item.evidence) ? item.evidence : [])
+        .filter((evidence) => evidence?.kind === "command")
+        .map((evidence) => evidence.value));
+      const missingCommands = expectedCommands.filter((command) => !actualCommands.has(command));
+      return missingCommands.length === 0 ? [] : [{ id, missingCommands }];
+    });
+  const duplicateEvidenceItems = (Array.isArray(register?.items) ? register.items : [])
+    .flatMap((item) => {
+      if (!Array.isArray(item?.evidence)) return [];
+      const seen = new Set();
+      const duplicates = [];
+      for (const evidence of item.evidence) {
+        const key = JSON.stringify([evidence?.kind, evidence?.value]);
+        if (seen.has(key)) duplicates.push({
+          kind: evidence?.kind ?? null,
+          value: evidence?.value ?? null,
+        });
+        else seen.add(key);
+      }
+      return duplicates.length === 0 ? [] : [{ id: item.id ?? null, duplicates }];
+    });
   const structural = acceptance(register)
     && register.profileVersion === profileVersion
     && new Set(ids).size === ids.length
     && missingRequiredItems.length === 0
-    && policyMismatches.length === 0;
+    && policyMismatches.length === 0
+    && evidenceCommandMismatches.length === 0
+    && duplicateEvidenceItems.length === 0;
   if (!structural) {
     throw failure(
       "INVALID_RELEASE_ACCEPTANCE_REGISTER",
       "release acceptance register identity or structure is invalid",
       {
         errors: validatorErrors(acceptance),
+        duplicateEvidenceItems,
+        evidenceCommandMismatches,
         missingRequiredItems,
         policyMismatches,
         profileVersion,
@@ -252,53 +327,65 @@ export function calculateReleaseEligibility(register, {
   };
 }
 
-async function gitCheck(releaseRoot) {
+export async function gitCheck(releaseRoot, { execute = execFileAsync } = {}) {
   try {
     const releasePath = portableRootPath(releaseRoot);
-    const [
-      { stdout: headOutput },
-      { stdout: statusOutput },
-      { stdout: ignoredReleaseOutput },
-    ] = await Promise.all([
-      execFileAsync("git", ["-C", root, "rev-parse", "--verify", "HEAD"], {
-        encoding: "utf8",
-        maxBuffer: 1024 * 1024,
-        timeout: 10_000,
-        windowsHide: true,
-      }),
-      execFileAsync("git", [
-        "-C",
-        root,
-        "status",
-        "--porcelain=v1",
-        "--untracked-files=all",
-        "--",
-        ".",
-      ], {
-        encoding: "utf8",
-        maxBuffer: 2 * 1024 * 1024,
-        timeout: 10_000,
-        windowsHide: true,
-      }),
-      execFileAsync("git", [
-        "-C",
-        root,
-        "ls-files",
-        "--others",
-        "--ignored",
-        "--exclude-standard",
-        "--",
-        releasePath,
-      ], {
-        encoding: "utf8",
-        maxBuffer: 2 * 1024 * 1024,
-        timeout: 10_000,
-        windowsHide: true,
-      }),
-    ]);
-    const head = headOutput.trim();
-    const dirtyPathCount = statusOutput.split(/\r?\n/u).filter(Boolean).length
-      + ignoredReleaseOutput.split(/\r?\n/u).filter(Boolean).length;
+    const { stdout: prefixOutput } = await execute("git", [
+      "-C",
+      root,
+      "rev-parse",
+      "--show-prefix",
+    ], {
+      encoding: "utf8",
+      maxBuffer: 1024 * 1024,
+      timeout: 10_000,
+      windowsHide: true,
+    });
+    const gitPrefix = prefixOutput.replace(/\r?\n$/u, "");
+    if (gitPrefix.includes("\\")
+      || gitPrefix.includes("\0")
+      || (gitPrefix !== "" && !gitPrefix.endsWith("/"))
+      || gitPrefix.split("/").some((part) => part === "." || part === "..")) {
+      throw failure("INVALID_GIT_PREFIX", "Git working-directory prefix is invalid");
+    }
+    const releaseGitPath = `${gitPrefix}${releasePath}`;
+    const { stdout: statusOutput } = await execute("git", [
+      "-C",
+      root,
+      "status",
+      "--porcelain=v2",
+      "-z",
+      "--branch",
+      "--untracked-files=all",
+      "--ignored=matching",
+      "--",
+      ".",
+    ], {
+      encoding: "utf8",
+      maxBuffer: 2 * 1024 * 1024,
+      timeout: 10_000,
+      windowsHide: true,
+    });
+    const statusRecords = statusOutput.split("\0").filter(Boolean);
+    const head = statusRecords.find((record) => record.startsWith("# branch.oid "))
+      ?.slice("# branch.oid ".length) ?? "";
+    let dirtyPathCount = 0;
+    for (let index = 0; index < statusRecords.length; index += 1) {
+      const record = statusRecords[index];
+      if (record.startsWith("# ")) continue;
+      if (record.startsWith("2 ")) {
+        dirtyPathCount += 1;
+        index += 1;
+        continue;
+      }
+      if (record.startsWith("! ")) {
+        const ignoredPath = record.slice(2).replace(/\/$/u, "");
+        if (ignoredPath === releaseGitPath
+          || ignoredPath.startsWith(`${releaseGitPath}/`)) dirtyPathCount += 1;
+        continue;
+      }
+      dirtyPathCount += 1;
+    }
     if (!/^(?:[0-9a-f]{40}|[0-9a-f]{64})$/u.test(head)) {
       throw failure("INVALID_GIT_HEAD", "Git HEAD is not a recognized object ID");
     }
@@ -366,10 +453,98 @@ async function artifactLockCheck(release) {
   }
 }
 
+function failedArtifactLockCheck(check, code) {
+  return {
+    artifactCount: Number.isInteger(check?.artifactCount) ? check.artifactCount : 0,
+    errorCode: code,
+    status: "failed",
+  };
+}
+
+function failedGitCheck(check, code) {
+  return {
+    dirtyPathCount: Number.isInteger(check?.dirtyPathCount) ? check.dirtyPathCount : 0,
+    errorCode: code,
+    head: typeof check?.head === "string" ? check.head : null,
+    status: "failed",
+  };
+}
+
+function artifactLockIdentity(lock) {
+  const bytes = lock?.verification?.lockBytes;
+  return bytes === undefined || bytes === null ? null : digest(bytes);
+}
+
+export function reconcileTerminalRuntimeChecks(initial, terminal) {
+  const initialLock = initial?.artifactLock;
+  const terminalLock = terminal?.artifactLock;
+  let artifactLock;
+  if (terminalLock?.check?.status !== "passed") {
+    artifactLock = failedArtifactLockCheck(
+      terminalLock?.check,
+      terminalLock?.check?.errorCode ?? "TERMINAL_ARTIFACT_LOCK_CHECK_FAILED",
+    );
+  } else if (initialLock?.check?.status !== "passed") {
+    artifactLock = failedArtifactLockCheck(
+      terminalLock.check,
+      "ARTIFACT_LOCK_STATE_CHANGED_DURING_GATE",
+    );
+  } else {
+    const initialIdentity = artifactLockIdentity(initialLock);
+    const terminalIdentity = artifactLockIdentity(terminalLock);
+    if (initialIdentity === null || terminalIdentity === null) {
+      artifactLock = failedArtifactLockCheck(
+        terminalLock.check,
+        "ARTIFACT_LOCK_IDENTITY_UNAVAILABLE",
+      );
+    } else if (initialIdentity !== terminalIdentity) {
+      artifactLock = failedArtifactLockCheck(
+        terminalLock.check,
+        "ARTIFACT_LOCK_CHANGED_DURING_GATE",
+      );
+    } else {
+      artifactLock = terminalLock.check;
+    }
+  }
+
+  const initialGit = initial?.git;
+  const terminalGit = terminal?.git;
+  let git;
+  if (terminalGit?.status !== "passed") {
+    git = failedGitCheck(
+      terminalGit,
+      terminalGit?.errorCode ?? "TERMINAL_GIT_CHECK_FAILED",
+    );
+  } else if (initialGit?.status !== "passed") {
+    git = failedGitCheck(terminalGit, "GIT_STATE_CHANGED_DURING_GATE");
+  } else if (typeof initialGit.head !== "string" || typeof terminalGit.head !== "string") {
+    git = failedGitCheck(terminalGit, "GIT_STATE_IDENTITY_UNAVAILABLE");
+  } else if (initialGit.head !== terminalGit.head) {
+    git = failedGitCheck(terminalGit, "GIT_STATE_CHANGED_DURING_GATE");
+  } else {
+    git = terminalGit;
+  }
+
+  return { artifactLock, git };
+}
+
+const DEFAULT_EVIDENCE_TIMEOUT_MS = 300_000;
 const allowedEvidenceCommands = new Map([
+  [
+    "node --test tests/profile/ontology-dataset-boundary.test.mjs",
+    [process.execPath, ["--test", "tests/profile/ontology-dataset-boundary.test.mjs"]],
+  ],
   [
     "node --test tests/contract/crs-geometry-transformation.test.mjs",
     [process.execPath, ["--test", "tests/contract/crs-geometry-transformation.test.mjs"]],
+  ],
+  [
+    "node --test tests/contract/rc-geo-preflight-boundary.test.mjs",
+    [process.execPath, ["--test", "tests/contract/rc-geo-preflight-boundary.test.mjs"]],
+  ],
+  [
+    "node --test tests/profile/quality-result-kind.test.mjs",
+    [process.execPath, ["--test", "tests/profile/quality-result-kind.test.mjs"]],
   ],
   [
     "node --test tests/unit/isolated-validator.test.mjs",
@@ -382,6 +557,33 @@ const allowedEvidenceCommands = new Map([
   [
     "npm run profile:ontology:verify",
     [process.execPath, ["tools/profile/verify-ontology-semantics.mjs"]],
+  ],
+  [
+    "npm run profile:ontology:governance:verify",
+    [process.execPath, ["tools/profile/verify-ontology-term-governance.mjs"]],
+  ],
+  [
+    "npm run profile:network:verify",
+    [process.execPath, ["tools/profile/verify-network-reference-policy.mjs"]],
+  ],
+  [
+    "npm run release:eol:verify",
+    [process.execPath, ["tools/release/verify-release-eol-policy.mjs"]],
+  ],
+  [
+    "npm run profile:requirements:upstream:engines",
+    [process.execPath, [
+      "tools/profile/verify-upstream-requirement-inventory.mjs",
+      "--engines",
+    ], 600_000],
+  ],
+  [
+    "npm run profile:requirements:verify",
+    [process.execPath, ["tools/profile/verify-requirement-traceability.mjs"]],
+  ],
+  [
+    "npm run profile:requirements:upstream:verify",
+    [process.execPath, ["tools/profile/verify-upstream-requirement-inventory.mjs"]],
   ],
   [
     "npm run profile:vocabulary:verify",
@@ -413,10 +615,27 @@ const allowedEvidenceCommands = new Map([
     ]],
   ],
   [
-    "npm run profile:rc:serialization-parity",
-    [process.execPath, ["tools/profile/run-rc-serialization-parity.mjs", "candidate"]],
+    "npm run profile:rc:shacl-matrix:verify",
+    [process.execPath, [
+      "tools/profile/run-rc-shacl-matrix.mjs",
+      "verify",
+      "--mode=full",
+    ], 600_000],
+  ],
+  [
+    "npm run profile:rc:serialization-parity:verify",
+    [
+      process.execPath,
+      ["tools/profile/run-rc-serialization-parity.mjs", "verify"],
+      600_000,
+    ],
   ],
 ]);
+
+export function evidenceCommandTimeoutMs(command) {
+  const definition = allowedEvidenceCommands.get(command);
+  return definition ? definition[2] ?? DEFAULT_EVIDENCE_TIMEOUT_MS : null;
+}
 
 async function runEvidenceCommand(command) {
   const definition = allowedEvidenceCommands.get(command);
@@ -426,7 +645,7 @@ async function runEvidenceCommand(command) {
       cwd: root,
       encoding: "utf8",
       maxBuffer: 4 * 1024 * 1024,
-      timeout: 120_000,
+      timeout: evidenceCommandTimeoutMs(command),
       windowsHide: true,
     });
     return true;
@@ -565,7 +784,43 @@ export async function validateRcMatrixEvidence(bytes, runtime) {
   }
 }
 
-async function fixedEvidenceCheck(register, runtime, inputEvidence) {
+export function validateRequirementCoverageEvidence(bytes, profileVersion) {
+  try {
+    const report = parseJson(bytes, "requirement coverage evidence");
+    const counts = report?.counts;
+    return report?.schemaVersion === "molit.profile-requirement-coverage/1"
+      && report.profileVersion === profileVersion
+      && report.releaseAcceptanceItem === "RA-REQUIREMENTS"
+      && Number.isInteger(counts?.blockers)
+      && counts.blockers === 0
+      && Number.isInteger(counts?.integratedBlockers)
+      && counts.integratedBlockers === 0
+      && Number.isInteger(counts?.integratedRequirements)
+      && counts.integratedRequirements > 0
+      && Number.isInteger(counts?.integratedFullyCovered)
+      && counts.integratedFullyCovered === counts.integratedRequirements
+      && Array.isArray(report.blockers)
+      && report.blockers.length === 0;
+  } catch {
+    return false;
+  }
+}
+
+export function releaseEvidenceMatchesSnapshot(relative, bytes, snapshot) {
+  if (!snapshot) return true;
+  const prefix = `${snapshot.releaseRootRelative}/`;
+  if (!relative.startsWith(prefix)) return true;
+  const artifactRelative = relative.slice(prefix.length);
+  const lockedBytes = snapshot.artifactBytes?.get(artifactRelative);
+  return lockedBytes !== undefined && digest(lockedBytes) === digest(bytes);
+}
+
+export async function fixedEvidenceCheck(
+  register,
+  runtime,
+  inputEvidence,
+  { runCommand = runEvidenceCommand } = {},
+) {
   const invalidItems = [];
   let itemCount = 0;
   for (const item of register.items.filter(({ status }) => status === "fixed")) {
@@ -575,16 +830,22 @@ async function fixedEvidenceCheck(register, runtime, inputEvidence) {
       continue;
     }
     if (item.id === "RA-GIT") {
-      if (runtime.git.status !== "passed") invalidItems.push(item.id);
-      continue;
-    }
-    if (item.id === "RA-REQUIREMENTS") {
-      if (runtime.requirementTraceability.status !== "passed") invalidItems.push(item.id);
-      continue;
+      // Keep evaluating the declared evidence after the runtime Git check.
+      // RA-GIT also owns the repository EOL policy command.
     }
     let supported = 0;
     let valid = true;
+    if (item.id === "RA-GIT" && runtime.git.status !== "passed") valid = false;
+    if (item.id === "RA-REQUIREMENTS"
+      && runtime.requirementTraceability.status !== "passed") valid = false;
+    const seenEvidence = new Set();
     for (const evidence of item.evidence) {
+      const evidenceKey = JSON.stringify([evidence.kind, evidence.value]);
+      if (seenEvidence.has(evidenceKey)) {
+        valid = false;
+        continue;
+      }
+      seenEvidence.add(evidenceKey);
       if (evidence.kind === "repository-file") {
         supported += 1;
         try {
@@ -597,6 +858,11 @@ async function fixedEvidenceCheck(register, runtime, inputEvidence) {
           if (bytes.length === 0) valid = false;
           else {
             inputEvidence[relative] = digest(bytes);
+            if (!releaseEvidenceMatchesSnapshot(
+              relative,
+              bytes,
+              runtime.releaseSnapshot,
+            )) valid = false;
             if (item.id === "RA-MULTI-ENGINE-MATRIX"
               && relative === "evidence/validators/molit-rc-shacl-matrix.v1.json"
               && !await validateRcMatrixEvidence(bytes, runtime)) valid = false;
@@ -604,15 +870,39 @@ async function fixedEvidenceCheck(register, runtime, inputEvidence) {
         } catch {
           valid = false;
         }
+      } else if (evidence.kind === "requirement-coverage") {
+        supported += 1;
+        try {
+          const relative = portablePath(evidence.value, "requirement coverage evidence path");
+          const bytes = await readCheckedFile(
+            root,
+            path.resolve(root, ...relative.split("/")),
+            32 * 1024 * 1024,
+          );
+          inputEvidence[relative] = digest(bytes);
+          if (!releaseEvidenceMatchesSnapshot(
+            relative,
+            bytes,
+            runtime.releaseSnapshot,
+          )) valid = false;
+          if (!validateRequirementCoverageEvidence(bytes, register.profileVersion)) valid = false;
+        } catch {
+          valid = false;
+        }
       } else if (evidence.kind === "command") {
         supported += 1;
-        if (!await runEvidenceCommand(evidence.value)) valid = false;
+        try {
+          if (!await runCommand(evidence.value)) valid = false;
+        } catch {
+          valid = false;
+        }
+      } else if (evidence.kind === "git-control" && item.id === "RA-GIT") {
+        supported += 1;
+        if (runtime.git.status !== "passed") valid = false;
       } else {
         valid = false;
       }
     }
-    if (item.id === "RA-SERIALIZATION-PARITY"
-      && !await runEvidenceCommand("npm run profile:rc:serialization-parity")) valid = false;
     if (supported === 0 || !valid) invalidItems.push(item.id);
   }
   return {
@@ -643,7 +933,12 @@ function withDecisionDigest(report) {
   };
 }
 
-export async function evaluateReleaseGateV2(version) {
+export async function evaluateReleaseGateV2(version, {
+  checkArtifactLock = artifactLockCheck,
+  checkFixedEvidence = fixedEvidenceCheck,
+  checkGit = gitCheck,
+  checkTraceability = traceabilityCheck,
+} = {}) {
   const { loadProfileRelease, resolveReleaseArtifact } = await import(
     "../../src/profile/registry.mjs"
   );
@@ -671,51 +966,92 @@ export async function evaluateReleaseGateV2(version) {
     [portableRootPath(registerPath)]: digest(registerBytes),
   };
   const [lock, git, requirementTraceability] = await Promise.all([
-    artifactLockCheck(release),
-    gitCheck(release.releaseRoot),
-    traceabilityCheck(release.releaseRoot),
+    checkArtifactLock(release),
+    checkGit(release.releaseRoot),
+    checkTraceability(release.releaseRoot),
   ]);
+  const lockedRegisterBytes = lock.verification?.artifactBytes?.get(registerRelative);
+  const registerMatchesInitialSnapshot = lock.check.status === "passed"
+    && lockedRegisterBytes !== undefined
+    && digest(lockedRegisterBytes) === digest(registerBytes);
   if (lock.verification) {
     inputEvidence[portableRootPath(release.manifestPath)] = digest(
       lock.verification.artifactBytes.get("manifest.json"),
     );
-    const lockBytes = await readCheckedFile(
-      release.releaseRoot,
-      lock.verification.lockPath,
-      32 * 1024 * 1024,
+    inputEvidence[portableRootPath(lock.verification.lockPath)] = digest(
+      lock.verification.lockBytes,
     );
-    inputEvidence[portableRootPath(lock.verification.lockPath)] = digest(lockBytes);
   }
-  const fixedEvidence = await fixedEvidenceCheck(
+  const fixedEvidence = await checkFixedEvidence(
     register,
     {
       artifactLock: lock.check,
       artifactLockSha256: lock.verification ? digest(lock.verification.lockBytes) : null,
       git,
+      releaseSnapshot: {
+        artifactBytes: lock.verification?.artifactBytes ?? null,
+        releaseRootRelative: portableRootPath(release.releaseRoot),
+      },
       requirementTraceability,
     },
     inputEvidence,
   );
+  const terminalLock = await checkArtifactLock(release);
+  const terminalGit = await checkGit(release.releaseRoot);
+  let terminalRuntime = reconcileTerminalRuntimeChecks(
+    { artifactLock: lock, git },
+    { artifactLock: terminalLock, git: terminalGit },
+  );
+  if (!registerMatchesInitialSnapshot && terminalRuntime.artifactLock.status === "passed") {
+    terminalRuntime = {
+      ...terminalRuntime,
+      artifactLock: failedArtifactLockCheck(
+        terminalRuntime.artifactLock,
+        "RELEASE_ACCEPTANCE_SNAPSHOT_MISMATCH",
+      ),
+    };
+  }
+  const fixedEvidenceInvalidItems = new Set(fixedEvidence.invalidItems);
+  if (terminalRuntime.artifactLock.status !== "passed") {
+    fixedEvidenceInvalidItems.add("RA-LOCK");
+  }
+  if (terminalRuntime.git.status !== "passed") fixedEvidenceInvalidItems.add("RA-GIT");
+  const finalFixedEvidenceInvalidItems = [...fixedEvidenceInvalidItems].sort();
+  const finalFixedEvidence = {
+    invalidItems: finalFixedEvidenceInvalidItems,
+    check: {
+      errorCode: finalFixedEvidenceInvalidItems.length === 0
+        ? null
+        : "FIXED_EVIDENCE_INVALID",
+      invalidItemCount: finalFixedEvidenceInvalidItems.length,
+      itemCount: fixedEvidence.check.itemCount,
+      status: finalFixedEvidenceInvalidItems.length === 0 ? "passed" : "failed",
+    },
+  };
   const statusOverrides = {
-    "RA-GIT": git.status === "passed" ? "fixed" : "open",
+    "RA-GIT": terminalRuntime.git.status === "passed" ? "fixed" : "open",
     "RA-REQUIREMENTS": requirementTraceability.status === "passed" ? "fixed" : "open",
   };
   const hasRegisterLockItem = register.items.some(({ id }) => id === "RA-LOCK");
   if (hasRegisterLockItem) {
-    statusOverrides["RA-LOCK"] = lock.check.status === "passed" ? "fixed" : "open";
+    statusOverrides["RA-LOCK"] = terminalRuntime.artifactLock.status === "passed"
+      ? "fixed"
+      : "open";
   }
-  const extraBlockers = lock.check.status === "passed" || hasRegisterLockItem ? [] : [{
-    id: "RA-LOCK",
-    scope: "profile-core",
-    source: "artifact-lock",
-    status: "check-failed",
-    severity: "P0",
-    blocksCandidate: true,
-    blocksRecommendation: true,
-  }];
+  const extraBlockers = terminalRuntime.artifactLock.status === "passed" || hasRegisterLockItem
+    ? []
+    : [{
+      id: "RA-LOCK",
+      scope: "profile-core",
+      source: "artifact-lock",
+      status: "check-failed",
+      severity: "P0",
+      blocksCandidate: true,
+      blocksRecommendation: true,
+    }];
   const eligibility = calculateReleaseEligibility(register, {
     extraBlockers,
-    fixedEvidenceFailures: fixedEvidence.invalidItems,
+    fixedEvidenceFailures: finalFixedEvidence.invalidItems,
     statusOverrides,
   });
   const report = withDecisionDigest({
@@ -735,9 +1071,9 @@ export async function evaluateReleaseGateV2(version) {
         sha256: digest(registerBytes),
         status: "passed",
       },
-      artifactLock: lock.check,
-      fixedEvidence: fixedEvidence.check,
-      git,
+      artifactLock: terminalRuntime.artifactLock,
+      fixedEvidence: finalFixedEvidence.check,
+      git: terminalRuntime.git,
       requirementTraceability,
     },
     inputEvidence: Object.fromEntries(Object.entries(inputEvidence).sort(([left], [right]) => (

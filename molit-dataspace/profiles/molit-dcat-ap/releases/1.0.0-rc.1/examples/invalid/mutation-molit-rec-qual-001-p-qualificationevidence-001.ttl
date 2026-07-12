@@ -3,7 +3,8 @@
 @prefix molit: <https://data.molit.go.kr/def/molit-dcat-ap#>.
 @prefix prov: <http://www.w3.org/ns/prov#>.
 
-ex:synthetic-offering-metadata a molit:DataspaceOfferingMetadata.
+ex:synthetic-offering-metadata a molit:DataspaceOfferingMetadata;
+    molit:qualificationEvidence ex:synthetic-qualification-evidence, "mutation-d5e997b76d69-extra".
 ex:synthetic-qualification-evidence a prov:Entity;
     dct:title "적합성시험용 합성 자격 증거"@ko, "Synthetic qualification evidence for conformance testing"@en;
     dct:description "운영 자격이나 제공 권한을 주장하지 않는 SHACL 시험용 객체다."@ko, "A SHACL test object that makes no claim of operational qualification or provider authority."@en.

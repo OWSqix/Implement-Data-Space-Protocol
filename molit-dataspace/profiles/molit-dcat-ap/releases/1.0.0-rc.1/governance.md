@@ -93,6 +93,12 @@ Approved로 바꾸려면 다음 evidence가 필요하다.
 
 `approved` 문자열만 추가해 상태를 바꾸지 않는다.
 
+`publication/institutional-approval-provenance.candidate.json`은 잠긴 후보 템플릿이다. 이 파일의 상태를 `approved`로 고쳐 쓰지 않는다.
+
+기관 승인이 끝나면 최종 artifact lock, manifest, Git commit을 묶은 승인 envelope를 release 디렉터리 밖에 새로 발행한다. `publicationMode` 값 `external-detached-envelope`가 이 규칙을 기계 판독 가능한 형태로 고정한다.
+
+승인 envelope와 분리 서명 envelope의 digest는 서로 참조하되 release lock의 입력에는 넣지 않는다. 따라서 승인 기록을 만들 때 lock이 다시 바뀌는 순환 의존성이 생기지 않는다.
+
 ### 6.3 Deprecated
 
 Deprecated term에는 다음 값을 유지한다.
@@ -106,7 +112,13 @@ Deprecated term에는 다음 값을 유지한다.
 
 RC.1의 `TransferableDataset`과 `TransferDistribution`은 deprecated다. 신규 graph는 DCAT 기본 class와 별도 `DataspaceOfferingMetadata`를 사용한다.
 
+폐기한 IRI는 `publication/tombstones.json`에 남긴다. Tombstone은 기존 IRI에 대해 200 응답과 HTML·Turtle·JSON-LD 표현을 계속 제공하고 replacement 또는 replacement 부재를 명시한다. 폐기 IRI를 404로 바꾸거나 다른 개념에 재사용하지 않는다.
+
 `vocabulary/registry-metadata.json`은 Turtle term의 생명주기 metadata를 결정적으로 투영한다. `npm run profile:vocabulary:verify`가 scheme·notation·label·상태·유효기간·출처·대체관계의 누락과 drift를 막는다. JSON registry를 직접 고쳐 Turtle 정본을 우회하지 않는다.
+
+Ontology 용어의 재사용 판단과 시험 증거는 `ontology/term-governance.json`에 둔다. Class·ObjectProperty·DatatypeProperty뿐 아니라 SHACL annotation property도 빠뜨리지 않는다.
+
+`npm run profile:ontology:governance:verify`가 ontology의 domain·range·상태·version·replacement와 양성·음성 증거를 다시 대조한다.
 
 ## 7. 국내 후보 Registry
 

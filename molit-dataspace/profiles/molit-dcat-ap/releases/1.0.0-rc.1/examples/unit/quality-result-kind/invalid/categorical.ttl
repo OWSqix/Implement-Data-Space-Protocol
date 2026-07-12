@@ -1,0 +1,33 @@
+@prefix dcat: <http://www.w3.org/ns/dcat#> .
+@prefix dqv: <http://www.w3.org/ns/dqv#> .
+@prefix ex: <urn:molit:quality-result:categorical:> .
+@prefix metric: <https://data.molit.go.kr/id/metric/> .
+@prefix molit: <https://data.molit.go.kr/def/molit-dcat-ap#> .
+@prefix qloss: <https://data.molit.go.kr/id/concept/quality-loss-disposition/> .
+@prefix qmethod: <https://data.molit.go.kr/id/concept/quality-evaluation-method/> .
+@prefix qresult: <https://data.molit.go.kr/id/concept/quality-result-kind/> .
+@prefix quality: <https://data.molit.go.kr/id/concept/quality-status/> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+
+ex:dataset a dcat:Dataset ;
+    dqv:hasQualityMeasurement ex:measurement ;
+    molit:qualityStatus quality:assessed .
+
+ex:measurement a dqv:QualityMeasurement ;
+    dqv:computedOn ex:dataset ;
+    dqv:isMeasurementOf metric:currency-status ;
+    dqv:value "current" ;
+    molit:qualityEvaluationMethod qmethod:rule-based ;
+    molit:qualityEvaluationScope "published dataset" ;
+    molit:qualityResultKind qresult:categorical ;
+    molit:qualityMappingStatement ex:mapping .
+
+ex:current a skos:Concept .
+
+ex:mapping a molit:QualityMappingStatement ;
+    molit:sourceQualityElement ex:source-element ;
+    molit:mappedQualityMetric metric:currency-status ;
+    molit:qualityLossDisposition qloss:lossless .
+
+ex:source-element a skos:Concept .
+metric:currency-status a dqv:Metric .

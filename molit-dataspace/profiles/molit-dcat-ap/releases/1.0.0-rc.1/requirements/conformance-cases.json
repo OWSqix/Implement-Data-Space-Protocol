@@ -6,64 +6,23 @@
     {
       "fixtureId": "NEG-CORE-CATALOG-RECORD-DATASET-MISMATCH",
       "path": "examples/invalid/catalog-record-dataset-mismatch.ttl",
-      "sha256": "d9a6a7db0f442b3a716511a9081b780dc1b7055f873f7fb2bfc09b47a949281f",
+      "sha256": "646cce2d260d80b68b3d227280ed869088927cc61afc479a7a44cf6106840cd8",
       "description": "Reviewed core negative fixture; expected IDs were observed from the local SHACL graph.",
       "conformanceClass": [
         "core"
       ],
       "expectedOutcome": "violates",
       "coversRequirementIds": [
-        "MOLIT-CAT-REL-001",
         "MOLIT-CAT-REL-001-P-PATH-DA00F2B2F6-001"
       ],
       "expectedRequirementIds": [
-        "MOLIT-CAT-REL-001",
         "MOLIT-CAT-REL-001-P-PATH-DA00F2B2F6-001"
-      ]
-    },
-    {
-      "fixtureId": "NEG-CORE-LITERAL-ACCESS-RIGHTS",
-      "path": "examples/invalid/literal-access-rights.ttl",
-      "sha256": "c7a74456ff51924bc230c228dcd68611621feda83224a85d51812a5e840c120b",
-      "description": "Reviewed core negative fixture; expected IDs were observed from the local SHACL graph.",
-      "conformanceClass": [
-        "core"
       ],
-      "expectedOutcome": "violates",
-      "coversRequirementIds": [
-        "MOLIT-DS-001",
-        "MOLIT-DS-001-P-ACCESSRIGHTS-001",
-        "MOLIT-DS-001-P-PATH-0E31B21B99-001",
-        "MOLIT-DS-001-P-PATH-30F94DAB87-001"
+      "atomicConditionFamilyIds": [
+        "MOLIT-CAT-REL-001-P-PATH-DA00F2B2F6-001"
       ],
-      "expectedRequirementIds": [
-        "MOLIT-DS-001",
-        "MOLIT-DS-001-P-ACCESSRIGHTS-001",
-        "MOLIT-DS-001-P-PATH-0E31B21B99-001",
-        "MOLIT-DS-001-P-PATH-30F94DAB87-001"
-      ]
-    },
-    {
-      "fixtureId": "NEG-CORE-MISSING-KOREAN-TITLE",
-      "path": "examples/invalid/missing-korean-title.ttl",
-      "sha256": "e07e0d588a9facab33a1bc84da3da3fbd865848c7938a3d454944512c633c225",
-      "description": "Reviewed core negative fixture; expected IDs were observed from the local SHACL graph.",
-      "conformanceClass": [
-        "core"
-      ],
-      "expectedOutcome": "violates",
-      "coversRequirementIds": [
-        "MOLIT-DS-001",
-        "MOLIT-DS-001-P-PATH-0E31B21B99-001",
-        "MOLIT-DS-001-P-PATH-30F94DAB87-001",
-        "MOLIT-DS-001-P-TITLE-001"
-      ],
-      "expectedRequirementIds": [
-        "MOLIT-DS-001",
-        "MOLIT-DS-001-P-PATH-0E31B21B99-001",
-        "MOLIT-DS-001-P-PATH-30F94DAB87-001",
-        "MOLIT-DS-001-P-TITLE-001"
-      ]
+      "validationMode": "profile",
+      "targetRequirementId": null
     },
     {
       "fixtureId": "NEG-CORE-ROGUE-THEME",
@@ -75,33 +34,16 @@
       ],
       "expectedOutcome": "violates",
       "coversRequirementIds": [
-        "MOLIT-DS-001",
         "MOLIT-DS-001-P-THEME-001"
       ],
       "expectedRequirementIds": [
-        "MOLIT-DS-001",
         "MOLIT-DS-001-P-THEME-001"
-      ]
-    },
-    {
-      "fixtureId": "NEG-CORE-UNAPPROVED-FREQUENCY",
-      "path": "examples/invalid/unapproved-frequency.ttl",
-      "sha256": "24c44907d3b53b2796af759c3e568d5ba4f4b84b122f46e4ce29d42b33ba65f7",
-      "description": "Reviewed core negative fixture; expected IDs were observed from the local SHACL graph.",
-      "conformanceClass": [
-        "core"
       ],
-      "expectedOutcome": "violates",
-      "coversRequirementIds": [
-        "MOLIT-DS-001",
-        "MOLIT-DS-001-P-PATH-0E31B21B99-001",
-        "MOLIT-DS-001-P-PATH-30F94DAB87-001"
+      "atomicConditionFamilyIds": [
+        "MOLIT-DS-001-P-THEME-001"
       ],
-      "expectedRequirementIds": [
-        "MOLIT-DS-001",
-        "MOLIT-DS-001-P-PATH-0E31B21B99-001",
-        "MOLIT-DS-001-P-PATH-30F94DAB87-001"
-      ]
+      "validationMode": "profile",
+      "targetRequirementId": null
     },
     {
       "fixtureId": "NEG-CORE-UNAPPROVED-IANA-MEDIA-TYPE",
@@ -113,589 +55,610 @@
       ],
       "expectedOutcome": "violates",
       "coversRequirementIds": [
-        "MOLIT-CV-MEDIATYPE-001",
         "MOLIT-CV-MEDIATYPE-001-P-MEDIATYPE-001"
       ],
       "expectedRequirementIds": [
-        "MOLIT-CV-MEDIATYPE-001",
         "MOLIT-CV-MEDIATYPE-001-P-MEDIATYPE-001"
-      ]
+      ],
+      "atomicConditionFamilyIds": [
+        "MOLIT-CV-MEDIATYPE-001-P-MEDIATYPE-001"
+      ],
+      "validationMode": "profile",
+      "targetRequirementId": null
     },
     {
       "fixtureId": "NEG-DATASPACE-OFFERING-OFFERING-OPERATIONAL-CLAIM",
       "path": "examples/invalid/offering-operational-claim.ttl",
-      "sha256": "54cf133ced4753dd61a5743379b811decac1209297ff41403158e932ba025309",
+      "sha256": "36b68ebe239b580f0dfde2c62a30a34ff4ce4434e9e1120e4f49fe254d1599a5",
       "description": "Reviewed dataspace-offering negative fixture; expected IDs were observed from the local SHACL graph.",
       "conformanceClass": [
         "dataspace-offering"
       ],
       "expectedOutcome": "violates",
       "coversRequirementIds": [
-        "MOLIT-OFFER-001",
         "MOLIT-OFFER-001-P-OFFERINGREADINESSSTATUS-001"
       ],
       "expectedRequirementIds": [
-        "MOLIT-OFFER-001",
         "MOLIT-OFFER-001-P-OFFERINGREADINESSSTATUS-001"
-      ]
-    },
-    {
-      "fixtureId": "NEG-GEO-UNAPPROVED-GEOMETRY-CRS",
-      "path": "examples/invalid/unapproved-geometry-crs.ttl",
-      "sha256": "3bc44f8a712f5550b3f7e17c2beec16b723f0c63c2182a57a95d5ae45cae82ed",
-      "description": "Reviewed geo negative fixture; expected IDs were observed from the local SHACL graph.",
-      "conformanceClass": [
-        "geo"
       ],
-      "expectedOutcome": "violates",
-      "coversRequirementIds": [
-        "MOLIT-DS-001",
-        "MOLIT-DS-001-P-PATH-0E31B21B99-001",
-        "MOLIT-DS-001-P-PATH-30F94DAB87-001",
-        "MOLIT-GEO-ENCODING-003"
+      "atomicConditionFamilyIds": [
+        "MOLIT-OFFER-001-P-OFFERINGREADINESSSTATUS-001"
       ],
-      "expectedRequirementIds": [
-        "MOLIT-DS-001",
-        "MOLIT-DS-001-P-PATH-0E31B21B99-001",
-        "MOLIT-DS-001-P-PATH-30F94DAB87-001",
-        "MOLIT-GEO-ENCODING-003"
-      ]
-    },
-    {
-      "fixtureId": "NEG-GEO-WITHHELD-SPATIAL-GEOMETRY",
-      "path": "examples/invalid/withheld-spatial-geometry.ttl",
-      "sha256": "c6ce924aed7e635ffef819fa724986a089d9c30f0e80d0425e923b73d7eeef76",
-      "description": "Reviewed geo negative fixture; expected IDs were observed from the local SHACL graph.",
-      "conformanceClass": [
-        "geo"
-      ],
-      "expectedOutcome": "violates",
-      "coversRequirementIds": [
-        "MOLIT-DS-001",
-        "MOLIT-DS-001-P-PATH-0E31B21B99-001",
-        "MOLIT-DS-001-P-PATH-30F94DAB87-001",
-        "MOLIT-GEO-001",
-        "MOLIT-GEO-DISCLOSURE-001",
-        "MOLIT-GEO-LINK-001",
-        "MOLIT-GEO-LINK-001-P-PATH-BFC98936CC-001",
-        "MOLIT-GEO-LINK-002",
-        "MOLIT-GEO-LINK-002-P-PATH-D6567CFAEC-001"
-      ],
-      "expectedRequirementIds": [
-        "MOLIT-DS-001",
-        "MOLIT-DS-001-P-PATH-0E31B21B99-001",
-        "MOLIT-DS-001-P-PATH-30F94DAB87-001",
-        "MOLIT-GEO-001",
-        "MOLIT-GEO-DISCLOSURE-001",
-        "MOLIT-GEO-LINK-001",
-        "MOLIT-GEO-LINK-001-P-PATH-BFC98936CC-001",
-        "MOLIT-GEO-LINK-002",
-        "MOLIT-GEO-LINK-002-P-PATH-D6567CFAEC-001"
-      ]
-    },
-    {
-      "fixtureId": "NEG-GEO-WKT-WITHOUT-CRS",
-      "path": "examples/invalid/wkt-without-crs.ttl",
-      "sha256": "b55f59c5b8bde013c7add31bac52bf736181d3d9ce12ab6a74a8a4285f601f49",
-      "description": "Reviewed geo negative fixture; expected IDs were observed from the local SHACL graph.",
-      "conformanceClass": [
-        "geo"
-      ],
-      "expectedOutcome": "violates",
-      "coversRequirementIds": [
-        "MOLIT-DS-001",
-        "MOLIT-DS-001-P-PATH-0E31B21B99-001",
-        "MOLIT-DS-001-P-PATH-30F94DAB87-001",
-        "MOLIT-GEO-ENCODING-003",
-        "MOLIT-GEO-TYPE-003"
-      ],
-      "expectedRequirementIds": [
-        "MOLIT-DS-001",
-        "MOLIT-DS-001-P-PATH-0E31B21B99-001",
-        "MOLIT-DS-001-P-PATH-30F94DAB87-001",
-        "MOLIT-GEO-ENCODING-003",
-        "MOLIT-GEO-TYPE-003"
-      ]
+      "validationMode": "profile",
+      "targetRequirementId": null
     },
     {
       "fixtureId": "NEG-MUT-AGENT-001-P-NAME-001",
       "path": "examples/invalid/mutation-molit-agent-001-p-name-001.ttl",
-      "sha256": "8d239f13b1a179d97f7b62ffc6f939b90557f3cfbb5119b10b420b36ee8bf51c",
-      "description": "Generated remove-path-values mutation targeting MOLIT-AGENT-001-P-NAME-001; expected IDs were observed by the core SHACL lane.",
+      "sha256": "8983b47b866316ad99210a55e5ff3200ef05776e65410f5c0eac25ac9a1ba25a",
+      "description": "Generated constraint-unit-MOLIT-AGENT-001-P-NAME-001-remove-path-values mutation targeting MOLIT-AGENT-001-P-NAME-001; expected IDs were observed by the core constraint-unit SHACL lane.",
       "conformanceClass": [
         "core"
       ],
       "expectedOutcome": "violates",
       "coversRequirementIds": [
-        "MOLIT-AGENT-001",
         "MOLIT-AGENT-001-P-NAME-001"
       ],
       "expectedRequirementIds": [
-        "MOLIT-AGENT-001",
         "MOLIT-AGENT-001-P-NAME-001"
-      ]
+      ],
+      "atomicConditionFamilyIds": [
+        "MOLIT-AGENT-001-P-NAME-001"
+      ],
+      "validationMode": "constraint-unit",
+      "targetRequirementId": "MOLIT-AGENT-001-P-NAME-001"
     },
     {
       "fixtureId": "NEG-MUT-CAT-001-P-DATASET-001",
       "path": "examples/invalid/mutation-molit-cat-001-p-dataset-001.ttl",
-      "sha256": "2e71a5eec1026470bb4ae471746986fe678c073fa04576951e28d5f8619d0844",
-      "description": "Generated remove-path-values mutation targeting MOLIT-CAT-001-P-DATASET-001; expected IDs were observed by the core SHACL lane.",
+      "sha256": "ff9f7cd97a9d8f228a693dfa72fb7af9bc5f4c3e93a582ab844cc07524753599",
+      "description": "Generated constraint-unit-MOLIT-CAT-001-P-DATASET-001-remove-path-values mutation targeting MOLIT-CAT-001-P-DATASET-001; expected IDs were observed by the core constraint-unit SHACL lane.",
       "conformanceClass": [
         "core"
       ],
       "expectedOutcome": "violates",
       "coversRequirementIds": [
-        "MOLIT-CAT-001",
-        "MOLIT-CAT-001-P-DATASET-001",
-        "MOLIT-CAT-REL-001",
-        "MOLIT-CAT-REL-001-P-PATH-DA00F2B2F6-001",
-        "MOLIT-DS-001",
-        "MOLIT-DS-001-P-PATH-0E31B21B99-001"
+        "MOLIT-CAT-001-P-DATASET-001"
       ],
       "expectedRequirementIds": [
-        "MOLIT-CAT-001",
-        "MOLIT-CAT-001-P-DATASET-001",
-        "MOLIT-CAT-REL-001",
-        "MOLIT-CAT-REL-001-P-PATH-DA00F2B2F6-001",
-        "MOLIT-DS-001",
-        "MOLIT-DS-001-P-PATH-0E31B21B99-001"
-      ]
+        "MOLIT-CAT-001-P-DATASET-001"
+      ],
+      "atomicConditionFamilyIds": [
+        "MOLIT-CAT-001-P-DATASET-001"
+      ],
+      "validationMode": "constraint-unit",
+      "targetRequirementId": "MOLIT-CAT-001-P-DATASET-001"
     },
     {
       "fixtureId": "NEG-MUT-CAT-001-P-DESCRIPTION-001",
       "path": "examples/invalid/mutation-molit-cat-001-p-description-001.ttl",
-      "sha256": "47f29ad6f57f7f8526bb4a5f3b7c3980b27b42e90702730d500679159ba81e8b",
-      "description": "Generated remove-path-values mutation targeting MOLIT-CAT-001-P-DESCRIPTION-001; expected IDs were observed by the core SHACL lane.",
+      "sha256": "8a908d285848a958fba6a7edfd7f464891a7f7d264d9ea72cd7951357157b02d",
+      "description": "Generated constraint-unit-MOLIT-CAT-001-P-DESCRIPTION-001-remove-path-values mutation targeting MOLIT-CAT-001-P-DESCRIPTION-001; expected IDs were observed by the core constraint-unit SHACL lane.",
       "conformanceClass": [
         "core"
       ],
       "expectedOutcome": "violates",
       "coversRequirementIds": [
-        "MOLIT-CAT-001",
         "MOLIT-CAT-001-P-DESCRIPTION-001"
       ],
       "expectedRequirementIds": [
-        "MOLIT-CAT-001",
         "MOLIT-CAT-001-P-DESCRIPTION-001"
-      ]
+      ],
+      "atomicConditionFamilyIds": [
+        "MOLIT-CAT-001-P-DESCRIPTION-001"
+      ],
+      "validationMode": "constraint-unit",
+      "targetRequirementId": "MOLIT-CAT-001-P-DESCRIPTION-001"
     },
     {
       "fixtureId": "NEG-MUT-CAT-001-P-LANGUAGE-001",
       "path": "examples/invalid/mutation-molit-cat-001-p-language-001.ttl",
-      "sha256": "5eaa0e86b62e318dc512d4c53de4c00b6aec2572f93839b1a26466a57a7e97b0",
-      "description": "Generated remove-path-values mutation targeting MOLIT-CAT-001-P-LANGUAGE-001; expected IDs were observed by the core SHACL lane.",
+      "sha256": "884c0d0cf43b614f6d67e8b89e90b2aec325dbfcbe9a687287a2c599abe36dad",
+      "description": "Generated remove-path-values mutation targeting MOLIT-CAT-001-P-LANGUAGE-001; expected IDs were observed by the core profile SHACL lane.",
       "conformanceClass": [
         "core"
       ],
       "expectedOutcome": "violates",
       "coversRequirementIds": [
-        "MOLIT-CAT-001",
         "MOLIT-CAT-001-P-LANGUAGE-001"
       ],
       "expectedRequirementIds": [
-        "MOLIT-CAT-001",
         "MOLIT-CAT-001-P-LANGUAGE-001"
-      ]
+      ],
+      "atomicConditionFamilyIds": [
+        "MOLIT-CAT-001-P-LANGUAGE-001"
+      ],
+      "validationMode": "profile",
+      "targetRequirementId": null
     },
     {
       "fixtureId": "NEG-MUT-CAT-001-P-PUBLISHER-001",
       "path": "examples/invalid/mutation-molit-cat-001-p-publisher-001.ttl",
-      "sha256": "82f6394f880e3a1e580609f9274fd4d7d6529c19d2fdb0961d5686b7115e40d2",
-      "description": "Generated remove-path-values mutation targeting MOLIT-CAT-001-P-PUBLISHER-001; expected IDs were observed by the core SHACL lane.",
+      "sha256": "5a5d21726c20ad1b119ca4d35d3c9dd6165bc0c68b0d19241a20b6c646ed0c69",
+      "description": "Generated constraint-unit-MOLIT-CAT-001-P-PUBLISHER-001-remove-path-values mutation targeting MOLIT-CAT-001-P-PUBLISHER-001; expected IDs were observed by the core constraint-unit SHACL lane.",
       "conformanceClass": [
         "core"
       ],
       "expectedOutcome": "violates",
       "coversRequirementIds": [
-        "MOLIT-CAT-001",
         "MOLIT-CAT-001-P-PUBLISHER-001"
       ],
       "expectedRequirementIds": [
-        "MOLIT-CAT-001",
         "MOLIT-CAT-001-P-PUBLISHER-001"
-      ]
+      ],
+      "atomicConditionFamilyIds": [
+        "MOLIT-CAT-001-P-PUBLISHER-001"
+      ],
+      "validationMode": "constraint-unit",
+      "targetRequirementId": "MOLIT-CAT-001-P-PUBLISHER-001"
     },
     {
       "fixtureId": "NEG-MUT-CAT-001-P-RECORD-001",
       "path": "examples/invalid/mutation-molit-cat-001-p-record-001.ttl",
-      "sha256": "d4069c33132c800d787c1d182eb9a7302a01bd0a08a844a56c0de2b46e99e9a4",
-      "description": "Generated remove-path-values mutation targeting MOLIT-CAT-001-P-RECORD-001; expected IDs were observed by the core SHACL lane.",
+      "sha256": "e26af73135113b89939ad50d916ad8d51b8b71ef8da07dafbe95f9af3fa1a65c",
+      "description": "Generated constraint-unit-MOLIT-CAT-001-P-RECORD-001-remove-path-values mutation targeting MOLIT-CAT-001-P-RECORD-001; expected IDs were observed by the core constraint-unit SHACL lane.",
       "conformanceClass": [
         "core"
       ],
       "expectedOutcome": "violates",
       "coversRequirementIds": [
-        "MOLIT-CAT-001",
-        "MOLIT-CAT-001-P-RECORD-001",
-        "MOLIT-CAT-REL-001",
-        "MOLIT-CAT-REL-001-P-PATH-DA00F2B2F6-001"
+        "MOLIT-CAT-001-P-RECORD-001"
       ],
       "expectedRequirementIds": [
-        "MOLIT-CAT-001",
-        "MOLIT-CAT-001-P-RECORD-001",
-        "MOLIT-CAT-REL-001",
-        "MOLIT-CAT-REL-001-P-PATH-DA00F2B2F6-001"
-      ]
+        "MOLIT-CAT-001-P-RECORD-001"
+      ],
+      "atomicConditionFamilyIds": [
+        "MOLIT-CAT-001-P-RECORD-001"
+      ],
+      "validationMode": "constraint-unit",
+      "targetRequirementId": "MOLIT-CAT-001-P-RECORD-001"
     },
     {
       "fixtureId": "NEG-MUT-CAT-001-P-TITLE-001",
       "path": "examples/invalid/mutation-molit-cat-001-p-title-001.ttl",
-      "sha256": "1aac80b76522d5a88a9211835192d79f92946644b6d1a4237f478717e7b616ee",
-      "description": "Generated remove-path-values mutation targeting MOLIT-CAT-001-P-TITLE-001; expected IDs were observed by the core SHACL lane.",
+      "sha256": "335e63311b7dda5ad61ea837ae73f3fd64740cf52e1ea35134e583a0550c3c30",
+      "description": "Generated constraint-unit-MOLIT-CAT-001-P-TITLE-001-remove-path-values mutation targeting MOLIT-CAT-001-P-TITLE-001; expected IDs were observed by the core constraint-unit SHACL lane.",
       "conformanceClass": [
         "core"
       ],
       "expectedOutcome": "violates",
       "coversRequirementIds": [
-        "MOLIT-CAT-001",
         "MOLIT-CAT-001-P-TITLE-001"
       ],
       "expectedRequirementIds": [
-        "MOLIT-CAT-001",
         "MOLIT-CAT-001-P-TITLE-001"
-      ]
+      ],
+      "atomicConditionFamilyIds": [
+        "MOLIT-CAT-001-P-TITLE-001"
+      ],
+      "validationMode": "constraint-unit",
+      "targetRequirementId": "MOLIT-CAT-001-P-TITLE-001"
     },
     {
       "fixtureId": "NEG-MUT-CAT-REL-001-P-PATH-DA00F2B2F6-001",
       "path": "examples/invalid/mutation-molit-cat-rel-001-p-path-da00f2b2f6-001.ttl",
-      "sha256": "4be230e7d37641f5764d18fac1b861e48153ac36bd9a5aece5782db18c76765a",
-      "description": "Generated remove-path-values mutation targeting MOLIT-CAT-REL-001-P-PATH-DA00F2B2F6-001; expected IDs were observed by the core SHACL lane.",
+      "sha256": "730323355cb1203351f0ebe71cc69f66ae4e9383fb5b414358ab1b131e302096",
+      "description": "Generated constraint-unit-curated-CATALOG-RECORD-DATASET-MISMATCH mutation targeting MOLIT-CAT-REL-001-P-PATH-DA00F2B2F6-001; expected IDs were observed by the core constraint-unit SHACL lane.",
       "conformanceClass": [
         "core"
       ],
       "expectedOutcome": "violates",
       "coversRequirementIds": [
-        "MOLIT-CAT-REL-001",
-        "MOLIT-CAT-REL-001-P-PATH-DA00F2B2F6-001",
-        "MOLIT-DS-001",
-        "MOLIT-DS-001-P-PATH-30F94DAB87-001",
-        "MOLIT-REC-001",
-        "MOLIT-REC-001-P-PRIMARYTOPIC-001"
+        "MOLIT-CAT-REL-001-P-PATH-DA00F2B2F6-001"
       ],
       "expectedRequirementIds": [
-        "MOLIT-CAT-REL-001",
-        "MOLIT-CAT-REL-001-P-PATH-DA00F2B2F6-001",
-        "MOLIT-DS-001",
-        "MOLIT-DS-001-P-PATH-30F94DAB87-001",
-        "MOLIT-REC-001",
-        "MOLIT-REC-001-P-PRIMARYTOPIC-001"
-      ]
+        "MOLIT-CAT-REL-001-P-PATH-DA00F2B2F6-001"
+      ],
+      "atomicConditionFamilyIds": [
+        "MOLIT-CAT-REL-001-P-PATH-DA00F2B2F6-001"
+      ],
+      "validationMode": "constraint-unit",
+      "targetRequirementId": "MOLIT-CAT-REL-001-P-PATH-DA00F2B2F6-001"
     },
     {
       "fixtureId": "NEG-MUT-CV-CHECKSUM-001-P-ALGORITHM-001",
       "path": "examples/invalid/mutation-molit-cv-checksum-001-p-algorithm-001.ttl",
-      "sha256": "1fd4e21a0a41da391a04ea58a0462756f98bc09cbc69c08771eabadc7c35836c",
-      "description": "Generated replace-path-value mutation targeting MOLIT-CV-CHECKSUM-001-P-ALGORITHM-001; expected IDs were observed by the geo SHACL lane.",
+      "sha256": "032ea8c8b8a5b22a2a639f6702f6980d699702fd4196944c3614cd161b1e721f",
+      "description": "Generated constraint-unit-MOLIT-CV-CHECKSUM-001-P-ALGORITHM-001-replace-path-value mutation targeting MOLIT-CV-CHECKSUM-001-P-ALGORITHM-001; expected IDs were observed by the geo constraint-unit SHACL lane.",
       "conformanceClass": [
         "geo"
       ],
       "expectedOutcome": "violates",
       "coversRequirementIds": [
-        "MOLIT-CV-CHECKSUM-001",
-        "MOLIT-CV-CHECKSUM-001-P-ALGORITHM-001",
+        "MOLIT-CV-CHECKSUM-001-P-ALGORITHM-001"
+      ],
+      "expectedRequirementIds": [
+        "MOLIT-CV-CHECKSUM-001-P-ALGORITHM-001"
+      ],
+      "atomicConditionFamilyIds": [
+        "MOLIT-CV-CHECKSUM-001-P-ALGORITHM-001"
+      ],
+      "validationMode": "constraint-unit",
+      "targetRequirementId": "MOLIT-CV-CHECKSUM-001-P-ALGORITHM-001"
+    },
+    {
+      "fixtureId": "NEG-MUT-CV-CHECKSUM-002",
+      "path": "examples/invalid/mutation-molit-cv-checksum-002.ttl",
+      "sha256": "a3d210848997684e84bec216b33141acd7af1f3995e2eb04ecf334a14cfa8ce9",
+      "description": "Generated constraint-unit-MOLIT-CV-CHECKSUM-001-P-ALGORITHM-001-remove-path-values mutation targeting MOLIT-CV-CHECKSUM-002; expected IDs were observed by the geo constraint-unit SHACL lane.",
+      "conformanceClass": [
+        "geo"
+      ],
+      "expectedOutcome": "violates",
+      "coversRequirementIds": [
         "MOLIT-CV-CHECKSUM-002"
       ],
       "expectedRequirementIds": [
-        "MOLIT-CV-CHECKSUM-001",
-        "MOLIT-CV-CHECKSUM-001-P-ALGORITHM-001",
         "MOLIT-CV-CHECKSUM-002"
-      ]
+      ],
+      "atomicConditionFamilyIds": [
+        "MOLIT-CV-CHECKSUM-002"
+      ],
+      "validationMode": "constraint-unit",
+      "targetRequirementId": "MOLIT-CV-CHECKSUM-002"
     },
     {
       "fixtureId": "NEG-MUT-CV-MEDIATYPE-001-P-COMPRESSFORMAT-001",
       "path": "examples/invalid/mutation-molit-cv-mediatype-001-p-compressformat-001.ttl",
-      "sha256": "f89d3ad12d353bc5342cee39766dab762c6cfc2891b4bdb8f001c7e0f733d619",
-      "description": "Generated add-path-value mutation targeting MOLIT-CV-MEDIATYPE-001-P-COMPRESSFORMAT-001; expected IDs were observed by the core SHACL lane.",
+      "sha256": "51957e41f1653c6ea6eb76b041c22dad1af0d4a187a4a12b5f92a24afc179d71",
+      "description": "Generated constraint-unit-MOLIT-CV-MEDIATYPE-001-P-COMPRESSFORMAT-001-add-path-value mutation targeting MOLIT-CV-MEDIATYPE-001-P-COMPRESSFORMAT-001; expected IDs were observed by the core constraint-unit SHACL lane.",
       "conformanceClass": [
         "core"
       ],
       "expectedOutcome": "violates",
       "coversRequirementIds": [
-        "MOLIT-CV-MEDIATYPE-001",
         "MOLIT-CV-MEDIATYPE-001-P-COMPRESSFORMAT-001"
       ],
       "expectedRequirementIds": [
-        "MOLIT-CV-MEDIATYPE-001",
         "MOLIT-CV-MEDIATYPE-001-P-COMPRESSFORMAT-001"
-      ]
+      ],
+      "atomicConditionFamilyIds": [
+        "MOLIT-CV-MEDIATYPE-001-P-COMPRESSFORMAT-001"
+      ],
+      "validationMode": "constraint-unit",
+      "targetRequirementId": "MOLIT-CV-MEDIATYPE-001-P-COMPRESSFORMAT-001"
     },
     {
       "fixtureId": "NEG-MUT-CV-MEDIATYPE-001-P-MEDIATYPE-001",
       "path": "examples/invalid/mutation-molit-cv-mediatype-001-p-mediatype-001.ttl",
-      "sha256": "17facafe6c97ce98197b5b4ad7f735726c55ef20cdb14fad25c5f451d41c2e78",
-      "description": "Generated replace-path-value mutation targeting MOLIT-CV-MEDIATYPE-001-P-MEDIATYPE-001; expected IDs were observed by the core SHACL lane.",
+      "sha256": "d9706b859b19b69d72e4a1a85587f47f11170849f5507ffa16039de520742b41",
+      "description": "Generated constraint-unit-curated-UNAPPROVED-IANA-MEDIA-TYPE mutation targeting MOLIT-CV-MEDIATYPE-001-P-MEDIATYPE-001; expected IDs were observed by the core constraint-unit SHACL lane.",
       "conformanceClass": [
         "core"
       ],
       "expectedOutcome": "violates",
       "coversRequirementIds": [
-        "MOLIT-CV-MEDIATYPE-001",
         "MOLIT-CV-MEDIATYPE-001-P-MEDIATYPE-001"
       ],
       "expectedRequirementIds": [
-        "MOLIT-CV-MEDIATYPE-001",
         "MOLIT-CV-MEDIATYPE-001-P-MEDIATYPE-001"
-      ]
+      ],
+      "atomicConditionFamilyIds": [
+        "MOLIT-CV-MEDIATYPE-001-P-MEDIATYPE-001"
+      ],
+      "validationMode": "constraint-unit",
+      "targetRequirementId": "MOLIT-CV-MEDIATYPE-001-P-MEDIATYPE-001"
     },
     {
       "fixtureId": "NEG-MUT-CV-MEDIATYPE-001-P-PACKAGEFORMAT-001",
       "path": "examples/invalid/mutation-molit-cv-mediatype-001-p-packageformat-001.ttl",
-      "sha256": "e3c11d7ec01a66d13e9bcf51f26d5cf76c0bfec2c09eefc40a055847438aa73e",
-      "description": "Generated add-path-value mutation targeting MOLIT-CV-MEDIATYPE-001-P-PACKAGEFORMAT-001; expected IDs were observed by the core SHACL lane.",
+      "sha256": "c1f2aa9161e15efe3d2c102b4ec24929b9c587f7b06f10d12c944cd61275abfe",
+      "description": "Generated constraint-unit-MOLIT-CV-MEDIATYPE-001-P-PACKAGEFORMAT-001-add-path-value mutation targeting MOLIT-CV-MEDIATYPE-001-P-PACKAGEFORMAT-001; expected IDs were observed by the core constraint-unit SHACL lane.",
       "conformanceClass": [
         "core"
       ],
       "expectedOutcome": "violates",
       "coversRequirementIds": [
-        "MOLIT-CV-MEDIATYPE-001",
         "MOLIT-CV-MEDIATYPE-001-P-PACKAGEFORMAT-001"
       ],
       "expectedRequirementIds": [
-        "MOLIT-CV-MEDIATYPE-001",
         "MOLIT-CV-MEDIATYPE-001-P-PACKAGEFORMAT-001"
-      ]
+      ],
+      "atomicConditionFamilyIds": [
+        "MOLIT-CV-MEDIATYPE-001-P-PACKAGEFORMAT-001"
+      ],
+      "validationMode": "constraint-unit",
+      "targetRequirementId": "MOLIT-CV-MEDIATYPE-001-P-PACKAGEFORMAT-001"
     },
     {
       "fixtureId": "NEG-MUT-CV-MEDIATYPE-001-P-TYPE-001",
       "path": "examples/invalid/mutation-molit-cv-mediatype-001-p-type-001.ttl",
-      "sha256": "b5752400bd6d5f5b481f2845546b41ee64114c26647ce6367ada863be8301fc0",
-      "description": "Generated remove-path-values mutation targeting MOLIT-CV-MEDIATYPE-001-P-TYPE-001; expected IDs were observed by the core SHACL lane.",
+      "sha256": "c4ec0e1830008f34a29d3c6e905686963314e45cc6d47b7726602e4f4b5761d5",
+      "description": "Generated constraint-unit-MOLIT-CV-MEDIATYPE-001-P-TYPE-001-remove-path-values mutation targeting MOLIT-CV-MEDIATYPE-001-P-TYPE-001; expected IDs were observed by the core constraint-unit SHACL lane.",
       "conformanceClass": [
         "core"
       ],
       "expectedOutcome": "violates",
       "coversRequirementIds": [
-        "MOLIT-CV-MEDIATYPE-001",
         "MOLIT-CV-MEDIATYPE-001-P-TYPE-001"
       ],
       "expectedRequirementIds": [
-        "MOLIT-CV-MEDIATYPE-001",
         "MOLIT-CV-MEDIATYPE-001-P-TYPE-001"
-      ]
+      ],
+      "atomicConditionFamilyIds": [
+        "MOLIT-CV-MEDIATYPE-001-P-TYPE-001"
+      ],
+      "validationMode": "constraint-unit",
+      "targetRequirementId": "MOLIT-CV-MEDIATYPE-001-P-TYPE-001"
+    },
+    {
+      "fixtureId": "NEG-MUT-DEPRECATED-LOCAL-001",
+      "path": "examples/invalid/mutation-molit-deprecated-local-001.ttl",
+      "sha256": "e8f996bb94b696a800c01bae59502c1b77a71f6a73e743268cf77c34e665d919",
+      "description": "Generated constraint-unit-MOLIT-DEPRECATED-LOCAL-001-activate-prohibited-target mutation targeting MOLIT-DEPRECATED-LOCAL-001; expected IDs were observed by the publication-policy constraint-unit SHACL lane.",
+      "conformanceClass": [
+        "publication-policy"
+      ],
+      "expectedOutcome": "violates",
+      "coversRequirementIds": [
+        "MOLIT-DEPRECATED-LOCAL-001"
+      ],
+      "expectedRequirementIds": [
+        "MOLIT-DEPRECATED-LOCAL-001"
+      ],
+      "atomicConditionFamilyIds": [
+        "MOLIT-DEPRECATED-LOCAL-001"
+      ],
+      "validationMode": "constraint-unit",
+      "targetRequirementId": "MOLIT-DEPRECATED-LOCAL-001"
     },
     {
       "fixtureId": "NEG-MUT-DS-001-P-ACCESSRIGHTS-001",
       "path": "examples/invalid/mutation-molit-ds-001-p-accessrights-001.ttl",
-      "sha256": "1f6ea3345cc8a0f31c69bd8ff76773c1f97947ba61c30ac9bb5042bf6f05dcd0",
-      "description": "Generated remove-path-values mutation targeting MOLIT-DS-001-P-ACCESSRIGHTS-001; expected IDs were observed by the core SHACL lane.",
+      "sha256": "95fb12ef210d812e305cf5a9ceb1c7b0ad87c1096a2424af41e35a245b3279d8",
+      "description": "Generated remove-path-values mutation targeting MOLIT-DS-001-P-ACCESSRIGHTS-001; expected IDs were observed by the core profile SHACL lane.",
       "conformanceClass": [
         "core"
       ],
       "expectedOutcome": "violates",
       "coversRequirementIds": [
-        "MOLIT-DS-001",
         "MOLIT-DS-001-P-ACCESSRIGHTS-001"
       ],
       "expectedRequirementIds": [
-        "MOLIT-DS-001",
         "MOLIT-DS-001-P-ACCESSRIGHTS-001"
-      ]
+      ],
+      "atomicConditionFamilyIds": [
+        "MOLIT-DS-001-P-ACCESSRIGHTS-001"
+      ],
+      "validationMode": "profile",
+      "targetRequirementId": null
     },
     {
       "fixtureId": "NEG-MUT-DS-001-P-DESCRIPTION-001",
       "path": "examples/invalid/mutation-molit-ds-001-p-description-001.ttl",
-      "sha256": "08bb52ad903195d8e95526ef050e9bd7799538036391447196d82e7864812106",
-      "description": "Generated remove-path-values mutation targeting MOLIT-DS-001-P-DESCRIPTION-001; expected IDs were observed by the core SHACL lane.",
+      "sha256": "6405e2bedc4f01b5f3baca22e6a0845cf4e8a73ff55de60b6e4320f26bec1b48",
+      "description": "Generated constraint-unit-MOLIT-DS-001-P-DESCRIPTION-001-remove-path-values mutation targeting MOLIT-DS-001-P-DESCRIPTION-001; expected IDs were observed by the core constraint-unit SHACL lane.",
       "conformanceClass": [
         "core"
       ],
       "expectedOutcome": "violates",
       "coversRequirementIds": [
-        "MOLIT-DS-001",
         "MOLIT-DS-001-P-DESCRIPTION-001"
       ],
       "expectedRequirementIds": [
-        "MOLIT-DS-001",
         "MOLIT-DS-001-P-DESCRIPTION-001"
-      ]
+      ],
+      "atomicConditionFamilyIds": [
+        "MOLIT-DS-001-P-DESCRIPTION-001"
+      ],
+      "validationMode": "constraint-unit",
+      "targetRequirementId": "MOLIT-DS-001-P-DESCRIPTION-001"
     },
     {
       "fixtureId": "NEG-MUT-DS-001-P-IDENTIFIER-001",
       "path": "examples/invalid/mutation-molit-ds-001-p-identifier-001.ttl",
-      "sha256": "c8f6cff0306d036fea553e31944830e04a8961b3159e956c428d9d37339a32bb",
-      "description": "Generated remove-path-values mutation targeting MOLIT-DS-001-P-IDENTIFIER-001; expected IDs were observed by the core SHACL lane.",
+      "sha256": "36e5ec10fc656b68ff73d1dfeb95fe0838cb3093590a65d1049090466817fd00",
+      "description": "Generated add-path-value mutation targeting MOLIT-DS-001-P-IDENTIFIER-001; expected IDs were observed by the core profile SHACL lane.",
       "conformanceClass": [
         "core"
       ],
       "expectedOutcome": "violates",
       "coversRequirementIds": [
-        "MOLIT-DS-001",
         "MOLIT-DS-001-P-IDENTIFIER-001"
       ],
       "expectedRequirementIds": [
-        "MOLIT-DS-001",
         "MOLIT-DS-001-P-IDENTIFIER-001"
-      ]
+      ],
+      "atomicConditionFamilyIds": [
+        "MOLIT-DS-001-P-IDENTIFIER-001"
+      ],
+      "validationMode": "profile",
+      "targetRequirementId": null
     },
     {
       "fixtureId": "NEG-MUT-DS-001-P-ISSUED-001",
       "path": "examples/invalid/mutation-molit-ds-001-p-issued-001.ttl",
-      "sha256": "a798f41bcee4fd0e97c4fc97a1d7c7bb13df2ef25a4f1ef02e6875c209956877",
-      "description": "Generated replace-path-value mutation targeting MOLIT-DS-001-P-ISSUED-001; expected IDs were observed by the core SHACL lane.",
+      "sha256": "79147b13fb0333b04dda9a85a0049832df78484ee94a4f23947ae23d2add1d8d",
+      "description": "Generated constraint-unit-MOLIT-DS-001-P-ISSUED-001-replace-path-value mutation targeting MOLIT-DS-001-P-ISSUED-001; expected IDs were observed by the core constraint-unit SHACL lane.",
       "conformanceClass": [
         "core"
       ],
       "expectedOutcome": "violates",
       "coversRequirementIds": [
-        "MOLIT-DS-001",
         "MOLIT-DS-001-P-ISSUED-001"
       ],
       "expectedRequirementIds": [
-        "MOLIT-DS-001",
         "MOLIT-DS-001-P-ISSUED-001"
-      ]
+      ],
+      "atomicConditionFamilyIds": [
+        "MOLIT-DS-001-P-ISSUED-001"
+      ],
+      "validationMode": "constraint-unit",
+      "targetRequirementId": "MOLIT-DS-001-P-ISSUED-001"
     },
     {
       "fixtureId": "NEG-MUT-DS-001-P-MODIFIED-001",
       "path": "examples/invalid/mutation-molit-ds-001-p-modified-001.ttl",
-      "sha256": "20951b9093a87cc641f2602c2bef95718e19aa022d34ae7a715b35bd0e7ad798",
-      "description": "Generated remove-path-values mutation targeting MOLIT-DS-001-P-MODIFIED-001; expected IDs were observed by the core SHACL lane.",
+      "sha256": "bc2e52177eeb211e967ac5a0c0f86567f01845dc01127f0910edf1e2fb0bce47",
+      "description": "Generated remove-path-values mutation targeting MOLIT-DS-001-P-MODIFIED-001; expected IDs were observed by the core profile SHACL lane.",
       "conformanceClass": [
         "core"
       ],
       "expectedOutcome": "violates",
       "coversRequirementIds": [
-        "MOLIT-DS-001",
         "MOLIT-DS-001-P-MODIFIED-001"
       ],
       "expectedRequirementIds": [
-        "MOLIT-DS-001",
         "MOLIT-DS-001-P-MODIFIED-001"
-      ]
+      ],
+      "atomicConditionFamilyIds": [
+        "MOLIT-DS-001-P-MODIFIED-001"
+      ],
+      "validationMode": "profile",
+      "targetRequirementId": null
     },
     {
       "fixtureId": "NEG-MUT-DS-001-P-PATH-0E31B21B99-001",
       "path": "examples/invalid/mutation-molit-ds-001-p-path-0e31b21b99-001.ttl",
-      "sha256": "2e71a5eec1026470bb4ae471746986fe678c073fa04576951e28d5f8619d0844",
-      "description": "Generated remove-path-values mutation targeting MOLIT-DS-001-P-PATH-0E31B21B99-001; expected IDs were observed by the core SHACL lane.",
+      "sha256": "0f67866d79b7398337bc1c5179a7ac0bd3eaf98c30ddea76560191e488f7f323",
+      "description": "Generated add-path-value mutation targeting MOLIT-DS-001-P-PATH-0E31B21B99-001; expected IDs were observed by the core profile SHACL lane.",
       "conformanceClass": [
         "core"
       ],
       "expectedOutcome": "violates",
       "coversRequirementIds": [
-        "MOLIT-CAT-001",
-        "MOLIT-CAT-001-P-DATASET-001",
-        "MOLIT-CAT-REL-001",
-        "MOLIT-CAT-REL-001-P-PATH-DA00F2B2F6-001",
-        "MOLIT-DS-001",
         "MOLIT-DS-001-P-PATH-0E31B21B99-001"
       ],
       "expectedRequirementIds": [
-        "MOLIT-CAT-001",
-        "MOLIT-CAT-001-P-DATASET-001",
-        "MOLIT-CAT-REL-001",
-        "MOLIT-CAT-REL-001-P-PATH-DA00F2B2F6-001",
-        "MOLIT-DS-001",
         "MOLIT-DS-001-P-PATH-0E31B21B99-001"
-      ]
+      ],
+      "atomicConditionFamilyIds": [
+        "MOLIT-DS-001-P-PATH-0E31B21B99-001"
+      ],
+      "validationMode": "profile",
+      "targetRequirementId": null
     },
     {
       "fixtureId": "NEG-MUT-DS-001-P-PATH-30F94DAB87-001",
       "path": "examples/invalid/mutation-molit-ds-001-p-path-30f94dab87-001.ttl",
-      "sha256": "4be230e7d37641f5764d18fac1b861e48153ac36bd9a5aece5782db18c76765a",
-      "description": "Generated remove-path-values mutation targeting MOLIT-DS-001-P-PATH-30F94DAB87-001; expected IDs were observed by the core SHACL lane.",
+      "sha256": "f79e16cb52ba7a09599192d6e07ed73eb7665cdc2b933281a75470a1d1b1f090",
+      "description": "Generated add-path-value mutation targeting MOLIT-DS-001-P-PATH-30F94DAB87-001; expected IDs were observed by the core profile SHACL lane.",
       "conformanceClass": [
         "core"
       ],
       "expectedOutcome": "violates",
       "coversRequirementIds": [
-        "MOLIT-CAT-REL-001",
-        "MOLIT-CAT-REL-001-P-PATH-DA00F2B2F6-001",
-        "MOLIT-DS-001",
-        "MOLIT-DS-001-P-PATH-30F94DAB87-001",
-        "MOLIT-REC-001",
-        "MOLIT-REC-001-P-PRIMARYTOPIC-001"
+        "MOLIT-DS-001-P-PATH-30F94DAB87-001"
       ],
       "expectedRequirementIds": [
-        "MOLIT-CAT-REL-001",
-        "MOLIT-CAT-REL-001-P-PATH-DA00F2B2F6-001",
-        "MOLIT-DS-001",
-        "MOLIT-DS-001-P-PATH-30F94DAB87-001",
-        "MOLIT-REC-001",
-        "MOLIT-REC-001-P-PRIMARYTOPIC-001"
-      ]
+        "MOLIT-DS-001-P-PATH-30F94DAB87-001"
+      ],
+      "atomicConditionFamilyIds": [
+        "MOLIT-DS-001-P-PATH-30F94DAB87-001"
+      ],
+      "validationMode": "profile",
+      "targetRequirementId": null
     },
     {
       "fixtureId": "NEG-MUT-DS-001-P-PUBLISHER-001",
       "path": "examples/invalid/mutation-molit-ds-001-p-publisher-001.ttl",
-      "sha256": "abe2026f41c4e8c63137ffb1ec873d04099616d77b9196fee3b32ffb9f596cce",
-      "description": "Generated remove-path-values mutation targeting MOLIT-DS-001-P-PUBLISHER-001; expected IDs were observed by the core SHACL lane.",
+      "sha256": "9d06dcf445482a15ad36b6351f9d8068e8853947db7cae5b1105afd06fe2b019",
+      "description": "Generated remove-path-values mutation targeting MOLIT-DS-001-P-PUBLISHER-001; expected IDs were observed by the core profile SHACL lane.",
       "conformanceClass": [
         "core"
       ],
       "expectedOutcome": "violates",
       "coversRequirementIds": [
-        "MOLIT-DS-001",
         "MOLIT-DS-001-P-PUBLISHER-001"
       ],
       "expectedRequirementIds": [
-        "MOLIT-DS-001",
         "MOLIT-DS-001-P-PUBLISHER-001"
-      ]
+      ],
+      "atomicConditionFamilyIds": [
+        "MOLIT-DS-001-P-PUBLISHER-001"
+      ],
+      "validationMode": "profile",
+      "targetRequirementId": null
     },
     {
       "fixtureId": "NEG-MUT-DS-001-P-THEME-001",
       "path": "examples/invalid/mutation-molit-ds-001-p-theme-001.ttl",
-      "sha256": "99dc0ca2a0e7b97ac7676b3473f7676fb4f45eaa16eb7b786f5958be8cc46fb8",
-      "description": "Generated remove-path-values mutation targeting MOLIT-DS-001-P-THEME-001; expected IDs were observed by the core SHACL lane.",
+      "sha256": "3d26cc0af93c80e463a529ad6c96507eedd8fa2cbb63ae5a0194e04833a2a0f4",
+      "description": "Generated constraint-unit-curated-ROGUE-THEME mutation targeting MOLIT-DS-001-P-THEME-001; expected IDs were observed by the core constraint-unit SHACL lane.",
       "conformanceClass": [
         "core"
       ],
       "expectedOutcome": "violates",
       "coversRequirementIds": [
-        "MOLIT-DS-001",
-        "MOLIT-DS-001-P-THEME-001",
-        "MOLIT-DS-001-P-THEME-002"
+        "MOLIT-DS-001-P-THEME-001"
       ],
       "expectedRequirementIds": [
-        "MOLIT-DS-001",
-        "MOLIT-DS-001-P-THEME-001",
-        "MOLIT-DS-001-P-THEME-002"
-      ]
+        "MOLIT-DS-001-P-THEME-001"
+      ],
+      "atomicConditionFamilyIds": [
+        "MOLIT-DS-001-P-THEME-001"
+      ],
+      "validationMode": "constraint-unit",
+      "targetRequirementId": "MOLIT-DS-001-P-THEME-001"
     },
     {
       "fixtureId": "NEG-MUT-DS-001-P-THEME-002",
       "path": "examples/invalid/mutation-molit-ds-001-p-theme-002.ttl",
-      "sha256": "99dc0ca2a0e7b97ac7676b3473f7676fb4f45eaa16eb7b786f5958be8cc46fb8",
-      "description": "Generated remove-path-values mutation targeting MOLIT-DS-001-P-THEME-002; expected IDs were observed by the core SHACL lane.",
+      "sha256": "f66f709e3c075e7446a69158289c37cd2e4ec42c0b0621021f85f6eb69a64c6e",
+      "description": "Generated constraint-unit-MOLIT-DS-001-P-THEME-001-remove-path-values mutation targeting MOLIT-DS-001-P-THEME-002; expected IDs were observed by the core constraint-unit SHACL lane.",
       "conformanceClass": [
         "core"
       ],
       "expectedOutcome": "violates",
       "coversRequirementIds": [
-        "MOLIT-DS-001",
-        "MOLIT-DS-001-P-THEME-001",
         "MOLIT-DS-001-P-THEME-002"
       ],
       "expectedRequirementIds": [
-        "MOLIT-DS-001",
-        "MOLIT-DS-001-P-THEME-001",
         "MOLIT-DS-001-P-THEME-002"
-      ]
+      ],
+      "atomicConditionFamilyIds": [
+        "MOLIT-DS-001-P-THEME-002"
+      ],
+      "validationMode": "constraint-unit",
+      "targetRequirementId": "MOLIT-DS-001-P-THEME-002"
     },
     {
       "fixtureId": "NEG-MUT-DS-001-P-TITLE-001",
       "path": "examples/invalid/mutation-molit-ds-001-p-title-001.ttl",
-      "sha256": "b342d11856380fd819128e76f6295afd038c17a98984416124210e197bd69cd3",
-      "description": "Generated remove-path-values mutation targeting MOLIT-DS-001-P-TITLE-001; expected IDs were observed by the core SHACL lane.",
+      "sha256": "8a9c553624853702b632d51961b24300181912993f3a415a736758d0cd223dbf",
+      "description": "Generated constraint-unit-MOLIT-DS-001-P-TITLE-001-remove-path-values mutation targeting MOLIT-DS-001-P-TITLE-001; expected IDs were observed by the core constraint-unit SHACL lane.",
       "conformanceClass": [
         "core"
       ],
       "expectedOutcome": "violates",
       "coversRequirementIds": [
-        "MOLIT-DS-001",
         "MOLIT-DS-001-P-TITLE-001"
       ],
       "expectedRequirementIds": [
-        "MOLIT-DS-001",
         "MOLIT-DS-001-P-TITLE-001"
-      ]
+      ],
+      "atomicConditionFamilyIds": [
+        "MOLIT-DS-001-P-TITLE-001"
+      ],
+      "validationMode": "constraint-unit",
+      "targetRequirementId": "MOLIT-DS-001-P-TITLE-001"
+    },
+    {
+      "fixtureId": "NEG-MUT-GEO-001",
+      "path": "examples/invalid/mutation-molit-geo-001.ttl",
+      "sha256": "3fb9f38b018c2d526c243efee75aa33a28cfcbeafe83c8140b6e3f89b01cb93e",
+      "description": "Generated constraint-unit-MOLIT-GEO-DISCLOSURE-001-replace-disclosure-with-withheld mutation targeting MOLIT-GEO-001; expected IDs were observed by the geo constraint-unit SHACL lane.",
+      "conformanceClass": [
+        "geo"
+      ],
+      "expectedOutcome": "violates",
+      "coversRequirementIds": [
+        "MOLIT-GEO-001"
+      ],
+      "expectedRequirementIds": [
+        "MOLIT-GEO-001"
+      ],
+      "atomicConditionFamilyIds": [
+        "MOLIT-GEO-001"
+      ],
+      "validationMode": "constraint-unit",
+      "targetRequirementId": "MOLIT-GEO-001"
     },
     {
       "fixtureId": "NEG-MUT-GEO-001-P-REFERENCESYSTEM-001",
       "path": "examples/invalid/mutation-molit-geo-001-p-referencesystem-001.ttl",
-      "sha256": "f17c146246d3fca0c77dd8aab24873f1de23231bb6437c79b0e5a83e0809ec6b",
-      "description": "Generated remove-path-values mutation targeting MOLIT-GEO-001-P-REFERENCESYSTEM-001; expected IDs were observed by the geo SHACL lane.",
+      "sha256": "d303eadeb02b13184894ff5354fa1acf70b7bc706afa3e79e4b7c4c50ce9cf72",
+      "description": "Generated remove-path-values mutation targeting MOLIT-GEO-001-P-REFERENCESYSTEM-001; expected IDs were observed by the geo profile SHACL lane.",
       "conformanceClass": [
         "geo"
       ],
@@ -707,77 +670,81 @@
       "expectedRequirementIds": [
         "MOLIT-GEO-001",
         "MOLIT-GEO-001-P-REFERENCESYSTEM-001"
-      ]
+      ],
+      "atomicConditionFamilyIds": [
+        "MOLIT-GEO-001-P-REFERENCESYSTEM-001"
+      ],
+      "validationMode": "profile",
+      "targetRequirementId": null
     },
     {
       "fixtureId": "NEG-MUT-GEO-001-P-SPATIALDISCLOSURELEVEL-001",
       "path": "examples/invalid/mutation-molit-geo-001-p-spatialdisclosurelevel-001.ttl",
-      "sha256": "a6753257c747f86ae9e98b82c31f617445f8422bde6528de472fed9d6d270408",
-      "description": "Generated remove-path-values mutation targeting MOLIT-GEO-001-P-SPATIALDISCLOSURELEVEL-001; expected IDs were observed by the geo SHACL lane.",
+      "sha256": "ccb4cc46215bc1993cdff6857041540092a9acd06c9965f7479260a5f3746e79",
+      "description": "Generated constraint-unit-MOLIT-GEO-001-P-SPATIALDISCLOSURELEVEL-001-remove-path-values mutation targeting MOLIT-GEO-001-P-SPATIALDISCLOSURELEVEL-001; expected IDs were observed by the geo constraint-unit SHACL lane.",
       "conformanceClass": [
         "geo"
       ],
       "expectedOutcome": "violates",
       "coversRequirementIds": [
-        "MOLIT-GEO-001",
-        "MOLIT-GEO-001-P-SPATIALDISCLOSURELEVEL-001",
-        "MOLIT-GEO-LINK-001",
-        "MOLIT-GEO-LINK-001-P-PATH-BFC98936CC-001",
-        "MOLIT-GEO-LINK-002",
-        "MOLIT-GEO-LINK-002-P-PATH-D6567CFAEC-001"
+        "MOLIT-GEO-001-P-SPATIALDISCLOSURELEVEL-001"
       ],
       "expectedRequirementIds": [
-        "MOLIT-GEO-001",
-        "MOLIT-GEO-001-P-SPATIALDISCLOSURELEVEL-001",
-        "MOLIT-GEO-LINK-001",
-        "MOLIT-GEO-LINK-001-P-PATH-BFC98936CC-001",
-        "MOLIT-GEO-LINK-002",
-        "MOLIT-GEO-LINK-002-P-PATH-D6567CFAEC-001"
-      ]
+        "MOLIT-GEO-001-P-SPATIALDISCLOSURELEVEL-001"
+      ],
+      "atomicConditionFamilyIds": [
+        "MOLIT-GEO-001-P-SPATIALDISCLOSURELEVEL-001"
+      ],
+      "validationMode": "constraint-unit",
+      "targetRequirementId": "MOLIT-GEO-001-P-SPATIALDISCLOSURELEVEL-001"
     },
     {
       "fixtureId": "NEG-MUT-GEO-001-P-SPATIALRESOLUTIONINMETERS-001",
       "path": "examples/invalid/mutation-molit-geo-001-p-spatialresolutioninmeters-001.ttl",
-      "sha256": "f9eec531e918615a7e29686cf075474c0ff4c9fc47abf9dbb7a2dc75c93b328a",
-      "description": "Generated replace-path-value mutation targeting MOLIT-GEO-001-P-SPATIALRESOLUTIONINMETERS-001; expected IDs were observed by the geo SHACL lane.",
+      "sha256": "24296b47c6d8d8cbf6c1781e12fa8856119a87844849fd9bde6580171eb65d92",
+      "description": "Generated constraint-unit-MOLIT-GEO-001-P-SPATIALRESOLUTIONINMETERS-001-replace-path-value mutation targeting MOLIT-GEO-001-P-SPATIALRESOLUTIONINMETERS-001; expected IDs were observed by the geo constraint-unit SHACL lane.",
       "conformanceClass": [
         "geo"
       ],
       "expectedOutcome": "violates",
       "coversRequirementIds": [
-        "MOLIT-GEO-001",
         "MOLIT-GEO-001-P-SPATIALRESOLUTIONINMETERS-001"
       ],
       "expectedRequirementIds": [
-        "MOLIT-GEO-001",
         "MOLIT-GEO-001-P-SPATIALRESOLUTIONINMETERS-001"
-      ]
+      ],
+      "atomicConditionFamilyIds": [
+        "MOLIT-GEO-001-P-SPATIALRESOLUTIONINMETERS-001"
+      ],
+      "validationMode": "constraint-unit",
+      "targetRequirementId": "MOLIT-GEO-001-P-SPATIALRESOLUTIONINMETERS-001"
     },
     {
       "fixtureId": "NEG-MUT-GEO-001-P-TYPE-001",
       "path": "examples/invalid/mutation-molit-geo-001-p-type-001.ttl",
-      "sha256": "aa0cf78ff163df8da6fbb40dfb39d9a0972f6793eeff266f12159bf88891b5e2",
-      "description": "Generated remove-required-value mutation targeting MOLIT-GEO-001-P-TYPE-001; expected IDs were observed by the geo SHACL lane.",
+      "sha256": "a6904a1c5020fd0765b9e67b590c17769e2689f195dfd3c553cdf75f14b5e870",
+      "description": "Generated constraint-unit-MOLIT-GEO-001-P-TYPE-001-remove-required-value mutation targeting MOLIT-GEO-001-P-TYPE-001; expected IDs were observed by the geo constraint-unit SHACL lane.",
       "conformanceClass": [
         "geo"
       ],
       "expectedOutcome": "violates",
       "coversRequirementIds": [
-        "MOLIT-GEO-001",
-        "MOLIT-GEO-001-P-TYPE-001",
-        "MOLIT-GEO-DISCLOSURE-002"
+        "MOLIT-GEO-001-P-TYPE-001"
       ],
       "expectedRequirementIds": [
-        "MOLIT-GEO-001",
-        "MOLIT-GEO-001-P-TYPE-001",
-        "MOLIT-GEO-DISCLOSURE-002"
-      ]
+        "MOLIT-GEO-001-P-TYPE-001"
+      ],
+      "atomicConditionFamilyIds": [
+        "MOLIT-GEO-001-P-TYPE-001"
+      ],
+      "validationMode": "constraint-unit",
+      "targetRequirementId": "MOLIT-GEO-001-P-TYPE-001"
     },
     {
       "fixtureId": "NEG-MUT-GEO-DISCLOSURE-001",
       "path": "examples/invalid/mutation-molit-geo-disclosure-001.ttl",
-      "sha256": "1a6839c3fa92abca567c43dd143ac0acf845deea8672bd5b2131ef883bd62900",
-      "description": "Generated replace-disclosure-with-withheld mutation targeting MOLIT-GEO-DISCLOSURE-001; expected IDs were observed by the geo SHACL lane.",
+      "sha256": "a33312e4ff1d3cd87102dbd6298624c6b8e4d97e753d24eee0382bab9f256c64",
+      "description": "Generated replace-disclosure-with-withheld mutation targeting MOLIT-GEO-DISCLOSURE-001; expected IDs were observed by the geo profile SHACL lane.",
       "conformanceClass": [
         "geo"
       ],
@@ -787,31 +754,83 @@
       ],
       "expectedRequirementIds": [
         "MOLIT-GEO-DISCLOSURE-001"
-      ]
+      ],
+      "atomicConditionFamilyIds": [
+        "MOLIT-GEO-DISCLOSURE-001"
+      ],
+      "validationMode": "profile",
+      "targetRequirementId": null
+    },
+    {
+      "fixtureId": "NEG-MUT-GEO-DISCLOSURE-001-P-SPATIALDISCLOSURELEVEL-001",
+      "path": "examples/invalid/mutation-molit-geo-disclosure-001-p-spatialdisclosurelevel-001.ttl",
+      "sha256": "5352c641e9d3f33af73a6facae1cd34395daff1c5b1a51d2cd1a389f6b0f0c0a",
+      "description": "Generated add-path-value mutation targeting MOLIT-GEO-DISCLOSURE-001-P-SPATIALDISCLOSURELEVEL-001; expected IDs were observed by the geo profile SHACL lane.",
+      "conformanceClass": [
+        "geo"
+      ],
+      "expectedOutcome": "violates",
+      "coversRequirementIds": [
+        "MOLIT-GEO-DISCLOSURE-001",
+        "MOLIT-GEO-DISCLOSURE-001-P-SPATIALDISCLOSURELEVEL-001"
+      ],
+      "expectedRequirementIds": [
+        "MOLIT-GEO-DISCLOSURE-001",
+        "MOLIT-GEO-DISCLOSURE-001-P-SPATIALDISCLOSURELEVEL-001"
+      ],
+      "atomicConditionFamilyIds": [
+        "MOLIT-GEO-DISCLOSURE-001-P-SPATIALDISCLOSURELEVEL-001"
+      ],
+      "validationMode": "profile",
+      "targetRequirementId": null
+    },
+    {
+      "fixtureId": "NEG-MUT-GEO-DISCLOSURE-002",
+      "path": "examples/invalid/mutation-molit-geo-disclosure-002.ttl",
+      "sha256": "a6904a1c5020fd0765b9e67b590c17769e2689f195dfd3c553cdf75f14b5e870",
+      "description": "Generated constraint-unit-MOLIT-GEO-001-P-TYPE-001-remove-required-value mutation targeting MOLIT-GEO-DISCLOSURE-002; expected IDs were observed by the geo constraint-unit SHACL lane.",
+      "conformanceClass": [
+        "geo"
+      ],
+      "expectedOutcome": "violates",
+      "coversRequirementIds": [
+        "MOLIT-GEO-DISCLOSURE-002"
+      ],
+      "expectedRequirementIds": [
+        "MOLIT-GEO-DISCLOSURE-002"
+      ],
+      "atomicConditionFamilyIds": [
+        "MOLIT-GEO-DISCLOSURE-002"
+      ],
+      "validationMode": "constraint-unit",
+      "targetRequirementId": "MOLIT-GEO-DISCLOSURE-002"
     },
     {
       "fixtureId": "NEG-MUT-GEO-ENCODING-001",
       "path": "examples/invalid/mutation-molit-geo-encoding-001.ttl",
-      "sha256": "c1d56503357d60805bc2083a455574cb10fe33ca058aadf32b35c2a7ecfecbaa",
-      "description": "Generated add-target-object mutation targeting MOLIT-GEO-ENCODING-001; expected IDs were observed by the geo SHACL lane.",
+      "sha256": "d9413e8526ed969b4fae8fac4c6ba29865c1dff1d2bc3373b12acc6d27532057",
+      "description": "Generated constraint-unit-MOLIT-GEO-ENCODING-001-add-target-object mutation targeting MOLIT-GEO-ENCODING-001; expected IDs were observed by the geo constraint-unit SHACL lane.",
       "conformanceClass": [
         "geo"
       ],
       "expectedOutcome": "violates",
       "coversRequirementIds": [
-        "MOLIT-GEO-ENCODING-001",
-        "MOLIT-GEO-TYPE-001"
+        "MOLIT-GEO-ENCODING-001"
       ],
       "expectedRequirementIds": [
-        "MOLIT-GEO-ENCODING-001",
-        "MOLIT-GEO-TYPE-001"
-      ]
+        "MOLIT-GEO-ENCODING-001"
+      ],
+      "atomicConditionFamilyIds": [
+        "MOLIT-GEO-ENCODING-001"
+      ],
+      "validationMode": "constraint-unit",
+      "targetRequirementId": "MOLIT-GEO-ENCODING-001"
     },
     {
       "fixtureId": "NEG-MUT-GEO-ENCODING-002",
       "path": "examples/invalid/mutation-molit-geo-encoding-002.ttl",
-      "sha256": "417d115abcae829629cc2849c37d4e7ea20437cf565d0f1ebc682f5c008d0c42",
-      "description": "Generated add-target-object mutation targeting MOLIT-GEO-ENCODING-002; expected IDs were observed by the geo SHACL lane.",
+      "sha256": "76a36ea3c17c2b2592549d38e76bc7fedd2afa7a01d3a22ee1ee6a06c5620ab3",
+      "description": "Generated add-target-object mutation targeting MOLIT-GEO-ENCODING-002; expected IDs were observed by the geo profile SHACL lane.",
       "conformanceClass": [
         "geo"
       ],
@@ -821,31 +840,39 @@
       ],
       "expectedRequirementIds": [
         "MOLIT-GEO-ENCODING-002"
-      ]
+      ],
+      "atomicConditionFamilyIds": [
+        "MOLIT-GEO-ENCODING-002"
+      ],
+      "validationMode": "profile",
+      "targetRequirementId": null
     },
     {
       "fixtureId": "NEG-MUT-GEO-ENCODING-003",
       "path": "examples/invalid/mutation-molit-geo-encoding-003.ttl",
-      "sha256": "9485264cc7f8151553f19fcfc72ba928ff56f2c1191143ff9d74455d22bb3068",
-      "description": "Generated add-target-object mutation targeting MOLIT-GEO-ENCODING-003; expected IDs were observed by the geo SHACL lane.",
+      "sha256": "069ecc3fe9d6e85f85954aa684c9fe1c207ae77dc86f37f92ae11050394220ce",
+      "description": "Generated constraint-unit-MOLIT-GEO-TYPE-003-add-target-object mutation targeting MOLIT-GEO-ENCODING-003; expected IDs were observed by the geo constraint-unit SHACL lane.",
       "conformanceClass": [
         "geo"
       ],
       "expectedOutcome": "violates",
       "coversRequirementIds": [
-        "MOLIT-GEO-ENCODING-003",
-        "MOLIT-GEO-TYPE-003"
+        "MOLIT-GEO-ENCODING-003"
       ],
       "expectedRequirementIds": [
-        "MOLIT-GEO-ENCODING-003",
-        "MOLIT-GEO-TYPE-003"
-      ]
+        "MOLIT-GEO-ENCODING-003"
+      ],
+      "atomicConditionFamilyIds": [
+        "MOLIT-GEO-ENCODING-003"
+      ],
+      "validationMode": "constraint-unit",
+      "targetRequirementId": "MOLIT-GEO-ENCODING-003"
     },
     {
       "fixtureId": "NEG-MUT-GEO-ENCODING-004",
       "path": "examples/invalid/mutation-molit-geo-encoding-004.ttl",
-      "sha256": "5e90421ea94a1ea33b59b961a337ac3ab05caed9d873fd2f76a72f277c9b0570",
-      "description": "Generated add-target-object mutation targeting MOLIT-GEO-ENCODING-004; expected IDs were observed by the geo SHACL lane.",
+      "sha256": "1f22836a671797146063a5e2e7d3f72dd9cd76b616e0c8ebd71d04a0ad8d814c",
+      "description": "Generated constraint-unit-MOLIT-GEO-ENCODING-004-add-target-object mutation targeting MOLIT-GEO-ENCODING-004; expected IDs were observed by the geo constraint-unit SHACL lane.",
       "conformanceClass": [
         "geo"
       ],
@@ -855,145 +882,186 @@
       ],
       "expectedRequirementIds": [
         "MOLIT-GEO-ENCODING-004"
-      ]
+      ],
+      "atomicConditionFamilyIds": [
+        "MOLIT-GEO-ENCODING-004"
+      ],
+      "validationMode": "constraint-unit",
+      "targetRequirementId": "MOLIT-GEO-ENCODING-004"
     },
     {
       "fixtureId": "NEG-MUT-GEO-ENCODING-005-P-ASDGGS-001",
       "path": "examples/invalid/mutation-molit-geo-encoding-005-p-asdggs-001.ttl",
-      "sha256": "fdbefdbd033ad2f9161203dd45b3a031d6ed92401720a5ca7b09630ab0cb25df",
-      "description": "Generated add-path-value mutation targeting MOLIT-GEO-ENCODING-005-P-ASDGGS-001; expected IDs were observed by the geo SHACL lane.",
+      "sha256": "4219f2e4583fde14b0255a6278d6eba24575c60ee61aab1c9278f7f861829c2a",
+      "description": "Generated add-path-value mutation targeting MOLIT-GEO-ENCODING-005-P-ASDGGS-001; expected IDs were observed by the geo profile SHACL lane.",
       "conformanceClass": [
         "geo"
       ],
       "expectedOutcome": "violates",
       "coversRequirementIds": [
-        "MOLIT-GEO-ENCODING-005",
         "MOLIT-GEO-ENCODING-005-P-ASDGGS-001"
       ],
       "expectedRequirementIds": [
-        "MOLIT-GEO-ENCODING-005",
         "MOLIT-GEO-ENCODING-005-P-ASDGGS-001"
-      ]
+      ],
+      "atomicConditionFamilyIds": [
+        "MOLIT-GEO-ENCODING-005-P-ASDGGS-001"
+      ],
+      "validationMode": "profile",
+      "targetRequirementId": null
     },
     {
       "fixtureId": "NEG-MUT-GEO-ENCODING-005-P-ASGEOJSON-001",
       "path": "examples/invalid/mutation-molit-geo-encoding-005-p-asgeojson-001.ttl",
-      "sha256": "c79e203a0b4dd504912d4d66cb1b3828ca400ed9566121415e9a81ee75c8be21",
-      "description": "Generated add-path-value mutation targeting MOLIT-GEO-ENCODING-005-P-ASGEOJSON-001; expected IDs were observed by the geo SHACL lane.",
+      "sha256": "0bdc9de4675a1a32faa7eb7035cbc2fdd35456f6434e677f145fed10f3dcb478",
+      "description": "Generated add-path-value mutation targeting MOLIT-GEO-ENCODING-005-P-ASGEOJSON-001; expected IDs were observed by the geo profile SHACL lane.",
       "conformanceClass": [
         "geo"
       ],
       "expectedOutcome": "violates",
       "coversRequirementIds": [
-        "MOLIT-GEO-ENCODING-005",
         "MOLIT-GEO-ENCODING-005-P-ASGEOJSON-001"
       ],
       "expectedRequirementIds": [
-        "MOLIT-GEO-ENCODING-005",
         "MOLIT-GEO-ENCODING-005-P-ASGEOJSON-001"
-      ]
+      ],
+      "atomicConditionFamilyIds": [
+        "MOLIT-GEO-ENCODING-005-P-ASGEOJSON-001"
+      ],
+      "validationMode": "profile",
+      "targetRequirementId": null
     },
     {
       "fixtureId": "NEG-MUT-GEO-ENCODING-005-P-ASKML-001",
       "path": "examples/invalid/mutation-molit-geo-encoding-005-p-askml-001.ttl",
-      "sha256": "29a09a37f04bceb127e2b2f5a8e0d043214141e01973debdb2b65fd7bfd430f2",
-      "description": "Generated add-path-value mutation targeting MOLIT-GEO-ENCODING-005-P-ASKML-001; expected IDs were observed by the geo SHACL lane.",
+      "sha256": "bf17d70b28066e1c279d58426d7e6fdf166a7a955b884bb1ebae5d0d8b695712",
+      "description": "Generated add-path-value mutation targeting MOLIT-GEO-ENCODING-005-P-ASKML-001; expected IDs were observed by the geo profile SHACL lane.",
       "conformanceClass": [
         "geo"
       ],
       "expectedOutcome": "violates",
       "coversRequirementIds": [
-        "MOLIT-GEO-ENCODING-005",
         "MOLIT-GEO-ENCODING-005-P-ASKML-001"
       ],
       "expectedRequirementIds": [
-        "MOLIT-GEO-ENCODING-005",
         "MOLIT-GEO-ENCODING-005-P-ASKML-001"
-      ]
+      ],
+      "atomicConditionFamilyIds": [
+        "MOLIT-GEO-ENCODING-005-P-ASKML-001"
+      ],
+      "validationMode": "profile",
+      "targetRequirementId": null
     },
     {
       "fixtureId": "NEG-MUT-GEO-ENCODING-005-P-HASSERIALIZATION-001",
       "path": "examples/invalid/mutation-molit-geo-encoding-005-p-hasserialization-001.ttl",
-      "sha256": "752af780630da567887ea649cc679b3c017b20acc9348dbfada879d61be754e7",
-      "description": "Generated add-path-value mutation targeting MOLIT-GEO-ENCODING-005-P-HASSERIALIZATION-001; expected IDs were observed by the geo SHACL lane.",
+      "sha256": "5710d30f4c789761fad75235950a5323a8de80e68a2f0b91cf8646dadb1d6be4",
+      "description": "Generated add-path-value mutation targeting MOLIT-GEO-ENCODING-005-P-HASSERIALIZATION-001; expected IDs were observed by the geo profile SHACL lane.",
       "conformanceClass": [
         "geo"
       ],
       "expectedOutcome": "violates",
       "coversRequirementIds": [
-        "MOLIT-GEO-ENCODING-005",
         "MOLIT-GEO-ENCODING-005-P-HASSERIALIZATION-001"
       ],
       "expectedRequirementIds": [
-        "MOLIT-GEO-ENCODING-005",
         "MOLIT-GEO-ENCODING-005-P-HASSERIALIZATION-001"
-      ]
+      ],
+      "atomicConditionFamilyIds": [
+        "MOLIT-GEO-ENCODING-005-P-HASSERIALIZATION-001"
+      ],
+      "validationMode": "profile",
+      "targetRequirementId": null
     },
     {
       "fixtureId": "NEG-MUT-GEO-LINK-001-P-PATH-BFC98936CC-001",
       "path": "examples/invalid/mutation-molit-geo-link-001-p-path-bfc98936cc-001.ttl",
-      "sha256": "1c64c64c2d72ef2da64471b75da4a18988eadfc3e5e6c796d3f2a2a287f5e9ac",
-      "description": "Generated remove-path-values mutation targeting MOLIT-GEO-LINK-001-P-PATH-BFC98936CC-001; expected IDs were observed by the geo SHACL lane.",
+      "sha256": "ee41dd9da84bc1a8bc0f1c1f33df74b9200287b505fe38ba1d04ded6ea018cab",
+      "description": "Generated constraint-unit-MOLIT-GEO-LINK-001-P-PATH-BFC98936CC-001-remove-path-values mutation targeting MOLIT-GEO-LINK-001-P-PATH-BFC98936CC-001; expected IDs were observed by the geo constraint-unit SHACL lane.",
       "conformanceClass": [
         "geo"
       ],
       "expectedOutcome": "violates",
       "coversRequirementIds": [
-        "MOLIT-GEO-001",
-        "MOLIT-GEO-LINK-001",
-        "MOLIT-GEO-LINK-001-P-PATH-BFC98936CC-001",
-        "MOLIT-GEO-LINK-002",
+        "MOLIT-GEO-LINK-001-P-PATH-BFC98936CC-001"
+      ],
+      "expectedRequirementIds": [
+        "MOLIT-GEO-LINK-001-P-PATH-BFC98936CC-001"
+      ],
+      "atomicConditionFamilyIds": [
+        "MOLIT-GEO-LINK-001-P-PATH-BFC98936CC-001"
+      ],
+      "validationMode": "constraint-unit",
+      "targetRequirementId": "MOLIT-GEO-LINK-001-P-PATH-BFC98936CC-001"
+    },
+    {
+      "fixtureId": "NEG-MUT-GEO-LINK-002-P-PATH-D6567CFAEC-001",
+      "path": "examples/invalid/mutation-molit-geo-link-002-p-path-d6567cfaec-001.ttl",
+      "sha256": "ee41dd9da84bc1a8bc0f1c1f33df74b9200287b505fe38ba1d04ded6ea018cab",
+      "description": "Generated constraint-unit-MOLIT-GEO-LINK-001-P-PATH-BFC98936CC-001-remove-path-values mutation targeting MOLIT-GEO-LINK-002-P-PATH-D6567CFAEC-001; expected IDs were observed by the geo constraint-unit SHACL lane.",
+      "conformanceClass": [
+        "geo"
+      ],
+      "expectedOutcome": "violates",
+      "coversRequirementIds": [
         "MOLIT-GEO-LINK-002-P-PATH-D6567CFAEC-001"
       ],
       "expectedRequirementIds": [
-        "MOLIT-GEO-001",
-        "MOLIT-GEO-LINK-001",
-        "MOLIT-GEO-LINK-001-P-PATH-BFC98936CC-001",
-        "MOLIT-GEO-LINK-002",
         "MOLIT-GEO-LINK-002-P-PATH-D6567CFAEC-001"
-      ]
+      ],
+      "atomicConditionFamilyIds": [
+        "MOLIT-GEO-LINK-002-P-PATH-D6567CFAEC-001"
+      ],
+      "validationMode": "constraint-unit",
+      "targetRequirementId": "MOLIT-GEO-LINK-002-P-PATH-D6567CFAEC-001"
     },
     {
       "fixtureId": "NEG-MUT-GEO-PROFILE-001-P-CONFORMSTO-001",
       "path": "examples/invalid/mutation-molit-geo-profile-001-p-conformsto-001.ttl",
-      "sha256": "64eb04ee4cb35014ec43f667244ef9ff508af0e488d4ddde1c3e343379ca7a54",
-      "description": "Generated remove-path-values mutation targeting MOLIT-GEO-PROFILE-001-P-CONFORMSTO-001; expected IDs were observed by the geo SHACL lane.",
+      "sha256": "be61dc479336b050827f1ccdbe8d8ae642b943dc39f6e3d40453308b95f53857",
+      "description": "Generated remove-path-values mutation targeting MOLIT-GEO-PROFILE-001-P-CONFORMSTO-001; expected IDs were observed by the geo profile SHACL lane.",
       "conformanceClass": [
         "geo"
       ],
       "expectedOutcome": "violates",
       "coversRequirementIds": [
-        "MOLIT-GEO-PROFILE-001",
         "MOLIT-GEO-PROFILE-001-P-CONFORMSTO-001"
       ],
       "expectedRequirementIds": [
-        "MOLIT-GEO-PROFILE-001",
         "MOLIT-GEO-PROFILE-001-P-CONFORMSTO-001"
-      ]
+      ],
+      "atomicConditionFamilyIds": [
+        "MOLIT-GEO-PROFILE-001-P-CONFORMSTO-001"
+      ],
+      "validationMode": "profile",
+      "targetRequirementId": null
     },
     {
       "fixtureId": "NEG-MUT-GEO-PROFILE-002-P-CONFORMSTO-001",
       "path": "examples/invalid/mutation-molit-geo-profile-002-p-conformsto-001.ttl",
-      "sha256": "cc0eba38bcecce34fdbf75e02f6b08b6cbc73098d46e98595b42ecb210ade5f2",
-      "description": "Generated remove-path-values mutation targeting MOLIT-GEO-PROFILE-002-P-CONFORMSTO-001; expected IDs were observed by the geo SHACL lane.",
+      "sha256": "a80ef2761448f9caf9fd97caf5b1cfd75ab849c5971bc7b77c06f8d8ea163616",
+      "description": "Generated remove-path-values mutation targeting MOLIT-GEO-PROFILE-002-P-CONFORMSTO-001; expected IDs were observed by the geo profile SHACL lane.",
       "conformanceClass": [
         "geo"
       ],
       "expectedOutcome": "violates",
       "coversRequirementIds": [
-        "MOLIT-GEO-PROFILE-002",
         "MOLIT-GEO-PROFILE-002-P-CONFORMSTO-001"
       ],
       "expectedRequirementIds": [
-        "MOLIT-GEO-PROFILE-002",
         "MOLIT-GEO-PROFILE-002-P-CONFORMSTO-001"
-      ]
+      ],
+      "atomicConditionFamilyIds": [
+        "MOLIT-GEO-PROFILE-002-P-CONFORMSTO-001"
+      ],
+      "validationMode": "profile",
+      "targetRequirementId": null
     },
     {
       "fixtureId": "NEG-MUT-GEO-TYPE-001",
       "path": "examples/invalid/mutation-molit-geo-type-001.ttl",
-      "sha256": "e9ba2e745c72cbf02b870e27919b1ca8f507b6d01e01528061210a2873f52e1a",
-      "description": "Generated add-target-object mutation targeting MOLIT-GEO-TYPE-001; expected IDs were observed by the geo SHACL lane.",
+      "sha256": "ef9e023d42765837582924860879f620230024b25a3a0e95fb9d0282db5b00b8",
+      "description": "Generated add-target-object mutation targeting MOLIT-GEO-TYPE-001; expected IDs were observed by the geo profile SHACL lane.",
       "conformanceClass": [
         "geo"
       ],
@@ -1003,13 +1071,18 @@
       ],
       "expectedRequirementIds": [
         "MOLIT-GEO-TYPE-001"
-      ]
+      ],
+      "atomicConditionFamilyIds": [
+        "MOLIT-GEO-TYPE-001"
+      ],
+      "validationMode": "profile",
+      "targetRequirementId": null
     },
     {
       "fixtureId": "NEG-MUT-GEO-TYPE-002",
       "path": "examples/invalid/mutation-molit-geo-type-002.ttl",
-      "sha256": "710980d16e7c556f25cb1a5369deaf1051326a73edb3e55fc4cc2860ab02f82d",
-      "description": "Generated add-target-object mutation targeting MOLIT-GEO-TYPE-002; expected IDs were observed by the geo SHACL lane.",
+      "sha256": "a582d371d60310c007faaca1c2d881a54ec7618ae492f3a50f1ee5aee995a4bd",
+      "description": "Generated add-target-object mutation targeting MOLIT-GEO-TYPE-002; expected IDs were observed by the geo profile SHACL lane.",
       "conformanceClass": [
         "geo"
       ],
@@ -1019,31 +1092,39 @@
       ],
       "expectedRequirementIds": [
         "MOLIT-GEO-TYPE-002"
-      ]
+      ],
+      "atomicConditionFamilyIds": [
+        "MOLIT-GEO-TYPE-002"
+      ],
+      "validationMode": "profile",
+      "targetRequirementId": null
     },
     {
       "fixtureId": "NEG-MUT-GEO-TYPE-003",
       "path": "examples/invalid/mutation-molit-geo-type-003.ttl",
-      "sha256": "9485264cc7f8151553f19fcfc72ba928ff56f2c1191143ff9d74455d22bb3068",
-      "description": "Generated add-target-object mutation targeting MOLIT-GEO-TYPE-003; expected IDs were observed by the geo SHACL lane.",
+      "sha256": "069ecc3fe9d6e85f85954aa684c9fe1c207ae77dc86f37f92ae11050394220ce",
+      "description": "Generated constraint-unit-MOLIT-GEO-TYPE-003-add-target-object mutation targeting MOLIT-GEO-TYPE-003; expected IDs were observed by the geo constraint-unit SHACL lane.",
       "conformanceClass": [
         "geo"
       ],
       "expectedOutcome": "violates",
       "coversRequirementIds": [
-        "MOLIT-GEO-ENCODING-003",
         "MOLIT-GEO-TYPE-003"
       ],
       "expectedRequirementIds": [
-        "MOLIT-GEO-ENCODING-003",
         "MOLIT-GEO-TYPE-003"
-      ]
+      ],
+      "atomicConditionFamilyIds": [
+        "MOLIT-GEO-TYPE-003"
+      ],
+      "validationMode": "constraint-unit",
+      "targetRequirementId": "MOLIT-GEO-TYPE-003"
     },
     {
       "fixtureId": "NEG-MUT-GEO-TYPE-004",
       "path": "examples/invalid/mutation-molit-geo-type-004.ttl",
-      "sha256": "a1011bbb92a5ea4d39c4791d54b9043a865973c82856d2e5a4c519978e477011",
-      "description": "Generated add-target-object mutation targeting MOLIT-GEO-TYPE-004; expected IDs were observed by the geo SHACL lane.",
+      "sha256": "355831b17c989b393e2c43f4c1511008fee453b19d4d3ba10a7c9cedaf4dbc72",
+      "description": "Generated constraint-unit-MOLIT-GEO-ENCODING-003-add-target-object mutation targeting MOLIT-GEO-TYPE-004; expected IDs were observed by the geo constraint-unit SHACL lane.",
       "conformanceClass": [
         "geo"
       ],
@@ -1053,731 +1134,963 @@
       ],
       "expectedRequirementIds": [
         "MOLIT-GEO-TYPE-004"
-      ]
+      ],
+      "atomicConditionFamilyIds": [
+        "MOLIT-GEO-TYPE-004"
+      ],
+      "validationMode": "constraint-unit",
+      "targetRequirementId": "MOLIT-GEO-TYPE-004"
     },
     {
       "fixtureId": "NEG-MUT-NET-001-P-NETWORKREFERENCE-001",
       "path": "examples/invalid/mutation-molit-net-001-p-networkreference-001.ttl",
-      "sha256": "1e1d68aaf005b8ee570a29272f0f60e91d6ef298ed13d81e649e11dc9ca82942",
-      "description": "Generated remove-path-values mutation targeting MOLIT-NET-001-P-NETWORKREFERENCE-001; expected IDs were observed by the network SHACL lane.",
+      "sha256": "a57f1a394025bf3c20b62002b49f6e429b3ce17039b091b0d69e2562564b44c2",
+      "description": "Generated add-path-value mutation targeting MOLIT-NET-001-P-NETWORKREFERENCE-001; expected IDs were observed by the network profile SHACL lane.",
       "conformanceClass": [
         "network"
       ],
       "expectedOutcome": "violates",
       "coversRequirementIds": [
-        "MOLIT-NET-001",
         "MOLIT-NET-001-P-NETWORKREFERENCE-001"
       ],
       "expectedRequirementIds": [
-        "MOLIT-NET-001",
         "MOLIT-NET-001-P-NETWORKREFERENCE-001"
-      ]
+      ],
+      "atomicConditionFamilyIds": [
+        "MOLIT-NET-001-P-NETWORKREFERENCE-001"
+      ],
+      "validationMode": "profile",
+      "targetRequirementId": null
     },
     {
       "fixtureId": "NEG-MUT-NET-001-P-TRANSPORTMODE-001",
       "path": "examples/invalid/mutation-molit-net-001-p-transportmode-001.ttl",
-      "sha256": "c7de17f88f1b97c1bc4a9fb2049332a76a41806a99c9d6d20e775f433386df17",
-      "description": "Generated remove-path-values mutation targeting MOLIT-NET-001-P-TRANSPORTMODE-001; expected IDs were observed by the network SHACL lane.",
+      "sha256": "eccc7f91aa9060303eb901885f4c0a2f0763232ab1e529d2962665dc42f4c043",
+      "description": "Generated add-path-value mutation targeting MOLIT-NET-001-P-TRANSPORTMODE-001; expected IDs were observed by the network profile SHACL lane.",
       "conformanceClass": [
         "network"
       ],
       "expectedOutcome": "violates",
       "coversRequirementIds": [
-        "MOLIT-NET-001",
         "MOLIT-NET-001-P-TRANSPORTMODE-001"
       ],
       "expectedRequirementIds": [
-        "MOLIT-NET-001",
         "MOLIT-NET-001-P-TRANSPORTMODE-001"
-      ]
+      ],
+      "atomicConditionFamilyIds": [
+        "MOLIT-NET-001-P-TRANSPORTMODE-001"
+      ],
+      "validationMode": "profile",
+      "targetRequirementId": null
     },
     {
       "fixtureId": "NEG-MUT-NET-001-P-TYPE-001",
       "path": "examples/invalid/mutation-molit-net-001-p-type-001.ttl",
-      "sha256": "c5f59caed346ce8dc9f889540f2154f740c1c28e4b380d380802da7b5c69c19c",
-      "description": "Generated remove-required-value mutation targeting MOLIT-NET-001-P-TYPE-001; expected IDs were observed by the network SHACL lane.",
+      "sha256": "f450d0338801b260db57223135848e4dbbb3907a0dea54eba97a15b662d4ccaf",
+      "description": "Generated constraint-unit-MOLIT-NET-001-P-TYPE-001-remove-required-value mutation targeting MOLIT-NET-001-P-TYPE-001; expected IDs were observed by the network constraint-unit SHACL lane.",
       "conformanceClass": [
         "network"
       ],
       "expectedOutcome": "violates",
       "coversRequirementIds": [
-        "MOLIT-GEO-001",
-        "MOLIT-GEO-001-P-TYPE-001",
-        "MOLIT-GEO-DISCLOSURE-002",
-        "MOLIT-NET-001",
         "MOLIT-NET-001-P-TYPE-001"
       ],
       "expectedRequirementIds": [
-        "MOLIT-GEO-001",
-        "MOLIT-GEO-001-P-TYPE-001",
-        "MOLIT-GEO-DISCLOSURE-002",
-        "MOLIT-NET-001",
         "MOLIT-NET-001-P-TYPE-001"
-      ]
+      ],
+      "atomicConditionFamilyIds": [
+        "MOLIT-NET-001-P-TYPE-001"
+      ],
+      "validationMode": "constraint-unit",
+      "targetRequirementId": "MOLIT-NET-001-P-TYPE-001"
     },
     {
       "fixtureId": "NEG-MUT-NET-002-P-TYPE-001",
       "path": "examples/invalid/mutation-molit-net-002-p-type-001.ttl",
-      "sha256": "c4e90a64aee8c89cd163273138c3821066a3aa29ed3d571edfde1209dabb0f7e",
-      "description": "Generated remove-required-value mutation targeting MOLIT-NET-002-P-TYPE-001; expected IDs were observed by the network SHACL lane.",
+      "sha256": "d6fb203cf3574572369af74d09dc9f6dd06d221161f77a65c3542afa2455ab96",
+      "description": "Generated remove-required-value mutation targeting MOLIT-NET-002-P-TYPE-001; expected IDs were observed by the network profile SHACL lane.",
       "conformanceClass": [
         "network"
       ],
       "expectedOutcome": "violates",
       "coversRequirementIds": [
-        "MOLIT-NET-002",
         "MOLIT-NET-002-P-TYPE-001"
       ],
       "expectedRequirementIds": [
-        "MOLIT-NET-002",
         "MOLIT-NET-002-P-TYPE-001"
-      ]
+      ],
+      "atomicConditionFamilyIds": [
+        "MOLIT-NET-002-P-TYPE-001"
+      ],
+      "validationMode": "profile",
+      "targetRequirementId": null
     },
     {
       "fixtureId": "NEG-MUT-NET-REF-001-P-NETWORKAUTHORITY-001",
       "path": "examples/invalid/mutation-molit-net-ref-001-p-networkauthority-001.ttl",
-      "sha256": "5c33f29288bfc366e2e80d3c834722f754522a5646367634d244e56de053f744",
-      "description": "Generated remove-path-values mutation targeting MOLIT-NET-REF-001-P-NETWORKAUTHORITY-001; expected IDs were observed by the network SHACL lane.",
+      "sha256": "39090d6b4759a2a2d597e7c84a198f6bbbce183955901c97eb07809e4ad20be5",
+      "description": "Generated add-path-value mutation targeting MOLIT-NET-REF-001-P-NETWORKAUTHORITY-001; expected IDs were observed by the network profile SHACL lane.",
       "conformanceClass": [
         "network"
       ],
       "expectedOutcome": "violates",
       "coversRequirementIds": [
-        "MOLIT-NET-REF-001",
         "MOLIT-NET-REF-001-P-NETWORKAUTHORITY-001"
       ],
       "expectedRequirementIds": [
-        "MOLIT-NET-REF-001",
         "MOLIT-NET-REF-001-P-NETWORKAUTHORITY-001"
-      ]
+      ],
+      "atomicConditionFamilyIds": [
+        "MOLIT-NET-REF-001-P-NETWORKAUTHORITY-001"
+      ],
+      "validationMode": "profile",
+      "targetRequirementId": null
     },
     {
       "fixtureId": "NEG-MUT-NET-REF-001-P-NETWORKELEMENTTYPE-001",
       "path": "examples/invalid/mutation-molit-net-ref-001-p-networkelementtype-001.ttl",
-      "sha256": "75d7196391a85975917cec57ba813c518126fdae096dace1dcfc2a05f2fac29c",
-      "description": "Generated remove-path-values mutation targeting MOLIT-NET-REF-001-P-NETWORKELEMENTTYPE-001; expected IDs were observed by the network SHACL lane.",
+      "sha256": "78e66ac52b4eeb00c625473cf04c426229d91df7cfef54b3fc88dcfc60f39fb8",
+      "description": "Generated add-path-value mutation targeting MOLIT-NET-REF-001-P-NETWORKELEMENTTYPE-001; expected IDs were observed by the network profile SHACL lane.",
       "conformanceClass": [
         "network"
       ],
       "expectedOutcome": "violates",
       "coversRequirementIds": [
-        "MOLIT-NET-REF-001",
         "MOLIT-NET-REF-001-P-NETWORKELEMENTTYPE-001"
       ],
       "expectedRequirementIds": [
-        "MOLIT-NET-REF-001",
         "MOLIT-NET-REF-001-P-NETWORKELEMENTTYPE-001"
-      ]
+      ],
+      "atomicConditionFamilyIds": [
+        "MOLIT-NET-REF-001-P-NETWORKELEMENTTYPE-001"
+      ],
+      "validationMode": "profile",
+      "targetRequirementId": null
     },
     {
       "fixtureId": "NEG-MUT-NET-REF-001-P-NETWORKIDENTIFIER-001",
       "path": "examples/invalid/mutation-molit-net-ref-001-p-networkidentifier-001.ttl",
-      "sha256": "c0ba1414686d27a3c584ef50388f28cd296b082b2b5dbfe98b80ad5c9b75ed15",
-      "description": "Generated remove-path-values mutation targeting MOLIT-NET-REF-001-P-NETWORKIDENTIFIER-001; expected IDs were observed by the network SHACL lane.",
+      "sha256": "1035d80539b5d1c0e0f883060199d927c5e6df93f2880f907dc843f04c61dcb1",
+      "description": "Generated remove-path-values mutation targeting MOLIT-NET-REF-001-P-NETWORKIDENTIFIER-001; expected IDs were observed by the network profile SHACL lane.",
       "conformanceClass": [
         "network"
       ],
       "expectedOutcome": "violates",
       "coversRequirementIds": [
-        "MOLIT-NET-REF-001",
         "MOLIT-NET-REF-001-P-NETWORKIDENTIFIER-001"
       ],
       "expectedRequirementIds": [
-        "MOLIT-NET-REF-001",
         "MOLIT-NET-REF-001-P-NETWORKIDENTIFIER-001"
-      ]
+      ],
+      "atomicConditionFamilyIds": [
+        "MOLIT-NET-REF-001-P-NETWORKIDENTIFIER-001"
+      ],
+      "validationMode": "profile",
+      "targetRequirementId": null
     },
     {
       "fixtureId": "NEG-MUT-NET-REF-001-P-NETWORKVERSION-001",
       "path": "examples/invalid/mutation-molit-net-ref-001-p-networkversion-001.ttl",
-      "sha256": "c6749c5ec918a9ffaaeb7f438bd48f2ef2efe0c8c5ae99dd3c8afec1d85aa0b4",
-      "description": "Generated remove-path-values mutation targeting MOLIT-NET-REF-001-P-NETWORKVERSION-001; expected IDs were observed by the network SHACL lane.",
+      "sha256": "edab2be79555018138e76c3a9442df207750af0c93bea75bb36a7b3e360e0d46",
+      "description": "Generated remove-path-values mutation targeting MOLIT-NET-REF-001-P-NETWORKVERSION-001; expected IDs were observed by the network profile SHACL lane.",
       "conformanceClass": [
         "network"
       ],
       "expectedOutcome": "violates",
       "coversRequirementIds": [
-        "MOLIT-NET-REF-001",
         "MOLIT-NET-REF-001-P-NETWORKVERSION-001"
       ],
       "expectedRequirementIds": [
-        "MOLIT-NET-REF-001",
         "MOLIT-NET-REF-001-P-NETWORKVERSION-001"
-      ]
+      ],
+      "atomicConditionFamilyIds": [
+        "MOLIT-NET-REF-001-P-NETWORKVERSION-001"
+      ],
+      "validationMode": "profile",
+      "targetRequirementId": null
+    },
+    {
+      "fixtureId": "NEG-MUT-NET-REF-IRI-001",
+      "path": "examples/invalid/mutation-molit-net-ref-iri-001.ttl",
+      "sha256": "240dc34eab6b6fe87311eea9a0c38f0b89b92deb5d4f53106c2b9939fdd871f2",
+      "description": "Generated constraint-unit-MOLIT-NET-REF-IRI-001-replace-network-reference-iri-with-blank-node mutation targeting MOLIT-NET-REF-IRI-001; expected IDs were observed by the network constraint-unit SHACL lane.",
+      "conformanceClass": [
+        "network"
+      ],
+      "expectedOutcome": "violates",
+      "coversRequirementIds": [
+        "MOLIT-NET-REF-IRI-001"
+      ],
+      "expectedRequirementIds": [
+        "MOLIT-NET-REF-IRI-001"
+      ],
+      "atomicConditionFamilyIds": [
+        "MOLIT-NET-REF-IRI-001"
+      ],
+      "validationMode": "constraint-unit",
+      "targetRequirementId": "MOLIT-NET-REF-IRI-001"
+    },
+    {
+      "fixtureId": "NEG-MUT-NET-REPLACEMENT-001",
+      "path": "examples/invalid/mutation-molit-net-replacement-001.ttl",
+      "sha256": "4302bd7296ffed2cdc23a17196b41a88bd60c639d990424d188700b20e004a0c",
+      "description": "Generated constraint-unit-MOLIT-NET-SNAPSHOT-001-P-NETWORKLIFECYCLESTATUS-001-replace-path-value mutation targeting MOLIT-NET-REPLACEMENT-001; expected IDs were observed by the network constraint-unit SHACL lane.",
+      "conformanceClass": [
+        "network"
+      ],
+      "expectedOutcome": "violates",
+      "coversRequirementIds": [
+        "MOLIT-NET-REPLACEMENT-001"
+      ],
+      "expectedRequirementIds": [
+        "MOLIT-NET-REPLACEMENT-001"
+      ],
+      "atomicConditionFamilyIds": [
+        "MOLIT-NET-REPLACEMENT-001"
+      ],
+      "validationMode": "constraint-unit",
+      "targetRequirementId": "MOLIT-NET-REPLACEMENT-001"
+    },
+    {
+      "fixtureId": "NEG-MUT-NET-SAMEAS-001-P-INCOMING-001",
+      "path": "examples/invalid/mutation-molit-net-sameas-001-p-incoming-001.ttl",
+      "sha256": "3d1156bfd1e07551c0abada7da66cc1b4d6d2591d6198a26e18e4587ade8d288",
+      "description": "Generated add-path-value mutation targeting MOLIT-NET-SAMEAS-001-P-INCOMING-001; expected IDs were observed by the network profile SHACL lane.",
+      "conformanceClass": [
+        "network"
+      ],
+      "expectedOutcome": "violates",
+      "coversRequirementIds": [
+        "MOLIT-NET-SAMEAS-001-P-INCOMING-001"
+      ],
+      "expectedRequirementIds": [
+        "MOLIT-NET-SAMEAS-001-P-INCOMING-001"
+      ],
+      "atomicConditionFamilyIds": [
+        "MOLIT-NET-SAMEAS-001-P-INCOMING-001"
+      ],
+      "validationMode": "profile",
+      "targetRequirementId": null
+    },
+    {
+      "fixtureId": "NEG-MUT-NET-SAMEAS-001-P-OUTGOING-001",
+      "path": "examples/invalid/mutation-molit-net-sameas-001-p-outgoing-001.ttl",
+      "sha256": "8ed860614cede6b9487f5705442ea03e9485984cdbfab571ef4c60b5a2566caa",
+      "description": "Generated add-path-value mutation targeting MOLIT-NET-SAMEAS-001-P-OUTGOING-001; expected IDs were observed by the network profile SHACL lane.",
+      "conformanceClass": [
+        "network"
+      ],
+      "expectedOutcome": "violates",
+      "coversRequirementIds": [
+        "MOLIT-NET-SAMEAS-001-P-OUTGOING-001"
+      ],
+      "expectedRequirementIds": [
+        "MOLIT-NET-SAMEAS-001-P-OUTGOING-001"
+      ],
+      "atomicConditionFamilyIds": [
+        "MOLIT-NET-SAMEAS-001-P-OUTGOING-001"
+      ],
+      "validationMode": "profile",
+      "targetRequirementId": null
     },
     {
       "fixtureId": "NEG-MUT-NET-SNAPSHOT-001-P-NETWORKIDENTIFIER-001",
       "path": "examples/invalid/mutation-molit-net-snapshot-001-p-networkidentifier-001.ttl",
-      "sha256": "5e352c7223ff4f8f66e50ce75f204acfec9e33d4dd98acb680293cbd532fa906",
-      "description": "Generated replace-path-value mutation targeting MOLIT-NET-SNAPSHOT-001-P-NETWORKIDENTIFIER-001; expected IDs were observed by the network SHACL lane.",
+      "sha256": "9e18c20d2ebd43d844d8d3588ffdc4e08d751185c9263bb397c0736ee63bdc44",
+      "description": "Generated replace-path-value mutation targeting MOLIT-NET-SNAPSHOT-001-P-NETWORKIDENTIFIER-001; expected IDs were observed by the network profile SHACL lane.",
       "conformanceClass": [
         "network"
       ],
       "expectedOutcome": "violates",
       "coversRequirementIds": [
-        "MOLIT-NET-SNAPSHOT-001",
         "MOLIT-NET-SNAPSHOT-001-P-NETWORKIDENTIFIER-001"
       ],
       "expectedRequirementIds": [
-        "MOLIT-NET-SNAPSHOT-001",
         "MOLIT-NET-SNAPSHOT-001-P-NETWORKIDENTIFIER-001"
-      ]
+      ],
+      "atomicConditionFamilyIds": [
+        "MOLIT-NET-SNAPSHOT-001-P-NETWORKIDENTIFIER-001"
+      ],
+      "validationMode": "profile",
+      "targetRequirementId": null
     },
     {
       "fixtureId": "NEG-MUT-NET-SNAPSHOT-001-P-NETWORKLIFECYCLESTATUS-001",
       "path": "examples/invalid/mutation-molit-net-snapshot-001-p-networklifecyclestatus-001.ttl",
-      "sha256": "0fd2b3d2cd01106ef2229b11c083d4077fe59a2a38abdfdd431bccd99b52862d",
-      "description": "Generated remove-path-values mutation targeting MOLIT-NET-SNAPSHOT-001-P-NETWORKLIFECYCLESTATUS-001; expected IDs were observed by the network SHACL lane.",
+      "sha256": "1247e37a0aabb3d5daee8b4a9307433b8f1763f92fc5eb9cdfc6dbebcfc771f9",
+      "description": "Generated remove-path-values mutation targeting MOLIT-NET-SNAPSHOT-001-P-NETWORKLIFECYCLESTATUS-001; expected IDs were observed by the network profile SHACL lane.",
       "conformanceClass": [
         "network"
       ],
       "expectedOutcome": "violates",
       "coversRequirementIds": [
-        "MOLIT-NET-SNAPSHOT-001",
         "MOLIT-NET-SNAPSHOT-001-P-NETWORKLIFECYCLESTATUS-001"
       ],
       "expectedRequirementIds": [
-        "MOLIT-NET-SNAPSHOT-001",
         "MOLIT-NET-SNAPSHOT-001-P-NETWORKLIFECYCLESTATUS-001"
-      ]
+      ],
+      "atomicConditionFamilyIds": [
+        "MOLIT-NET-SNAPSHOT-001-P-NETWORKLIFECYCLESTATUS-001"
+      ],
+      "validationMode": "profile",
+      "targetRequirementId": null
     },
     {
       "fixtureId": "NEG-MUT-NET-SNAPSHOT-001-P-NETWORKSNAPSHOTCHECKSUM-001",
       "path": "examples/invalid/mutation-molit-net-snapshot-001-p-networksnapshotchecksum-001.ttl",
-      "sha256": "1c090c046d0bba2246163fc7e7eb714bab1354b393993492b82b911fb3039310",
-      "description": "Generated remove-path-values mutation targeting MOLIT-NET-SNAPSHOT-001-P-NETWORKSNAPSHOTCHECKSUM-001; expected IDs were observed by the network SHACL lane.",
+      "sha256": "112ce7b949d8ebbb21f66486074cfa073c8ada31a74452da7f595d63a2e77606",
+      "description": "Generated add-path-value mutation targeting MOLIT-NET-SNAPSHOT-001-P-NETWORKSNAPSHOTCHECKSUM-001; expected IDs were observed by the network profile SHACL lane.",
       "conformanceClass": [
         "network"
       ],
       "expectedOutcome": "violates",
       "coversRequirementIds": [
-        "MOLIT-NET-SNAPSHOT-001",
         "MOLIT-NET-SNAPSHOT-001-P-NETWORKSNAPSHOTCHECKSUM-001"
       ],
       "expectedRequirementIds": [
-        "MOLIT-NET-SNAPSHOT-001",
         "MOLIT-NET-SNAPSHOT-001-P-NETWORKSNAPSHOTCHECKSUM-001"
-      ]
+      ],
+      "atomicConditionFamilyIds": [
+        "MOLIT-NET-SNAPSHOT-001-P-NETWORKSNAPSHOTCHECKSUM-001"
+      ],
+      "validationMode": "profile",
+      "targetRequirementId": null
     },
     {
       "fixtureId": "NEG-MUT-NET-SNAPSHOT-001-P-NETWORKVALIDFROM-001",
       "path": "examples/invalid/mutation-molit-net-snapshot-001-p-networkvalidfrom-001.ttl",
-      "sha256": "4a60000d03ae0ac71b49d880ebf59c9aa279b210d589c0ccf67814af16dc7089",
-      "description": "Generated remove-path-values mutation targeting MOLIT-NET-SNAPSHOT-001-P-NETWORKVALIDFROM-001; expected IDs were observed by the network SHACL lane.",
+      "sha256": "02c5bc08361784e8bce6c25b609bcfbe36a4254c2e919dc5aaba5cc288b0f914",
+      "description": "Generated add-path-value mutation targeting MOLIT-NET-SNAPSHOT-001-P-NETWORKVALIDFROM-001; expected IDs were observed by the network profile SHACL lane.",
       "conformanceClass": [
         "network"
       ],
       "expectedOutcome": "violates",
       "coversRequirementIds": [
-        "MOLIT-NET-SNAPSHOT-001",
         "MOLIT-NET-SNAPSHOT-001-P-NETWORKVALIDFROM-001"
       ],
       "expectedRequirementIds": [
-        "MOLIT-NET-SNAPSHOT-001",
         "MOLIT-NET-SNAPSHOT-001-P-NETWORKVALIDFROM-001"
-      ]
+      ],
+      "atomicConditionFamilyIds": [
+        "MOLIT-NET-SNAPSHOT-001-P-NETWORKVALIDFROM-001"
+      ],
+      "validationMode": "profile",
+      "targetRequirementId": null
     },
     {
       "fixtureId": "NEG-MUT-NET-SNAPSHOT-001-P-NETWORKVALIDUNTIL-001",
       "path": "examples/invalid/mutation-molit-net-snapshot-001-p-networkvaliduntil-001.ttl",
-      "sha256": "7ed8f6984e52f06ea507cbdfbd5413ad782becefdc78e87abfde8094a70884cb",
-      "description": "Generated add-path-value mutation targeting MOLIT-NET-SNAPSHOT-001-P-NETWORKVALIDUNTIL-001; expected IDs were observed by the network SHACL lane.",
+      "sha256": "5fc9fb76bbd49336f2ee97b81d88d1c9062c2be7bf25d8c3d6220ea217fed441",
+      "description": "Generated constraint-unit-MOLIT-NET-SNAPSHOT-001-P-NETWORKVALIDUNTIL-001-add-path-value mutation targeting MOLIT-NET-SNAPSHOT-001-P-NETWORKVALIDUNTIL-001; expected IDs were observed by the network constraint-unit SHACL lane.",
       "conformanceClass": [
         "network"
       ],
       "expectedOutcome": "violates",
       "coversRequirementIds": [
-        "MOLIT-NET-SNAPSHOT-001",
-        "MOLIT-NET-SNAPSHOT-001-P-NETWORKVALIDUNTIL-001",
-        "MOLIT-NET-VALIDITY-001",
-        "MOLIT-NET-VALIDITY-001-P-NETWORKVALIDFROM-001"
+        "MOLIT-NET-SNAPSHOT-001-P-NETWORKVALIDUNTIL-001"
       ],
       "expectedRequirementIds": [
-        "MOLIT-NET-SNAPSHOT-001",
-        "MOLIT-NET-SNAPSHOT-001-P-NETWORKVALIDUNTIL-001",
-        "MOLIT-NET-VALIDITY-001",
-        "MOLIT-NET-VALIDITY-001-P-NETWORKVALIDFROM-001"
-      ]
+        "MOLIT-NET-SNAPSHOT-001-P-NETWORKVALIDUNTIL-001"
+      ],
+      "atomicConditionFamilyIds": [
+        "MOLIT-NET-SNAPSHOT-001-P-NETWORKVALIDUNTIL-001"
+      ],
+      "validationMode": "constraint-unit",
+      "targetRequirementId": "MOLIT-NET-SNAPSHOT-001-P-NETWORKVALIDUNTIL-001"
     },
     {
       "fixtureId": "NEG-MUT-NET-SNAPSHOT-001-P-NETWORKVERSION-001",
       "path": "examples/invalid/mutation-molit-net-snapshot-001-p-networkversion-001.ttl",
-      "sha256": "1f1d498bcf40001988fcdd039cef00dc4e1f6d19caacce2cb25bb8a355856f56",
-      "description": "Generated replace-path-value mutation targeting MOLIT-NET-SNAPSHOT-001-P-NETWORKVERSION-001; expected IDs were observed by the network SHACL lane.",
+      "sha256": "55127b7cf89b075b21700d554085d734ba7d71064e29dee6e44597ba9bcd906b",
+      "description": "Generated replace-path-value mutation targeting MOLIT-NET-SNAPSHOT-001-P-NETWORKVERSION-001; expected IDs were observed by the network profile SHACL lane.",
       "conformanceClass": [
         "network"
       ],
       "expectedOutcome": "violates",
       "coversRequirementIds": [
-        "MOLIT-NET-SNAPSHOT-001",
         "MOLIT-NET-SNAPSHOT-001-P-NETWORKVERSION-001"
       ],
       "expectedRequirementIds": [
-        "MOLIT-NET-SNAPSHOT-001",
         "MOLIT-NET-SNAPSHOT-001-P-NETWORKVERSION-001"
-      ]
+      ],
+      "atomicConditionFamilyIds": [
+        "MOLIT-NET-SNAPSHOT-001-P-NETWORKVERSION-001"
+      ],
+      "validationMode": "profile",
+      "targetRequirementId": null
+    },
+    {
+      "fixtureId": "NEG-MUT-NET-VALIDITY-001-P-NETWORKVALIDFROM-001",
+      "path": "examples/invalid/mutation-molit-net-validity-001-p-networkvalidfrom-001.ttl",
+      "sha256": "5fc9fb76bbd49336f2ee97b81d88d1c9062c2be7bf25d8c3d6220ea217fed441",
+      "description": "Generated constraint-unit-MOLIT-NET-SNAPSHOT-001-P-NETWORKVALIDUNTIL-001-add-path-value mutation targeting MOLIT-NET-VALIDITY-001-P-NETWORKVALIDFROM-001; expected IDs were observed by the network constraint-unit SHACL lane.",
+      "conformanceClass": [
+        "network"
+      ],
+      "expectedOutcome": "violates",
+      "coversRequirementIds": [
+        "MOLIT-NET-VALIDITY-001-P-NETWORKVALIDFROM-001"
+      ],
+      "expectedRequirementIds": [
+        "MOLIT-NET-VALIDITY-001-P-NETWORKVALIDFROM-001"
+      ],
+      "atomicConditionFamilyIds": [
+        "MOLIT-NET-VALIDITY-001-P-NETWORKVALIDFROM-001"
+      ],
+      "validationMode": "constraint-unit",
+      "targetRequirementId": "MOLIT-NET-VALIDITY-001-P-NETWORKVALIDFROM-001"
     },
     {
       "fixtureId": "NEG-MUT-OBS-001-P-AGGREGATIONPERIOD-001",
       "path": "examples/invalid/mutation-molit-obs-001-p-aggregationperiod-001.ttl",
-      "sha256": "42ee60bde3959e3793230813fc7740574840d73c437e9d670b67a42e03697558",
-      "description": "Generated remove-path-values mutation targeting MOLIT-OBS-001-P-AGGREGATIONPERIOD-001; expected IDs were observed by the observation SHACL lane.",
+      "sha256": "6f34b22ab0e5655246edd558590dde1809fa94f0096aa8f23740f1e1d2a63de6",
+      "description": "Generated add-path-value mutation targeting MOLIT-OBS-001-P-AGGREGATIONPERIOD-001; expected IDs were observed by the observation profile SHACL lane.",
       "conformanceClass": [
         "observation"
       ],
       "expectedOutcome": "violates",
       "coversRequirementIds": [
-        "MOLIT-OBS-001",
         "MOLIT-OBS-001-P-AGGREGATIONPERIOD-001"
       ],
       "expectedRequirementIds": [
-        "MOLIT-OBS-001",
         "MOLIT-OBS-001-P-AGGREGATIONPERIOD-001"
-      ]
+      ],
+      "atomicConditionFamilyIds": [
+        "MOLIT-OBS-001-P-AGGREGATIONPERIOD-001"
+      ],
+      "validationMode": "profile",
+      "targetRequirementId": null
     },
     {
       "fixtureId": "NEG-MUT-OBS-001-P-MISSINGVALUEPOLICY-001",
       "path": "examples/invalid/mutation-molit-obs-001-p-missingvaluepolicy-001.ttl",
-      "sha256": "fd0b841e99b06aecc3a3ccef0b5cdea69ccae4d5e6c62f69c99078d71202af01",
-      "description": "Generated remove-path-values mutation targeting MOLIT-OBS-001-P-MISSINGVALUEPOLICY-001; expected IDs were observed by the observation SHACL lane.",
+      "sha256": "fa04d0a416d1097a640874a1cfc2b6cbcb6b64a52cbf30e2481a7e5dc2627438",
+      "description": "Generated add-path-value mutation targeting MOLIT-OBS-001-P-MISSINGVALUEPOLICY-001; expected IDs were observed by the observation profile SHACL lane.",
       "conformanceClass": [
         "observation"
       ],
       "expectedOutcome": "violates",
       "coversRequirementIds": [
-        "MOLIT-OBS-001",
         "MOLIT-OBS-001-P-MISSINGVALUEPOLICY-001"
       ],
       "expectedRequirementIds": [
-        "MOLIT-OBS-001",
         "MOLIT-OBS-001-P-MISSINGVALUEPOLICY-001"
-      ]
+      ],
+      "atomicConditionFamilyIds": [
+        "MOLIT-OBS-001-P-MISSINGVALUEPOLICY-001"
+      ],
+      "validationMode": "profile",
+      "targetRequirementId": null
     },
     {
       "fixtureId": "NEG-MUT-OBS-001-P-OBSERVATIONAGGREGATION-001",
       "path": "examples/invalid/mutation-molit-obs-001-p-observationaggregation-001.ttl",
-      "sha256": "01c669526c7cde07925092ba19bb24905c2a24301891e734dd99a308797c209c",
-      "description": "Generated remove-path-values mutation targeting MOLIT-OBS-001-P-OBSERVATIONAGGREGATION-001; expected IDs were observed by the observation SHACL lane.",
+      "sha256": "f9784e58d0e1bb46a8aa8c5f3b11c789f848d58885d066446f1fd00c5e8a9aeb",
+      "description": "Generated add-path-value mutation targeting MOLIT-OBS-001-P-OBSERVATIONAGGREGATION-001; expected IDs were observed by the observation profile SHACL lane.",
       "conformanceClass": [
         "observation"
       ],
       "expectedOutcome": "violates",
       "coversRequirementIds": [
-        "MOLIT-OBS-001",
         "MOLIT-OBS-001-P-OBSERVATIONAGGREGATION-001"
       ],
       "expectedRequirementIds": [
-        "MOLIT-OBS-001",
         "MOLIT-OBS-001-P-OBSERVATIONAGGREGATION-001"
-      ]
+      ],
+      "atomicConditionFamilyIds": [
+        "MOLIT-OBS-001-P-OBSERVATIONAGGREGATION-001"
+      ],
+      "validationMode": "profile",
+      "targetRequirementId": null
     },
     {
       "fixtureId": "NEG-MUT-OBS-001-P-OBSERVATIONSUBJECTTYPE-001",
       "path": "examples/invalid/mutation-molit-obs-001-p-observationsubjecttype-001.ttl",
-      "sha256": "345dc81c63cbc8668341bbf5bf0fdc328124e0f0e49ad1d8a8bc0f75dde4d479",
-      "description": "Generated remove-path-values mutation targeting MOLIT-OBS-001-P-OBSERVATIONSUBJECTTYPE-001; expected IDs were observed by the observation SHACL lane.",
+      "sha256": "e65ffad3c3e0652f7c1f8a9888bad02c2207a1739bb418134becae4e4793050f",
+      "description": "Generated add-path-value mutation targeting MOLIT-OBS-001-P-OBSERVATIONSUBJECTTYPE-001; expected IDs were observed by the observation profile SHACL lane.",
       "conformanceClass": [
         "observation"
       ],
       "expectedOutcome": "violates",
       "coversRequirementIds": [
-        "MOLIT-OBS-001",
         "MOLIT-OBS-001-P-OBSERVATIONSUBJECTTYPE-001"
       ],
       "expectedRequirementIds": [
-        "MOLIT-OBS-001",
         "MOLIT-OBS-001-P-OBSERVATIONSUBJECTTYPE-001"
-      ]
+      ],
+      "atomicConditionFamilyIds": [
+        "MOLIT-OBS-001-P-OBSERVATIONSUBJECTTYPE-001"
+      ],
+      "validationMode": "profile",
+      "targetRequirementId": null
     },
     {
       "fixtureId": "NEG-MUT-OBS-001-P-OBSERVATIONUNIT-001",
       "path": "examples/invalid/mutation-molit-obs-001-p-observationunit-001.ttl",
-      "sha256": "c6b57966c265358a52f7c6df953b56f8bd05c73a4899e981d2a8a2f210c4c2f1",
-      "description": "Generated remove-path-values mutation targeting MOLIT-OBS-001-P-OBSERVATIONUNIT-001; expected IDs were observed by the observation SHACL lane.",
+      "sha256": "d348fb616390da91452b6db795228e0ed9e32c4c1359cef86eda12201ccb9235",
+      "description": "Generated remove-path-values mutation targeting MOLIT-OBS-001-P-OBSERVATIONUNIT-001; expected IDs were observed by the observation profile SHACL lane.",
       "conformanceClass": [
         "observation"
       ],
       "expectedOutcome": "violates",
       "coversRequirementIds": [
-        "MOLIT-OBS-001",
         "MOLIT-OBS-001-P-OBSERVATIONUNIT-001"
       ],
       "expectedRequirementIds": [
-        "MOLIT-OBS-001",
         "MOLIT-OBS-001-P-OBSERVATIONUNIT-001"
-      ]
+      ],
+      "atomicConditionFamilyIds": [
+        "MOLIT-OBS-001-P-OBSERVATIONUNIT-001"
+      ],
+      "validationMode": "profile",
+      "targetRequirementId": null
     },
     {
       "fixtureId": "NEG-MUT-OBS-001-P-OBSERVEDPROPERTY-001",
       "path": "examples/invalid/mutation-molit-obs-001-p-observedproperty-001.ttl",
-      "sha256": "331650cb81aadc42fca5a5e46f0792554ff4f237864dcda8695d527c6f633a40",
-      "description": "Generated remove-path-values mutation targeting MOLIT-OBS-001-P-OBSERVEDPROPERTY-001; expected IDs were observed by the observation SHACL lane.",
+      "sha256": "ba8755e1fac6ea3c044d92cf0fb72284aa1bd2482dbee1a1adea3f6957be50a4",
+      "description": "Generated add-path-value mutation targeting MOLIT-OBS-001-P-OBSERVEDPROPERTY-001; expected IDs were observed by the observation profile SHACL lane.",
       "conformanceClass": [
         "observation"
       ],
       "expectedOutcome": "violates",
       "coversRequirementIds": [
-        "MOLIT-OBS-001",
-        "MOLIT-OBS-001-P-OBSERVEDPROPERTY-001",
-        "MOLIT-OBS-UNIT-001"
+        "MOLIT-OBS-001-P-OBSERVEDPROPERTY-001"
       ],
       "expectedRequirementIds": [
-        "MOLIT-OBS-001",
-        "MOLIT-OBS-001-P-OBSERVEDPROPERTY-001",
-        "MOLIT-OBS-UNIT-001"
-      ]
+        "MOLIT-OBS-001-P-OBSERVEDPROPERTY-001"
+      ],
+      "atomicConditionFamilyIds": [
+        "MOLIT-OBS-001-P-OBSERVEDPROPERTY-001"
+      ],
+      "validationMode": "profile",
+      "targetRequirementId": null
     },
     {
       "fixtureId": "NEG-MUT-OBS-001-P-TEMPORAL-001",
       "path": "examples/invalid/mutation-molit-obs-001-p-temporal-001.ttl",
-      "sha256": "baebb88654bcb36fc5ce560293648acbf4898ec4427b346abc2da289c11edf5c",
-      "description": "Generated remove-path-values mutation targeting MOLIT-OBS-001-P-TEMPORAL-001; expected IDs were observed by the observation SHACL lane.",
+      "sha256": "301ac0ed84cc2644ae090fe242187575a3501d97c046ec5b5e1ab5279418863c",
+      "description": "Generated remove-path-values mutation targeting MOLIT-OBS-001-P-TEMPORAL-001; expected IDs were observed by the observation profile SHACL lane.",
       "conformanceClass": [
         "observation"
       ],
       "expectedOutcome": "violates",
       "coversRequirementIds": [
-        "MOLIT-OBS-001",
         "MOLIT-OBS-001-P-TEMPORAL-001"
       ],
       "expectedRequirementIds": [
-        "MOLIT-OBS-001",
         "MOLIT-OBS-001-P-TEMPORAL-001"
-      ]
+      ],
+      "atomicConditionFamilyIds": [
+        "MOLIT-OBS-001-P-TEMPORAL-001"
+      ],
+      "validationMode": "profile",
+      "targetRequirementId": null
     },
     {
       "fixtureId": "NEG-MUT-OBS-001-P-TEMPORALRESOLUTION-001",
       "path": "examples/invalid/mutation-molit-obs-001-p-temporalresolution-001.ttl",
-      "sha256": "f02ab54295d5bd3d8fda2d07a9a6c47728c144dd4ec9fdb64ef00dea04aafd86",
-      "description": "Generated remove-path-values mutation targeting MOLIT-OBS-001-P-TEMPORALRESOLUTION-001; expected IDs were observed by the observation SHACL lane.",
+      "sha256": "6ace2ebed3556c7151e446154a99736be2c35c7728433d8be2bff471787bac8d",
+      "description": "Generated remove-path-values mutation targeting MOLIT-OBS-001-P-TEMPORALRESOLUTION-001; expected IDs were observed by the observation profile SHACL lane.",
       "conformanceClass": [
         "observation"
       ],
       "expectedOutcome": "violates",
       "coversRequirementIds": [
-        "MOLIT-OBS-001",
         "MOLIT-OBS-001-P-TEMPORALRESOLUTION-001"
       ],
       "expectedRequirementIds": [
-        "MOLIT-OBS-001",
         "MOLIT-OBS-001-P-TEMPORALRESOLUTION-001"
-      ]
+      ],
+      "atomicConditionFamilyIds": [
+        "MOLIT-OBS-001-P-TEMPORALRESOLUTION-001"
+      ],
+      "validationMode": "profile",
+      "targetRequirementId": null
     },
     {
       "fixtureId": "NEG-MUT-OBS-001-P-TYPE-001",
       "path": "examples/invalid/mutation-molit-obs-001-p-type-001.ttl",
-      "sha256": "d2a452fb6ea10bcb9f56afa1e15d981e549c191ac8ad156e0712b6a8cf3895d0",
-      "description": "Generated remove-required-value mutation targeting MOLIT-OBS-001-P-TYPE-001; expected IDs were observed by the observation SHACL lane.",
+      "sha256": "145c3eda8cfbbfc1d7fb75e74e1b14a9a858cdfa61f019c71ec57123f7dfcb1c",
+      "description": "Generated remove-required-value mutation targeting MOLIT-OBS-001-P-TYPE-001; expected IDs were observed by the observation profile SHACL lane.",
       "conformanceClass": [
         "observation"
       ],
       "expectedOutcome": "violates",
       "coversRequirementIds": [
-        "MOLIT-OBS-001",
         "MOLIT-OBS-001-P-TYPE-001"
       ],
       "expectedRequirementIds": [
-        "MOLIT-OBS-001",
         "MOLIT-OBS-001-P-TYPE-001"
-      ]
+      ],
+      "atomicConditionFamilyIds": [
+        "MOLIT-OBS-001-P-TYPE-001"
+      ],
+      "validationMode": "profile",
+      "targetRequirementId": null
+    },
+    {
+      "fixtureId": "NEG-MUT-OBS-UNIT-001",
+      "path": "examples/invalid/mutation-molit-obs-unit-001.ttl",
+      "sha256": "516b7dd99dfac9d3df839fc932ea18e7c1b6429d8417fb01f301822ddeba008d",
+      "description": "Generated constraint-unit-MOLIT-OBS-001-P-OBSERVEDPROPERTY-001-remove-path-values mutation targeting MOLIT-OBS-UNIT-001; expected IDs were observed by the observation constraint-unit SHACL lane.",
+      "conformanceClass": [
+        "observation"
+      ],
+      "expectedOutcome": "violates",
+      "coversRequirementIds": [
+        "MOLIT-OBS-UNIT-001"
+      ],
+      "expectedRequirementIds": [
+        "MOLIT-OBS-UNIT-001"
+      ],
+      "atomicConditionFamilyIds": [
+        "MOLIT-OBS-UNIT-001"
+      ],
+      "validationMode": "constraint-unit",
+      "targetRequirementId": "MOLIT-OBS-UNIT-001"
     },
     {
       "fixtureId": "NEG-MUT-OFFER-001-P-DESCRIBESOFFERINGDATASET-001",
       "path": "examples/invalid/mutation-molit-offer-001-p-describesofferingdataset-001.ttl",
-      "sha256": "31a252af72d6809527853309c2a437ae6b1241f89443b0332faac141e4f564ca",
-      "description": "Generated remove-path-values mutation targeting MOLIT-OFFER-001-P-DESCRIBESOFFERINGDATASET-001; expected IDs were observed by the dataspace-offering SHACL lane.",
+      "sha256": "98fd24c8786124f5c602b91df782a1343f713f422747d0b88cef8e6c19d667f4",
+      "description": "Generated remove-path-values mutation targeting MOLIT-OFFER-001-P-DESCRIBESOFFERINGDATASET-001; expected IDs were observed by the dataspace-offering profile SHACL lane.",
       "conformanceClass": [
         "dataspace-offering"
       ],
       "expectedOutcome": "violates",
       "coversRequirementIds": [
-        "MOLIT-OFFER-001",
         "MOLIT-OFFER-001-P-DESCRIBESOFFERINGDATASET-001"
       ],
       "expectedRequirementIds": [
-        "MOLIT-OFFER-001",
         "MOLIT-OFFER-001-P-DESCRIBESOFFERINGDATASET-001"
-      ]
+      ],
+      "atomicConditionFamilyIds": [
+        "MOLIT-OFFER-001-P-DESCRIBESOFFERINGDATASET-001"
+      ],
+      "validationMode": "profile",
+      "targetRequirementId": null
     },
     {
       "fixtureId": "NEG-MUT-OFFER-001-P-IDENTIFIER-001",
       "path": "examples/invalid/mutation-molit-offer-001-p-identifier-001.ttl",
-      "sha256": "5100eede3bf0db0fcf172003c4839eb4c9581e25cd2c42e84b0802b7055dc52b",
-      "description": "Generated remove-path-values mutation targeting MOLIT-OFFER-001-P-IDENTIFIER-001; expected IDs were observed by the dataspace-offering SHACL lane.",
+      "sha256": "c9cb5db1fd66a61f97693d5a0288fcec431e8f0eeb020fe778119fe5500f2d39",
+      "description": "Generated add-path-value mutation targeting MOLIT-OFFER-001-P-IDENTIFIER-001; expected IDs were observed by the dataspace-offering profile SHACL lane.",
       "conformanceClass": [
         "dataspace-offering"
       ],
       "expectedOutcome": "violates",
       "coversRequirementIds": [
-        "MOLIT-OFFER-001",
         "MOLIT-OFFER-001-P-IDENTIFIER-001"
       ],
       "expectedRequirementIds": [
-        "MOLIT-OFFER-001",
         "MOLIT-OFFER-001-P-IDENTIFIER-001"
-      ]
+      ],
+      "atomicConditionFamilyIds": [
+        "MOLIT-OFFER-001-P-IDENTIFIER-001"
+      ],
+      "validationMode": "profile",
+      "targetRequirementId": null
     },
     {
       "fixtureId": "NEG-MUT-OFFER-001-P-MODIFIED-001",
       "path": "examples/invalid/mutation-molit-offer-001-p-modified-001.ttl",
-      "sha256": "77745f1372fa678898958307e279aae44fc088da3a00a4a7db70996e90e39003",
-      "description": "Generated remove-path-values mutation targeting MOLIT-OFFER-001-P-MODIFIED-001; expected IDs were observed by the dataspace-offering SHACL lane.",
+      "sha256": "0b119d8487a7c78969d536894ebf803dc970683a0e6f51572012e55bb6b07872",
+      "description": "Generated add-path-value mutation targeting MOLIT-OFFER-001-P-MODIFIED-001; expected IDs were observed by the dataspace-offering profile SHACL lane.",
       "conformanceClass": [
         "dataspace-offering"
       ],
       "expectedOutcome": "violates",
       "coversRequirementIds": [
-        "MOLIT-OFFER-001",
         "MOLIT-OFFER-001-P-MODIFIED-001"
       ],
       "expectedRequirementIds": [
-        "MOLIT-OFFER-001",
         "MOLIT-OFFER-001-P-MODIFIED-001"
-      ]
+      ],
+      "atomicConditionFamilyIds": [
+        "MOLIT-OFFER-001-P-MODIFIED-001"
+      ],
+      "validationMode": "profile",
+      "targetRequirementId": null
     },
     {
       "fixtureId": "NEG-MUT-OFFER-001-P-OFFERINGREADINESSSTATUS-001",
       "path": "examples/invalid/mutation-molit-offer-001-p-offeringreadinessstatus-001.ttl",
-      "sha256": "53d96f84c921654667358a74ff77774c98cd71fe879cf470a392dd25b06e226b",
-      "description": "Generated remove-path-values mutation targeting MOLIT-OFFER-001-P-OFFERINGREADINESSSTATUS-001; expected IDs were observed by the dataspace-offering SHACL lane.",
+      "sha256": "efb7b616b7cf08d103b3aa7f17711fdb5861e22b9bc13f56506a55c0a10584b0",
+      "description": "Generated add-path-value mutation targeting MOLIT-OFFER-001-P-OFFERINGREADINESSSTATUS-001; expected IDs were observed by the dataspace-offering profile SHACL lane.",
       "conformanceClass": [
         "dataspace-offering"
       ],
       "expectedOutcome": "violates",
       "coversRequirementIds": [
-        "MOLIT-OFFER-001",
         "MOLIT-OFFER-001-P-OFFERINGREADINESSSTATUS-001"
       ],
       "expectedRequirementIds": [
-        "MOLIT-OFFER-001",
         "MOLIT-OFFER-001-P-OFFERINGREADINESSSTATUS-001"
-      ]
+      ],
+      "atomicConditionFamilyIds": [
+        "MOLIT-OFFER-001-P-OFFERINGREADINESSSTATUS-001"
+      ],
+      "validationMode": "profile",
+      "targetRequirementId": null
     },
     {
       "fixtureId": "NEG-MUT-OFFER-001-P-TITLE-001",
       "path": "examples/invalid/mutation-molit-offer-001-p-title-001.ttl",
-      "sha256": "194285ac3a56fe690aed77548065a9692efc81ceb03b72a7fbce0511a635b668",
-      "description": "Generated remove-path-values mutation targeting MOLIT-OFFER-001-P-TITLE-001; expected IDs were observed by the dataspace-offering SHACL lane.",
+      "sha256": "25f0f582e68ece9b4cb4a7ac1a079f321ab165fefe38401cdb81e87bd2a94c23",
+      "description": "Generated add-path-value mutation targeting MOLIT-OFFER-001-P-TITLE-001; expected IDs were observed by the dataspace-offering profile SHACL lane.",
       "conformanceClass": [
         "dataspace-offering"
       ],
       "expectedOutcome": "violates",
       "coversRequirementIds": [
-        "MOLIT-OFFER-001",
         "MOLIT-OFFER-001-P-TITLE-001"
       ],
       "expectedRequirementIds": [
-        "MOLIT-OFFER-001",
         "MOLIT-OFFER-001-P-TITLE-001"
-      ]
+      ],
+      "atomicConditionFamilyIds": [
+        "MOLIT-OFFER-001-P-TITLE-001"
+      ],
+      "validationMode": "profile",
+      "targetRequirementId": null
     },
     {
       "fixtureId": "NEG-MUT-OFFER-LINK-001-P-DESCRIBESOFFERINGDATASET-001",
       "path": "examples/invalid/mutation-molit-offer-link-001-p-describesofferingdataset-001.ttl",
-      "sha256": "9f5a4ae233b2bb16d2df9ca453fb560b994a9270ab20fa4c2c6381c7e592ae2a",
-      "description": "Generated replace-path-value mutation targeting MOLIT-OFFER-LINK-001-P-DESCRIBESOFFERINGDATASET-001; expected IDs were observed by the dataspace-offering SHACL lane.",
+      "sha256": "efcef00ba690d070806dfd17846d564df7df8905c869a6b83604df5d5d1167ea",
+      "description": "Generated constraint-unit-MOLIT-OFFER-001-P-DESCRIBESOFFERINGDATASET-001-replace-path-value mutation targeting MOLIT-OFFER-LINK-001-P-DESCRIBESOFFERINGDATASET-001; expected IDs were observed by the dataspace-offering constraint-unit SHACL lane.",
       "conformanceClass": [
         "dataspace-offering"
       ],
       "expectedOutcome": "violates",
       "coversRequirementIds": [
-        "MOLIT-OFFER-001",
-        "MOLIT-OFFER-001-P-DESCRIBESOFFERINGDATASET-001",
-        "MOLIT-OFFER-LINK-001",
         "MOLIT-OFFER-LINK-001-P-DESCRIBESOFFERINGDATASET-001"
       ],
       "expectedRequirementIds": [
-        "MOLIT-OFFER-001",
-        "MOLIT-OFFER-001-P-DESCRIBESOFFERINGDATASET-001",
-        "MOLIT-OFFER-LINK-001",
         "MOLIT-OFFER-LINK-001-P-DESCRIBESOFFERINGDATASET-001"
-      ]
+      ],
+      "atomicConditionFamilyIds": [
+        "MOLIT-OFFER-LINK-001-P-DESCRIBESOFFERINGDATASET-001"
+      ],
+      "validationMode": "constraint-unit",
+      "targetRequirementId": "MOLIT-OFFER-LINK-001-P-DESCRIBESOFFERINGDATASET-001"
     },
     {
       "fixtureId": "NEG-MUT-PROFILE-CORE-001-P-CONFORMSTO-001",
       "path": "examples/invalid/mutation-molit-profile-core-001-p-conformsto-001.ttl",
-      "sha256": "cf7562e8861fecf9b5bcccff533b2eb21fb26e121a7bee914f0255ba1d16ee06",
-      "description": "Generated remove-path-values mutation targeting MOLIT-PROFILE-CORE-001-P-CONFORMSTO-001; expected IDs were observed by the core SHACL lane.",
+      "sha256": "a6c9ffa694b1ac632eb97d8d42cd315633d5ecbd18f28e2d2ace15be3fc3fd6a",
+      "description": "Generated remove-path-values mutation targeting MOLIT-PROFILE-CORE-001-P-CONFORMSTO-001; expected IDs were observed by the core profile SHACL lane.",
       "conformanceClass": [
         "core"
       ],
       "expectedOutcome": "violates",
       "coversRequirementIds": [
-        "MOLIT-PROFILE-CORE-001",
         "MOLIT-PROFILE-CORE-001-P-CONFORMSTO-001"
       ],
       "expectedRequirementIds": [
-        "MOLIT-PROFILE-CORE-001",
         "MOLIT-PROFILE-CORE-001-P-CONFORMSTO-001"
-      ]
+      ],
+      "atomicConditionFamilyIds": [
+        "MOLIT-PROFILE-CORE-001-P-CONFORMSTO-001"
+      ],
+      "validationMode": "profile",
+      "targetRequirementId": null
     },
     {
       "fixtureId": "NEG-MUT-PROFILE-CORE-002-P-CONFORMSTO-001",
       "path": "examples/invalid/mutation-molit-profile-core-002-p-conformsto-001.ttl",
-      "sha256": "59ad0cdf075f14d3954a5dad37eb10a634fc40d419b31e8277b9e599880b556a",
-      "description": "Generated remove-path-values mutation targeting MOLIT-PROFILE-CORE-002-P-CONFORMSTO-001; expected IDs were observed by the core SHACL lane.",
+      "sha256": "6f3937c25806d13f86af4c3de6071813bacc0c3007a770ba3e2a6edb72a9eb90",
+      "description": "Generated remove-path-values mutation targeting MOLIT-PROFILE-CORE-002-P-CONFORMSTO-001; expected IDs were observed by the core profile SHACL lane.",
       "conformanceClass": [
         "core"
       ],
       "expectedOutcome": "violates",
       "coversRequirementIds": [
-        "MOLIT-PROFILE-CORE-002",
         "MOLIT-PROFILE-CORE-002-P-CONFORMSTO-001"
       ],
       "expectedRequirementIds": [
-        "MOLIT-PROFILE-CORE-002",
         "MOLIT-PROFILE-CORE-002-P-CONFORMSTO-001"
-      ]
+      ],
+      "atomicConditionFamilyIds": [
+        "MOLIT-PROFILE-CORE-002-P-CONFORMSTO-001"
+      ],
+      "validationMode": "profile",
+      "targetRequirementId": null
     },
     {
       "fixtureId": "NEG-MUT-PROFILE-NET-001-P-CONFORMSTO-001",
       "path": "examples/invalid/mutation-molit-profile-net-001-p-conformsto-001.ttl",
-      "sha256": "6dafd8360a6c38b0f52fd3bb02d7c25af15949dc3463408b718e006dc45e85f7",
-      "description": "Generated remove-path-values mutation targeting MOLIT-PROFILE-NET-001-P-CONFORMSTO-001; expected IDs were observed by the network SHACL lane.",
+      "sha256": "2db0cf9df8e10ba1b4c884063111b097bfa4b2a0ed3db88ca865690849d6c417",
+      "description": "Generated remove-path-values mutation targeting MOLIT-PROFILE-NET-001-P-CONFORMSTO-001; expected IDs were observed by the network profile SHACL lane.",
       "conformanceClass": [
         "network"
       ],
       "expectedOutcome": "violates",
       "coversRequirementIds": [
-        "MOLIT-PROFILE-NET-001",
         "MOLIT-PROFILE-NET-001-P-CONFORMSTO-001"
       ],
       "expectedRequirementIds": [
-        "MOLIT-PROFILE-NET-001",
         "MOLIT-PROFILE-NET-001-P-CONFORMSTO-001"
-      ]
+      ],
+      "atomicConditionFamilyIds": [
+        "MOLIT-PROFILE-NET-001-P-CONFORMSTO-001"
+      ],
+      "validationMode": "profile",
+      "targetRequirementId": null
     },
     {
       "fixtureId": "NEG-MUT-PROFILE-NET-002-P-CONFORMSTO-001",
       "path": "examples/invalid/mutation-molit-profile-net-002-p-conformsto-001.ttl",
-      "sha256": "d648def17ace953dbbbf6e3667e0845dace5e9a77c2b75758c3df32921d64255",
-      "description": "Generated remove-path-values mutation targeting MOLIT-PROFILE-NET-002-P-CONFORMSTO-001; expected IDs were observed by the network SHACL lane.",
+      "sha256": "129f7c12e1f1c78daba5e9f5544ac78ace86a894a4c75587a3f233d324309507",
+      "description": "Generated remove-path-values mutation targeting MOLIT-PROFILE-NET-002-P-CONFORMSTO-001; expected IDs were observed by the network profile SHACL lane.",
       "conformanceClass": [
         "network"
       ],
       "expectedOutcome": "violates",
       "coversRequirementIds": [
-        "MOLIT-PROFILE-NET-002",
         "MOLIT-PROFILE-NET-002-P-CONFORMSTO-001"
       ],
       "expectedRequirementIds": [
-        "MOLIT-PROFILE-NET-002",
         "MOLIT-PROFILE-NET-002-P-CONFORMSTO-001"
-      ]
+      ],
+      "atomicConditionFamilyIds": [
+        "MOLIT-PROFILE-NET-002-P-CONFORMSTO-001"
+      ],
+      "validationMode": "profile",
+      "targetRequirementId": null
     },
     {
       "fixtureId": "NEG-MUT-PROFILE-OBS-001-P-CONFORMSTO-001",
       "path": "examples/invalid/mutation-molit-profile-obs-001-p-conformsto-001.ttl",
-      "sha256": "e2f20aad0ff786bce104df242e8fccbe319dd86b800e2c2ff92f3f691eec2025",
-      "description": "Generated remove-path-values mutation targeting MOLIT-PROFILE-OBS-001-P-CONFORMSTO-001; expected IDs were observed by the observation SHACL lane.",
+      "sha256": "c5dff292e62206a7d05d47bd37e1fdf5a5cbe002e3112d8564efbcf4154743b9",
+      "description": "Generated remove-path-values mutation targeting MOLIT-PROFILE-OBS-001-P-CONFORMSTO-001; expected IDs were observed by the observation profile SHACL lane.",
       "conformanceClass": [
         "observation"
       ],
       "expectedOutcome": "violates",
       "coversRequirementIds": [
-        "MOLIT-PROFILE-OBS-001",
         "MOLIT-PROFILE-OBS-001-P-CONFORMSTO-001"
       ],
       "expectedRequirementIds": [
-        "MOLIT-PROFILE-OBS-001",
         "MOLIT-PROFILE-OBS-001-P-CONFORMSTO-001"
-      ]
+      ],
+      "atomicConditionFamilyIds": [
+        "MOLIT-PROFILE-OBS-001-P-CONFORMSTO-001"
+      ],
+      "validationMode": "profile",
+      "targetRequirementId": null
     },
     {
       "fixtureId": "NEG-MUT-PROFILE-OBS-002-P-CONFORMSTO-001",
       "path": "examples/invalid/mutation-molit-profile-obs-002-p-conformsto-001.ttl",
-      "sha256": "8d3153ffc8efa0e9bd4ad6bd9083dd4705da2a0595f3ec74f5ed0235662bac99",
-      "description": "Generated remove-path-values mutation targeting MOLIT-PROFILE-OBS-002-P-CONFORMSTO-001; expected IDs were observed by the observation SHACL lane.",
+      "sha256": "87eff0c3eb762b309aea47d2dd1239558ecab592a7759e5574b1791540760877",
+      "description": "Generated remove-path-values mutation targeting MOLIT-PROFILE-OBS-002-P-CONFORMSTO-001; expected IDs were observed by the observation profile SHACL lane.",
       "conformanceClass": [
         "observation"
       ],
       "expectedOutcome": "violates",
       "coversRequirementIds": [
-        "MOLIT-PROFILE-OBS-002",
         "MOLIT-PROFILE-OBS-002-P-CONFORMSTO-001"
       ],
       "expectedRequirementIds": [
-        "MOLIT-PROFILE-OBS-002",
         "MOLIT-PROFILE-OBS-002-P-CONFORMSTO-001"
-      ]
+      ],
+      "atomicConditionFamilyIds": [
+        "MOLIT-PROFILE-OBS-002-P-CONFORMSTO-001"
+      ],
+      "validationMode": "profile",
+      "targetRequirementId": null
     },
     {
       "fixtureId": "NEG-MUT-PROFILE-OFFER-001-P-CONFORMSTO-001",
       "path": "examples/invalid/mutation-molit-profile-offer-001-p-conformsto-001.ttl",
-      "sha256": "097d4d94ef4d7e2002aaca2de3c8683f315797f14f310809cfb4668535d0d946",
-      "description": "Generated remove-path-values mutation targeting MOLIT-PROFILE-OFFER-001-P-CONFORMSTO-001; expected IDs were observed by the dataspace-offering SHACL lane.",
+      "sha256": "178f1503f213e57d4aa8219ff809a54002f7a9463284ab1422fdb9b06d643cf0",
+      "description": "Generated remove-path-values mutation targeting MOLIT-PROFILE-OFFER-001-P-CONFORMSTO-001; expected IDs were observed by the dataspace-offering profile SHACL lane.",
       "conformanceClass": [
         "dataspace-offering"
       ],
       "expectedOutcome": "violates",
       "coversRequirementIds": [
-        "MOLIT-PROFILE-OFFER-001",
         "MOLIT-PROFILE-OFFER-001-P-CONFORMSTO-001"
       ],
       "expectedRequirementIds": [
-        "MOLIT-PROFILE-OFFER-001",
         "MOLIT-PROFILE-OFFER-001-P-CONFORMSTO-001"
-      ]
+      ],
+      "atomicConditionFamilyIds": [
+        "MOLIT-PROFILE-OFFER-001-P-CONFORMSTO-001"
+      ],
+      "validationMode": "profile",
+      "targetRequirementId": null
     },
     {
       "fixtureId": "NEG-MUT-PROFILE-OFFER-002-P-CONFORMSTO-001",
       "path": "examples/invalid/mutation-molit-profile-offer-002-p-conformsto-001.ttl",
-      "sha256": "801110cbe2aa645aed9a8cff7d225e8dccd3f9754fbd749ba553cd11513a7791",
-      "description": "Generated remove-path-values mutation targeting MOLIT-PROFILE-OFFER-002-P-CONFORMSTO-001; expected IDs were observed by the dataspace-offering SHACL lane.",
+      "sha256": "21bd78879061c90a3128758bef938f9d680b837a4efe9d2ef2245f0675bbab6c",
+      "description": "Generated remove-path-values mutation targeting MOLIT-PROFILE-OFFER-002-P-CONFORMSTO-001; expected IDs were observed by the dataspace-offering profile SHACL lane.",
       "conformanceClass": [
         "dataspace-offering"
       ],
       "expectedOutcome": "violates",
       "coversRequirementIds": [
-        "MOLIT-PROFILE-OFFER-002",
         "MOLIT-PROFILE-OFFER-002-P-CONFORMSTO-001"
       ],
       "expectedRequirementIds": [
-        "MOLIT-PROFILE-OFFER-002",
         "MOLIT-PROFILE-OFFER-002-P-CONFORMSTO-001"
-      ]
+      ],
+      "atomicConditionFamilyIds": [
+        "MOLIT-PROFILE-OFFER-002-P-CONFORMSTO-001"
+      ],
+      "validationMode": "profile",
+      "targetRequirementId": null
     },
     {
       "fixtureId": "NEG-MUT-PROFILE-QUAL-001-P-CONFORMSTO-001",
       "path": "examples/invalid/mutation-molit-profile-qual-001-p-conformsto-001.ttl",
-      "sha256": "704f6fa6c657aa3c0205ceec62b724c31a427391387bcfa81043d3bae8ce829b",
-      "description": "Generated remove-path-values mutation targeting MOLIT-PROFILE-QUAL-001-P-CONFORMSTO-001; expected IDs were observed by the quality SHACL lane.",
+      "sha256": "262e5151d532af369ffb23e3ee39853ca0122bbbc1b496ab2925c6c1012f8797",
+      "description": "Generated remove-path-values mutation targeting MOLIT-PROFILE-QUAL-001-P-CONFORMSTO-001; expected IDs were observed by the quality profile SHACL lane.",
       "conformanceClass": [
         "quality"
       ],
       "expectedOutcome": "violates",
       "coversRequirementIds": [
-        "MOLIT-PROFILE-QUAL-001",
         "MOLIT-PROFILE-QUAL-001-P-CONFORMSTO-001"
       ],
       "expectedRequirementIds": [
-        "MOLIT-PROFILE-QUAL-001",
         "MOLIT-PROFILE-QUAL-001-P-CONFORMSTO-001"
-      ]
+      ],
+      "atomicConditionFamilyIds": [
+        "MOLIT-PROFILE-QUAL-001-P-CONFORMSTO-001"
+      ],
+      "validationMode": "profile",
+      "targetRequirementId": null
     },
     {
       "fixtureId": "NEG-MUT-PROFILE-QUAL-002-P-CONFORMSTO-001",
       "path": "examples/invalid/mutation-molit-profile-qual-002-p-conformsto-001.ttl",
-      "sha256": "cb1ef164dfe84f80f023537b206ae3e1c5e61b942cc52d81bd412e747bd02f83",
-      "description": "Generated remove-path-values mutation targeting MOLIT-PROFILE-QUAL-002-P-CONFORMSTO-001; expected IDs were observed by the quality SHACL lane.",
+      "sha256": "ad987a6f1962325063f62d7554a4e41dbfdc981d486b1d3927a56002b60ac2c9",
+      "description": "Generated remove-path-values mutation targeting MOLIT-PROFILE-QUAL-002-P-CONFORMSTO-001; expected IDs were observed by the quality profile SHACL lane.",
       "conformanceClass": [
         "quality"
       ],
       "expectedOutcome": "violates",
       "coversRequirementIds": [
-        "MOLIT-PROFILE-QUAL-002",
         "MOLIT-PROFILE-QUAL-002-P-CONFORMSTO-001"
       ],
       "expectedRequirementIds": [
-        "MOLIT-PROFILE-QUAL-002",
         "MOLIT-PROFILE-QUAL-002-P-CONFORMSTO-001"
-      ]
+      ],
+      "atomicConditionFamilyIds": [
+        "MOLIT-PROFILE-QUAL-002-P-CONFORMSTO-001"
+      ],
+      "validationMode": "profile",
+      "targetRequirementId": null
     },
     {
       "fixtureId": "NEG-MUT-PROFILE-SELECTION-GEOSPARQL-001",
       "path": "examples/invalid/mutation-molit-profile-selection-geosparql-001.ttl",
-      "sha256": "ebbbeb5e9e9766021e49efd4d18c8aa90ff584d1b994141e9ebe2ff8e788c7f0",
-      "description": "Generated activate-prohibited-target mutation targeting MOLIT-PROFILE-SELECTION-GEOSPARQL-001; expected IDs were observed by the core SHACL lane.",
+      "sha256": "de1d69cafae30f26bbbff19bf9d505af6a4441b52a5c3fbc57531aaebdf5c1fe",
+      "description": "Generated activate-prohibited-target mutation targeting MOLIT-PROFILE-SELECTION-GEOSPARQL-001; expected IDs were observed by the core profile SHACL lane.",
       "conformanceClass": [
         "core"
       ],
@@ -1787,13 +2100,18 @@
       ],
       "expectedRequirementIds": [
         "MOLIT-PROFILE-SELECTION-GEOSPARQL-001"
-      ]
+      ],
+      "atomicConditionFamilyIds": [
+        "MOLIT-PROFILE-SELECTION-GEOSPARQL-001"
+      ],
+      "validationMode": "profile",
+      "targetRequirementId": null
     },
     {
       "fixtureId": "NEG-MUT-PROFILE-SELECTION-MARKER-001",
       "path": "examples/invalid/mutation-molit-profile-selection-marker-001.ttl",
-      "sha256": "0fef7558af747a8644e883422337ece779c5381f2ca3cd75a7b8a93e26e9e548",
-      "description": "Generated activate-prohibited-target mutation targeting MOLIT-PROFILE-SELECTION-MARKER-001; expected IDs were observed by the core SHACL lane.",
+      "sha256": "a41d3066d154822b0acb68dec7a7cabad17ecca5ddc36ff713138350cf4e63ae",
+      "description": "Generated activate-prohibited-target mutation targeting MOLIT-PROFILE-SELECTION-MARKER-001; expected IDs were observed by the core profile SHACL lane.",
       "conformanceClass": [
         "core"
       ],
@@ -1803,85 +2121,123 @@
       ],
       "expectedRequirementIds": [
         "MOLIT-PROFILE-SELECTION-MARKER-001"
-      ]
+      ],
+      "atomicConditionFamilyIds": [
+        "MOLIT-PROFILE-SELECTION-MARKER-001"
+      ],
+      "validationMode": "profile",
+      "targetRequirementId": null
     },
     {
       "fixtureId": "NEG-MUT-QUAL-001-P-QUALITYSTATUS-001",
       "path": "examples/invalid/mutation-molit-qual-001-p-qualitystatus-001.ttl",
-      "sha256": "23105dca029d1db4fd0675795b6f88944377568ff3aa4baca0f2eab71c340eb5",
-      "description": "Generated remove-path-values mutation targeting MOLIT-QUAL-001-P-QUALITYSTATUS-001; expected IDs were observed by the quality SHACL lane.",
+      "sha256": "e7924e0d1494153131c764993620dae184886463d7f0c9e442d9cc799f8082c1",
+      "description": "Generated remove-path-values mutation targeting MOLIT-QUAL-001-P-QUALITYSTATUS-001; expected IDs were observed by the quality profile SHACL lane.",
       "conformanceClass": [
         "quality"
       ],
       "expectedOutcome": "violates",
       "coversRequirementIds": [
-        "MOLIT-QUAL-001",
         "MOLIT-QUAL-001-P-QUALITYSTATUS-001"
       ],
       "expectedRequirementIds": [
-        "MOLIT-QUAL-001",
         "MOLIT-QUAL-001-P-QUALITYSTATUS-001"
-      ]
+      ],
+      "atomicConditionFamilyIds": [
+        "MOLIT-QUAL-001-P-QUALITYSTATUS-001"
+      ],
+      "validationMode": "profile",
+      "targetRequirementId": null
     },
     {
       "fixtureId": "NEG-MUT-QUAL-LINK-001-P-PATH-7CC75844D0-001",
       "path": "examples/invalid/mutation-molit-qual-link-001-p-path-7cc75844d0-001.ttl",
-      "sha256": "f0bf90ef6ff2a8ea918166bb40cc119fabdaeb10c679b88513bba001ac82176d",
-      "description": "Generated remove-path-values mutation targeting MOLIT-QUAL-LINK-001-P-PATH-7CC75844D0-001; expected IDs were observed by the quality SHACL lane.",
+      "sha256": "90db8104d9fb726a6342acd2a9dd3911771ffd059ae30aac960b4f0c3e5c0636",
+      "description": "Generated add-path-value mutation targeting MOLIT-QUAL-LINK-001-P-PATH-7CC75844D0-001; expected IDs were observed by the quality profile SHACL lane.",
       "conformanceClass": [
         "quality"
       ],
       "expectedOutcome": "violates",
       "coversRequirementIds": [
-        "MOLIT-QUAL-LINK-001",
         "MOLIT-QUAL-LINK-001-P-PATH-7CC75844D0-001"
       ],
       "expectedRequirementIds": [
-        "MOLIT-QUAL-LINK-001",
         "MOLIT-QUAL-LINK-001-P-PATH-7CC75844D0-001"
-      ]
+      ],
+      "atomicConditionFamilyIds": [
+        "MOLIT-QUAL-LINK-001-P-PATH-7CC75844D0-001"
+      ],
+      "validationMode": "profile",
+      "targetRequirementId": null
+    },
+    {
+      "fixtureId": "NEG-MUT-QUAL-MAP-001",
+      "path": "examples/invalid/mutation-molit-qual-map-001.ttl",
+      "sha256": "acda802dc64ec2ca6c36c59ee3cb3d6b08d909a6638c9c7eaeadf372d4c5dd88",
+      "description": "Generated constraint-unit-MOLIT-QUAL-MAP-001-P-MAPPEDQUALITYMETRIC-001-remove-path-values mutation targeting MOLIT-QUAL-MAP-001; expected IDs were observed by the quality constraint-unit SHACL lane.",
+      "conformanceClass": [
+        "quality"
+      ],
+      "expectedOutcome": "violates",
+      "coversRequirementIds": [
+        "MOLIT-QUAL-MAP-001"
+      ],
+      "expectedRequirementIds": [
+        "MOLIT-QUAL-MAP-001"
+      ],
+      "atomicConditionFamilyIds": [
+        "MOLIT-QUAL-MAP-001"
+      ],
+      "validationMode": "constraint-unit",
+      "targetRequirementId": "MOLIT-QUAL-MAP-001"
     },
     {
       "fixtureId": "NEG-MUT-QUAL-MAP-001-P-MAPPEDQUALITYMETRIC-001",
       "path": "examples/invalid/mutation-molit-qual-map-001-p-mappedqualitymetric-001.ttl",
-      "sha256": "a264c0cfc4ef705664a83837ee1e9726528cd66a34241fea6d1a387b4d371284",
-      "description": "Generated replace-path-value mutation targeting MOLIT-QUAL-MAP-001-P-MAPPEDQUALITYMETRIC-001; expected IDs were observed by the quality SHACL lane.",
+      "sha256": "566a9a5adf4900c2757a2eb1a948815e7ddf9498e9e69a53981a5f04f5fb6e19",
+      "description": "Generated constraint-unit-MOLIT-QUAL-MAP-001-P-MAPPEDQUALITYMETRIC-001-replace-path-value mutation targeting MOLIT-QUAL-MAP-001-P-MAPPEDQUALITYMETRIC-001; expected IDs were observed by the quality constraint-unit SHACL lane.",
       "conformanceClass": [
         "quality"
       ],
       "expectedOutcome": "violates",
       "coversRequirementIds": [
-        "MOLIT-QUAL-MAP-001",
         "MOLIT-QUAL-MAP-001-P-MAPPEDQUALITYMETRIC-001"
       ],
       "expectedRequirementIds": [
-        "MOLIT-QUAL-MAP-001",
         "MOLIT-QUAL-MAP-001-P-MAPPEDQUALITYMETRIC-001"
-      ]
+      ],
+      "atomicConditionFamilyIds": [
+        "MOLIT-QUAL-MAP-001-P-MAPPEDQUALITYMETRIC-001"
+      ],
+      "validationMode": "constraint-unit",
+      "targetRequirementId": "MOLIT-QUAL-MAP-001-P-MAPPEDQUALITYMETRIC-001"
     },
     {
       "fixtureId": "NEG-MUT-QUAL-MAP-001-P-QUALITYLOSSDISPOSITION-001",
       "path": "examples/invalid/mutation-molit-qual-map-001-p-qualitylossdisposition-001.ttl",
-      "sha256": "59bff82cee34aee802d81b67e92fb363f07658db03cbeff915cef90f7f29a3d5",
-      "description": "Generated remove-path-values mutation targeting MOLIT-QUAL-MAP-001-P-QUALITYLOSSDISPOSITION-001; expected IDs were observed by the quality SHACL lane.",
+      "sha256": "a111fb22fa22d65ac85ba19d483cb845fbec31f2ddb0bb6bfb92da74468e3c9a",
+      "description": "Generated constraint-unit-MOLIT-QUAL-MAP-001-P-QUALITYLOSSDISPOSITION-001-remove-path-values mutation targeting MOLIT-QUAL-MAP-001-P-QUALITYLOSSDISPOSITION-001; expected IDs were observed by the quality constraint-unit SHACL lane.",
       "conformanceClass": [
         "quality"
       ],
       "expectedOutcome": "violates",
       "coversRequirementIds": [
-        "MOLIT-QUAL-MAP-001",
         "MOLIT-QUAL-MAP-001-P-QUALITYLOSSDISPOSITION-001"
       ],
       "expectedRequirementIds": [
-        "MOLIT-QUAL-MAP-001",
         "MOLIT-QUAL-MAP-001-P-QUALITYLOSSDISPOSITION-001"
-      ]
+      ],
+      "atomicConditionFamilyIds": [
+        "MOLIT-QUAL-MAP-001-P-QUALITYLOSSDISPOSITION-001"
+      ],
+      "validationMode": "constraint-unit",
+      "targetRequirementId": "MOLIT-QUAL-MAP-001-P-QUALITYLOSSDISPOSITION-001"
     },
     {
       "fixtureId": "NEG-MUT-QUAL-MAP-001-P-SOURCEQUALITYELEMENT-001",
       "path": "examples/invalid/mutation-molit-qual-map-001-p-sourcequalityelement-001.ttl",
-      "sha256": "b515dcbea32a6a18367e1a393ac5d06bdb91a7c3c13439ed63c87f1aa9c6c106",
-      "description": "Generated remove-path-values mutation targeting MOLIT-QUAL-MAP-001-P-SOURCEQUALITYELEMENT-001; expected IDs were observed by the quality SHACL lane.",
+      "sha256": "4c4a86706ae586c49143d30de52502e2e05362a0545d0aeb688118e39c6deccb",
+      "description": "Generated add-path-value mutation targeting MOLIT-QUAL-MAP-001-P-SOURCEQUALITYELEMENT-001; expected IDs were observed by the quality profile SHACL lane.",
       "conformanceClass": [
         "quality"
       ],
@@ -1893,567 +2249,602 @@
       "expectedRequirementIds": [
         "MOLIT-QUAL-MAP-001",
         "MOLIT-QUAL-MAP-001-P-SOURCEQUALITYELEMENT-001"
-      ]
+      ],
+      "atomicConditionFamilyIds": [
+        "MOLIT-QUAL-MAP-001-P-SOURCEQUALITYELEMENT-001"
+      ],
+      "validationMode": "profile",
+      "targetRequirementId": null
+    },
+    {
+      "fixtureId": "NEG-MUT-QUAL-MAP-LINK-001-P-DISPOSITION-001",
+      "path": "examples/invalid/mutation-molit-qual-map-link-001-p-disposition-001.ttl",
+      "sha256": "368ae405b79e7daa1fd2db832657057ed3e1aff218ec663d93d8bf9cce49a279",
+      "description": "Generated constraint-unit-MOLIT-QUAL-PROV-001-P-QUALITYMAPPINGSTATEMENT-001-remove-path-values mutation targeting MOLIT-QUAL-MAP-LINK-001-P-DISPOSITION-001; expected IDs were observed by the quality constraint-unit SHACL lane.",
+      "conformanceClass": [
+        "quality"
+      ],
+      "expectedOutcome": "violates",
+      "coversRequirementIds": [
+        "MOLIT-QUAL-MAP-LINK-001-P-DISPOSITION-001"
+      ],
+      "expectedRequirementIds": [
+        "MOLIT-QUAL-MAP-LINK-001-P-DISPOSITION-001"
+      ],
+      "atomicConditionFamilyIds": [
+        "MOLIT-QUAL-MAP-LINK-001-P-DISPOSITION-001"
+      ],
+      "validationMode": "constraint-unit",
+      "targetRequirementId": "MOLIT-QUAL-MAP-LINK-001-P-DISPOSITION-001"
+    },
+    {
+      "fixtureId": "NEG-MUT-QUAL-MAP-LINK-001-P-METRIC-001",
+      "path": "examples/invalid/mutation-molit-qual-map-link-001-p-metric-001.ttl",
+      "sha256": "368ae405b79e7daa1fd2db832657057ed3e1aff218ec663d93d8bf9cce49a279",
+      "description": "Generated constraint-unit-MOLIT-QUAL-PROV-001-P-QUALITYMAPPINGSTATEMENT-001-remove-path-values mutation targeting MOLIT-QUAL-MAP-LINK-001-P-METRIC-001; expected IDs were observed by the quality constraint-unit SHACL lane.",
+      "conformanceClass": [
+        "quality"
+      ],
+      "expectedOutcome": "violates",
+      "coversRequirementIds": [
+        "MOLIT-QUAL-MAP-LINK-001-P-METRIC-001"
+      ],
+      "expectedRequirementIds": [
+        "MOLIT-QUAL-MAP-LINK-001-P-METRIC-001"
+      ],
+      "atomicConditionFamilyIds": [
+        "MOLIT-QUAL-MAP-LINK-001-P-METRIC-001"
+      ],
+      "validationMode": "constraint-unit",
+      "targetRequirementId": "MOLIT-QUAL-MAP-LINK-001-P-METRIC-001"
+    },
+    {
+      "fixtureId": "NEG-MUT-QUAL-MEASURE-001",
+      "path": "examples/invalid/mutation-molit-qual-measure-001.ttl",
+      "sha256": "b0a5f7f9e65d6a38618f874d6926b4240eafbc830655fcb84aa9730b17441c76",
+      "description": "Generated constraint-unit-MOLIT-QUAL-PROV-001-P-QUALITYRESULTKIND-001-remove-path-values mutation targeting MOLIT-QUAL-MEASURE-001; expected IDs were observed by the quality constraint-unit SHACL lane.",
+      "conformanceClass": [
+        "quality"
+      ],
+      "expectedOutcome": "violates",
+      "coversRequirementIds": [
+        "MOLIT-QUAL-MEASURE-001"
+      ],
+      "expectedRequirementIds": [
+        "MOLIT-QUAL-MEASURE-001"
+      ],
+      "atomicConditionFamilyIds": [
+        "MOLIT-QUAL-MEASURE-001"
+      ],
+      "validationMode": "constraint-unit",
+      "targetRequirementId": "MOLIT-QUAL-MEASURE-001"
     },
     {
       "fixtureId": "NEG-MUT-QUAL-MEASURE-001-P-COMPUTEDON-001",
       "path": "examples/invalid/mutation-molit-qual-measure-001-p-computedon-001.ttl",
-      "sha256": "b90cff3f948e8bbd104ef9a712e8ef237905f70763592e9755e123275b4db923",
-      "description": "Generated remove-path-values mutation targeting MOLIT-QUAL-MEASURE-001-P-COMPUTEDON-001; expected IDs were observed by the quality SHACL lane.",
+      "sha256": "09668cd637b079dcc78fdaa43dbf9652b9537eb542a70364d22cb38da3ab860a",
+      "description": "Generated constraint-unit-MOLIT-QUAL-MEASURE-001-P-COMPUTEDON-001-remove-path-values mutation targeting MOLIT-QUAL-MEASURE-001-P-COMPUTEDON-001; expected IDs were observed by the quality constraint-unit SHACL lane.",
       "conformanceClass": [
         "quality"
       ],
       "expectedOutcome": "violates",
       "coversRequirementIds": [
-        "MOLIT-QUAL-LINK-001",
-        "MOLIT-QUAL-LINK-001-P-PATH-7CC75844D0-001",
-        "MOLIT-QUAL-MEASURE-001",
         "MOLIT-QUAL-MEASURE-001-P-COMPUTEDON-001"
       ],
       "expectedRequirementIds": [
-        "MOLIT-QUAL-LINK-001",
-        "MOLIT-QUAL-LINK-001-P-PATH-7CC75844D0-001",
-        "MOLIT-QUAL-MEASURE-001",
         "MOLIT-QUAL-MEASURE-001-P-COMPUTEDON-001"
-      ]
+      ],
+      "atomicConditionFamilyIds": [
+        "MOLIT-QUAL-MEASURE-001-P-COMPUTEDON-001"
+      ],
+      "validationMode": "constraint-unit",
+      "targetRequirementId": "MOLIT-QUAL-MEASURE-001-P-COMPUTEDON-001"
     },
     {
       "fixtureId": "NEG-MUT-QUAL-MEASURE-001-P-ISMEASUREMENTOF-001",
       "path": "examples/invalid/mutation-molit-qual-measure-001-p-ismeasurementof-001.ttl",
-      "sha256": "48ad0835b62d5cb19bf99d72115ad4fb773227b81756fe7cbddeeedbbc48f291",
-      "description": "Generated remove-path-values mutation targeting MOLIT-QUAL-MEASURE-001-P-ISMEASUREMENTOF-001; expected IDs were observed by the quality SHACL lane.",
+      "sha256": "018ffac29a3e794c2549a011c50b2bf059fae6ee627f39d216915e0a907ed250",
+      "description": "Generated constraint-unit-MOLIT-QUAL-MEASURE-001-P-ISMEASUREMENTOF-001-remove-path-values mutation targeting MOLIT-QUAL-MEASURE-001-P-ISMEASUREMENTOF-001; expected IDs were observed by the quality constraint-unit SHACL lane.",
       "conformanceClass": [
         "quality"
       ],
       "expectedOutcome": "violates",
       "coversRequirementIds": [
-        "MOLIT-QUAL-MEASURE-001",
-        "MOLIT-QUAL-MEASURE-001-P-ISMEASUREMENTOF-001",
-        "MOLIT-QUAL-MEASURE-002"
+        "MOLIT-QUAL-MEASURE-001-P-ISMEASUREMENTOF-001"
       ],
       "expectedRequirementIds": [
-        "MOLIT-QUAL-MEASURE-001",
-        "MOLIT-QUAL-MEASURE-001-P-ISMEASUREMENTOF-001",
-        "MOLIT-QUAL-MEASURE-002"
-      ]
+        "MOLIT-QUAL-MEASURE-001-P-ISMEASUREMENTOF-001"
+      ],
+      "atomicConditionFamilyIds": [
+        "MOLIT-QUAL-MEASURE-001-P-ISMEASUREMENTOF-001"
+      ],
+      "validationMode": "constraint-unit",
+      "targetRequirementId": "MOLIT-QUAL-MEASURE-001-P-ISMEASUREMENTOF-001"
+    },
+    {
+      "fixtureId": "NEG-MUT-QUAL-MEASURE-001-P-QUALITYRESULTCONCEPT-001",
+      "path": "examples/invalid/mutation-molit-qual-measure-001-p-qualityresultconcept-001.ttl",
+      "sha256": "d0fcdac860e42279de636a36e3c40e1909b893011597330f73787c307afcf5fa",
+      "description": "Generated constraint-unit-MOLIT-QUAL-MEASURE-001-P-QUALITYRESULTCONCEPT-001-add-path-value mutation targeting MOLIT-QUAL-MEASURE-001-P-QUALITYRESULTCONCEPT-001; expected IDs were observed by the quality constraint-unit SHACL lane.",
+      "conformanceClass": [
+        "quality"
+      ],
+      "expectedOutcome": "violates",
+      "coversRequirementIds": [
+        "MOLIT-QUAL-MEASURE-001-P-QUALITYRESULTCONCEPT-001"
+      ],
+      "expectedRequirementIds": [
+        "MOLIT-QUAL-MEASURE-001-P-QUALITYRESULTCONCEPT-001"
+      ],
+      "atomicConditionFamilyIds": [
+        "MOLIT-QUAL-MEASURE-001-P-QUALITYRESULTCONCEPT-001"
+      ],
+      "validationMode": "constraint-unit",
+      "targetRequirementId": "MOLIT-QUAL-MEASURE-001-P-QUALITYRESULTCONCEPT-001"
     },
     {
       "fixtureId": "NEG-MUT-QUAL-MEASURE-001-P-UNITMEASURE-001",
       "path": "examples/invalid/mutation-molit-qual-measure-001-p-unitmeasure-001.ttl",
-      "sha256": "690c738421c178d72dae79a3372cfe70be9dd19ca9fcac72ed94a77d12acfacd",
-      "description": "Generated remove-path-values mutation targeting MOLIT-QUAL-MEASURE-001-P-UNITMEASURE-001; expected IDs were observed by the quality SHACL lane.",
+      "sha256": "e05a7b2662725ddbf8a79f4b2c1930c1d88adf7f41511268df0ba6013e9cab96",
+      "description": "Generated constraint-unit-MOLIT-QUAL-MEASURE-001-P-UNITMEASURE-001-replace-path-value mutation targeting MOLIT-QUAL-MEASURE-001-P-UNITMEASURE-001; expected IDs were observed by the quality constraint-unit SHACL lane.",
       "conformanceClass": [
         "quality"
       ],
       "expectedOutcome": "violates",
       "coversRequirementIds": [
-        "MOLIT-QUAL-MEASURE-001",
-        "MOLIT-QUAL-MEASURE-001-P-UNITMEASURE-001",
-        "MOLIT-QUAL-MEASURE-002"
+        "MOLIT-QUAL-MEASURE-001-P-UNITMEASURE-001"
       ],
       "expectedRequirementIds": [
-        "MOLIT-QUAL-MEASURE-001",
-        "MOLIT-QUAL-MEASURE-001-P-UNITMEASURE-001",
-        "MOLIT-QUAL-MEASURE-002"
-      ]
+        "MOLIT-QUAL-MEASURE-001-P-UNITMEASURE-001"
+      ],
+      "atomicConditionFamilyIds": [
+        "MOLIT-QUAL-MEASURE-001-P-UNITMEASURE-001"
+      ],
+      "validationMode": "constraint-unit",
+      "targetRequirementId": "MOLIT-QUAL-MEASURE-001-P-UNITMEASURE-001"
     },
     {
       "fixtureId": "NEG-MUT-QUAL-MEASURE-001-P-VALUE-001",
       "path": "examples/invalid/mutation-molit-qual-measure-001-p-value-001.ttl",
-      "sha256": "2957344143c8645aa151913571deb4b76a93d6c13d53426589baa83451a31b1a",
-      "description": "Generated remove-path-values mutation targeting MOLIT-QUAL-MEASURE-001-P-VALUE-001; expected IDs were observed by the quality SHACL lane.",
+      "sha256": "5be994fbaef4d108eef0434441b78ea3f07244f3e8d000ffe995af85b277c937",
+      "description": "Generated constraint-unit-MOLIT-QUAL-MEASURE-001-P-VALUE-001-remove-path-values mutation targeting MOLIT-QUAL-MEASURE-001-P-VALUE-001; expected IDs were observed by the quality constraint-unit SHACL lane.",
       "conformanceClass": [
         "quality"
       ],
       "expectedOutcome": "violates",
       "coversRequirementIds": [
-        "MOLIT-QUAL-MEASURE-001",
         "MOLIT-QUAL-MEASURE-001-P-VALUE-001"
       ],
       "expectedRequirementIds": [
-        "MOLIT-QUAL-MEASURE-001",
         "MOLIT-QUAL-MEASURE-001-P-VALUE-001"
-      ]
+      ],
+      "atomicConditionFamilyIds": [
+        "MOLIT-QUAL-MEASURE-001-P-VALUE-001"
+      ],
+      "validationMode": "constraint-unit",
+      "targetRequirementId": "MOLIT-QUAL-MEASURE-001-P-VALUE-001"
+    },
+    {
+      "fixtureId": "NEG-MUT-QUAL-MEASURE-002",
+      "path": "examples/invalid/mutation-molit-qual-measure-002.ttl",
+      "sha256": "b0a5f7f9e65d6a38618f874d6926b4240eafbc830655fcb84aa9730b17441c76",
+      "description": "Generated constraint-unit-MOLIT-QUAL-PROV-001-P-QUALITYRESULTKIND-001-remove-path-values mutation targeting MOLIT-QUAL-MEASURE-002; expected IDs were observed by the quality constraint-unit SHACL lane.",
+      "conformanceClass": [
+        "quality"
+      ],
+      "expectedOutcome": "violates",
+      "coversRequirementIds": [
+        "MOLIT-QUAL-MEASURE-002"
+      ],
+      "expectedRequirementIds": [
+        "MOLIT-QUAL-MEASURE-002"
+      ],
+      "atomicConditionFamilyIds": [
+        "MOLIT-QUAL-MEASURE-002"
+      ],
+      "validationMode": "constraint-unit",
+      "targetRequirementId": "MOLIT-QUAL-MEASURE-002"
     },
     {
       "fixtureId": "NEG-MUT-QUAL-PROV-001-P-QUALITYEVALUATIONMETHOD-001",
       "path": "examples/invalid/mutation-molit-qual-prov-001-p-qualityevaluationmethod-001.ttl",
-      "sha256": "adc3bd083ce626fda8ed16d5eb42571fa25eeca6fb457ebc3cd8e14da10b610e",
-      "description": "Generated remove-path-values mutation targeting MOLIT-QUAL-PROV-001-P-QUALITYEVALUATIONMETHOD-001; expected IDs were observed by the quality SHACL lane.",
+      "sha256": "c5e18f1d460d05f25eb8adb6311372f99f5737359a95b9f14535715d3591533e",
+      "description": "Generated add-path-value mutation targeting MOLIT-QUAL-PROV-001-P-QUALITYEVALUATIONMETHOD-001; expected IDs were observed by the quality profile SHACL lane.",
       "conformanceClass": [
         "quality"
       ],
       "expectedOutcome": "violates",
       "coversRequirementIds": [
-        "MOLIT-QUAL-PROV-001",
         "MOLIT-QUAL-PROV-001-P-QUALITYEVALUATIONMETHOD-001"
       ],
       "expectedRequirementIds": [
-        "MOLIT-QUAL-PROV-001",
         "MOLIT-QUAL-PROV-001-P-QUALITYEVALUATIONMETHOD-001"
-      ]
+      ],
+      "atomicConditionFamilyIds": [
+        "MOLIT-QUAL-PROV-001-P-QUALITYEVALUATIONMETHOD-001"
+      ],
+      "validationMode": "profile",
+      "targetRequirementId": null
     },
     {
       "fixtureId": "NEG-MUT-QUAL-PROV-001-P-QUALITYEVALUATIONSCOPE-001",
       "path": "examples/invalid/mutation-molit-qual-prov-001-p-qualityevaluationscope-001.ttl",
-      "sha256": "5edc4ac697f1fde9ff001c922644d3f40d6c1bd1a94e737720b2592b96f5859a",
-      "description": "Generated remove-path-values mutation targeting MOLIT-QUAL-PROV-001-P-QUALITYEVALUATIONSCOPE-001; expected IDs were observed by the quality SHACL lane.",
+      "sha256": "3c986395c0dfde5d1e8bcdfc8bf9e00eb8633bbdda95d389bc1d7f6ff7cb2edf",
+      "description": "Generated add-path-value mutation targeting MOLIT-QUAL-PROV-001-P-QUALITYEVALUATIONSCOPE-001; expected IDs were observed by the quality profile SHACL lane.",
       "conformanceClass": [
         "quality"
       ],
       "expectedOutcome": "violates",
       "coversRequirementIds": [
-        "MOLIT-QUAL-PROV-001",
         "MOLIT-QUAL-PROV-001-P-QUALITYEVALUATIONSCOPE-001"
       ],
       "expectedRequirementIds": [
-        "MOLIT-QUAL-PROV-001",
         "MOLIT-QUAL-PROV-001-P-QUALITYEVALUATIONSCOPE-001"
-      ]
+      ],
+      "atomicConditionFamilyIds": [
+        "MOLIT-QUAL-PROV-001-P-QUALITYEVALUATIONSCOPE-001"
+      ],
+      "validationMode": "profile",
+      "targetRequirementId": null
     },
     {
       "fixtureId": "NEG-MUT-QUAL-PROV-001-P-QUALITYMAPPINGSTATEMENT-001",
       "path": "examples/invalid/mutation-molit-qual-prov-001-p-qualitymappingstatement-001.ttl",
-      "sha256": "c816037501bb83c31f7dc087f5cef2ed4987550de30e34470b4850c97604c350",
-      "description": "Generated remove-path-values mutation targeting MOLIT-QUAL-PROV-001-P-QUALITYMAPPINGSTATEMENT-001; expected IDs were observed by the quality SHACL lane.",
+      "sha256": "3e158f203fab841faba6f6d7463c5cd91fcc3ba8395168634855eedb09db1dab",
+      "description": "Generated add-path-value mutation targeting MOLIT-QUAL-PROV-001-P-QUALITYMAPPINGSTATEMENT-001; expected IDs were observed by the quality profile SHACL lane.",
       "conformanceClass": [
         "quality"
       ],
       "expectedOutcome": "violates",
       "coversRequirementIds": [
-        "MOLIT-QUAL-PROV-001",
         "MOLIT-QUAL-PROV-001-P-QUALITYMAPPINGSTATEMENT-001"
       ],
       "expectedRequirementIds": [
-        "MOLIT-QUAL-PROV-001",
         "MOLIT-QUAL-PROV-001-P-QUALITYMAPPINGSTATEMENT-001"
-      ]
+      ],
+      "atomicConditionFamilyIds": [
+        "MOLIT-QUAL-PROV-001-P-QUALITYMAPPINGSTATEMENT-001"
+      ],
+      "validationMode": "profile",
+      "targetRequirementId": null
     },
     {
       "fixtureId": "NEG-MUT-QUAL-PROV-001-P-QUALITYRESULTKIND-001",
       "path": "examples/invalid/mutation-molit-qual-prov-001-p-qualityresultkind-001.ttl",
-      "sha256": "078d19934fa3318dcf827a2819eb9996130e1571a0c72c024aa81831b55a9901",
-      "description": "Generated remove-path-values mutation targeting MOLIT-QUAL-PROV-001-P-QUALITYRESULTKIND-001; expected IDs were observed by the quality SHACL lane.",
+      "sha256": "b83900aab3d44833fd6603e1db2c62b773743e38607699cc265f129d7284f334",
+      "description": "Generated add-path-value mutation targeting MOLIT-QUAL-PROV-001-P-QUALITYRESULTKIND-001; expected IDs were observed by the quality profile SHACL lane.",
       "conformanceClass": [
         "quality"
       ],
       "expectedOutcome": "violates",
       "coversRequirementIds": [
-        "MOLIT-QUAL-PROV-001",
         "MOLIT-QUAL-PROV-001-P-QUALITYRESULTKIND-001"
       ],
       "expectedRequirementIds": [
-        "MOLIT-QUAL-PROV-001",
         "MOLIT-QUAL-PROV-001-P-QUALITYRESULTKIND-001"
-      ]
+      ],
+      "atomicConditionFamilyIds": [
+        "MOLIT-QUAL-PROV-001-P-QUALITYRESULTKIND-001"
+      ],
+      "validationMode": "profile",
+      "targetRequirementId": null
+    },
+    {
+      "fixtureId": "NEG-MUT-QUAL-STATUS-001",
+      "path": "examples/invalid/mutation-molit-qual-status-001.ttl",
+      "sha256": "907e5bbc3ecf2824c80878135e4f3a30dcf91126cd4410cb7d16670804286508",
+      "description": "Generated constraint-unit-MOLIT-QUAL-001-P-QUALITYSTATUS-001-replace-path-value mutation targeting MOLIT-QUAL-STATUS-001; expected IDs were observed by the quality constraint-unit SHACL lane.",
+      "conformanceClass": [
+        "quality"
+      ],
+      "expectedOutcome": "violates",
+      "coversRequirementIds": [
+        "MOLIT-QUAL-STATUS-001"
+      ],
+      "expectedRequirementIds": [
+        "MOLIT-QUAL-STATUS-001"
+      ],
+      "atomicConditionFamilyIds": [
+        "MOLIT-QUAL-STATUS-001"
+      ],
+      "validationMode": "constraint-unit",
+      "targetRequirementId": "MOLIT-QUAL-STATUS-001"
     },
     {
       "fixtureId": "NEG-MUT-REC-001-P-LANGUAGE-001",
       "path": "examples/invalid/mutation-molit-rec-001-p-language-001.ttl",
-      "sha256": "990489eb39abc0b2a3dd1e2bf6d46c42cd2b2739135ea46900539c32b65303d2",
-      "description": "Generated remove-path-values mutation targeting MOLIT-REC-001-P-LANGUAGE-001; expected IDs were observed by the core SHACL lane.",
+      "sha256": "e64f00f1e9d33d7a5f14716dd808369a172532f7785ad1110a225981b4dfefd7",
+      "description": "Generated remove-path-values mutation targeting MOLIT-REC-001-P-LANGUAGE-001; expected IDs were observed by the core profile SHACL lane.",
       "conformanceClass": [
         "core"
       ],
       "expectedOutcome": "violates",
       "coversRequirementIds": [
-        "MOLIT-REC-001",
         "MOLIT-REC-001-P-LANGUAGE-001"
       ],
       "expectedRequirementIds": [
-        "MOLIT-REC-001",
         "MOLIT-REC-001-P-LANGUAGE-001"
-      ]
+      ],
+      "atomicConditionFamilyIds": [
+        "MOLIT-REC-001-P-LANGUAGE-001"
+      ],
+      "validationMode": "profile",
+      "targetRequirementId": null
     },
     {
       "fixtureId": "NEG-MUT-REC-001-P-MODIFIED-001",
       "path": "examples/invalid/mutation-molit-rec-001-p-modified-001.ttl",
-      "sha256": "f393c3a4e13896d3a6f92f2d8a784184c1a5feec358e080cef430fb0bfccf3e0",
-      "description": "Generated remove-path-values mutation targeting MOLIT-REC-001-P-MODIFIED-001; expected IDs were observed by the core SHACL lane.",
+      "sha256": "9230214bd7d8f8ebede5a1328ba623e08ea62afbfa19f415ed091947c4430fb7",
+      "description": "Generated constraint-unit-MOLIT-REC-001-P-MODIFIED-001-remove-path-values mutation targeting MOLIT-REC-001-P-MODIFIED-001; expected IDs were observed by the core constraint-unit SHACL lane.",
       "conformanceClass": [
         "core"
       ],
       "expectedOutcome": "violates",
       "coversRequirementIds": [
-        "MOLIT-REC-001",
         "MOLIT-REC-001-P-MODIFIED-001"
       ],
       "expectedRequirementIds": [
-        "MOLIT-REC-001",
         "MOLIT-REC-001-P-MODIFIED-001"
-      ]
+      ],
+      "atomicConditionFamilyIds": [
+        "MOLIT-REC-001-P-MODIFIED-001"
+      ],
+      "validationMode": "constraint-unit",
+      "targetRequirementId": "MOLIT-REC-001-P-MODIFIED-001"
     },
     {
       "fixtureId": "NEG-MUT-REC-001-P-PRIMARYTOPIC-001",
       "path": "examples/invalid/mutation-molit-rec-001-p-primarytopic-001.ttl",
-      "sha256": "4be230e7d37641f5764d18fac1b861e48153ac36bd9a5aece5782db18c76765a",
-      "description": "Generated remove-path-values mutation targeting MOLIT-REC-001-P-PRIMARYTOPIC-001; expected IDs were observed by the core SHACL lane.",
+      "sha256": "a2e7a1f28675924c700865f9f7e49adbfea9b83c306450e5375a446f1c540ded",
+      "description": "Generated constraint-unit-MOLIT-CAT-REL-001-P-PATH-DA00F2B2F6-001-remove-path-values mutation targeting MOLIT-REC-001-P-PRIMARYTOPIC-001; expected IDs were observed by the core constraint-unit SHACL lane.",
       "conformanceClass": [
         "core"
       ],
       "expectedOutcome": "violates",
       "coversRequirementIds": [
-        "MOLIT-CAT-REL-001",
-        "MOLIT-CAT-REL-001-P-PATH-DA00F2B2F6-001",
-        "MOLIT-DS-001",
-        "MOLIT-DS-001-P-PATH-30F94DAB87-001",
-        "MOLIT-REC-001",
         "MOLIT-REC-001-P-PRIMARYTOPIC-001"
       ],
       "expectedRequirementIds": [
-        "MOLIT-CAT-REL-001",
-        "MOLIT-CAT-REL-001-P-PATH-DA00F2B2F6-001",
-        "MOLIT-DS-001",
-        "MOLIT-DS-001-P-PATH-30F94DAB87-001",
-        "MOLIT-REC-001",
         "MOLIT-REC-001-P-PRIMARYTOPIC-001"
-      ]
+      ],
+      "atomicConditionFamilyIds": [
+        "MOLIT-REC-001-P-PRIMARYTOPIC-001"
+      ],
+      "validationMode": "constraint-unit",
+      "targetRequirementId": "MOLIT-REC-001-P-PRIMARYTOPIC-001"
     },
     {
       "fixtureId": "NEG-MUT-REC-001-P-TITLE-001",
       "path": "examples/invalid/mutation-molit-rec-001-p-title-001.ttl",
-      "sha256": "8db141c9743c6d7e4e3e89e0ed96f20df11bf3f8b3b46431297232da02e3e6dc",
-      "description": "Generated remove-path-values mutation targeting MOLIT-REC-001-P-TITLE-001; expected IDs were observed by the core SHACL lane.",
+      "sha256": "889b8fc7a1a978adbf70e7b8b10ee68e1e75c9c76aa3743bd29264e83bdcdf3e",
+      "description": "Generated remove-path-values mutation targeting MOLIT-REC-001-P-TITLE-001; expected IDs were observed by the core profile SHACL lane.",
       "conformanceClass": [
         "core"
       ],
       "expectedOutcome": "violates",
       "coversRequirementIds": [
-        "MOLIT-REC-001",
         "MOLIT-REC-001-P-TITLE-001"
       ],
       "expectedRequirementIds": [
-        "MOLIT-REC-001",
         "MOLIT-REC-001-P-TITLE-001"
-      ]
+      ],
+      "atomicConditionFamilyIds": [
+        "MOLIT-REC-001-P-TITLE-001"
+      ],
+      "validationMode": "profile",
+      "targetRequirementId": null
     },
     {
       "fixtureId": "NEG-MUT-REC-DIST-001-P-CHECKSUM-001",
       "path": "examples/invalid/mutation-molit-rec-dist-001-p-checksum-001.ttl",
-      "sha256": "96ff50375a3f12e5b8395720699f1babe776b28713066d7c0508cda1d8cd2ee3",
-      "description": "Generated remove-path-values mutation targeting MOLIT-REC-DIST-001-P-CHECKSUM-001; expected IDs were observed by the publication-policy SHACL lane.",
+      "sha256": "aa950e519c96040d8c40a9e14dc193651da255c0032bec108e2bd1fb8e937bfe",
+      "description": "Generated add-path-value mutation targeting MOLIT-REC-DIST-001-P-CHECKSUM-001; expected IDs were observed by the publication-policy profile SHACL lane.",
       "conformanceClass": [
         "publication-policy"
       ],
       "expectedOutcome": "violates",
       "coversRequirementIds": [
-        "MOLIT-REC-DIST-001",
         "MOLIT-REC-DIST-001-P-CHECKSUM-001"
       ],
       "expectedRequirementIds": [
-        "MOLIT-REC-DIST-001",
         "MOLIT-REC-DIST-001-P-CHECKSUM-001"
-      ]
+      ],
+      "atomicConditionFamilyIds": [
+        "MOLIT-REC-DIST-001-P-CHECKSUM-001"
+      ],
+      "validationMode": "profile",
+      "targetRequirementId": null
     },
     {
       "fixtureId": "NEG-MUT-REC-DS-001-P-CONTACTPOINT-001",
       "path": "examples/invalid/mutation-molit-rec-ds-001-p-contactpoint-001.ttl",
-      "sha256": "17297a95c07dfa2605948f067330c43b97051d734b29b57f64bf3c5f81c6e08d",
-      "description": "Generated remove-path-values mutation targeting MOLIT-REC-DS-001-P-CONTACTPOINT-001; expected IDs were observed by the publication-policy SHACL lane.",
+      "sha256": "6b805a8c7d17d48005139a3d348db31413b454b2378340ea30acd9faa29bfa15",
+      "description": "Generated add-path-value mutation targeting MOLIT-REC-DS-001-P-CONTACTPOINT-001; expected IDs were observed by the publication-policy profile SHACL lane.",
       "conformanceClass": [
         "publication-policy"
       ],
       "expectedOutcome": "violates",
       "coversRequirementIds": [
-        "MOLIT-REC-DS-001",
         "MOLIT-REC-DS-001-P-CONTACTPOINT-001"
       ],
       "expectedRequirementIds": [
-        "MOLIT-REC-DS-001",
         "MOLIT-REC-DS-001-P-CONTACTPOINT-001"
-      ]
+      ],
+      "atomicConditionFamilyIds": [
+        "MOLIT-REC-DS-001-P-CONTACTPOINT-001"
+      ],
+      "validationMode": "profile",
+      "targetRequirementId": null
     },
     {
       "fixtureId": "NEG-MUT-REC-DS-001-P-PROVENANCE-001",
       "path": "examples/invalid/mutation-molit-rec-ds-001-p-provenance-001.ttl",
-      "sha256": "6ea2bf9e536ea6dec29bb13b21efec169fd4eae8e1c0d83613e80801b71246bb",
-      "description": "Generated remove-path-values mutation targeting MOLIT-REC-DS-001-P-PROVENANCE-001; expected IDs were observed by the publication-policy SHACL lane.",
+      "sha256": "b2ecbaca5fb2adc653ca3d6c999e4096632ec1187ecb1b6074975ee70481a1fd",
+      "description": "Generated remove-path-values mutation targeting MOLIT-REC-DS-001-P-PROVENANCE-001; expected IDs were observed by the publication-policy profile SHACL lane.",
       "conformanceClass": [
         "publication-policy"
       ],
       "expectedOutcome": "violates",
       "coversRequirementIds": [
-        "MOLIT-REC-DS-001",
         "MOLIT-REC-DS-001-P-PROVENANCE-001"
       ],
       "expectedRequirementIds": [
-        "MOLIT-REC-DS-001",
         "MOLIT-REC-DS-001-P-PROVENANCE-001"
-      ]
+      ],
+      "atomicConditionFamilyIds": [
+        "MOLIT-REC-DS-001-P-PROVENANCE-001"
+      ],
+      "validationMode": "profile",
+      "targetRequirementId": null
     },
     {
       "fixtureId": "NEG-MUT-REC-QUAL-001-P-QUALIFICATIONEVIDENCE-001",
       "path": "examples/invalid/mutation-molit-rec-qual-001-p-qualificationevidence-001.ttl",
-      "sha256": "a0ddb6259e993b6ceaa9cac6ac72b052ad5fd48e03a6c8b2c8d733bd8bed9fde",
-      "description": "Generated remove-path-values mutation targeting MOLIT-REC-QUAL-001-P-QUALIFICATIONEVIDENCE-001; expected IDs were observed by the publication-policy SHACL lane.",
+      "sha256": "0d8ad20b757ebddaab48fa43f78db90edab8e8404d9c06ca1c49f9fb295d9033",
+      "description": "Generated add-path-value mutation targeting MOLIT-REC-QUAL-001-P-QUALIFICATIONEVIDENCE-001; expected IDs were observed by the publication-policy profile SHACL lane.",
       "conformanceClass": [
         "publication-policy"
       ],
       "expectedOutcome": "violates",
       "coversRequirementIds": [
-        "MOLIT-REC-QUAL-001",
         "MOLIT-REC-QUAL-001-P-QUALIFICATIONEVIDENCE-001"
       ],
       "expectedRequirementIds": [
-        "MOLIT-REC-QUAL-001",
         "MOLIT-REC-QUAL-001-P-QUALIFICATIONEVIDENCE-001"
-      ]
+      ],
+      "atomicConditionFamilyIds": [
+        "MOLIT-REC-QUAL-001-P-QUALIFICATIONEVIDENCE-001"
+      ],
+      "validationMode": "profile",
+      "targetRequirementId": null
     },
     {
       "fixtureId": "NEG-MUT-SVC-001-P-ENDPOINTURL-001",
       "path": "examples/invalid/mutation-molit-svc-001-p-endpointurl-001.ttl",
-      "sha256": "771ade00b4ad2ed80f07d440bd565ab6265a5dfe1d8c3d0442dfbdc5f9659184",
-      "description": "Generated remove-path-values mutation targeting MOLIT-SVC-001-P-ENDPOINTURL-001; expected IDs were observed by the core SHACL lane.",
+      "sha256": "2d64fd9dd72cc4e8339efc0c3c1faeefee8fbebd2a9a0a243c66d62d5ed271b7",
+      "description": "Generated constraint-unit-MOLIT-SVC-001-P-ENDPOINTURL-001-remove-path-values mutation targeting MOLIT-SVC-001-P-ENDPOINTURL-001; expected IDs were observed by the core constraint-unit SHACL lane.",
       "conformanceClass": [
         "core"
       ],
       "expectedOutcome": "violates",
       "coversRequirementIds": [
-        "MOLIT-SVC-001",
         "MOLIT-SVC-001-P-ENDPOINTURL-001"
       ],
       "expectedRequirementIds": [
-        "MOLIT-SVC-001",
         "MOLIT-SVC-001-P-ENDPOINTURL-001"
-      ]
+      ],
+      "atomicConditionFamilyIds": [
+        "MOLIT-SVC-001-P-ENDPOINTURL-001"
+      ],
+      "validationMode": "constraint-unit",
+      "targetRequirementId": "MOLIT-SVC-001-P-ENDPOINTURL-001"
     },
     {
       "fixtureId": "NEG-MUT-SVC-001-P-SERVESDATASET-001",
       "path": "examples/invalid/mutation-molit-svc-001-p-servesdataset-001.ttl",
-      "sha256": "36d1318f474424be9715b965c077060410d4c4b37a7e4d2bb9deb8bf65bae13b",
-      "description": "Generated remove-path-values mutation targeting MOLIT-SVC-001-P-SERVESDATASET-001; expected IDs were observed by the core SHACL lane.",
+      "sha256": "61fd76c381296754c28449f1ce46cc8ab4a378c7d1be90e37c9588ef804134ed",
+      "description": "Generated remove-path-values mutation targeting MOLIT-SVC-001-P-SERVESDATASET-001; expected IDs were observed by the core profile SHACL lane.",
       "conformanceClass": [
         "core"
       ],
       "expectedOutcome": "violates",
       "coversRequirementIds": [
-        "MOLIT-SVC-001",
         "MOLIT-SVC-001-P-SERVESDATASET-001"
       ],
       "expectedRequirementIds": [
-        "MOLIT-SVC-001",
         "MOLIT-SVC-001-P-SERVESDATASET-001"
-      ]
+      ],
+      "atomicConditionFamilyIds": [
+        "MOLIT-SVC-001-P-SERVESDATASET-001"
+      ],
+      "validationMode": "profile",
+      "targetRequirementId": null
     },
     {
       "fixtureId": "NEG-MUT-SVC-001-P-THEME-001",
       "path": "examples/invalid/mutation-molit-svc-001-p-theme-001.ttl",
-      "sha256": "f49cdaa8219264aa79e7b4fdb1d72d864bec4d5ab425723d2ebad0a180d270a0",
-      "description": "Generated remove-path-values mutation targeting MOLIT-SVC-001-P-THEME-001; expected IDs were observed by the core SHACL lane.",
+      "sha256": "99a637d7dbf2fb4b3476f8b62dc2064c0a07c67b00a2e0f5cb7564c89c5a0a36",
+      "description": "Generated remove-path-values mutation targeting MOLIT-SVC-001-P-THEME-001; expected IDs were observed by the core profile SHACL lane.",
       "conformanceClass": [
         "core"
       ],
       "expectedOutcome": "violates",
       "coversRequirementIds": [
-        "MOLIT-SVC-001",
         "MOLIT-SVC-001-P-THEME-001"
       ],
       "expectedRequirementIds": [
-        "MOLIT-SVC-001",
         "MOLIT-SVC-001-P-THEME-001"
-      ]
+      ],
+      "atomicConditionFamilyIds": [
+        "MOLIT-SVC-001-P-THEME-001"
+      ],
+      "validationMode": "profile",
+      "targetRequirementId": null
     },
     {
       "fixtureId": "NEG-MUT-SVC-001-P-TITLE-001",
       "path": "examples/invalid/mutation-molit-svc-001-p-title-001.ttl",
-      "sha256": "39113a935e2a828da242137c11fcad583d0e407083ef977a9bb1c5676aa55370",
-      "description": "Generated remove-path-values mutation targeting MOLIT-SVC-001-P-TITLE-001; expected IDs were observed by the core SHACL lane.",
+      "sha256": "b107e3037813d21f91bc85d010d4904af3710ad6933ae20249ddab50cb77e243",
+      "description": "Generated constraint-unit-MOLIT-SVC-001-P-TITLE-001-remove-path-values mutation targeting MOLIT-SVC-001-P-TITLE-001; expected IDs were observed by the core constraint-unit SHACL lane.",
       "conformanceClass": [
         "core"
       ],
       "expectedOutcome": "violates",
       "coversRequirementIds": [
-        "MOLIT-SVC-001",
         "MOLIT-SVC-001-P-TITLE-001"
       ],
       "expectedRequirementIds": [
-        "MOLIT-SVC-001",
         "MOLIT-SVC-001-P-TITLE-001"
-      ]
-    },
-    {
-      "fixtureId": "NEG-NETWORK-NETWORK-REFERENCE-WITHOUT-VERSION",
-      "path": "examples/invalid/network-reference-without-version.ttl",
-      "sha256": "20515212b19464caedd6905cc9f3ef7add67e3ee0e2415e96df5ac518fa471bb",
-      "description": "Reviewed network negative fixture; expected IDs were observed from the local SHACL graph.",
-      "conformanceClass": [
-        "network"
       ],
-      "expectedOutcome": "violates",
-      "coversRequirementIds": [
-        "MOLIT-DS-001",
-        "MOLIT-DS-001-P-PATH-0E31B21B99-001",
-        "MOLIT-DS-001-P-PATH-30F94DAB87-001",
-        "MOLIT-GEO-001",
-        "MOLIT-GEO-DISCLOSURE-001",
-        "MOLIT-NET-REF-001",
-        "MOLIT-NET-REF-001-P-NETWORKVERSION-001",
-        "MOLIT-NET-SNAPSHOT-001",
-        "MOLIT-NET-SNAPSHOT-001-P-NETWORKLIFECYCLESTATUS-001",
-        "MOLIT-NET-SNAPSHOT-001-P-NETWORKSNAPSHOTCHECKSUM-001",
-        "MOLIT-NET-SNAPSHOT-001-P-NETWORKVALIDFROM-001"
+      "atomicConditionFamilyIds": [
+        "MOLIT-SVC-001-P-TITLE-001"
       ],
-      "expectedRequirementIds": [
-        "MOLIT-DS-001",
-        "MOLIT-DS-001-P-PATH-0E31B21B99-001",
-        "MOLIT-DS-001-P-PATH-30F94DAB87-001",
-        "MOLIT-GEO-001",
-        "MOLIT-GEO-DISCLOSURE-001",
-        "MOLIT-NET-REF-001",
-        "MOLIT-NET-REF-001-P-NETWORKVERSION-001",
-        "MOLIT-NET-SNAPSHOT-001",
-        "MOLIT-NET-SNAPSHOT-001-P-NETWORKLIFECYCLESTATUS-001",
-        "MOLIT-NET-SNAPSHOT-001-P-NETWORKSNAPSHOTCHECKSUM-001",
-        "MOLIT-NET-SNAPSHOT-001-P-NETWORKVALIDFROM-001"
-      ]
+      "validationMode": "constraint-unit",
+      "targetRequirementId": "MOLIT-SVC-001-P-TITLE-001"
     },
     {
       "fixtureId": "NEG-NETWORK-NETWORK-SNAPSHOT-WITHOUT-CHECKSUM",
       "path": "examples/invalid/network-snapshot-without-checksum.ttl",
-      "sha256": "2a541e48aaa21273ca24ea7b7a0a02c3d9da5235cf46ee4e2287766ef1f057bc",
+      "sha256": "e1e9d0a75f23133c2dcec92a16682b5a0864c8b0164007a5f7c1a23547550b0a",
       "description": "Reviewed network negative fixture; expected IDs were observed from the local SHACL graph.",
       "conformanceClass": [
         "network"
       ],
       "expectedOutcome": "violates",
       "coversRequirementIds": [
-        "MOLIT-NET-SNAPSHOT-001",
         "MOLIT-NET-SNAPSHOT-001-P-NETWORKSNAPSHOTCHECKSUM-001"
       ],
       "expectedRequirementIds": [
-        "MOLIT-NET-SNAPSHOT-001",
         "MOLIT-NET-SNAPSHOT-001-P-NETWORKSNAPSHOTCHECKSUM-001"
-      ]
-    },
-    {
-      "fixtureId": "NEG-OBSERVATION-OBSERVATION-UNIT-MISMATCH",
-      "path": "examples/invalid/observation-unit-mismatch.ttl",
-      "sha256": "e4a120ec28f31a49e77807a793a3efc8f9929006944a9aad2b521c7e322242ba",
-      "description": "Reviewed observation negative fixture; expected IDs were observed from the local SHACL graph.",
-      "conformanceClass": [
-        "observation"
       ],
-      "expectedOutcome": "violates",
-      "coversRequirementIds": [
-        "MOLIT-OBS-001",
-        "MOLIT-OBS-001-P-AGGREGATIONPERIOD-001",
-        "MOLIT-OBS-UNIT-001"
+      "atomicConditionFamilyIds": [
+        "MOLIT-NET-SNAPSHOT-001-P-NETWORKSNAPSHOTCHECKSUM-001"
       ],
-      "expectedRequirementIds": [
-        "MOLIT-OBS-001",
-        "MOLIT-OBS-001-P-AGGREGATIONPERIOD-001",
-        "MOLIT-OBS-UNIT-001"
-      ]
-    },
-    {
-      "fixtureId": "NEG-QUALITY-QUALITY-MEASUREMENT-DATASET-MISMATCH",
-      "path": "examples/invalid/quality-measurement-dataset-mismatch.ttl",
-      "sha256": "370ccebc5f700ee354790c0c19e08ce74b8f1b53ff8d5887b6d28c03e4df6809",
-      "description": "Reviewed quality negative fixture; expected IDs were observed from the local SHACL graph.",
-      "conformanceClass": [
-        "quality"
-      ],
-      "expectedOutcome": "violates",
-      "coversRequirementIds": [
-        "MOLIT-QUAL-LINK-001",
-        "MOLIT-QUAL-LINK-001-P-PATH-7CC75844D0-001",
-        "MOLIT-QUAL-MEASURE-001",
-        "MOLIT-QUAL-MEASURE-001-P-COMPUTEDON-001"
-      ],
-      "expectedRequirementIds": [
-        "MOLIT-QUAL-LINK-001",
-        "MOLIT-QUAL-LINK-001-P-PATH-7CC75844D0-001",
-        "MOLIT-QUAL-MEASURE-001",
-        "MOLIT-QUAL-MEASURE-001-P-COMPUTEDON-001"
-      ]
-    },
-    {
-      "fixtureId": "NEG-QUALITY-QUALITY-UNIT-NOT-QUDT",
-      "path": "examples/invalid/quality-unit-not-qudt.ttl",
-      "sha256": "66137546cb5bb8446a83abc69d48b1081042e5793b9fc0649c3ad0e4a0078aff",
-      "description": "Reviewed quality negative fixture; expected IDs were observed from the local SHACL graph.",
-      "conformanceClass": [
-        "quality"
-      ],
-      "expectedOutcome": "violates",
-      "coversRequirementIds": [
-        "MOLIT-DS-001",
-        "MOLIT-DS-001-P-PATH-0E31B21B99-001",
-        "MOLIT-DS-001-P-PATH-30F94DAB87-001",
-        "MOLIT-QUAL-MEASURE-001",
-        "MOLIT-QUAL-MEASURE-001-P-UNITMEASURE-001",
-        "MOLIT-QUAL-MEASURE-002",
-        "MOLIT-QUAL-PROV-001",
-        "MOLIT-QUAL-PROV-001-P-QUALITYEVALUATIONMETHOD-001",
-        "MOLIT-QUAL-PROV-001-P-QUALITYEVALUATIONSCOPE-001",
-        "MOLIT-QUAL-PROV-001-P-QUALITYMAPPINGSTATEMENT-001",
-        "MOLIT-QUAL-PROV-001-P-QUALITYRESULTKIND-001"
-      ],
-      "expectedRequirementIds": [
-        "MOLIT-DS-001",
-        "MOLIT-DS-001-P-PATH-0E31B21B99-001",
-        "MOLIT-DS-001-P-PATH-30F94DAB87-001",
-        "MOLIT-QUAL-MEASURE-001",
-        "MOLIT-QUAL-MEASURE-001-P-UNITMEASURE-001",
-        "MOLIT-QUAL-MEASURE-002",
-        "MOLIT-QUAL-PROV-001",
-        "MOLIT-QUAL-PROV-001-P-QUALITYEVALUATIONMETHOD-001",
-        "MOLIT-QUAL-PROV-001-P-QUALITYEVALUATIONSCOPE-001",
-        "MOLIT-QUAL-PROV-001-P-QUALITYMAPPINGSTATEMENT-001",
-        "MOLIT-QUAL-PROV-001-P-QUALITYRESULTKIND-001"
-      ]
-    },
-    {
-      "fixtureId": "NEG-QUALITY-SPOOFED-CONTROLLED-CONCEPT",
-      "path": "examples/invalid/spoofed-controlled-concept.ttl",
-      "sha256": "327101878c7c574e1029c4dbaac7cf757cf3b21252133faca972b180969713f7",
-      "description": "Reviewed quality negative fixture; expected IDs were observed from the local SHACL graph.",
-      "conformanceClass": [
-        "quality"
-      ],
-      "expectedOutcome": "violates",
-      "coversRequirementIds": [
-        "MOLIT-DS-001",
-        "MOLIT-DS-001-P-PATH-0E31B21B99-001",
-        "MOLIT-DS-001-P-PATH-30F94DAB87-001",
-        "MOLIT-QUAL-001",
-        "MOLIT-QUAL-001-P-QUALITYSTATUS-001"
-      ],
-      "expectedRequirementIds": [
-        "MOLIT-DS-001",
-        "MOLIT-DS-001-P-PATH-0E31B21B99-001",
-        "MOLIT-DS-001-P-PATH-30F94DAB87-001",
-        "MOLIT-QUAL-001",
-        "MOLIT-QUAL-001-P-QUALITYSTATUS-001"
-      ]
+      "validationMode": "profile",
+      "targetRequirementId": null
     },
     {
       "fixtureId": "POS-CORE-CORE-CATALOG",
       "path": "examples/valid/core-catalog.ttl",
-      "sha256": "197d7253020458210f6446bada33c64e1108f09fb69bad28f583b9b253abcc99",
+      "sha256": "890359af8412318e1aac11055207e850b571f38e47205aa868c423b40bef1e0f",
       "description": "Conforming core fixture used as positive evidence for activated local shapes.",
       "conformanceClass": [
         "core"
       ],
       "expectedOutcome": "conforms",
       "coversRequirementIds": [
-        "MOLIT-AGENT-001",
         "MOLIT-AGENT-001-P-NAME-001",
-        "MOLIT-CAT-001",
         "MOLIT-CAT-001-P-DATASET-001",
         "MOLIT-CAT-001-P-DESCRIPTION-001",
         "MOLIT-CAT-001-P-LANGUAGE-001",
         "MOLIT-CAT-001-P-PUBLISHER-001",
         "MOLIT-CAT-001-P-RECORD-001",
         "MOLIT-CAT-001-P-TITLE-001",
-        "MOLIT-CAT-REL-001",
         "MOLIT-CAT-REL-001-P-PATH-DA00F2B2F6-001",
-        "MOLIT-CV-MEDIATYPE-001",
         "MOLIT-CV-MEDIATYPE-001-P-COMPRESSFORMAT-001",
         "MOLIT-CV-MEDIATYPE-001-P-MEDIATYPE-001",
         "MOLIT-CV-MEDIATYPE-001-P-PACKAGEFORMAT-001",
         "MOLIT-CV-MEDIATYPE-001-P-TYPE-001",
-        "MOLIT-DS-001",
         "MOLIT-DS-001-P-ACCESSRIGHTS-001",
         "MOLIT-DS-001-P-DESCRIPTION-001",
         "MOLIT-DS-001-P-IDENTIFIER-001",
@@ -2465,42 +2856,38 @@
         "MOLIT-DS-001-P-THEME-001",
         "MOLIT-DS-001-P-THEME-002",
         "MOLIT-DS-001-P-TITLE-001",
-        "MOLIT-PROFILE-CORE-001",
         "MOLIT-PROFILE-CORE-001-P-CONFORMSTO-001",
-        "MOLIT-PROFILE-CORE-002",
         "MOLIT-PROFILE-CORE-002-P-CONFORMSTO-001",
         "MOLIT-PROFILE-SELECTION-GEOSPARQL-001",
         "MOLIT-PROFILE-SELECTION-MARKER-001",
-        "MOLIT-REC-001",
         "MOLIT-REC-001-P-LANGUAGE-001",
         "MOLIT-REC-001-P-MODIFIED-001",
         "MOLIT-REC-001-P-PRIMARYTOPIC-001",
         "MOLIT-REC-001-P-TITLE-001"
       ],
-      "expectedRequirementIds": []
+      "expectedRequirementIds": [],
+      "atomicConditionFamilyIds": [],
+      "validationMode": "profile",
+      "targetRequirementId": null
     },
     {
       "fixtureId": "POS-CORE-SECTOR-AND-SERVICE-CATALOG",
       "path": "examples/valid/sector-and-service-catalog.ttl",
-      "sha256": "e5850fe33cd08e0a6920070f21dfada8f128dfc74253c7683dba54e326244ea3",
+      "sha256": "22ddc5f7463a4e364897c0781ee1b226507a97db09a78c4cf897e52bb860019e",
       "description": "Conforming core fixture used as positive evidence for activated local shapes.",
       "conformanceClass": [
         "core"
       ],
       "expectedOutcome": "conforms",
       "coversRequirementIds": [
-        "MOLIT-AGENT-001",
         "MOLIT-AGENT-001-P-NAME-001",
-        "MOLIT-CAT-001",
         "MOLIT-CAT-001-P-DATASET-001",
         "MOLIT-CAT-001-P-DESCRIPTION-001",
         "MOLIT-CAT-001-P-LANGUAGE-001",
         "MOLIT-CAT-001-P-PUBLISHER-001",
         "MOLIT-CAT-001-P-RECORD-001",
         "MOLIT-CAT-001-P-TITLE-001",
-        "MOLIT-CAT-REL-001",
         "MOLIT-CAT-REL-001-P-PATH-DA00F2B2F6-001",
-        "MOLIT-DS-001",
         "MOLIT-DS-001-P-ACCESSRIGHTS-001",
         "MOLIT-DS-001-P-DESCRIPTION-001",
         "MOLIT-DS-001-P-IDENTIFIER-001",
@@ -2512,52 +2899,46 @@
         "MOLIT-DS-001-P-THEME-001",
         "MOLIT-DS-001-P-THEME-002",
         "MOLIT-DS-001-P-TITLE-001",
-        "MOLIT-PROFILE-CORE-001",
         "MOLIT-PROFILE-CORE-001-P-CONFORMSTO-001",
-        "MOLIT-PROFILE-CORE-002",
         "MOLIT-PROFILE-CORE-002-P-CONFORMSTO-001",
         "MOLIT-PROFILE-SELECTION-GEOSPARQL-001",
         "MOLIT-PROFILE-SELECTION-MARKER-001",
-        "MOLIT-REC-001",
         "MOLIT-REC-001-P-LANGUAGE-001",
         "MOLIT-REC-001-P-MODIFIED-001",
         "MOLIT-REC-001-P-PRIMARYTOPIC-001",
         "MOLIT-REC-001-P-TITLE-001",
-        "MOLIT-SVC-001",
         "MOLIT-SVC-001-P-ENDPOINTURL-001",
         "MOLIT-SVC-001-P-SERVESDATASET-001",
         "MOLIT-SVC-001-P-THEME-001",
         "MOLIT-SVC-001-P-TITLE-001"
       ],
-      "expectedRequirementIds": []
+      "expectedRequirementIds": [],
+      "atomicConditionFamilyIds": [],
+      "validationMode": "profile",
+      "targetRequirementId": null
     },
     {
       "fixtureId": "POS-CORE-TRAFFIC-OBSERVATION-CATALOG",
       "path": "examples/valid/traffic-observation-catalog.ttl",
-      "sha256": "7b0f23a787eefad6ad6fa944a967d1d9fac76e011d4413f44f804653f2632629",
+      "sha256": "94ae1f9cb3b9ffb297e75d4b3cfe5cc3042cd9684c0de4ebc348d2db661e4673",
       "description": "Conforming core fixture used as positive evidence for activated local shapes.",
       "conformanceClass": [
         "core"
       ],
       "expectedOutcome": "conforms",
       "coversRequirementIds": [
-        "MOLIT-AGENT-001",
         "MOLIT-AGENT-001-P-NAME-001",
-        "MOLIT-CAT-001",
         "MOLIT-CAT-001-P-DATASET-001",
         "MOLIT-CAT-001-P-DESCRIPTION-001",
         "MOLIT-CAT-001-P-LANGUAGE-001",
         "MOLIT-CAT-001-P-PUBLISHER-001",
         "MOLIT-CAT-001-P-RECORD-001",
         "MOLIT-CAT-001-P-TITLE-001",
-        "MOLIT-CAT-REL-001",
         "MOLIT-CAT-REL-001-P-PATH-DA00F2B2F6-001",
-        "MOLIT-CV-MEDIATYPE-001",
         "MOLIT-CV-MEDIATYPE-001-P-COMPRESSFORMAT-001",
         "MOLIT-CV-MEDIATYPE-001-P-MEDIATYPE-001",
         "MOLIT-CV-MEDIATYPE-001-P-PACKAGEFORMAT-001",
         "MOLIT-CV-MEDIATYPE-001-P-TYPE-001",
-        "MOLIT-DS-001",
         "MOLIT-DS-001-P-ACCESSRIGHTS-001",
         "MOLIT-DS-001-P-DESCRIPTION-001",
         "MOLIT-DS-001-P-IDENTIFIER-001",
@@ -2569,47 +2950,42 @@
         "MOLIT-DS-001-P-THEME-001",
         "MOLIT-DS-001-P-THEME-002",
         "MOLIT-DS-001-P-TITLE-001",
-        "MOLIT-PROFILE-CORE-001",
         "MOLIT-PROFILE-CORE-001-P-CONFORMSTO-001",
-        "MOLIT-PROFILE-CORE-002",
         "MOLIT-PROFILE-CORE-002-P-CONFORMSTO-001",
         "MOLIT-PROFILE-SELECTION-GEOSPARQL-001",
         "MOLIT-PROFILE-SELECTION-MARKER-001",
-        "MOLIT-REC-001",
         "MOLIT-REC-001-P-LANGUAGE-001",
         "MOLIT-REC-001-P-MODIFIED-001",
         "MOLIT-REC-001-P-PRIMARYTOPIC-001",
         "MOLIT-REC-001-P-TITLE-001"
       ],
-      "expectedRequirementIds": []
+      "expectedRequirementIds": [],
+      "atomicConditionFamilyIds": [],
+      "validationMode": "profile",
+      "targetRequirementId": null
     },
     {
       "fixtureId": "POS-DATASPACE-OFFERING-DATASPACE-OFFERING-CATALOG",
       "path": "examples/valid/dataspace-offering-catalog.ttl",
-      "sha256": "80934db1f3d5cd44f7b1bd2d56d1da042d8c09cdfde067c8f7baea630670b823",
+      "sha256": "0399d5322b532b9f86ff8ea84fe5fc5bb2ee02c42704735e840372a19e1ddaa9",
       "description": "Conforming dataspace-offering fixture used as positive evidence for activated local shapes.",
       "conformanceClass": [
         "dataspace-offering"
       ],
       "expectedOutcome": "conforms",
       "coversRequirementIds": [
-        "MOLIT-AGENT-001",
         "MOLIT-AGENT-001-P-NAME-001",
-        "MOLIT-CAT-001",
         "MOLIT-CAT-001-P-DATASET-001",
         "MOLIT-CAT-001-P-DESCRIPTION-001",
         "MOLIT-CAT-001-P-LANGUAGE-001",
         "MOLIT-CAT-001-P-PUBLISHER-001",
         "MOLIT-CAT-001-P-RECORD-001",
         "MOLIT-CAT-001-P-TITLE-001",
-        "MOLIT-CAT-REL-001",
         "MOLIT-CAT-REL-001-P-PATH-DA00F2B2F6-001",
-        "MOLIT-CV-MEDIATYPE-001",
         "MOLIT-CV-MEDIATYPE-001-P-COMPRESSFORMAT-001",
         "MOLIT-CV-MEDIATYPE-001-P-MEDIATYPE-001",
         "MOLIT-CV-MEDIATYPE-001-P-PACKAGEFORMAT-001",
         "MOLIT-CV-MEDIATYPE-001-P-TYPE-001",
-        "MOLIT-DS-001",
         "MOLIT-DS-001-P-ACCESSRIGHTS-001",
         "MOLIT-DS-001-P-DESCRIPTION-001",
         "MOLIT-DS-001-P-IDENTIFIER-001",
@@ -2621,56 +2997,48 @@
         "MOLIT-DS-001-P-THEME-001",
         "MOLIT-DS-001-P-THEME-002",
         "MOLIT-DS-001-P-TITLE-001",
-        "MOLIT-OFFER-001",
         "MOLIT-OFFER-001-P-DESCRIBESOFFERINGDATASET-001",
         "MOLIT-OFFER-001-P-IDENTIFIER-001",
         "MOLIT-OFFER-001-P-MODIFIED-001",
         "MOLIT-OFFER-001-P-OFFERINGREADINESSSTATUS-001",
         "MOLIT-OFFER-001-P-TITLE-001",
-        "MOLIT-OFFER-LINK-001",
         "MOLIT-OFFER-LINK-001-P-DESCRIBESOFFERINGDATASET-001",
-        "MOLIT-PROFILE-OFFER-001",
         "MOLIT-PROFILE-OFFER-001-P-CONFORMSTO-001",
-        "MOLIT-PROFILE-OFFER-002",
         "MOLIT-PROFILE-OFFER-002-P-CONFORMSTO-001",
-        "MOLIT-REC-001",
         "MOLIT-REC-001-P-LANGUAGE-001",
         "MOLIT-REC-001-P-MODIFIED-001",
         "MOLIT-REC-001-P-PRIMARYTOPIC-001",
         "MOLIT-REC-001-P-TITLE-001"
       ],
-      "expectedRequirementIds": []
+      "expectedRequirementIds": [],
+      "atomicConditionFamilyIds": [],
+      "validationMode": "profile",
+      "targetRequirementId": null
     },
     {
       "fixtureId": "POS-GEO-GEO-CATALOG",
       "path": "examples/valid/geo-catalog.ttl",
-      "sha256": "000b345cbac66df16cb5be7995d45e6f89b99a1253d3ade1ca9f599d71950829",
+      "sha256": "2b02602b101a10039d87310e2684cf2ae6ff5fa2a08966e70b4045c8719a25b3",
       "description": "Conforming geo fixture used as positive evidence for activated local shapes.",
       "conformanceClass": [
         "geo"
       ],
       "expectedOutcome": "conforms",
       "coversRequirementIds": [
-        "MOLIT-AGENT-001",
         "MOLIT-AGENT-001-P-NAME-001",
-        "MOLIT-CAT-001",
         "MOLIT-CAT-001-P-DATASET-001",
         "MOLIT-CAT-001-P-DESCRIPTION-001",
         "MOLIT-CAT-001-P-LANGUAGE-001",
         "MOLIT-CAT-001-P-PUBLISHER-001",
         "MOLIT-CAT-001-P-RECORD-001",
         "MOLIT-CAT-001-P-TITLE-001",
-        "MOLIT-CAT-REL-001",
         "MOLIT-CAT-REL-001-P-PATH-DA00F2B2F6-001",
-        "MOLIT-CV-CHECKSUM-001",
         "MOLIT-CV-CHECKSUM-001-P-ALGORITHM-001",
         "MOLIT-CV-CHECKSUM-002",
-        "MOLIT-CV-MEDIATYPE-001",
         "MOLIT-CV-MEDIATYPE-001-P-COMPRESSFORMAT-001",
         "MOLIT-CV-MEDIATYPE-001-P-MEDIATYPE-001",
         "MOLIT-CV-MEDIATYPE-001-P-PACKAGEFORMAT-001",
         "MOLIT-CV-MEDIATYPE-001-P-TYPE-001",
-        "MOLIT-DS-001",
         "MOLIT-DS-001-P-ACCESSRIGHTS-001",
         "MOLIT-DS-001-P-DESCRIPTION-001",
         "MOLIT-DS-001-P-IDENTIFIER-001",
@@ -2688,71 +3056,62 @@
         "MOLIT-GEO-001-P-SPATIALRESOLUTIONINMETERS-001",
         "MOLIT-GEO-001-P-TYPE-001",
         "MOLIT-GEO-DISCLOSURE-001",
+        "MOLIT-GEO-DISCLOSURE-001-P-SPATIALDISCLOSURELEVEL-001",
         "MOLIT-GEO-DISCLOSURE-002",
         "MOLIT-GEO-ENCODING-001",
         "MOLIT-GEO-ENCODING-002",
         "MOLIT-GEO-ENCODING-003",
         "MOLIT-GEO-ENCODING-004",
-        "MOLIT-GEO-ENCODING-005",
         "MOLIT-GEO-ENCODING-005-P-ASDGGS-001",
         "MOLIT-GEO-ENCODING-005-P-ASGEOJSON-001",
         "MOLIT-GEO-ENCODING-005-P-ASKML-001",
         "MOLIT-GEO-ENCODING-005-P-HASSERIALIZATION-001",
-        "MOLIT-GEO-LINK-001",
         "MOLIT-GEO-LINK-001-P-PATH-BFC98936CC-001",
-        "MOLIT-GEO-LINK-002",
         "MOLIT-GEO-LINK-002-P-PATH-D6567CFAEC-001",
-        "MOLIT-GEO-PROFILE-001",
         "MOLIT-GEO-PROFILE-001-P-CONFORMSTO-001",
-        "MOLIT-GEO-PROFILE-002",
         "MOLIT-GEO-PROFILE-002-P-CONFORMSTO-001",
         "MOLIT-GEO-TYPE-001",
         "MOLIT-GEO-TYPE-002",
         "MOLIT-GEO-TYPE-003",
         "MOLIT-GEO-TYPE-004",
-        "MOLIT-REC-001",
         "MOLIT-REC-001-P-LANGUAGE-001",
         "MOLIT-REC-001-P-MODIFIED-001",
         "MOLIT-REC-001-P-PRIMARYTOPIC-001",
         "MOLIT-REC-001-P-TITLE-001",
-        "MOLIT-SVC-001",
         "MOLIT-SVC-001-P-ENDPOINTURL-001",
         "MOLIT-SVC-001-P-SERVESDATASET-001",
         "MOLIT-SVC-001-P-THEME-001",
         "MOLIT-SVC-001-P-TITLE-001"
       ],
-      "expectedRequirementIds": []
+      "expectedRequirementIds": [],
+      "atomicConditionFamilyIds": [],
+      "validationMode": "profile",
+      "targetRequirementId": null
     },
     {
       "fixtureId": "POS-GEO-ROAD-NETWORK-CATALOG",
       "path": "examples/valid/road-network-catalog.ttl",
-      "sha256": "543e71f3b65940865e38e36d241b9c51bd16a91157cf142a191524c4ede2de67",
+      "sha256": "4ffbbac2c7557ce3f68866b04fb0442c9caae502c0e648ead581ac211b6a193a",
       "description": "Conforming geo fixture used as positive evidence for activated local shapes.",
       "conformanceClass": [
         "geo"
       ],
       "expectedOutcome": "conforms",
       "coversRequirementIds": [
-        "MOLIT-AGENT-001",
         "MOLIT-AGENT-001-P-NAME-001",
-        "MOLIT-CAT-001",
         "MOLIT-CAT-001-P-DATASET-001",
         "MOLIT-CAT-001-P-DESCRIPTION-001",
         "MOLIT-CAT-001-P-LANGUAGE-001",
         "MOLIT-CAT-001-P-PUBLISHER-001",
         "MOLIT-CAT-001-P-RECORD-001",
         "MOLIT-CAT-001-P-TITLE-001",
-        "MOLIT-CAT-REL-001",
         "MOLIT-CAT-REL-001-P-PATH-DA00F2B2F6-001",
-        "MOLIT-CV-CHECKSUM-001",
         "MOLIT-CV-CHECKSUM-001-P-ALGORITHM-001",
         "MOLIT-CV-CHECKSUM-002",
-        "MOLIT-CV-MEDIATYPE-001",
         "MOLIT-CV-MEDIATYPE-001-P-COMPRESSFORMAT-001",
         "MOLIT-CV-MEDIATYPE-001-P-MEDIATYPE-001",
         "MOLIT-CV-MEDIATYPE-001-P-PACKAGEFORMAT-001",
         "MOLIT-CV-MEDIATYPE-001-P-TYPE-001",
-        "MOLIT-DS-001",
         "MOLIT-DS-001-P-ACCESSRIGHTS-001",
         "MOLIT-DS-001-P-DESCRIPTION-001",
         "MOLIT-DS-001-P-IDENTIFIER-001",
@@ -2770,69 +3129,60 @@
         "MOLIT-GEO-001-P-SPATIALRESOLUTIONINMETERS-001",
         "MOLIT-GEO-001-P-TYPE-001",
         "MOLIT-GEO-DISCLOSURE-001",
+        "MOLIT-GEO-DISCLOSURE-001-P-SPATIALDISCLOSURELEVEL-001",
         "MOLIT-GEO-DISCLOSURE-002",
         "MOLIT-GEO-ENCODING-001",
         "MOLIT-GEO-ENCODING-003",
         "MOLIT-GEO-ENCODING-004",
-        "MOLIT-GEO-ENCODING-005",
         "MOLIT-GEO-ENCODING-005-P-ASDGGS-001",
         "MOLIT-GEO-ENCODING-005-P-ASGEOJSON-001",
         "MOLIT-GEO-ENCODING-005-P-ASKML-001",
         "MOLIT-GEO-ENCODING-005-P-HASSERIALIZATION-001",
-        "MOLIT-GEO-LINK-001",
         "MOLIT-GEO-LINK-001-P-PATH-BFC98936CC-001",
-        "MOLIT-GEO-LINK-002",
         "MOLIT-GEO-LINK-002-P-PATH-D6567CFAEC-001",
-        "MOLIT-GEO-PROFILE-001",
         "MOLIT-GEO-PROFILE-001-P-CONFORMSTO-001",
-        "MOLIT-GEO-PROFILE-002",
         "MOLIT-GEO-PROFILE-002-P-CONFORMSTO-001",
         "MOLIT-GEO-TYPE-001",
         "MOLIT-GEO-TYPE-003",
         "MOLIT-GEO-TYPE-004",
-        "MOLIT-REC-001",
         "MOLIT-REC-001-P-LANGUAGE-001",
         "MOLIT-REC-001-P-MODIFIED-001",
         "MOLIT-REC-001-P-PRIMARYTOPIC-001",
         "MOLIT-REC-001-P-TITLE-001",
-        "MOLIT-SVC-001",
         "MOLIT-SVC-001-P-ENDPOINTURL-001",
         "MOLIT-SVC-001-P-SERVESDATASET-001",
         "MOLIT-SVC-001-P-THEME-001",
         "MOLIT-SVC-001-P-TITLE-001"
       ],
-      "expectedRequirementIds": []
+      "expectedRequirementIds": [],
+      "atomicConditionFamilyIds": [],
+      "validationMode": "profile",
+      "targetRequirementId": null
     },
     {
       "fixtureId": "POS-NETWORK-NETWORK-CATALOG",
       "path": "examples/valid/network-catalog.ttl",
-      "sha256": "eae0d3b7cc6c4486a75b428a8dafd5ac7590129a4191be4df0a0060ab52ce83c",
+      "sha256": "d7299314ef1084563c92bb496ec4a51efafcc75df76a1973f7dc73617bffd028",
       "description": "Conforming network fixture used as positive evidence for activated local shapes.",
       "conformanceClass": [
         "network"
       ],
       "expectedOutcome": "conforms",
       "coversRequirementIds": [
-        "MOLIT-AGENT-001",
         "MOLIT-AGENT-001-P-NAME-001",
-        "MOLIT-CAT-001",
         "MOLIT-CAT-001-P-DATASET-001",
         "MOLIT-CAT-001-P-DESCRIPTION-001",
         "MOLIT-CAT-001-P-LANGUAGE-001",
         "MOLIT-CAT-001-P-PUBLISHER-001",
         "MOLIT-CAT-001-P-RECORD-001",
         "MOLIT-CAT-001-P-TITLE-001",
-        "MOLIT-CAT-REL-001",
         "MOLIT-CAT-REL-001-P-PATH-DA00F2B2F6-001",
-        "MOLIT-CV-CHECKSUM-001",
         "MOLIT-CV-CHECKSUM-001-P-ALGORITHM-001",
         "MOLIT-CV-CHECKSUM-002",
-        "MOLIT-CV-MEDIATYPE-001",
         "MOLIT-CV-MEDIATYPE-001-P-COMPRESSFORMAT-001",
         "MOLIT-CV-MEDIATYPE-001-P-MEDIATYPE-001",
         "MOLIT-CV-MEDIATYPE-001-P-PACKAGEFORMAT-001",
         "MOLIT-CV-MEDIATYPE-001-P-TYPE-001",
-        "MOLIT-DS-001",
         "MOLIT-DS-001-P-ACCESSRIGHTS-001",
         "MOLIT-DS-001-P-DESCRIPTION-001",
         "MOLIT-DS-001-P-IDENTIFIER-001",
@@ -2850,81 +3200,73 @@
         "MOLIT-GEO-001-P-SPATIALRESOLUTIONINMETERS-001",
         "MOLIT-GEO-001-P-TYPE-001",
         "MOLIT-GEO-DISCLOSURE-001",
+        "MOLIT-GEO-DISCLOSURE-001-P-SPATIALDISCLOSURELEVEL-001",
         "MOLIT-GEO-DISCLOSURE-002",
         "MOLIT-GEO-ENCODING-001",
         "MOLIT-GEO-ENCODING-003",
         "MOLIT-GEO-ENCODING-004",
-        "MOLIT-GEO-ENCODING-005",
         "MOLIT-GEO-ENCODING-005-P-ASDGGS-001",
         "MOLIT-GEO-ENCODING-005-P-ASGEOJSON-001",
         "MOLIT-GEO-ENCODING-005-P-ASKML-001",
         "MOLIT-GEO-ENCODING-005-P-HASSERIALIZATION-001",
-        "MOLIT-GEO-LINK-001",
         "MOLIT-GEO-LINK-001-P-PATH-BFC98936CC-001",
-        "MOLIT-GEO-LINK-002",
         "MOLIT-GEO-LINK-002-P-PATH-D6567CFAEC-001",
         "MOLIT-GEO-TYPE-001",
         "MOLIT-GEO-TYPE-003",
         "MOLIT-GEO-TYPE-004",
-        "MOLIT-NET-001",
         "MOLIT-NET-001-P-NETWORKREFERENCE-001",
         "MOLIT-NET-001-P-TRANSPORTMODE-001",
         "MOLIT-NET-001-P-TYPE-001",
-        "MOLIT-NET-002",
         "MOLIT-NET-002-P-TYPE-001",
-        "MOLIT-NET-REF-001",
         "MOLIT-NET-REF-001-P-NETWORKAUTHORITY-001",
         "MOLIT-NET-REF-001-P-NETWORKELEMENTTYPE-001",
         "MOLIT-NET-REF-001-P-NETWORKIDENTIFIER-001",
         "MOLIT-NET-REF-001-P-NETWORKVERSION-001",
-        "MOLIT-NET-SNAPSHOT-001",
+        "MOLIT-NET-REF-IRI-001",
+        "MOLIT-NET-REPLACEMENT-001",
+        "MOLIT-NET-SAMEAS-001-P-INCOMING-001",
+        "MOLIT-NET-SAMEAS-001-P-OUTGOING-001",
         "MOLIT-NET-SNAPSHOT-001-P-NETWORKIDENTIFIER-001",
         "MOLIT-NET-SNAPSHOT-001-P-NETWORKLIFECYCLESTATUS-001",
         "MOLIT-NET-SNAPSHOT-001-P-NETWORKSNAPSHOTCHECKSUM-001",
         "MOLIT-NET-SNAPSHOT-001-P-NETWORKVALIDFROM-001",
         "MOLIT-NET-SNAPSHOT-001-P-NETWORKVALIDUNTIL-001",
         "MOLIT-NET-SNAPSHOT-001-P-NETWORKVERSION-001",
-        "MOLIT-NET-VALIDITY-001",
         "MOLIT-NET-VALIDITY-001-P-NETWORKVALIDFROM-001",
-        "MOLIT-PROFILE-NET-001",
         "MOLIT-PROFILE-NET-001-P-CONFORMSTO-001",
-        "MOLIT-PROFILE-NET-002",
         "MOLIT-PROFILE-NET-002-P-CONFORMSTO-001",
-        "MOLIT-REC-001",
         "MOLIT-REC-001-P-LANGUAGE-001",
         "MOLIT-REC-001-P-MODIFIED-001",
         "MOLIT-REC-001-P-PRIMARYTOPIC-001",
         "MOLIT-REC-001-P-TITLE-001"
       ],
-      "expectedRequirementIds": []
+      "expectedRequirementIds": [],
+      "atomicConditionFamilyIds": [],
+      "validationMode": "profile",
+      "targetRequirementId": null
     },
     {
       "fixtureId": "POS-OBSERVATION-OBSERVATION-CATALOG",
       "path": "examples/valid/observation-catalog.ttl",
-      "sha256": "397259b51ac85a2e2898625e0de5a8bb949e5f4dbdd9976afdf2a6593120f4f0",
+      "sha256": "627f69f6d55b71559c10e03a6575260ff8ed41073fda74cb586244351774c481",
       "description": "Conforming observation fixture used as positive evidence for activated local shapes.",
       "conformanceClass": [
         "observation"
       ],
       "expectedOutcome": "conforms",
       "coversRequirementIds": [
-        "MOLIT-AGENT-001",
         "MOLIT-AGENT-001-P-NAME-001",
-        "MOLIT-CAT-001",
         "MOLIT-CAT-001-P-DATASET-001",
         "MOLIT-CAT-001-P-DESCRIPTION-001",
         "MOLIT-CAT-001-P-LANGUAGE-001",
         "MOLIT-CAT-001-P-PUBLISHER-001",
         "MOLIT-CAT-001-P-RECORD-001",
         "MOLIT-CAT-001-P-TITLE-001",
-        "MOLIT-CAT-REL-001",
         "MOLIT-CAT-REL-001-P-PATH-DA00F2B2F6-001",
-        "MOLIT-CV-MEDIATYPE-001",
         "MOLIT-CV-MEDIATYPE-001-P-COMPRESSFORMAT-001",
         "MOLIT-CV-MEDIATYPE-001-P-MEDIATYPE-001",
         "MOLIT-CV-MEDIATYPE-001-P-PACKAGEFORMAT-001",
         "MOLIT-CV-MEDIATYPE-001-P-TYPE-001",
-        "MOLIT-DS-001",
         "MOLIT-DS-001-P-ACCESSRIGHTS-001",
         "MOLIT-DS-001-P-DESCRIPTION-001",
         "MOLIT-DS-001-P-IDENTIFIER-001",
@@ -2936,7 +3278,6 @@
         "MOLIT-DS-001-P-THEME-001",
         "MOLIT-DS-001-P-THEME-002",
         "MOLIT-DS-001-P-TITLE-001",
-        "MOLIT-OBS-001",
         "MOLIT-OBS-001-P-AGGREGATIONPERIOD-001",
         "MOLIT-OBS-001-P-MISSINGVALUEPOLICY-001",
         "MOLIT-OBS-001-P-OBSERVATIONAGGREGATION-001",
@@ -2947,35 +3288,37 @@
         "MOLIT-OBS-001-P-TEMPORALRESOLUTION-001",
         "MOLIT-OBS-001-P-TYPE-001",
         "MOLIT-OBS-UNIT-001",
-        "MOLIT-PROFILE-OBS-001",
         "MOLIT-PROFILE-OBS-001-P-CONFORMSTO-001",
-        "MOLIT-PROFILE-OBS-002",
         "MOLIT-PROFILE-OBS-002-P-CONFORMSTO-001",
-        "MOLIT-REC-001",
         "MOLIT-REC-001-P-LANGUAGE-001",
         "MOLIT-REC-001-P-MODIFIED-001",
         "MOLIT-REC-001-P-PRIMARYTOPIC-001",
         "MOLIT-REC-001-P-TITLE-001"
       ],
-      "expectedRequirementIds": []
+      "expectedRequirementIds": [],
+      "atomicConditionFamilyIds": [],
+      "validationMode": "profile",
+      "targetRequirementId": null
     },
     {
       "fixtureId": "POS-PUBLICATION-POLICY-GEO-CATALOG",
       "path": "examples/valid/geo-catalog.ttl",
-      "sha256": "000b345cbac66df16cb5be7995d45e6f89b99a1253d3ade1ca9f599d71950829",
+      "sha256": "2b02602b101a10039d87310e2684cf2ae6ff5fa2a08966e70b4045c8719a25b3",
       "description": "Conforming publication-policy fixture used as positive evidence for activated local shapes.",
       "conformanceClass": [
         "publication-policy"
       ],
       "expectedOutcome": "conforms",
       "coversRequirementIds": [
-        "MOLIT-REC-DIST-001",
+        "MOLIT-DEPRECATED-LOCAL-001",
         "MOLIT-REC-DIST-001-P-CHECKSUM-001",
-        "MOLIT-REC-DS-001",
         "MOLIT-REC-DS-001-P-CONTACTPOINT-001",
         "MOLIT-REC-DS-001-P-PROVENANCE-001"
       ],
-      "expectedRequirementIds": []
+      "expectedRequirementIds": [],
+      "atomicConditionFamilyIds": [],
+      "validationMode": "profile",
+      "targetRequirementId": null
     },
     {
       "fixtureId": "POS-PUBLICATION-POLICY-PUBLICATION-OFFERING-QUALIFICATION",
@@ -2987,56 +3330,56 @@
       ],
       "expectedOutcome": "conforms",
       "coversRequirementIds": [
-        "MOLIT-REC-QUAL-001",
+        "MOLIT-DEPRECATED-LOCAL-001",
         "MOLIT-REC-QUAL-001-P-QUALIFICATIONEVIDENCE-001"
       ],
-      "expectedRequirementIds": []
+      "expectedRequirementIds": [],
+      "atomicConditionFamilyIds": [],
+      "validationMode": "profile",
+      "targetRequirementId": null
     },
     {
       "fixtureId": "POS-PUBLICATION-POLICY-ROAD-NETWORK-CATALOG",
       "path": "examples/valid/road-network-catalog.ttl",
-      "sha256": "543e71f3b65940865e38e36d241b9c51bd16a91157cf142a191524c4ede2de67",
+      "sha256": "4ffbbac2c7557ce3f68866b04fb0442c9caae502c0e648ead581ac211b6a193a",
       "description": "Conforming publication-policy fixture used as positive evidence for activated local shapes.",
       "conformanceClass": [
         "publication-policy"
       ],
       "expectedOutcome": "conforms",
       "coversRequirementIds": [
-        "MOLIT-REC-DIST-001",
+        "MOLIT-DEPRECATED-LOCAL-001",
         "MOLIT-REC-DIST-001-P-CHECKSUM-001",
-        "MOLIT-REC-DS-001",
         "MOLIT-REC-DS-001-P-CONTACTPOINT-001",
         "MOLIT-REC-DS-001-P-PROVENANCE-001"
       ],
-      "expectedRequirementIds": []
+      "expectedRequirementIds": [],
+      "atomicConditionFamilyIds": [],
+      "validationMode": "profile",
+      "targetRequirementId": null
     },
     {
       "fixtureId": "POS-QUALITY-QUALITY-CATALOG",
       "path": "examples/valid/quality-catalog.ttl",
-      "sha256": "2c4b31c217a352c4471bed05cfe19a2764894cb732be5fb372d7be28ae5c8642",
+      "sha256": "57a8ada107fa5ff9e55a64eb01a3eaedd3de8e173235c5ee90d9af247ca7ac60",
       "description": "Conforming quality fixture used as positive evidence for activated local shapes.",
       "conformanceClass": [
         "quality"
       ],
       "expectedOutcome": "conforms",
       "coversRequirementIds": [
-        "MOLIT-AGENT-001",
         "MOLIT-AGENT-001-P-NAME-001",
-        "MOLIT-CAT-001",
         "MOLIT-CAT-001-P-DATASET-001",
         "MOLIT-CAT-001-P-DESCRIPTION-001",
         "MOLIT-CAT-001-P-LANGUAGE-001",
         "MOLIT-CAT-001-P-PUBLISHER-001",
         "MOLIT-CAT-001-P-RECORD-001",
         "MOLIT-CAT-001-P-TITLE-001",
-        "MOLIT-CAT-REL-001",
         "MOLIT-CAT-REL-001-P-PATH-DA00F2B2F6-001",
-        "MOLIT-CV-MEDIATYPE-001",
         "MOLIT-CV-MEDIATYPE-001-P-COMPRESSFORMAT-001",
         "MOLIT-CV-MEDIATYPE-001-P-MEDIATYPE-001",
         "MOLIT-CV-MEDIATYPE-001-P-PACKAGEFORMAT-001",
         "MOLIT-CV-MEDIATYPE-001-P-TYPE-001",
-        "MOLIT-DS-001",
         "MOLIT-DS-001-P-ACCESSRIGHTS-001",
         "MOLIT-DS-001-P-DESCRIPTION-001",
         "MOLIT-DS-001-P-IDENTIFIER-001",
@@ -3048,36 +3391,37 @@
         "MOLIT-DS-001-P-THEME-001",
         "MOLIT-DS-001-P-THEME-002",
         "MOLIT-DS-001-P-TITLE-001",
-        "MOLIT-PROFILE-QUAL-001",
         "MOLIT-PROFILE-QUAL-001-P-CONFORMSTO-001",
-        "MOLIT-PROFILE-QUAL-002",
         "MOLIT-PROFILE-QUAL-002-P-CONFORMSTO-001",
-        "MOLIT-QUAL-001",
         "MOLIT-QUAL-001-P-QUALITYSTATUS-001",
-        "MOLIT-QUAL-LINK-001",
         "MOLIT-QUAL-LINK-001-P-PATH-7CC75844D0-001",
         "MOLIT-QUAL-MAP-001",
         "MOLIT-QUAL-MAP-001-P-MAPPEDQUALITYMETRIC-001",
         "MOLIT-QUAL-MAP-001-P-QUALITYLOSSDISPOSITION-001",
         "MOLIT-QUAL-MAP-001-P-SOURCEQUALITYELEMENT-001",
+        "MOLIT-QUAL-MAP-LINK-001-P-DISPOSITION-001",
+        "MOLIT-QUAL-MAP-LINK-001-P-METRIC-001",
         "MOLIT-QUAL-MEASURE-001",
         "MOLIT-QUAL-MEASURE-001-P-COMPUTEDON-001",
         "MOLIT-QUAL-MEASURE-001-P-ISMEASUREMENTOF-001",
+        "MOLIT-QUAL-MEASURE-001-P-QUALITYRESULTCONCEPT-001",
         "MOLIT-QUAL-MEASURE-001-P-UNITMEASURE-001",
         "MOLIT-QUAL-MEASURE-001-P-VALUE-001",
         "MOLIT-QUAL-MEASURE-002",
-        "MOLIT-QUAL-PROV-001",
         "MOLIT-QUAL-PROV-001-P-QUALITYEVALUATIONMETHOD-001",
         "MOLIT-QUAL-PROV-001-P-QUALITYEVALUATIONSCOPE-001",
         "MOLIT-QUAL-PROV-001-P-QUALITYMAPPINGSTATEMENT-001",
         "MOLIT-QUAL-PROV-001-P-QUALITYRESULTKIND-001",
-        "MOLIT-REC-001",
+        "MOLIT-QUAL-STATUS-001",
         "MOLIT-REC-001-P-LANGUAGE-001",
         "MOLIT-REC-001-P-MODIFIED-001",
         "MOLIT-REC-001-P-PRIMARYTOPIC-001",
         "MOLIT-REC-001-P-TITLE-001"
       ],
-      "expectedRequirementIds": []
+      "expectedRequirementIds": [],
+      "atomicConditionFamilyIds": [],
+      "validationMode": "profile",
+      "targetRequirementId": null
     }
   ]
 }

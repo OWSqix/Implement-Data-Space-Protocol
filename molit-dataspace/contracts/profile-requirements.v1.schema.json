@@ -11,6 +11,8 @@
     "shapeNamespace",
     "shapeFiles",
     "fixtureCaseRegistry",
+    "includedRequirementRegistries",
+    "integratedCoverage",
     "requirements"
   ],
   "properties": {
@@ -39,6 +41,16 @@
     "fixtureCaseRegistry": {
       "type": "string",
       "const": "requirements/conformance-cases.json"
+    },
+    "includedRequirementRegistries": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "$ref": "#/$defs/includedRequirementRegistry"
+      }
+    },
+    "integratedCoverage": {
+      "$ref": "#/$defs/integratedCoverage"
     },
     "requirements": {
       "type": "array",
@@ -113,6 +125,60 @@
             { "type": "null" }
           ]
         }
+      }
+    },
+    "includedRequirementRegistry": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "registryPath",
+        "schemaVersion",
+        "sha256",
+        "csvPath",
+        "csvSha256",
+        "requirements",
+        "fullyCovered",
+        "blockers",
+        "status"
+      ],
+      "properties": {
+        "registryPath": {
+          "type": "string",
+          "pattern": "^requirements/[A-Za-z0-9._-]+[.]json$"
+        },
+        "schemaVersion": { "type": "string", "minLength": 5, "maxLength": 120 },
+        "sha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+        "csvPath": {
+          "type": "string",
+          "const": "requirements/upstream-profile-requirements.csv"
+        },
+        "csvSha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+        "requirements": { "type": "integer", "minimum": 0 },
+        "fullyCovered": { "type": "integer", "minimum": 0 },
+        "blockers": { "type": "integer", "minimum": 0 },
+        "status": { "type": "string", "minLength": 3, "maxLength": 80 }
+      }
+    },
+    "integratedCoverage": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "localRequirements",
+        "localFullyCovered",
+        "includedRequirements",
+        "includedFullyCovered",
+        "requirements",
+        "fullyCovered",
+        "blockers"
+      ],
+      "properties": {
+        "localRequirements": { "type": "integer", "minimum": 0 },
+        "localFullyCovered": { "type": "integer", "minimum": 0 },
+        "includedRequirements": { "type": "integer", "minimum": 0 },
+        "includedFullyCovered": { "type": "integer", "minimum": 0 },
+        "requirements": { "type": "integer", "minimum": 0 },
+        "fullyCovered": { "type": "integer", "minimum": 0 },
+        "blockers": { "type": "integer", "minimum": 0 }
       }
     },
     "requirement": {
@@ -254,7 +320,10 @@
         "conformanceClass",
         "expectedOutcome",
         "coversRequirementIds",
-        "expectedRequirementIds"
+        "expectedRequirementIds",
+        "atomicConditionFamilyIds",
+        "validationMode",
+        "targetRequirementId"
       ],
       "properties": {
         "fixtureId": {
@@ -294,9 +363,45 @@
           "items": {
             "$ref": "#/$defs/requirementId"
           }
+        },
+        "atomicConditionFamilyIds": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "$ref": "#/$defs/requirementId"
+          }
+        },
+        "validationMode": {
+          "enum": ["profile", "constraint-unit"]
+        },
+        "targetRequirementId": {
+          "oneOf": [
+            { "$ref": "#/$defs/requirementId" },
+            { "type": "null" }
+          ]
         }
       },
       "allOf": [
+        {
+          "if": {
+            "properties": {
+              "validationMode": { "const": "profile" }
+            },
+            "required": ["validationMode"]
+          },
+          "then": {
+            "properties": {
+              "targetRequirementId": { "type": "null" }
+            }
+          },
+          "else": {
+            "properties": {
+              "targetRequirementId": { "$ref": "#/$defs/requirementId" },
+              "expectedOutcome": { "const": "violates" },
+              "atomicConditionFamilyIds": { "type": "array", "minItems": 1, "maxItems": 1 }
+            }
+          }
+        },
         {
           "if": {
             "properties": {
@@ -306,7 +411,8 @@
           },
           "then": {
             "properties": {
-              "expectedRequirementIds": { "type": "array", "maxItems": 0 }
+              "expectedRequirementIds": { "type": "array", "maxItems": 0 },
+              "atomicConditionFamilyIds": { "type": "array", "maxItems": 0 }
             }
           }
         }
@@ -367,7 +473,8 @@
                       },
                       "then": {
                         "properties": {
-                          "expectedRequirementIds": { "type": "array", "minItems": 1 }
+                          "expectedRequirementIds": { "type": "array", "minItems": 1 },
+                          "atomicConditionFamilyIds": { "type": "array", "minItems": 1, "maxItems": 1 }
                         }
                       }
                     }

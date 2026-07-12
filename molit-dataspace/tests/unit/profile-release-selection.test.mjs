@@ -58,11 +58,13 @@ function arbitraryModuleManifest() {
       ...structuredClone(legacyRelease.manifest.profiles.core),
       bundle: "road",
       conformanceIri: manifest.versionIri,
+      example: "examples/valid/road-conformance.ttl",
     },
     "road-publication-gate": {
       ...structuredClone(legacyRelease.manifest.profiles["core-publication"]),
       bundle: "road-publication",
-      conformanceIri: manifest.versionIri,
+      conformanceIri: `${manifest.versionIri}/publication-policy`,
+      example: "examples/valid/road-publication.ttl",
     },
   };
   return manifest;
@@ -170,6 +172,41 @@ test("PROFILE-MANIFEST-002: new conformance and publication profiles must declar
     () => validateProfileManifest(unownedBundle, unownedBundle.version),
     (error) => error.code === "INVALID_PROFILE_MANIFEST",
   );
+});
+
+test("PROFILE-MANIFEST-002A: published profile identities, bundle paths and examples are unique", () => {
+  const duplicateIri = arbitraryModuleManifest();
+  duplicateIri.profiles["road-publication-gate"].conformanceIri =
+    duplicateIri.profiles["road-conformance"].conformanceIri;
+  assert.throws(
+    () => validateProfileManifest(duplicateIri, duplicateIri.version),
+    (error) => error.code === "INVALID_PROFILE_MANIFEST",
+  );
+
+  const duplicateBundlePath = arbitraryModuleManifest();
+  duplicateBundlePath.publishedBundles["road-publication"] =
+    duplicateBundlePath.publishedBundles.road;
+  assert.throws(
+    () => validateProfileManifest(duplicateBundlePath, duplicateBundlePath.version),
+    (error) => error.code === "INVALID_PROFILE_MANIFEST",
+  );
+
+  const duplicateExample = arbitraryModuleManifest();
+  duplicateExample.profiles["road-publication-gate"].example =
+    duplicateExample.profiles["road-conformance"].example;
+  assert.throws(
+    () => validateProfileManifest(duplicateExample, duplicateExample.version),
+    (error) => error.code === "INVALID_PROFILE_MANIFEST",
+  );
+
+  for (const invalidExample of [undefined, "examples/invalid/not-positive.ttl", "README.md"]) {
+    const missingOrInvalidExample = arbitraryModuleManifest();
+    missingOrInvalidExample.profiles["road-conformance"].example = invalidExample;
+    assert.throws(
+      () => validateProfileManifest(missingOrInvalidExample, missingOrInvalidExample.version),
+      (error) => error.code === "INVALID_PROFILE_MANIFEST",
+    );
+  }
 });
 
 test("PROFILE-MANIFEST-003: release 0.1.0 retains its locked bundle inference", async () => {

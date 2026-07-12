@@ -30,7 +30,7 @@ ex:observation-catalog a dcat:Catalog;
     dcat:themeTaxonomy <http://publications.europa.eu/resource/authority/data-theme>, <https://data.molit.go.kr/scheme/domain>;
     dcat:dataset ex:traffic-observation;
     dcat:record ex:traffic-observation-record;
-    molit:spatialDisclosureLevel <https://data.molit.go.kr/id/concept/spatial-disclosure-level/generalized>.
+    molit:spatialDisclosureLevel <https://data.molit.go.kr/id/concept/spatial-disclosure-level/exact>.
 ex:traffic-office a foaf:Agent;
     dct:type <http://purl.org/adms/publishertype/NationalAuthority>;
     foaf:name "교통 관측 담당기관"@ko.
@@ -48,7 +48,7 @@ ex:traffic-observation a dcat:Dataset, dcat:Resource, molit:ObservationDataset;
     dct:issued "2026-07-12"^^xsd:date;
     dct:modified "2026-07-12T09:00:00+09:00"^^xsd:dateTime;
     dct:spatial ex:republic-of-korea-core;
-    molit:spatialDisclosureLevel <https://data.molit.go.kr/id/concept/spatial-disclosure-level/generalized>;
+    molit:spatialDisclosureLevel <https://data.molit.go.kr/id/concept/spatial-disclosure-level/exact>;
     dct:type ex:observation-dataset-type;
     dct:identifier "traffic-observation-hourly-2026-07";
     dct:accessRights <http://publications.europa.eu/resource/authority/access-right/PUBLIC>;
@@ -99,6 +99,7 @@ ex:traffic-completeness a dqv:QualityMeasurement;
 <https://www.iana.org/assignments/media-types/text/csv> a dct:MediaType.
 ex:traffic-observation-offering-metadata a molit:DataspaceOfferingMetadata;
     dct:title "교통량 관측 데이터 스페이스 오퍼링 메타데이터"@ko;
+    dct:modified "2026-07-13"^^xsd:date, <urn:molit:mutation:c17c3bc7bb38-extra>;
     dct:identifier "offering-traffic-observation-001";
     molit:describesOfferingDataset ex:traffic-observation;
     molit:offeringReadinessStatus offerstatus:metadata-conformant.

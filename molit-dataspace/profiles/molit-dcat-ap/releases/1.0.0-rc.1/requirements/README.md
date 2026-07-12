@@ -11,7 +11,9 @@
 - 로컬 shape에서 `sh:property`로 직접 연결한 property constraint
 - 위 제약의 양성 fixture와 표적 음성 fixture
 
-DCAT-AP와 GeoDCAT-AP의 고정 upstream shape는 이 원장에 복제하지 않는다. `manifest.json`이 참조하는 Turtle 파일을 검사한 뒤 로컬 shape namespace가 나타난 파일만 원장 범위로 삼는다.
+DCAT-AP와 GeoDCAT-AP의 고정 upstream shape는 로컬 requirement 행으로 복제하지 않는다. 로컬 스캐너는 `manifest.json`이 참조하는 Turtle 파일 중 로컬 shape namespace가 나타난 파일만 읽는다.
+
+대신 별도 upstream 원장을 `includedRequirementRegistries`로 결합한다. 따라서 출처는 분리하지만 최종 Gate는 로컬과 upstream coverage를 한 번에 판정한다.
 
 `sh:or`, `sh:not`, `sh:node`와 qualified shape 안에서만 사용하는 property shape는 독립 MUST로 세지 않는다.  
 검증: traceability Gate에서 보조 노드의 별도·충돌 requirement ID가 0건이어야 한다.
@@ -25,8 +27,12 @@ DCAT-AP와 GeoDCAT-AP의 고정 upstream shape는 이 원장에 복제하지 않
 | `profile-requirements.json` | 요구사항과 shape의 machine register |
 | `profile-requirements.csv` | JSON 정본에서 생성한 사람 검토용 열 projection |
 | `source-overrides.json` | 채택 판단을 다시 확인해야 하는 constraint의 출처·조항·로컬 강화 이유 |
+| `local-normative-clauses.json` | 외부 source override가 없는 로컬 requirement의 규범 문장과 채택 이유를 1:1로 고정한 조항 원장 |
+| `upstream-requirement-inventory.json` | 고정 upstream constraint, 원본 locator, 격리 증거와 coverage 합계 |
+| `upstream-profile-requirements.csv` | upstream JSON 원장이 digest로 고정한 사람 검토용 projection |
 | `conformance-cases.json` | fixture case, digest와 예상 결과의 machine register |
-| `coverage-blockers.json` | `RA-REQUIREMENTS`가 집계하는 미충족 양성·음성 증거 목록 |
+| `coverage-blockers.json` | `RA-REQUIREMENTS`의 로컬 미충족 목록과 integrated coverage 합계 |
+| `network-runtime-controls.json` | SHACL 한 노드만으로 판정할 수 없는 NetworkReference 집합 제약과 lifecycle case 연결 |
 | `../../../../../contracts/profile-requirements.v1.schema.json` | 원장 JSON Schema |
 | `../../../../../tools/profile/verify-requirement-traceability.mjs` | SHACL·원장·fixture 교차검증기 |
 | `../../../../../tools/profile/build-requirement-evidence.mjs` | 양성 case 검증, 표적 mutation 생성과 coverage 재계산 |
@@ -69,10 +75,15 @@ CSV는 `requirementId`, `conformanceClass`, `resourceClass`, `property`, `obliga
 
 - 양성 case는 `expectedOutcome=conforms`이며 `expectedRequirementIds`가 비어 있어야 한다.
 - 음성 case는 `expectedOutcome=violates`이며 표적으로 실패할 ID를 `expectedRequirementIds`에 기록한다.
+- `atomicConditionFamilyIds`는 SHACL result의 `sourceShape`에서 가장 가까운 독립 requirement ID를 하나만 기록한다. `sh:NodeConstraintComponent`의 detail child는 wrapper 대신 child family로 정규화한다. 서로 독립된 top-level result는 같은 owner IRI를 쓴다는 이유로 합치지 않는다.
+- `validationMode=profile`은 선택 profile 전체를 실행한다. 등록되지 않은 upstream·unknown result가 함께 나오거나 독립 family가 둘 이상이면 이 case는 음성 증거가 아니다.
+- `validationMode=constraint-unit`은 전체 profile에서 원자적으로 분리할 수 없을 때만 쓴다. 검증기가 원본 constraint와 owner target으로 test-only shape를 다시 구성한다. 발행 bundle은 바꾸지 않는다. 이 mode는 음성 case 한 개와 `targetRequirementId` 한 개만 허용한다.
 - `coversRequirementIds`는 해당 파일이 시험하는 전체 요구사항을 기록한다.
 - 요구사항 행의 양성·음성 case ID와 case의 coverage가 서로를 가리켜야 한다.
 
-파일 존재와 digest, case ID, 역방향 coverage는 추적 Gate에서 검사한다. `build-requirement-evidence.mjs`는 각 case를 지정 profile의 SHACL에 실행한 뒤 실제로 관측한 로컬 requirement ID만 `expectedRequirementIds`에 기록한다. 한 mutation이 연관 제약도 함께 위반하면 그 ID를 숨기지 않고 같은 case에 기록한다.
+파일 존재와 digest, case ID, 역방향 coverage는 추적 Gate에서 검사한다. Gate는 여기서 멈추지 않고 모든 case를 지정 profile SHACL에 다시 실행한다.
+
+실제 outcome, owner를 포함한 requirement ID와 nearest-sourceShape atomic family가 원장과 다르면 digest가 맞아도 실패한다. requirement가 음성 증거로 가리키는 case는 atomic family가 정확히 하나여야 한다.
 
 ## 5. 로컬 정책과 EU 진단의 경계
 
@@ -88,11 +99,17 @@ Core에는 다음 조건을 남겼다.
 - checksum 알고리즘·길이와 IANA media type은 전송 무결성 조건으로 검사함
 - 한국어 검색·표시 필드와 단일 publisher 조건을 검사함
 
-`source-overrides.json`은 이 결정과 품질상태 조건의 출처·조항·강화 이유를 requirement ID별로 고정한다. 생성기는 필수 override가 없거나 삭제된 requirement를 가리키면 중단한다. verifier는 override와 JSON 원장의 세 필드를 다시 비교한다.
+`source-overrides.json`은 외부 표준·발행정책을 직접 채택한 조건의 출처·조항·강화 이유를 requirement ID별로 고정한다. 나머지 로컬 조건은 `local-normative-clauses.json`에 같은 ID의 정식 local clause가 있어야 한다.
+
+이 원장은 SHACL message에서 고정한 규범 문장과 채택 이유를 가진다. ID를 `sourceClause`에 되풀이하기만 하고 조항 원장 행이 없는 fallback은 승인할 수 없다.
 
 ## 6. 증거와 blocker 재계산
 
-다음 명령은 기존 양성 module fixture를 검증하고, 직접 property requirement에 적용할 수 있는 remove·replace·add mutation을 실행한다. 목표 ID가 실제 결과에 나타난 mutation만 파일로 남긴다.
+다음 명령은 기존 양성 module fixture를 검증하고 property·node requirement에 적용할 mutation을 실행한다.
+
+먼저 전체 profile에서 목표 ID 하나만 실패하는 후보를 찾는다. 다른 leaf나 등록되지 않은 result가 함께 나오면 버리고, 같은 후보 풀을 constraint-unit lane에서 다시 검사한다.
+
+두 lane에서 모두 격리하지 못한 requirement는 blocker로 남긴다.
 
 ```bash
 npm run profile:requirements:evidence
@@ -104,13 +121,17 @@ npm run profile:requirements:evidence
 - `conformance-cases.json`과 `coverage-blockers.json`
 - `examples/invalid/mutation-*.ttl`
 
-현재 RC에는 규범 요구사항 156개가 있다. 모두 양성·음성 증거를 갖고, 잔여 blocker는 0개다.
+요구사항·case·atomic mutation과 잔여 blocker 수는 `coverage-blockers.json`에서 매번 다시 계산한다. 서로 다른 leaf 조건을 함께 깨는 mutation은 coverage로 세지 않는다.
 
-case는 138개다. 이 중 110개는 한 requirement를 표적으로 만든 mutation이다. 독립 결과를 만들지 않는 소유 NodeShape 46개는 실제 descendant 위반 결과에 귀속한다.
+독립 결과를 만들지 않는 순수 container NodeShape는 규범 requirement에서 제외하거나 한 descendant family의 owner로만 귀속해야 한다.
 
-음성 case의 `expectedRequirementIds`에는 실제 SHACL 결과에서 해당 source shape와 소유 NodeShape까지 추적한 ID만 기록한다. 한 property 변경이 역방향 링크나 더 강한 중복 조건도 깨뜨리면 관측한 ID를 모두 남긴다.
+음성 case의 `expectedRequirementIds`에는 실제 SHACL 결과에서 해당 source shape와 소유 NodeShape까지 추적한 ID를 모두 남긴다. `atomicConditionFamilyIds`에는 nearest leaf만 남긴다.
 
-양성·음성 증거가 모두 있는 requirement만 완전 coverage로 계산한다. 한쪽이라도 없으면 원장 상태를 `draft`로 유지하고 `coverage-blockers.json`에 requirement ID와 누락 종류를 기록한다. 156개가 모두 연결된 현재 원장 상태는 `approved`다.
+한 property 변경이 역방향 링크나 별도 의미 조건까지 깨뜨려 family가 둘 이상이면 해당 requirement의 격리 증거로 사용할 수 없다.
+
+양성·음성 증거가 모두 있는 requirement만 완전 coverage로 계산한다. 한쪽이라도 없으면 원장 상태를 `draft`로 유지하고 `coverage-blockers.json`에 requirement ID와 누락 종류를 기록한다.
+
+고정된 개수를 문서에 적어 승인 상태를 주장하지 않는다. Gate가 현재 SHACL, case와 포함 원장을 다시 읽어 계산한 값만 사용한다.
 
 ## 7. 초안 갱신
 
@@ -146,7 +167,26 @@ node tools/profile/verify-requirement-traceability.mjs
 3. SHACL에서 계산한 profile, class, path, cardinality, range, vocabulary와 severity가 원장 값과 같음
 4. 원장이 `approved` 상태이며 검토 표식이나 빈 fixture 연결이 없음
 5. fixture case ID, 파일, digest, outcome과 양방향 requirement 연결이 모두 유효함
-6. `profile-requirements.csv`의 행과 열 값이 JSON 정본의 projection과 byte 단위로 일치함
-7. 필수 source override가 존재하고 JSON 원장의 출처·조항·로컬 이유와 일치함
+6. 모든 fixture를 SHACL에 재실행한 outcome·sourceShape requirement·atomic family가 원장과 일치하고 requirement별 음성 fixture가 family 하나만 위반함
+7. `profile-requirements.csv`의 행과 열 값이 JSON 정본의 projection과 byte 단위로 일치함
+8. 필수 source override 또는 승인된 local normative clause가 1:1로 존재하고 JSON 원장의 출처·조항·로컬 이유와 일치함
+
+## 9. Upstream 권위 원장 결합
+
+`upstream-requirement-inventory.json`은 고정한 DCAT-AP 3.0.1, GeoDCAT-AP 3.1.0과 publication-policy constraint를 로컬 requirement와 분리해 기록한다.
+
+각 행은 권위 원본의 shape 파일과 locator를 유지한다. `localRationale`은 원문을 변경 없이 채택했는지, inert 폐기 행을 로컬 정책으로 운용했는지만 설명하며 원본 constraint의 출처나 내용을 바꾸지 않는다.
+
+Upstream 음성 증거는 원본 PropertyShape마다 test-only target을 붙인 격리 shard에서 실행한다. Blank property shape는 원본 quad와 동등한 결정적 skolem copy를 사용한다.
+
+폐기 URI 파일처럼 원본에 실제 constraint component가 없는 항목은 upstream constraint로 세지 않고 로컬 publication-policy wrapper로 분리한다.
+
+`profile-requirements.json`의 `includedRequirementRegistries`는 포함 원장의 경로, schema version, SHA-256, CSV 경로·SHA-256, requirement 수, 완전 coverage 수와 blocker 수를 고정한다.
+
+`integratedCoverage`는 로컬 원장과 포함 원장의 합계를 기록한다. 검증기는 포함 원장과 CSV를 다시 읽어 digest와 합계를 계산한다.
+
+파일이 바뀌었거나 blocker가 하나라도 남으면 로컬 fixture가 모두 연결되어 있어도 통합 원장을 승인하지 않는다.
+
+현재 포함 원장은 upstream requirement 990개와 각 requirement의 격리 양성·음성 증거를 기록한다. 이 수는 설명용 현재 값이다. 승인 조건에는 990을 상수로 넣지 않는다. Gate는 원장 행 수, `isolatedPositive`, `isolatedNegative`, `blockers`, status와 digest를 매번 대조한다.
 
 합격은 exit code `0`, 추적성 위반은 `2`, 입력·구성 오류는 `1`을 반환한다. `--allow-draft`는 원장 편집 중 진단에만 사용한다. release Gate에서는 사용하지 않는다.

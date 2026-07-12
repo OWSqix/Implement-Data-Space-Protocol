@@ -76,15 +76,22 @@ conformance_claim = informative-pending
 | --- | --- |
 | `manifest.json` | Module, bundle, validation dataset와 실행 한도 |
 | `requirements/profile-requirements.json` | Property constraint별 requirement ID와 출처 |
+| `requirements/upstream-requirement-inventory.json` | 고정한 DCAT-AP·GeoDCAT-AP constraint와 격리 시험의 통합 하위 원장 |
+| `requirements/upstream-profile-requirements.csv` | Upstream requirement의 출처·메시지·수정절차·fixture 검토용 표 |
 | `requirements/conformance-cases.json` | Requirement와 양성·음성 fixture 연결 |
+| `requirements/local-normative-clauses.json` | 로컬 requirement의 규범 문장과 채택 근거 |
 | `shacl/upstream/` | 판이 고정된 DCAT-AP·GeoDCAT-AP 원본 constraint |
 | `shacl/molit-*.ttl` | 국토교통 로컬 constraint |
 | `bundles/*.ttl` | 외부 SHACL engine용 결정적 module bundle |
 | `bundles/support.ttl` | 검증기가 추가하는 유일한 trusted support graph |
 | `ontology/competency-registry.json`, `ontology/queries/*.rq` | Module별 competency 기대결과와 실행 Query |
-| `vocabulary/registry-metadata.json` | 통제어 118개의 상태·유효기간·출처·대체관계 projection |
+| `ontology/term-governance.json` | 로컬 용어별 재사용 판단, domain·range, 상태, 대체정책과 시험 증거 |
+| `vocabulary/registry-metadata.json` | 통제어 124개의 상태·유효기간·출처·대체관계 projection |
 | `migration/semantic-diff.json` | 0.1.0과 RC.1의 module·requirement·ontology·통제어 차이 |
+| `mappings/domestic-standards-crosswalk.csv` | 국내 표준 의미항목과 로컬 constraint·fixture의 조항별 후보 정렬 |
 | `publication/content-negotiation.json` | Profile·ontology IRI의 표현 선택 계약 |
+| `publication/tombstones.json` | 폐기한 로컬 IRI의 영구 응답과 대체 IRI 계약 |
+| `publication/institutional-approval-provenance.candidate.json` | 기관 승인·서명·timestamp가 아직 없음을 고정한 불변 템플릿. 승인본은 release 밖의 detached envelope로 발행 |
 | `index.html`, `ontology.html`, `serializations/*.jsonld` | HTML·JSON-LD 공개 표현 |
 | `CONFORMANCE.md` | 적합성 주장과 실행 절차 |
 
@@ -205,9 +212,15 @@ DataService에는 한국어 title, HTTPS endpoint와 제공 Dataset 연결이 �
 | 공개 geometry CRS | CRS84, EPSG:4326·3857·5179·5186 |
 | WKT geometry | 명시적 CRS가 있는 2차원 Point·LineString·단일 ring Polygon 후보 subset |
 | GML geometry | GML 3.2 Point 후보 subset |
-| 공개수준 | exact·generalized·administrative-area·bounding-box·grid·withheld |
+| 공개수준 | RC.1 발행 Gate: exact·withheld |
 
-`withheld`인 공개 graph에는 location, bbox, centroid와 geometry serialization을 넣지 않는다. Source CRS, 검색용 geometry CRS와 API 요청 CRS가 같다고 가정하지 않는다.
+`exact`는 제출된 공간정보를 profile이 추가로 일반화하거나 제거하지 않았다는 선언이다. 비공개 원천과 제출 geometry가 같다는 증거는 아니다.
+
+`withheld`인 공개 graph에는 location, bbox, centroid와 geometry serialization을 넣지 않는다.
+
+`generalized`, `administrative-area`, `bounding-box`, `grid`는 source-to-public 변환 증거와 국내 식별자 registry가 마련될 때까지 vocabulary 후보로만 남긴다. RC.1 적합 graph에는 사용하지 않는다.
+
+Source CRS, 검색용 geometry CRS와 API 요청 CRS가 같다고 가정하지 않는다.
 
 `RA-CRS=fixed`는 다섯 CRS의 고정 근거 byte, RC.1 geometry subset 왕복시험과 EPSG:5186 표준노드링크 표본 1건을 확인했다는 bounded 기술 판정이다.
 
@@ -226,10 +239,29 @@ Network module은 `molit:NetworkDataset`과 `molit:NetworkReference`를 사용�
 | Snapshot byte | `molit:networkSnapshotChecksum` SHA-256 `xsd:hexBinary` |
 | 생명주기 | candidate·current·superseded·withdrawn |
 | 유효일 | `molit:networkValidFrom`, 선택 `networkValidUntil` |
+| 후속 판 | `dct:isReplacedBy` |
 
 망 식별자 문자열이 같아도 발급기관이나 판이 다르면 같은 참조로 병합하지 않는다. 과거 판은 `superseded` 상태와 checksum을 보존해 과거 Dataset을 재현한다.
 
 국가교통정보센터의 `[2026-07-01]NODELINKDATA.zip`을 관찰해 [checksum·CRS·최소 node–link 관계 fixture](examples/source-evidence/standard-node-link-2026-07-01.json)를 만들었다. 이 표본은 구조시험 근거이며 자료의 재배포 허가나 CC BY 적용을 뜻하지 않는다. 권리 승인 전에는 원 ZIP을 release artifact로 배포하지 않는다.
+
+`policy/network-reference-policy.json`은 참조의 동일성 키를 `(networkAuthority, networkIdentifier, networkVersion)`으로 고정한다. 같은 키의 logical record는 하나만 허용한다.
+
+같은 키에 서로 다른 checksum을 붙이면 checksum 충돌이다. 같은 checksum으로 record만 중복해도 중복 identity 오류다. 판이 바뀌었는데 checksum이 같아도 판 변경 근거를 다시 확인한다.
+
+`superseded` 판은 graph 안의 후속 `NetworkReference` IRI 하나를 `dct:isReplacedBy`로 가리키며 유효기간이 겹치지 않아야 한다. candidate·current·withdrawn 판에는 이 링크를 두지 않는다.
+
+`withdrawn` 식별자는 tombstone으로 남긴다.
+
+원천 DBF의 `NODE_ID`·`LINK_ID`는 관찰한 10자리 숫자 문법으로 시험한다. 이 표본 하나를 모든 발급기관의 보편 문법으로 확대하지 않는다.
+
+원천 Shapefile 좌표는 `east-x, north-y` 순서다. RDF에서 EPSG:5186 authority axis를 표기할 때는 `north, east` 순서로 바꾼다. 이 순서 변경은 좌표변환이 아니며 두 단계를 같은 함수로 처리하지 않는다.
+
+`cli validate --profile network`는 SHACL 뒤에 RDF NetworkReference 집합을 policy record로 투영한다. 같은 키의 checksum 충돌, 후속 판 존재, 후속 판의 허용 상태와 유효기간 비중첩을 검사한다.
+
+같은 판의 candidate→current 같은 상태변경 이력은 입력 graph에 없으므로 runtime 판정 범위가 아니다.
+
+`requirements/network-runtime-controls.json`은 이 whole-graph 판정의 control ID, 구현 함수, 양성·음성 lifecycle case와 수정 방법을 고정한다. `npm run profile:network:verify`는 정책, 4개 runtime control과 14개 lifecycle case의 닫힌 대응을 다시 실행한다.
 
 ### 8.3 Observation
 
@@ -246,6 +278,12 @@ Observation module은 관측 metadata를 다음 축으로 분리한다.
 | 관측대상 | `molit:observationSubjectType` | site·section·network-element·facility·vehicle-population·area |
 | 단위 | `molit:observationUnit` | 속도: QUDT `KiloM-PER-HR`·`M-PER-SEC`; 교통량: 후보 `vehicle-per-hour`·`vehicle-per-day` 또는 QUDT `NUM`; 통행시간: QUDT `SEC`·`MIN` |
 
+이 Module은 `dcat:Dataset` 수준의 관측 metadata를 정의한다. 개별 관측값이나 센서 이벤트를 `molit:ObservationDataset` 인스턴스로 만들지 않는다.
+
+배포 파일이나 API payload에서 개별 관측을 RDF로 표현할 때는 SOSA/SSN의 Observation·ObservationCollection을 사용한다. Dataset metadata와의 연결 규칙은 별도 payload profile에서 정한다.
+
+따라서 RC.1 ontology는 `molit:ObservationDataset`과 SOSA class를 동치로 선언하지 않는다.
+
 관측값 단위와 DQV 품질값 단위를 혼동하지 않는다. 예를 들어 속도값의 `KiloM-PER-HR`와 완전성 품질값의 `PERCENT`는 다른 경로에 기록한다.
 
 `vehicle-per-hour`와 `vehicle-per-day`는 QUDT 공식 vocabulary 항목이 아니다. RC.1이 QUDT `DerivedUnit`·`FactorUnit` 구조로 정의한 `candidate` term이며 운영기관과 QUDT의 승인을 주장하지 않는다. `vehicle-per-day`를 쓰면 하루 집계 경계의 시간대를 Dataset 설명에 기록한다.
@@ -253,6 +291,8 @@ Observation module은 관측 metadata를 다음 축으로 분리한다.
 ### 8.4 Quality
 
 Quality module은 Dataset의 품질상태와 DQV QualityMeasurement를 검증한다.
+
+`not-assessed` 상태에는 측정값을 연결하지 않는다. `assessed`, `warning`, `failed`, `stale`에는 하나 이상의 `dqv:hasQualityMeasurement`가 필요하다. `stale`은 발행자가 적용 방법과 범위에 따라 내린 판정이다. RC.1 SHACL은 현재 시각이나 최신성 기준시간을 계산하지 않는다.
 
 측정값에는 다음 정보가 필요하다.
 
@@ -262,7 +302,25 @@ Quality module은 Dataset의 품질상태와 DQV QualityMeasurement를 검증한
 - `molit:qualityResultKind`
 - 별도 `molit:qualityMappingStatement`
 
-QualityMappingStatement는 원천 품질요소, 대상 DQV metric, 손실상태와 손실설명을 기록한다. `lossless`가 아닌 모든 상태에는 `molit:qualityLossNote`가 필요하다. `unmapped`·`not-published`에는 대상 metric을 만들지 않는다. 지원하지 않는 ISO 19157 결과를 기존 수치 metric으로 임의 축약하지 않는다.
+`molit:qualityEvaluationMethod`는 방법 유형이고 `molit:qualityEvaluationScope`는 공개 가능한 평가 범위 설명이다. 두 값만으로 실행 알고리즘, 매개변수, 수행주체나 재현 가능성을 주장하지 않는다.
+
+`qualityResultKind`가 `quantitative`이면 5개 수치 metric, `xsd:decimal` `dqv:value`와 metric별 QUDT 단위가 필요하다. `boolean`은 `validation-conformance`, `descriptive`는 `assessment-note` metric을 사용한다.
+
+`categorical`은 `currency-status` metric을 사용한다. DQV·GeoDCAT-AP의 `dqv:value` 범위에 맞춰 `current`, `outdated`, `unknown` 중 한 코드를 `xsd:string`으로 기록한다.
+
+같은 범주의 통제 개념 IRI는 `molit:qualityResultConcept`로 연결한다. 비수치 유형에는 단위를 붙이지 않는다.
+
+결과 유형과 metric·값·단위·범주 개념 조합은 하나의 `sh:xone` 분기로 판정한다.
+
+QualityMappingStatement는 원천 품질요소, 대상 DQV metric, 손실상태와 손실설명을 기록한다.
+
+측정값에 연결된 statement의 `mappedQualityMetric`은 그 측정값의 `dqv:isMeasurementOf`와 같아야 한다. 손실상태는 `lossless`, `reversible-loss`, `irreversible-loss` 중 하나다.
+
+`lossless`가 아닌 모든 상태에는 `molit:qualityLossNote`가 필요하다.
+
+`unmapped`·`not-published` 항목은 DQV 측정값에 연결하지 않고 별도 ledger에 둔다. 대상 metric도 만들지 않는다.
+
+지원하지 않는 ISO 19157 결과를 기존 수치 metric으로 임의 축약하지 않는다.
 
 `dqv:hasQualityMeasurement`로 연결한 Dataset과 `dqv:computedOn` Dataset 집합은 일치해야 한다.
 
@@ -292,7 +350,7 @@ Publication policy는 권고 property와 deprecated IRI를 Warning으로 점검�
 
 로컬 ontology와 SKOS term은 `rdfs:isDefinedBy`, `owl:versionInfo`와 `adms:status`를 가진다. RC.1 신규 term의 상태는 `candidate`다. Deprecated term은 `deprecated`로 표시하고 change note를 유지한다.
 
-`vocabulary/registry-metadata.json`은 118개 통제어의 scheme, notation, 원천에 있는 언어별 preferred label, 상태, 유효기간, 출처와 대체관계를 조회용 JSON으로 고정한다. Turtle 정본과 JSON projection이 다르면 `npm run profile:vocabulary:verify`가 실패한다. Registry의 `candidate` 상태를 기관 승인으로 해석하지 않는다.
+`vocabulary/registry-metadata.json`은 124개 통제어의 scheme, notation, 원천에 있는 언어별 preferred label, 상태, 유효기간, 출처와 대체관계를 조회용 JSON으로 고정한다. Turtle 정본과 JSON projection이 다르면 `npm run profile:vocabulary:verify`가 실패한다. Registry의 `candidate` 상태를 기관 승인으로 해석하지 않는다.
 
 ### 9.2 국내 후보 Registry
 
@@ -342,11 +400,28 @@ npm run profile:ontology:verify
 ```powershell
 npm run profile:vocabulary:verify
 npm run profile:semantic-diff:verify
+npm run profile:ontology:governance:verify
+npm run profile:domestic-crosswalk:verify
+npm run profile:network:verify
 ```
 
 첫 명령은 `vocabulary/registry-metadata.json`, 둘째 명령은 `migration/semantic-diff.json`을 정본 Turtle·manifest·requirement와 다시 계산해 byte 단위로 비교한다. Machine diff는 breaking change의 의미검토와 승인을 대신하지 않는다.
 
-### 10.5 단일 Module 검증
+### 10.5 요구사항 원장과 격리 증거
+
+```powershell
+npm run profile:requirements:upstream:verify
+npm run profile:requirements:verify
+npm run profile:requirements:upstream:engines
+```
+
+첫 명령은 upstream 990행, 3개 격리 shard와 CSV projection을 원문 shape에 다시 대조한다. 둘째 명령은 로컬 requirement와 포함 원장의 digest·합계·blocker를 한 번에 판정한다.
+
+셋째 명령은 shard별 양성·음성 graph를 Node, pySHACL과 Jena로 실행한다.
+
+원문에 constraint component가 없는 폐기 URI 6행은 upstream 원문 적합성에 포함하지 않는다. 로컬 publication-policy 운용으로 별도 집계한다.
+
+### 10.6 단일 Module 검증
 
 ```powershell
 node src/profile/cli.mjs validate `
@@ -356,7 +431,7 @@ node src/profile/cli.mjs validate `
   --report .local/network-validation.json
 ```
 
-### 10.6 복수 Module 검증
+### 10.7 복수 Module 검증
 
 Observation과 quality marker를 함께 선언한 graph는 같은 byte 입력을 두 번 검증한다.
 
@@ -365,7 +440,7 @@ node src/profile/cli.mjs validate --version 1.0.0-rc.1 --input observation.ttl -
 node src/profile/cli.mjs validate --version 1.0.0-rc.1 --input observation.ttl --profile quality
 ```
 
-### 10.7 Publication check
+### 10.8 Publication check
 
 ```powershell
 node src/profile/cli.mjs publish-check `
@@ -375,6 +450,16 @@ node src/profile/cli.mjs publish-check `
 ```
 
 Manifest v2의 `publish-check`는 선택한 conformance module과 `publication-policy`를 같은 입력에 순서대로 적용한다. 두 기술 Gate를 통과해도 release-acceptance 외부 Gate가 열려 있으면 `publicationAuthorized=false`와 exit code `2`를 반환한다.
+
+### 10.9 RDF 직렬화 동등성
+
+```powershell
+npm run profile:rc:serialization-parity:verify
+```
+
+이 Gate는 requirement-linked fixture를 Turtle, RDF/XML, JSON-LD, N-Triples와 N-Quads로 변환한다. Canonical graph digest와 Node 판정을 비교하며 Profile별 coverage가 빠지면 실패한다.
+
+Jena parser smoke와 3-engine SHACL 판정은 별도 matrix evidence에서 확인한다. 두 결과를 합쳐 형식 동등성과 engine 동등성을 구분해 판정한다.
 
 ## 11. Artifact 구성
 

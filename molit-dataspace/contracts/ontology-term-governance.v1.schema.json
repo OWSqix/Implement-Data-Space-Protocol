@@ -1,0 +1,214 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://molit-dataspace.example.invalid/schemas/ontology-term-governance.v1.schema.json",
+  "title": "MOLIT ontology term governance register v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "profileVersion",
+    "ontologyIri",
+    "ontologyFile",
+    "registryStatus",
+    "summary",
+    "terms"
+  ],
+  "properties": {
+    "schemaVersion": { "const": "molit.ontology-term-governance/1" },
+    "profileVersion": {
+      "type": "string",
+      "pattern": "^[0-9]+[.][0-9]+[.][0-9]+(?:-[0-9A-Za-z.-]+)?$"
+    },
+    "ontologyIri": { "type": "string", "format": "uri" },
+    "ontologyFile": {
+      "type": "string",
+      "pattern": "^ontology/[A-Za-z0-9._-]+[.]ttl$"
+    },
+    "registryStatus": { "enum": ["candidate", "candidate-with-blockers"] },
+    "summary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["blockedEvidence", "completeEvidence", "terms"],
+      "properties": {
+        "blockedEvidence": { "type": "integer", "minimum": 0 },
+        "completeEvidence": { "type": "integer", "minimum": 0 },
+        "terms": { "const": 40 }
+      }
+    },
+    "terms": {
+      "type": "array",
+      "minItems": 40,
+      "maxItems": 40,
+      "items": { "$ref": "#/$defs/term" }
+    }
+  },
+  "$defs": {
+    "iriList": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": { "type": "string", "format": "uri" }
+    },
+    "semanticBoundary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["disposition", "values"],
+      "properties": {
+        "disposition": {
+          "enum": [
+            "declared",
+            "not-applicable-to-class"
+          ]
+        },
+        "values": { "$ref": "#/$defs/iriList" }
+      }
+    },
+    "profileEvidence": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["evidenceType", "requirementId", "fixtureId", "fixturePath"],
+      "properties": {
+        "evidenceType": { "const": "profile-fixture" },
+        "requirementId": {
+          "type": "string",
+          "pattern": "^MOLIT-[A-Z0-9]+(?:-[A-Z0-9]+)*$"
+        },
+        "fixtureId": {
+          "type": "string",
+          "pattern": "^(?:POS|NEG)-[A-Z0-9]+(?:-[A-Z0-9]+)*$"
+        },
+        "fixturePath": {
+          "type": "string",
+          "pattern": "^examples/(?:valid|invalid)/[A-Za-z0-9._-]+[.]ttl$"
+        }
+      }
+    },
+    "unitEvidence": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "evidenceType",
+        "evidenceId",
+        "dataPath",
+        "shapesPath",
+        "governingShapeId",
+        "expectedOutcome",
+        "expectedResultCount",
+        "expectedResultPath"
+      ],
+      "properties": {
+        "evidenceType": { "const": "shacl-unit" },
+        "evidenceId": {
+          "type": "string",
+          "pattern": "^(?:POS|NEG)-ONTO-[A-Z0-9]+(?:-[A-Z0-9]+)*$"
+        },
+        "dataPath": {
+          "type": "string",
+          "pattern": "^(?:examples/unit|shacl)/(?:[A-Za-z0-9._-]+/)*[A-Za-z0-9._-]+[.]ttl$"
+        },
+        "shapesPath": {
+          "type": "string",
+          "pattern": "^(?:examples/unit|shacl)/(?:[A-Za-z0-9._-]+/)*[A-Za-z0-9._-]+[.]ttl$"
+        },
+        "governingShapeId": { "type": "string", "format": "uri" },
+        "expectedOutcome": { "enum": ["conforms", "violates"] },
+        "expectedResultCount": { "type": "integer", "minimum": 0 },
+        "isolationMode": { "enum": ["term-only-delta"] },
+        "expectedResultPath": {
+          "oneOf": [
+            { "type": "string", "format": "uri" },
+            { "type": "null" }
+          ]
+        }
+      }
+    },
+    "evidence": {
+      "oneOf": [
+        { "$ref": "#/$defs/profileEvidence" },
+        { "$ref": "#/$defs/unitEvidence" }
+      ]
+    },
+    "deprecation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["deprecated", "policy", "replacements"],
+      "properties": {
+        "deprecated": { "type": "boolean" },
+        "policy": { "type": "string", "minLength": 12, "maxLength": 800 },
+        "replacements": { "$ref": "#/$defs/iriList" }
+      }
+    },
+    "term": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "iri",
+        "localName",
+        "termKind",
+        "useCase",
+        "reuseDecision",
+        "reuseReason",
+        "domain",
+        "range",
+        "isDefinedBy",
+        "status",
+        "version",
+        "deprecation",
+        "positiveEvidence",
+        "negativeEvidence",
+        "evidenceStatus",
+        "blockers"
+      ],
+      "properties": {
+        "iri": {
+          "type": "string",
+          "format": "uri",
+          "pattern": "^https://data[.]molit[.]go[.]kr/def/molit-dcat-ap#[A-Za-z][A-Za-z0-9]*$"
+        },
+        "localName": {
+          "type": "string",
+          "pattern": "^[A-Za-z][A-Za-z0-9]*$"
+        },
+        "termKind": {
+          "enum": ["Class", "ObjectProperty", "DatatypeProperty", "AnnotationProperty"]
+        },
+        "useCase": { "type": "string", "minLength": 20, "maxLength": 800 },
+        "reuseDecision": {
+          "enum": [
+            "local-extension-required",
+            "local-governance-annotation-required",
+            "deprecated-compatibility-only"
+          ]
+        },
+        "reuseReason": { "type": "string", "minLength": 20, "maxLength": 1200 },
+        "domain": { "$ref": "#/$defs/semanticBoundary" },
+        "range": { "$ref": "#/$defs/semanticBoundary" },
+        "isDefinedBy": { "type": "string", "format": "uri" },
+        "status": { "type": "string", "format": "uri" },
+        "version": {
+          "type": "string",
+          "pattern": "^[0-9]+[.][0-9]+[.][0-9]+(?:-[0-9A-Za-z.-]+)?$"
+        },
+        "deprecation": { "$ref": "#/$defs/deprecation" },
+        "positiveEvidence": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": { "$ref": "#/$defs/evidence" }
+        },
+        "negativeEvidence": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": { "$ref": "#/$defs/evidence" }
+        },
+        "evidenceStatus": { "enum": ["complete", "blocked"] },
+        "blockers": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "pattern": "^[a-z][a-z0-9]*(?:-[a-z0-9]+)*$"
+          }
+        }
+      }
+    }
+  }
+}

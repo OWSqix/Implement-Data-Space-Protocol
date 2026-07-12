@@ -49,3 +49,13 @@
         sh:severity sh:Warning ;
         sh:message "파일 배포본에는 SPDX checksum을 권고한다."@ko
     ] .
+
+<https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#LocalDeprecatedTransferTypeShape>
+    a sh:NodeShape ;
+    sh:targetClass molit:TransferableDataset,
+        molit:TransferDistribution ;
+    molit:requirementId "MOLIT-DEPRECATED-LOCAL-001" ;
+    molit:controlOwner "metadata-governance" ;
+    sh:in () ;
+    sh:message "신규 graph에는 deprecated TransferableDataset·TransferDistribution을 사용하지 않는다. dcat:Dataset·dcat:Distribution과 별도 DataspaceOfferingMetadata로 이관한다."@ko,
+        "New graphs must not use deprecated TransferableDataset or TransferDistribution; migrate to DCAT resources and separate DataspaceOfferingMetadata."@en .

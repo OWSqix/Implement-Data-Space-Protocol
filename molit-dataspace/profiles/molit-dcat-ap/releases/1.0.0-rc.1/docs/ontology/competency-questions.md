@@ -33,7 +33,7 @@ W3C DCAT, DQV, SOSA, QUDT 전체 ontology를 data graph에 임의로 병합하�
 | Profile과 artifact 기술 | Profiles Vocabulary | 응용 프로파일과 배포 artifact를 기술한다. Dataset 내용 schema의 `dct:conformsTo`와 profile marker를 혼동하지 않는다. |
 | 제공 메타데이터 | DCAT Resource + 로컬 class | DCAT Dataset만으로 DSP 운영 자격을 주장하지 않기 위해 `molit:DataspaceOfferingMetadata`를 별도 정보 객체로 둔다. DSP Offer·Agreement와 동치가 아니다. |
 
-로컬 term에는 `rdfs:isDefinedBy`, `owl:versionInfo`와 `adms:status`를 기록한다. RC.1의 상태는 모두 `term-status:candidate`다. 이는 기술검토 가능 상태이며 기관 표준 승인이 아니다.
+로컬 term에는 `rdfs:isDefinedBy`, `owl:versionInfo`와 `adms:status`를 기록한다. RC.1에서 현행 term은 `term-status:candidate`, 대체된 `TransferableDataset`과 `TransferDistribution`은 `term-status:deprecated`다. Candidate 표시는 기술검토 가능 상태이며 기관 표준 승인을 뜻하지 않는다.
 
 ## 3. 관측 데이터셋
 

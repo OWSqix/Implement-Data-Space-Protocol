@@ -193,7 +193,11 @@ test("RELEASE-GATE-V2-006: CLI exits 2 for a valid blocked RC decision", () => {
     cwd: root,
     encoding: "utf8",
     shell: false,
-    timeout: 120_000,
+    // The RC gate executes every allowlisted fixed-evidence command.  The
+    // ontology, upstream-engine and serialization checks intentionally run in
+    // separate processes, so their aggregate runtime can exceed two minutes
+    // even when no individual command reaches its own timeout.
+    timeout: 600_000,
     windowsHide: true,
   });
   assert.equal(result.status, 2, result.stderr);

@@ -1,0 +1,23 @@
+{
+  "schemaVersion": "molit.institutional-approval-provenance/1",
+  "profileVersion": "1.0.0-rc.1",
+  "publicationMode": "external-detached-envelope",
+  "status": "candidate-awaiting-institutional-approval",
+  "releaseBinding": {
+    "artifactLockSha256": null,
+    "manifestSha256": null,
+    "gitCommit": null
+  },
+  "authority": null,
+  "approval": null,
+  "detachedSignature": null,
+  "externalTimestamp": null,
+  "evidence": [],
+  "requiredActions": [
+    "운영기관이 Profile owner와 module steward를 지정한다.",
+    "변경심의기구가 적용범위와 시행일을 승인한다.",
+    "권리자와 법무 검토자가 로컬 artifact 공개 라이선스를 승인한다.",
+    "Namespace 운영기관이 stable·version IRI 배포와 tombstone 운영을 인수한다.",
+    "기관 Ed25519 키로 최종 lock·manifest를 서명하고 release 밖에 승인 envelope와 외부 timestamp evidence를 발행한다."
+  ]
+}

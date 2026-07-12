@@ -1,0 +1,4 @@
+@prefix ex: <urn:molit:term-governance:deprecated:> .
+@prefix molit: <https://data.molit.go.kr/def/molit-dcat-ap#> .
+
+ex:resource a molit:TransferDistribution .

@@ -33,7 +33,7 @@ ex:observation-catalog
         <https://data.molit.go.kr/scheme/domain> ;
     dcat:dataset ex:traffic-observation ;
     dcat:record ex:traffic-observation-record ;
-    molit:spatialDisclosureLevel <https://data.molit.go.kr/id/concept/spatial-disclosure-level/generalized> .
+    molit:spatialDisclosureLevel <https://data.molit.go.kr/id/concept/spatial-disclosure-level/exact> .
 
 ex:traffic-observation-record
     a dcat:CatalogRecord ;
@@ -69,7 +69,7 @@ ex:traffic-observation
     dcat:distribution ex:traffic-observation-csv ;
     dqv:hasQualityMeasurement ex:traffic-completeness ;
     molit:qualityStatus quality:assessed ;
-    molit:spatialDisclosureLevel <https://data.molit.go.kr/id/concept/spatial-disclosure-level/generalized> .
+    molit:spatialDisclosureLevel <https://data.molit.go.kr/id/concept/spatial-disclosure-level/exact> .
 
 ex:traffic-completeness
     a dqv:QualityMeasurement ;

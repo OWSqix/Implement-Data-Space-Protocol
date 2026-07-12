@@ -1,0 +1,374 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://data.molit.go.kr/schema/upstream-requirement-inventory.v1.json",
+  "title": "Pinned upstream SHACL requirement inventory",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "profileVersion",
+    "status",
+    "constraintSets",
+    "csvProjection",
+    "evidence",
+    "requirements",
+    "coverage"
+  ],
+  "properties": {
+    "schemaVersion": { "const": "molit.upstream-requirement-inventory/1" },
+    "profileVersion": { "const": "1.0.0-rc.1" },
+    "status": { "enum": ["inventory-only-blocked", "isolated-evidence-complete"] },
+    "constraintSets": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["shapeFile", "sha256", "sourceStandard", "normativeLayer", "supplementalFiles"],
+        "properties": {
+          "shapeFile": { "type": "string", "pattern": "^shacl/upstream/.+[.]ttl$" },
+          "sha256": { "$ref": "#/$defs/sha256" },
+          "sourceStandard": { "type": "string", "minLength": 1 },
+          "normativeLayer": {
+            "enum": ["dcat-ap", "geodcat-ap", "publication-policy"]
+          },
+          "supplementalFiles": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["path", "sha256"],
+              "properties": {
+                "path": { "type": "string", "pattern": "^shacl/compatibility/.+[.]ttl$" },
+                "sha256": { "$ref": "#/$defs/sha256" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "csvProjection": { "$ref": "#/$defs/csvProjection" },
+    "evidence": { "$ref": "#/$defs/evidence" },
+    "requirements": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/requirement" }
+    },
+    "coverage": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "requirements",
+        "upstreamSourceConstraints",
+        "localOperationalizations",
+        "isolatedPositive",
+        "isolatedNegative",
+        "publicationPolicyTestCoverage",
+        "blockers"
+      ],
+      "properties": {
+        "requirements": { "type": "integer", "minimum": 1 },
+        "upstreamSourceConstraints": { "type": "integer", "minimum": 0 },
+        "localOperationalizations": { "type": "integer", "minimum": 0 },
+        "isolatedPositive": { "type": "integer", "minimum": 0 },
+        "isolatedNegative": { "type": "integer", "minimum": 0 },
+        "publicationPolicyTestCoverage": { "type": "integer", "minimum": 0 },
+        "blockers": { "type": "integer", "minimum": 0 }
+      }
+    }
+  },
+  "$defs": {
+    "sha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+    "stringArray": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 },
+      "uniqueItems": true
+    },
+    "requirement": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "requirementId",
+        "constraintKey",
+        "normativeLayer",
+        "sourceStandard",
+        "sourceClause",
+        "conformanceClass",
+        "resourceClass",
+        "property",
+        "obligation",
+        "minCount",
+        "maxCount",
+        "range",
+        "controlledVocabulary",
+        "severity",
+        "messages",
+        "remediation",
+        "localRationale",
+        "shapeId",
+        "shapeFile",
+        "constraintComponents",
+        "sourceConstraintEnforceable",
+        "sourceShapeBlankNode",
+        "sourceShapeLocator",
+        "sourceShapeSha256",
+        "sourceQuadCount",
+        "evidenceMethod",
+        "evidenceShapeId",
+        "sourceQuadCopy",
+        "operationalizedBy",
+        "caseId",
+        "focusNode",
+        "shardId",
+        "expectedNegativeSourceShape",
+        "positiveFixtureId",
+        "negativeFixtureId",
+        "coverageStatus"
+      ],
+      "properties": {
+        "requirementId": { "type": "string", "pattern": "^UPSTREAM-[A-Z0-9-]+$" },
+        "constraintKey": { "type": "string", "minLength": 1 },
+        "normativeLayer": {
+          "enum": ["dcat-ap", "geodcat-ap", "publication-policy"]
+        },
+        "sourceStandard": { "type": "string", "minLength": 1 },
+        "sourceClause": { "$ref": "#/$defs/stringArray" },
+        "conformanceClass": { "$ref": "#/$defs/stringArray" },
+        "resourceClass": { "$ref": "#/$defs/stringArray" },
+        "property": { "type": ["string", "null"] },
+        "obligation": { "enum": ["MUST", "MUST-NOT", "SHOULD", "SHOULD-NOT"] },
+        "minCount": { "type": ["integer", "null"], "minimum": 0 },
+        "maxCount": { "type": ["integer", "null"], "minimum": 0 },
+        "range": { "$ref": "#/$defs/stringArray" },
+        "controlledVocabulary": { "$ref": "#/$defs/stringArray" },
+        "severity": { "enum": ["Violation", "Warning", "Info"] },
+        "messages": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": { "$ref": "#/$defs/message" }
+        },
+        "remediation": { "type": "string", "minLength": 40, "maxLength": 5000 },
+        "localRationale": { "type": "string", "minLength": 40, "maxLength": 5000 },
+        "shapeId": { "type": "string", "format": "uri" },
+        "shapeFile": { "type": "string", "pattern": "^shacl/upstream/.+[.]ttl$" },
+        "constraintComponents": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "enum": ["class", "datatype", "hasValue", "maxCount", "minCount", "node", "nodeKind"]
+          }
+        },
+        "sourceConstraintEnforceable": { "type": "boolean" },
+        "sourceShapeBlankNode": { "type": "boolean" },
+        "sourceShapeLocator": { "type": "string", "format": "uri" },
+        "sourceShapeSha256": { "$ref": "#/$defs/sha256" },
+        "sourceQuadCount": { "type": "integer", "minimum": 1 },
+        "evidenceMethod": {
+          "enum": [
+            "exact-target-overlay",
+            "deterministic-skolem-overlay",
+            "deprecation-policy-wrapper"
+          ]
+        },
+        "evidenceShapeId": { "type": "string", "format": "uri" },
+        "sourceQuadCopy": { "enum": ["exact", "source-subset-plus-local-policy"] },
+        "operationalizedBy": {
+          "oneOf": [
+            { "type": "string", "format": "uri" },
+            { "type": "null" }
+          ]
+        },
+        "caseId": { "type": "string", "pattern": "^UPSTREAM-ISO-UPSTREAM-[A-Z0-9-]+$" },
+        "focusNode": {
+          "type": "string",
+          "format": "uri",
+          "pattern": "^https://data[.]molit[.]go[.]kr/[.]well-known/shacl/upstream-evidence/focus/"
+        },
+        "shardId": { "type": "string", "pattern": "^upstream-isolated-[0-9]{3}$" },
+        "expectedNegativeSourceShape": { "type": "string", "format": "uri" },
+        "positiveFixtureId": { "type": "string", "pattern": "^UPSTREAM-POS-UPSTREAM-[A-Z0-9-]+$" },
+        "negativeFixtureId": { "type": "string", "pattern": "^UPSTREAM-NEG-UPSTREAM-[A-Z0-9-]+$" },
+        "coverageStatus": { "enum": ["missing-isolated-evidence", "isolated"] }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": { "sourceConstraintEnforceable": { "const": false } },
+            "required": ["sourceConstraintEnforceable"]
+          },
+          "then": {
+            "properties": {
+              "constraintComponents": { "type": "array", "maxItems": 0 },
+              "evidenceMethod": { "const": "deprecation-policy-wrapper" },
+              "sourceQuadCopy": { "const": "source-subset-plus-local-policy" },
+              "operationalizedBy": { "type": "string", "format": "uri" }
+            }
+          },
+          "else": {
+            "properties": {
+              "constraintComponents": { "type": "array", "minItems": 1 },
+              "sourceQuadCopy": { "const": "exact" },
+              "operationalizedBy": { "type": "null" }
+            }
+          }
+        }
+      ]
+    },
+    "artifact": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["path", "sha256", "mediaType"],
+      "properties": {
+        "path": {
+          "type": "string",
+          "pattern": "^requirements/upstream-isolated-evidence/upstream-isolated-[0-9]{3}-(?:shapes|positive|negative)[.]ttl$"
+        },
+        "sha256": { "$ref": "#/$defs/sha256" },
+        "mediaType": { "const": "text/turtle" }
+      }
+    },
+    "message": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["language", "text", "source", "predicate"],
+      "properties": {
+        "language": {
+          "type": "string",
+          "pattern": "^(?:und|[A-Za-z]{2,8}(?:-[A-Za-z0-9]{1,8})*)$"
+        },
+        "text": { "type": "string", "minLength": 3, "maxLength": 2000 },
+        "source": { "enum": ["official-shape", "local-evidence"] },
+        "predicate": {
+          "oneOf": [
+            {
+              "enum": [
+                "http://www.w3.org/ns/shacl#message",
+                "https://purl.eu/ns/shacl#message"
+              ]
+            },
+            { "type": "null" }
+          ]
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": { "source": { "const": "official-shape" } },
+            "required": ["source"]
+          },
+          "then": { "properties": { "predicate": { "type": "string" } } },
+          "else": { "properties": { "predicate": { "type": "null" } } }
+        }
+      ]
+    },
+    "csvProjection": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["path", "sha256", "columns"],
+      "properties": {
+        "path": { "const": "requirements/upstream-profile-requirements.csv" },
+        "sha256": { "$ref": "#/$defs/sha256" },
+        "columns": {
+          "const": [
+            "requirementId",
+            "conformanceClass",
+            "resourceClass",
+            "property",
+            "obligation",
+            "minCount",
+            "maxCount",
+            "range",
+            "controlledVocabulary",
+            "severity",
+            "messages",
+            "remediation",
+            "sourceStandard",
+            "sourceClause",
+            "localRationale",
+            "shapeId",
+            "positiveFixtureId",
+            "negativeFixtureId"
+          ]
+        }
+      }
+    },
+    "evidence": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "isolationModel",
+        "engine",
+        "maxCasesPerShard",
+        "shards",
+        "validation",
+        "topology",
+        "blankPropertyShapes"
+      ],
+      "properties": {
+        "isolationModel": { "const": "deterministic-shards-with-one-target-per-generated-focus" },
+        "engine": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["name", "version"],
+          "properties": {
+            "name": { "const": "rdf-validate-shacl" },
+            "version": { "const": "0.6.5" }
+          }
+        },
+        "maxCasesPerShard": { "type": "integer", "minimum": 1, "maximum": 400 },
+        "shards": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["shardId", "cases", "shapes", "positive", "negative"],
+            "properties": {
+              "shardId": { "type": "string", "pattern": "^upstream-isolated-[0-9]{3}$" },
+              "cases": { "type": "integer", "minimum": 1, "maximum": 400 },
+              "shapes": { "$ref": "#/$defs/artifact" },
+              "positive": { "$ref": "#/$defs/artifact" },
+              "negative": { "$ref": "#/$defs/artifact" }
+            }
+          }
+        },
+        "validation": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["positiveResults", "negativeResults", "matchedNegativeCases"],
+          "properties": {
+            "positiveResults": { "const": 0 },
+            "negativeResults": { "type": "integer", "minimum": 1 },
+            "matchedNegativeCases": { "type": "integer", "minimum": 1 }
+          }
+        },
+        "topology": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "generatedFocusComponentsDisconnected",
+            "externalVocabularyIrisAreComponentBoundaries",
+            "onePropertyShapeTargetPerFocus"
+          ],
+          "properties": {
+            "generatedFocusComponentsDisconnected": { "const": true },
+            "externalVocabularyIrisAreComponentBoundaries": { "const": true },
+            "onePropertyShapeTargetPerFocus": { "const": true }
+          }
+        },
+        "blankPropertyShapes": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["sourceBlankPropertyShapes", "quadEquivalentSkolemCopies", "sourceSubsetPolicyWrappers"],
+          "properties": {
+            "sourceBlankPropertyShapes": { "type": "integer", "minimum": 0 },
+            "quadEquivalentSkolemCopies": { "type": "integer", "minimum": 0 },
+            "sourceSubsetPolicyWrappers": { "type": "integer", "minimum": 0 }
+          }
+        }
+      }
+    }
+  }
+}

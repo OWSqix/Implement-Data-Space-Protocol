@@ -30,7 +30,7 @@ ex:catalog a dcat:Catalog;
     dcat:themeTaxonomy <http://publications.europa.eu/resource/authority/data-theme>, <https://data.molit.go.kr/scheme/domain>;
     dcat:record ex:record-standard-node-link;
     dcat:dataset ex:standard-node-link-dataset;
-    molit:spatialDisclosureLevel <https://data.molit.go.kr/id/concept/spatial-disclosure-level/generalized>.
+    molit:spatialDisclosureLevel <https://data.molit.go.kr/id/concept/spatial-disclosure-level/exact>.
 ex:molit a foaf:Agent;
     dct:identifier "MOLIT";
     dct:type <http://purl.org/adms/publishertype/NationalAuthority>;
@@ -55,7 +55,7 @@ ex:standard-node-link-dataset a dcat:Dataset, dcat:Resource, molit:NetworkDatase
     dct:issued "2026-07-01"^^xsd:date;
     dct:modified "2026-07-01T00:00:00+09:00"^^xsd:dateTime;
     dct:spatial ex:republic-of-korea;
-    molit:spatialDisclosureLevel <https://data.molit.go.kr/id/concept/spatial-disclosure-level/generalized>;
+    molit:spatialDisclosureLevel <https://data.molit.go.kr/id/concept/spatial-disclosure-level/exact>;
     dct:identifier "its-standard-node-link-2026-07-01";
     dct:accrualPeriodicity <http://publications.europa.eu/resource/authority/frequency/IRREG>;
     dct:accessRights <http://publications.europa.eu/resource/authority/access-right/PUBLIC>;
@@ -105,7 +105,8 @@ ex:standard-node-link-2026-07-01 a molit:NetworkReference;
     molit:networkVersion "2026-07-01";
     molit:networkSnapshotChecksum "219020fac55f2faab1029ec9306563a00968f9b27f3910b80c534583b750b9ab"^^xsd:hexBinary;
     molit:networkLifecycleStatus netlife:current;
-    molit:networkValidFrom "2026-07-01"^^xsd:date.
+    molit:networkValidFrom "2026-07-01"^^xsd:date;
+    molit:networkElementType net:node, net:link, "mutation-46db1c01b263-extra".
 <https://www.its.go.kr/common/infoPolicyPage?service=copyrightPolicy> a foaf:Document.
 <https://www.iana.org/assignments/media-types/application/zip> a dct:MediaType.
 ex:source-archive-sha256 a spdx:Checksum;

@@ -17,7 +17,7 @@
     "network-element-type": 8,
     "network-lifecycle": 4,
     "quality-semantics": 14,
-    "quality-status-and-metric": 10,
+    "quality-status-and-metric": 16,
     "qudt-measurement-unit": 10,
     "spatial-disclosure": 6,
     "term-governance": 3,
@@ -198,6 +198,16 @@
     },
     {
       "iri": "https://data.molit.go.kr/scheme/quality-metric",
+      "source": {
+        "artifact": "vocabulary/quality.ttl",
+        "authorities": [
+          "https://data.molit.go.kr/scheme/"
+        ]
+      },
+      "status": "candidate"
+    },
+    {
+      "iri": "https://data.molit.go.kr/scheme/quality-result-category",
       "source": {
         "artifact": "vocabulary/quality.ttl",
         "authorities": [
@@ -2638,6 +2648,84 @@
       "validTo": null
     },
     {
+      "category": "quality-status-and-metric",
+      "iri": "https://data.molit.go.kr/id/concept/quality-result-category/current",
+      "notation": "current",
+      "preferredLabel": [
+        {
+          "language": "en",
+          "value": "Current"
+        },
+        {
+          "language": "ko",
+          "value": "현행"
+        }
+      ],
+      "replacedBy": null,
+      "scheme": "https://data.molit.go.kr/scheme/quality-result-category",
+      "source": {
+        "artifact": "vocabulary/quality.ttl",
+        "authorities": [
+          "https://data.molit.go.kr/scheme/"
+        ]
+      },
+      "status": "candidate",
+      "validFrom": "2026-07-13",
+      "validTo": null
+    },
+    {
+      "category": "quality-status-and-metric",
+      "iri": "https://data.molit.go.kr/id/concept/quality-result-category/outdated",
+      "notation": "outdated",
+      "preferredLabel": [
+        {
+          "language": "en",
+          "value": "Outdated"
+        },
+        {
+          "language": "ko",
+          "value": "기준시간 초과"
+        }
+      ],
+      "replacedBy": null,
+      "scheme": "https://data.molit.go.kr/scheme/quality-result-category",
+      "source": {
+        "artifact": "vocabulary/quality.ttl",
+        "authorities": [
+          "https://data.molit.go.kr/scheme/"
+        ]
+      },
+      "status": "candidate",
+      "validFrom": "2026-07-13",
+      "validTo": null
+    },
+    {
+      "category": "quality-status-and-metric",
+      "iri": "https://data.molit.go.kr/id/concept/quality-result-category/unknown",
+      "notation": "unknown",
+      "preferredLabel": [
+        {
+          "language": "en",
+          "value": "Unknown"
+        },
+        {
+          "language": "ko",
+          "value": "판정 불가"
+        }
+      ],
+      "replacedBy": null,
+      "scheme": "https://data.molit.go.kr/scheme/quality-result-category",
+      "source": {
+        "artifact": "vocabulary/quality.ttl",
+        "authorities": [
+          "https://data.molit.go.kr/scheme/"
+        ]
+      },
+      "status": "candidate",
+      "validFrom": "2026-07-13",
+      "validTo": null
+    },
+    {
       "category": "quality-semantics",
       "iri": "https://data.molit.go.kr/id/concept/quality-result-kind/boolean",
       "notation": "boolean",
@@ -3107,6 +3195,32 @@
     },
     {
       "category": "quality-status-and-metric",
+      "iri": "https://data.molit.go.kr/id/metric/assessment-note",
+      "notation": "assessment-note",
+      "preferredLabel": [
+        {
+          "language": "en",
+          "value": "Assessment note"
+        },
+        {
+          "language": "ko",
+          "value": "평가 설명"
+        }
+      ],
+      "replacedBy": null,
+      "scheme": "https://data.molit.go.kr/scheme/quality-metric",
+      "source": {
+        "artifact": "vocabulary/quality.ttl",
+        "authorities": [
+          "https://data.molit.go.kr/scheme/"
+        ]
+      },
+      "status": "candidate",
+      "validFrom": "2026-07-13",
+      "validTo": null
+    },
+    {
+      "category": "quality-status-and-metric",
       "iri": "https://data.molit.go.kr/id/metric/completeness",
       "notation": "completeness",
       "preferredLabel": [
@@ -3117,6 +3231,32 @@
         {
           "language": "ko",
           "value": "완전성"
+        }
+      ],
+      "replacedBy": null,
+      "scheme": "https://data.molit.go.kr/scheme/quality-metric",
+      "source": {
+        "artifact": "vocabulary/quality.ttl",
+        "authorities": [
+          "https://data.molit.go.kr/scheme/"
+        ]
+      },
+      "status": "candidate",
+      "validFrom": "2026-07-13",
+      "validTo": null
+    },
+    {
+      "category": "quality-status-and-metric",
+      "iri": "https://data.molit.go.kr/id/metric/currency-status",
+      "notation": "currency-status",
+      "preferredLabel": [
+        {
+          "language": "en",
+          "value": "Currency status"
+        },
+        {
+          "language": "ko",
+          "value": "최신성 범주"
         }
       ],
       "replacedBy": null,
@@ -3221,6 +3361,32 @@
         {
           "language": "ko",
           "value": "적시성"
+        }
+      ],
+      "replacedBy": null,
+      "scheme": "https://data.molit.go.kr/scheme/quality-metric",
+      "source": {
+        "artifact": "vocabulary/quality.ttl",
+        "authorities": [
+          "https://data.molit.go.kr/scheme/"
+        ]
+      },
+      "status": "candidate",
+      "validFrom": "2026-07-13",
+      "validTo": null
+    },
+    {
+      "category": "quality-status-and-metric",
+      "iri": "https://data.molit.go.kr/id/metric/validation-conformance",
+      "notation": "validation-conformance",
+      "preferredLabel": [
+        {
+          "language": "en",
+          "value": "Validation conformance"
+        },
+        {
+          "language": "ko",
+          "value": "검증 규칙 통과 여부"
         }
       ],
       "replacedBy": null,

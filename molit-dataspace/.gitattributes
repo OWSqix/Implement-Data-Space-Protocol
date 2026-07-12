@@ -1,0 +1,14 @@
+# The RC artifact lock hashes repository bytes. Text files must therefore
+# have the same byte representation on Windows, Linux and macOS checkouts.
+** text=auto eol=lf
+profiles/molit-dcat-ap/releases/** text eol=lf -ident -filter -working-tree-encoding
+
+# Do not apply newline conversion to packaged toolchains or binary evidence.
+**/*.jar -text
+**/*.zip -text
+**/*.tgz -text
+**/*.gz -text
+**/*.png -text
+**/*.jpg -text
+**/*.jpeg -text
+**/*.pdf -text

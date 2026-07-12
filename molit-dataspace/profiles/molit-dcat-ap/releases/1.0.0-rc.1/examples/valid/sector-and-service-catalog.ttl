@@ -34,7 +34,7 @@ ex:sector-catalog
         ex:road-rail-record,
         ex:aviation-logistics-record ;
     dcat:service ex:sector-data-service-fixture ;
-    molit:spatialDisclosureLevel <https://data.molit.go.kr/id/concept/spatial-disclosure-level/generalized> .
+    molit:spatialDisclosureLevel <https://data.molit.go.kr/id/concept/spatial-disclosure-level/exact> .
 
 ex:land-urban-record
     a dcat:CatalogRecord ;
@@ -102,7 +102,7 @@ ex:land-urban-fixture
         <https://data.molit.go.kr/id/concept/domain/urban> ;
     dcat:keyword "국토"@ko, "도시"@ko ;
     dcat:contactPoint ex:fixture-contact ;
-    molit:spatialDisclosureLevel <https://data.molit.go.kr/id/concept/spatial-disclosure-level/generalized> .
+    molit:spatialDisclosureLevel <https://data.molit.go.kr/id/concept/spatial-disclosure-level/exact> .
 
 ex:housing-building-real-estate-fixture
     a dcat:Dataset, dcat:Resource ;
@@ -121,7 +121,7 @@ ex:housing-building-real-estate-fixture
         <https://data.molit.go.kr/id/concept/domain/real-estate> ;
     dcat:keyword "주택"@ko, "건축"@ko, "부동산"@ko ;
     dcat:contactPoint ex:fixture-contact ;
-    molit:spatialDisclosureLevel <https://data.molit.go.kr/id/concept/spatial-disclosure-level/generalized> .
+    molit:spatialDisclosureLevel <https://data.molit.go.kr/id/concept/spatial-disclosure-level/exact> .
 
 ex:construction-fixture
     a dcat:Dataset, dcat:Resource ;
@@ -138,7 +138,7 @@ ex:construction-fixture
     dcat:theme <https://data.molit.go.kr/id/concept/domain/construction> ;
     dcat:keyword "건설"@ko ;
     dcat:contactPoint ex:fixture-contact ;
-    molit:spatialDisclosureLevel <https://data.molit.go.kr/id/concept/spatial-disclosure-level/generalized> .
+    molit:spatialDisclosureLevel <https://data.molit.go.kr/id/concept/spatial-disclosure-level/exact> .
 
 ex:road-rail-fixture
     a dcat:Dataset, dcat:Resource ;
@@ -156,7 +156,7 @@ ex:road-rail-fixture
         <https://data.molit.go.kr/id/concept/domain/railway> ;
     dcat:keyword "도로"@ko, "철도"@ko ;
     dcat:contactPoint ex:fixture-contact ;
-    molit:spatialDisclosureLevel <https://data.molit.go.kr/id/concept/spatial-disclosure-level/generalized> .
+    molit:spatialDisclosureLevel <https://data.molit.go.kr/id/concept/spatial-disclosure-level/exact> .
 
 ex:aviation-logistics-fixture
     a dcat:Dataset, dcat:Resource ;
@@ -174,7 +174,7 @@ ex:aviation-logistics-fixture
         <https://data.molit.go.kr/id/concept/domain/logistics> ;
     dcat:keyword "항공"@ko, "물류"@ko ;
     dcat:contactPoint ex:fixture-contact ;
-    molit:spatialDisclosureLevel <https://data.molit.go.kr/id/concept/spatial-disclosure-level/generalized> .
+    molit:spatialDisclosureLevel <https://data.molit.go.kr/id/concept/spatial-disclosure-level/exact> .
 
 ex:sector-data-service-fixture
     a dcat:DataService, dcat:Resource ;

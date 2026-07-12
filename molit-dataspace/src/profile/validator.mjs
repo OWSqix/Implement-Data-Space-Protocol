@@ -19,6 +19,11 @@ import {
   scanPublicGraph,
 } from "./rdf-loader.mjs";
 import { assertLocalFilesystemPath } from "./local-path.mjs";
+import {
+  NETWORK_RUNTIME_CONTROL_BY_ERROR_CODE,
+  NETWORK_RUNTIME_PATH_FIELD_BY_ERROR_CODE,
+  validateNetworkReferenceGraph,
+} from "./network-reference-integrity.mjs";
 import { parsePublicValuePolicy } from "./public-value-policy.mjs";
 import { assertValidationReport } from "./report-contract.mjs";
 
@@ -41,6 +46,10 @@ const VALIDATOR_SOURCE_ARTIFACTS = [
   ["src/profile/crs-coordinate-tuple.mjs", new URL("./crs-coordinate-tuple.mjs", import.meta.url)],
   ["src/profile/crs-geometry.mjs", new URL("./crs-geometry.mjs", import.meta.url)],
   ["src/profile/local-path.mjs", new URL("./local-path.mjs", import.meta.url)],
+  ["src/profile/network-reference-integrity.mjs", new URL(
+    "./network-reference-integrity.mjs",
+    import.meta.url,
+  )],
   ["src/profile/public-value-policy.mjs", new URL("./public-value-policy.mjs", import.meta.url)],
   ["src/profile/rdf-loader.mjs", new URL("./rdf-loader.mjs", import.meta.url)],
   ["src/profile/registry.mjs", new URL("./registry.mjs", import.meta.url)],
@@ -204,6 +213,27 @@ function countSeverities(results) {
   return counts;
 }
 
+function networkIntegrityFinding(error, policy) {
+  const code = typeof error?.code === "string" ? error.code : "NETWORK_INTEGRITY_INVALID";
+  const projection = policy.rdfProjection;
+  const requirementId = NETWORK_RUNTIME_CONTROL_BY_ERROR_CODE[code] ?? "MOLIT-NET-REF-001";
+  const projectionField = NETWORK_RUNTIME_PATH_FIELD_BY_ERROR_CODE[code];
+  const pathValue = projectionField ? projection[projectionField] : error?.path ?? null;
+  return {
+    focusNode: sanitizeDiagnosticValue(error?.focusNode ?? null, 4096),
+    messages: [{
+      language: "en",
+      value: `Network reference-set integrity failed (${code}). Align edition keys, checksums, lifecycle successors and non-overlapping validity intervals.`,
+    }],
+    path: sanitizeDiagnosticValue(pathValue, 4096),
+    requirementId,
+    severity: "Violation",
+    sourceConstraintComponent: "urn:kr:molit:profile:NetworkReferenceSetIntegrityConstraint",
+    sourceShape: "urn:kr:molit:profile:NetworkReferenceSetIntegrityShape",
+    value: null,
+  };
+}
+
 async function loadMany(relativePaths, limits, artifactBytes) {
   const loaded = [];
   for (const relativePath of relativePaths) {
@@ -258,6 +288,20 @@ export async function validateProfileDocument({
     throw error;
   }
   const publicValuePolicy = parsePublicValuePolicy(policyBytes);
+  let networkReferencePolicy = null;
+  if (profileName === "network") {
+    const networkPolicyBytes = lockVerification.artifactBytes.get(
+      release.manifest.networkReferencePolicy,
+    );
+    if (!networkPolicyBytes) {
+      const error = new Error("validation snapshot is missing the network reference policy");
+      error.code = "INCOMPLETE_ARTIFACT_SNAPSHOT";
+      throw error;
+    }
+    networkReferencePolicy = JSON.parse(
+      new TextDecoder("utf-8", { fatal: true }).decode(networkPolicyBytes),
+    );
+  }
   const safetyScan = scanPublicGraph(
     input.store,
     limits,
@@ -307,6 +351,7 @@ export async function validateProfileDocument({
   );
   let shaclReport = { conforms: false, results: [] };
   let normalizedShaclResults = [];
+  let networkIntegrityResults = [];
   if (preflightFindings.length === 0 && !preflightLimitReached) {
     const validator = new SHACLValidator(shapeStore, {
       importGraph: async (iri) => {
@@ -329,12 +374,23 @@ export async function validateProfileDocument({
         shapeStore,
       )),
     );
+    if (profileName === "network" && shaclReport.conforms) {
+      try {
+        validateNetworkReferenceGraph(input.store, networkReferencePolicy);
+      } catch (error) {
+        networkIntegrityResults = [networkIntegrityFinding(error, networkReferencePolicy)];
+      }
+    }
   }
+  const validationResults = sortResults([
+    ...normalizedShaclResults,
+    ...networkIntegrityResults,
+  ]);
   const resultLimitReached = preflightLimitReached
-    || normalizedShaclResults.length > remainingResultBudget;
+    || validationResults.length > remainingResultBudget;
   const results = sortResults([
     ...preflightFindings,
-    ...normalizedShaclResults.slice(0, remainingResultBudget),
+    ...validationResults.slice(0, remainingResultBudget),
   ]);
   const counts = countSeverities(results);
   const gatePassed = !resultLimitReached

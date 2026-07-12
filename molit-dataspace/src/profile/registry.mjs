@@ -139,6 +139,14 @@ export function validateProfileManifest(manifest, version) {
       || !profile.shapes.every(validArtifactPath)) {
       return false;
     }
+    if (!usesLegacyBundleInference && profile.kind !== "diagnostic"
+      && (typeof profile.example !== "string"
+        || !profile.example.startsWith("examples/valid/")
+        || !profile.example.endsWith(".ttl")
+        || !validArtifactPath(profile.example))) {
+      return false;
+    }
+    if (profile.example !== undefined && !validArtifactPath(profile.example)) return false;
     if (profile.bundle !== undefined) {
       return typeof profile.bundle === "string"
         && profile.bundle.length > 0
@@ -150,16 +158,25 @@ export function validateProfileManifest(manifest, version) {
   const conformanceProfiles = profileEntries.filter(([, profile]) => (
     profile?.kind === "conformance"
   ));
+  const publishedProfiles = profileEntries.filter(([, profile]) => (
+    profile?.kind !== "diagnostic"
+  ));
   const explicitProfileBundles = profileEntries
     .map(([, profile]) => profile.bundle)
     .filter((bundle) => bundle !== undefined);
   const publishedProfileBundles = publishedBundleEntries
     .map(([bundle]) => bundle)
     .filter((bundle) => bundle !== "support");
+  const publishedProfileIris = publishedProfiles.map(([, profile]) => profile.conformanceIri);
+  const publishedProfileExamples = publishedProfiles.map(([, profile]) => profile.example);
+  const publishedBundlePaths = publishedProfileBundles.map((bundle) => publishedBundles[bundle]);
   const currentBundleMappingIsComplete = usesLegacyBundleInference || (
     new Set(explicitProfileBundles).size === explicitProfileBundles.length
       && explicitProfileBundles.length === publishedProfileBundles.length
       && publishedProfileBundles.every((bundle) => explicitProfileBundles.includes(bundle))
+      && new Set(publishedBundlePaths).size === publishedBundlePaths.length
+      && new Set(publishedProfileIris).size === publishedProfileIris.length
+      && new Set(publishedProfileExamples).size === publishedProfileExamples.length
   );
   const publicationPolicyProfile = profiles[manifest.publicationPolicyProfile];
   const publicationPolicyMappingIsValid = manifest.publicationPolicyProfile === undefined
@@ -190,6 +207,23 @@ export function validateProfileManifest(manifest, version) {
         "ontologyTurtle",
         "ontologyJsonLd",
       ].every((key) => validArtifactPath(manifest.representationArtifacts[key]));
+  const currentEvidencePathsAreValid = [
+    manifest.approvalProvenance,
+    manifest.conformanceCases,
+    manifest.domesticStandardsAlignment,
+    manifest.domesticStandardsCrosswalk,
+    manifest.localNormativeClauses,
+    manifest.networkEditionLifecycleCases,
+    manifest.networkReferencePolicy,
+    manifest.networkRuntimeControls,
+    manifest.ontologyTermGovernance,
+    manifest.releaseAcceptanceRegister,
+    manifest.requirementsRegistry,
+    manifest.tombstoneRegistry,
+    manifest.upstreamRequirementsRegistry,
+    manifest.upstreamRequirementsCsv,
+    manifest.vocabularyRegistry,
+  ].every((value) => value === undefined || validArtifactPath(value));
   assert(
     [LEGACY_MANIFEST_SCHEMA, CURRENT_MANIFEST_SCHEMA].includes(manifest.schemaVersion)
       && manifest.profileId === "molit-dcat-ap"
@@ -211,6 +245,7 @@ export function validateProfileManifest(manifest, version) {
       && publicationPolicyMappingIsValid
       && artifactInventoryPolicyIsValid
       && representationArtifactsAreValid
+      && currentEvidencePathsAreValid
       && isRecord(manifest.localImportMap)
       && Object.entries(manifest.localImportMap).every(([iri, artifact]) => (
         iri.startsWith("https://") && validArtifactPath(artifact)
@@ -457,9 +492,15 @@ export async function listReleaseMachineArtifacts(release) {
   async function walk(directory) {
     for (const entry of await readdir(directory, { withFileTypes: true })) {
       const absolute = path.join(directory, entry.name);
+      const relative = path.relative(release.releaseRoot, absolute).split(path.sep).join("/");
+      assert(
+        !entry.isSymbolicLink(),
+        "PROFILE_RELEASE_SYMLINK_NOT_ALLOWED",
+        "profile release inventory must not contain symbolic links or reparse-point entries",
+        { path: relative },
+      );
       if (entry.isDirectory()) await walk(absolute);
       else if (entry.isFile()) {
-        const relative = path.relative(release.releaseRoot, absolute).split(path.sep).join("/");
         const inventoryIncludesAllFiles = release.manifest.artifactInventoryPolicy
           === "all-release-files";
         if (relative !== release.manifest.lockFile

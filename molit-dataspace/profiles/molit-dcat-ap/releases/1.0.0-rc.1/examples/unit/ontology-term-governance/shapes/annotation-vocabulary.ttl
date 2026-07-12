@@ -1,0 +1,36 @@
+@prefix molit: <https://data.molit.go.kr/def/molit-dcat-ap#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<urn:molit:shape:annotation-vocabulary:RequirementIdShape>
+    a sh:NodeShape ;
+    sh:targetSubjectsOf molit:requirementId ;
+    sh:property [
+        sh:path molit:requirementId ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:datatype xsd:string ;
+        sh:pattern "^MOLIT-[A-Z0-9]+(?:-[A-Z0-9]+)*$"
+    ] .
+
+<urn:molit:shape:annotation-vocabulary:ControlOwnerShape>
+    a sh:NodeShape ;
+    sh:targetSubjectsOf molit:controlOwner ;
+    sh:property [
+        sh:path molit:controlOwner ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:datatype xsd:string ;
+        sh:pattern "^[a-z][a-z0-9]*(?:-[a-z0-9]+)*$"
+    ] .
+
+<urn:molit:shape:annotation-vocabulary:RemediationShape>
+    a sh:NodeShape ;
+    sh:targetSubjectsOf molit:remediation ;
+    sh:property [
+        sh:path molit:remediation ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:datatype xsd:string ;
+        sh:minLength 20
+    ] .

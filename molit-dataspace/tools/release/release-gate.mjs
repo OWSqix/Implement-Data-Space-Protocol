@@ -14,7 +14,7 @@ const inputs = Object.freeze({
 });
 const reviewedInputSha256 = new Map([
   [inputs.authority, "e91563ef137b756e5f3c14820293eda141d25a78d6e2e951d53514301bc71684"],
-  [inputs.interoperability, "a24b285ed7dfefcd8d624d78857ce71a9cc14ef91d0290ea8585d02e5fdca841"],
+  [inputs.interoperability, "44091fdd9cd4c482dc4efc6a2ef07ea7abc05b59bd25c7ea2e389feac70ccb41"],
   [inputs.iso19115, "ea78a62b2084deaa9e7182bb2d625c6f830f46356d46c9fcccd4ab7158e5616d"],
 ]);
 

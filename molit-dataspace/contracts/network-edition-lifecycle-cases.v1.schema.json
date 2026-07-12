@@ -1,0 +1,71 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://data.molit.go.kr/schema/network-edition-lifecycle-cases.v1.json",
+  "title": "MOLIT network edition lifecycle fixtures",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "profileVersion", "cases"],
+  "properties": {
+    "schemaVersion": { "const": "molit.network-edition-lifecycle-cases/1" },
+    "profileVersion": { "const": "1.0.0-rc.1" },
+    "cases": {
+      "type": "array",
+      "minItems": 18,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "expected", "records"],
+        "properties": {
+          "id": { "type": "string", "pattern": "^NETWORK-EDITION-[A-Z0-9-]+$" },
+          "expected": {
+            "enum": [
+              "valid",
+              "NETWORK_IDENTITY_CHECKSUM_CONFLICT",
+              "NETWORK_IDENTITY_DUPLICATE",
+              "NETWORK_ACTIVE_REPLACEMENT_INVALID",
+              "NETWORK_REPLACEMENT_NOT_FOUND",
+              "NETWORK_REPLACEMENT_IDENTITY_INVALID",
+              "NETWORK_TERMINAL_REPLACEMENT_INVALID",
+              "NETWORK_TERMINAL_VALIDITY_INVALID",
+              "NETWORK_LIFECYCLE_TRANSITION_INVALID",
+              "NETWORK_REPLACEMENT_VALIDITY_OVERLAP"
+            ]
+          },
+          "records": {
+            "type": "array",
+            "minItems": 1,
+            "items": { "$ref": "#/$defs/networkReference" }
+          }
+        }
+      }
+    }
+  },
+  "$defs": {
+    "networkReference": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "networkAuthority",
+        "networkIdentifier",
+        "networkVersion",
+        "networkSnapshotChecksum",
+        "networkLifecycleStatus",
+        "networkValidFrom",
+        "networkValidUntil",
+        "replacementKey"
+      ],
+      "properties": {
+        "networkAuthority": { "type": "string", "format": "uri" },
+        "networkIdentifier": { "type": "string", "minLength": 1 },
+        "networkVersion": { "type": "string", "minLength": 1 },
+        "networkSnapshotChecksum": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+        "networkLifecycleStatus": {
+          "enum": ["candidate", "current", "superseded", "withdrawn"]
+        },
+        "networkValidFrom": { "type": "string", "format": "date" },
+        "networkValidUntil": { "type": ["string", "null"], "format": "date" },
+        "replacementKey": { "type": ["string", "null"] }
+      }
+    }
+  }
+}

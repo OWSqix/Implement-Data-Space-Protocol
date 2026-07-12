@@ -1585,109 +1585,109 @@
     <http://purl.org/dc/terms/description> "DCAT-AP 3.0.1 DataService PropertyShape closure"@en.
 <https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#CatalogShape> a <http://www.w3.org/ns/shacl#NodeShape>;
     <http://www.w3.org/ns/shacl#targetClass> <http://www.w3.org/ns/dcat#Catalog>;
-    <http://www.w3.org/ns/shacl#property> _:n3-906, _:n3-909, _:n3-912, _:n3-913, _:n3-914, _:n3-915;
+    <http://www.w3.org/ns/shacl#property> _:n3-923, _:n3-926, _:n3-929, _:n3-930, _:n3-931, _:n3-932;
     <https://data.molit.go.kr/def/molit-dcat-ap#requirementId> "MOLIT-CAT-001";
     <https://data.molit.go.kr/def/molit-dcat-ap#controlOwner> "metadata-governance".
-_:n3-906 <http://www.w3.org/ns/shacl#nodeKind> <http://www.w3.org/ns/shacl#Literal>;
+_:n3-923 <http://www.w3.org/ns/shacl#nodeKind> <http://www.w3.org/ns/shacl#Literal>;
     <http://www.w3.org/ns/shacl#path> <http://purl.org/dc/terms/title>;
     <http://www.w3.org/ns/shacl#minCount> 1;
     <https://data.molit.go.kr/def/molit-dcat-ap#requirementId> "MOLIT-CAT-001-P-TITLE-001";
     <http://www.w3.org/ns/shacl#uniqueLang> true;
-    <http://www.w3.org/ns/shacl#qualifiedValueShape> _:n3-907;
+    <http://www.w3.org/ns/shacl#qualifiedValueShape> _:n3-924;
     <http://www.w3.org/ns/shacl#qualifiedMinCount> 1;
     <http://www.w3.org/ns/shacl#message> "카탈로그에는 한국어 제목이 하나 이상 있어야 한다."@ko, "A catalogue must have at least one Korean title."@en.
-_:n3-908 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> "ko";
+_:n3-925 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> "ko";
     <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> <http://www.w3.org/1999/02/22-rdf-syntax-ns#nil>.
-_:n3-907 <http://www.w3.org/ns/shacl#languageIn> _:n3-908.
-_:n3-909 <http://www.w3.org/ns/shacl#nodeKind> <http://www.w3.org/ns/shacl#Literal>;
+_:n3-924 <http://www.w3.org/ns/shacl#languageIn> _:n3-925.
+_:n3-926 <http://www.w3.org/ns/shacl#nodeKind> <http://www.w3.org/ns/shacl#Literal>;
     <http://www.w3.org/ns/shacl#path> <http://purl.org/dc/terms/description>;
     <http://www.w3.org/ns/shacl#minCount> 1;
     <https://data.molit.go.kr/def/molit-dcat-ap#requirementId> "MOLIT-CAT-001-P-DESCRIPTION-001";
     <http://www.w3.org/ns/shacl#uniqueLang> true;
-    <http://www.w3.org/ns/shacl#qualifiedValueShape> _:n3-910;
+    <http://www.w3.org/ns/shacl#qualifiedValueShape> _:n3-927;
     <http://www.w3.org/ns/shacl#qualifiedMinCount> 1;
     <http://www.w3.org/ns/shacl#message> "카탈로그에는 한국어 설명이 하나 이상 있어야 한다."@ko.
-_:n3-911 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> "ko";
+_:n3-928 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> "ko";
     <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> <http://www.w3.org/1999/02/22-rdf-syntax-ns#nil>.
-_:n3-910 <http://www.w3.org/ns/shacl#languageIn> _:n3-911.
-_:n3-912 <http://www.w3.org/ns/shacl#nodeKind> <http://www.w3.org/ns/shacl#IRI>;
+_:n3-927 <http://www.w3.org/ns/shacl#languageIn> _:n3-928.
+_:n3-929 <http://www.w3.org/ns/shacl#nodeKind> <http://www.w3.org/ns/shacl#IRI>;
     <http://www.w3.org/ns/shacl#path> <http://purl.org/dc/terms/publisher>;
     <http://www.w3.org/ns/shacl#minCount> 1;
     <http://www.w3.org/ns/shacl#maxCount> 1;
     <http://www.w3.org/ns/shacl#class> <http://xmlns.com/foaf/0.1/Agent>;
     <https://data.molit.go.kr/def/molit-dcat-ap#requirementId> "MOLIT-CAT-001-P-PUBLISHER-001";
     <http://www.w3.org/ns/shacl#message> "카탈로그 발행기관을 foaf:Agent IRI로 하나 지정해야 한다."@ko.
-_:n3-913 <http://www.w3.org/ns/shacl#path> <http://www.w3.org/ns/dcat#dataset>;
+_:n3-930 <http://www.w3.org/ns/shacl#path> <http://www.w3.org/ns/dcat#dataset>;
     <http://www.w3.org/ns/shacl#minCount> 1;
     <http://www.w3.org/ns/shacl#class> <http://www.w3.org/ns/dcat#Dataset>;
     <https://data.molit.go.kr/def/molit-dcat-ap#requirementId> "MOLIT-CAT-001-P-DATASET-001";
     <http://www.w3.org/ns/shacl#message> "카탈로그에는 데이터셋이 하나 이상 있어야 한다."@ko.
-_:n3-914 <http://www.w3.org/ns/shacl#path> <http://www.w3.org/ns/dcat#record>;
+_:n3-931 <http://www.w3.org/ns/shacl#path> <http://www.w3.org/ns/dcat#record>;
     <http://www.w3.org/ns/shacl#minCount> 1;
     <http://www.w3.org/ns/shacl#class> <http://www.w3.org/ns/dcat#CatalogRecord>;
     <https://data.molit.go.kr/def/molit-dcat-ap#requirementId> "MOLIT-CAT-001-P-RECORD-001";
     <http://www.w3.org/ns/shacl#message> "수집 이력을 추적할 CatalogRecord가 하나 이상 있어야 한다."@ko.
-_:n3-915 <http://www.w3.org/ns/shacl#path> <http://purl.org/dc/terms/language>;
+_:n3-932 <http://www.w3.org/ns/shacl#path> <http://purl.org/dc/terms/language>;
     <http://www.w3.org/ns/shacl#minCount> 1;
     <https://data.molit.go.kr/def/molit-dcat-ap#requirementId> "MOLIT-CAT-001-P-LANGUAGE-001";
     <http://www.w3.org/ns/shacl#message> "카탈로그 언어에는 EU 언어 코드 KOR을 포함해야 한다."@ko;
     <http://www.w3.org/ns/shacl#hasValue> <http://publications.europa.eu/resource/authority/language/KOR>.
 <https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#CatalogRecordShape> a <http://www.w3.org/ns/shacl#NodeShape>;
     <http://www.w3.org/ns/shacl#targetClass> <http://www.w3.org/ns/dcat#CatalogRecord>;
-    <http://www.w3.org/ns/shacl#property> _:n3-916, _:n3-919, _:n3-924, _:n3-925;
+    <http://www.w3.org/ns/shacl#property> _:n3-933, _:n3-936, _:n3-941, _:n3-942;
     <https://data.molit.go.kr/def/molit-dcat-ap#requirementId> "MOLIT-REC-001";
     <https://data.molit.go.kr/def/molit-dcat-ap#controlOwner> "catalog-operations".
-_:n3-916 <http://www.w3.org/ns/shacl#nodeKind> <http://www.w3.org/ns/shacl#Literal>;
+_:n3-933 <http://www.w3.org/ns/shacl#nodeKind> <http://www.w3.org/ns/shacl#Literal>;
     <http://www.w3.org/ns/shacl#path> <http://purl.org/dc/terms/title>;
     <http://www.w3.org/ns/shacl#minCount> 1;
     <https://data.molit.go.kr/def/molit-dcat-ap#requirementId> "MOLIT-REC-001-P-TITLE-001";
-    <http://www.w3.org/ns/shacl#qualifiedValueShape> _:n3-917;
+    <http://www.w3.org/ns/shacl#qualifiedValueShape> _:n3-934;
     <http://www.w3.org/ns/shacl#qualifiedMinCount> 1;
     <http://www.w3.org/ns/shacl#message> "CatalogRecord에는 한국어 제목이 있어야 한다."@ko.
-_:n3-918 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> "ko";
+_:n3-935 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> "ko";
     <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> <http://www.w3.org/1999/02/22-rdf-syntax-ns#nil>.
-_:n3-917 <http://www.w3.org/ns/shacl#languageIn> _:n3-918.
-_:n3-919 <http://www.w3.org/ns/shacl#path> <http://purl.org/dc/terms/modified>;
+_:n3-934 <http://www.w3.org/ns/shacl#languageIn> _:n3-935.
+_:n3-936 <http://www.w3.org/ns/shacl#path> <http://purl.org/dc/terms/modified>;
     <http://www.w3.org/ns/shacl#minCount> 1;
     <http://www.w3.org/ns/shacl#maxCount> 1;
     <https://data.molit.go.kr/def/molit-dcat-ap#requirementId> "MOLIT-REC-001-P-MODIFIED-001";
     <http://www.w3.org/ns/shacl#message> "CatalogRecord 수정일은 xsd:date 또는 xsd:dateTime 값 하나여야 한다."@ko;
-    <http://www.w3.org/ns/shacl#or> _:n3-920.
-_:n3-920 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> _:n3-921;
-    <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:n3-922.
-_:n3-921 <http://www.w3.org/ns/shacl#datatype> <http://www.w3.org/2001/XMLSchema#date>.
-_:n3-922 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> _:n3-923;
+    <http://www.w3.org/ns/shacl#or> _:n3-937.
+_:n3-937 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> _:n3-938;
+    <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:n3-939.
+_:n3-938 <http://www.w3.org/ns/shacl#datatype> <http://www.w3.org/2001/XMLSchema#date>.
+_:n3-939 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> _:n3-940;
     <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> <http://www.w3.org/1999/02/22-rdf-syntax-ns#nil>.
-_:n3-923 <http://www.w3.org/ns/shacl#datatype> <http://www.w3.org/2001/XMLSchema#dateTime>.
-_:n3-924 <http://www.w3.org/ns/shacl#path> <http://xmlns.com/foaf/0.1/primaryTopic>;
+_:n3-940 <http://www.w3.org/ns/shacl#datatype> <http://www.w3.org/2001/XMLSchema#dateTime>.
+_:n3-941 <http://www.w3.org/ns/shacl#path> <http://xmlns.com/foaf/0.1/primaryTopic>;
     <http://www.w3.org/ns/shacl#minCount> 1;
     <http://www.w3.org/ns/shacl#maxCount> 1;
     <http://www.w3.org/ns/shacl#class> <http://www.w3.org/ns/dcat#Dataset>;
     <https://data.molit.go.kr/def/molit-dcat-ap#requirementId> "MOLIT-REC-001-P-PRIMARYTOPIC-001";
     <http://www.w3.org/ns/shacl#message> "CatalogRecord는 데이터셋 하나를 foaf:primaryTopic으로 가리켜야 한다."@ko.
-_:n3-925 <http://www.w3.org/ns/shacl#path> <http://purl.org/dc/terms/language>;
+_:n3-942 <http://www.w3.org/ns/shacl#path> <http://purl.org/dc/terms/language>;
     <http://www.w3.org/ns/shacl#minCount> 1;
     <https://data.molit.go.kr/def/molit-dcat-ap#requirementId> "MOLIT-REC-001-P-LANGUAGE-001";
     <http://www.w3.org/ns/shacl#message> "CatalogRecord 언어에는 KOR을 포함해야 한다."@ko;
     <http://www.w3.org/ns/shacl#hasValue> <http://publications.europa.eu/resource/authority/language/KOR>.
 <https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#DatasetShape> a <http://www.w3.org/ns/shacl#NodeShape>;
     <http://www.w3.org/ns/shacl#targetClass> <http://www.w3.org/ns/dcat#Dataset>;
-    <http://www.w3.org/ns/shacl#property> _:n3-926, _:n3-928, _:n3-930, _:n3-931, _:n3-934, _:n3-937, _:n3-938, _:n3-955, _:n3-971, _:n3-972, _:n3-977;
+    <http://www.w3.org/ns/shacl#property> _:n3-943, _:n3-945, _:n3-947, _:n3-948, _:n3-951, _:n3-954, _:n3-955, _:n3-972, _:n3-988, _:n3-989, _:n3-994;
     <https://data.molit.go.kr/def/molit-dcat-ap#requirementId> "MOLIT-DS-001";
     <https://data.molit.go.kr/def/molit-dcat-ap#controlOwner> "dataset-steward".
-_:n3-926 <http://www.w3.org/ns/shacl#path> _:n3-927;
+_:n3-943 <http://www.w3.org/ns/shacl#path> _:n3-944;
     <http://www.w3.org/ns/shacl#minCount> 1;
     <http://www.w3.org/ns/shacl#class> <http://www.w3.org/ns/dcat#Catalog>;
     <https://data.molit.go.kr/def/molit-dcat-ap#requirementId> "MOLIT-DS-001-P-PATH-0E31B21B99-001";
     <http://www.w3.org/ns/shacl#message> "게시 Dataset은 하나 이상의 dcat:Catalog에 포함돼야 한다."@ko.
-_:n3-927 <http://www.w3.org/ns/shacl#inversePath> <http://www.w3.org/ns/dcat#dataset>.
-_:n3-928 <http://www.w3.org/ns/shacl#path> _:n3-929;
+_:n3-944 <http://www.w3.org/ns/shacl#inversePath> <http://www.w3.org/ns/dcat#dataset>.
+_:n3-945 <http://www.w3.org/ns/shacl#path> _:n3-946;
     <http://www.w3.org/ns/shacl#minCount> 1;
     <http://www.w3.org/ns/shacl#class> <http://www.w3.org/ns/dcat#CatalogRecord>;
     <https://data.molit.go.kr/def/molit-dcat-ap#requirementId> "MOLIT-DS-001-P-PATH-30F94DAB87-001";
     <http://www.w3.org/ns/shacl#message> "게시 Dataset에는 하나 이상의 dcat:CatalogRecord가 있어야 한다."@ko.
-_:n3-929 <http://www.w3.org/ns/shacl#inversePath> <http://xmlns.com/foaf/0.1/primaryTopic>.
-_:n3-930 <http://www.w3.org/ns/shacl#path> <http://purl.org/dc/terms/identifier>;
+_:n3-946 <http://www.w3.org/ns/shacl#inversePath> <http://xmlns.com/foaf/0.1/primaryTopic>.
+_:n3-947 <http://www.w3.org/ns/shacl#path> <http://purl.org/dc/terms/identifier>;
     <http://www.w3.org/ns/shacl#minCount> 1;
     <http://www.w3.org/ns/shacl#maxCount> 1;
     <http://www.w3.org/ns/shacl#datatype> <http://www.w3.org/2001/XMLSchema#string>;
@@ -1696,504 +1696,504 @@ _:n3-930 <http://www.w3.org/ns/shacl#path> <http://purl.org/dc/terms/identifier>
     <http://www.w3.org/ns/shacl#minLength> 1;
     <http://www.w3.org/ns/shacl#maxLength> 500;
     <http://www.w3.org/ns/shacl#pattern> "\\S".
-_:n3-931 <http://www.w3.org/ns/shacl#nodeKind> <http://www.w3.org/ns/shacl#Literal>;
+_:n3-948 <http://www.w3.org/ns/shacl#nodeKind> <http://www.w3.org/ns/shacl#Literal>;
     <http://www.w3.org/ns/shacl#path> <http://purl.org/dc/terms/title>;
     <http://www.w3.org/ns/shacl#minCount> 1;
     <https://data.molit.go.kr/def/molit-dcat-ap#requirementId> "MOLIT-DS-001-P-TITLE-001";
     <http://www.w3.org/ns/shacl#uniqueLang> true;
-    <http://www.w3.org/ns/shacl#qualifiedValueShape> _:n3-932;
+    <http://www.w3.org/ns/shacl#qualifiedValueShape> _:n3-949;
     <http://www.w3.org/ns/shacl#qualifiedMinCount> 1;
     <http://www.w3.org/ns/shacl#message> "데이터셋에는 한국어 제목이 하나 이상 있어야 한다."@ko.
-_:n3-933 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> "ko";
+_:n3-950 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> "ko";
     <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> <http://www.w3.org/1999/02/22-rdf-syntax-ns#nil>.
-_:n3-932 <http://www.w3.org/ns/shacl#languageIn> _:n3-933.
-_:n3-934 <http://www.w3.org/ns/shacl#nodeKind> <http://www.w3.org/ns/shacl#Literal>;
+_:n3-949 <http://www.w3.org/ns/shacl#languageIn> _:n3-950.
+_:n3-951 <http://www.w3.org/ns/shacl#nodeKind> <http://www.w3.org/ns/shacl#Literal>;
     <http://www.w3.org/ns/shacl#path> <http://purl.org/dc/terms/description>;
     <http://www.w3.org/ns/shacl#minCount> 1;
     <https://data.molit.go.kr/def/molit-dcat-ap#requirementId> "MOLIT-DS-001-P-DESCRIPTION-001";
     <http://www.w3.org/ns/shacl#uniqueLang> true;
-    <http://www.w3.org/ns/shacl#qualifiedValueShape> _:n3-935;
+    <http://www.w3.org/ns/shacl#qualifiedValueShape> _:n3-952;
     <http://www.w3.org/ns/shacl#qualifiedMinCount> 1;
     <http://www.w3.org/ns/shacl#message> "데이터셋에는 한국어 설명이 하나 이상 있어야 한다."@ko.
-_:n3-936 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> "ko";
+_:n3-953 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> "ko";
     <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> <http://www.w3.org/1999/02/22-rdf-syntax-ns#nil>.
-_:n3-935 <http://www.w3.org/ns/shacl#languageIn> _:n3-936.
-_:n3-937 <http://www.w3.org/ns/shacl#nodeKind> <http://www.w3.org/ns/shacl#IRI>;
+_:n3-952 <http://www.w3.org/ns/shacl#languageIn> _:n3-953.
+_:n3-954 <http://www.w3.org/ns/shacl#nodeKind> <http://www.w3.org/ns/shacl#IRI>;
     <http://www.w3.org/ns/shacl#path> <http://purl.org/dc/terms/publisher>;
     <http://www.w3.org/ns/shacl#minCount> 1;
     <http://www.w3.org/ns/shacl#maxCount> 1;
     <http://www.w3.org/ns/shacl#class> <http://xmlns.com/foaf/0.1/Agent>;
     <https://data.molit.go.kr/def/molit-dcat-ap#requirementId> "MOLIT-DS-001-P-PUBLISHER-001";
     <http://www.w3.org/ns/shacl#message> "데이터셋 발행기관을 foaf:Agent IRI 하나로 지정해야 한다."@ko.
-_:n3-938 <http://www.w3.org/ns/shacl#path> <http://www.w3.org/ns/dcat#theme>;
+_:n3-955 <http://www.w3.org/ns/shacl#path> <http://www.w3.org/ns/dcat#theme>;
     <http://www.w3.org/ns/shacl#minCount> 1;
     <https://data.molit.go.kr/def/molit-dcat-ap#requirementId> "MOLIT-DS-001-P-THEME-001";
     <http://www.w3.org/ns/shacl#message> "dcat:theme은 승인된 국토교통 주제 또는 교환용 DCAT-AP 주제 IRI여야 한다."@ko;
-    <http://www.w3.org/ns/shacl#in> _:n3-939.
-_:n3-939 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <http://publications.europa.eu/resource/authority/data-theme/TRAN>;
-    <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:n3-940.
-_:n3-940 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <http://publications.europa.eu/resource/authority/data-theme/REGI>;
-    <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:n3-941.
-_:n3-941 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <https://data.molit.go.kr/id/concept/domain/land>;
-    <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:n3-942.
-_:n3-942 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <https://data.molit.go.kr/id/concept/domain/urban>;
-    <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:n3-943.
-_:n3-943 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <https://data.molit.go.kr/id/concept/domain/housing>;
-    <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:n3-944.
-_:n3-944 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <https://data.molit.go.kr/id/concept/domain/building>;
-    <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:n3-945.
-_:n3-945 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <https://data.molit.go.kr/id/concept/domain/real-estate>;
-    <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:n3-946.
-_:n3-946 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <https://data.molit.go.kr/id/concept/domain/construction>;
-    <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:n3-947.
-_:n3-947 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <https://data.molit.go.kr/id/concept/domain/transport>;
-    <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:n3-948.
-_:n3-948 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <https://data.molit.go.kr/id/concept/domain/road>;
-    <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:n3-949.
-_:n3-949 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <https://data.molit.go.kr/id/concept/domain/railway>;
-    <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:n3-950.
-_:n3-950 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <https://data.molit.go.kr/id/concept/domain/aviation>;
-    <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:n3-951.
-_:n3-951 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <https://data.molit.go.kr/id/concept/domain/logistics>;
-    <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:n3-952.
-_:n3-952 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <https://data.molit.go.kr/id/concept/domain/mobility>;
-    <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:n3-953.
-_:n3-953 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <https://data.molit.go.kr/id/concept/domain/transport-safety>;
-    <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:n3-954.
-_:n3-954 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <https://data.molit.go.kr/id/concept/domain/spatial-information>;
+    <http://www.w3.org/ns/shacl#in> _:n3-956.
+_:n3-956 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <http://publications.europa.eu/resource/authority/data-theme/TRAN>;
+    <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:n3-957.
+_:n3-957 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <http://publications.europa.eu/resource/authority/data-theme/REGI>;
+    <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:n3-958.
+_:n3-958 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <https://data.molit.go.kr/id/concept/domain/land>;
+    <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:n3-959.
+_:n3-959 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <https://data.molit.go.kr/id/concept/domain/urban>;
+    <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:n3-960.
+_:n3-960 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <https://data.molit.go.kr/id/concept/domain/housing>;
+    <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:n3-961.
+_:n3-961 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <https://data.molit.go.kr/id/concept/domain/building>;
+    <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:n3-962.
+_:n3-962 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <https://data.molit.go.kr/id/concept/domain/real-estate>;
+    <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:n3-963.
+_:n3-963 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <https://data.molit.go.kr/id/concept/domain/construction>;
+    <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:n3-964.
+_:n3-964 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <https://data.molit.go.kr/id/concept/domain/transport>;
+    <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:n3-965.
+_:n3-965 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <https://data.molit.go.kr/id/concept/domain/road>;
+    <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:n3-966.
+_:n3-966 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <https://data.molit.go.kr/id/concept/domain/railway>;
+    <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:n3-967.
+_:n3-967 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <https://data.molit.go.kr/id/concept/domain/aviation>;
+    <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:n3-968.
+_:n3-968 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <https://data.molit.go.kr/id/concept/domain/logistics>;
+    <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:n3-969.
+_:n3-969 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <https://data.molit.go.kr/id/concept/domain/mobility>;
+    <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:n3-970.
+_:n3-970 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <https://data.molit.go.kr/id/concept/domain/transport-safety>;
+    <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:n3-971.
+_:n3-971 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <https://data.molit.go.kr/id/concept/domain/spatial-information>;
     <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> <http://www.w3.org/1999/02/22-rdf-syntax-ns#nil>.
-_:n3-955 <http://www.w3.org/ns/shacl#path> <http://www.w3.org/ns/dcat#theme>;
+_:n3-972 <http://www.w3.org/ns/shacl#path> <http://www.w3.org/ns/dcat#theme>;
     <https://data.molit.go.kr/def/molit-dcat-ap#requirementId> "MOLIT-DS-001-P-THEME-002";
-    <http://www.w3.org/ns/shacl#qualifiedValueShape> _:n3-956;
+    <http://www.w3.org/ns/shacl#qualifiedValueShape> _:n3-973;
     <http://www.w3.org/ns/shacl#qualifiedMinCount> 1;
     <http://www.w3.org/ns/shacl#message> "dcat:theme에는 국토교통 주제 분류 IRI를 하나 이상 포함해야 한다."@ko.
-_:n3-956 <http://www.w3.org/ns/shacl#nodeKind> <http://www.w3.org/ns/shacl#IRI>;
-    <http://www.w3.org/ns/shacl#in> _:n3-957.
-_:n3-957 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <https://data.molit.go.kr/id/concept/domain/land>;
-    <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:n3-958.
-_:n3-958 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <https://data.molit.go.kr/id/concept/domain/urban>;
-    <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:n3-959.
-_:n3-959 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <https://data.molit.go.kr/id/concept/domain/housing>;
-    <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:n3-960.
-_:n3-960 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <https://data.molit.go.kr/id/concept/domain/building>;
-    <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:n3-961.
-_:n3-961 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <https://data.molit.go.kr/id/concept/domain/real-estate>;
-    <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:n3-962.
-_:n3-962 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <https://data.molit.go.kr/id/concept/domain/construction>;
-    <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:n3-963.
-_:n3-963 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <https://data.molit.go.kr/id/concept/domain/transport>;
-    <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:n3-964.
-_:n3-964 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <https://data.molit.go.kr/id/concept/domain/road>;
-    <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:n3-965.
-_:n3-965 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <https://data.molit.go.kr/id/concept/domain/railway>;
-    <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:n3-966.
-_:n3-966 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <https://data.molit.go.kr/id/concept/domain/aviation>;
-    <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:n3-967.
-_:n3-967 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <https://data.molit.go.kr/id/concept/domain/logistics>;
-    <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:n3-968.
-_:n3-968 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <https://data.molit.go.kr/id/concept/domain/mobility>;
-    <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:n3-969.
-_:n3-969 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <https://data.molit.go.kr/id/concept/domain/transport-safety>;
-    <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:n3-970.
-_:n3-970 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <https://data.molit.go.kr/id/concept/domain/spatial-information>;
+_:n3-973 <http://www.w3.org/ns/shacl#nodeKind> <http://www.w3.org/ns/shacl#IRI>;
+    <http://www.w3.org/ns/shacl#in> _:n3-974.
+_:n3-974 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <https://data.molit.go.kr/id/concept/domain/land>;
+    <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:n3-975.
+_:n3-975 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <https://data.molit.go.kr/id/concept/domain/urban>;
+    <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:n3-976.
+_:n3-976 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <https://data.molit.go.kr/id/concept/domain/housing>;
+    <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:n3-977.
+_:n3-977 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <https://data.molit.go.kr/id/concept/domain/building>;
+    <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:n3-978.
+_:n3-978 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <https://data.molit.go.kr/id/concept/domain/real-estate>;
+    <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:n3-979.
+_:n3-979 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <https://data.molit.go.kr/id/concept/domain/construction>;
+    <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:n3-980.
+_:n3-980 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <https://data.molit.go.kr/id/concept/domain/transport>;
+    <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:n3-981.
+_:n3-981 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <https://data.molit.go.kr/id/concept/domain/road>;
+    <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:n3-982.
+_:n3-982 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <https://data.molit.go.kr/id/concept/domain/railway>;
+    <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:n3-983.
+_:n3-983 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <https://data.molit.go.kr/id/concept/domain/aviation>;
+    <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:n3-984.
+_:n3-984 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <https://data.molit.go.kr/id/concept/domain/logistics>;
+    <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:n3-985.
+_:n3-985 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <https://data.molit.go.kr/id/concept/domain/mobility>;
+    <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:n3-986.
+_:n3-986 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <https://data.molit.go.kr/id/concept/domain/transport-safety>;
+    <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:n3-987.
+_:n3-987 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <https://data.molit.go.kr/id/concept/domain/spatial-information>;
     <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> <http://www.w3.org/1999/02/22-rdf-syntax-ns#nil>.
-_:n3-971 <http://www.w3.org/ns/shacl#nodeKind> <http://www.w3.org/ns/shacl#IRI>;
+_:n3-988 <http://www.w3.org/ns/shacl#nodeKind> <http://www.w3.org/ns/shacl#IRI>;
     <http://www.w3.org/ns/shacl#path> <http://purl.org/dc/terms/accessRights>;
     <http://www.w3.org/ns/shacl#minCount> 1;
     <http://www.w3.org/ns/shacl#maxCount> 1;
     <https://data.molit.go.kr/def/molit-dcat-ap#requirementId> "MOLIT-DS-001-P-ACCESSRIGHTS-001";
     <http://www.w3.org/ns/shacl#message> "접근 권한은 dct:RightsStatement로 관리할 수 있는 IRI 하나여야 한다. 국내 발행 어휘 승인과 EU 교환 어휘 검사는 별도 정책으로 수행한다."@ko.
-_:n3-972 <http://www.w3.org/ns/shacl#path> <http://purl.org/dc/terms/issued>;
+_:n3-989 <http://www.w3.org/ns/shacl#path> <http://purl.org/dc/terms/issued>;
     <http://www.w3.org/ns/shacl#maxCount> 1;
     <https://data.molit.go.kr/def/molit-dcat-ap#requirementId> "MOLIT-DS-001-P-ISSUED-001";
     <http://www.w3.org/ns/shacl#message> "발행일은 xsd:date 또는 xsd:dateTime이어야 한다."@ko;
-    <http://www.w3.org/ns/shacl#or> _:n3-973.
-_:n3-973 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> _:n3-974;
-    <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:n3-975.
-_:n3-974 <http://www.w3.org/ns/shacl#datatype> <http://www.w3.org/2001/XMLSchema#date>.
-_:n3-975 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> _:n3-976;
+    <http://www.w3.org/ns/shacl#or> _:n3-990.
+_:n3-990 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> _:n3-991;
+    <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:n3-992.
+_:n3-991 <http://www.w3.org/ns/shacl#datatype> <http://www.w3.org/2001/XMLSchema#date>.
+_:n3-992 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> _:n3-993;
     <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> <http://www.w3.org/1999/02/22-rdf-syntax-ns#nil>.
-_:n3-976 <http://www.w3.org/ns/shacl#datatype> <http://www.w3.org/2001/XMLSchema#dateTime>.
-_:n3-977 <http://www.w3.org/ns/shacl#path> <http://purl.org/dc/terms/modified>;
+_:n3-993 <http://www.w3.org/ns/shacl#datatype> <http://www.w3.org/2001/XMLSchema#dateTime>.
+_:n3-994 <http://www.w3.org/ns/shacl#path> <http://purl.org/dc/terms/modified>;
     <http://www.w3.org/ns/shacl#minCount> 1;
     <http://www.w3.org/ns/shacl#maxCount> 1;
     <https://data.molit.go.kr/def/molit-dcat-ap#requirementId> "MOLIT-DS-001-P-MODIFIED-001";
     <http://www.w3.org/ns/shacl#message> "수정일은 xsd:date 또는 xsd:dateTime 값 하나여야 한다."@ko;
-    <http://www.w3.org/ns/shacl#or> _:n3-978.
-_:n3-978 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> _:n3-979;
-    <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:n3-980.
-_:n3-979 <http://www.w3.org/ns/shacl#datatype> <http://www.w3.org/2001/XMLSchema#date>.
-_:n3-980 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> _:n3-981;
+    <http://www.w3.org/ns/shacl#or> _:n3-995.
+_:n3-995 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> _:n3-996;
+    <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:n3-997.
+_:n3-996 <http://www.w3.org/ns/shacl#datatype> <http://www.w3.org/2001/XMLSchema#date>.
+_:n3-997 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> _:n3-998;
     <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> <http://www.w3.org/1999/02/22-rdf-syntax-ns#nil>.
-_:n3-981 <http://www.w3.org/ns/shacl#datatype> <http://www.w3.org/2001/XMLSchema#dateTime>.
+_:n3-998 <http://www.w3.org/ns/shacl#datatype> <http://www.w3.org/2001/XMLSchema#dateTime>.
 <https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#DataServiceShape> a <http://www.w3.org/ns/shacl#NodeShape>;
     <http://www.w3.org/ns/shacl#targetClass> <http://www.w3.org/ns/dcat#DataService>;
-    <http://www.w3.org/ns/shacl#property> _:n3-982, _:n3-985, _:n3-986, _:n3-987;
+    <http://www.w3.org/ns/shacl#property> _:n3-999, _:n3-1002, _:n3-1003, _:n3-1004;
     <https://data.molit.go.kr/def/molit-dcat-ap#requirementId> "MOLIT-SVC-001";
     <https://data.molit.go.kr/def/molit-dcat-ap#controlOwner> "connector-operations".
-_:n3-982 <http://www.w3.org/ns/shacl#nodeKind> <http://www.w3.org/ns/shacl#Literal>;
+_:n3-999 <http://www.w3.org/ns/shacl#nodeKind> <http://www.w3.org/ns/shacl#Literal>;
     <http://www.w3.org/ns/shacl#path> <http://purl.org/dc/terms/title>;
     <http://www.w3.org/ns/shacl#minCount> 1;
     <https://data.molit.go.kr/def/molit-dcat-ap#requirementId> "MOLIT-SVC-001-P-TITLE-001";
-    <http://www.w3.org/ns/shacl#qualifiedValueShape> _:n3-983;
+    <http://www.w3.org/ns/shacl#qualifiedValueShape> _:n3-1000;
     <http://www.w3.org/ns/shacl#qualifiedMinCount> 1;
     <http://www.w3.org/ns/shacl#message> "DataService에는 한국어 제목이 있어야 한다."@ko.
-_:n3-984 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> "ko";
+_:n3-1001 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> "ko";
     <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> <http://www.w3.org/1999/02/22-rdf-syntax-ns#nil>.
-_:n3-983 <http://www.w3.org/ns/shacl#languageIn> _:n3-984.
-_:n3-985 <http://www.w3.org/ns/shacl#nodeKind> <http://www.w3.org/ns/shacl#IRI>;
+_:n3-1000 <http://www.w3.org/ns/shacl#languageIn> _:n3-1001.
+_:n3-1002 <http://www.w3.org/ns/shacl#nodeKind> <http://www.w3.org/ns/shacl#IRI>;
     <http://www.w3.org/ns/shacl#path> <http://www.w3.org/ns/dcat#endpointURL>;
     <http://www.w3.org/ns/shacl#minCount> 1;
     <https://data.molit.go.kr/def/molit-dcat-ap#requirementId> "MOLIT-SVC-001-P-ENDPOINTURL-001";
     <http://www.w3.org/ns/shacl#message> "DataService에는 공개 가능한 endpointURL이 있어야 한다."@ko;
     <http://www.w3.org/ns/shacl#pattern> "^https://".
-_:n3-986 <http://www.w3.org/ns/shacl#path> <http://www.w3.org/ns/dcat#servesDataset>;
+_:n3-1003 <http://www.w3.org/ns/shacl#path> <http://www.w3.org/ns/dcat#servesDataset>;
     <http://www.w3.org/ns/shacl#minCount> 1;
     <http://www.w3.org/ns/shacl#class> <http://www.w3.org/ns/dcat#Dataset>;
     <https://data.molit.go.kr/def/molit-dcat-ap#requirementId> "MOLIT-SVC-001-P-SERVESDATASET-001";
     <http://www.w3.org/ns/shacl#message> "DataService가 제공하는 데이터셋을 하나 이상 연결해야 한다."@ko.
-_:n3-987 <http://www.w3.org/ns/shacl#nodeKind> <http://www.w3.org/ns/shacl#IRI>;
+_:n3-1004 <http://www.w3.org/ns/shacl#nodeKind> <http://www.w3.org/ns/shacl#IRI>;
     <http://www.w3.org/ns/shacl#path> <http://www.w3.org/ns/dcat#theme>;
     <https://data.molit.go.kr/def/molit-dcat-ap#requirementId> "MOLIT-SVC-001-P-THEME-001";
-    <http://www.w3.org/ns/shacl#qualifiedValueShape> _:n3-988;
+    <http://www.w3.org/ns/shacl#qualifiedValueShape> _:n3-1005;
     <http://www.w3.org/ns/shacl#qualifiedMinCount> 1;
     <http://www.w3.org/ns/shacl#message> "DataService에는 국토교통 주제 분류 IRI를 하나 이상 지정해야 한다. EU TRAN·REGI는 교환용 진단에서 별도로 검사한다."@ko.
-_:n3-989 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <https://data.molit.go.kr/id/concept/domain/land>;
-    <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:n3-990.
-_:n3-990 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <https://data.molit.go.kr/id/concept/domain/urban>;
-    <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:n3-991.
-_:n3-991 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <https://data.molit.go.kr/id/concept/domain/housing>;
-    <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:n3-992.
-_:n3-992 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <https://data.molit.go.kr/id/concept/domain/building>;
-    <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:n3-993.
-_:n3-993 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <https://data.molit.go.kr/id/concept/domain/real-estate>;
-    <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:n3-994.
-_:n3-994 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <https://data.molit.go.kr/id/concept/domain/construction>;
-    <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:n3-995.
-_:n3-995 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <https://data.molit.go.kr/id/concept/domain/transport>;
-    <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:n3-996.
-_:n3-996 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <https://data.molit.go.kr/id/concept/domain/road>;
-    <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:n3-997.
-_:n3-997 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <https://data.molit.go.kr/id/concept/domain/railway>;
-    <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:n3-998.
-_:n3-998 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <https://data.molit.go.kr/id/concept/domain/aviation>;
-    <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:n3-999.
-_:n3-999 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <https://data.molit.go.kr/id/concept/domain/logistics>;
-    <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:n3-1000.
-_:n3-1000 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <https://data.molit.go.kr/id/concept/domain/mobility>;
-    <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:n3-1001.
-_:n3-1001 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <https://data.molit.go.kr/id/concept/domain/transport-safety>;
-    <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:n3-1002.
-_:n3-1002 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <https://data.molit.go.kr/id/concept/domain/spatial-information>;
+_:n3-1006 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <https://data.molit.go.kr/id/concept/domain/land>;
+    <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:n3-1007.
+_:n3-1007 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <https://data.molit.go.kr/id/concept/domain/urban>;
+    <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:n3-1008.
+_:n3-1008 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <https://data.molit.go.kr/id/concept/domain/housing>;
+    <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:n3-1009.
+_:n3-1009 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <https://data.molit.go.kr/id/concept/domain/building>;
+    <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:n3-1010.
+_:n3-1010 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <https://data.molit.go.kr/id/concept/domain/real-estate>;
+    <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:n3-1011.
+_:n3-1011 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <https://data.molit.go.kr/id/concept/domain/construction>;
+    <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:n3-1012.
+_:n3-1012 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <https://data.molit.go.kr/id/concept/domain/transport>;
+    <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:n3-1013.
+_:n3-1013 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <https://data.molit.go.kr/id/concept/domain/road>;
+    <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:n3-1014.
+_:n3-1014 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <https://data.molit.go.kr/id/concept/domain/railway>;
+    <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:n3-1015.
+_:n3-1015 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <https://data.molit.go.kr/id/concept/domain/aviation>;
+    <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:n3-1016.
+_:n3-1016 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <https://data.molit.go.kr/id/concept/domain/logistics>;
+    <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:n3-1017.
+_:n3-1017 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <https://data.molit.go.kr/id/concept/domain/mobility>;
+    <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:n3-1018.
+_:n3-1018 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <https://data.molit.go.kr/id/concept/domain/transport-safety>;
+    <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:n3-1019.
+_:n3-1019 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <https://data.molit.go.kr/id/concept/domain/spatial-information>;
     <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> <http://www.w3.org/1999/02/22-rdf-syntax-ns#nil>.
-_:n3-988 <http://www.w3.org/ns/shacl#in> _:n3-989.
+_:n3-1005 <http://www.w3.org/ns/shacl#in> _:n3-1006.
 <https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#AgentShape> a <http://www.w3.org/ns/shacl#NodeShape>;
     <http://www.w3.org/ns/shacl#targetClass> <http://xmlns.com/foaf/0.1/Agent>;
-    <http://www.w3.org/ns/shacl#property> _:n3-1003;
+    <http://www.w3.org/ns/shacl#property> _:n3-1020;
     <https://data.molit.go.kr/def/molit-dcat-ap#requirementId> "MOLIT-AGENT-001";
     <https://data.molit.go.kr/def/molit-dcat-ap#controlOwner> "participant-registry".
-_:n3-1003 <http://www.w3.org/ns/shacl#nodeKind> <http://www.w3.org/ns/shacl#Literal>;
+_:n3-1020 <http://www.w3.org/ns/shacl#nodeKind> <http://www.w3.org/ns/shacl#Literal>;
     <http://www.w3.org/ns/shacl#path> <http://xmlns.com/foaf/0.1/name>;
     <http://www.w3.org/ns/shacl#minCount> 1;
     <https://data.molit.go.kr/def/molit-dcat-ap#requirementId> "MOLIT-AGENT-001-P-NAME-001";
-    <http://www.w3.org/ns/shacl#qualifiedValueShape> _:n3-1004;
+    <http://www.w3.org/ns/shacl#qualifiedValueShape> _:n3-1021;
     <http://www.w3.org/ns/shacl#qualifiedMinCount> 1;
     <http://www.w3.org/ns/shacl#message> "기관에는 한국어 명칭이 있어야 한다."@ko.
-_:n3-1005 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> "ko";
+_:n3-1022 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> "ko";
     <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> <http://www.w3.org/1999/02/22-rdf-syntax-ns#nil>.
-_:n3-1004 <http://www.w3.org/ns/shacl#languageIn> _:n3-1005.
+_:n3-1021 <http://www.w3.org/ns/shacl#languageIn> _:n3-1022.
 <https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#CatalogRecordDatasetCoherenceShape> a <http://www.w3.org/ns/shacl#NodeShape>;
     <http://www.w3.org/ns/shacl#targetClass> <http://www.w3.org/ns/dcat#Catalog>;
-    <http://www.w3.org/ns/shacl#property> _:n3-1006;
+    <http://www.w3.org/ns/shacl#property> _:n3-1023;
     <https://data.molit.go.kr/def/molit-dcat-ap#requirementId> "MOLIT-CAT-REL-001";
     <https://data.molit.go.kr/def/molit-dcat-ap#controlOwner> "catalog-operations".
-_:n3-1006 <http://www.w3.org/ns/shacl#path> _:n3-1007;
+_:n3-1023 <http://www.w3.org/ns/shacl#path> _:n3-1024;
     <https://data.molit.go.kr/def/molit-dcat-ap#requirementId> "MOLIT-CAT-REL-001-P-PATH-DA00F2B2F6-001";
     <http://www.w3.org/ns/shacl#message> "Each CatalogRecord primary topic must be exactly one of the datasets listed by the same Catalog, and every listed dataset must have a record."@en, "CatalogRecord의 primary topic 집합은 같은 Catalog의 dcat:dataset 집합과 일치해야 한다."@ko;
     <http://www.w3.org/ns/shacl#equals> <http://www.w3.org/ns/dcat#dataset>.
-_:n3-1007 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <http://www.w3.org/ns/dcat#record>;
-    <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:n3-1008.
-_:n3-1008 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <http://xmlns.com/foaf/0.1/primaryTopic>;
+_:n3-1024 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <http://www.w3.org/ns/dcat#record>;
+    <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:n3-1025.
+_:n3-1025 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <http://xmlns.com/foaf/0.1/primaryTopic>;
     <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> <http://www.w3.org/1999/02/22-rdf-syntax-ns#nil>.
 <https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#ChecksumAlgorithmVocabularyShape> a <http://www.w3.org/ns/shacl#NodeShape>;
     <http://www.w3.org/ns/shacl#targetClass> <http://spdx.org/rdf/terms#Checksum>;
-    <http://www.w3.org/ns/shacl#property> _:n3-1009;
+    <http://www.w3.org/ns/shacl#property> _:n3-1026;
     <https://data.molit.go.kr/def/molit-dcat-ap#requirementId> "MOLIT-CV-CHECKSUM-001";
     <https://data.molit.go.kr/def/molit-dcat-ap#controlOwner> "security-architecture".
-_:n3-1009 <http://www.w3.org/ns/shacl#nodeKind> <http://www.w3.org/ns/shacl#IRI>;
+_:n3-1026 <http://www.w3.org/ns/shacl#nodeKind> <http://www.w3.org/ns/shacl#IRI>;
     <http://www.w3.org/ns/shacl#path> <http://spdx.org/rdf/terms#algorithm>;
     <https://data.molit.go.kr/def/molit-dcat-ap#requirementId> "MOLIT-CV-CHECKSUM-001-P-ALGORITHM-001";
     <http://www.w3.org/ns/shacl#message> "체크섬 알고리즘은 SHA-256, SHA-384 또는 SHA-512 SPDX IRI여야 한다."@ko;
-    <http://www.w3.org/ns/shacl#in> _:n3-1010.
-_:n3-1010 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <http://spdx.org/rdf/terms#checksumAlgorithm_sha256>;
-    <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:n3-1011.
-_:n3-1011 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <http://spdx.org/rdf/terms#checksumAlgorithm_sha384>;
-    <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:n3-1012.
-_:n3-1012 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <http://spdx.org/rdf/terms#checksumAlgorithm_sha512>;
+    <http://www.w3.org/ns/shacl#in> _:n3-1027.
+_:n3-1027 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <http://spdx.org/rdf/terms#checksumAlgorithm_sha256>;
+    <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:n3-1028.
+_:n3-1028 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <http://spdx.org/rdf/terms#checksumAlgorithm_sha384>;
+    <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:n3-1029.
+_:n3-1029 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <http://spdx.org/rdf/terms#checksumAlgorithm_sha512>;
     <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> <http://www.w3.org/1999/02/22-rdf-syntax-ns#nil>.
 <https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#ChecksumValueLengthShape> a <http://www.w3.org/ns/shacl#NodeShape>;
     <http://www.w3.org/ns/shacl#targetClass> <http://spdx.org/rdf/terms#Checksum>;
     <https://data.molit.go.kr/def/molit-dcat-ap#requirementId> "MOLIT-CV-CHECKSUM-002";
     <https://data.molit.go.kr/def/molit-dcat-ap#controlOwner> "security-architecture";
     <http://www.w3.org/ns/shacl#message> "SPDX checksum 값은 선택한 SHA-256·SHA-384·SHA-512의 byte 길이와 일치하는 소문자 16진수여야 한다."@ko;
-    <http://www.w3.org/ns/shacl#or> _:n3-1013.
-_:n3-1013 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> _:n3-1014;
-    <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:n3-1017.
-_:n3-1014 <http://www.w3.org/ns/shacl#property> _:n3-1015, _:n3-1016.
-_:n3-1015 <http://www.w3.org/ns/shacl#path> <http://spdx.org/rdf/terms#algorithm>;
+    <http://www.w3.org/ns/shacl#or> _:n3-1030.
+_:n3-1030 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> _:n3-1031;
+    <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:n3-1034.
+_:n3-1031 <http://www.w3.org/ns/shacl#property> _:n3-1032, _:n3-1033.
+_:n3-1032 <http://www.w3.org/ns/shacl#path> <http://spdx.org/rdf/terms#algorithm>;
     <http://www.w3.org/ns/shacl#hasValue> <http://spdx.org/rdf/terms#checksumAlgorithm_sha256>.
-_:n3-1016 <http://www.w3.org/ns/shacl#path> <http://spdx.org/rdf/terms#checksumValue>;
+_:n3-1033 <http://www.w3.org/ns/shacl#path> <http://spdx.org/rdf/terms#checksumValue>;
     <http://www.w3.org/ns/shacl#datatype> <http://www.w3.org/2001/XMLSchema#hexBinary>;
     <http://www.w3.org/ns/shacl#pattern> "^[0-9a-f]{64}$".
-_:n3-1017 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> _:n3-1018;
-    <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:n3-1021.
-_:n3-1018 <http://www.w3.org/ns/shacl#property> _:n3-1019, _:n3-1020.
-_:n3-1019 <http://www.w3.org/ns/shacl#path> <http://spdx.org/rdf/terms#algorithm>;
+_:n3-1034 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> _:n3-1035;
+    <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:n3-1038.
+_:n3-1035 <http://www.w3.org/ns/shacl#property> _:n3-1036, _:n3-1037.
+_:n3-1036 <http://www.w3.org/ns/shacl#path> <http://spdx.org/rdf/terms#algorithm>;
     <http://www.w3.org/ns/shacl#hasValue> <http://spdx.org/rdf/terms#checksumAlgorithm_sha384>.
-_:n3-1020 <http://www.w3.org/ns/shacl#path> <http://spdx.org/rdf/terms#checksumValue>;
+_:n3-1037 <http://www.w3.org/ns/shacl#path> <http://spdx.org/rdf/terms#checksumValue>;
     <http://www.w3.org/ns/shacl#datatype> <http://www.w3.org/2001/XMLSchema#hexBinary>;
     <http://www.w3.org/ns/shacl#pattern> "^[0-9a-f]{96}$".
-_:n3-1021 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> _:n3-1022;
+_:n3-1038 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> _:n3-1039;
     <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> <http://www.w3.org/1999/02/22-rdf-syntax-ns#nil>.
-_:n3-1022 <http://www.w3.org/ns/shacl#property> _:n3-1023, _:n3-1024.
-_:n3-1023 <http://www.w3.org/ns/shacl#path> <http://spdx.org/rdf/terms#algorithm>;
+_:n3-1039 <http://www.w3.org/ns/shacl#property> _:n3-1040, _:n3-1041.
+_:n3-1040 <http://www.w3.org/ns/shacl#path> <http://spdx.org/rdf/terms#algorithm>;
     <http://www.w3.org/ns/shacl#hasValue> <http://spdx.org/rdf/terms#checksumAlgorithm_sha512>.
-_:n3-1024 <http://www.w3.org/ns/shacl#path> <http://spdx.org/rdf/terms#checksumValue>;
+_:n3-1041 <http://www.w3.org/ns/shacl#path> <http://spdx.org/rdf/terms#checksumValue>;
     <http://www.w3.org/ns/shacl#datatype> <http://www.w3.org/2001/XMLSchema#hexBinary>;
     <http://www.w3.org/ns/shacl#pattern> "^[0-9a-f]{128}$".
 <https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#IanaMediaTypeVocabularyShape> a <http://www.w3.org/ns/shacl#NodeShape>;
-    <http://www.w3.org/ns/shacl#property> _:n3-1025, _:n3-1026, _:n3-1038, _:n3-1041;
+    <http://www.w3.org/ns/shacl#property> _:n3-1042, _:n3-1043, _:n3-1055, _:n3-1058;
     <https://data.molit.go.kr/def/molit-dcat-ap#requirementId> "MOLIT-CV-MEDIATYPE-001";
     <https://data.molit.go.kr/def/molit-dcat-ap#controlOwner> "vocabulary-governance";
     <http://www.w3.org/ns/shacl#targetSubjectsOf> <http://www.w3.org/ns/dcat#mediaType>, <http://www.w3.org/ns/dcat#compressFormat>, <http://www.w3.org/ns/dcat#packageFormat>.
-_:n3-1025 <http://www.w3.org/ns/shacl#path> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type>;
+_:n3-1042 <http://www.w3.org/ns/shacl#path> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type>;
     <https://data.molit.go.kr/def/molit-dcat-ap#requirementId> "MOLIT-CV-MEDIATYPE-001-P-TYPE-001";
     <http://www.w3.org/ns/shacl#message> "mediaType, compression format과 packaging format은 dcat:Distribution에만 사용한다."@ko;
     <http://www.w3.org/ns/shacl#hasValue> <http://www.w3.org/ns/dcat#Distribution>.
-_:n3-1026 <http://www.w3.org/ns/shacl#nodeKind> <http://www.w3.org/ns/shacl#IRI>;
+_:n3-1043 <http://www.w3.org/ns/shacl#nodeKind> <http://www.w3.org/ns/shacl#IRI>;
     <http://www.w3.org/ns/shacl#path> <http://www.w3.org/ns/dcat#mediaType>;
     <https://data.molit.go.kr/def/molit-dcat-ap#requirementId> "MOLIT-CV-MEDIATYPE-001-P-MEDIATYPE-001";
     <http://www.w3.org/ns/shacl#message> "mediaType은 IANA media type IRI여야 한다."@ko;
-    <http://www.w3.org/ns/shacl#in> _:n3-1027.
-_:n3-1027 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <https://www.iana.org/assignments/media-types/text/csv>;
-    <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:n3-1028.
-_:n3-1028 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <https://www.iana.org/assignments/media-types/application/json>;
-    <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:n3-1029.
-_:n3-1029 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <https://www.iana.org/assignments/media-types/application/ld+json>;
-    <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:n3-1030.
-_:n3-1030 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <https://www.iana.org/assignments/media-types/text/turtle>;
-    <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:n3-1031.
-_:n3-1031 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <https://www.iana.org/assignments/media-types/application/rdf+xml>;
-    <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:n3-1032.
-_:n3-1032 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <https://www.iana.org/assignments/media-types/application/xml>;
-    <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:n3-1033.
-_:n3-1033 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <https://www.iana.org/assignments/media-types/application/gml+xml>;
-    <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:n3-1034.
-_:n3-1034 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <https://www.iana.org/assignments/media-types/application/geo+json>;
-    <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:n3-1035.
-_:n3-1035 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <https://www.iana.org/assignments/media-types/application/gzip>;
-    <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:n3-1036.
-_:n3-1036 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <https://www.iana.org/assignments/media-types/application/zip>;
-    <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:n3-1037.
-_:n3-1037 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <https://www.iana.org/assignments/media-types/application/octet-stream>;
+    <http://www.w3.org/ns/shacl#in> _:n3-1044.
+_:n3-1044 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <https://www.iana.org/assignments/media-types/text/csv>;
+    <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:n3-1045.
+_:n3-1045 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <https://www.iana.org/assignments/media-types/application/json>;
+    <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:n3-1046.
+_:n3-1046 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <https://www.iana.org/assignments/media-types/application/ld+json>;
+    <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:n3-1047.
+_:n3-1047 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <https://www.iana.org/assignments/media-types/text/turtle>;
+    <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:n3-1048.
+_:n3-1048 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <https://www.iana.org/assignments/media-types/application/rdf+xml>;
+    <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:n3-1049.
+_:n3-1049 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <https://www.iana.org/assignments/media-types/application/xml>;
+    <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:n3-1050.
+_:n3-1050 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <https://www.iana.org/assignments/media-types/application/gml+xml>;
+    <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:n3-1051.
+_:n3-1051 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <https://www.iana.org/assignments/media-types/application/geo+json>;
+    <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:n3-1052.
+_:n3-1052 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <https://www.iana.org/assignments/media-types/application/gzip>;
+    <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:n3-1053.
+_:n3-1053 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <https://www.iana.org/assignments/media-types/application/zip>;
+    <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:n3-1054.
+_:n3-1054 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <https://www.iana.org/assignments/media-types/application/octet-stream>;
     <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> <http://www.w3.org/1999/02/22-rdf-syntax-ns#nil>.
-_:n3-1038 <http://www.w3.org/ns/shacl#nodeKind> <http://www.w3.org/ns/shacl#IRI>;
+_:n3-1055 <http://www.w3.org/ns/shacl#nodeKind> <http://www.w3.org/ns/shacl#IRI>;
     <http://www.w3.org/ns/shacl#path> <http://www.w3.org/ns/dcat#compressFormat>;
     <https://data.molit.go.kr/def/molit-dcat-ap#requirementId> "MOLIT-CV-MEDIATYPE-001-P-COMPRESSFORMAT-001";
     <http://www.w3.org/ns/shacl#message> "compression format은 IANA media type IRI여야 한다."@ko;
-    <http://www.w3.org/ns/shacl#in> _:n3-1039.
-_:n3-1039 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <https://www.iana.org/assignments/media-types/application/gzip>;
-    <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:n3-1040.
-_:n3-1040 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <https://www.iana.org/assignments/media-types/application/zip>;
+    <http://www.w3.org/ns/shacl#in> _:n3-1056.
+_:n3-1056 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <https://www.iana.org/assignments/media-types/application/gzip>;
+    <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:n3-1057.
+_:n3-1057 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <https://www.iana.org/assignments/media-types/application/zip>;
     <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> <http://www.w3.org/1999/02/22-rdf-syntax-ns#nil>.
-_:n3-1041 <http://www.w3.org/ns/shacl#nodeKind> <http://www.w3.org/ns/shacl#IRI>;
+_:n3-1058 <http://www.w3.org/ns/shacl#nodeKind> <http://www.w3.org/ns/shacl#IRI>;
     <http://www.w3.org/ns/shacl#path> <http://www.w3.org/ns/dcat#packageFormat>;
     <https://data.molit.go.kr/def/molit-dcat-ap#requirementId> "MOLIT-CV-MEDIATYPE-001-P-PACKAGEFORMAT-001";
     <http://www.w3.org/ns/shacl#message> "packaging format은 IANA media type IRI여야 한다."@ko;
-    <http://www.w3.org/ns/shacl#in> _:n3-1042.
-_:n3-1042 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <https://www.iana.org/assignments/media-types/application/gzip>;
-    <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:n3-1043.
-_:n3-1043 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <https://www.iana.org/assignments/media-types/application/zip>;
+    <http://www.w3.org/ns/shacl#in> _:n3-1059.
+_:n3-1059 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <https://www.iana.org/assignments/media-types/application/gzip>;
+    <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:n3-1060.
+_:n3-1060 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <https://www.iana.org/assignments/media-types/application/zip>;
     <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> <http://www.w3.org/1999/02/22-rdf-syntax-ns#nil>.
 <https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#ObservationCatalogProfileShape> a <http://www.w3.org/ns/shacl#NodeShape>;
     <http://www.w3.org/ns/shacl#targetClass> <http://www.w3.org/ns/dcat#Catalog>;
-    <http://www.w3.org/ns/shacl#property> _:n3-1044;
+    <http://www.w3.org/ns/shacl#property> _:n3-1061;
     <https://data.molit.go.kr/def/molit-dcat-ap#requirementId> "MOLIT-PROFILE-OBS-001";
     <https://data.molit.go.kr/def/molit-dcat-ap#controlOwner> "metadata-governance".
-_:n3-1044 <http://www.w3.org/ns/shacl#path> <http://purl.org/dc/terms/conformsTo>;
+_:n3-1061 <http://www.w3.org/ns/shacl#path> <http://purl.org/dc/terms/conformsTo>;
     <https://data.molit.go.kr/def/molit-dcat-ap#requirementId> "MOLIT-PROFILE-OBS-001-P-CONFORMSTO-001";
-    <http://www.w3.org/ns/shacl#qualifiedValueShape> _:n3-1045;
+    <http://www.w3.org/ns/shacl#qualifiedValueShape> _:n3-1062;
     <http://www.w3.org/ns/shacl#qualifiedMinCount> 1;
     <http://www.w3.org/ns/shacl#message> "Catalog must declare the selected observation release IRI as its MOLIT profile marker."@en;
     <http://www.w3.org/ns/shacl#hasValue> <https://data.molit.go.kr/profile/molit-dcat-ap/1.0.0-rc.1/observation>.
-_:n3-1045 <http://www.w3.org/ns/shacl#nodeKind> <http://www.w3.org/ns/shacl#IRI>;
+_:n3-1062 <http://www.w3.org/ns/shacl#nodeKind> <http://www.w3.org/ns/shacl#IRI>;
     <http://www.w3.org/ns/shacl#pattern> "^https://data[.]molit[.]go[.]kr[.]?(:443)?/profile/molit-dcat-ap(/.*)?$";
     <http://www.w3.org/ns/shacl#flags> "i".
 <https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#ObservationCatalogRecordProfileShape> a <http://www.w3.org/ns/shacl#NodeShape>;
     <http://www.w3.org/ns/shacl#targetClass> <http://www.w3.org/ns/dcat#CatalogRecord>;
-    <http://www.w3.org/ns/shacl#property> _:n3-1046;
+    <http://www.w3.org/ns/shacl#property> _:n3-1063;
     <https://data.molit.go.kr/def/molit-dcat-ap#requirementId> "MOLIT-PROFILE-OBS-002";
     <https://data.molit.go.kr/def/molit-dcat-ap#controlOwner> "metadata-governance".
-_:n3-1046 <http://www.w3.org/ns/shacl#path> <http://purl.org/dc/terms/conformsTo>;
+_:n3-1063 <http://www.w3.org/ns/shacl#path> <http://purl.org/dc/terms/conformsTo>;
     <https://data.molit.go.kr/def/molit-dcat-ap#requirementId> "MOLIT-PROFILE-OBS-002-P-CONFORMSTO-001";
-    <http://www.w3.org/ns/shacl#qualifiedValueShape> _:n3-1047;
+    <http://www.w3.org/ns/shacl#qualifiedValueShape> _:n3-1064;
     <http://www.w3.org/ns/shacl#qualifiedMinCount> 1;
     <http://www.w3.org/ns/shacl#message> "CatalogRecord must declare the selected observation release IRI as its MOLIT profile marker."@en;
     <http://www.w3.org/ns/shacl#hasValue> <https://data.molit.go.kr/profile/molit-dcat-ap/1.0.0-rc.1/observation>.
-_:n3-1047 <http://www.w3.org/ns/shacl#nodeKind> <http://www.w3.org/ns/shacl#IRI>;
+_:n3-1064 <http://www.w3.org/ns/shacl#nodeKind> <http://www.w3.org/ns/shacl#IRI>;
     <http://www.w3.org/ns/shacl#pattern> "^https://data[.]molit[.]go[.]kr[.]?(:443)?/profile/molit-dcat-ap(/.*)?$";
     <http://www.w3.org/ns/shacl#flags> "i".
 <https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#ObservationDatasetShape> a <http://www.w3.org/ns/shacl#NodeShape>;
     <http://www.w3.org/ns/shacl#targetClass> <https://data.molit.go.kr/def/molit-dcat-ap#ObservationDataset>;
-    <http://www.w3.org/ns/shacl#property> _:n3-1048, _:n3-1049, _:n3-1050, _:n3-1051, _:n3-1052, _:n3-1056, _:n3-1063, _:n3-1068, _:n3-1075;
+    <http://www.w3.org/ns/shacl#property> _:n3-1065, _:n3-1066, _:n3-1067, _:n3-1068, _:n3-1069, _:n3-1073, _:n3-1080, _:n3-1085, _:n3-1092;
     <https://data.molit.go.kr/def/molit-dcat-ap#requirementId> "MOLIT-OBS-001";
     <https://data.molit.go.kr/def/molit-dcat-ap#controlOwner> "observation-data-governance".
-_:n3-1048 <http://www.w3.org/ns/shacl#path> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type>;
+_:n3-1065 <http://www.w3.org/ns/shacl#path> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type>;
     <https://data.molit.go.kr/def/molit-dcat-ap#requirementId> "MOLIT-OBS-001-P-TYPE-001";
     <http://www.w3.org/ns/shacl#message> "An ObservationDataset must also state rdf:type dcat:Dataset."@en;
     <http://www.w3.org/ns/shacl#hasValue> <http://www.w3.org/ns/dcat#Dataset>.
-_:n3-1049 <http://www.w3.org/ns/shacl#path> <http://purl.org/dc/terms/temporal>;
+_:n3-1066 <http://www.w3.org/ns/shacl#path> <http://purl.org/dc/terms/temporal>;
     <http://www.w3.org/ns/shacl#minCount> 1;
     <http://www.w3.org/ns/shacl#class> <http://purl.org/dc/terms/PeriodOfTime>;
     <https://data.molit.go.kr/def/molit-dcat-ap#requirementId> "MOLIT-OBS-001-P-TEMPORAL-001";
     <http://www.w3.org/ns/shacl#message> "An observation dataset must state its observation period."@en.
-_:n3-1050 <http://www.w3.org/ns/shacl#path> <http://www.w3.org/ns/dcat#temporalResolution>;
+_:n3-1067 <http://www.w3.org/ns/shacl#path> <http://www.w3.org/ns/dcat#temporalResolution>;
     <http://www.w3.org/ns/shacl#minCount> 1;
     <http://www.w3.org/ns/shacl#maxCount> 1;
     <http://www.w3.org/ns/shacl#datatype> <http://www.w3.org/2001/XMLSchema#duration>;
     <https://data.molit.go.kr/def/molit-dcat-ap#requirementId> "MOLIT-OBS-001-P-TEMPORALRESOLUTION-001";
     <http://www.w3.org/ns/shacl#message> "Observation interval must be one ISO 8601 xsd:duration value."@en.
-_:n3-1051 <http://www.w3.org/ns/shacl#path> <https://data.molit.go.kr/def/molit-dcat-ap#aggregationPeriod>;
+_:n3-1068 <http://www.w3.org/ns/shacl#path> <https://data.molit.go.kr/def/molit-dcat-ap#aggregationPeriod>;
     <http://www.w3.org/ns/shacl#minCount> 1;
     <http://www.w3.org/ns/shacl#maxCount> 1;
     <http://www.w3.org/ns/shacl#datatype> <http://www.w3.org/2001/XMLSchema#duration>;
     <https://data.molit.go.kr/def/molit-dcat-ap#requirementId> "MOLIT-OBS-001-P-AGGREGATIONPERIOD-001";
     <http://www.w3.org/ns/shacl#message> "State the time window used to compute one aggregate value; do not infer it from temporal resolution."@en.
-_:n3-1052 <http://www.w3.org/ns/shacl#nodeKind> <http://www.w3.org/ns/shacl#IRI>;
+_:n3-1069 <http://www.w3.org/ns/shacl#nodeKind> <http://www.w3.org/ns/shacl#IRI>;
     <http://www.w3.org/ns/shacl#path> <https://data.molit.go.kr/def/molit-dcat-ap#observedProperty>;
     <http://www.w3.org/ns/shacl#minCount> 1;
     <http://www.w3.org/ns/shacl#maxCount> 1;
     <https://data.molit.go.kr/def/molit-dcat-ap#requirementId> "MOLIT-OBS-001-P-OBSERVEDPROPERTY-001";
     <http://www.w3.org/ns/shacl#message> "Select exactly one approved observation property for a homogeneous observation dataset."@en;
-    <http://www.w3.org/ns/shacl#in> _:n3-1053.
-_:n3-1053 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <https://data.molit.go.kr/id/concept/observed-property/traffic-volume>;
-    <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:n3-1054.
-_:n3-1054 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <https://data.molit.go.kr/id/concept/observed-property/speed>;
-    <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:n3-1055.
-_:n3-1055 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <https://data.molit.go.kr/id/concept/observed-property/travel-time>;
+    <http://www.w3.org/ns/shacl#in> _:n3-1070.
+_:n3-1070 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <https://data.molit.go.kr/id/concept/observed-property/traffic-volume>;
+    <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:n3-1071.
+_:n3-1071 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <https://data.molit.go.kr/id/concept/observed-property/speed>;
+    <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:n3-1072.
+_:n3-1072 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <https://data.molit.go.kr/id/concept/observed-property/travel-time>;
     <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> <http://www.w3.org/1999/02/22-rdf-syntax-ns#nil>.
-_:n3-1056 <http://www.w3.org/ns/shacl#nodeKind> <http://www.w3.org/ns/shacl#IRI>;
+_:n3-1073 <http://www.w3.org/ns/shacl#nodeKind> <http://www.w3.org/ns/shacl#IRI>;
     <http://www.w3.org/ns/shacl#path> <https://data.molit.go.kr/def/molit-dcat-ap#observationAggregation>;
     <http://www.w3.org/ns/shacl#minCount> 1;
     <http://www.w3.org/ns/shacl#maxCount> 1;
     <https://data.molit.go.kr/def/molit-dcat-ap#requirementId> "MOLIT-OBS-001-P-OBSERVATIONAGGREGATION-001";
     <http://www.w3.org/ns/shacl#message> "State exactly one approved aggregation method."@en;
-    <http://www.w3.org/ns/shacl#in> _:n3-1057.
-_:n3-1057 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <https://data.molit.go.kr/id/concept/observation-aggregation/instantaneous>;
-    <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:n3-1058.
-_:n3-1058 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <https://data.molit.go.kr/id/concept/observation-aggregation/arithmetic-mean>;
-    <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:n3-1059.
-_:n3-1059 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <https://data.molit.go.kr/id/concept/observation-aggregation/sum>;
-    <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:n3-1060.
-_:n3-1060 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <https://data.molit.go.kr/id/concept/observation-aggregation/minimum>;
-    <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:n3-1061.
-_:n3-1061 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <https://data.molit.go.kr/id/concept/observation-aggregation/maximum>;
-    <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:n3-1062.
-_:n3-1062 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <https://data.molit.go.kr/id/concept/observation-aggregation/median>;
+    <http://www.w3.org/ns/shacl#in> _:n3-1074.
+_:n3-1074 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <https://data.molit.go.kr/id/concept/observation-aggregation/instantaneous>;
+    <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:n3-1075.
+_:n3-1075 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <https://data.molit.go.kr/id/concept/observation-aggregation/arithmetic-mean>;
+    <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:n3-1076.
+_:n3-1076 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <https://data.molit.go.kr/id/concept/observation-aggregation/sum>;
+    <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:n3-1077.
+_:n3-1077 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <https://data.molit.go.kr/id/concept/observation-aggregation/minimum>;
+    <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:n3-1078.
+_:n3-1078 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <https://data.molit.go.kr/id/concept/observation-aggregation/maximum>;
+    <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:n3-1079.
+_:n3-1079 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <https://data.molit.go.kr/id/concept/observation-aggregation/median>;
     <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> <http://www.w3.org/1999/02/22-rdf-syntax-ns#nil>.
-_:n3-1063 <http://www.w3.org/ns/shacl#nodeKind> <http://www.w3.org/ns/shacl#IRI>;
+_:n3-1080 <http://www.w3.org/ns/shacl#nodeKind> <http://www.w3.org/ns/shacl#IRI>;
     <http://www.w3.org/ns/shacl#path> <https://data.molit.go.kr/def/molit-dcat-ap#missingValuePolicy>;
     <http://www.w3.org/ns/shacl#minCount> 1;
     <http://www.w3.org/ns/shacl#maxCount> 1;
     <https://data.molit.go.kr/def/molit-dcat-ap#requirementId> "MOLIT-OBS-001-P-MISSINGVALUEPOLICY-001";
     <http://www.w3.org/ns/shacl#message> "State how missing observations are represented."@en;
-    <http://www.w3.org/ns/shacl#in> _:n3-1064.
-_:n3-1064 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <https://data.molit.go.kr/id/concept/missing-value-policy/preserve-missing>;
-    <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:n3-1065.
-_:n3-1065 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <https://data.molit.go.kr/id/concept/missing-value-policy/explicit-code>;
-    <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:n3-1066.
-_:n3-1066 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <https://data.molit.go.kr/id/concept/missing-value-policy/exclude-from-aggregation>;
-    <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:n3-1067.
-_:n3-1067 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <https://data.molit.go.kr/id/concept/missing-value-policy/imputed>;
+    <http://www.w3.org/ns/shacl#in> _:n3-1081.
+_:n3-1081 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <https://data.molit.go.kr/id/concept/missing-value-policy/preserve-missing>;
+    <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:n3-1082.
+_:n3-1082 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <https://data.molit.go.kr/id/concept/missing-value-policy/explicit-code>;
+    <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:n3-1083.
+_:n3-1083 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <https://data.molit.go.kr/id/concept/missing-value-policy/exclude-from-aggregation>;
+    <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:n3-1084.
+_:n3-1084 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <https://data.molit.go.kr/id/concept/missing-value-policy/imputed>;
     <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> <http://www.w3.org/1999/02/22-rdf-syntax-ns#nil>.
-_:n3-1068 <http://www.w3.org/ns/shacl#nodeKind> <http://www.w3.org/ns/shacl#IRI>;
+_:n3-1085 <http://www.w3.org/ns/shacl#nodeKind> <http://www.w3.org/ns/shacl#IRI>;
     <http://www.w3.org/ns/shacl#path> <https://data.molit.go.kr/def/molit-dcat-ap#observationSubjectType>;
     <http://www.w3.org/ns/shacl#minCount> 1;
     <http://www.w3.org/ns/shacl#maxCount> 1;
     <https://data.molit.go.kr/def/molit-dcat-ap#requirementId> "MOLIT-OBS-001-P-OBSERVATIONSUBJECTTYPE-001";
     <http://www.w3.org/ns/shacl#message> "State the kind of feature to which observations apply."@en;
-    <http://www.w3.org/ns/shacl#in> _:n3-1069.
-_:n3-1069 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <https://data.molit.go.kr/id/concept/observation-subject-type/site>;
-    <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:n3-1070.
-_:n3-1070 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <https://data.molit.go.kr/id/concept/observation-subject-type/section>;
-    <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:n3-1071.
-_:n3-1071 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <https://data.molit.go.kr/id/concept/observation-subject-type/network-element>;
-    <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:n3-1072.
-_:n3-1072 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <https://data.molit.go.kr/id/concept/observation-subject-type/facility>;
-    <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:n3-1073.
-_:n3-1073 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <https://data.molit.go.kr/id/concept/observation-subject-type/vehicle-population>;
-    <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:n3-1074.
-_:n3-1074 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <https://data.molit.go.kr/id/concept/observation-subject-type/area>;
+    <http://www.w3.org/ns/shacl#in> _:n3-1086.
+_:n3-1086 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <https://data.molit.go.kr/id/concept/observation-subject-type/site>;
+    <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:n3-1087.
+_:n3-1087 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <https://data.molit.go.kr/id/concept/observation-subject-type/section>;
+    <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:n3-1088.
+_:n3-1088 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <https://data.molit.go.kr/id/concept/observation-subject-type/network-element>;
+    <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:n3-1089.
+_:n3-1089 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <https://data.molit.go.kr/id/concept/observation-subject-type/facility>;
+    <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:n3-1090.
+_:n3-1090 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <https://data.molit.go.kr/id/concept/observation-subject-type/vehicle-population>;
+    <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:n3-1091.
+_:n3-1091 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <https://data.molit.go.kr/id/concept/observation-subject-type/area>;
     <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> <http://www.w3.org/1999/02/22-rdf-syntax-ns#nil>.
-_:n3-1075 <http://www.w3.org/ns/shacl#nodeKind> <http://www.w3.org/ns/shacl#IRI>;
+_:n3-1092 <http://www.w3.org/ns/shacl#nodeKind> <http://www.w3.org/ns/shacl#IRI>;
     <http://www.w3.org/ns/shacl#path> <https://data.molit.go.kr/def/molit-dcat-ap#observationUnit>;
     <http://www.w3.org/ns/shacl#minCount> 1;
     <http://www.w3.org/ns/shacl#maxCount> 1;
     <https://data.molit.go.kr/def/molit-dcat-ap#requirementId> "MOLIT-OBS-001-P-OBSERVATIONUNIT-001";
     <http://www.w3.org/ns/shacl#message> "Use the approved QUDT unit for the selected observation property."@en;
-    <http://www.w3.org/ns/shacl#in> _:n3-1076.
-_:n3-1076 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <http://qudt.org/vocab/unit/KiloM-PER-HR>;
-    <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:n3-1077.
-_:n3-1077 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <http://qudt.org/vocab/unit/M-PER-SEC>;
-    <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:n3-1078.
-_:n3-1078 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <https://data.molit.go.kr/id/unit/vehicle-per-hour>;
-    <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:n3-1079.
-_:n3-1079 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <https://data.molit.go.kr/id/unit/vehicle-per-day>;
-    <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:n3-1080.
-_:n3-1080 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <http://qudt.org/vocab/unit/NUM>;
-    <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:n3-1081.
-_:n3-1081 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <http://qudt.org/vocab/unit/SEC>;
-    <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:n3-1082.
-_:n3-1082 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <http://qudt.org/vocab/unit/MIN>;
+    <http://www.w3.org/ns/shacl#in> _:n3-1093.
+_:n3-1093 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <http://qudt.org/vocab/unit/KiloM-PER-HR>;
+    <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:n3-1094.
+_:n3-1094 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <http://qudt.org/vocab/unit/M-PER-SEC>;
+    <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:n3-1095.
+_:n3-1095 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <https://data.molit.go.kr/id/unit/vehicle-per-hour>;
+    <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:n3-1096.
+_:n3-1096 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <https://data.molit.go.kr/id/unit/vehicle-per-day>;
+    <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:n3-1097.
+_:n3-1097 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <http://qudt.org/vocab/unit/NUM>;
+    <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:n3-1098.
+_:n3-1098 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <http://qudt.org/vocab/unit/SEC>;
+    <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:n3-1099.
+_:n3-1099 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <http://qudt.org/vocab/unit/MIN>;
     <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> <http://www.w3.org/1999/02/22-rdf-syntax-ns#nil>.
 <https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#ObservationUnitSemanticsShape> a <http://www.w3.org/ns/shacl#NodeShape>;
     <http://www.w3.org/ns/shacl#targetClass> <https://data.molit.go.kr/def/molit-dcat-ap#ObservationDataset>;
     <https://data.molit.go.kr/def/molit-dcat-ap#requirementId> "MOLIT-OBS-UNIT-001";
     <https://data.molit.go.kr/def/molit-dcat-ap#controlOwner> "observation-data-governance";
     <http://www.w3.org/ns/shacl#message> "Observation property and QUDT unit are not semantically compatible."@en;
-    <http://www.w3.org/ns/shacl#or> _:n3-1083.
-_:n3-1083 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> _:n3-1084;
-    <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:n3-1089.
-_:n3-1084 <http://www.w3.org/ns/shacl#property> _:n3-1085, _:n3-1086.
-_:n3-1085 <http://www.w3.org/ns/shacl#path> <https://data.molit.go.kr/def/molit-dcat-ap#observedProperty>;
+    <http://www.w3.org/ns/shacl#or> _:n3-1100.
+_:n3-1100 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> _:n3-1101;
+    <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:n3-1106.
+_:n3-1101 <http://www.w3.org/ns/shacl#property> _:n3-1102, _:n3-1103.
+_:n3-1102 <http://www.w3.org/ns/shacl#path> <https://data.molit.go.kr/def/molit-dcat-ap#observedProperty>;
     <http://www.w3.org/ns/shacl#hasValue> <https://data.molit.go.kr/id/concept/observed-property/speed>.
-_:n3-1086 <http://www.w3.org/ns/shacl#path> <https://data.molit.go.kr/def/molit-dcat-ap#observationUnit>;
-    <http://www.w3.org/ns/shacl#in> _:n3-1087.
-_:n3-1087 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <http://qudt.org/vocab/unit/KiloM-PER-HR>;
-    <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:n3-1088.
-_:n3-1088 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <http://qudt.org/vocab/unit/M-PER-SEC>;
+_:n3-1103 <http://www.w3.org/ns/shacl#path> <https://data.molit.go.kr/def/molit-dcat-ap#observationUnit>;
+    <http://www.w3.org/ns/shacl#in> _:n3-1104.
+_:n3-1104 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <http://qudt.org/vocab/unit/KiloM-PER-HR>;
+    <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:n3-1105.
+_:n3-1105 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <http://qudt.org/vocab/unit/M-PER-SEC>;
     <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> <http://www.w3.org/1999/02/22-rdf-syntax-ns#nil>.
-_:n3-1089 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> _:n3-1090;
-    <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:n3-1096.
-_:n3-1090 <http://www.w3.org/ns/shacl#property> _:n3-1091, _:n3-1092.
-_:n3-1091 <http://www.w3.org/ns/shacl#path> <https://data.molit.go.kr/def/molit-dcat-ap#observedProperty>;
+_:n3-1106 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> _:n3-1107;
+    <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:n3-1113.
+_:n3-1107 <http://www.w3.org/ns/shacl#property> _:n3-1108, _:n3-1109.
+_:n3-1108 <http://www.w3.org/ns/shacl#path> <https://data.molit.go.kr/def/molit-dcat-ap#observedProperty>;
     <http://www.w3.org/ns/shacl#hasValue> <https://data.molit.go.kr/id/concept/observed-property/traffic-volume>.
-_:n3-1092 <http://www.w3.org/ns/shacl#path> <https://data.molit.go.kr/def/molit-dcat-ap#observationUnit>;
-    <http://www.w3.org/ns/shacl#in> _:n3-1093.
-_:n3-1093 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <https://data.molit.go.kr/id/unit/vehicle-per-hour>;
-    <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:n3-1094.
-_:n3-1094 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <https://data.molit.go.kr/id/unit/vehicle-per-day>;
-    <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:n3-1095.
-_:n3-1095 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <http://qudt.org/vocab/unit/NUM>;
+_:n3-1109 <http://www.w3.org/ns/shacl#path> <https://data.molit.go.kr/def/molit-dcat-ap#observationUnit>;
+    <http://www.w3.org/ns/shacl#in> _:n3-1110.
+_:n3-1110 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <https://data.molit.go.kr/id/unit/vehicle-per-hour>;
+    <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:n3-1111.
+_:n3-1111 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <https://data.molit.go.kr/id/unit/vehicle-per-day>;
+    <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:n3-1112.
+_:n3-1112 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <http://qudt.org/vocab/unit/NUM>;
     <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> <http://www.w3.org/1999/02/22-rdf-syntax-ns#nil>.
-_:n3-1096 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> _:n3-1097;
+_:n3-1113 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> _:n3-1114;
     <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> <http://www.w3.org/1999/02/22-rdf-syntax-ns#nil>.
-_:n3-1097 <http://www.w3.org/ns/shacl#property> _:n3-1098, _:n3-1099.
-_:n3-1098 <http://www.w3.org/ns/shacl#path> <https://data.molit.go.kr/def/molit-dcat-ap#observedProperty>;
+_:n3-1114 <http://www.w3.org/ns/shacl#property> _:n3-1115, _:n3-1116.
+_:n3-1115 <http://www.w3.org/ns/shacl#path> <https://data.molit.go.kr/def/molit-dcat-ap#observedProperty>;
     <http://www.w3.org/ns/shacl#hasValue> <https://data.molit.go.kr/id/concept/observed-property/travel-time>.
-_:n3-1099 <http://www.w3.org/ns/shacl#path> <https://data.molit.go.kr/def/molit-dcat-ap#observationUnit>;
-    <http://www.w3.org/ns/shacl#in> _:n3-1100.
-_:n3-1100 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <http://qudt.org/vocab/unit/SEC>;
-    <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:n3-1101.
-_:n3-1101 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <http://qudt.org/vocab/unit/MIN>;
+_:n3-1116 <http://www.w3.org/ns/shacl#path> <https://data.molit.go.kr/def/molit-dcat-ap#observationUnit>;
+    <http://www.w3.org/ns/shacl#in> _:n3-1117.
+_:n3-1117 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <http://qudt.org/vocab/unit/SEC>;
+    <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> _:n3-1118.
+_:n3-1118 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <http://qudt.org/vocab/unit/MIN>;
     <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> <http://www.w3.org/1999/02/22-rdf-syntax-ns#nil>.

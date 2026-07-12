@@ -1,0 +1,27 @@
+@prefix dcat: <http://www.w3.org/ns/dcat#> .
+@prefix ex: <urn:molit:term-governance:network-valid-until:> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+@prefix mobilitydcatap: <https://w3id.org/mobilitydcat-ap#> .
+@prefix molit: <https://data.molit.go.kr/def/molit-dcat-ap#> .
+@prefix net: <https://data.molit.go.kr/id/concept/network-element-type/> .
+@prefix netlife: <https://data.molit.go.kr/id/concept/network-lifecycle-status/> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+ex:dataset a dcat:Dataset, molit:NetworkDataset ;
+    mobilitydcatap:transportMode <https://w3id.org/mobilitydcat-ap/transport-mode/car> ;
+    molit:networkReference ex:reference .
+
+<https://w3id.org/mobilitydcat-ap/transport-mode/car> a skos:Concept .
+
+ex:reference a molit:NetworkReference ;
+    molit:networkAuthority ex:authority ;
+    molit:networkIdentifier "standard-node-link" ;
+    molit:networkVersion "2026-07" ;
+    molit:networkElementType net:link ;
+    molit:networkSnapshotChecksum "0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef"^^xsd:hexBinary ;
+    molit:networkLifecycleStatus netlife:current ;
+    molit:networkValidFrom "2026-07-01"^^xsd:date ;
+    molit:networkValidUntil "2026-12-31"^^xsd:date .
+
+ex:authority a foaf:Agent .

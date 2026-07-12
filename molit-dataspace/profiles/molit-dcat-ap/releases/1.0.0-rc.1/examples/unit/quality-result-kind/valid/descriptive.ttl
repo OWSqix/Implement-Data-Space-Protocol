@@ -1,0 +1,31 @@
+@prefix dcat: <http://www.w3.org/ns/dcat#> .
+@prefix dqv: <http://www.w3.org/ns/dqv#> .
+@prefix ex: <urn:molit:quality-result:descriptive:> .
+@prefix metric: <https://data.molit.go.kr/id/metric/> .
+@prefix molit: <https://data.molit.go.kr/def/molit-dcat-ap#> .
+@prefix qloss: <https://data.molit.go.kr/id/concept/quality-loss-disposition/> .
+@prefix qmethod: <https://data.molit.go.kr/id/concept/quality-evaluation-method/> .
+@prefix qresult: <https://data.molit.go.kr/id/concept/quality-result-kind/> .
+@prefix quality: <https://data.molit.go.kr/id/concept/quality-status/> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+
+ex:dataset a dcat:Dataset ;
+    dqv:hasQualityMeasurement ex:measurement ;
+    molit:qualityStatus quality:assessed .
+
+ex:measurement a dqv:QualityMeasurement ;
+    dqv:computedOn ex:dataset ;
+    dqv:isMeasurementOf metric:assessment-note ;
+    dqv:value "No positional anomaly was found in the reviewed sample." ;
+    molit:qualityEvaluationMethod qmethod:sample-based ;
+    molit:qualityEvaluationScope "reviewed sample" ;
+    molit:qualityResultKind qresult:descriptive ;
+    molit:qualityMappingStatement ex:mapping .
+
+ex:mapping a molit:QualityMappingStatement ;
+    molit:sourceQualityElement ex:source-element ;
+    molit:mappedQualityMetric metric:assessment-note ;
+    molit:qualityLossDisposition qloss:lossless .
+
+ex:source-element a skos:Concept .
+metric:assessment-note a dqv:Metric .

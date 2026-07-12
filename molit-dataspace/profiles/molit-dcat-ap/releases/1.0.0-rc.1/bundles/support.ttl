@@ -207,8 +207,8 @@
     <http://www.w3.org/2002/07/owl#versionIRI> <https://data.molit.go.kr/def/molit-dcat-ap/1.0.0-rc.1>;
     <http://www.w3.org/2002/07/owl#versionInfo> "1.0.0-rc.1";
     <http://purl.org/dc/terms/modified> "2026-07-13"^^<http://www.w3.org/2001/XMLSchema#date>;
-    <http://purl.org/dc/terms/publisher> _:n3-1417.
-_:n3-1417 a <http://xmlns.com/foaf/0.1/Agent>;
+    <http://purl.org/dc/terms/publisher> _:n3-1510.
+_:n3-1510 a <http://xmlns.com/foaf/0.1/Agent>;
     <http://www.w3.org/2000/01/rdf-schema#comment> "기관 식별자와 발행권한은 운영기관 승인을 기다린다. 이 blank node를 Provider authority 또는 권위 기관 IRI로 사용하지 않는다."@ko, "The organization identifier and publishing authority await operating-authority approval. This blank node is not a Provider authority or an authoritative organization IRI."@en;
     <http://www.w3.org/ns/adms#status> <https://data.molit.go.kr/id/concept/term-status/candidate>;
     <http://xmlns.com/foaf/0.1/name> "국토교통부 발행주체 후보"@ko, "Candidate MOLIT publishing agent"@en;
@@ -269,7 +269,7 @@ _:n3-1417 a <http://xmlns.com/foaf/0.1/Agent>;
     <http://www.w3.org/ns/adms#status> <https://data.molit.go.kr/id/concept/term-status/candidate>;
     <http://www.w3.org/2002/07/owl#versionInfo> "1.0.0-rc.1";
     <http://www.w3.org/2000/01/rdf-schema#isDefinedBy> <https://data.molit.go.kr/def/molit-dcat-ap>;
-    <http://www.w3.org/2004/02/skos/core#definition> "교통량, 속도, 통행시간 또는 시설 상태처럼 시간에 따라 관측한 값을 제공하며 관측항목, 관측대상 유형, 집계, 결측 처리와 단위를 함께 기술하는 데이터셋."@ko, "A dataset providing time-dependent observations such as traffic volume, speed, travel time or facility status, together with observed-property, subject-type, aggregation, missing-value and unit semantics."@en;
+    <http://www.w3.org/2004/02/skos/core#definition> "교통량, 속도 또는 통행시간의 시계열 관측값을 제공하며 관측항목, 관측대상 유형, 집계, 결측 처리와 단위를 함께 기술하는 데이터셋. 시설 상태 관측은 RC.1 범위가 아니다."@ko, "A dataset providing time-dependent traffic-volume, speed or travel-time observations together with observed-property, subject-type, aggregation, missing-value and unit semantics; facility-status observations are outside RC.1."@en;
     <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://www.w3.org/ns/dcat#Dataset>;
     <http://www.w3.org/2000/01/rdf-schema#label> "관측 데이터셋"@ko, "Observation dataset"@en;
     <http://www.w3.org/2000/01/rdf-schema#seeAlso> <http://www.w3.org/ns/sosa/ObservationCollection>.
@@ -320,6 +320,7 @@ _:n3-1417 a <http://xmlns.com/foaf/0.1/Agent>;
     <http://www.w3.org/2000/01/rdf-schema#label> "교통망 식별자"@ko, "network identifier"@en;
     <http://www.w3.org/2000/01/rdf-schema#domain> <https://data.molit.go.kr/def/molit-dcat-ap#NetworkReference>;
     <http://www.w3.org/2000/01/rdf-schema#range> <http://www.w3.org/2001/XMLSchema#string>.
+<http://www.w3.org/2001/XMLSchema#string> a <http://www.w3.org/2000/01/rdf-schema#Datatype>.
 <https://data.molit.go.kr/def/molit-dcat-ap#networkVersion> a <http://www.w3.org/2002/07/owl#DatatypeProperty>;
     <http://www.w3.org/ns/adms#status> <https://data.molit.go.kr/id/concept/term-status/candidate>;
     <http://www.w3.org/2002/07/owl#versionInfo> "1.0.0-rc.1";
@@ -455,7 +456,7 @@ _:n3-1417 a <http://xmlns.com/foaf/0.1/Agent>;
     <http://www.w3.org/ns/adms#status> <https://data.molit.go.kr/id/concept/term-status/candidate>;
     <http://www.w3.org/2002/07/owl#versionInfo> "1.0.0-rc.1";
     <http://www.w3.org/2000/01/rdf-schema#isDefinedBy> <https://data.molit.go.kr/def/molit-dcat-ap>;
-    <http://www.w3.org/2004/02/skos/core#definition> "품질 측정값을 산출한 평가방법 통제값을 연결한다. 세부 알고리즘과 매개변수는 해당 방법 문서의 판을 참조한다."@ko, "Links a quality measurement to a controlled evaluation-method value. Detailed algorithms and parameters refer to the applicable method-document edition."@en;
+    <http://www.w3.org/2004/02/skos/core#definition> "품질 측정값을 산출한 절차의 방법 유형을 분류한다. RC.1은 실행 알고리즘, 매개변수, 수행주체나 재현 가능성을 이 값만으로 주장하지 않는다."@ko, "Classifies the method category of the procedure that produced a quality measurement; RC.1 does not use this value alone to identify an executable algorithm, parameters, agent or reproducibility."@en;
     <http://www.w3.org/2000/01/rdf-schema#label> "품질 평가 방법"@ko, "quality evaluation method"@en;
     <http://www.w3.org/2000/01/rdf-schema#domain> <http://www.w3.org/ns/dqv#QualityMeasurement>;
     <http://www.w3.org/2000/01/rdf-schema#range> <http://www.w3.org/2004/02/skos/core#Concept>.
@@ -467,6 +468,14 @@ _:n3-1417 a <http://xmlns.com/foaf/0.1/Agent>;
     <http://www.w3.org/2000/01/rdf-schema#label> "품질 평가 범위"@ko, "quality evaluation scope"@en;
     <http://www.w3.org/2000/01/rdf-schema#domain> <http://www.w3.org/ns/dqv#QualityMeasurement>;
     <http://www.w3.org/2000/01/rdf-schema#range> <http://www.w3.org/2001/XMLSchema#string>.
+<https://data.molit.go.kr/def/molit-dcat-ap#qualityResultConcept> a <http://www.w3.org/2002/07/owl#ObjectProperty>;
+    <http://www.w3.org/ns/adms#status> <https://data.molit.go.kr/id/concept/term-status/candidate>;
+    <http://www.w3.org/2002/07/owl#versionInfo> "1.0.0-rc.1";
+    <http://www.w3.org/2000/01/rdf-schema#isDefinedBy> <https://data.molit.go.kr/def/molit-dcat-ap>;
+    <http://www.w3.org/2004/02/skos/core#definition> "범주형 품질 결과의 통제 개념을 가리킨다. DQV의 dqv:value에는 이 개념의 코드나 표기값을 literal로 기록한다."@ko, "Links a categorical quality result to its controlled concept while dqv:value retains a literal code or notation as required by DQV."@en;
+    <http://www.w3.org/2000/01/rdf-schema#label> "품질 결과 개념"@ko, "quality result concept"@en;
+    <http://www.w3.org/2000/01/rdf-schema#domain> <http://www.w3.org/ns/dqv#QualityMeasurement>;
+    <http://www.w3.org/2000/01/rdf-schema#range> <http://www.w3.org/2004/02/skos/core#Concept>.
 <https://data.molit.go.kr/def/molit-dcat-ap#qualityResultKind> a <http://www.w3.org/2002/07/owl#ObjectProperty>;
     <http://www.w3.org/ns/adms#status> <https://data.molit.go.kr/id/concept/term-status/candidate>;
     <http://www.w3.org/2002/07/owl#versionInfo> "1.0.0-rc.1";
@@ -528,19 +537,25 @@ _:n3-1417 a <http://xmlns.com/foaf/0.1/Agent>;
     <http://www.w3.org/2002/07/owl#versionInfo> "1.0.0-rc.1";
     <http://www.w3.org/2000/01/rdf-schema#isDefinedBy> <https://data.molit.go.kr/def/molit-dcat-ap>;
     <http://www.w3.org/2004/02/skos/core#definition> "SHACL 제약을 사람이 읽는 명세와 시험 항목에 연결하는 안정 식별자."@ko, "A stable identifier linking a SHACL constraint to its human-readable specification and test cases."@en;
-    <http://www.w3.org/2000/01/rdf-schema#label> "요구사항 식별자"@ko, "requirement identifier"@en.
+    <http://www.w3.org/2000/01/rdf-schema#label> "요구사항 식별자"@ko, "requirement identifier"@en;
+    <http://www.w3.org/2000/01/rdf-schema#domain> <http://www.w3.org/ns/shacl#Shape>;
+    <http://www.w3.org/2000/01/rdf-schema#range> <http://www.w3.org/2001/XMLSchema#string>.
 <https://data.molit.go.kr/def/molit-dcat-ap#remediation> a <http://www.w3.org/2002/07/owl#AnnotationProperty>;
     <http://www.w3.org/ns/adms#status> <https://data.molit.go.kr/id/concept/term-status/candidate>;
     <http://www.w3.org/2002/07/owl#versionInfo> "1.0.0-rc.1";
     <http://www.w3.org/2000/01/rdf-schema#isDefinedBy> <https://data.molit.go.kr/def/molit-dcat-ap>;
     <http://www.w3.org/2004/02/skos/core#definition> "제약 위반을 수정하기 위한 운영 지침."@ko, "Operational guidance for correcting a constraint violation."@en;
-    <http://www.w3.org/2000/01/rdf-schema#label> "수정 지침"@ko, "remediation"@en.
+    <http://www.w3.org/2000/01/rdf-schema#label> "수정 지침"@ko, "remediation"@en;
+    <http://www.w3.org/2000/01/rdf-schema#domain> <http://www.w3.org/ns/shacl#Shape>;
+    <http://www.w3.org/2000/01/rdf-schema#range> <http://www.w3.org/2001/XMLSchema#string>.
 <https://data.molit.go.kr/def/molit-dcat-ap#controlOwner> a <http://www.w3.org/2002/07/owl#AnnotationProperty>;
     <http://www.w3.org/ns/adms#status> <https://data.molit.go.kr/id/concept/term-status/candidate>;
     <http://www.w3.org/2002/07/owl#versionInfo> "1.0.0-rc.1";
     <http://www.w3.org/2000/01/rdf-schema#isDefinedBy> <https://data.molit.go.kr/def/molit-dcat-ap>;
     <http://www.w3.org/2004/02/skos/core#definition> "제약의 의미와 변경을 관리하는 책임 역할 식별자."@ko, "An identifier for the role accountable for the meaning and change control of a constraint."@en;
-    <http://www.w3.org/2000/01/rdf-schema#label> "통제 책임 역할"@ko, "control owner role"@en.
+    <http://www.w3.org/2000/01/rdf-schema#label> "통제 책임 역할"@ko, "control owner role"@en;
+    <http://www.w3.org/2000/01/rdf-schema#domain> <http://www.w3.org/ns/shacl#Shape>;
+    <http://www.w3.org/2000/01/rdf-schema#range> <http://www.w3.org/2001/XMLSchema#string>.
 <mailto:itscenter2@korea.kr> a <http://www.w3.org/2006/vcard/ns#Email>.
 <mailto:road-data@data.molit.go.kr> a <http://www.w3.org/2006/vcard/ns#Email>.
 <mailto:traffic-data@data.molit.go.kr> a <http://www.w3.org/2006/vcard/ns#Email>.
@@ -1089,7 +1104,7 @@ _:n3-1417 a <http://xmlns.com/foaf/0.1/Agent>;
     <http://www.w3.org/2002/07/owl#versionInfo> "1.0.0-rc.1";
     <http://www.w3.org/2000/01/rdf-schema#isDefinedBy> <https://data.molit.go.kr/scheme/quality-status>;
     <http://www.w3.org/2004/02/skos/core#prefLabel> "최신성 만료"@ko, "Stale"@en;
-    <http://www.w3.org/2004/02/skos/core#definition> "품질 측정일이 운영 최신성 정책의 유효기간을 지난 상태."@ko, "The quality measurement date is outside the validity period set by the operating currency policy."@en;
+    <http://www.w3.org/2004/02/skos/core#definition> "발행자가 명시한 평가 방법과 범위의 최신성 기준을 벗어났다고 판정한 상태. RC.1 SHACL은 현재 시각과 기준시간을 계산하지 않고 연결된 측정 증거의 존재만 검사한다."@ko, "A publisher assertion that the measurement is outside the currency threshold identified by its method and scope; RC.1 SHACL does not compute current time or the threshold and checks only that measurement evidence is linked."@en;
     <http://www.w3.org/2004/02/skos/core#inScheme> <https://data.molit.go.kr/scheme/quality-status>;
     <http://www.w3.org/2004/02/skos/core#topConceptOf> <https://data.molit.go.kr/scheme/quality-status>.
 <https://data.molit.go.kr/scheme/quality-metric> a <http://www.w3.org/2004/02/skos/core#ConceptScheme>;
@@ -1099,8 +1114,8 @@ _:n3-1417 a <http://xmlns.com/foaf/0.1/Agent>;
     <http://www.w3.org/2002/07/owl#versionInfo> "1.0.0-rc.1";
     <http://www.w3.org/2000/01/rdf-schema#isDefinedBy> <https://data.molit.go.kr/scheme/quality-metric>;
     <http://www.w3.org/2004/02/skos/core#prefLabel> "국토교통 품질 측정항목"@ko, "MOLIT quality metrics"@en;
-    <http://www.w3.org/2004/02/skos/core#definition> "국토교통 Dataset의 완전성, 위치·시간 정확도, 논리 일관성과 적시성을 DQV로 게시하기 위한 제한된 후보 측정항목 집합."@ko, "A limited candidate set of DQV metrics for publishing completeness, positional and temporal accuracy, logical consistency and timeliness of MOLIT datasets."@en;
-    <http://www.w3.org/2004/02/skos/core#hasTopConcept> <https://data.molit.go.kr/id/metric/completeness>, <https://data.molit.go.kr/id/metric/positional-accuracy>, <https://data.molit.go.kr/id/metric/temporal-accuracy>, <https://data.molit.go.kr/id/metric/logical-consistency>, <https://data.molit.go.kr/id/metric/timeliness>;
+    <http://www.w3.org/2004/02/skos/core#definition> "국토교통 Dataset의 수치 품질, 검증 통과 여부, 최신성 범주와 평가 설명을 DQV로 게시하기 위한 제한된 후보 측정항목 집합."@ko, "A limited candidate set of DQV metrics for publishing numeric quality, validation outcomes, currency categories and assessment notes for MOLIT datasets."@en;
+    <http://www.w3.org/2004/02/skos/core#hasTopConcept> <https://data.molit.go.kr/id/metric/completeness>, <https://data.molit.go.kr/id/metric/positional-accuracy>, <https://data.molit.go.kr/id/metric/temporal-accuracy>, <https://data.molit.go.kr/id/metric/logical-consistency>, <https://data.molit.go.kr/id/metric/timeliness>, <https://data.molit.go.kr/id/metric/validation-conformance>, <https://data.molit.go.kr/id/metric/currency-status>, <https://data.molit.go.kr/id/metric/assessment-note>;
     <http://www.w3.org/2004/02/skos/core#note> "License for locally authored concepts is pending owner approval."@en.
 <https://data.molit.go.kr/id/metric/completeness> a <http://www.w3.org/2004/02/skos/core#Concept>, <http://www.w3.org/ns/dqv#Metric>;
     <http://www.w3.org/ns/adms#status> <https://data.molit.go.kr/id/concept/term-status/candidate>;
@@ -1109,7 +1124,8 @@ _:n3-1417 a <http://xmlns.com/foaf/0.1/Agent>;
     <http://www.w3.org/2004/02/skos/core#prefLabel> "완전성"@ko, "Completeness"@en;
     <http://www.w3.org/2004/02/skos/core#definition> "필수 레코드 또는 속성 중 값이 존재하고 유효한 항목의 비율. 0부터 100까지의 QUDT PERCENT로 기록한다."@ko, "The percentage of required records or attributes that are present and valid, expressed as QUDT PERCENT from 0 to 100."@en;
     <http://www.w3.org/2004/02/skos/core#inScheme> <https://data.molit.go.kr/scheme/quality-metric>;
-    <http://www.w3.org/2004/02/skos/core#topConceptOf> <https://data.molit.go.kr/scheme/quality-metric>.
+    <http://www.w3.org/2004/02/skos/core#topConceptOf> <https://data.molit.go.kr/scheme/quality-metric>;
+    <http://www.w3.org/ns/dqv#expectedDataType> <http://www.w3.org/2001/XMLSchema#decimal>.
 <https://data.molit.go.kr/id/metric/positional-accuracy> a <http://www.w3.org/2004/02/skos/core#Concept>, <http://www.w3.org/ns/dqv#Metric>;
     <http://www.w3.org/ns/adms#status> <https://data.molit.go.kr/id/concept/term-status/candidate>;
     <http://www.w3.org/2002/07/owl#versionInfo> "1.0.0-rc.1";
@@ -1117,7 +1133,8 @@ _:n3-1417 a <http://xmlns.com/foaf/0.1/Agent>;
     <http://www.w3.org/2004/02/skos/core#prefLabel> "위치 정확도"@ko, "Positional accuracy"@en;
     <http://www.w3.org/2004/02/skos/core#definition> "기준 위치와 관측 위치 사이의 비음수 오차를 미터로 나타낸 값. 값이 작을수록 오차가 작다."@ko, "A non-negative positional error between reference and observed positions in metres; a lower value means a smaller error."@en;
     <http://www.w3.org/2004/02/skos/core#inScheme> <https://data.molit.go.kr/scheme/quality-metric>;
-    <http://www.w3.org/2004/02/skos/core#topConceptOf> <https://data.molit.go.kr/scheme/quality-metric>.
+    <http://www.w3.org/2004/02/skos/core#topConceptOf> <https://data.molit.go.kr/scheme/quality-metric>;
+    <http://www.w3.org/ns/dqv#expectedDataType> <http://www.w3.org/2001/XMLSchema#decimal>.
 <https://data.molit.go.kr/id/metric/temporal-accuracy> a <http://www.w3.org/2004/02/skos/core#Concept>, <http://www.w3.org/ns/dqv#Metric>;
     <http://www.w3.org/ns/adms#status> <https://data.molit.go.kr/id/concept/term-status/candidate>;
     <http://www.w3.org/2002/07/owl#versionInfo> "1.0.0-rc.1";
@@ -1125,7 +1142,8 @@ _:n3-1417 a <http://xmlns.com/foaf/0.1/Agent>;
     <http://www.w3.org/2004/02/skos/core#prefLabel> "시간 정확도"@ko, "Temporal accuracy"@en;
     <http://www.w3.org/2004/02/skos/core#definition> "기준 시각과 기록 시각 사이의 비음수 절대 오차를 초로 나타낸 값."@ko, "A non-negative absolute error between reference and recorded time in seconds."@en;
     <http://www.w3.org/2004/02/skos/core#inScheme> <https://data.molit.go.kr/scheme/quality-metric>;
-    <http://www.w3.org/2004/02/skos/core#topConceptOf> <https://data.molit.go.kr/scheme/quality-metric>.
+    <http://www.w3.org/2004/02/skos/core#topConceptOf> <https://data.molit.go.kr/scheme/quality-metric>;
+    <http://www.w3.org/ns/dqv#expectedDataType> <http://www.w3.org/2001/XMLSchema#decimal>.
 <https://data.molit.go.kr/id/metric/logical-consistency> a <http://www.w3.org/2004/02/skos/core#Concept>, <http://www.w3.org/ns/dqv#Metric>;
     <http://www.w3.org/ns/adms#status> <https://data.molit.go.kr/id/concept/term-status/candidate>;
     <http://www.w3.org/2002/07/owl#versionInfo> "1.0.0-rc.1";
@@ -1133,7 +1151,8 @@ _:n3-1417 a <http://xmlns.com/foaf/0.1/Agent>;
     <http://www.w3.org/2004/02/skos/core#prefLabel> "논리 일관성"@ko, "Logical consistency"@en;
     <http://www.w3.org/2004/02/skos/core#definition> "적용한 논리 규칙 중 통과한 규칙의 비율. 0부터 100까지의 QUDT PERCENT로 기록한다."@ko, "The percentage of evaluated logical rules that passed, expressed as QUDT PERCENT from 0 to 100."@en;
     <http://www.w3.org/2004/02/skos/core#inScheme> <https://data.molit.go.kr/scheme/quality-metric>;
-    <http://www.w3.org/2004/02/skos/core#topConceptOf> <https://data.molit.go.kr/scheme/quality-metric>.
+    <http://www.w3.org/2004/02/skos/core#topConceptOf> <https://data.molit.go.kr/scheme/quality-metric>;
+    <http://www.w3.org/ns/dqv#expectedDataType> <http://www.w3.org/2001/XMLSchema#decimal>.
 <https://data.molit.go.kr/id/metric/timeliness> a <http://www.w3.org/2004/02/skos/core#Concept>, <http://www.w3.org/ns/dqv#Metric>;
     <http://www.w3.org/ns/adms#status> <https://data.molit.go.kr/id/concept/term-status/candidate>;
     <http://www.w3.org/2002/07/owl#versionInfo> "1.0.0-rc.1";
@@ -1141,7 +1160,74 @@ _:n3-1417 a <http://xmlns.com/foaf/0.1/Agent>;
     <http://www.w3.org/2004/02/skos/core#prefLabel> "적시성"@ko, "Timeliness"@en;
     <http://www.w3.org/2004/02/skos/core#definition> "원천 사건 또는 갱신 시각부터 공개 시각까지의 비음수 경과시간. 초·분·시간·일 단위를 사용하며 값이 작을수록 빠르다."@ko, "The non-negative elapsed time from a source event or update to publication, expressed in seconds, minutes, hours or days; a lower value is more timely."@en;
     <http://www.w3.org/2004/02/skos/core#inScheme> <https://data.molit.go.kr/scheme/quality-metric>;
-    <http://www.w3.org/2004/02/skos/core#topConceptOf> <https://data.molit.go.kr/scheme/quality-metric>.
+    <http://www.w3.org/2004/02/skos/core#topConceptOf> <https://data.molit.go.kr/scheme/quality-metric>;
+    <http://www.w3.org/ns/dqv#expectedDataType> <http://www.w3.org/2001/XMLSchema#decimal>.
+<https://data.molit.go.kr/id/metric/validation-conformance> a <http://www.w3.org/2004/02/skos/core#Concept>, <http://www.w3.org/ns/dqv#Metric>;
+    <http://www.w3.org/ns/adms#status> <https://data.molit.go.kr/id/concept/term-status/candidate>;
+    <http://www.w3.org/2002/07/owl#versionInfo> "1.0.0-rc.1";
+    <http://www.w3.org/2000/01/rdf-schema#isDefinedBy> <https://data.molit.go.kr/scheme/quality-metric>;
+    <http://www.w3.org/2004/02/skos/core#prefLabel> "검증 규칙 통과 여부"@ko, "Validation conformance"@en;
+    <http://www.w3.org/2004/02/skos/core#definition> "평가 범위에 선언된 모든 검증 규칙을 통과했는지 나타내는 논리값. 적용 규칙 집합은 평가 범위와 방법 기록에서 식별한다."@ko, "A boolean stating whether every validation rule declared for the evaluation scope passed; the rule set is identified by the method and scope records."@en;
+    <http://www.w3.org/2004/02/skos/core#inScheme> <https://data.molit.go.kr/scheme/quality-metric>;
+    <http://www.w3.org/2004/02/skos/core#topConceptOf> <https://data.molit.go.kr/scheme/quality-metric>;
+    <http://www.w3.org/ns/dqv#expectedDataType> <http://www.w3.org/2001/XMLSchema#boolean>.
+<https://data.molit.go.kr/id/metric/currency-status> a <http://www.w3.org/2004/02/skos/core#Concept>, <http://www.w3.org/ns/dqv#Metric>;
+    <http://www.w3.org/ns/adms#status> <https://data.molit.go.kr/id/concept/term-status/candidate>;
+    <http://www.w3.org/2002/07/owl#versionInfo> "1.0.0-rc.1";
+    <http://www.w3.org/2000/01/rdf-schema#isDefinedBy> <https://data.molit.go.kr/scheme/quality-metric>;
+    <http://www.w3.org/2004/02/skos/core#prefLabel> "최신성 범주"@ko, "Currency status"@en;
+    <http://www.w3.org/2004/02/skos/core#definition> "평가 시점의 최신성 판정을 current, outdated 또는 unknown 범주로 기록한다. 적용 기준시간은 평가 방법과 범위 기록에서 식별한다."@ko, "A current, outdated or unknown currency category at evaluation time; the applicable age threshold is identified by the method and scope records."@en;
+    <http://www.w3.org/2004/02/skos/core#inScheme> <https://data.molit.go.kr/scheme/quality-metric>;
+    <http://www.w3.org/2004/02/skos/core#topConceptOf> <https://data.molit.go.kr/scheme/quality-metric>;
+    <http://www.w3.org/ns/dqv#expectedDataType> <http://www.w3.org/2001/XMLSchema#string>.
+<https://data.molit.go.kr/id/metric/assessment-note> a <http://www.w3.org/2004/02/skos/core#Concept>, <http://www.w3.org/ns/dqv#Metric>;
+    <http://www.w3.org/ns/adms#status> <https://data.molit.go.kr/id/concept/term-status/candidate>;
+    <http://www.w3.org/2002/07/owl#versionInfo> "1.0.0-rc.1";
+    <http://www.w3.org/2000/01/rdf-schema#isDefinedBy> <https://data.molit.go.kr/scheme/quality-metric>;
+    <http://www.w3.org/2004/02/skos/core#prefLabel> "평가 설명"@ko, "Assessment note"@en;
+    <http://www.w3.org/2004/02/skos/core#definition> "구조화된 수치나 판정으로 보존되지 않은 품질 관찰을 짧은 문자열로 기록한다. 자동 비교용 metric이 아니다."@ko, "A short textual quality observation not preserved as a structured number or decision; it is not an automatically comparable metric."@en;
+    <http://www.w3.org/2004/02/skos/core#inScheme> <https://data.molit.go.kr/scheme/quality-metric>;
+    <http://www.w3.org/2004/02/skos/core#topConceptOf> <https://data.molit.go.kr/scheme/quality-metric>;
+    <http://www.w3.org/ns/dqv#expectedDataType> <http://www.w3.org/2001/XMLSchema#string>.
+<http://www.w3.org/2001/XMLSchema#decimal> a <http://www.w3.org/2000/01/rdf-schema#Datatype>.
+<http://www.w3.org/2001/XMLSchema#boolean> a <http://www.w3.org/2000/01/rdf-schema#Datatype>.
+<https://data.molit.go.kr/scheme/quality-result-category> a <http://www.w3.org/2004/02/skos/core#ConceptScheme>;
+    <http://purl.org/dc/terms/title> "품질 결과 범주"@ko;
+    <http://purl.org/dc/terms/issued> "2026-07-13"^^<http://www.w3.org/2001/XMLSchema#date>;
+    <http://www.w3.org/ns/adms#status> <https://data.molit.go.kr/id/concept/term-status/candidate>;
+    <http://www.w3.org/2002/07/owl#versionInfo> "1.0.0-rc.1";
+    <http://www.w3.org/2000/01/rdf-schema#isDefinedBy> <https://data.molit.go.kr/scheme/quality-result-category>;
+    <http://www.w3.org/2004/02/skos/core#prefLabel> "품질 결과 범주"@ko, "Quality result categories"@en;
+    <http://www.w3.org/2004/02/skos/core#definition> "범주형 DQV 측정값에서 literal 코드와 함께 연결하는 제한된 통제 개념."@ko, "Controlled concepts linked alongside literal codes in categorical DQV measurements."@en;
+    <http://www.w3.org/2004/02/skos/core#hasTopConcept> <https://data.molit.go.kr/id/concept/quality-result-category/current>, <https://data.molit.go.kr/id/concept/quality-result-category/outdated>, <https://data.molit.go.kr/id/concept/quality-result-category/unknown>;
+    <http://www.w3.org/2004/02/skos/core#note> "License for locally authored concepts is pending owner approval."@en.
+<https://data.molit.go.kr/id/concept/quality-result-category/current> a <http://www.w3.org/2004/02/skos/core#Concept>;
+    <http://www.w3.org/ns/adms#status> <https://data.molit.go.kr/id/concept/term-status/candidate>;
+    <http://www.w3.org/2002/07/owl#versionInfo> "1.0.0-rc.1";
+    <http://www.w3.org/2000/01/rdf-schema#isDefinedBy> <https://data.molit.go.kr/scheme/quality-result-category>;
+    <http://www.w3.org/2004/02/skos/core#notation> "current";
+    <http://www.w3.org/2004/02/skos/core#prefLabel> "현행"@ko, "Current"@en;
+    <http://www.w3.org/2004/02/skos/core#definition> "적용 최신성 기준 안에 있는 상태."@ko, "Within the applicable currency threshold."@en;
+    <http://www.w3.org/2004/02/skos/core#inScheme> <https://data.molit.go.kr/scheme/quality-result-category>;
+    <http://www.w3.org/2004/02/skos/core#topConceptOf> <https://data.molit.go.kr/scheme/quality-result-category>.
+<https://data.molit.go.kr/id/concept/quality-result-category/outdated> a <http://www.w3.org/2004/02/skos/core#Concept>;
+    <http://www.w3.org/ns/adms#status> <https://data.molit.go.kr/id/concept/term-status/candidate>;
+    <http://www.w3.org/2002/07/owl#versionInfo> "1.0.0-rc.1";
+    <http://www.w3.org/2000/01/rdf-schema#isDefinedBy> <https://data.molit.go.kr/scheme/quality-result-category>;
+    <http://www.w3.org/2004/02/skos/core#notation> "outdated";
+    <http://www.w3.org/2004/02/skos/core#prefLabel> "기준시간 초과"@ko, "Outdated"@en;
+    <http://www.w3.org/2004/02/skos/core#definition> "적용 최신성 기준시간을 지난 상태."@ko, "Outside the applicable currency threshold."@en;
+    <http://www.w3.org/2004/02/skos/core#inScheme> <https://data.molit.go.kr/scheme/quality-result-category>;
+    <http://www.w3.org/2004/02/skos/core#topConceptOf> <https://data.molit.go.kr/scheme/quality-result-category>.
+<https://data.molit.go.kr/id/concept/quality-result-category/unknown> a <http://www.w3.org/2004/02/skos/core#Concept>;
+    <http://www.w3.org/ns/adms#status> <https://data.molit.go.kr/id/concept/term-status/candidate>;
+    <http://www.w3.org/2002/07/owl#versionInfo> "1.0.0-rc.1";
+    <http://www.w3.org/2000/01/rdf-schema#isDefinedBy> <https://data.molit.go.kr/scheme/quality-result-category>;
+    <http://www.w3.org/2004/02/skos/core#notation> "unknown";
+    <http://www.w3.org/2004/02/skos/core#prefLabel> "판정 불가"@ko, "Unknown"@en;
+    <http://www.w3.org/2004/02/skos/core#definition> "필요한 시각 또는 기준 증거가 없어 최신성을 판정할 수 없는 상태."@ko, "Currency cannot be decided because required time or threshold evidence is absent."@en;
+    <http://www.w3.org/2004/02/skos/core#inScheme> <https://data.molit.go.kr/scheme/quality-result-category>;
+    <http://www.w3.org/2004/02/skos/core#topConceptOf> <https://data.molit.go.kr/scheme/quality-result-category>.
 <http://qudt.org/vocab/unit/PERCENT> a <http://www.w3.org/2004/02/skos/core#Concept>, <http://qudt.org/schema/qudt/Unit>;
     <http://www.w3.org/2004/02/skos/core#prefLabel> "percent"@en.
 <http://qudt.org/vocab/unit/M> a <http://www.w3.org/2004/02/skos/core#Concept>, <http://qudt.org/schema/qudt/Unit>;
@@ -1169,7 +1255,7 @@ _:n3-1417 a <http://xmlns.com/foaf/0.1/Agent>;
     <http://www.w3.org/2002/07/owl#versionInfo> "1.0.0-rc.1";
     <http://www.w3.org/2000/01/rdf-schema#isDefinedBy> <https://data.molit.go.kr/scheme/spatial-disclosure-level>;
     <http://www.w3.org/2004/02/skos/core#prefLabel> "공간 공개 정밀도"@ko, "Spatial disclosure levels"@en;
-    <http://www.w3.org/2004/02/skos/core#definition> "공개 카탈로그에 원 geometry를 어느 수준으로 일반화하거나 제거했는지 표시하는 후보 분류체계. 접근권한 또는 보안등급이 아니다."@ko, "A candidate scheme indicating how source geometry is generalized or removed in a public catalogue; it is not an access right or security classification."@en;
+    <http://www.w3.org/2004/02/skos/core#definition> "공개 카탈로그의 공간정보가 profile 수준에서 그대로 게시되는지 제거되는지 표시하는 후보 분류체계. 접근권한 또는 보안등급이 아니다. RC.1 발행 Gate는 exact와 withheld만 허용한다."@ko, "A candidate scheme indicating whether spatial information is published without profile-level redaction or removed; it is not an access right or security classification. The RC.1 publication gate permits exact and withheld only."@en;
     <http://www.w3.org/2004/02/skos/core#hasTopConcept> <https://data.molit.go.kr/id/concept/spatial-disclosure-level/exact>, <https://data.molit.go.kr/id/concept/spatial-disclosure-level/generalized>, <https://data.molit.go.kr/id/concept/spatial-disclosure-level/administrative-area>, <https://data.molit.go.kr/id/concept/spatial-disclosure-level/bounding-box>, <https://data.molit.go.kr/id/concept/spatial-disclosure-level/grid>, <https://data.molit.go.kr/id/concept/spatial-disclosure-level/withheld>;
     <http://www.w3.org/2004/02/skos/core#note> "License for locally authored concepts is pending owner approval."@en.
 <https://data.molit.go.kr/id/concept/spatial-disclosure-level/exact> a <http://www.w3.org/2004/02/skos/core#Concept>;
@@ -1177,7 +1263,7 @@ _:n3-1417 a <http://xmlns.com/foaf/0.1/Agent>;
     <http://www.w3.org/2002/07/owl#versionInfo> "1.0.0-rc.1";
     <http://www.w3.org/2000/01/rdf-schema#isDefinedBy> <https://data.molit.go.kr/scheme/spatial-disclosure-level>;
     <http://www.w3.org/2004/02/skos/core#prefLabel> "원 정밀도"@ko, "Exact"@en;
-    <http://www.w3.org/2004/02/skos/core#definition> "원천 데이터의 좌표 정밀도와 geometry를 일반화하지 않고 공개한 수준."@ko, "A level at which source coordinate precision and geometry are disclosed without generalization."@en;
+    <http://www.w3.org/2004/02/skos/core#definition> "profile에 제출된 공간정보를 추가 일반화나 제거 없이 공개하는 수준. SHACL 통과가 제출값과 비공개 원천의 동일성을 입증하지는 않는다."@ko, "A level publishing the submitted spatial information without additional profile-level generalization or removal; SHACL conformance does not prove equality with a non-public source."@en;
     <http://www.w3.org/2004/02/skos/core#inScheme> <https://data.molit.go.kr/scheme/spatial-disclosure-level>;
     <http://www.w3.org/2004/02/skos/core#topConceptOf> <https://data.molit.go.kr/scheme/spatial-disclosure-level>.
 <https://data.molit.go.kr/id/concept/spatial-disclosure-level/generalized> a <http://www.w3.org/2004/02/skos/core#Concept>;
@@ -1262,7 +1348,7 @@ _:n3-1417 a <http://xmlns.com/foaf/0.1/Agent>;
     <http://www.w3.org/2004/02/skos/core#closeMatch> <http://qudt.org/vocab/unit/NUM-PER-HR>;
     <http://qudt.org/schema/qudt/conversionMultiplier> 0.0002777777777777777777777777777777778;
     <http://qudt.org/schema/qudt/hasDimensionVector> <http://qudt.org/vocab/dimensionvector/A0E0L0I0M0H0T-1D0>;
-    <http://qudt.org/schema/qudt/hasFactorUnit> _:n3-1418, _:n3-1419;
+    <http://qudt.org/schema/qudt/hasFactorUnit> _:n3-1511, _:n3-1512;
     <http://qudt.org/schema/qudt/hasQuantityKind> <http://qudt.org/vocab/quantitykind/CountRate>;
     <http://qudt.org/schema/qudt/symbol> "veh/h".
 <https://data.molit.go.kr/id/unit/vehicle-per-day> a <http://www.w3.org/2004/02/skos/core#Concept>, <http://qudt.org/schema/qudt/Unit>, <http://qudt.org/schema/qudt/DerivedUnit>;
@@ -1278,20 +1364,20 @@ _:n3-1417 a <http://xmlns.com/foaf/0.1/Agent>;
     <http://purl.org/dc/terms/source> <http://qudt.org/vocab/unit/DAY>, <http://qudt.org/vocab/unit/NUM>;
     <http://qudt.org/schema/qudt/conversionMultiplier> 0.00001157407407407407407407407407407407;
     <http://qudt.org/schema/qudt/hasDimensionVector> <http://qudt.org/vocab/dimensionvector/A0E0L0I0M0H0T-1D0>;
-    <http://qudt.org/schema/qudt/hasFactorUnit> _:n3-1420, _:n3-1421;
+    <http://qudt.org/schema/qudt/hasFactorUnit> _:n3-1513, _:n3-1514;
     <http://qudt.org/schema/qudt/hasQuantityKind> <http://qudt.org/vocab/quantitykind/CountRate>;
     <http://qudt.org/schema/qudt/symbol> "veh/d".
-_:n3-1418 a <http://qudt.org/schema/qudt/FactorUnit>;
+_:n3-1511 a <http://qudt.org/schema/qudt/FactorUnit>;
     <http://qudt.org/schema/qudt/exponent> 1;
     <http://qudt.org/schema/qudt/hasUnit> <http://qudt.org/vocab/unit/NUM>.
-_:n3-1419 a <http://qudt.org/schema/qudt/FactorUnit>;
+_:n3-1512 a <http://qudt.org/schema/qudt/FactorUnit>;
     <http://qudt.org/schema/qudt/exponent> -1;
     <http://qudt.org/schema/qudt/hasUnit> <http://qudt.org/vocab/unit/HR>.
 <http://qudt.org/vocab/quantitykind/CountRate> a <http://qudt.org/schema/qudt/QuantityKind>.
-_:n3-1420 a <http://qudt.org/schema/qudt/FactorUnit>;
+_:n3-1513 a <http://qudt.org/schema/qudt/FactorUnit>;
     <http://qudt.org/schema/qudt/exponent> 1;
     <http://qudt.org/schema/qudt/hasUnit> <http://qudt.org/vocab/unit/NUM>.
-_:n3-1421 a <http://qudt.org/schema/qudt/FactorUnit>;
+_:n3-1514 a <http://qudt.org/schema/qudt/FactorUnit>;
     <http://qudt.org/schema/qudt/exponent> -1;
     <http://qudt.org/schema/qudt/hasUnit> <http://qudt.org/vocab/unit/DAY>.
 <https://data.molit.go.kr/scheme/observed-property> a <http://www.w3.org/2004/02/skos/core#ConceptScheme>;

@@ -334,7 +334,6 @@ export async function updateArtifactLock({
 
   const output = `${JSON.stringify({
     ...previous,
-    generatedAt: new Date().toISOString().slice(0, 10),
     artifacts,
   }, null, 2)}\n`;
   const temporaryPath = `${lockPath}.${process.pid}.${randomUUID()}.tmp`;

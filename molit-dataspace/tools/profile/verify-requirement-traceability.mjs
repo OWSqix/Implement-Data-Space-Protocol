@@ -8,6 +8,7 @@ import { fileURLToPath } from "node:url";
 import Ajv2020 from "ajv/dist/2020.js";
 import addFormats from "ajv-formats";
 import { DataFactory, Parser, Store } from "n3";
+import SHACLValidator from "rdf-validate-shacl";
 import { readCheckedFile } from "../registries/safe-local-file.mjs";
 
 const PROJECT_ROOT = path.resolve(fileURLToPath(new URL("../../", import.meta.url)));
@@ -22,10 +23,16 @@ const DEFAULT_REGISTRY = "requirements/profile-requirements.json";
 const DEFAULT_CASE_REGISTRY = "requirements/conformance-cases.json";
 const DEFAULT_CSV_PROJECTION = "requirements/profile-requirements.csv";
 const DEFAULT_SOURCE_OVERRIDES = "requirements/source-overrides.json";
+const DEFAULT_LOCAL_CLAUSES = "requirements/local-normative-clauses.json";
 const SCHEMA_PATH = path.join(PROJECT_ROOT, "contracts", "profile-requirements.v1.schema.json");
+const UPSTREAM_SCHEMA_PATH = path.join(
+  PROJECT_ROOT,
+  "contracts",
+  "upstream-requirement-inventory.v1.schema.json",
+);
 const decoder = new TextDecoder("utf-8", { fatal: true });
 
-const { namedNode } = DataFactory;
+const { namedNode, quad } = DataFactory;
 const RDF = "http://www.w3.org/1999/02/22-rdf-syntax-ns#";
 const SH = "http://www.w3.org/ns/shacl#";
 const MOLIT = "https://data.molit.go.kr/def/molit-dcat-ap#";
@@ -35,8 +42,42 @@ const RDF_REST = namedNode(`${RDF}rest`);
 const RDF_NIL = `${RDF}nil`;
 const SH_NODE_SHAPE = `${SH}NodeShape`;
 const SH_PROPERTY_SHAPE = `${SH}PropertyShape`;
+const SH_NODE_CONSTRAINT_COMPONENT = `${SH}NodeConstraintComponent`;
 const SH_PROPERTY = namedNode(`${SH}property`);
 const REQUIREMENT_ID = namedNode(`${MOLIT}requirementId`);
+const NON_ATOMIC_NODE_SHAPE_PREDICATES = new Set([
+  `${SH}deactivated`,
+  `${SH}description`,
+  `${SH}ignoredProperties`,
+  `${SH}message`,
+  `${SH}name`,
+  `${SH}order`,
+  `${SH}property`,
+  `${SH}severity`,
+  `${SH}target`,
+  `${SH}targetClass`,
+  `${SH}targetNode`,
+  `${SH}targetObjectsOf`,
+  `${SH}targetSubjectsOf`,
+]);
+const TARGET_PREDICATES = new Set([
+  `${SH}target`,
+  `${SH}targetClass`,
+  `${SH}targetNode`,
+  `${SH}targetObjectsOf`,
+  `${SH}targetSubjectsOf`,
+]);
+const SHAPE_OWNERSHIP_PREDICATES = new Set([
+  `${SH}and`,
+  `${SH}node`,
+  `${SH}not`,
+  `${SH}or`,
+  `${SH}property`,
+  `${SH}qualifiedValueShape`,
+  `${SH}xone`,
+  RDF_FIRST.value,
+  RDF_REST.value,
+]);
 const MAX_JSON_BYTES = 8 * 1024 * 1024;
 const MAX_TURTLE_BYTES = 8 * 1024 * 1024;
 const MAX_FIXTURE_BYTES = 5 * 1024 * 1024;
@@ -101,6 +142,16 @@ function sameJson(left, right) {
   return JSON.stringify(left) === JSON.stringify(right);
 }
 
+export function canonicalNormativeStatement(messages) {
+  return [...(messages ?? [])]
+    .sort((left, right) => (
+      left.language.localeCompare(right.language)
+        || left.text.localeCompare(right.text)
+    ))
+    .map(({ language, text }) => `[${language}] ${text}`)
+    .join("\n");
+}
+
 function csvCell(value) {
   const text = value === null || value === undefined ? "" : String(value);
   return /[",\r\n]/u.test(text) ? `"${text.replaceAll('"', '""')}"` : text;
@@ -143,6 +194,171 @@ function termKey(term) {
   return `${term.termType}:${term.value}`;
 }
 
+function isPureContainerNodeShape(store, term) {
+  if (!store.getQuads(term, RDF_TYPE, namedNode(SH_NODE_SHAPE), null).length) return false;
+  return store.getQuads(term, null, null, null).every((item) => (
+    item.predicate.value === RDF_TYPE.value
+      || !item.predicate.value.startsWith(SH)
+      || NON_ATOMIC_NODE_SHAPE_PREDICATES.has(item.predicate.value)
+  ));
+}
+
+function explicitApprovedRequirementIds(shapeStore, term, approvedIds) {
+  return shapeStore.getObjects(term, REQUIREMENT_ID, null)
+    .filter((item) => item.termType === "Literal" && approvedIds.has(item.value))
+    .map((item) => item.value);
+}
+
+function incomingShapeOwners(shapeStore, term) {
+  return shapeStore.getQuads(null, null, term, null)
+    .filter((item) => (
+      SHAPE_OWNERSHIP_PREDICATES.has(item.predicate.value)
+      && ["BlankNode", "NamedNode"].includes(item.subject.termType)
+    ))
+    .map((item) => item.subject);
+}
+
+function walkRequirementIds(shapeStore, sourceShape, approvedIds, nearestOnly) {
+  if (!sourceShape || !["BlankNode", "NamedNode"].includes(sourceShape.termType)) return [];
+  let frontier = [sourceShape];
+  const visited = new Set();
+  const collected = new Set();
+  for (let depth = 0; frontier.length > 0 && depth < 32; depth += 1) {
+    const next = [];
+    const level = new Set();
+    for (const term of frontier) {
+      const key = termKey(term);
+      if (visited.has(key)) continue;
+      visited.add(key);
+      for (const id of explicitApprovedRequirementIds(shapeStore, term, approvedIds)) {
+        level.add(id);
+        collected.add(id);
+      }
+      next.push(...incomingShapeOwners(shapeStore, term));
+    }
+    if (nearestOnly && level.size > 0) return [...level].sort();
+    frontier = next;
+  }
+  return [...collected].sort();
+}
+
+/**
+ * Convert SHACL result source shapes into two views.
+ *
+ * requirementIds preserves owner attribution for the traceability register.
+ * atomicConditionFamilyIds keeps only the nearest independently registered
+ * constraint for each result. A sh:NodeConstraintComponent wrapper with
+ * sh:detail results is folded into those child families. Independent top-level
+ * results are never folded merely because their shapes share an owner IRI.
+ * Results that cannot be attributed to this registry remain explicit so a
+ * profile-mode negative fixture cannot hide an upstream or unknown failure.
+ */
+export function requirementResultEvidence({
+  approvedIds,
+  constraintById,
+  report,
+  shapeStore,
+}) {
+  const requirementIds = new Set();
+  const atomicConditionFamilyIds = new Set();
+  const unattributedResultFamilies = new Set();
+  const visit = (result) => {
+    for (const id of walkRequirementIds(
+      shapeStore,
+      result.sourceShape,
+      approvedIds,
+      false,
+    )) requirementIds.add(id);
+    const nearestIds = walkRequirementIds(
+      shapeStore,
+      result.sourceShape,
+      approvedIds,
+      true,
+    );
+    const details = Array.isArray(result.detail) ? result.detail : [];
+    if (result.sourceConstraintComponent?.value === SH_NODE_CONSTRAINT_COMPONENT
+      && details.length > 0) {
+      for (const detail of details) visit(detail);
+      return;
+    }
+    for (const id of nearestIds) {
+      if (constraintById.has(id)) atomicConditionFamilyIds.add(id);
+    }
+    if (nearestIds.length === 0) {
+      const source = result.sourceShape
+        ? termKey(result.sourceShape)
+        : "missing-source-shape";
+      const component = result.sourceConstraintComponent
+        ? termKey(result.sourceConstraintComponent)
+        : "missing-source-component";
+      unattributedResultFamilies.add(`${source}|${component}`);
+    }
+    for (const detail of details) visit(detail);
+  };
+  for (const result of report.results ?? []) visit(result);
+  return {
+    atomicConditionFamilyIds: [...atomicConditionFamilyIds].sort(),
+    requirementIds: [...requirementIds].sort(),
+    unattributedResultFamilies: [...unattributedResultFamilies].sort(),
+  };
+}
+
+function copyConstraintSubgraph(source, target, term, {
+  root = term,
+  skipDirectProperties = false,
+  visited = new Set(),
+} = {}) {
+  const key = termKey(term);
+  if (visited.has(key)) return;
+  visited.add(key);
+  for (const item of source.getQuads(term, null, null, null)) {
+    if (skipDirectProperties && term.equals(root) && item.predicate.equals(SH_PROPERTY)) continue;
+    target.addQuad(item);
+    if (item.object.termType === "BlankNode") {
+      copyConstraintSubgraph(source, target, item.object, {
+        root,
+        skipDirectProperties,
+        visited,
+      });
+    }
+  }
+}
+
+export function buildConstraintUnitShapeStore(shapeStore, constraint) {
+  const candidates = shapeStore.getSubjects(REQUIREMENT_ID, null, null)
+    .filter((term) => shapeStore.getObjects(term, REQUIREMENT_ID, null)
+      .some((item) => item.termType === "Literal"
+        && item.value === constraint.requirementIds[0]));
+  if (candidates.length !== 1) {
+    throw new Error(`constraint-unit target does not resolve once: ${constraint.requirementIds[0]}`);
+  }
+  const sourceTerm = candidates[0];
+  const unit = new Store();
+  copyConstraintSubgraph(shapeStore, unit, sourceTerm, {
+    skipDirectProperties: constraint.constraintKind === "node-shape",
+  });
+  if (constraint.constraintKind === "node-shape") return unit;
+
+  const owners = shapeStore.getSubjects(SH_PROPERTY, sourceTerm, null)
+    .filter((term) => ["BlankNode", "NamedNode"].includes(term.termType));
+  const declaredOwner = namedNode(constraint.shapeId);
+  if (!owners.some((term) => term.equals(declaredOwner))) owners.push(declaredOwner);
+  const owner = owners.find((term) => shapeStore.getQuads(term, null, null, null)
+    .some((item) => TARGET_PREDICATES.has(item.predicate.value)));
+  if (!owner) throw new Error(`constraint-unit owner has no target: ${constraint.requirementIds[0]}`);
+  const overlay = namedNode(`urn:molit:constraint-unit:${encodeURIComponent(constraint.requirementIds[0])}`);
+  unit.addQuad(quad(overlay, RDF_TYPE, namedNode(SH_NODE_SHAPE)));
+  unit.addQuad(quad(overlay, SH_PROPERTY, sourceTerm));
+  for (const item of shapeStore.getQuads(owner, null, null, null)) {
+    if (TARGET_PREDICATES.has(item.predicate.value)) unit.addQuad(quad(
+      overlay,
+      item.predicate,
+      item.object,
+    ));
+  }
+  return unit;
+}
+
 function portablePath(value, label) {
   if (typeof value !== "string" || value.length === 0 || value.includes("\\")
     || value.includes("\0") || path.posix.isAbsolute(value)) {
@@ -171,6 +387,58 @@ async function readReleaseFile(releaseRoot, relativePath, maximumBytes) {
     path.resolve(releaseRoot, ...relative.split("/")),
     maximumBytes,
   );
+}
+
+function parseTurtle(bytes, label) {
+  try {
+    return new Store(new Parser({
+      baseIRI: `https://data.molit.go.kr/.well-known/traceability/${encodeURIComponent(label)}`,
+      blankNodePrefix: `trace_${digest(bytes).slice(0, 12)}_`,
+      format: "text/turtle",
+    }).parse(decoder.decode(bytes)));
+  } catch (cause) {
+    throw new Error(`${label} is not strict Turtle`, { cause });
+  }
+}
+
+function mergeStores(...stores) {
+  const merged = new Store();
+  for (const store of stores) merged.addQuads(store.getQuads(null, null, null, null));
+  return merged;
+}
+
+async function loadFixtureValidationRuntime(scan) {
+  const background = new Store();
+  for (const relative of scan.manifest.background ?? []) {
+    const bytes = await readReleaseFile(scan.releaseRoot, relative, MAX_TURTLE_BYTES);
+    background.addQuads(parseTurtle(bytes, relative).getQuads(null, null, null, null));
+  }
+  const imports = new Map();
+  for (const [iri, relative] of Object.entries(scan.manifest.localImportMap ?? {})) {
+    const bytes = await readReleaseFile(scan.releaseRoot, relative, MAX_TURTLE_BYTES);
+    imports.set(iri, parseTurtle(bytes, relative));
+  }
+  const profiles = new Map();
+  for (const [name, profile] of Object.entries(scan.manifest.profiles)) {
+    if (profile.kind === "diagnostic") continue;
+    const shapeStore = new Store();
+    for (const relative of profile.shapes) {
+      const bytes = await readReleaseFile(scan.releaseRoot, relative, MAX_TURTLE_BYTES);
+      shapeStore.addQuads(parseTurtle(bytes, `${name}:${relative}`).getQuads(null, null, null, null));
+    }
+    profiles.set(name, {
+      shapeStore,
+      validator: new SHACLValidator(shapeStore, {
+        importGraph: async (iri) => {
+          const imported = imports.get(iri.value);
+          if (!imported) throw new Error(`unapproved local import: ${iri.value}`);
+          return imported;
+        },
+        maxErrors: 10_000,
+      }),
+    });
+  }
+  return { background, profiles };
 }
 
 export async function loadRequirementSourceOverrides({
@@ -223,6 +491,57 @@ export async function loadRequirementSourceOverrides({
     throw new Error(`specific source override is missing for: ${missingRequired.join(", ")}`);
   }
   return { document, overrides };
+}
+
+export async function loadLocalNormativeClauses({
+  excludedRequirementIds = [],
+  profileVersion,
+  releaseRoot = DEFAULT_RELEASE,
+  requirementIds,
+} = {}) {
+  const bytes = await readReleaseFile(
+    releaseRoot,
+    DEFAULT_LOCAL_CLAUSES,
+    MAX_JSON_BYTES,
+  );
+  const document = parseJson(bytes, "local normative-clause register");
+  if (document?.schemaVersion !== "molit.local-normative-clauses/1"
+    || document.profileVersion !== profileVersion
+    || document.registryStatus !== "approved"
+    || !Array.isArray(document.clauses)) {
+    throw new Error("local normative-clause register has an invalid identity or approval state");
+  }
+  const excluded = new Set(excludedRequirementIds);
+  const expected = new Set((requirementIds ?? []).filter((id) => !excluded.has(id)));
+  const clauses = new Map();
+  for (const item of document.clauses) {
+    if (!sameJson(Object.keys(item ?? {}).sort(), [
+      "adoptionRationale",
+      "clauseId",
+      "normativeStatement",
+      "requirementId",
+      "sourceStandard",
+    ])) {
+      throw new Error("local clause rows must have exactly five reviewed fields");
+    }
+    if (!expected.has(item.requirementId)
+      || item.clauseId !== item.requirementId
+      || clauses.has(item.requirementId)) {
+      throw new Error(`local clause identifies an unknown, excluded, duplicate, or mismatched requirement: ${item.requirementId}`);
+    }
+    for (const field of ["sourceStandard", "normativeStatement", "adoptionRationale"]) {
+      if (typeof item[field] !== "string" || item[field].trim().length < 10
+        || /\b(?:DRAFT|TBD|TODO)\b/iu.test(item[field])) {
+        throw new Error(`local clause ${item.requirementId}.${field} is not reviewed text`);
+      }
+    }
+    clauses.set(item.requirementId, item);
+  }
+  const missing = [...expected].filter((id) => !clauses.has(id)).sort();
+  if (missing.length > 0 || clauses.size !== expected.size) {
+    throw new Error(`local normative-clause coverage is not one-to-one: missing=${missing.join(",")}`);
+  }
+  return { clauses, document };
 }
 
 function parseInteger(store, subject, predicate) {
@@ -516,9 +835,13 @@ async function parseShapeFile(releaseRoot, relativePath) {
 
 function scanFile({ manifest, shapeFile, shapeNamespace, store }) {
   const roots = localRoots(store, shapeNamespace);
-  if (roots.length === 0) return { auxiliaryConstraints: [], constraints: [], roots: [] };
+  if (roots.length === 0) {
+    return { auxiliaryConstraints: [], constraints: [], containerShapes: [], roots: [] };
+  }
 
   const rootKeys = new Set(roots.map(termKey));
+  const containerShapes = roots.filter((root) => isPureContainerNodeShape(store, root));
+  const containerKeys = new Set(containerShapes.map(termKey));
   const directProperties = new Map();
   for (const root of roots) {
     for (const quad of store.getQuads(root, SH_PROPERTY, null, null)) {
@@ -529,7 +852,11 @@ function scanFile({ manifest, shapeFile, shapeNamespace, store }) {
   }
 
   const tracked = new Map();
-  for (const root of roots) tracked.set(termKey(root), { owners: new Map([[termKey(root), root]]), term: root });
+  for (const root of roots) {
+    if (!containerKeys.has(termKey(root))) {
+      tracked.set(termKey(root), { owners: new Map([[termKey(root), root]]), term: root });
+    }
+  }
   for (const [key, value] of directProperties) {
     if (tracked.has(key)) {
       for (const [ownerKey, owner] of value.owners) tracked.get(key).owners.set(ownerKey, owner);
@@ -651,7 +978,7 @@ function scanFile({ manifest, shapeFile, shapeNamespace, store }) {
       term,
     };
   });
-  return { auxiliaryConstraints, constraints, roots };
+  return { auxiliaryConstraints, constraints, containerShapes, roots };
 }
 
 async function loadManifest(releaseRoot) {
@@ -679,6 +1006,7 @@ export async function scanRequirementConstraints({ releaseRoot = DEFAULT_RELEASE
   const shapeNamespace = `https://data.molit.go.kr/shape/molit-dcat-ap/${manifest.version}#`;
   const constraints = [];
   const auxiliaryConstraints = [];
+  const containerShapes = [];
   const localShapeFiles = [];
   const stores = new Map();
   for (const shapeFile of shapeFiles) {
@@ -687,6 +1015,7 @@ export async function scanRequirementConstraints({ releaseRoot = DEFAULT_RELEASE
     if (scanned.roots.length > 0) {
       constraints.push(...scanned.constraints);
       auxiliaryConstraints.push(...scanned.auxiliaryConstraints);
+      containerShapes.push(...scanned.containerShapes.map((term) => ({ shapeFile, term })));
       localShapeFiles.push(shapeFile);
       stores.set(shapeFile, parsed.store);
     }
@@ -695,6 +1024,7 @@ export async function scanRequirementConstraints({ releaseRoot = DEFAULT_RELEASE
   return {
     auxiliaryConstraints,
     constraints: constraints.sort((left, right) => left.constraintKey.localeCompare(right.constraintKey)),
+    containerShapes,
     localShapeFiles: localShapeFiles.sort(),
     manifest,
     releaseRoot: absoluteRelease,
@@ -734,10 +1064,110 @@ async function draftFixtureCases(scan) {
         expectedOutcome: conforms ? "conforms" : "violates",
         coversRequirementIds: [],
         expectedRequirementIds: [],
+        atomicConditionFamilyIds: [],
+        validationMode: "profile",
+        targetRequirementId: null,
       });
     }
   }
   return cases.sort((left, right) => left.fixtureId.localeCompare(right.fixtureId));
+}
+
+export async function includedRequirementRegistrySummaries(scan) {
+  const relative = scan.manifest.upstreamRequirementsRegistry;
+  if (relative === undefined) {
+    if (scan.manifest.upstreamRequirementsCsv !== undefined) {
+      throw new Error("manifest has an upstream CSV pointer without its requirement inventory");
+    }
+    return [];
+  }
+  const csvRelative = scan.manifest.upstreamRequirementsCsv;
+  if (typeof csvRelative !== "string") {
+    throw new Error("included upstream requirement inventory has no manifest CSV projection pointer");
+  }
+  const [bytes, csvBytes, schemaBytes] = await Promise.all([
+    readReleaseFile(scan.releaseRoot, relative, MAX_JSON_BYTES),
+    readReleaseFile(scan.releaseRoot, csvRelative, MAX_JSON_BYTES),
+    readCheckedFile(PROJECT_ROOT, UPSTREAM_SCHEMA_PATH, MAX_JSON_BYTES),
+  ]);
+  const registry = parseJson(bytes, "included upstream requirement registry");
+  const schema = parseJson(schemaBytes, "upstream requirement inventory schema");
+  const schemaErrors = validateSchema(schema, registry);
+  if (schemaErrors.length > 0) {
+    throw new Error(`included upstream requirement inventory fails schema: ${JSON.stringify(schemaErrors)}`);
+  }
+  const coverage = registry?.coverage;
+  const requirements = Array.isArray(registry?.requirements) ? registry.requirements : [];
+  const isolatedPositive = requirements.filter((item) => (
+    typeof item?.positiveFixtureId === "string"
+  )).length;
+  const isolatedNegative = requirements.filter((item) => (
+    typeof item?.negativeFixtureId === "string"
+  )).length;
+  const blockedRequirements = requirements.filter((item) => (
+    item?.coverageStatus !== "isolated"
+      || typeof item.positiveFixtureId !== "string"
+      || typeof item.negativeFixtureId !== "string"
+  )).length;
+  const requirementIds = new Set(requirements.map((item) => item?.requirementId));
+  if (registry?.schemaVersion !== "molit.upstream-requirement-inventory/1"
+    || registry.profileVersion !== scan.manifest.version
+    || requirements.length === 0
+    || requirementIds.size !== requirements.length
+    || requirementIds.has(undefined)
+    || !coverage
+    || !Number.isSafeInteger(coverage.requirements)
+    || !Number.isSafeInteger(coverage.blockers)
+    || !Number.isSafeInteger(coverage.isolatedPositive)
+    || !Number.isSafeInteger(coverage.isolatedNegative)
+    || coverage.requirements !== requirements.length
+    || coverage.isolatedPositive !== isolatedPositive
+    || coverage.isolatedNegative !== isolatedNegative
+    || coverage.blockers !== blockedRequirements
+    || coverage.blockers < 0
+    || coverage.blockers > coverage.requirements
+    || registry.csvProjection?.path !== csvRelative
+    || registry.csvProjection?.sha256 !== digest(csvBytes)
+    || (coverage.blockers === 0
+      && (registry.status !== "isolated-evidence-complete"
+        || coverage.isolatedPositive !== coverage.requirements
+        || coverage.isolatedNegative !== coverage.requirements))
+    || (coverage.blockers > 0 && registry.status !== "inventory-only-blocked")) {
+    throw new Error("included upstream requirement inventory has invalid identity or coverage");
+  }
+  return [{
+    blockers: coverage.blockers,
+    csvPath: csvRelative,
+    csvSha256: digest(csvBytes),
+    fullyCovered: coverage.requirements - coverage.blockers,
+    registryPath: relative,
+    requirements: coverage.requirements,
+    schemaVersion: registry.schemaVersion,
+    sha256: digest(bytes),
+    status: registry.status,
+  }];
+}
+
+export function integratedRequirementCoverage(requirements, includedRequirementRegistries) {
+  const localRequirements = requirements.length;
+  const localFullyCovered = requirements.filter((item) => (
+    item.positiveFixtureId !== null && item.negativeFixtureId !== null
+  )).length;
+  const includedRequirements = includedRequirementRegistries
+    .reduce((sum, item) => sum + item.requirements, 0);
+  const includedFullyCovered = includedRequirementRegistries
+    .reduce((sum, item) => sum + item.fullyCovered, 0);
+  const requirementsTotal = localRequirements + includedRequirements;
+  const fullyCovered = localFullyCovered + includedFullyCovered;
+  return {
+    blockers: requirementsTotal - fullyCovered,
+    fullyCovered,
+    includedFullyCovered,
+    includedRequirements,
+    localFullyCovered,
+    localRequirements,
+    requirements: requirementsTotal,
+  };
 }
 
 export async function buildDraftRequirementArtifacts({ releaseRoot = DEFAULT_RELEASE } = {}) {
@@ -774,6 +1204,7 @@ export async function buildDraftRequirementArtifacts({ releaseRoot = DEFAULT_REL
   });
   const fixtureCaseRegistry = scan.manifest.conformanceCases ?? DEFAULT_CASE_REGISTRY;
   portablePath(fixtureCaseRegistry, "manifest conformanceCases path");
+  const includedRequirementRegistries = await includedRequirementRegistrySummaries(scan);
   return {
     caseRegistry: {
       schemaVersion: "molit.profile-conformance-cases/1",
@@ -788,6 +1219,11 @@ export async function buildDraftRequirementArtifacts({ releaseRoot = DEFAULT_REL
       shapeNamespace: scan.shapeNamespace,
       shapeFiles: scan.localShapeFiles,
       fixtureCaseRegistry,
+      includedRequirementRegistries,
+      integratedCoverage: integratedRequirementCoverage(
+        requirements,
+        includedRequirementRegistries,
+      ),
       requirements,
     },
   };
@@ -835,7 +1271,12 @@ function validateSchema(schema, value, definition = null) {
 
 async function verifyFixtures({ caseRegistry, findings, registry, scan }) {
   const requirementIds = new Set(registry.requirements.map((item) => item.requirementId));
+  const constraintById = new Map(scan.constraints
+    .filter((item) => item.requirementIds.length === 1)
+    .map((item) => [item.requirementIds[0], item]));
+  const runtime = await loadFixtureValidationRuntime(scan);
   const cases = new Map();
+  const actualByFixture = new Map();
   for (const fixture of caseRegistry.fixtureCases) {
     if (cases.has(fixture.fixtureId)) {
       finding(findings, "DUPLICATE_FIXTURE_ID", "fixture case ID is not unique", {
@@ -847,6 +1288,8 @@ async function verifyFixtures({ caseRegistry, findings, registry, scan }) {
     for (const requirementId of [
       ...fixture.coversRequirementIds,
       ...fixture.expectedRequirementIds,
+      ...fixture.atomicConditionFamilyIds,
+      ...(fixture.targetRequirementId === null ? [] : [fixture.targetRequirementId]),
     ]) {
       if (!requirementIds.has(requirementId)) {
         finding(findings, "UNKNOWN_FIXTURE_REQUIREMENT", "fixture case refers to an unknown requirement", {
@@ -856,16 +1299,29 @@ async function verifyFixtures({ caseRegistry, findings, registry, scan }) {
       }
     }
     const covered = new Set(fixture.coversRequirementIds);
-    for (const requirementId of fixture.expectedRequirementIds) {
+    for (const requirementId of [
+      ...fixture.expectedRequirementIds,
+      ...fixture.atomicConditionFamilyIds,
+    ]) {
       if (!covered.has(requirementId)) {
-        finding(findings, "EXPECTED_REQUIREMENT_NOT_COVERED", "negative expectation is absent from coversRequirementIds", {
+        finding(findings, "EXPECTED_REQUIREMENT_NOT_COVERED", "negative expectation or atomic family is absent from coversRequirementIds", {
           fixtureId: fixture.fixtureId,
           requirementId,
         });
       }
     }
+    if (fixture.validationMode === "constraint-unit"
+      && (fixture.atomicConditionFamilyIds[0] !== fixture.targetRequirementId
+        || !covered.has(fixture.targetRequirementId))) {
+      finding(findings, "CONSTRAINT_UNIT_TARGET_MISMATCH", "constraint-unit case must cover and expose its one target requirement as the atomic family", {
+        atomicConditionFamilyIds: fixture.atomicConditionFamilyIds,
+        fixtureId: fixture.fixtureId,
+        targetRequirementId: fixture.targetRequirementId,
+      });
+    }
+    let bytes;
     try {
-      const bytes = await readReleaseFile(scan.releaseRoot, fixture.path, MAX_FIXTURE_BYTES);
+      bytes = await readReleaseFile(scan.releaseRoot, fixture.path, MAX_FIXTURE_BYTES);
       const actual = digest(bytes);
       if (actual !== fixture.sha256) {
         finding(findings, "FIXTURE_DIGEST_MISMATCH", "fixture bytes do not match the case registry", {
@@ -879,6 +1335,92 @@ async function verifyFixtures({ caseRegistry, findings, registry, scan }) {
       finding(findings, "FIXTURE_UNREADABLE", "fixture path is absent, unsafe, or unreadable", {
         fixtureId: fixture.fixtureId,
         path: fixture.path,
+        reason: error.message,
+      });
+      continue;
+    }
+
+    try {
+      const candidate = parseTurtle(bytes, fixture.path);
+      const decisions = [];
+      const actualRequirementIds = new Set();
+      const actualAtomicIds = new Set();
+      const actualUnattributedFamilies = new Set();
+      for (const profileName of fixture.conformanceClass) {
+        const profile = runtime.profiles.get(profileName);
+        if (!profile) throw new Error(`fixture profile is not executable: ${profileName}`);
+        let shapeStore = profile.shapeStore;
+        let validator = profile.validator;
+        if (fixture.validationMode === "constraint-unit") {
+          if (fixture.conformanceClass.length !== 1) {
+            throw new Error("constraint-unit fixture must declare exactly one profile");
+          }
+          const constraint = constraintById.get(fixture.targetRequirementId);
+          if (!constraint) throw new Error(`constraint-unit target is unknown: ${fixture.targetRequirementId}`);
+          shapeStore = buildConstraintUnitShapeStore(profile.shapeStore, constraint);
+          validator = new SHACLValidator(shapeStore, { maxErrors: 10_000 });
+        }
+        const report = await validator.validate(mergeStores(runtime.background, candidate));
+        decisions.push(report.conforms);
+        const evidence = requirementResultEvidence({
+          approvedIds: requirementIds,
+          constraintById,
+          report,
+          shapeStore,
+        });
+        for (const id of evidence.requirementIds) actualRequirementIds.add(id);
+        for (const id of evidence.atomicConditionFamilyIds) actualAtomicIds.add(id);
+        for (const family of evidence.unattributedResultFamilies) {
+          actualUnattributedFamilies.add(`${profileName}:${family}`);
+        }
+      }
+      if (new Set(decisions).size !== 1) {
+        finding(findings, "FIXTURE_PROFILE_DECISION_MISMATCH", "one fixture has different decisions across its declared conformance classes", {
+          decisions,
+          fixtureId: fixture.fixtureId,
+          profiles: fixture.conformanceClass,
+        });
+      }
+      const actual = {
+        atomicConditionFamilyIds: [...actualAtomicIds].sort(),
+        expectedOutcome: decisions.every(Boolean) ? "conforms" : "violates",
+        requirementIds: [...actualRequirementIds].sort(),
+        unattributedResultFamilies: [...actualUnattributedFamilies].sort(),
+      };
+      actualByFixture.set(fixture.fixtureId, actual);
+      if (actual.expectedOutcome !== fixture.expectedOutcome) {
+        finding(findings, "FIXTURE_VALIDATION_OUTCOME_MISMATCH", "runtime SHACL decision differs from the registered fixture outcome", {
+          actual: actual.expectedOutcome,
+          expected: fixture.expectedOutcome,
+          fixtureId: fixture.fixtureId,
+        });
+      }
+      if (!sameJson(actual.requirementIds, [...fixture.expectedRequirementIds].sort())) {
+        finding(findings, "FIXTURE_REQUIREMENT_RESULT_MISMATCH", "runtime SHACL sourceShape attribution differs from expectedRequirementIds", {
+          actual: actual.requirementIds,
+          expected: [...fixture.expectedRequirementIds].sort(),
+          fixtureId: fixture.fixtureId,
+        });
+      }
+      if (!sameJson(
+        actual.atomicConditionFamilyIds,
+        [...fixture.atomicConditionFamilyIds].sort(),
+      )) {
+        finding(findings, "FIXTURE_ATOMIC_FAMILY_MISMATCH", "nearest independent SHACL sourceShape families differ from the registered atomic families", {
+          actual: actual.atomicConditionFamilyIds,
+          expected: [...fixture.atomicConditionFamilyIds].sort(),
+          fixtureId: fixture.fixtureId,
+        });
+      }
+      if (actual.unattributedResultFamilies.length > 0) {
+        finding(findings, "FIXTURE_UNATTRIBUTED_RESULT_FAMILY", "fixture produces a SHACL result outside the approved local requirement registry", {
+          fixtureId: fixture.fixtureId,
+          unattributedResultFamilies: actual.unattributedResultFamilies,
+        });
+      }
+    } catch (error) {
+      finding(findings, "FIXTURE_VALIDATION_FAILED", "fixture could not be revalidated against its declared SHACL profile", {
+        fixtureId: fixture.fixtureId,
         reason: error.message,
       });
     }
@@ -937,6 +1479,18 @@ async function verifyFixtures({ caseRegistry, findings, registry, scan }) {
           fixtureId: fixtureIdValue,
           requirementId: requirement.requirementId,
         });
+      } else if (outcome === "violates") {
+        const actual = actualByFixture.get(fixtureIdValue);
+        if (!actual
+          || actual.atomicConditionFamilyIds.length !== 1
+          || actual.unattributedResultFamilies.length !== 0) {
+          finding(findings, "REQUIREMENT_NEGATIVE_NOT_ATOMIC", "a requirement negative fixture must violate exactly one independently registered atomic condition family", {
+            actualAtomicConditionFamilyIds: actual?.atomicConditionFamilyIds ?? null,
+            unattributedResultFamilies: actual?.unattributedResultFamilies ?? null,
+            fixtureId: fixtureIdValue,
+            requirementId: requirement.requirementId,
+          });
+        }
       }
     }
   }
@@ -1120,11 +1674,14 @@ export async function verifyRequirementTraceability({
       coverage: coverageSummary(registry),
       schemaVersion: "molit.profile-requirement-traceability-report/1",
       gatePassed: false,
+      includedRequirementRegistries: registry?.includedRequirementRegistries ?? [],
+      integratedCoverage: registry?.integratedCoverage ?? null,
       profileVersion: scan.manifest.version,
       caseRegistryStatus: null,
       registryStatus: registry?.registryStatus ?? null,
       summary: {
         auxiliaryPropertyConstraints: scan.auxiliaryConstraints.length,
+        containerNodeShapes: scan.containerShapes.length,
         errors: findings.length,
         fixtureCases: 0,
         localShapeFiles: scan.localShapeFiles.length,
@@ -1150,13 +1707,42 @@ export async function verifyRequirementTraceability({
     });
   }
   try {
-    const { overrides } = await loadRequirementSourceOverrides({
+    const included = await includedRequirementRegistrySummaries(scan);
+    if (!sameJson(registry.includedRequirementRegistries, included)) {
+      finding(findings, "INCLUDED_REQUIREMENT_REGISTRY_MISMATCH", "included requirement registry digest, count, status, or coverage differs", {
+        actual: registry.includedRequirementRegistries,
+        expected: included,
+      });
+    }
+    const integrated = integratedRequirementCoverage(registry.requirements, included);
+    if (!sameJson(registry.integratedCoverage, integrated)) {
+      finding(findings, "INTEGRATED_REQUIREMENT_COVERAGE_MISMATCH", "local and included requirement coverage total differs", {
+        actual: registry.integratedCoverage,
+        expected: integrated,
+      });
+    }
+    if (integrated.blockers > 0) {
+      finding(findings, "INTEGRATED_REQUIREMENT_COVERAGE_BLOCKED", "local or included normative requirements lack complete positive and negative coverage", {
+        blockers: integrated.blockers,
+        fullyCovered: integrated.fullyCovered,
+        requirements: integrated.requirements,
+      });
+    }
+  } catch (error) {
+    finding(findings, "INCLUDED_REQUIREMENT_REGISTRY_INVALID", "included requirement registry is missing, stale, or invalid", {
+      message: error.message,
+      path: scan.manifest.upstreamRequirementsRegistry ?? null,
+    });
+  }
+  let sourceOverrides = new Map();
+  try {
+    ({ overrides: sourceOverrides } = await loadRequirementSourceOverrides({
       profileVersion: scan.manifest.version,
       releaseRoot: scan.releaseRoot,
       requirementIds: registry.requirements.map((item) => item.requirementId),
-    });
+    }));
     const rows = new Map(registry.requirements.map((item) => [item.requirementId, item]));
-    for (const [requirementId, expected] of overrides) {
+    for (const [requirementId, expected] of sourceOverrides) {
       const row = rows.get(requirementId);
       for (const [field, value] of Object.entries(expected)) {
         if (row[field] !== value) {
@@ -1173,6 +1759,46 @@ export async function verifyRequirementTraceability({
     finding(findings, "SOURCE_OVERRIDE_INVALID", "requirement source overrides are missing, stale, or incomplete", {
       message: error.message,
       path: DEFAULT_SOURCE_OVERRIDES,
+    });
+  }
+  try {
+    const { clauses } = await loadLocalNormativeClauses({
+      excludedRequirementIds: [...sourceOverrides.keys()],
+      profileVersion: scan.manifest.version,
+      releaseRoot: scan.releaseRoot,
+      requirementIds: registry.requirements.map((item) => item.requirementId),
+    });
+    const rows = new Map(registry.requirements.map((item) => [item.requirementId, item]));
+    for (const [requirementId, clause] of clauses) {
+      const row = rows.get(requirementId);
+      const expected = {
+        localRationale: clause.adoptionRationale,
+        sourceClause: clause.clauseId,
+        sourceStandard: clause.sourceStandard,
+      };
+      for (const [field, value] of Object.entries(expected)) {
+        if (row[field] !== value) {
+          finding(findings, "LOCAL_CLAUSE_ROW_MISMATCH", "local normative clause and requirement row differ", {
+            actual: row[field],
+            expected: value,
+            field,
+            requirementId,
+          });
+        }
+      }
+      const statement = canonicalNormativeStatement(row.messages);
+      if (clause.normativeStatement !== statement) {
+        finding(findings, "LOCAL_CLAUSE_STATEMENT_MISMATCH", "local normative statement does not reproduce the executable SHACL messages", {
+          actual: clause.normativeStatement,
+          expected: statement,
+          requirementId,
+        });
+      }
+    }
+  } catch (error) {
+    finding(findings, "LOCAL_CLAUSE_REGISTER_INVALID", "local requirements have no approved one-to-one normative clause register", {
+      message: error.message,
+      path: DEFAULT_LOCAL_CLAUSES,
     });
   }
   try {
@@ -1211,11 +1837,14 @@ export async function verifyRequirementTraceability({
       coverage: coverageSummary(registry),
       schemaVersion: "molit.profile-requirement-traceability-report/1",
       gatePassed: false,
+      includedRequirementRegistries: registry.includedRequirementRegistries,
+      integratedCoverage: registry.integratedCoverage,
       profileVersion: scan.manifest.version,
       caseRegistryStatus: caseRegistry?.registryStatus ?? null,
       registryStatus: registry.registryStatus,
       summary: {
         auxiliaryPropertyConstraints: scan.auxiliaryConstraints.length,
+        containerNodeShapes: scan.containerShapes.length,
         errors: findings.length,
         fixtureCases: Array.isArray(caseRegistry?.fixtureCases) ? caseRegistry.fixtureCases.length : 0,
         localShapeFiles: scan.localShapeFiles.length,
@@ -1268,11 +1897,14 @@ export async function verifyRequirementTraceability({
     coverage: coverageSummary(registry),
     schemaVersion: "molit.profile-requirement-traceability-report/1",
     gatePassed: findings.length === 0,
+    includedRequirementRegistries: registry.includedRequirementRegistries,
+    integratedCoverage: registry.integratedCoverage,
     profileVersion: scan.manifest.version,
     caseRegistryStatus: caseRegistry.registryStatus,
     registryStatus: registry.registryStatus,
     summary: {
       auxiliaryPropertyConstraints: scan.auxiliaryConstraints.length,
+      containerNodeShapes: scan.containerShapes.length,
       errors: findings.length,
       fixtureCases: caseRegistry.fixtureCases.length,
       localShapeFiles: scan.localShapeFiles.length,

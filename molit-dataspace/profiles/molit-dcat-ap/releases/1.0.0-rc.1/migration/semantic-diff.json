@@ -5,7 +5,7 @@
     "version": "0.1.0"
   },
   "to": {
-    "manifestSha256": "81f72f44357e61ab96a3acb1315acf71d32c366c13ae446b0588433c0abbb3b5",
+    "manifestSha256": "0666b7c2ed74800264a9ac6c8292f819fc973a02057397faca3b3d5df3bacfe4",
     "version": "1.0.0-rc.1"
   },
   "profileModules": {
@@ -56,6 +56,7 @@
       "MOLIT-CV-MEDIATYPE-001-P-MEDIATYPE-001",
       "MOLIT-CV-MEDIATYPE-001-P-PACKAGEFORMAT-001",
       "MOLIT-CV-MEDIATYPE-001-P-TYPE-001",
+      "MOLIT-DEPRECATED-LOCAL-001",
       "MOLIT-DS-001-P-ACCESSRIGHTS-001",
       "MOLIT-DS-001-P-DESCRIPTION-001",
       "MOLIT-DS-001-P-IDENTIFIER-001",
@@ -71,6 +72,7 @@
       "MOLIT-GEO-001-P-SPATIALDISCLOSURELEVEL-001",
       "MOLIT-GEO-001-P-SPATIALRESOLUTIONINMETERS-001",
       "MOLIT-GEO-001-P-TYPE-001",
+      "MOLIT-GEO-DISCLOSURE-001-P-SPATIALDISCLOSURELEVEL-001",
       "MOLIT-GEO-ENCODING-005-P-ASDGGS-001",
       "MOLIT-GEO-ENCODING-005-P-ASGEOJSON-001",
       "MOLIT-GEO-ENCODING-005-P-ASKML-001",
@@ -91,6 +93,11 @@
       "MOLIT-NET-REF-001-P-NETWORKELEMENTTYPE-001",
       "MOLIT-NET-REF-001-P-NETWORKIDENTIFIER-001",
       "MOLIT-NET-REF-001-P-NETWORKVERSION-001",
+      "MOLIT-NET-REF-IRI-001",
+      "MOLIT-NET-REPLACEMENT-001",
+      "MOLIT-NET-SAMEAS-001",
+      "MOLIT-NET-SAMEAS-001-P-INCOMING-001",
+      "MOLIT-NET-SAMEAS-001-P-OUTGOING-001",
       "MOLIT-NET-SNAPSHOT-001",
       "MOLIT-NET-SNAPSHOT-001-P-NETWORKIDENTIFIER-001",
       "MOLIT-NET-SNAPSHOT-001-P-NETWORKLIFECYCLESTATUS-001",
@@ -145,8 +152,12 @@
       "MOLIT-QUAL-MAP-001-P-MAPPEDQUALITYMETRIC-001",
       "MOLIT-QUAL-MAP-001-P-QUALITYLOSSDISPOSITION-001",
       "MOLIT-QUAL-MAP-001-P-SOURCEQUALITYELEMENT-001",
+      "MOLIT-QUAL-MAP-LINK-001",
+      "MOLIT-QUAL-MAP-LINK-001-P-DISPOSITION-001",
+      "MOLIT-QUAL-MAP-LINK-001-P-METRIC-001",
       "MOLIT-QUAL-MEASURE-001-P-COMPUTEDON-001",
       "MOLIT-QUAL-MEASURE-001-P-ISMEASUREMENTOF-001",
+      "MOLIT-QUAL-MEASURE-001-P-QUALITYRESULTCONCEPT-001",
       "MOLIT-QUAL-MEASURE-001-P-UNITMEASURE-001",
       "MOLIT-QUAL-MEASURE-001-P-VALUE-001",
       "MOLIT-QUAL-PROV-001",
@@ -154,6 +165,7 @@
       "MOLIT-QUAL-PROV-001-P-QUALITYEVALUATIONSCOPE-001",
       "MOLIT-QUAL-PROV-001-P-QUALITYMAPPINGSTATEMENT-001",
       "MOLIT-QUAL-PROV-001-P-QUALITYRESULTKIND-001",
+      "MOLIT-QUAL-STATUS-001",
       "MOLIT-REC-001-P-LANGUAGE-001",
       "MOLIT-REC-001-P-MODIFIED-001",
       "MOLIT-REC-001-P-PRIMARYTOPIC-001",
@@ -264,7 +276,24 @@
         "requirementId": "MOLIT-GEO-001",
         "to": {
           "constraintCount": 1,
-          "graphSha256": "0e42197ea7585c15fab4eee71ce3088143067156adc67fd9b2d44b03330eeb56",
+          "graphSha256": "6b8510fb0fd0401c1fd8f1c783e1a7a32d3b02107495d9302647ca808d8cd3e8",
+          "shapeFiles": [
+            "shacl/molit-spatial.ttl"
+          ]
+        }
+      },
+      {
+        "from": {
+          "constraintCount": 1,
+          "graphSha256": "9a8226f6789428da4f48b92f6fa2cf03a627fd8c36beffe10e7dea73ceab2f85",
+          "shapeFiles": [
+            "shacl/molit-spatial.ttl"
+          ]
+        },
+        "requirementId": "MOLIT-GEO-DISCLOSURE-001",
+        "to": {
+          "constraintCount": 1,
+          "graphSha256": "d8bcb3fde499f939828d2e4d4175a130016f46c4bae4d0554ccce8036700873f",
           "shapeFiles": [
             "shacl/molit-spatial.ttl"
           ]
@@ -434,7 +463,7 @@
         "requirementId": "MOLIT-NET-001",
         "to": {
           "constraintCount": 1,
-          "graphSha256": "368994a1f40c5180d225ac14160f5d87623970e29c5a21a1a8765a80b4084fa4",
+          "graphSha256": "e262ff37d8ed4fa7b2175eafaecdc0f41390b593507c75afb51c15726117684d",
           "shapeFiles": [
             "shacl/molit-network.ttl"
           ]
@@ -553,7 +582,24 @@
         "requirementId": "MOLIT-QUAL-MEASURE-001",
         "to": {
           "constraintCount": 1,
-          "graphSha256": "b3374f990f6f65f651081d7edfbddd631d261225a86de1c26f3618dcc9a62dde",
+          "graphSha256": "675491a5f1c929257fa4096aad458f1c1a0328b3ce81234fd70daf470296cafa",
+          "shapeFiles": [
+            "shacl/molit-quality.ttl"
+          ]
+        }
+      },
+      {
+        "from": {
+          "constraintCount": 1,
+          "graphSha256": "08643167451ac9f6174abc8982d334c6e3ef81946f660f0df1b2986ca1d20933",
+          "shapeFiles": [
+            "shacl/molit-quality.ttl"
+          ]
+        },
+        "requirementId": "MOLIT-QUAL-MEASURE-002",
+        "to": {
+          "constraintCount": 1,
+          "graphSha256": "f553d04042b9c2ae86d5d6d65fee0f1a22b4c4129780eab411caa099746798a4",
           "shapeFiles": [
             "shacl/molit-quality.ttl"
           ]
@@ -657,7 +703,7 @@
       "MOLIT-DS-TRANSFER-001",
       "MOLIT-PROFILE-SELECTION-001"
     ],
-    "toCount": 156
+    "toCount": 168
   },
   "ontology": {
     "added": [
@@ -682,6 +728,7 @@
       "https://data.molit.go.kr/def/molit-dcat-ap#qualityLossDisposition",
       "https://data.molit.go.kr/def/molit-dcat-ap#qualityLossNote",
       "https://data.molit.go.kr/def/molit-dcat-ap#qualityMappingStatement",
+      "https://data.molit.go.kr/def/molit-dcat-ap#qualityResultConcept",
       "https://data.molit.go.kr/def/molit-dcat-ap#qualityResultKind",
       "https://data.molit.go.kr/def/molit-dcat-ap#sourceQualityElement"
     ],
@@ -798,6 +845,9 @@
       "https://data.molit.go.kr/id/concept/quality-loss-disposition/not-published",
       "https://data.molit.go.kr/id/concept/quality-loss-disposition/reversible-loss",
       "https://data.molit.go.kr/id/concept/quality-loss-disposition/unmapped",
+      "https://data.molit.go.kr/id/concept/quality-result-category/current",
+      "https://data.molit.go.kr/id/concept/quality-result-category/outdated",
+      "https://data.molit.go.kr/id/concept/quality-result-category/unknown",
       "https://data.molit.go.kr/id/concept/quality-result-kind/boolean",
       "https://data.molit.go.kr/id/concept/quality-result-kind/categorical",
       "https://data.molit.go.kr/id/concept/quality-result-kind/descriptive",
@@ -805,12 +855,15 @@
       "https://data.molit.go.kr/id/concept/term-status/approved",
       "https://data.molit.go.kr/id/concept/term-status/candidate",
       "https://data.molit.go.kr/id/concept/term-status/deprecated",
+      "https://data.molit.go.kr/id/metric/assessment-note",
+      "https://data.molit.go.kr/id/metric/currency-status",
+      "https://data.molit.go.kr/id/metric/validation-conformance",
       "https://data.molit.go.kr/id/unit/vehicle-per-day",
       "https://data.molit.go.kr/id/unit/vehicle-per-hour"
     ],
     "fromCount": 38,
     "removed": [],
-    "toCount": 98
+    "toCount": 104
   },
   "reviewedBreakingChanges": [
     {

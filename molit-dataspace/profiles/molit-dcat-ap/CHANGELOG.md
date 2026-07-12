@@ -40,6 +40,7 @@
 - QualityMeasurement에 평가방법·범위·결과 유형과 별도 QualityMappingStatement 연결 추가
 - 품질 매핑의 원천 요소·대상 DQV metric·손실상태·손실설명 추가
 - 모든 로컬 ontology term에 `rdfs:isDefinedBy`, version, candidate·deprecated status와 한·영 정의 추가
+- 40개 로컬 ontology term의 재사용 판단, domain·range, 양성·음성 증거와 폐기정책을 machine registry로 고정
 - Observation, network lifecycle, offering readiness, quality semantics와 term status SKOS scheme 추가
 - 기관·행정구역·법령·공공누리 `/candidate/` registry 추가
 
@@ -56,9 +57,20 @@
 - DQV Measurement와 `computedOn` Dataset 관계 일치 constraint 추가
 - Property constraint 단위 requirements registry 추가
 - Requirement와 양성·음성 fixture를 연결하는 conformance case registry 추가
+- DCAT-AP·GeoDCAT-AP upstream PropertyShape 990개를 포함 원장으로 결합하고 격리 양성·음성 evidence를 3개 shard로 고정
+- 원문에 constraint component가 없는 폐기 URI 6행을 upstream 적합성으로 세지 않고 로컬 publication-policy operationalization으로 구분
+- 전체 profile에서 단독 위반을 만들 수 없는 로컬 constraint를 위한 test-only `constraint-unit` lane과 runtime 재검증 추가
+- 로컬·upstream 통합 coverage, 원장·CSV digest와 blocker를 `profile-requirements.json` 한 진입점에서 판정
 - Manifest에 release-acceptance register와 validation dataset policy 추가
 - Module별 published bundle과 공통 support bundle 추가
 - `publish-check` report를 conformance module과 publication policy의 결합 판정으로 변경
+- Profile별 고유 example, version IRI·bundle·PROF descriptor의 교차 파일 fail-close 검사 추가
+- Stable·versioned Profile/ontology의 Accept negotiation resolver, 308·406·404 처리와 `Vary: Accept` 계약 추가
+- 폐기 IRI tombstone 계약과 기관 승인 provenance 후보 스키마 추가
+- 실제 2026-07-01 표준 노드·링크 표본으로 10자리 ID, 판·checksum·변경 이력과 EPSG:5186 원천 좌표 순서 검증
+- Network identity·판 충돌·superseded/withdrawn lifecycle 정책과 검증기 추가
+- DQV 결과를 quantitative·boolean·categorical·descriptive 네 분기로 나누고 값·단위 조합을 `sh:xone`으로 고정
+- Requirement-linked fixture의 5개 RDF 직렬화와 7개 profile coverage를 검증하는 evidence workflow 추가
 - 0.1.0 migration, conformance, release-local governance와 license 상태 문서 추가
 
 ### 2.6 국내 상호운용성
@@ -73,11 +85,11 @@
 - 운영기관 owner·steward 승인
 - Namespace dereference와 content negotiation
 - 로컬 artifact 공개 license
-- Detached signature와 외부 timestamp
+- 기관 소유 키의 detached signature와 외부 timestamp
 - KS·TTA 원문 조항 및 기관 fixture
 - 국내 기관·행정구역·법령·공공누리 권위 registry
-- CRS 변환정확도·ITS 관측·품질손실 실증
-- 운영·rollback·tombstone·민원 runbook
+- 기관 ITS payload의 관측 단위·결측·집계 의미와 ISO 19157 품질손실 조항 실증
+- 실제 namespace 배포, rollback과 민원 runbook의 운영 승인
 
 따라서 RC.1은 Recommendation 또는 기관 표준으로 발행하지 않는다.
 

@@ -24,16 +24,27 @@
     "reason": "The stable 1.1.0 release is based on DCAT-AP 2.0.1. Selected vocabulary terms are reused; its SHACL is not merged into a DCAT-AP 3.0.1 conformance bundle."
   },
   "ontology": "ontology/molit-dcat-ap.ttl",
+  "ontologyTermGovernance": "ontology/term-governance.json",
   "profileDescription": "profile-description.ttl",
   "context": "context/molit-dcat-ap.context.jsonld",
   "publicValuePolicy": "policy/public-value-policy.json",
   "vocabularyRegistry": "vocabulary/registry-metadata.json",
   "semanticDiff": "migration/semantic-diff.json",
   "requirementsRegistry": "requirements/profile-requirements.json",
+  "upstreamRequirementsRegistry": "requirements/upstream-requirement-inventory.json",
+  "upstreamRequirementsCsv": "requirements/upstream-profile-requirements.csv",
   "conformanceCases": "requirements/conformance-cases.json",
+  "localNormativeClauses": "requirements/local-normative-clauses.json",
+  "domesticStandardsAlignment": "mappings/domestic-standards-alignment.md",
+  "domesticStandardsCrosswalk": "mappings/domestic-standards-crosswalk.csv",
+  "networkReferencePolicy": "policy/network-reference-policy.json",
+  "networkEditionLifecycleCases": "examples/source-evidence/network-edition-lifecycle-cases.json",
+  "networkRuntimeControls": "requirements/network-runtime-controls.json",
   "releaseAcceptanceRegister": "release-acceptance.json",
   "artifactInventoryPolicy": "all-release-files",
   "publicationContract": "publication/content-negotiation.json",
+  "approvalProvenance": "publication/institutional-approval-provenance.candidate.json",
+  "tombstoneRegistry": "publication/tombstones.json",
   "representationArtifacts": {
     "profileHtml": "index.html",
     "profileTurtle": "profile-description.ttl",
@@ -85,6 +96,7 @@
     "core": {
       "kind": "conformance",
       "bundle": "core",
+      "example": "examples/valid/core-catalog.ttl",
       "conformanceIri": "https://data.molit.go.kr/profile/molit-dcat-ap/1.0.0-rc.1",
       "description": "DCAT-AP 3.0.1 plus source-neutral MOLIT catalogue constraints",
       "shapes": [
@@ -99,6 +111,7 @@
     "geo": {
       "kind": "conformance",
       "bundle": "geo",
+      "example": "examples/valid/geo-catalog.ttl",
       "conformanceIri": "https://data.molit.go.kr/profile/molit-dcat-ap/1.0.0-rc.1/geo",
       "description": "GeoDCAT-AP 3.1.0 plus MOLIT spatial disclosure and geometry constraints",
       "shapes": [
@@ -113,6 +126,7 @@
     "network": {
       "kind": "conformance",
       "bundle": "network",
+      "example": "examples/valid/network-catalog.ttl",
       "conformanceIri": "https://data.molit.go.kr/profile/molit-dcat-ap/1.0.0-rc.1/network",
       "description": "Geo module plus versioned transport-network reference constraints",
       "shapes": [
@@ -128,6 +142,7 @@
     "observation": {
       "kind": "conformance",
       "bundle": "observation",
+      "example": "examples/valid/observation-catalog.ttl",
       "conformanceIri": "https://data.molit.go.kr/profile/molit-dcat-ap/1.0.0-rc.1/observation",
       "description": "Core module plus transport observation property, aggregation, missing-value and unit semantics",
       "shapes": [
@@ -143,6 +158,7 @@
     "quality": {
       "kind": "conformance",
       "bundle": "quality",
+      "example": "examples/valid/quality-catalog.ttl",
       "conformanceIri": "https://data.molit.go.kr/profile/molit-dcat-ap/1.0.0-rc.1/quality",
       "description": "Core module plus DQV measurement, method, scope and information-loss constraints",
       "shapes": [
@@ -158,6 +174,7 @@
     "dataspace-offering": {
       "kind": "conformance",
       "bundle": "dataspace-offering",
+      "example": "examples/valid/dataspace-offering-catalog.ttl",
       "conformanceIri": "https://data.molit.go.kr/profile/molit-dcat-ap/1.0.0-rc.1/dataspace-offering",
       "description": "Metadata assertions about a prospective dataspace offering; not operational DSP eligibility",
       "shapes": [
@@ -173,6 +190,7 @@
     "publication-policy": {
       "kind": "validation-policy",
       "bundle": "publication-policy",
+      "example": "examples/valid/publication-offering-qualification.ttl",
       "conformanceIri": "https://data.molit.go.kr/profile/molit-dcat-ap/1.0.0-rc.1/publication-policy",
       "description": "Second-phase recommendation and deprecated-IRI policy applied after a selected conformance module",
       "shapes": [

@@ -27,12 +27,6 @@
       "localRationale": "국내 카탈로그 검색 결과와 행정 화면에 표시할 기본 제목을 확보하기 위해 한국어 제목을 한 개 요구한다. 언어별 제목은 한 개씩만 허용한다."
     },
     {
-      "requirementId": "MOLIT-CV-CHECKSUM-001",
-      "sourceStandard": "SPDX 2.3 RDF terms and MOLIT cryptographic baseline",
-      "sourceClause": "spdx:Checksum algorithm policy",
-      "localRationale": "배포 파일 무결성 검증을 SHA-256·SHA-384·SHA-512로 제한한다. 약한 알고리즘이나 이름만 비슷한 IRI는 공개 검증 경로에서 받아들이지 않는다."
-    },
-    {
       "requirementId": "MOLIT-CV-CHECKSUM-001-P-ALGORITHM-001",
       "sourceStandard": "SPDX 2.3 RDF terms and MOLIT cryptographic baseline",
       "sourceClause": "spdx:algorithm allowlist",
@@ -43,12 +37,6 @@
       "sourceStandard": "SPDX 2.3 RDF terms and XML Schema hexBinary",
       "sourceClause": "spdx:checksumValue length by selected SHA algorithm",
       "localRationale": "선택한 SHA 알고리즘의 byte 길이와 checksumValue의 소문자 16진수 길이를 맞춰 잘린 digest와 알고리즘-값 불일치를 차단한다."
-    },
-    {
-      "requirementId": "MOLIT-CV-MEDIATYPE-001",
-      "sourceStandard": "DCAT 3 and IANA Media Types registry",
-      "sourceClause": "Distribution media type, compression format and package format",
-      "localRationale": "전송 형식 식별자는 IANA registry의 정규 media type IRI로 고정한다. 압축·패키지 형식은 실제 운영에서 지원하는 gzip과 ZIP 범위만 공개한다."
     },
     {
       "requirementId": "MOLIT-CV-MEDIATYPE-001-P-COMPRESSFORMAT-001",
@@ -73,6 +61,12 @@
       "sourceStandard": "DCAT 3",
       "sourceClause": "Distribution media type properties",
       "localRationale": "mediaType·compressFormat·packageFormat은 전송 가능한 dcat:Distribution에만 붙인다. Dataset이나 DataService에 직접 붙인 형식 주장은 배포 단위와 혼동되므로 거부한다."
+    },
+    {
+      "requirementId": "MOLIT-DEPRECATED-LOCAL-001",
+      "sourceStandard": "MOLIT DCAT-AP 1.0.0-rc.1 deprecation policy",
+      "sourceClause": "governance.md §6.3 Deprecated",
+      "localRationale": "TransferableDataset과 TransferDistribution은 0.1.0 읽기·이관을 위해 ontology에 남기되 신규 graph의 publication 단계에서는 거부한다. 신규 graph는 dcat:Dataset·dcat:Distribution과 별도 DataspaceOfferingMetadata를 사용한다."
     },
     {
       "requirementId": "MOLIT-DS-001-P-ACCESSRIGHTS-001",

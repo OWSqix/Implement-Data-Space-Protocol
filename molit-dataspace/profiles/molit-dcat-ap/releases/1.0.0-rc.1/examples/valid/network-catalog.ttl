@@ -34,7 +34,7 @@ ex:catalog
         <https://data.molit.go.kr/scheme/domain> ;
     dcat:record ex:record-standard-node-link ;
     dcat:dataset ex:standard-node-link-dataset ;
-    molit:spatialDisclosureLevel <https://data.molit.go.kr/id/concept/spatial-disclosure-level/generalized> .
+    molit:spatialDisclosureLevel <https://data.molit.go.kr/id/concept/spatial-disclosure-level/exact> .
 
 ex:record-standard-node-link
     a dcat:CatalogRecord ;
@@ -75,7 +75,7 @@ ex:standard-node-link-dataset
     dcat:distribution ex:standard-node-link-shapefile-package ;
     mobilitydcatap:transportMode <https://w3id.org/mobilitydcat-ap/transport-mode/car> ;
     molit:networkReference ex:standard-node-link-2026-07-01 ;
-    molit:spatialDisclosureLevel <https://data.molit.go.kr/id/concept/spatial-disclosure-level/generalized> .
+    molit:spatialDisclosureLevel <https://data.molit.go.kr/id/concept/spatial-disclosure-level/exact> .
 
 ex:standard-node-link-shapefile-package
     a dcat:Distribution ;

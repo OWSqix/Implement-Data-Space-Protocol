@@ -9,7 +9,12 @@ import SHACLValidator from "rdf-validate-shacl";
 import { DataFactory, Parser, Store, Writer } from "n3";
 import {
   buildDraftRequirementRegistry,
+  buildConstraintUnitShapeStore,
+  canonicalNormativeStatement,
+  integratedRequirementCoverage,
+  loadLocalNormativeClauses,
   loadRequirementSourceOverrides,
+  requirementResultEvidence,
   requirementCsvProjection,
   scanRequirementConstraints,
 } from "./verify-requirement-traceability.mjs";
@@ -22,26 +27,12 @@ const DEFAULT_RELEASE = path.join(
   "releases",
   "1.0.0-rc.1",
 );
-const { literal, namedNode, quad } = DataFactory;
+const { blankNode, literal, namedNode, quad } = DataFactory;
 const RDF_TYPE = namedNode("http://www.w3.org/1999/02/22-rdf-syntax-ns#type");
 const RDF_FIRST = namedNode("http://www.w3.org/1999/02/22-rdf-syntax-ns#first");
 const RDF_REST = namedNode("http://www.w3.org/1999/02/22-rdf-syntax-ns#rest");
 const RDF_NIL = "http://www.w3.org/1999/02/22-rdf-syntax-ns#nil";
 const SH = "http://www.w3.org/ns/shacl#";
-const SHAPE_OWNERSHIP_PREDICATES = new Set([
-  `${SH}and`,
-  `${SH}node`,
-  `${SH}not`,
-  `${SH}or`,
-  `${SH}property`,
-  `${SH}qualifiedValueShape`,
-  `${SH}xone`,
-  RDF_FIRST.value,
-  RDF_REST.value,
-]);
-const REQUIREMENT_ID = namedNode(
-  "https://data.molit.go.kr/def/molit-dcat-ap#requirementId",
-);
 
 const POSITIVE_CASES = Object.freeze([
   ["core", "core-catalog.ttl"],
@@ -75,6 +66,7 @@ const CURATED_NEGATIVE_CASES = Object.freeze([
   ["quality", "quality-unit-not-qudt.ttl"],
   ["quality", "spoofed-controlled-concept.ttl"],
   ["dataspace-offering", "offering-operational-claim.ttl"],
+  ["publication-policy", "deprecated-local-transfer-types.ttl"],
 ]);
 
 function sha256(bytes) {
@@ -229,41 +221,6 @@ function mutationFocuses(candidate, shapeStore, constraint) {
   ))).values()];
 }
 
-function explicitRequirementIds(shapeStore, term) {
-  return shapeStore.getObjects(term, REQUIREMENT_ID, null)
-    .filter((item) => item.termType === "Literal")
-    .map((item) => item.value);
-}
-
-function ancestorRequirementIds(shapeStore, sourceShape) {
-  let frontier = [sourceShape];
-  const visited = new Set();
-  const collected = new Set();
-  for (let depth = 0; frontier.length > 0 && depth < 32; depth += 1) {
-    const next = [];
-    for (const term of frontier) {
-      const key = `${term.termType}:${term.value}`;
-      if (visited.has(key)) continue;
-      visited.add(key);
-      for (const id of explicitRequirementIds(shapeStore, term)) collected.add(id);
-      for (const incoming of shapeStore.getQuads(null, null, term, null)) {
-        if (SHAPE_OWNERSHIP_PREDICATES.has(incoming.predicate.value)
-          && ["BlankNode", "NamedNode"].includes(incoming.subject.termType)) {
-          next.push(incoming.subject);
-        }
-      }
-    }
-    frontier = next;
-  }
-  return [...collected].sort();
-}
-
-function localResultIds(report, shapeStore, approvedIds) {
-  return [...new Set(report.results.flatMap((result) => (
-    ancestorRequirementIds(shapeStore, result.sourceShape)
-  )).filter((id) => approvedIds.has(id)))].sort();
-}
-
 function prefixesFrom(source) {
   return Object.fromEntries([...source.matchAll(
     /^@prefix\s+([^:]+):\s+<([^>]+)>\s*\./gmu,
@@ -374,6 +331,22 @@ function nodeMutationTerms(requirementId, focus) {
 
 function directNodeMutationCandidates(candidate, shapeStore, constraint) {
   const attempts = [];
+  if (constraint.requirementIds[0] === "MOLIT-NET-REF-IRI-001") {
+    for (const [index, focus] of focusNodes(candidate, shapeStore, constraint.shapeId).entries()) {
+      if (focus.termType !== "NamedNode") continue;
+      const replacement = blankNode(`network-reference-identity-${index}`);
+      const changed = new Store();
+      for (const item of candidate) {
+        changed.addQuad(quad(
+          item.subject.equals(focus) ? replacement : item.subject,
+          item.predicate,
+          item.object.equals(focus) ? replacement : item.object,
+          item.graph,
+        ));
+      }
+      attempts.push({ kind: "replace-network-reference-iri-with-blank-node", store: changed });
+    }
+  }
   if (constraint.requirementIds[0] === "MOLIT-GEO-DISCLOSURE-001") {
     const disclosure = namedNode(
       "https://data.molit.go.kr/def/molit-dcat-ap#spatialDisclosureLevel",
@@ -435,17 +408,17 @@ function directNodeMutationCandidates(candidate, shapeStore, constraint) {
   return attempts;
 }
 
-function sourceFields(requirement, overrides) {
+function sourceFields(requirement, overrides, localClauses) {
   const reviewed = overrides.get(requirement.requirementId);
   if (reviewed) return reviewed;
-  const moduleName = requirement.shapeFile
-    .replace(/^shacl\/molit-/u, "")
-    .replace(/[.]ttl$/u, "")
-    .replaceAll("-", " ");
+  const clause = localClauses.get(requirement.requirementId);
+  if (!clause) {
+    throw new Error(`approved local normative clause is absent: ${requirement.requirementId}`);
+  }
   return {
-    localRationale: `Executable local constraint in ${requirement.shapeFile}; the source clause and fixture links are reviewed separately.`,
-    sourceClause: requirement.requirementId,
-    sourceStandard: `MOLIT DCAT-AP 1.0 ${moduleName} module`,
+    localRationale: clause.adoptionRationale,
+    sourceClause: clause.clauseId,
+    sourceStandard: clause.sourceStandard,
   };
 }
 
@@ -485,16 +458,40 @@ async function loadRuntime(releaseRoot) {
   return { background, manifest, profiles };
 }
 
-async function validateCandidate(runtimeProfile, background, candidate, approvedIds) {
+async function validateCandidate(
+  runtimeProfile,
+  background,
+  candidate,
+  approvedIds,
+  constraintById,
+) {
   const data = mergeStores(background, candidate);
   const report = await runtimeProfile.validator.validate(data);
-  return {
-    localIds: localResultIds(report, runtimeProfile.shapeStore, approvedIds),
+  const evidence = requirementResultEvidence({
+    approvedIds,
+    constraintById,
     report,
+    shapeStore: runtimeProfile.shapeStore,
+  });
+  return {
+    atomicIds: evidence.atomicConditionFamilyIds,
+    localIds: evidence.requirementIds,
+    report,
+    unattributedFamilies: evidence.unattributedResultFamilies,
   };
 }
 
-function caseRecord({ description, expectedIds, fixtureId, path: relativePath, profile, source }) {
+function caseRecord({
+  atomicIds = [],
+  description,
+  expectedIds,
+  fixtureId,
+  path: relativePath,
+  profile,
+  source,
+  targetRequirementId = null,
+  validationMode = "profile",
+}) {
   return {
     fixtureId,
     path: relativePath,
@@ -504,6 +501,9 @@ function caseRecord({ description, expectedIds, fixtureId, path: relativePath, p
     expectedOutcome: fixtureId.startsWith("POS-") ? "conforms" : "violates",
     coversRequirementIds: [...expectedIds].sort(),
     expectedRequirementIds: fixtureId.startsWith("POS-") ? [] : [...expectedIds].sort(),
+    atomicConditionFamilyIds: fixtureId.startsWith("POS-") ? [] : [...atomicIds].sort(),
+    validationMode,
+    targetRequirementId,
   };
 }
 
@@ -515,11 +515,18 @@ export async function buildRequirementEvidence({ releaseRoot = DEFAULT_RELEASE, 
     releaseRoot,
     requirementIds: registry.requirements.map((item) => item.requirementId),
   });
+  const { clauses: localClauses } = await loadLocalNormativeClauses({
+    excludedRequirementIds: [...sourceOverrides.keys()],
+    profileVersion: registry.profileVersion,
+    releaseRoot,
+    requirementIds: registry.requirements.map((item) => item.requirementId),
+  });
   const runtime = await loadRuntime(releaseRoot);
   const approvedIds = new Set(registry.requirements.map((item) => item.requirementId));
   const constraintById = new Map(scan.constraints.map((item) => [item.requirementIds[0], item]));
   const cases = [];
   const positiveSources = new Map();
+  const unitCandidatePool = [];
 
   for (const [profile, name] of POSITIVE_CASES) {
     const relative = `examples/valid/${name}`;
@@ -527,7 +534,13 @@ export async function buildRequirementEvidence({ releaseRoot = DEFAULT_RELEASE, 
     const candidate = parseStore(source);
     const runtimeProfile = runtime.profiles.get(profile);
     if (!runtimeProfile) throw new Error(`positive profile is absent: ${profile}`);
-    const validation = await validateCandidate(runtimeProfile, runtime.background, candidate, approvedIds);
+    const validation = await validateCandidate(
+      runtimeProfile,
+      runtime.background,
+      candidate,
+      approvedIds,
+      constraintById,
+    );
     if (!validation.report.conforms || validation.report.results.length !== 0) {
       throw new Error(`positive fixture does not conform: ${profile}/${name}`);
     }
@@ -558,9 +571,23 @@ export async function buildRequirementEvidence({ releaseRoot = DEFAULT_RELEASE, 
     const source = await readFile(path.join(releaseRoot, relative), "utf8");
     const candidate = parseStore(source);
     const runtimeProfile = runtime.profiles.get(profile);
-    const validation = await validateCandidate(runtimeProfile, runtime.background, candidate, approvedIds);
-    if (validation.localIds.length === 0) continue;
+    const validation = await validateCandidate(
+      runtimeProfile,
+      runtime.background,
+      candidate,
+      approvedIds,
+      constraintById,
+    );
+    if (validation.localIds.length === 0
+      || validation.atomicIds.length !== 1
+      || validation.unattributedFamilies.length !== 0) continue;
+    unitCandidatePool.push({
+      kind: `curated-${slug(path.basename(name, ".ttl"))}`,
+      profile,
+      store: candidate,
+    });
     cases.push(caseRecord({
+      atomicIds: validation.atomicIds,
       description: `Reviewed ${profile} negative fixture; expected IDs were observed from the local SHACL graph.`,
       expectedIds: validation.localIds,
       fixtureId: `NEG-${slug(profile)}-${slug(path.basename(name, ".ttl"))}`,
@@ -578,6 +605,36 @@ export async function buildRequirementEvidence({ releaseRoot = DEFAULT_RELEASE, 
   }
   const generated = [];
   const attempts = [];
+  const unresolved = [];
+  const recordGenerated = async ({ accepted, base, requirement }) => {
+    const fileName = `mutation-${requirement.requirementId.toLowerCase()}.ttl`;
+    const relative = `examples/invalid/${fileName}`;
+    const source = await serialize(accepted.store, base.prefixes);
+    const fixtureId = `NEG-MUT-${requirement.requirementId.slice("MOLIT-".length)}`;
+    const item = caseRecord({
+      atomicIds: accepted.atomicIds,
+      description: `Generated ${accepted.kind} mutation targeting ${requirement.requirementId}; expected IDs were observed by the ${base.profile} ${accepted.validationMode} SHACL lane.`,
+      expectedIds: accepted.ids,
+      fixtureId,
+      path: relative,
+      profile: base.profile,
+      source,
+      targetRequirementId: accepted.validationMode === "constraint-unit"
+        ? requirement.requirementId
+        : null,
+      validationMode: accepted.validationMode,
+    });
+    cases.push(item);
+    generated.push({ path: relative, source });
+    attempts.push({
+      additionalRequirementIds: accepted.ids.filter((id) => id !== requirement.requirementId),
+      atomicConditionFamilyIds: accepted.atomicIds,
+      mutation: accepted.kind,
+      outcome: "generated",
+      requirementId: requirement.requirementId,
+      validationMode: accepted.validationMode,
+    });
+  };
   for (const requirement of registry.requirements) {
     const positiveFixtureId = positiveByRequirement.get(requirement.requirementId);
     const base = positiveSources.get(positiveFixtureId);
@@ -609,42 +666,100 @@ export async function buildRequirementEvidence({ releaseRoot = DEFAULT_RELEASE, 
         )
       ))
       : directNodeMutationCandidates(base.candidate, constraintStore, constraint);
-    let accepted = null;
+    for (const mutation of candidates) {
+      unitCandidatePool.push({
+        kind: `${requirement.requirementId}-${mutation.kind}`,
+        profile: base.profile,
+        store: mutation.store,
+      });
+    }
+    const triggered = [];
     for (const mutation of candidates) {
       const validation = await validateCandidate(
         runtimeProfile,
         runtime.background,
         mutation.store,
         approvedIds,
+        constraintById,
       );
       if (!validation.localIds.includes(requirement.requirementId)) continue;
-      accepted = { ...mutation, ids: validation.localIds };
-      break;
+      triggered.push({
+        ...mutation,
+        atomicIds: validation.atomicIds,
+        ids: validation.localIds,
+        unattributedFamilies: validation.unattributedFamilies,
+      });
     }
+    triggered.sort((left, right) => (
+      left.atomicIds.length - right.atomicIds.length
+        || left.ids.length - right.ids.length
+        || left.kind.localeCompare(right.kind)
+    ));
+    const accepted = triggered.find((item) => (
+      item.atomicIds.length === 1
+        && item.atomicIds[0] === requirement.requirementId
+        && item.unattributedFamilies.length === 0
+    ));
     if (!accepted) {
-      attempts.push({ outcome: "no-triggering-mutation", requirementId: requirement.requirementId });
+      unresolved.push({ base, constraint, requirement, triggered });
       continue;
     }
-    const fileName = `mutation-${requirement.requirementId.toLowerCase()}.ttl`;
-    const relative = `examples/invalid/${fileName}`;
-    const source = await serialize(accepted.store, base.prefixes);
-    const fixtureId = `NEG-MUT-${requirement.requirementId.slice("MOLIT-".length)}`;
-    const item = caseRecord({
-      description: `Generated ${accepted.kind} mutation targeting ${requirement.requirementId}; expected IDs were observed by the ${base.profile} SHACL lane.`,
-      expectedIds: accepted.ids,
-      fixtureId,
-      path: relative,
-      profile: base.profile,
-      source,
+    await recordGenerated({
+      accepted: { ...accepted, validationMode: "profile" },
+      base,
+      requirement,
     });
-    cases.push(item);
-    generated.push({ path: relative, source });
-    attempts.push({
-      additionalRequirementIds: accepted.ids.filter((id) => id !== requirement.requirementId),
-      mutation: accepted.kind,
-      outcome: "generated",
-      requirementId: requirement.requirementId,
-    });
+  }
+
+  for (const { base, constraint, requirement, triggered } of unresolved) {
+    const runtimeProfile = runtime.profiles.get(base.profile);
+    let accepted = null;
+    try {
+      const shapeStore = buildConstraintUnitShapeStore(runtimeProfile.shapeStore, constraint);
+      const unitProfile = {
+        shapeStore,
+        validator: new SHACLValidator(shapeStore, { maxErrors: 1_000 }),
+      };
+      for (const candidate of unitCandidatePool.filter((item) => (
+        item.profile === base.profile
+      ))) {
+        const validation = await validateCandidate(
+          unitProfile,
+          runtime.background,
+          candidate.store,
+          approvedIds,
+          constraintById,
+        );
+        if (validation.atomicIds.length === 1
+          && validation.atomicIds[0] === requirement.requirementId
+          && validation.localIds.includes(requirement.requirementId)
+          && validation.unattributedFamilies.length === 0) {
+          accepted = {
+            atomicIds: validation.atomicIds,
+            ids: validation.localIds,
+            kind: `constraint-unit-${candidate.kind}`,
+            store: candidate.store,
+            validationMode: "constraint-unit",
+          };
+          break;
+        }
+      }
+    } catch (error) {
+      attempts.push({
+        message: error.message,
+        outcome: "constraint-unit-build-failed",
+        requirementId: requirement.requirementId,
+      });
+    }
+    if (accepted) {
+      await recordGenerated({ accepted, base, requirement });
+    } else {
+      attempts.push({
+        bestAtomicConditionFamilyIds: triggered[0]?.atomicIds ?? [],
+        outcome: "no-atomic-constraint-unit-candidate",
+        requirementId: requirement.requirementId,
+      });
+    }
   }
 
   const negativeCases = cases.filter((candidate) => candidate.expectedOutcome === "violates");
@@ -653,6 +768,7 @@ export async function buildRequirementEvidence({ releaseRoot = DEFAULT_RELEASE, 
     const exactFixtureId = `NEG-MUT-${requirement.requirementId.slice("MOLIT-".length)}`;
     const eligible = negativeCases.filter((item) => (
       item.expectedRequirementIds.includes(requirement.requirementId)
+        && item.atomicConditionFamilyIds.length === 1
     )).sort((left, right) => (
       Number(right.fixtureId === exactFixtureId) - Number(left.fixtureId === exactFixtureId)
         || Number(right.fixtureId.startsWith("NEG-MUT-"))
@@ -666,7 +782,12 @@ export async function buildRequirementEvidence({ releaseRoot = DEFAULT_RELEASE, 
   }
 
   for (const requirement of registry.requirements) {
-    Object.assign(requirement, sourceFields(requirement, sourceOverrides));
+    const localClause = localClauses.get(requirement.requirementId);
+    if (localClause
+      && localClause.normativeStatement !== canonicalNormativeStatement(requirement.messages)) {
+      throw new Error(`local normative statement differs from SHACL messages: ${requirement.requirementId}`);
+    }
+    Object.assign(requirement, sourceFields(requirement, sourceOverrides, localClauses));
     requirement.positiveFixtureId = positiveByRequirement.get(requirement.requirementId) ?? null;
     requirement.negativeFixtureId = negativeByRequirement.get(requirement.requirementId) ?? null;
   }
@@ -686,11 +807,15 @@ export async function buildRequirementEvidence({ releaseRoot = DEFAULT_RELEASE, 
       severity: "P0",
     }];
   });
-  registry.registryStatus = blockers.length === 0 ? "approved" : "draft";
+  registry.integratedCoverage = integratedRequirementCoverage(
+    registry.requirements,
+    registry.includedRequirementRegistries,
+  );
+  registry.registryStatus = registry.integratedCoverage.blockers === 0 ? "approved" : "draft";
   const caseRegistry = {
     schemaVersion: "molit.profile-conformance-cases/1",
     profileVersion: runtime.manifest.version,
-    registryStatus: "approved",
+    registryStatus: registry.registryStatus,
     fixtureCases: cases.sort((left, right) => left.fixtureId.localeCompare(right.fixtureId)),
   };
   const coverage = {
@@ -699,11 +824,17 @@ export async function buildRequirementEvidence({ releaseRoot = DEFAULT_RELEASE, 
     releaseAcceptanceItem: "RA-REQUIREMENTS",
     counts: {
       blockers: blockers.length,
+      integratedBlockers: registry.integratedCoverage.blockers,
+      integratedFullyCovered: registry.integratedCoverage.fullyCovered,
+      integratedRequirements: registry.integratedCoverage.requirements,
       fixtureCases: caseRegistry.fixtureCases.length,
       fullyCovered: registry.requirements.filter((item) => (
         item.positiveFixtureId !== null && item.negativeFixtureId !== null
       )).length,
       generatedMutations: generated.length,
+      atomicNegativeFixtures: negativeCases.filter((item) => (
+        item.atomicConditionFamilyIds.length === 1
+      )).length,
       negativeCovered: registry.requirements.filter((item) => item.negativeFixtureId !== null).length,
       normativeRequirements: registry.requirements.length,
       positiveCovered: registry.requirements.filter((item) => item.positiveFixtureId !== null).length,

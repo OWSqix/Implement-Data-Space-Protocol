@@ -1,0 +1,89 @@
+{
+  "schemaVersion": "molit.network-runtime-controls/1",
+  "profileVersion": "1.0.0-rc.1",
+  "registryStatus": "approved-technical-candidate",
+  "controls": [
+    {
+      "controlId": "MOLIT-NET-IDENTITY-001",
+      "conformanceClass": "network",
+      "scope": "whole-rdf-graph-runtime",
+      "obligation": "MUST",
+      "severity": "Violation",
+      "sourceClause": "MOLIT-NET-IDENTITY-001",
+      "normativeStatement": "The tuple networkAuthority, networkIdentifier and networkVersion shall identify exactly one RDF NetworkReference record and one checksum.",
+      "implementation": "src/profile/network-reference-integrity.mjs#validateNetworkReferenceGraph",
+      "negativeCaseIds": [
+        "NETWORK-EDITION-SAME-KEY-CHECKSUM-CONFLICT",
+        "NETWORK-EDITION-SAME-KEY-DUPLICATE"
+      ],
+      "remediation": "Merge duplicate edition records under one persistent IRI, or assign the correct authority, identifier, version and checksum to each distinct edition.",
+      "positiveCaseIds": [
+        "NETWORK-EDITION-HISTORY-VALID"
+      ]
+    },
+    {
+      "controlId": "MOLIT-NET-LIFECYCLE-GLOBAL-001",
+      "conformanceClass": "network",
+      "scope": "whole-rdf-graph-runtime",
+      "obligation": "MUST",
+      "severity": "Violation",
+      "sourceClause": "MOLIT-NET-LIFECYCLE-GLOBAL-001",
+      "normativeStatement": "A superseded edition shall resolve through dct:isReplacedBy to one in-graph successor with the same authority and network identifier, a distinct version and an allowed replacement-target status; candidate, current and withdrawn editions shall not state a successor.",
+      "implementation": "src/profile/network-reference-integrity.mjs#validateNetworkReferenceGraph",
+      "negativeCaseIds": [
+        "NETWORK-EDITION-SUPERSEDED-WITHOUT-SUCCESSOR",
+        "NETWORK-EDITION-SUCCESSOR-NOT-FOUND",
+        "NETWORK-EDITION-SUCCESSOR-IDENTITY-MISMATCH",
+        "NETWORK-EDITION-SUCCESSOR-IDENTIFIER-MISMATCH",
+        "NETWORK-EDITION-SELF-SUCCESSOR",
+        "NETWORK-EDITION-SUCCESSOR-STATUS-INVALID",
+        "NETWORK-EDITION-ACTIVE-WITH-SUCCESSOR",
+        "NETWORK-EDITION-CANDIDATE-WITH-SUCCESSOR",
+        "NETWORK-EDITION-WITHDRAWN-WITH-SUCCESSOR"
+      ],
+      "remediation": "For a superseded edition, publish exactly one in-graph successor with the same authority and network identifier, a distinct version and an allowed status. Remove dct:isReplacedBy from candidate, current and withdrawn editions.",
+      "positiveCaseIds": [
+        "NETWORK-EDITION-HISTORY-VALID",
+        "NETWORK-EDITION-THREE-VERSION-HISTORY-VALID",
+        "NETWORK-EDITION-CANDIDATE-VALID",
+        "NETWORK-EDITION-WITHDRAWN-VALID"
+      ]
+    },
+    {
+      "controlId": "MOLIT-NET-TERMINAL-VALIDITY-GLOBAL-001",
+      "conformanceClass": "network",
+      "scope": "whole-rdf-graph-runtime",
+      "obligation": "MUST",
+      "severity": "Violation",
+      "sourceClause": "MOLIT-NET-TERMINAL-VALIDITY-GLOBAL-001",
+      "normativeStatement": "Every superseded or withdrawn network edition shall state networkValidUntil so that its terminal validity interval is bounded.",
+      "implementation": "src/profile/network-reference-integrity.mjs#validateNetworkReferenceGraph",
+      "negativeCaseIds": [
+        "NETWORK-EDITION-WITHDRAWN-WITHOUT-END"
+      ],
+      "remediation": "State networkValidUntil as an xsd:date not earlier than networkValidFrom for every superseded or withdrawn edition.",
+      "positiveCaseIds": [
+        "NETWORK-EDITION-HISTORY-VALID",
+        "NETWORK-EDITION-WITHDRAWN-VALID"
+      ]
+    },
+    {
+      "controlId": "MOLIT-NET-VALIDITY-GLOBAL-001",
+      "conformanceClass": "network",
+      "scope": "whole-rdf-graph-runtime",
+      "obligation": "MUST",
+      "severity": "Violation",
+      "sourceClause": "MOLIT-NET-VALIDITY-GLOBAL-001",
+      "normativeStatement": "The inclusive validity interval of a superseded edition shall end before the inclusive valid-from date of its successor.",
+      "implementation": "src/profile/network-reference-integrity.mjs#validateNetworkReferenceGraph",
+      "negativeCaseIds": [
+        "NETWORK-EDITION-VALIDITY-OVERLAP",
+        "NETWORK-EDITION-EQUAL-BOUNDARY-OVERLAP"
+      ],
+      "remediation": "Set networkValidUntil to a date earlier than the successor networkValidFrom and retain both dates with their xsd:date values.",
+      "positiveCaseIds": [
+        "NETWORK-EDITION-HISTORY-VALID"
+      ]
+    }
+  ]
+}

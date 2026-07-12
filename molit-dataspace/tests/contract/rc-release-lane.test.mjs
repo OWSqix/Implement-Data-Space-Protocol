@@ -7,7 +7,57 @@ import {
 } from "../../tools/profile/run-rc-shacl-matrix.mjs";
 import {
   buildRcSerializationParityCandidate,
+  deriveRequirementLinkedSerializationDefinitions,
 } from "../../tools/profile/run-rc-serialization-parity.mjs";
+
+test("CT-RC-SERIALIZATION-DEFINITION-001: full parity keeps fixtures from every non-diagnostic profile", async () => {
+  const release = await loadProfileRelease("1.0.0-rc.1");
+  const registry = {
+    requirements: [
+      {
+        conformanceClass: ["core"],
+        negativeFixtureId: "NEG-TEST-CORE",
+        positiveFixtureId: "POS-TEST-CORE",
+        requirementId: "MOLIT-TEST-CORE-001",
+      },
+      {
+        conformanceClass: ["publication-policy"],
+        negativeFixtureId: "NEG-TEST-POLICY",
+        positiveFixtureId: "POS-TEST-POLICY",
+        requirementId: "MOLIT-TEST-POLICY-001",
+      },
+    ],
+  };
+  const fixtureCases = [
+    ["POS-TEST-CORE", "conforms", "core", "examples/valid/core-catalog.ttl"],
+    ["NEG-TEST-CORE", "violates", "core", "examples/invalid/missing-korean-title.ttl"],
+    ["POS-TEST-POLICY", "conforms", "publication-policy", "examples/valid/core-catalog.ttl"],
+    ["NEG-TEST-POLICY", "violates", "publication-policy", "examples/invalid/deprecated-local-transfer-types.ttl"],
+  ].map(([fixtureId, expectedOutcome, profile, input]) => ({
+    conformanceClass: [profile],
+    expectedOutcome,
+    fixtureId,
+    path: input,
+    sha256: "0".repeat(64),
+  }));
+  const definitions = deriveRequirementLinkedSerializationDefinitions(
+    release,
+    registry,
+    { fixtureCases },
+  );
+  assert.deepEqual(definitions.map((item) => item.fixtureId), [
+    "NEG-TEST-CORE",
+    "NEG-TEST-POLICY",
+    "POS-TEST-CORE",
+    "POS-TEST-POLICY",
+  ]);
+  assert.deepEqual(definitions.map((item) => item.profile), [
+    "core",
+    "publication-policy",
+    "core",
+    "publication-policy",
+  ]);
+});
 
 test("CT-RC-MATRIX-001: full lane deduplicates fixture IDs and retains requirement links", async () => {
   const release = await loadProfileRelease("1.0.0-rc.1");
@@ -80,9 +130,12 @@ test("CT-RC-MATRIX-002: six RC modules agree across Node, pySHACL and Jena", {
     }
   }
   assert.deepEqual(report.nodeOnlyPreflightControls.map((item) => item.controlId).sort(), [
+    "MOLIT-GEO-LEXICAL-PREFLIGHT-001",
     "MOLIT-PROFILE-SELECTION-001",
     "MOLIT-SEC-PUBLIC-001",
   ]);
+  assert.match(report.normativeBoundary.shaclMatrix, /pySHACL and Jena/u);
+  assert.match(report.normativeBoundary.nodePublicationPreflight, /before SHACL/u);
   const sectorService = report.cases.find((item) => (
     item.input === "examples/valid/sector-and-service-catalog.ttl"
   ));
@@ -96,7 +149,6 @@ test("CT-RC-SERIALIZATION-001: Jena conversions preserve graph and core decision
   const report = await buildRcSerializationParityCandidate();
   assert.equal(report.schemaVersion, "molit.rc-serialization-parity/1");
   assert.equal(report.gatePassed, true);
-  assert.equal(report.releaseEvidenceEligible, false);
   assert.deepEqual(report.conversions.map((item) => item.format), [
     "turtle",
     "rdfxml",
@@ -110,4 +162,59 @@ test("CT-RC-SERIALIZATION-001: Jena conversions preserve graph and core decision
     assert.equal(conversion.validation.node.conforms, true);
     assert.equal(conversion.validation.jena.conforms, true);
   }
+  assert.deepEqual(report.fullCoverage.coverage.formats, [
+    "turtle",
+    "rdfxml",
+    "jsonld",
+    "ntriples",
+    "nquads",
+  ]);
+  assert.deepEqual(report.fullCoverage.coverage.profiles, [
+    "core",
+    "dataspace-offering",
+    "geo",
+    "network",
+    "observation",
+    "publication-policy",
+    "quality",
+  ]);
+  assert.equal(
+    report.fullCoverage.coverage.fixtureCount,
+    report.fullCoverage.cases.length,
+  );
+  assert.equal(
+    report.fullCoverage.coverage.positiveFixtures
+      + report.fullCoverage.coverage.negativeFixtures,
+    report.fullCoverage.cases.length,
+  );
+  for (const item of report.fullCoverage.cases) {
+    assert.equal(item.conversions.length, 5, item.fixtureId);
+    assert.ok(item.conversions.every((conversion) => (
+      conversion.canonicalGraphSha256 === item.baseline.canonicalGraphSha256
+        && conversion.defaultGraphPreserved
+        && conversion.node.conforms === item.baseline.node.conforms
+        && conversion.output.digestScope === "RDFC-1.0-canonical-n-quads"
+        && conversion.output.sha256 === conversion.canonicalGraphSha256
+        && conversion.output.bytes > 0
+    )), item.fixtureId);
+  }
+  for (const profile of report.fullCoverage.coverage.profiles) {
+    const profileCoverage = report.fullCoverage.coverage.perProfile[profile];
+    assert.ok(profileCoverage.fixtureCount > 0, profile);
+    assert.ok(profileCoverage.positiveFixtures > 0, profile);
+    assert.ok(profileCoverage.negativeFixtures > 0, profile);
+    assert.equal(
+      profileCoverage.formatConversionCount,
+      profileCoverage.fixtureCount * report.fullCoverage.coverage.formats.length,
+      profile,
+    );
+    assert.ok(profileCoverage.requirementCount > 0, profile);
+  }
+  assert.equal(
+    report.releaseEvidenceEligible,
+    report.artifactLock.status === "verified"
+      && report.requirementTraceability.gatePassed
+      && report.fullCoverage.coverage.linkedRequirements
+        === report.fullCoverage.coverage.executableRequirements,
+  );
 });

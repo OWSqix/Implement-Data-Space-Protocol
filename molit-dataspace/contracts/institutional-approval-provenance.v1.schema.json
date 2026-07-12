@@ -1,0 +1,225 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://data.molit.go.kr/schema/institutional-approval-provenance.v1.json",
+  "title": "MOLIT institutional release approval provenance",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "profileVersion",
+    "publicationMode",
+    "status",
+    "releaseBinding",
+    "authority",
+    "approval",
+    "detachedSignature",
+    "externalTimestamp",
+    "evidence",
+    "requiredActions"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "const": "molit.institutional-approval-provenance/1"
+    },
+    "profileVersion": {
+      "const": "1.0.0-rc.1"
+    },
+    "publicationMode": {
+      "const": "external-detached-envelope"
+    },
+    "status": {
+      "enum": [
+        "candidate-awaiting-institutional-approval",
+        "approved",
+        "withdrawn"
+      ]
+    },
+    "releaseBinding": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["artifactLockSha256", "manifestSha256", "gitCommit"],
+      "properties": {
+        "artifactLockSha256": { "$ref": "#/$defs/nullableSha256" },
+        "manifestSha256": { "$ref": "#/$defs/nullableSha256" },
+        "gitCommit": {
+          "oneOf": [
+            { "type": "null" },
+            { "type": "string", "pattern": "^(?:[0-9a-f]{40}|[0-9a-f]{64})$" }
+          ]
+        }
+      }
+    },
+    "authority": {
+      "oneOf": [
+        { "type": "null" },
+        { "$ref": "#/$defs/authority" }
+      ]
+    },
+    "approval": {
+      "oneOf": [
+        { "type": "null" },
+        { "$ref": "#/$defs/approval" }
+      ]
+    },
+    "detachedSignature": {
+      "oneOf": [
+        { "type": "null" },
+        { "$ref": "#/$defs/signature" }
+      ]
+    },
+    "externalTimestamp": {
+      "oneOf": [
+        { "type": "null" },
+        { "$ref": "#/$defs/timestamp" }
+      ]
+    },
+    "evidence": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["kind", "iri", "sha256"],
+        "properties": {
+          "kind": {
+            "enum": [
+              "owner-appointment",
+              "steward-appointment",
+              "change-board-decision",
+              "license-approval",
+              "namespace-handover",
+              "security-review",
+              "legal-review"
+            ]
+          },
+          "iri": { "type": "string", "format": "uri" },
+          "sha256": { "$ref": "#/$defs/sha256" }
+        }
+      }
+    },
+    "requiredActions": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": { "type": "string", "minLength": 1 }
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "status": { "const": "candidate-awaiting-institutional-approval" }
+        },
+        "required": ["status"]
+      },
+      "then": {
+        "properties": {
+          "releaseBinding": {
+            "type": "object",
+            "properties": {
+              "artifactLockSha256": { "type": "null" },
+              "manifestSha256": { "type": "null" },
+              "gitCommit": { "type": "null" }
+            }
+          },
+          "authority": { "type": "null" },
+          "approval": { "type": "null" },
+          "detachedSignature": { "type": "null" },
+          "externalTimestamp": { "type": "null" },
+          "evidence": { "type": "array", "maxItems": 0 },
+          "requiredActions": { "type": "array", "minItems": 5 }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": { "status": { "const": "approved" } },
+        "required": ["status"]
+      },
+      "then": {
+        "properties": {
+          "releaseBinding": {
+            "type": "object",
+            "properties": {
+              "artifactLockSha256": { "$ref": "#/$defs/sha256" },
+              "manifestSha256": { "$ref": "#/$defs/sha256" },
+              "gitCommit": {
+                "type": "string",
+                "pattern": "^(?:[0-9a-f]{40}|[0-9a-f]{64})$"
+              }
+            }
+          },
+          "authority": { "$ref": "#/$defs/authority" },
+          "approval": { "$ref": "#/$defs/approval" },
+          "detachedSignature": { "$ref": "#/$defs/signature" },
+          "externalTimestamp": { "$ref": "#/$defs/timestamp" },
+          "evidence": { "type": "array", "minItems": 5 },
+          "requiredActions": { "type": "array", "maxItems": 0 }
+        }
+      }
+    }
+  ],
+  "$defs": {
+    "sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "nullableSha256": {
+      "oneOf": [
+        { "type": "null" },
+        { "$ref": "#/$defs/sha256" }
+      ]
+    },
+    "authority": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["iri", "name", "approvingRole"],
+      "properties": {
+        "iri": { "type": "string", "format": "uri", "pattern": "^https://" },
+        "name": { "type": "string", "minLength": 1 },
+        "approvingRole": { "type": "string", "minLength": 1 }
+      }
+    },
+    "approval": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["decision", "recordIri", "decidedAt", "effectiveAt", "scope"],
+      "properties": {
+        "decision": { "const": "approved" },
+        "recordIri": { "type": "string", "format": "uri" },
+        "decidedAt": { "type": "string", "format": "date-time" },
+        "effectiveAt": { "type": "string", "format": "date-time" },
+        "scope": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": { "type": "string", "minLength": 1 }
+        }
+      }
+    },
+    "signature": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["envelopeIri", "envelopeSha256", "signerKeyId", "trustAnchorIri"],
+      "properties": {
+        "envelopeIri": { "type": "string", "format": "uri" },
+        "envelopeSha256": { "$ref": "#/$defs/sha256" },
+        "signerKeyId": {
+          "type": "string",
+          "pattern": "^urn:molit:key:ed25519:sha256:[A-Za-z0-9_-]{43}$"
+        },
+        "trustAnchorIri": { "type": "string", "format": "uri" }
+      }
+    },
+    "timestamp": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["authorityIri", "evidenceIri", "evidenceSha256", "timestamp"],
+      "properties": {
+        "authorityIri": { "type": "string", "format": "uri" },
+        "evidenceIri": { "type": "string", "format": "uri" },
+        "evidenceSha256": { "$ref": "#/$defs/sha256" },
+        "timestamp": { "type": "string", "format": "date-time" }
+      }
+    }
+  }
+}

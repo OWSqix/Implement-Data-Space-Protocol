@@ -1,0 +1,1888 @@
+{
+  "schemaVersion": "molit.ontology-term-governance/1",
+  "profileVersion": "1.0.0-rc.1",
+  "ontologyIri": "https://data.molit.go.kr/def/molit-dcat-ap",
+  "ontologyFile": "ontology/molit-dcat-ap.ttl",
+  "registryStatus": "candidate",
+  "summary": {
+    "blockedEvidence": 0,
+    "completeEvidence": 40,
+    "terms": 40
+  },
+  "terms": [
+    {
+      "iri": "https://data.molit.go.kr/def/molit-dcat-ap#aggregationPeriod",
+      "localName": "aggregationPeriod",
+      "termKind": "DatatypeProperty",
+      "useCase": "Record the duration of the time window used to compute one aggregate observation value.",
+      "reuseDecision": "local-extension-required",
+      "reuseReason": "dcat:temporalResolution describes dataset resolution and cannot be assumed to equal the source aggregation window.",
+      "domain": {
+        "disposition": "declared",
+        "values": [
+          "https://data.molit.go.kr/def/molit-dcat-ap#ObservationDataset"
+        ]
+      },
+      "range": {
+        "disposition": "declared",
+        "values": [
+          "http://www.w3.org/2001/XMLSchema#duration"
+        ]
+      },
+      "isDefinedBy": "https://data.molit.go.kr/def/molit-dcat-ap",
+      "status": "https://data.molit.go.kr/id/concept/term-status/candidate",
+      "version": "1.0.0-rc.1",
+      "deprecation": {
+        "deprecated": false,
+        "policy": "The term is not deprecated in this release; a future deprecation requires a replacement IRI and a migration policy before publication.",
+        "replacements": []
+      },
+      "positiveEvidence": [
+        {
+          "requirementId": "MOLIT-OBS-001-P-AGGREGATIONPERIOD-001",
+          "fixtureId": "POS-OBSERVATION-OBSERVATION-CATALOG",
+          "fixturePath": "examples/valid/observation-catalog.ttl",
+          "evidenceType": "profile-fixture"
+        }
+      ],
+      "negativeEvidence": [
+        {
+          "requirementId": "MOLIT-OBS-001-P-AGGREGATIONPERIOD-001",
+          "fixtureId": "NEG-MUT-OBS-001-P-AGGREGATIONPERIOD-001",
+          "fixturePath": "examples/invalid/mutation-molit-obs-001-p-aggregationperiod-001.ttl",
+          "evidenceType": "profile-fixture"
+        }
+      ],
+      "evidenceStatus": "complete",
+      "blockers": []
+    },
+    {
+      "iri": "https://data.molit.go.kr/def/molit-dcat-ap#controlOwner",
+      "localName": "controlOwner",
+      "termKind": "AnnotationProperty",
+      "useCase": "Identify the role accountable for the meaning and change control of a local SHACL constraint.",
+      "reuseDecision": "local-governance-annotation-required",
+      "reuseReason": "SHACL defines constraint execution and messages but no annotation for the accountable governance role.",
+      "domain": {
+        "disposition": "declared",
+        "values": [
+          "http://www.w3.org/ns/shacl#Shape"
+        ]
+      },
+      "range": {
+        "disposition": "declared",
+        "values": [
+          "http://www.w3.org/2001/XMLSchema#string"
+        ]
+      },
+      "isDefinedBy": "https://data.molit.go.kr/def/molit-dcat-ap",
+      "status": "https://data.molit.go.kr/id/concept/term-status/candidate",
+      "version": "1.0.0-rc.1",
+      "deprecation": {
+        "deprecated": false,
+        "policy": "The term is not deprecated in this release; a future deprecation requires a replacement IRI and a migration policy before publication.",
+        "replacements": []
+      },
+      "positiveEvidence": [
+        {
+          "evidenceType": "shacl-unit",
+          "evidenceId": "POS-ONTO-ANNOTATION-CONTROL-OWNER",
+          "dataPath": "shacl/molit-quality.ttl",
+          "shapesPath": "examples/unit/ontology-term-governance/shapes/annotation-vocabulary.ttl",
+          "governingShapeId": "urn:molit:shape:annotation-vocabulary:ControlOwnerShape",
+          "expectedOutcome": "conforms",
+          "expectedResultCount": 0,
+          "expectedResultPath": null
+        }
+      ],
+      "negativeEvidence": [
+        {
+          "evidenceType": "shacl-unit",
+          "evidenceId": "NEG-ONTO-ANNOTATION-CONTROL-OWNER",
+          "dataPath": "examples/unit/ontology-term-governance/invalid/annotation-control-owner.ttl",
+          "shapesPath": "examples/unit/ontology-term-governance/shapes/annotation-vocabulary.ttl",
+          "governingShapeId": "urn:molit:shape:annotation-vocabulary:ControlOwnerShape",
+          "expectedOutcome": "violates",
+          "expectedResultCount": 1,
+          "expectedResultPath": "https://data.molit.go.kr/def/molit-dcat-ap#controlOwner"
+        }
+      ],
+      "evidenceStatus": "complete",
+      "blockers": []
+    },
+    {
+      "iri": "https://data.molit.go.kr/def/molit-dcat-ap#DataspaceOfferingMetadata",
+      "localName": "DataspaceOfferingMetadata",
+      "termKind": "Class",
+      "useCase": "Publish discovery metadata about a dataset that may later become a dataspace offering without asserting that a DSP Offer or Agreement exists.",
+      "reuseDecision": "local-extension-required",
+      "reuseReason": "DCAT Resource describes catalogue resources, while DSP Offer is an operational protocol object. Neither carries the deliberately non-operational readiness and qualification-evidence boundary required here.",
+      "domain": {
+        "disposition": "not-applicable-to-class",
+        "values": []
+      },
+      "range": {
+        "disposition": "not-applicable-to-class",
+        "values": []
+      },
+      "isDefinedBy": "https://data.molit.go.kr/def/molit-dcat-ap",
+      "status": "https://data.molit.go.kr/id/concept/term-status/candidate",
+      "version": "1.0.0-rc.1",
+      "deprecation": {
+        "deprecated": false,
+        "policy": "The term is not deprecated in this release; a future deprecation requires a replacement IRI and a migration policy before publication.",
+        "replacements": []
+      },
+      "positiveEvidence": [
+        {
+          "requirementId": "MOLIT-OFFER-001-P-DESCRIBESOFFERINGDATASET-001",
+          "fixtureId": "POS-DATASPACE-OFFERING-DATASPACE-OFFERING-CATALOG",
+          "fixturePath": "examples/valid/dataspace-offering-catalog.ttl",
+          "evidenceType": "profile-fixture"
+        }
+      ],
+      "negativeEvidence": [
+        {
+          "requirementId": "MOLIT-OFFER-001-P-DESCRIBESOFFERINGDATASET-001",
+          "fixtureId": "NEG-MUT-OFFER-001-P-DESCRIBESOFFERINGDATASET-001",
+          "fixturePath": "examples/invalid/mutation-molit-offer-001-p-describesofferingdataset-001.ttl",
+          "evidenceType": "profile-fixture"
+        }
+      ],
+      "evidenceStatus": "complete",
+      "blockers": []
+    },
+    {
+      "iri": "https://data.molit.go.kr/def/molit-dcat-ap#describesOfferingDataset",
+      "localName": "describesOfferingDataset",
+      "termKind": "ObjectProperty",
+      "useCase": "Link a non-operational offering-metadata record to the dataset it describes for discovery.",
+      "reuseDecision": "local-extension-required",
+      "reuseReason": "dcat:dataset is a catalogue membership relation and DSP relations concern operational offers; neither states this one-to-one discovery projection without changing its meaning.",
+      "domain": {
+        "disposition": "declared",
+        "values": [
+          "https://data.molit.go.kr/def/molit-dcat-ap#DataspaceOfferingMetadata"
+        ]
+      },
+      "range": {
+        "disposition": "declared",
+        "values": [
+          "http://www.w3.org/ns/dcat#Dataset"
+        ]
+      },
+      "isDefinedBy": "https://data.molit.go.kr/def/molit-dcat-ap",
+      "status": "https://data.molit.go.kr/id/concept/term-status/candidate",
+      "version": "1.0.0-rc.1",
+      "deprecation": {
+        "deprecated": false,
+        "policy": "The term is not deprecated in this release; a future deprecation requires a replacement IRI and a migration policy before publication.",
+        "replacements": []
+      },
+      "positiveEvidence": [
+        {
+          "requirementId": "MOLIT-OFFER-001-P-DESCRIBESOFFERINGDATASET-001",
+          "fixtureId": "POS-DATASPACE-OFFERING-DATASPACE-OFFERING-CATALOG",
+          "fixturePath": "examples/valid/dataspace-offering-catalog.ttl",
+          "evidenceType": "profile-fixture"
+        }
+      ],
+      "negativeEvidence": [
+        {
+          "requirementId": "MOLIT-OFFER-001-P-DESCRIBESOFFERINGDATASET-001",
+          "fixtureId": "NEG-MUT-OFFER-001-P-DESCRIBESOFFERINGDATASET-001",
+          "fixturePath": "examples/invalid/mutation-molit-offer-001-p-describesofferingdataset-001.ttl",
+          "evidenceType": "profile-fixture"
+        }
+      ],
+      "evidenceStatus": "complete",
+      "blockers": []
+    },
+    {
+      "iri": "https://data.molit.go.kr/def/molit-dcat-ap#mappedQualityMetric",
+      "localName": "mappedQualityMetric",
+      "termKind": "ObjectProperty",
+      "useCase": "Name the DQV metric selected as the target of one reviewed source-quality mapping.",
+      "reuseDecision": "local-extension-required",
+      "reuseReason": "dqv:isMeasurementOf links a measurement to a metric, not a mapping statement to the metric chosen during semantic transformation.",
+      "domain": {
+        "disposition": "declared",
+        "values": [
+          "https://data.molit.go.kr/def/molit-dcat-ap#QualityMappingStatement"
+        ]
+      },
+      "range": {
+        "disposition": "declared",
+        "values": [
+          "http://www.w3.org/ns/dqv#Metric"
+        ]
+      },
+      "isDefinedBy": "https://data.molit.go.kr/def/molit-dcat-ap",
+      "status": "https://data.molit.go.kr/id/concept/term-status/candidate",
+      "version": "1.0.0-rc.1",
+      "deprecation": {
+        "deprecated": false,
+        "policy": "The term is not deprecated in this release; a future deprecation requires a replacement IRI and a migration policy before publication.",
+        "replacements": []
+      },
+      "positiveEvidence": [
+        {
+          "requirementId": "MOLIT-QUAL-MAP-001-P-MAPPEDQUALITYMETRIC-001",
+          "fixtureId": "POS-QUALITY-QUALITY-CATALOG",
+          "fixturePath": "examples/valid/quality-catalog.ttl",
+          "evidenceType": "profile-fixture"
+        }
+      ],
+      "negativeEvidence": [
+        {
+          "requirementId": "MOLIT-QUAL-MAP-001-P-MAPPEDQUALITYMETRIC-001",
+          "fixtureId": "NEG-MUT-QUAL-MAP-001-P-MAPPEDQUALITYMETRIC-001",
+          "fixturePath": "examples/invalid/mutation-molit-qual-map-001-p-mappedqualitymetric-001.ttl",
+          "evidenceType": "profile-fixture"
+        }
+      ],
+      "evidenceStatus": "complete",
+      "blockers": []
+    },
+    {
+      "iri": "https://data.molit.go.kr/def/molit-dcat-ap#missingValuePolicy",
+      "localName": "missingValuePolicy",
+      "termKind": "ObjectProperty",
+      "useCase": "State whether absent observations are preserved, coded, excluded from aggregation or imputed.",
+      "reuseDecision": "local-extension-required",
+      "reuseReason": "No DCAT or SOSA catalogue-level property records the transformation policy for missing values on an ObservationDataset.",
+      "domain": {
+        "disposition": "declared",
+        "values": [
+          "https://data.molit.go.kr/def/molit-dcat-ap#ObservationDataset"
+        ]
+      },
+      "range": {
+        "disposition": "declared",
+        "values": [
+          "http://www.w3.org/2004/02/skos/core#Concept"
+        ]
+      },
+      "isDefinedBy": "https://data.molit.go.kr/def/molit-dcat-ap",
+      "status": "https://data.molit.go.kr/id/concept/term-status/candidate",
+      "version": "1.0.0-rc.1",
+      "deprecation": {
+        "deprecated": false,
+        "policy": "The term is not deprecated in this release; a future deprecation requires a replacement IRI and a migration policy before publication.",
+        "replacements": []
+      },
+      "positiveEvidence": [
+        {
+          "requirementId": "MOLIT-OBS-001-P-MISSINGVALUEPOLICY-001",
+          "fixtureId": "POS-OBSERVATION-OBSERVATION-CATALOG",
+          "fixturePath": "examples/valid/observation-catalog.ttl",
+          "evidenceType": "profile-fixture"
+        }
+      ],
+      "negativeEvidence": [
+        {
+          "requirementId": "MOLIT-OBS-001-P-MISSINGVALUEPOLICY-001",
+          "fixtureId": "NEG-MUT-OBS-001-P-MISSINGVALUEPOLICY-001",
+          "fixturePath": "examples/invalid/mutation-molit-obs-001-p-missingvaluepolicy-001.ttl",
+          "evidenceType": "profile-fixture"
+        }
+      ],
+      "evidenceStatus": "complete",
+      "blockers": []
+    },
+    {
+      "iri": "https://data.molit.go.kr/def/molit-dcat-ap#networkAuthority",
+      "localName": "networkAuthority",
+      "termKind": "ObjectProperty",
+      "useCase": "Name the agent that governs the uniqueness scope of a network identifier and edition.",
+      "reuseDecision": "local-extension-required",
+      "reuseReason": "dct:publisher describes publication responsibility and cannot safely be reused as the issuing authority for network identifier resolution.",
+      "domain": {
+        "disposition": "declared",
+        "values": [
+          "https://data.molit.go.kr/def/molit-dcat-ap#NetworkReference"
+        ]
+      },
+      "range": {
+        "disposition": "declared",
+        "values": [
+          "http://xmlns.com/foaf/0.1/Agent"
+        ]
+      },
+      "isDefinedBy": "https://data.molit.go.kr/def/molit-dcat-ap",
+      "status": "https://data.molit.go.kr/id/concept/term-status/candidate",
+      "version": "1.0.0-rc.1",
+      "deprecation": {
+        "deprecated": false,
+        "policy": "The term is not deprecated in this release; a future deprecation requires a replacement IRI and a migration policy before publication.",
+        "replacements": []
+      },
+      "positiveEvidence": [
+        {
+          "requirementId": "MOLIT-NET-REF-001-P-NETWORKAUTHORITY-001",
+          "fixtureId": "POS-NETWORK-NETWORK-CATALOG",
+          "fixturePath": "examples/valid/network-catalog.ttl",
+          "evidenceType": "profile-fixture"
+        }
+      ],
+      "negativeEvidence": [
+        {
+          "requirementId": "MOLIT-NET-REF-001-P-NETWORKAUTHORITY-001",
+          "fixtureId": "NEG-MUT-NET-REF-001-P-NETWORKAUTHORITY-001",
+          "fixturePath": "examples/invalid/mutation-molit-net-ref-001-p-networkauthority-001.ttl",
+          "evidenceType": "profile-fixture"
+        }
+      ],
+      "evidenceStatus": "complete",
+      "blockers": []
+    },
+    {
+      "iri": "https://data.molit.go.kr/def/molit-dcat-ap#NetworkDataset",
+      "localName": "NetworkDataset",
+      "termKind": "Class",
+      "useCase": "Identify catalogue datasets whose records depend on a versioned road, rail, stop, node or link network.",
+      "reuseDecision": "local-extension-required",
+      "reuseReason": "DCAT Dataset and the spatial profiles do not distinguish datasets whose identifiers must be resolved against one governed network edition.",
+      "domain": {
+        "disposition": "not-applicable-to-class",
+        "values": []
+      },
+      "range": {
+        "disposition": "not-applicable-to-class",
+        "values": []
+      },
+      "isDefinedBy": "https://data.molit.go.kr/def/molit-dcat-ap",
+      "status": "https://data.molit.go.kr/id/concept/term-status/candidate",
+      "version": "1.0.0-rc.1",
+      "deprecation": {
+        "deprecated": false,
+        "policy": "The term is not deprecated in this release; a future deprecation requires a replacement IRI and a migration policy before publication.",
+        "replacements": []
+      },
+      "positiveEvidence": [
+        {
+          "requirementId": "MOLIT-NET-001-P-NETWORKREFERENCE-001",
+          "fixtureId": "POS-NETWORK-NETWORK-CATALOG",
+          "fixturePath": "examples/valid/network-catalog.ttl",
+          "evidenceType": "profile-fixture"
+        }
+      ],
+      "negativeEvidence": [
+        {
+          "requirementId": "MOLIT-NET-001-P-NETWORKREFERENCE-001",
+          "fixtureId": "NEG-MUT-NET-001-P-NETWORKREFERENCE-001",
+          "fixturePath": "examples/invalid/mutation-molit-net-001-p-networkreference-001.ttl",
+          "evidenceType": "profile-fixture"
+        }
+      ],
+      "evidenceStatus": "complete",
+      "blockers": []
+    },
+    {
+      "iri": "https://data.molit.go.kr/def/molit-dcat-ap#networkElementType",
+      "localName": "networkElementType",
+      "termKind": "ObjectProperty",
+      "useCase": "List the node, link, section, stop or facility types covered by a network reference.",
+      "reuseDecision": "local-extension-required",
+      "reuseReason": "dct:type on the reference would not distinguish the type of referenced network elements from the type of the reference resource itself.",
+      "domain": {
+        "disposition": "declared",
+        "values": [
+          "https://data.molit.go.kr/def/molit-dcat-ap#NetworkReference"
+        ]
+      },
+      "range": {
+        "disposition": "declared",
+        "values": [
+          "http://www.w3.org/2004/02/skos/core#Concept"
+        ]
+      },
+      "isDefinedBy": "https://data.molit.go.kr/def/molit-dcat-ap",
+      "status": "https://data.molit.go.kr/id/concept/term-status/candidate",
+      "version": "1.0.0-rc.1",
+      "deprecation": {
+        "deprecated": false,
+        "policy": "The term is not deprecated in this release; a future deprecation requires a replacement IRI and a migration policy before publication.",
+        "replacements": []
+      },
+      "positiveEvidence": [
+        {
+          "requirementId": "MOLIT-NET-REF-001-P-NETWORKELEMENTTYPE-001",
+          "fixtureId": "POS-NETWORK-NETWORK-CATALOG",
+          "fixturePath": "examples/valid/network-catalog.ttl",
+          "evidenceType": "profile-fixture"
+        }
+      ],
+      "negativeEvidence": [
+        {
+          "requirementId": "MOLIT-NET-REF-001-P-NETWORKELEMENTTYPE-001",
+          "fixtureId": "NEG-MUT-NET-REF-001-P-NETWORKELEMENTTYPE-001",
+          "fixturePath": "examples/invalid/mutation-molit-net-ref-001-p-networkelementtype-001.ttl",
+          "evidenceType": "profile-fixture"
+        }
+      ],
+      "evidenceStatus": "complete",
+      "blockers": []
+    },
+    {
+      "iri": "https://data.molit.go.kr/def/molit-dcat-ap#networkIdentifier",
+      "localName": "networkIdentifier",
+      "termKind": "DatatypeProperty",
+      "useCase": "Record the authority-scoped identifier of a transport network or network identifier system.",
+      "reuseDecision": "local-extension-required",
+      "reuseReason": "dct:identifier identifies the NetworkReference resource itself and cannot separately identify the governed network within its issuing authority.",
+      "domain": {
+        "disposition": "declared",
+        "values": [
+          "https://data.molit.go.kr/def/molit-dcat-ap#NetworkReference"
+        ]
+      },
+      "range": {
+        "disposition": "declared",
+        "values": [
+          "http://www.w3.org/2001/XMLSchema#string"
+        ]
+      },
+      "isDefinedBy": "https://data.molit.go.kr/def/molit-dcat-ap",
+      "status": "https://data.molit.go.kr/id/concept/term-status/candidate",
+      "version": "1.0.0-rc.1",
+      "deprecation": {
+        "deprecated": false,
+        "policy": "The term is not deprecated in this release; a future deprecation requires a replacement IRI and a migration policy before publication.",
+        "replacements": []
+      },
+      "positiveEvidence": [
+        {
+          "requirementId": "MOLIT-NET-REF-001-P-NETWORKIDENTIFIER-001",
+          "fixtureId": "POS-NETWORK-NETWORK-CATALOG",
+          "fixturePath": "examples/valid/network-catalog.ttl",
+          "evidenceType": "profile-fixture"
+        }
+      ],
+      "negativeEvidence": [
+        {
+          "requirementId": "MOLIT-NET-REF-001-P-NETWORKIDENTIFIER-001",
+          "fixtureId": "NEG-MUT-NET-REF-001-P-NETWORKIDENTIFIER-001",
+          "fixturePath": "examples/invalid/mutation-molit-net-ref-001-p-networkidentifier-001.ttl",
+          "evidenceType": "profile-fixture"
+        }
+      ],
+      "evidenceStatus": "complete",
+      "blockers": []
+    },
+    {
+      "iri": "https://data.molit.go.kr/def/molit-dcat-ap#networkLifecycleStatus",
+      "localName": "networkLifecycleStatus",
+      "termKind": "ObjectProperty",
+      "useCase": "Distinguish candidate, current, superseded and withdrawn network editions during identifier resolution.",
+      "reuseDecision": "local-extension-required",
+      "reuseReason": "Generic ADMS status values do not encode the local network-edition lifecycle used by the join and publication controls.",
+      "domain": {
+        "disposition": "declared",
+        "values": [
+          "https://data.molit.go.kr/def/molit-dcat-ap#NetworkReference"
+        ]
+      },
+      "range": {
+        "disposition": "declared",
+        "values": [
+          "http://www.w3.org/2004/02/skos/core#Concept"
+        ]
+      },
+      "isDefinedBy": "https://data.molit.go.kr/def/molit-dcat-ap",
+      "status": "https://data.molit.go.kr/id/concept/term-status/candidate",
+      "version": "1.0.0-rc.1",
+      "deprecation": {
+        "deprecated": false,
+        "policy": "The term is not deprecated in this release; a future deprecation requires a replacement IRI and a migration policy before publication.",
+        "replacements": []
+      },
+      "positiveEvidence": [
+        {
+          "requirementId": "MOLIT-NET-SNAPSHOT-001-P-NETWORKLIFECYCLESTATUS-001",
+          "fixtureId": "POS-NETWORK-NETWORK-CATALOG",
+          "fixturePath": "examples/valid/network-catalog.ttl",
+          "evidenceType": "profile-fixture"
+        }
+      ],
+      "negativeEvidence": [
+        {
+          "requirementId": "MOLIT-NET-SNAPSHOT-001-P-NETWORKLIFECYCLESTATUS-001",
+          "fixtureId": "NEG-MUT-NET-SNAPSHOT-001-P-NETWORKLIFECYCLESTATUS-001",
+          "fixturePath": "examples/invalid/mutation-molit-net-snapshot-001-p-networklifecyclestatus-001.ttl",
+          "evidenceType": "profile-fixture"
+        }
+      ],
+      "evidenceStatus": "complete",
+      "blockers": []
+    },
+    {
+      "iri": "https://data.molit.go.kr/def/molit-dcat-ap#networkReference",
+      "localName": "networkReference",
+      "termKind": "ObjectProperty",
+      "useCase": "Connect a NetworkDataset to the authority-and-edition record used to interpret its network identifiers.",
+      "reuseDecision": "local-extension-required",
+      "reuseReason": "dct:references is too weak to require the NetworkReference identity tuple and would not activate the local integrity constraints.",
+      "domain": {
+        "disposition": "declared",
+        "values": [
+          "https://data.molit.go.kr/def/molit-dcat-ap#NetworkDataset"
+        ]
+      },
+      "range": {
+        "disposition": "declared",
+        "values": [
+          "https://data.molit.go.kr/def/molit-dcat-ap#NetworkReference"
+        ]
+      },
+      "isDefinedBy": "https://data.molit.go.kr/def/molit-dcat-ap",
+      "status": "https://data.molit.go.kr/id/concept/term-status/candidate",
+      "version": "1.0.0-rc.1",
+      "deprecation": {
+        "deprecated": false,
+        "policy": "The term is not deprecated in this release; a future deprecation requires a replacement IRI and a migration policy before publication.",
+        "replacements": []
+      },
+      "positiveEvidence": [
+        {
+          "requirementId": "MOLIT-NET-001-P-NETWORKREFERENCE-001",
+          "fixtureId": "POS-NETWORK-NETWORK-CATALOG",
+          "fixturePath": "examples/valid/network-catalog.ttl",
+          "evidenceType": "profile-fixture"
+        }
+      ],
+      "negativeEvidence": [
+        {
+          "requirementId": "MOLIT-NET-001-P-NETWORKREFERENCE-001",
+          "fixtureId": "NEG-MUT-NET-001-P-NETWORKREFERENCE-001",
+          "fixturePath": "examples/invalid/mutation-molit-net-001-p-networkreference-001.ttl",
+          "evidenceType": "profile-fixture"
+        }
+      ],
+      "evidenceStatus": "complete",
+      "blockers": []
+    },
+    {
+      "iri": "https://data.molit.go.kr/def/molit-dcat-ap#NetworkReference",
+      "localName": "NetworkReference",
+      "termKind": "Class",
+      "useCase": "Resolve network element identifiers against one authority, network identifier, edition, validity interval, checksum and lifecycle record.",
+      "reuseDecision": "local-extension-required",
+      "reuseReason": "No reused DCAT, PROV or GeoDCAT-AP class packages the authority and edition identity needed to prevent cross-edition joins.",
+      "domain": {
+        "disposition": "not-applicable-to-class",
+        "values": []
+      },
+      "range": {
+        "disposition": "not-applicable-to-class",
+        "values": []
+      },
+      "isDefinedBy": "https://data.molit.go.kr/def/molit-dcat-ap",
+      "status": "https://data.molit.go.kr/id/concept/term-status/candidate",
+      "version": "1.0.0-rc.1",
+      "deprecation": {
+        "deprecated": false,
+        "policy": "The term is not deprecated in this release; a future deprecation requires a replacement IRI and a migration policy before publication.",
+        "replacements": []
+      },
+      "positiveEvidence": [
+        {
+          "requirementId": "MOLIT-NET-REF-001-P-NETWORKAUTHORITY-001",
+          "fixtureId": "POS-NETWORK-NETWORK-CATALOG",
+          "fixturePath": "examples/valid/network-catalog.ttl",
+          "evidenceType": "profile-fixture"
+        }
+      ],
+      "negativeEvidence": [
+        {
+          "requirementId": "MOLIT-NET-REF-001-P-NETWORKAUTHORITY-001",
+          "fixtureId": "NEG-MUT-NET-REF-001-P-NETWORKAUTHORITY-001",
+          "fixturePath": "examples/invalid/mutation-molit-net-ref-001-p-networkauthority-001.ttl",
+          "evidenceType": "profile-fixture"
+        }
+      ],
+      "evidenceStatus": "complete",
+      "blockers": []
+    },
+    {
+      "iri": "https://data.molit.go.kr/def/molit-dcat-ap#networkSnapshotChecksum",
+      "localName": "networkSnapshotChecksum",
+      "termKind": "DatatypeProperty",
+      "useCase": "Bind a network edition to the SHA-256 digest of its fixed distribution or approved manifest.",
+      "reuseDecision": "local-extension-required",
+      "reuseReason": "SPDX checksum objects describe files, while this property binds the edition identity tuple directly to the selected snapshot digest under a fixed algorithm policy.",
+      "domain": {
+        "disposition": "declared",
+        "values": [
+          "https://data.molit.go.kr/def/molit-dcat-ap#NetworkReference"
+        ]
+      },
+      "range": {
+        "disposition": "declared",
+        "values": [
+          "http://www.w3.org/2001/XMLSchema#hexBinary"
+        ]
+      },
+      "isDefinedBy": "https://data.molit.go.kr/def/molit-dcat-ap",
+      "status": "https://data.molit.go.kr/id/concept/term-status/candidate",
+      "version": "1.0.0-rc.1",
+      "deprecation": {
+        "deprecated": false,
+        "policy": "The term is not deprecated in this release; a future deprecation requires a replacement IRI and a migration policy before publication.",
+        "replacements": []
+      },
+      "positiveEvidence": [
+        {
+          "requirementId": "MOLIT-NET-SNAPSHOT-001-P-NETWORKSNAPSHOTCHECKSUM-001",
+          "fixtureId": "POS-NETWORK-NETWORK-CATALOG",
+          "fixturePath": "examples/valid/network-catalog.ttl",
+          "evidenceType": "profile-fixture"
+        }
+      ],
+      "negativeEvidence": [
+        {
+          "requirementId": "MOLIT-NET-SNAPSHOT-001-P-NETWORKSNAPSHOTCHECKSUM-001",
+          "fixtureId": "NEG-MUT-NET-SNAPSHOT-001-P-NETWORKSNAPSHOTCHECKSUM-001",
+          "fixturePath": "examples/invalid/mutation-molit-net-snapshot-001-p-networksnapshotchecksum-001.ttl",
+          "evidenceType": "profile-fixture"
+        }
+      ],
+      "evidenceStatus": "complete",
+      "blockers": []
+    },
+    {
+      "iri": "https://data.molit.go.kr/def/molit-dcat-ap#networkValidFrom",
+      "localName": "networkValidFrom",
+      "termKind": "DatatypeProperty",
+      "useCase": "Record the first date on which a network edition may be used for identifier resolution and joins.",
+      "reuseDecision": "local-extension-required",
+      "reuseReason": "dct:valid does not separate the start and end values needed for SHACL Core cardinality and ordering checks on a NetworkReference.",
+      "domain": {
+        "disposition": "declared",
+        "values": [
+          "https://data.molit.go.kr/def/molit-dcat-ap#NetworkReference"
+        ]
+      },
+      "range": {
+        "disposition": "declared",
+        "values": [
+          "http://www.w3.org/2001/XMLSchema#date"
+        ]
+      },
+      "isDefinedBy": "https://data.molit.go.kr/def/molit-dcat-ap",
+      "status": "https://data.molit.go.kr/id/concept/term-status/candidate",
+      "version": "1.0.0-rc.1",
+      "deprecation": {
+        "deprecated": false,
+        "policy": "The term is not deprecated in this release; a future deprecation requires a replacement IRI and a migration policy before publication.",
+        "replacements": []
+      },
+      "positiveEvidence": [
+        {
+          "requirementId": "MOLIT-NET-SNAPSHOT-001-P-NETWORKVALIDFROM-001",
+          "fixtureId": "POS-NETWORK-NETWORK-CATALOG",
+          "fixturePath": "examples/valid/network-catalog.ttl",
+          "evidenceType": "profile-fixture"
+        }
+      ],
+      "negativeEvidence": [
+        {
+          "requirementId": "MOLIT-NET-SNAPSHOT-001-P-NETWORKVALIDFROM-001",
+          "fixtureId": "NEG-MUT-NET-SNAPSHOT-001-P-NETWORKVALIDFROM-001",
+          "fixturePath": "examples/invalid/mutation-molit-net-snapshot-001-p-networkvalidfrom-001.ttl",
+          "evidenceType": "profile-fixture"
+        }
+      ],
+      "evidenceStatus": "complete",
+      "blockers": []
+    },
+    {
+      "iri": "https://data.molit.go.kr/def/molit-dcat-ap#networkValidUntil",
+      "localName": "networkValidUntil",
+      "termKind": "DatatypeProperty",
+      "useCase": "Record the last date on which a network edition is interpreted as current, while allowing an open-ended current edition.",
+      "reuseDecision": "local-extension-required",
+      "reuseReason": "dct:valid does not expose the optional end date as a separately constrained value for network-edition resolution.",
+      "domain": {
+        "disposition": "declared",
+        "values": [
+          "https://data.molit.go.kr/def/molit-dcat-ap#NetworkReference"
+        ]
+      },
+      "range": {
+        "disposition": "declared",
+        "values": [
+          "http://www.w3.org/2001/XMLSchema#date"
+        ]
+      },
+      "isDefinedBy": "https://data.molit.go.kr/def/molit-dcat-ap",
+      "status": "https://data.molit.go.kr/id/concept/term-status/candidate",
+      "version": "1.0.0-rc.1",
+      "deprecation": {
+        "deprecated": false,
+        "policy": "The term is not deprecated in this release; a future deprecation requires a replacement IRI and a migration policy before publication.",
+        "replacements": []
+      },
+      "positiveEvidence": [
+        {
+          "evidenceType": "shacl-unit",
+          "evidenceId": "POS-ONTO-NETWORK-VALID-UNTIL",
+          "dataPath": "examples/unit/ontology-term-governance/valid/network-valid-until.ttl",
+          "shapesPath": "shacl/molit-network.ttl",
+          "governingShapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#NetworkSnapshotIdentityShape",
+          "expectedOutcome": "conforms",
+          "expectedResultCount": 0,
+          "expectedResultPath": null,
+          "isolationMode": "term-only-delta"
+        }
+      ],
+      "negativeEvidence": [
+        {
+          "evidenceType": "shacl-unit",
+          "evidenceId": "NEG-ONTO-NETWORK-VALID-UNTIL",
+          "dataPath": "examples/unit/ontology-term-governance/invalid/network-valid-until.ttl",
+          "shapesPath": "shacl/molit-network.ttl",
+          "governingShapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#NetworkSnapshotIdentityShape",
+          "expectedOutcome": "violates",
+          "expectedResultCount": 1,
+          "expectedResultPath": "https://data.molit.go.kr/def/molit-dcat-ap#networkValidUntil",
+          "isolationMode": "term-only-delta"
+        }
+      ],
+      "evidenceStatus": "complete",
+      "blockers": []
+    },
+    {
+      "iri": "https://data.molit.go.kr/def/molit-dcat-ap#networkVersion",
+      "localName": "networkVersion",
+      "termKind": "DatatypeProperty",
+      "useCase": "Record the authority-issued edition or snapshot identifier of the governed network state.",
+      "reuseDecision": "local-extension-required",
+      "reuseReason": "owl:versionInfo and dct:hasVersion concern resource versions generally and would blur the network edition inside the authority-scoped identity tuple.",
+      "domain": {
+        "disposition": "declared",
+        "values": [
+          "https://data.molit.go.kr/def/molit-dcat-ap#NetworkReference"
+        ]
+      },
+      "range": {
+        "disposition": "declared",
+        "values": [
+          "http://www.w3.org/2001/XMLSchema#string"
+        ]
+      },
+      "isDefinedBy": "https://data.molit.go.kr/def/molit-dcat-ap",
+      "status": "https://data.molit.go.kr/id/concept/term-status/candidate",
+      "version": "1.0.0-rc.1",
+      "deprecation": {
+        "deprecated": false,
+        "policy": "The term is not deprecated in this release; a future deprecation requires a replacement IRI and a migration policy before publication.",
+        "replacements": []
+      },
+      "positiveEvidence": [
+        {
+          "requirementId": "MOLIT-NET-REF-001-P-NETWORKVERSION-001",
+          "fixtureId": "POS-NETWORK-NETWORK-CATALOG",
+          "fixturePath": "examples/valid/network-catalog.ttl",
+          "evidenceType": "profile-fixture"
+        }
+      ],
+      "negativeEvidence": [
+        {
+          "requirementId": "MOLIT-NET-REF-001-P-NETWORKVERSION-001",
+          "fixtureId": "NEG-MUT-NET-REF-001-P-NETWORKVERSION-001",
+          "fixturePath": "examples/invalid/mutation-molit-net-ref-001-p-networkversion-001.ttl",
+          "evidenceType": "profile-fixture"
+        }
+      ],
+      "evidenceStatus": "complete",
+      "blockers": []
+    },
+    {
+      "iri": "https://data.molit.go.kr/def/molit-dcat-ap#observationAggregation",
+      "localName": "observationAggregation",
+      "termKind": "ObjectProperty",
+      "useCase": "Declare whether source observations are instantaneous, summed, averaged, minimum, maximum or median values.",
+      "reuseDecision": "local-extension-required",
+      "reuseReason": "SOSA and DCAT do not provide a dataset-level controlled property for the aggregation operator used in a published observation series.",
+      "domain": {
+        "disposition": "declared",
+        "values": [
+          "https://data.molit.go.kr/def/molit-dcat-ap#ObservationDataset"
+        ]
+      },
+      "range": {
+        "disposition": "declared",
+        "values": [
+          "http://www.w3.org/2004/02/skos/core#Concept"
+        ]
+      },
+      "isDefinedBy": "https://data.molit.go.kr/def/molit-dcat-ap",
+      "status": "https://data.molit.go.kr/id/concept/term-status/candidate",
+      "version": "1.0.0-rc.1",
+      "deprecation": {
+        "deprecated": false,
+        "policy": "The term is not deprecated in this release; a future deprecation requires a replacement IRI and a migration policy before publication.",
+        "replacements": []
+      },
+      "positiveEvidence": [
+        {
+          "requirementId": "MOLIT-OBS-001-P-OBSERVATIONAGGREGATION-001",
+          "fixtureId": "POS-OBSERVATION-OBSERVATION-CATALOG",
+          "fixturePath": "examples/valid/observation-catalog.ttl",
+          "evidenceType": "profile-fixture"
+        }
+      ],
+      "negativeEvidence": [
+        {
+          "requirementId": "MOLIT-OBS-001-P-OBSERVATIONAGGREGATION-001",
+          "fixtureId": "NEG-MUT-OBS-001-P-OBSERVATIONAGGREGATION-001",
+          "fixturePath": "examples/invalid/mutation-molit-obs-001-p-observationaggregation-001.ttl",
+          "evidenceType": "profile-fixture"
+        }
+      ],
+      "evidenceStatus": "complete",
+      "blockers": []
+    },
+    {
+      "iri": "https://data.molit.go.kr/def/molit-dcat-ap#ObservationDataset",
+      "localName": "ObservationDataset",
+      "termKind": "Class",
+      "useCase": "Describe dataset-level traffic observations with subject, observed property, aggregation window, missing-value handling and value unit.",
+      "reuseDecision": "local-extension-required",
+      "reuseReason": "SOSA Observation and ObservationCollection represent observations, not a catalogue Dataset summary. Declaring equivalence would change the level of description.",
+      "domain": {
+        "disposition": "not-applicable-to-class",
+        "values": []
+      },
+      "range": {
+        "disposition": "not-applicable-to-class",
+        "values": []
+      },
+      "isDefinedBy": "https://data.molit.go.kr/def/molit-dcat-ap",
+      "status": "https://data.molit.go.kr/id/concept/term-status/candidate",
+      "version": "1.0.0-rc.1",
+      "deprecation": {
+        "deprecated": false,
+        "policy": "The term is not deprecated in this release; a future deprecation requires a replacement IRI and a migration policy before publication.",
+        "replacements": []
+      },
+      "positiveEvidence": [
+        {
+          "requirementId": "MOLIT-OBS-001-P-AGGREGATIONPERIOD-001",
+          "fixtureId": "POS-OBSERVATION-OBSERVATION-CATALOG",
+          "fixturePath": "examples/valid/observation-catalog.ttl",
+          "evidenceType": "profile-fixture"
+        }
+      ],
+      "negativeEvidence": [
+        {
+          "requirementId": "MOLIT-OBS-001-P-AGGREGATIONPERIOD-001",
+          "fixtureId": "NEG-MUT-OBS-001-P-AGGREGATIONPERIOD-001",
+          "fixturePath": "examples/invalid/mutation-molit-obs-001-p-aggregationperiod-001.ttl",
+          "evidenceType": "profile-fixture"
+        }
+      ],
+      "evidenceStatus": "complete",
+      "blockers": []
+    },
+    {
+      "iri": "https://data.molit.go.kr/def/molit-dcat-ap#observationSubjectType",
+      "localName": "observationSubjectType",
+      "termKind": "ObjectProperty",
+      "useCase": "Declare whether observation values concern a site, section, network element, facility, vehicle population or area.",
+      "reuseDecision": "local-extension-required",
+      "reuseReason": "SOSA feature-of-interest links individual observations to subjects; it does not provide this catalogue-level subject-type summary.",
+      "domain": {
+        "disposition": "declared",
+        "values": [
+          "https://data.molit.go.kr/def/molit-dcat-ap#ObservationDataset"
+        ]
+      },
+      "range": {
+        "disposition": "declared",
+        "values": [
+          "http://www.w3.org/2004/02/skos/core#Concept"
+        ]
+      },
+      "isDefinedBy": "https://data.molit.go.kr/def/molit-dcat-ap",
+      "status": "https://data.molit.go.kr/id/concept/term-status/candidate",
+      "version": "1.0.0-rc.1",
+      "deprecation": {
+        "deprecated": false,
+        "policy": "The term is not deprecated in this release; a future deprecation requires a replacement IRI and a migration policy before publication.",
+        "replacements": []
+      },
+      "positiveEvidence": [
+        {
+          "requirementId": "MOLIT-OBS-001-P-OBSERVATIONSUBJECTTYPE-001",
+          "fixtureId": "POS-OBSERVATION-OBSERVATION-CATALOG",
+          "fixturePath": "examples/valid/observation-catalog.ttl",
+          "evidenceType": "profile-fixture"
+        }
+      ],
+      "negativeEvidence": [
+        {
+          "requirementId": "MOLIT-OBS-001-P-OBSERVATIONSUBJECTTYPE-001",
+          "fixtureId": "NEG-MUT-OBS-001-P-OBSERVATIONSUBJECTTYPE-001",
+          "fixturePath": "examples/invalid/mutation-molit-obs-001-p-observationsubjecttype-001.ttl",
+          "evidenceType": "profile-fixture"
+        }
+      ],
+      "evidenceStatus": "complete",
+      "blockers": []
+    },
+    {
+      "iri": "https://data.molit.go.kr/def/molit-dcat-ap#observationUnit",
+      "localName": "observationUnit",
+      "termKind": "ObjectProperty",
+      "useCase": "Name the QUDT unit needed to interpret values in an observation dataset independently of quality-measurement units.",
+      "reuseDecision": "local-extension-required",
+      "reuseReason": "QUDT defines Unit resources but not a DCAT Dataset property for the unit of the observation payload represented by the dataset.",
+      "domain": {
+        "disposition": "declared",
+        "values": [
+          "https://data.molit.go.kr/def/molit-dcat-ap#ObservationDataset"
+        ]
+      },
+      "range": {
+        "disposition": "declared",
+        "values": [
+          "http://qudt.org/schema/qudt/Unit"
+        ]
+      },
+      "isDefinedBy": "https://data.molit.go.kr/def/molit-dcat-ap",
+      "status": "https://data.molit.go.kr/id/concept/term-status/candidate",
+      "version": "1.0.0-rc.1",
+      "deprecation": {
+        "deprecated": false,
+        "policy": "The term is not deprecated in this release; a future deprecation requires a replacement IRI and a migration policy before publication.",
+        "replacements": []
+      },
+      "positiveEvidence": [
+        {
+          "requirementId": "MOLIT-OBS-001-P-OBSERVATIONUNIT-001",
+          "fixtureId": "POS-OBSERVATION-OBSERVATION-CATALOG",
+          "fixturePath": "examples/valid/observation-catalog.ttl",
+          "evidenceType": "profile-fixture"
+        }
+      ],
+      "negativeEvidence": [
+        {
+          "requirementId": "MOLIT-OBS-001-P-OBSERVATIONUNIT-001",
+          "fixtureId": "NEG-MUT-OBS-001-P-OBSERVATIONUNIT-001",
+          "fixturePath": "examples/invalid/mutation-molit-obs-001-p-observationunit-001.ttl",
+          "evidenceType": "profile-fixture"
+        }
+      ],
+      "evidenceStatus": "complete",
+      "blockers": []
+    },
+    {
+      "iri": "https://data.molit.go.kr/def/molit-dcat-ap#observedProperty",
+      "localName": "observedProperty",
+      "termKind": "ObjectProperty",
+      "useCase": "Name the phenomenon or characteristic represented by values in an observation dataset.",
+      "reuseDecision": "local-extension-required",
+      "reuseReason": "sosa:observedProperty applies to SOSA observations. Reusing it directly on dcat:Dataset would imply a modelling level that this catalogue profile does not claim.",
+      "domain": {
+        "disposition": "declared",
+        "values": [
+          "https://data.molit.go.kr/def/molit-dcat-ap#ObservationDataset"
+        ]
+      },
+      "range": {
+        "disposition": "declared",
+        "values": [
+          "http://www.w3.org/2004/02/skos/core#Concept"
+        ]
+      },
+      "isDefinedBy": "https://data.molit.go.kr/def/molit-dcat-ap",
+      "status": "https://data.molit.go.kr/id/concept/term-status/candidate",
+      "version": "1.0.0-rc.1",
+      "deprecation": {
+        "deprecated": false,
+        "policy": "The term is not deprecated in this release; a future deprecation requires a replacement IRI and a migration policy before publication.",
+        "replacements": []
+      },
+      "positiveEvidence": [
+        {
+          "requirementId": "MOLIT-OBS-001-P-OBSERVEDPROPERTY-001",
+          "fixtureId": "POS-OBSERVATION-OBSERVATION-CATALOG",
+          "fixturePath": "examples/valid/observation-catalog.ttl",
+          "evidenceType": "profile-fixture"
+        }
+      ],
+      "negativeEvidence": [
+        {
+          "requirementId": "MOLIT-OBS-001-P-OBSERVEDPROPERTY-001",
+          "fixtureId": "NEG-MUT-OBS-001-P-OBSERVEDPROPERTY-001",
+          "fixturePath": "examples/invalid/mutation-molit-obs-001-p-observedproperty-001.ttl",
+          "evidenceType": "profile-fixture"
+        }
+      ],
+      "evidenceStatus": "complete",
+      "blockers": []
+    },
+    {
+      "iri": "https://data.molit.go.kr/def/molit-dcat-ap#offeringReadinessStatus",
+      "localName": "offeringReadinessStatus",
+      "termKind": "ObjectProperty",
+      "useCase": "Track description, external qualification, suspension or withdrawal of a candidate offering without claiming operational readiness.",
+      "reuseDecision": "local-extension-required",
+      "reuseReason": "DSP has operational offer states and ADMS has general asset states; neither expresses this deliberately non-operational catalogue review workflow.",
+      "domain": {
+        "disposition": "declared",
+        "values": [
+          "https://data.molit.go.kr/def/molit-dcat-ap#DataspaceOfferingMetadata"
+        ]
+      },
+      "range": {
+        "disposition": "declared",
+        "values": [
+          "http://www.w3.org/2004/02/skos/core#Concept"
+        ]
+      },
+      "isDefinedBy": "https://data.molit.go.kr/def/molit-dcat-ap",
+      "status": "https://data.molit.go.kr/id/concept/term-status/candidate",
+      "version": "1.0.0-rc.1",
+      "deprecation": {
+        "deprecated": false,
+        "policy": "The term is not deprecated in this release; a future deprecation requires a replacement IRI and a migration policy before publication.",
+        "replacements": []
+      },
+      "positiveEvidence": [
+        {
+          "requirementId": "MOLIT-OFFER-001-P-OFFERINGREADINESSSTATUS-001",
+          "fixtureId": "POS-DATASPACE-OFFERING-DATASPACE-OFFERING-CATALOG",
+          "fixturePath": "examples/valid/dataspace-offering-catalog.ttl",
+          "evidenceType": "profile-fixture"
+        }
+      ],
+      "negativeEvidence": [
+        {
+          "requirementId": "MOLIT-OFFER-001-P-OFFERINGREADINESSSTATUS-001",
+          "fixtureId": "NEG-MUT-OFFER-001-P-OFFERINGREADINESSSTATUS-001",
+          "fixturePath": "examples/invalid/mutation-molit-offer-001-p-offeringreadinessstatus-001.ttl",
+          "evidenceType": "profile-fixture"
+        }
+      ],
+      "evidenceStatus": "complete",
+      "blockers": []
+    },
+    {
+      "iri": "https://data.molit.go.kr/def/molit-dcat-ap#qualificationEvidence",
+      "localName": "qualificationEvidence",
+      "termKind": "ObjectProperty",
+      "useCase": "Reference evidence used outside the public graph to review authority, delegation, validity or connector readiness.",
+      "reuseDecision": "local-extension-required",
+      "reuseReason": "PROV can type the evidence entity but does not supply a catalogue relation whose presence is explicitly non-conclusive for operational qualification.",
+      "domain": {
+        "disposition": "declared",
+        "values": [
+          "https://data.molit.go.kr/def/molit-dcat-ap#DataspaceOfferingMetadata"
+        ]
+      },
+      "range": {
+        "disposition": "declared",
+        "values": [
+          "http://www.w3.org/ns/prov#Entity"
+        ]
+      },
+      "isDefinedBy": "https://data.molit.go.kr/def/molit-dcat-ap",
+      "status": "https://data.molit.go.kr/id/concept/term-status/candidate",
+      "version": "1.0.0-rc.1",
+      "deprecation": {
+        "deprecated": false,
+        "policy": "The term is not deprecated in this release; a future deprecation requires a replacement IRI and a migration policy before publication.",
+        "replacements": []
+      },
+      "positiveEvidence": [
+        {
+          "requirementId": "MOLIT-REC-QUAL-001-P-QUALIFICATIONEVIDENCE-001",
+          "fixtureId": "POS-PUBLICATION-POLICY-PUBLICATION-OFFERING-QUALIFICATION",
+          "fixturePath": "examples/valid/publication-offering-qualification.ttl",
+          "evidenceType": "profile-fixture"
+        }
+      ],
+      "negativeEvidence": [
+        {
+          "requirementId": "MOLIT-REC-QUAL-001-P-QUALIFICATIONEVIDENCE-001",
+          "fixtureId": "NEG-MUT-REC-QUAL-001-P-QUALIFICATIONEVIDENCE-001",
+          "fixturePath": "examples/invalid/mutation-molit-rec-qual-001-p-qualificationevidence-001.ttl",
+          "evidenceType": "profile-fixture"
+        }
+      ],
+      "evidenceStatus": "complete",
+      "blockers": []
+    },
+    {
+      "iri": "https://data.molit.go.kr/def/molit-dcat-ap#qualityEvaluationMethod",
+      "localName": "qualityEvaluationMethod",
+      "termKind": "ObjectProperty",
+      "useCase": "Classify the method used to produce a quality measurement while leaving algorithm details in a versioned method document.",
+      "reuseDecision": "local-extension-required",
+      "reuseReason": "DQV does not define a controlled evaluation-method relation for QualityMeasurement, and prov:wasGeneratedBy would identify an activity rather than the reviewed method class.",
+      "domain": {
+        "disposition": "declared",
+        "values": [
+          "http://www.w3.org/ns/dqv#QualityMeasurement"
+        ]
+      },
+      "range": {
+        "disposition": "declared",
+        "values": [
+          "http://www.w3.org/2004/02/skos/core#Concept"
+        ]
+      },
+      "isDefinedBy": "https://data.molit.go.kr/def/molit-dcat-ap",
+      "status": "https://data.molit.go.kr/id/concept/term-status/candidate",
+      "version": "1.0.0-rc.1",
+      "deprecation": {
+        "deprecated": false,
+        "policy": "The term is not deprecated in this release; a future deprecation requires a replacement IRI and a migration policy before publication.",
+        "replacements": []
+      },
+      "positiveEvidence": [
+        {
+          "requirementId": "MOLIT-QUAL-PROV-001-P-QUALITYEVALUATIONMETHOD-001",
+          "fixtureId": "POS-QUALITY-QUALITY-CATALOG",
+          "fixturePath": "examples/valid/quality-catalog.ttl",
+          "evidenceType": "profile-fixture"
+        }
+      ],
+      "negativeEvidence": [
+        {
+          "requirementId": "MOLIT-QUAL-PROV-001-P-QUALITYEVALUATIONMETHOD-001",
+          "fixtureId": "NEG-MUT-QUAL-PROV-001-P-QUALITYEVALUATIONMETHOD-001",
+          "fixturePath": "examples/invalid/mutation-molit-qual-prov-001-p-qualityevaluationmethod-001.ttl",
+          "evidenceType": "profile-fixture"
+        }
+      ],
+      "evidenceStatus": "complete",
+      "blockers": []
+    },
+    {
+      "iri": "https://data.molit.go.kr/def/molit-dcat-ap#qualityEvaluationScope",
+      "localName": "qualityEvaluationScope",
+      "termKind": "DatatypeProperty",
+      "useCase": "Describe the evaluated population, sample, attributes or period so a measurement is not mistaken for a whole-dataset result.",
+      "reuseDecision": "local-extension-required",
+      "reuseReason": "DQV computedOn identifies the dataset but has no field for the actual subset or sampling scope evaluated by a measurement.",
+      "domain": {
+        "disposition": "declared",
+        "values": [
+          "http://www.w3.org/ns/dqv#QualityMeasurement"
+        ]
+      },
+      "range": {
+        "disposition": "declared",
+        "values": [
+          "http://www.w3.org/2001/XMLSchema#string"
+        ]
+      },
+      "isDefinedBy": "https://data.molit.go.kr/def/molit-dcat-ap",
+      "status": "https://data.molit.go.kr/id/concept/term-status/candidate",
+      "version": "1.0.0-rc.1",
+      "deprecation": {
+        "deprecated": false,
+        "policy": "The term is not deprecated in this release; a future deprecation requires a replacement IRI and a migration policy before publication.",
+        "replacements": []
+      },
+      "positiveEvidence": [
+        {
+          "requirementId": "MOLIT-QUAL-PROV-001-P-QUALITYEVALUATIONSCOPE-001",
+          "fixtureId": "POS-QUALITY-QUALITY-CATALOG",
+          "fixturePath": "examples/valid/quality-catalog.ttl",
+          "evidenceType": "profile-fixture"
+        }
+      ],
+      "negativeEvidence": [
+        {
+          "requirementId": "MOLIT-QUAL-PROV-001-P-QUALITYEVALUATIONSCOPE-001",
+          "fixtureId": "NEG-MUT-QUAL-PROV-001-P-QUALITYEVALUATIONSCOPE-001",
+          "fixturePath": "examples/invalid/mutation-molit-qual-prov-001-p-qualityevaluationscope-001.ttl",
+          "evidenceType": "profile-fixture"
+        }
+      ],
+      "evidenceStatus": "complete",
+      "blockers": []
+    },
+    {
+      "iri": "https://data.molit.go.kr/def/molit-dcat-ap#qualityLossDisposition",
+      "localName": "qualityLossDisposition",
+      "termKind": "ObjectProperty",
+      "useCase": "State whether a source-to-DQV mapping is lossless, reversibly lossy, irreversibly lossy, unmapped or withheld.",
+      "reuseDecision": "local-extension-required",
+      "reuseReason": "DQV has no property for transformation loss or publication exclusion on a source-quality mapping statement.",
+      "domain": {
+        "disposition": "declared",
+        "values": [
+          "https://data.molit.go.kr/def/molit-dcat-ap#QualityMappingStatement"
+        ]
+      },
+      "range": {
+        "disposition": "declared",
+        "values": [
+          "http://www.w3.org/2004/02/skos/core#Concept"
+        ]
+      },
+      "isDefinedBy": "https://data.molit.go.kr/def/molit-dcat-ap",
+      "status": "https://data.molit.go.kr/id/concept/term-status/candidate",
+      "version": "1.0.0-rc.1",
+      "deprecation": {
+        "deprecated": false,
+        "policy": "The term is not deprecated in this release; a future deprecation requires a replacement IRI and a migration policy before publication.",
+        "replacements": []
+      },
+      "positiveEvidence": [
+        {
+          "requirementId": "MOLIT-QUAL-MAP-001-P-QUALITYLOSSDISPOSITION-001",
+          "fixtureId": "POS-QUALITY-QUALITY-CATALOG",
+          "fixturePath": "examples/valid/quality-catalog.ttl",
+          "evidenceType": "profile-fixture"
+        }
+      ],
+      "negativeEvidence": [
+        {
+          "requirementId": "MOLIT-QUAL-MAP-001-P-QUALITYLOSSDISPOSITION-001",
+          "fixtureId": "NEG-MUT-QUAL-MAP-001-P-QUALITYLOSSDISPOSITION-001",
+          "fixturePath": "examples/invalid/mutation-molit-qual-map-001-p-qualitylossdisposition-001.ttl",
+          "evidenceType": "profile-fixture"
+        }
+      ],
+      "evidenceStatus": "complete",
+      "blockers": []
+    },
+    {
+      "iri": "https://data.molit.go.kr/def/molit-dcat-ap#qualityLossNote",
+      "localName": "qualityLossNote",
+      "termKind": "DatatypeProperty",
+      "useCase": "Explain source semantics not preserved by a non-lossless, unmapped or unpublished quality mapping and any reverse conditions.",
+      "reuseDecision": "local-extension-required",
+      "reuseReason": "SKOS notes and SHACL messages do not belong to the mapping instance and cannot carry the reviewed loss explanation needed by the ledger.",
+      "domain": {
+        "disposition": "declared",
+        "values": [
+          "https://data.molit.go.kr/def/molit-dcat-ap#QualityMappingStatement"
+        ]
+      },
+      "range": {
+        "disposition": "declared",
+        "values": [
+          "http://www.w3.org/2001/XMLSchema#string"
+        ]
+      },
+      "isDefinedBy": "https://data.molit.go.kr/def/molit-dcat-ap",
+      "status": "https://data.molit.go.kr/id/concept/term-status/candidate",
+      "version": "1.0.0-rc.1",
+      "deprecation": {
+        "deprecated": false,
+        "policy": "The term is not deprecated in this release; a future deprecation requires a replacement IRI and a migration policy before publication.",
+        "replacements": []
+      },
+      "positiveEvidence": [
+        {
+          "evidenceType": "shacl-unit",
+          "evidenceId": "POS-ONTO-QUALITY-LOSS-NOTE",
+          "dataPath": "examples/unit/ontology-term-governance/valid/quality-loss-note.ttl",
+          "shapesPath": "shacl/molit-quality.ttl",
+          "governingShapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#QualityMappingStatementShape",
+          "expectedOutcome": "conforms",
+          "expectedResultCount": 0,
+          "expectedResultPath": null,
+          "isolationMode": "term-only-delta"
+        }
+      ],
+      "negativeEvidence": [
+        {
+          "evidenceType": "shacl-unit",
+          "evidenceId": "NEG-ONTO-QUALITY-LOSS-NOTE",
+          "dataPath": "examples/unit/ontology-term-governance/invalid/quality-loss-note.ttl",
+          "shapesPath": "shacl/molit-quality.ttl",
+          "governingShapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#QualityMappingStatementShape",
+          "expectedOutcome": "violates",
+          "expectedResultCount": 1,
+          "expectedResultPath": null,
+          "isolationMode": "term-only-delta"
+        }
+      ],
+      "evidenceStatus": "complete",
+      "blockers": []
+    },
+    {
+      "iri": "https://data.molit.go.kr/def/molit-dcat-ap#qualityMappingStatement",
+      "localName": "qualityMappingStatement",
+      "termKind": "ObjectProperty",
+      "useCase": "Connect each DQV measurement to the source-element mapping and loss ledger that explains its projection.",
+      "reuseDecision": "local-extension-required",
+      "reuseReason": "dqv:isMeasurementOf identifies only the target metric and cannot retain source-element identity or mapping loss.",
+      "domain": {
+        "disposition": "declared",
+        "values": [
+          "http://www.w3.org/ns/dqv#QualityMeasurement"
+        ]
+      },
+      "range": {
+        "disposition": "declared",
+        "values": [
+          "https://data.molit.go.kr/def/molit-dcat-ap#QualityMappingStatement"
+        ]
+      },
+      "isDefinedBy": "https://data.molit.go.kr/def/molit-dcat-ap",
+      "status": "https://data.molit.go.kr/id/concept/term-status/candidate",
+      "version": "1.0.0-rc.1",
+      "deprecation": {
+        "deprecated": false,
+        "policy": "The term is not deprecated in this release; a future deprecation requires a replacement IRI and a migration policy before publication.",
+        "replacements": []
+      },
+      "positiveEvidence": [
+        {
+          "requirementId": "MOLIT-QUAL-PROV-001-P-QUALITYMAPPINGSTATEMENT-001",
+          "fixtureId": "POS-QUALITY-QUALITY-CATALOG",
+          "fixturePath": "examples/valid/quality-catalog.ttl",
+          "evidenceType": "profile-fixture"
+        }
+      ],
+      "negativeEvidence": [
+        {
+          "requirementId": "MOLIT-QUAL-PROV-001-P-QUALITYMAPPINGSTATEMENT-001",
+          "fixtureId": "NEG-MUT-QUAL-PROV-001-P-QUALITYMAPPINGSTATEMENT-001",
+          "fixturePath": "examples/invalid/mutation-molit-qual-prov-001-p-qualitymappingstatement-001.ttl",
+          "evidenceType": "profile-fixture"
+        }
+      ],
+      "evidenceStatus": "complete",
+      "blockers": []
+    },
+    {
+      "iri": "https://data.molit.go.kr/def/molit-dcat-ap#QualityMappingStatement",
+      "localName": "QualityMappingStatement",
+      "termKind": "Class",
+      "useCase": "Record how a source quality element maps to DQV, including loss disposition and the information needed for reverse review.",
+      "reuseDecision": "local-extension-required",
+      "reuseReason": "DQV supplies metrics and measurements but has no statement type for source-element mapping loss, non-publication or reverse-mapping notes.",
+      "domain": {
+        "disposition": "not-applicable-to-class",
+        "values": []
+      },
+      "range": {
+        "disposition": "not-applicable-to-class",
+        "values": []
+      },
+      "isDefinedBy": "https://data.molit.go.kr/def/molit-dcat-ap",
+      "status": "https://data.molit.go.kr/id/concept/term-status/candidate",
+      "version": "1.0.0-rc.1",
+      "deprecation": {
+        "deprecated": false,
+        "policy": "The term is not deprecated in this release; a future deprecation requires a replacement IRI and a migration policy before publication.",
+        "replacements": []
+      },
+      "positiveEvidence": [
+        {
+          "requirementId": "MOLIT-QUAL-MAP-001-P-MAPPEDQUALITYMETRIC-001",
+          "fixtureId": "POS-QUALITY-QUALITY-CATALOG",
+          "fixturePath": "examples/valid/quality-catalog.ttl",
+          "evidenceType": "profile-fixture"
+        }
+      ],
+      "negativeEvidence": [
+        {
+          "requirementId": "MOLIT-QUAL-MAP-001-P-MAPPEDQUALITYMETRIC-001",
+          "fixtureId": "NEG-MUT-QUAL-MAP-001-P-MAPPEDQUALITYMETRIC-001",
+          "fixturePath": "examples/invalid/mutation-molit-qual-map-001-p-mappedqualitymetric-001.ttl",
+          "evidenceType": "profile-fixture"
+        }
+      ],
+      "evidenceStatus": "complete",
+      "blockers": []
+    },
+    {
+      "iri": "https://data.molit.go.kr/def/molit-dcat-ap#qualityResultConcept",
+      "localName": "qualityResultConcept",
+      "termKind": "ObjectProperty",
+      "useCase": "Link a categorical DQV measurement to the controlled concept represented by its literal code.",
+      "reuseDecision": "local-extension-required",
+      "reuseReason": "DQV defines dqv:value as a datatype property and has no property that links a categorical measurement value to a SKOS concept.",
+      "domain": {
+        "disposition": "declared",
+        "values": [
+          "http://www.w3.org/ns/dqv#QualityMeasurement"
+        ]
+      },
+      "range": {
+        "disposition": "declared",
+        "values": [
+          "http://www.w3.org/2004/02/skos/core#Concept"
+        ]
+      },
+      "isDefinedBy": "https://data.molit.go.kr/def/molit-dcat-ap",
+      "status": "https://data.molit.go.kr/id/concept/term-status/candidate",
+      "version": "1.0.0-rc.1",
+      "deprecation": {
+        "deprecated": false,
+        "policy": "The term is not deprecated in this release; a future deprecation requires a replacement IRI and a migration policy before publication.",
+        "replacements": []
+      },
+      "positiveEvidence": [
+        {
+          "requirementId": "MOLIT-QUAL-MEASURE-001-P-QUALITYRESULTCONCEPT-001",
+          "fixtureId": "POS-QUALITY-QUALITY-CATALOG",
+          "fixturePath": "examples/valid/quality-catalog.ttl",
+          "evidenceType": "profile-fixture"
+        }
+      ],
+      "negativeEvidence": [
+        {
+          "requirementId": "MOLIT-QUAL-MEASURE-001-P-QUALITYRESULTCONCEPT-001",
+          "fixtureId": "NEG-MUT-QUAL-MEASURE-001-P-QUALITYRESULTCONCEPT-001",
+          "fixturePath": "examples/invalid/mutation-molit-qual-measure-001-p-qualityresultconcept-001.ttl",
+          "evidenceType": "profile-fixture"
+        }
+      ],
+      "evidenceStatus": "complete",
+      "blockers": []
+    },
+    {
+      "iri": "https://data.molit.go.kr/def/molit-dcat-ap#qualityResultKind",
+      "localName": "qualityResultKind",
+      "termKind": "ObjectProperty",
+      "useCase": "Discriminate quantitative, boolean, categorical and descriptive DQV values so datatype and unit rules can be enforced.",
+      "reuseDecision": "local-extension-required",
+      "reuseReason": "DQV permits a value but does not provide a result-kind discriminator that closes datatype and unit semantics for this profile.",
+      "domain": {
+        "disposition": "declared",
+        "values": [
+          "http://www.w3.org/ns/dqv#QualityMeasurement"
+        ]
+      },
+      "range": {
+        "disposition": "declared",
+        "values": [
+          "http://www.w3.org/2004/02/skos/core#Concept"
+        ]
+      },
+      "isDefinedBy": "https://data.molit.go.kr/def/molit-dcat-ap",
+      "status": "https://data.molit.go.kr/id/concept/term-status/candidate",
+      "version": "1.0.0-rc.1",
+      "deprecation": {
+        "deprecated": false,
+        "policy": "The term is not deprecated in this release; a future deprecation requires a replacement IRI and a migration policy before publication.",
+        "replacements": []
+      },
+      "positiveEvidence": [
+        {
+          "requirementId": "MOLIT-QUAL-PROV-001-P-QUALITYRESULTKIND-001",
+          "fixtureId": "POS-QUALITY-QUALITY-CATALOG",
+          "fixturePath": "examples/valid/quality-catalog.ttl",
+          "evidenceType": "profile-fixture"
+        }
+      ],
+      "negativeEvidence": [
+        {
+          "requirementId": "MOLIT-QUAL-PROV-001-P-QUALITYRESULTKIND-001",
+          "fixtureId": "NEG-MUT-QUAL-PROV-001-P-QUALITYRESULTKIND-001",
+          "fixturePath": "examples/invalid/mutation-molit-qual-prov-001-p-qualityresultkind-001.ttl",
+          "evidenceType": "profile-fixture"
+        }
+      ],
+      "evidenceStatus": "complete",
+      "blockers": []
+    },
+    {
+      "iri": "https://data.molit.go.kr/def/molit-dcat-ap#qualityStatus",
+      "localName": "qualityStatus",
+      "termKind": "ObjectProperty",
+      "useCase": "Distinguish unassessed, assessed, warning, failed and stale dataset quality states without treating missing measurements as a pass.",
+      "reuseDecision": "local-extension-required",
+      "reuseReason": "DQV measurements describe results but do not provide a dataset-level assessment workflow status with the required non-pass semantics.",
+      "domain": {
+        "disposition": "declared",
+        "values": [
+          "http://www.w3.org/ns/dcat#Dataset"
+        ]
+      },
+      "range": {
+        "disposition": "declared",
+        "values": [
+          "http://www.w3.org/2004/02/skos/core#Concept"
+        ]
+      },
+      "isDefinedBy": "https://data.molit.go.kr/def/molit-dcat-ap",
+      "status": "https://data.molit.go.kr/id/concept/term-status/candidate",
+      "version": "1.0.0-rc.1",
+      "deprecation": {
+        "deprecated": false,
+        "policy": "The term is not deprecated in this release; a future deprecation requires a replacement IRI and a migration policy before publication.",
+        "replacements": []
+      },
+      "positiveEvidence": [
+        {
+          "requirementId": "MOLIT-QUAL-001-P-QUALITYSTATUS-001",
+          "fixtureId": "POS-QUALITY-QUALITY-CATALOG",
+          "fixturePath": "examples/valid/quality-catalog.ttl",
+          "evidenceType": "profile-fixture"
+        }
+      ],
+      "negativeEvidence": [
+        {
+          "requirementId": "MOLIT-QUAL-001-P-QUALITYSTATUS-001",
+          "fixtureId": "NEG-MUT-QUAL-001-P-QUALITYSTATUS-001",
+          "fixturePath": "examples/invalid/mutation-molit-qual-001-p-qualitystatus-001.ttl",
+          "evidenceType": "profile-fixture"
+        }
+      ],
+      "evidenceStatus": "complete",
+      "blockers": []
+    },
+    {
+      "iri": "https://data.molit.go.kr/def/molit-dcat-ap#remediation",
+      "localName": "remediation",
+      "termKind": "AnnotationProperty",
+      "useCase": "Attach operational correction guidance to a governed constraint independently of its diagnostic message.",
+      "reuseDecision": "local-governance-annotation-required",
+      "reuseReason": "sh:message explains a validation result but does not provide a stable, separately governed remediation annotation.",
+      "domain": {
+        "disposition": "declared",
+        "values": [
+          "http://www.w3.org/ns/shacl#Shape"
+        ]
+      },
+      "range": {
+        "disposition": "declared",
+        "values": [
+          "http://www.w3.org/2001/XMLSchema#string"
+        ]
+      },
+      "isDefinedBy": "https://data.molit.go.kr/def/molit-dcat-ap",
+      "status": "https://data.molit.go.kr/id/concept/term-status/candidate",
+      "version": "1.0.0-rc.1",
+      "deprecation": {
+        "deprecated": false,
+        "policy": "The term is not deprecated in this release; a future deprecation requires a replacement IRI and a migration policy before publication.",
+        "replacements": []
+      },
+      "positiveEvidence": [
+        {
+          "evidenceType": "shacl-unit",
+          "evidenceId": "POS-ONTO-ANNOTATION-REMEDIATION",
+          "dataPath": "shacl/molit-quality.ttl",
+          "shapesPath": "examples/unit/ontology-term-governance/shapes/annotation-vocabulary.ttl",
+          "governingShapeId": "urn:molit:shape:annotation-vocabulary:RemediationShape",
+          "expectedOutcome": "conforms",
+          "expectedResultCount": 0,
+          "expectedResultPath": null
+        }
+      ],
+      "negativeEvidence": [
+        {
+          "evidenceType": "shacl-unit",
+          "evidenceId": "NEG-ONTO-ANNOTATION-REMEDIATION",
+          "dataPath": "examples/unit/ontology-term-governance/invalid/annotation-remediation.ttl",
+          "shapesPath": "examples/unit/ontology-term-governance/shapes/annotation-vocabulary.ttl",
+          "governingShapeId": "urn:molit:shape:annotation-vocabulary:RemediationShape",
+          "expectedOutcome": "violates",
+          "expectedResultCount": 1,
+          "expectedResultPath": "https://data.molit.go.kr/def/molit-dcat-ap#remediation"
+        }
+      ],
+      "evidenceStatus": "complete",
+      "blockers": []
+    },
+    {
+      "iri": "https://data.molit.go.kr/def/molit-dcat-ap#requirementId",
+      "localName": "requirementId",
+      "termKind": "AnnotationProperty",
+      "useCase": "Link one SHACL constraint to its requirement register row and conformance fixtures with a stable identifier.",
+      "reuseDecision": "local-governance-annotation-required",
+      "reuseReason": "SHACL blank-node identity and source locations are not stable cross-artifact identifiers, and no standard SHACL predicate provides this traceability key.",
+      "domain": {
+        "disposition": "declared",
+        "values": [
+          "http://www.w3.org/ns/shacl#Shape"
+        ]
+      },
+      "range": {
+        "disposition": "declared",
+        "values": [
+          "http://www.w3.org/2001/XMLSchema#string"
+        ]
+      },
+      "isDefinedBy": "https://data.molit.go.kr/def/molit-dcat-ap",
+      "status": "https://data.molit.go.kr/id/concept/term-status/candidate",
+      "version": "1.0.0-rc.1",
+      "deprecation": {
+        "deprecated": false,
+        "policy": "The term is not deprecated in this release; a future deprecation requires a replacement IRI and a migration policy before publication.",
+        "replacements": []
+      },
+      "positiveEvidence": [
+        {
+          "evidenceType": "shacl-unit",
+          "evidenceId": "POS-ONTO-ANNOTATION-REQUIREMENT-ID",
+          "dataPath": "shacl/molit-quality.ttl",
+          "shapesPath": "examples/unit/ontology-term-governance/shapes/annotation-vocabulary.ttl",
+          "governingShapeId": "urn:molit:shape:annotation-vocabulary:RequirementIdShape",
+          "expectedOutcome": "conforms",
+          "expectedResultCount": 0,
+          "expectedResultPath": null
+        }
+      ],
+      "negativeEvidence": [
+        {
+          "evidenceType": "shacl-unit",
+          "evidenceId": "NEG-ONTO-ANNOTATION-REQUIREMENT-ID",
+          "dataPath": "examples/unit/ontology-term-governance/invalid/annotation-requirement-id.ttl",
+          "shapesPath": "examples/unit/ontology-term-governance/shapes/annotation-vocabulary.ttl",
+          "governingShapeId": "urn:molit:shape:annotation-vocabulary:RequirementIdShape",
+          "expectedOutcome": "violates",
+          "expectedResultCount": 1,
+          "expectedResultPath": "https://data.molit.go.kr/def/molit-dcat-ap#requirementId"
+        }
+      ],
+      "evidenceStatus": "complete",
+      "blockers": []
+    },
+    {
+      "iri": "https://data.molit.go.kr/def/molit-dcat-ap#sourceQualityElement",
+      "localName": "sourceQualityElement",
+      "termKind": "ObjectProperty",
+      "useCase": "Identify the source-standard or source-system quality element used as input to a DQV mapping.",
+      "reuseDecision": "local-extension-required",
+      "reuseReason": "DQV identifies target metrics and measurements but does not identify the source semantic element preserved in a crosswalk.",
+      "domain": {
+        "disposition": "declared",
+        "values": [
+          "https://data.molit.go.kr/def/molit-dcat-ap#QualityMappingStatement"
+        ]
+      },
+      "range": {
+        "disposition": "declared",
+        "values": [
+          "http://www.w3.org/2004/02/skos/core#Concept"
+        ]
+      },
+      "isDefinedBy": "https://data.molit.go.kr/def/molit-dcat-ap",
+      "status": "https://data.molit.go.kr/id/concept/term-status/candidate",
+      "version": "1.0.0-rc.1",
+      "deprecation": {
+        "deprecated": false,
+        "policy": "The term is not deprecated in this release; a future deprecation requires a replacement IRI and a migration policy before publication.",
+        "replacements": []
+      },
+      "positiveEvidence": [
+        {
+          "requirementId": "MOLIT-QUAL-MAP-001-P-SOURCEQUALITYELEMENT-001",
+          "fixtureId": "POS-QUALITY-QUALITY-CATALOG",
+          "fixturePath": "examples/valid/quality-catalog.ttl",
+          "evidenceType": "profile-fixture"
+        }
+      ],
+      "negativeEvidence": [
+        {
+          "requirementId": "MOLIT-QUAL-MAP-001-P-SOURCEQUALITYELEMENT-001",
+          "fixtureId": "NEG-MUT-QUAL-MAP-001-P-SOURCEQUALITYELEMENT-001",
+          "fixturePath": "examples/invalid/mutation-molit-qual-map-001-p-sourcequalityelement-001.ttl",
+          "evidenceType": "profile-fixture"
+        }
+      ],
+      "evidenceStatus": "complete",
+      "blockers": []
+    },
+    {
+      "iri": "https://data.molit.go.kr/def/molit-dcat-ap#SpatialDataset",
+      "localName": "SpatialDataset",
+      "termKind": "Class",
+      "useCase": "Activate the local CRS, spatial disclosure and geometry publication controls for a catalogue dataset.",
+      "reuseDecision": "local-extension-required",
+      "reuseReason": "DCAT Dataset is intentionally broad, and GeoDCAT-AP does not provide a class that marks the exact local shape package and disclosure policy.",
+      "domain": {
+        "disposition": "not-applicable-to-class",
+        "values": []
+      },
+      "range": {
+        "disposition": "not-applicable-to-class",
+        "values": []
+      },
+      "isDefinedBy": "https://data.molit.go.kr/def/molit-dcat-ap",
+      "status": "https://data.molit.go.kr/id/concept/term-status/candidate",
+      "version": "1.0.0-rc.1",
+      "deprecation": {
+        "deprecated": false,
+        "policy": "The term is not deprecated in this release; a future deprecation requires a replacement IRI and a migration policy before publication.",
+        "replacements": []
+      },
+      "positiveEvidence": [
+        {
+          "requirementId": "MOLIT-GEO-001-P-REFERENCESYSTEM-001",
+          "fixtureId": "POS-GEO-GEO-CATALOG",
+          "fixturePath": "examples/valid/geo-catalog.ttl",
+          "evidenceType": "profile-fixture"
+        }
+      ],
+      "negativeEvidence": [
+        {
+          "requirementId": "MOLIT-GEO-001-P-REFERENCESYSTEM-001",
+          "fixtureId": "NEG-MUT-GEO-001-P-REFERENCESYSTEM-001",
+          "fixturePath": "examples/invalid/mutation-molit-geo-001-p-referencesystem-001.ttl",
+          "evidenceType": "profile-fixture"
+        }
+      ],
+      "evidenceStatus": "complete",
+      "blockers": []
+    },
+    {
+      "iri": "https://data.molit.go.kr/def/molit-dcat-ap#spatialDisclosureLevel",
+      "localName": "spatialDisclosureLevel",
+      "termKind": "ObjectProperty",
+      "useCase": "Declare how precisely a spatial extent is exposed in the public catalogue without replacing access rights or security classification.",
+      "reuseDecision": "local-extension-required",
+      "reuseReason": "DCAT access rights govern access and GeoDCAT-AP geometry properties carry geometry; neither records the deliberate generalisation level of the public extent.",
+      "domain": {
+        "disposition": "declared",
+        "values": [
+          "http://www.w3.org/ns/dcat#Resource"
+        ]
+      },
+      "range": {
+        "disposition": "declared",
+        "values": [
+          "http://www.w3.org/2004/02/skos/core#Concept"
+        ]
+      },
+      "isDefinedBy": "https://data.molit.go.kr/def/molit-dcat-ap",
+      "status": "https://data.molit.go.kr/id/concept/term-status/candidate",
+      "version": "1.0.0-rc.1",
+      "deprecation": {
+        "deprecated": false,
+        "policy": "The term is not deprecated in this release; a future deprecation requires a replacement IRI and a migration policy before publication.",
+        "replacements": []
+      },
+      "positiveEvidence": [
+        {
+          "requirementId": "MOLIT-GEO-001-P-SPATIALDISCLOSURELEVEL-001",
+          "fixtureId": "POS-GEO-GEO-CATALOG",
+          "fixturePath": "examples/valid/geo-catalog.ttl",
+          "evidenceType": "profile-fixture"
+        }
+      ],
+      "negativeEvidence": [
+        {
+          "requirementId": "MOLIT-GEO-001-P-SPATIALDISCLOSURELEVEL-001",
+          "fixtureId": "NEG-MUT-GEO-001-P-SPATIALDISCLOSURELEVEL-001",
+          "fixturePath": "examples/invalid/mutation-molit-geo-001-p-spatialdisclosurelevel-001.ttl",
+          "evidenceType": "profile-fixture"
+        }
+      ],
+      "evidenceStatus": "complete",
+      "blockers": []
+    },
+    {
+      "iri": "https://data.molit.go.kr/def/molit-dcat-ap#TransferableDataset",
+      "localName": "TransferableDataset",
+      "termKind": "Class",
+      "useCase": "Read and migrate 0.1.0 graphs that used a dataset type to suggest transfer-oriented metadata.",
+      "reuseDecision": "deprecated-compatibility-only",
+      "reuseReason": "This term is retained only for compatibility. New graphs use dcat:Dataset plus molit:DataspaceOfferingMetadata so catalogue description is not confused with transfer eligibility.",
+      "domain": {
+        "disposition": "not-applicable-to-class",
+        "values": []
+      },
+      "range": {
+        "disposition": "not-applicable-to-class",
+        "values": []
+      },
+      "isDefinedBy": "https://data.molit.go.kr/def/molit-dcat-ap",
+      "status": "https://data.molit.go.kr/id/concept/term-status/deprecated",
+      "version": "1.0.0-rc.1",
+      "deprecation": {
+        "deprecated": true,
+        "policy": "Do not mint this term in new metadata. Read it only for 0.1.0 migration and replace it with every listed replacement according to the release migration note.",
+        "replacements": [
+          "http://www.w3.org/ns/dcat#Dataset",
+          "https://data.molit.go.kr/def/molit-dcat-ap#DataspaceOfferingMetadata"
+        ]
+      },
+      "positiveEvidence": [
+        {
+          "evidenceType": "shacl-unit",
+          "evidenceId": "POS-ONTO-LEGACY-TRANSFERABLE-DATASET",
+          "dataPath": "examples/unit/ontology-term-governance/legacy/road-network-catalog-0.1.0.ttl",
+          "shapesPath": "examples/unit/ontology-term-governance/legacy/molit-core-0.1.0.ttl",
+          "governingShapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/0.1.0#TransferableDatasetShape",
+          "expectedOutcome": "conforms",
+          "expectedResultCount": 0,
+          "expectedResultPath": null
+        }
+      ],
+      "negativeEvidence": [
+        {
+          "evidenceType": "shacl-unit",
+          "evidenceId": "NEG-ONTO-DEPRECATED-TRANSFERABLE-DATASET",
+          "dataPath": "examples/unit/ontology-term-governance/invalid/deprecated-transferable-dataset.ttl",
+          "shapesPath": "shacl/molit-recommended.ttl",
+          "governingShapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#LocalDeprecatedTransferTypeShape",
+          "expectedOutcome": "violates",
+          "expectedResultCount": 1,
+          "expectedResultPath": null
+        }
+      ],
+      "evidenceStatus": "complete",
+      "blockers": []
+    },
+    {
+      "iri": "https://data.molit.go.kr/def/molit-dcat-ap#TransferDistribution",
+      "localName": "TransferDistribution",
+      "termKind": "Class",
+      "useCase": "Read and migrate 0.1.0 graphs that used a distribution type to suggest a transfer representation.",
+      "reuseDecision": "deprecated-compatibility-only",
+      "reuseReason": "This term is retained only for compatibility. New graphs use dcat:Distribution and separate offering metadata so a distribution does not assert operational access.",
+      "domain": {
+        "disposition": "not-applicable-to-class",
+        "values": []
+      },
+      "range": {
+        "disposition": "not-applicable-to-class",
+        "values": []
+      },
+      "isDefinedBy": "https://data.molit.go.kr/def/molit-dcat-ap",
+      "status": "https://data.molit.go.kr/id/concept/term-status/deprecated",
+      "version": "1.0.0-rc.1",
+      "deprecation": {
+        "deprecated": true,
+        "policy": "Do not mint this term in new metadata. Read it only for 0.1.0 migration and replace it with every listed replacement according to the release migration note.",
+        "replacements": [
+          "http://www.w3.org/ns/dcat#Distribution",
+          "https://data.molit.go.kr/def/molit-dcat-ap#DataspaceOfferingMetadata"
+        ]
+      },
+      "positiveEvidence": [
+        {
+          "evidenceType": "shacl-unit",
+          "evidenceId": "POS-ONTO-LEGACY-TRANSFER-DISTRIBUTION",
+          "dataPath": "examples/unit/ontology-term-governance/legacy/road-network-catalog-0.1.0.ttl",
+          "shapesPath": "examples/unit/ontology-term-governance/legacy/molit-core-0.1.0.ttl",
+          "governingShapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/0.1.0#TransferDistributionShape",
+          "expectedOutcome": "conforms",
+          "expectedResultCount": 0,
+          "expectedResultPath": null
+        }
+      ],
+      "negativeEvidence": [
+        {
+          "evidenceType": "shacl-unit",
+          "evidenceId": "NEG-ONTO-DEPRECATED-TRANSFER-DISTRIBUTION",
+          "dataPath": "examples/unit/ontology-term-governance/invalid/deprecated-transfer-distribution.ttl",
+          "shapesPath": "shacl/molit-recommended.ttl",
+          "governingShapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#LocalDeprecatedTransferTypeShape",
+          "expectedOutcome": "violates",
+          "expectedResultCount": 1,
+          "expectedResultPath": null
+        }
+      ],
+      "evidenceStatus": "complete",
+      "blockers": []
+    }
+  ]
+}

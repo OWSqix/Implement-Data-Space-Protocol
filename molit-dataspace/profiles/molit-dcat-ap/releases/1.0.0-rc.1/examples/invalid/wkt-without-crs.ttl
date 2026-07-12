@@ -23,7 +23,7 @@ ex:dataset
     dcat:theme <http://publications.europa.eu/resource/authority/data-theme/TRAN>,
         <https://data.molit.go.kr/id/concept/domain/road> ;
     molit:qualityStatus quality:not-assessed ;
-    molit:spatialDisclosureLevel <https://data.molit.go.kr/id/concept/spatial-disclosure-level/generalized> .
+    molit:spatialDisclosureLevel <https://data.molit.go.kr/id/concept/spatial-disclosure-level/exact> .
 
 ex:publisher
     a foaf:Agent ;
