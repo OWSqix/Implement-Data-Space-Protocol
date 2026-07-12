@@ -1,0 +1,134 @@
+@prefix dcat: <http://www.w3.org/ns/dcat#> .
+@prefix dct: <http://purl.org/dc/terms/> .
+@prefix geodcatap: <http://data.europa.eu/930/> .
+@prefix geo: <http://www.opengis.net/ont/geosparql#> .
+@prefix locn: <http://www.w3.org/ns/locn#> .
+@prefix molit: <https://data.molit.go.kr/def/molit-dcat-ap#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+
+<https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#CoreCatalogProfileShape>
+    a sh:NodeShape ;
+    sh:targetClass dcat:Catalog ;
+    molit:requirementId "MOLIT-PROFILE-CORE-001" ;
+    molit:controlOwner "metadata-governance" ;
+    sh:property [ molit:requirementId "MOLIT-PROFILE-CORE-001-P-CONFORMSTO-001" ;
+        sh:path dct:conformsTo ;
+        sh:hasValue <https://data.molit.go.kr/profile/molit-dcat-ap/1.0.0-rc.1> ;
+        sh:qualifiedValueShape [
+            sh:nodeKind sh:IRI ;
+            sh:pattern "^https://data[.]molit[.]go[.]kr[.]?(:443)?/profile/molit-dcat-ap(/.*)?$" ;
+            sh:flags "i"
+        ] ;
+        sh:qualifiedMinCount 1 ;
+        sh:message "Core 카탈로그에는 Core release IRI만 metadata profile marker로 지정해야 한다."@ko
+    ] .
+
+<https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#CoreCatalogRecordProfileShape>
+    a sh:NodeShape ;
+    sh:targetClass dcat:CatalogRecord ;
+    molit:requirementId "MOLIT-PROFILE-CORE-002" ;
+    molit:controlOwner "metadata-governance" ;
+    sh:property [ molit:requirementId "MOLIT-PROFILE-CORE-002-P-CONFORMSTO-001" ;
+        sh:path dct:conformsTo ;
+        sh:hasValue <https://data.molit.go.kr/profile/molit-dcat-ap/1.0.0-rc.1> ;
+        sh:qualifiedValueShape [
+            sh:nodeKind sh:IRI ;
+            sh:pattern "^https://data[.]molit[.]go[.]kr[.]?(:443)?/profile/molit-dcat-ap(/.*)?$" ;
+            sh:flags "i"
+        ] ;
+        sh:qualifiedMinCount 1 ;
+        sh:message "Core CatalogRecord에는 Core release IRI만 metadata profile marker로 지정해야 한다."@ko
+    ] .
+
+<https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#CoreRejectsGeoProfileSubjectShape>
+    a sh:NodeShape ;
+    sh:targetClass molit:SpatialDataset,
+        molit:NetworkDataset ;
+    sh:targetSubjectsOf geodcatap:custodian,
+        geodcatap:distributor,
+        geodcatap:originator,
+        geodcatap:principalInvestigator,
+        geodcatap:processor,
+        geodcatap:purpose,
+        geodcatap:referenceSystem,
+        geodcatap:resourceProvider,
+        geodcatap:resourceType,
+        geodcatap:serviceCategory,
+        geodcatap:serviceProtocol,
+        geodcatap:serviceType,
+        geodcatap:spatialResolutionAsText,
+        geodcatap:topicCategory,
+        geodcatap:user,
+        locn:geometry,
+        molit:networkReference ;
+    molit:requirementId "MOLIT-PROFILE-SELECTION-MARKER-001" ;
+    molit:controlOwner "metadata-governance" ;
+    sh:in () ;
+    sh:message "국토교통 공간 유형·property, GeoDCAT-AP property 또는 LOCN geometry를 사용한 graph는 Geo subprofile로 검증해야 한다."@ko .
+
+<https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#CoreRejectsGeoSparql11Shape>
+    a sh:NodeShape ;
+    sh:targetClass geo:Feature,
+        geo:FeatureCollection,
+        geo:Geometry,
+        geo:GeometryCollection,
+        geo:SpatialObject,
+        geo:SpatialObjectCollection ;
+    sh:targetSubjectsOf geo:defaultGeometry,
+        geo:hasDefaultGeometry,
+        geo:hasGeometry,
+        geo:hasBoundingBox,
+        geo:hasCentroid,
+        geo:hasSize,
+        geo:hasArea,
+        geo:hasLength,
+        geo:hasPerimeterLength,
+        geo:hasVolume,
+        geo:hasSpatialAccuracy,
+        geo:hasSpatialResolution,
+        geo:ehContains,
+        geo:ehCoveredBy,
+        geo:ehCovers,
+        geo:ehDisjoint,
+        geo:ehEquals,
+        geo:ehInside,
+        geo:ehMeet,
+        geo:ehOverlap,
+        geo:rcc8dc,
+        geo:rcc8ec,
+        geo:rcc8eq,
+        geo:rcc8ntpp,
+        geo:rcc8ntppi,
+        geo:rcc8po,
+        geo:rcc8tpp,
+        geo:rcc8tppi,
+        geo:sfContains,
+        geo:sfCrosses,
+        geo:sfDisjoint,
+        geo:sfEquals,
+        geo:sfIntersects,
+        geo:sfOverlaps,
+        geo:sfTouches,
+        geo:sfWithin,
+        geo:asDGGS,
+        geo:asGML,
+        geo:asGeoJSON,
+        geo:asKML,
+        geo:asWKT,
+        geo:hasSerialization,
+        geo:coordinateDimension,
+        geo:dimension,
+        geo:spatialDimension,
+        geo:isEmpty,
+        geo:isSimple,
+        geo:hasMetricSize,
+        geo:hasMetricArea,
+        geo:hasMetricLength,
+        geo:hasMetricPerimeterLength,
+        geo:hasMetricVolume,
+        geo:hasMetricSpatialAccuracy,
+        geo:hasMetricSpatialResolution ;
+    molit:requirementId "MOLIT-PROFILE-SELECTION-GEOSPARQL-001" ;
+    molit:controlOwner "metadata-governance" ;
+    sh:in () ;
+    sh:message "GeoSPARQL 1.1 class 또는 property를 사용한 graph는 Geo subprofile로 검증해야 한다."@ko .

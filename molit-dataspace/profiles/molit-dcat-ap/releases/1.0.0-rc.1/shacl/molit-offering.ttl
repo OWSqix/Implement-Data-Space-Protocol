@@ -1,0 +1,59 @@
+@prefix dcat: <http://www.w3.org/ns/dcat#> .
+@prefix dct: <http://purl.org/dc/terms/> .
+@prefix molit: <https://data.molit.go.kr/def/molit-dcat-ap#> .
+@prefix offerstatus: <https://data.molit.go.kr/id/concept/offering-readiness-status/> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#DataspaceOfferingMetadataShape>
+    a sh:NodeShape ;
+    sh:targetClass molit:DataspaceOfferingMetadata ;
+    molit:requirementId "MOLIT-OFFER-001" ;
+    molit:controlOwner "offering-governance" ;
+    sh:property [ molit:requirementId "MOLIT-OFFER-001-P-IDENTIFIER-001" ;
+        sh:path dct:identifier ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:datatype xsd:string ;
+        sh:minLength 1 ;
+        sh:maxLength 500 ;
+        sh:message "Offering metadata must have one registry-scoped identifier."@en
+    ], [ molit:requirementId "MOLIT-OFFER-001-P-TITLE-001" ;
+        sh:path dct:title ;
+        sh:minCount 1 ;
+        sh:nodeKind sh:Literal ;
+        sh:qualifiedValueShape [ sh:languageIn ( "ko" ) ] ;
+        sh:qualifiedMinCount 1 ;
+        sh:message "Offering metadata must have a Korean title."@en
+    ], [ molit:requirementId "MOLIT-OFFER-001-P-DESCRIBESOFFERINGDATASET-001" ;
+        sh:path molit:describesOfferingDataset ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:class dcat:Dataset ;
+        sh:nodeKind sh:IRI ;
+        sh:message "Offering metadata must identify exactly one catalogued dataset."@en
+    ], [ molit:requirementId "MOLIT-OFFER-001-P-OFFERINGREADINESSSTATUS-001" ;
+        sh:path molit:offeringReadinessStatus ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:nodeKind sh:IRI ;
+        sh:in ( offerstatus:drafting offerstatus:metadata-conformant offerstatus:qualification-pending ) ;
+        sh:message "Use a candidate readiness status. This profile does not assert operational DSP approval."@en
+    ], [ molit:requirementId "MOLIT-OFFER-001-P-MODIFIED-001" ;
+        sh:path dct:modified ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:or ( [ sh:datatype xsd:date ] [ sh:datatype xsd:dateTime ] ) ;
+        sh:message "Offering metadata must state its last modification date."@en
+    ] .
+
+<https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#OfferingDatasetBacklinkShape>
+    a sh:NodeShape ;
+    sh:targetClass molit:DataspaceOfferingMetadata ;
+    molit:requirementId "MOLIT-OFFER-LINK-001" ;
+    molit:controlOwner "offering-governance" ;
+    sh:property [ molit:requirementId "MOLIT-OFFER-LINK-001-P-DESCRIBESOFFERINGDATASET-001" ;
+        sh:path molit:describesOfferingDataset ;
+        sh:class dcat:Dataset ;
+        sh:message "The described resource must be a catalogued DCAT dataset."@en
+    ] .

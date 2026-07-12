@@ -1,0 +1,8 @@
+PREFIX molit: <https://data.molit.go.kr/def/molit-dcat-ap#>
+SELECT ?dataset ?property ?subjectType ?unit
+WHERE {
+  ?dataset a molit:ObservationDataset ;
+           molit:observedProperty ?property ;
+           molit:observationSubjectType ?subjectType ;
+           molit:observationUnit ?unit .
+}

@@ -9,16 +9,13 @@ import {
 } from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
-import { releaseMachineExtensions } from "../../src/profile/registry.mjs";
+import {
+  profileVersionEnvironmentVariable,
+  releaseMachineExtensions,
+  resolveProfileReleaseRoot,
+  resolveProfileVersion,
+} from "../../src/profile/registry.mjs";
 
-const projectRoot = path.resolve(fileURLToPath(new URL("../../", import.meta.url)));
-const defaultReleaseRoot = path.join(
-  projectRoot,
-  "profiles",
-  "molit-dcat-ap",
-  "releases",
-  "0.1.0",
-);
 const machineExtensions = new Set(releaseMachineExtensions);
 const provenanceFields = new Set([
   "license",
@@ -137,7 +134,7 @@ async function readStrictJson(filePath) {
   }
 }
 
-async function listMachineArtifacts(releaseRoot, lockName) {
+async function listMachineArtifacts(releaseRoot, lockName, includeAllRegularFiles) {
   const files = [];
   async function walk(directory) {
     for (const entry of await readdir(directory, { withFileTypes: true })) {
@@ -153,7 +150,7 @@ async function listMachineArtifacts(releaseRoot, lockName) {
       if (entry.isDirectory()) await walk(absolute);
       else if (entry.isFile()
         && relative !== lockName
-        && isMachineArtifactPath(relative)) {
+        && (includeAllRegularFiles || isMachineArtifactPath(relative))) {
         files.push(relative);
       }
     }
@@ -163,13 +160,25 @@ async function listMachineArtifacts(releaseRoot, lockName) {
 }
 
 export async function updateArtifactLock({
-  releaseRoot = defaultReleaseRoot,
+  releaseRoot,
+  version,
   lockName = "artifact-lock.json",
   provenanceUpdates = {},
   reviewedChangedPaths = [],
 } = {}) {
+  if (releaseRoot !== undefined && version !== undefined) {
+    throw failure(
+      "INVALID_ARTIFACT_REVIEW",
+      "releaseRoot and version are mutually exclusive",
+    );
+  }
   validateLockName(lockName);
-  const absoluteReleaseRoot = path.resolve(releaseRoot);
+  const selectedVersion = releaseRoot === undefined
+    ? resolveProfileVersion(version)
+    : null;
+  const absoluteReleaseRoot = path.resolve(
+    releaseRoot ?? resolveProfileReleaseRoot(selectedVersion),
+  );
   const lockPath = path.resolve(absoluteReleaseRoot, lockName);
   if (path.dirname(lockPath) !== absoluteReleaseRoot) {
     throw failure(
@@ -179,9 +188,20 @@ export async function updateArtifactLock({
     );
   }
   const previous = await readStrictJson(lockPath);
+  const manifest = await readStrictJson(path.join(absoluteReleaseRoot, "manifest.json"));
+  const includeAllRegularFiles = manifest?.schemaVersion === "molit.application-profile-manifest/2"
+    && manifest?.artifactInventoryPolicy === "all-release-files";
   if (previous?.schemaVersion !== "molit.profile-artifact-lock/1"
+    || (selectedVersion !== null && previous?.profileVersion !== selectedVersion)
     || !Array.isArray(previous.artifacts)) {
-    throw failure("INVALID_ARTIFACT_LOCK", "artifact lock identity is invalid");
+    throw failure(
+      "INVALID_ARTIFACT_LOCK",
+      "artifact lock identity is invalid",
+      {
+        actualProfileVersion: previous?.profileVersion ?? null,
+        expectedProfileVersion: selectedVersion,
+      },
+    );
   }
 
   const lockedPaths = previous.artifacts.map((artifact) => artifact?.path);
@@ -191,7 +211,7 @@ export async function updateArtifactLock({
       || path.isAbsolute(relative)
       || relative.split(/[\\/]/u).includes("..")
       || relative === lockName
-      || !isMachineArtifactPath(relative)
+      || (!includeAllRegularFiles && !isMachineArtifactPath(relative))
   ));
   const duplicates = lockedPaths.filter((item, index) => lockedPaths.indexOf(item) !== index);
   if (invalidPaths.length > 0 || duplicates.length > 0) {
@@ -224,7 +244,11 @@ export async function updateArtifactLock({
     );
   }
 
-  const discoveredPaths = await listMachineArtifacts(absoluteReleaseRoot, lockName);
+  const discoveredPaths = await listMachineArtifacts(
+    absoluteReleaseRoot,
+    lockName,
+    includeAllRegularFiles,
+  );
   const locked = new Set(lockedPaths);
   const discovered = new Set(discoveredPaths);
   const added = discoveredPaths.filter((relative) => !locked.has(relative));
@@ -328,18 +352,24 @@ const invokedPath = process.argv[1] ? path.resolve(process.argv[1]) : null;
 if (invokedPath === fileURLToPath(import.meta.url)) {
   try {
     const reviewedChangedPaths = [];
+    let version;
     for (let index = 2; index < process.argv.length; index += 1) {
       const argument = process.argv[index];
-      if (argument !== "--reviewed" || !process.argv[index + 1]) {
+      const value = process.argv[index + 1];
+      if (argument === "--version" && value && !value.startsWith("--") && !version) {
+        version = value;
+        index += 1;
+      } else if (argument === "--reviewed" && value && !value.startsWith("--")) {
+        reviewedChangedPaths.push(value);
+        index += 1;
+      } else {
         throw failure(
           "INVALID_ARTIFACT_REVIEW",
-          "CLI accepts repeated --reviewed <release-relative-path> pairs only",
+          `CLI accepts --version <version> and repeated --reviewed <release-relative-path> pairs; ${profileVersionEnvironmentVariable} is used when --version is omitted`,
         );
       }
-      reviewedChangedPaths.push(process.argv[index + 1]);
-      index += 1;
     }
-    await updateArtifactLock({ reviewedChangedPaths });
+    await updateArtifactLock({ reviewedChangedPaths, version });
   } catch (error) {
     process.stderr.write(`${JSON.stringify({
       code: error.code ?? "ARTIFACT_LOCK_UPDATE_FAILED",

@@ -1,0 +1,695 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="dcterms.conformsTo" content="https://data.molit.go.kr/profile/molit-dcat-ap/1.0.0-rc.1">
+<title>MOLIT-DCAT-AP 1.0.0-rc.1</title>
+</head>
+<body>
+<main>
+<h1>국토교통 메타데이터 응용 프로파일 1.0.0-rc.1</h1>
+<p>작성일: 2026-07-13<br>
+적용판: 1.0.0-rc.1<br>
+상태: Candidate / 발행 승인 전</p>
+<h2>1. 목적과 범위</h2>
+<p>이 응용 프로파일은 국토교통 데이터 카탈로그가 Dataset, Distribution, DataService, 공간 범위, 교통망 판, 교통 관측, 품질과 데이터 스페이스 제공 후보를 RDF로 교환하는 규칙을 정한다.</p>
+<p>다음 항목은 적용 범위 밖이다.</p>
+<ul>
+<li>DSP Catalog·Contract Negotiation·Transfer Process wire message</li>
+<li>계약 체결, 제공 권한, 접근통제와 Connector 운영 자격</li>
+<li>원천 Database, object key, credential과 private source binding</li>
+<li>기관별 XML·API·Excel·Database 수집 adapter</li>
+<li>원-윈도우를 포함한 기존 플랫폼 전용 입출력 형식</li>
+</ul>
+<p><code>dataspace-offering</code> 모듈은 발견용 메타데이터를 검증한다. 이 모듈을 통과해도 DSP Offer가 생성되거나 전송 권한이 승인되지 않는다.</p>
+<h2>2. 후보판 상태와 판정 경계</h2>
+<p><code>manifest.json</code>의 상태는 <code>candidate</code>다. Namespace는 <code>proposed-not-yet-dereferenceable</code>이다. 다음 사항은 완료되지 않았다.</p>
+<ul>
+<li>운영기관의 profile owner·steward·변경심의 승인</li>
+<li>Stable·version IRI의 dereference와 content negotiation</li>
+<li>로컬 명세·온톨로지·통제어의 공개 라이선스 승인</li>
+<li>Detached release signature와 외부 timestamp</li>
+<li>KS·TTA 원문 조항 기반 crosswalk와 기관 fixture 검증</li>
+<li>국내 기관·행정구역·법령·공공누리 권위 registry 승인</li>
+</ul>
+<p>따라서 이 판을 <code>MOLIT Recommendation</code>, 기관 표준 또는 국내 표준 적합판으로 표시하지 않는다. 검증 명령의 exit code <code>0</code>은 선택한 후보 모듈의 기술 제약을 통과했다는 뜻이다.</p>
+<p>RC.1 발행 판정의 machine 정본은 이 release의 <code>release-acceptance.json</code>이다. 파일 누락, schema 오류 또는 열린 차단항목은 release 허용으로 해석하지 않는다.</p>
+<p><code>standards/korean-interoperability-register.json</code>은 reviewed digest가 고정된 0.1.0 legacy 기준선이다. RC.1의 현재 Gate를 판정하지 않으며, RC.1 crosswalk가 기준선의 표준 ID를 source inventory로 참조한다.</p>
+<h2>3. 규범 기준과 참고 기준</h2>
+<h3>3.1 규범 기준</h3>
+<table>
+<thead>
+<tr>
+<th>계층</th>
+<th>규격</th>
+<th>RC.1 적용</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>공통 RDF 어휘</td>
+<td>W3C DCAT 3 Recommendation</td>
+<td>Dataset·Distribution·DataService 공통 의미</td>
+</tr>
+<tr>
+<td>공공 카탈로그</td>
+<td>DCAT-AP 3.0.1</td>
+<td><code>core</code>, <code>observation</code>, <code>quality</code>, <code>dataspace-offering</code> 기반 SHACL</td>
+</tr>
+<tr>
+<td>공간 카탈로그</td>
+<td>GeoDCAT-AP 3.1.0</td>
+<td><code>geo</code>, <code>network</code> 기반 SHACL</td>
+</tr>
+<tr>
+<td>제약 언어</td>
+<td>W3C SHACL 1.0</td>
+<td>Machine-readable constraint</td>
+</tr>
+<tr>
+<td>분류체계</td>
+<td>W3C SKOS</td>
+<td>국토교통 후보 어휘와 mapping 관계</td>
+</tr>
+<tr>
+<td>품질</td>
+<td>W3C DQV</td>
+<td>품질 측정값과 metric</td>
+</tr>
+<tr>
+<td>계보</td>
+<td>W3C PROV-O</td>
+<td>방법·증거·변환 계보 참조</td>
+</tr>
+<tr>
+<td>단위</td>
+<td>QUDT</td>
+<td>공식 Unit 재사용과 QUDT factor-unit 모델을 따른 국토교통 후보 DerivedUnit</td>
+</tr>
+<tr>
+<td>프로파일 기술</td>
+<td>W3C Profiles Vocabulary</td>
+<td>Module과 artifact 기술</td>
+</tr>
+</tbody>
+</table>
+<p>2026-07-13 기준 normative upstream 판과 source URL을 고정했다. 근거: <a href="manifest.json">manifest</a>, <a href="artifact-lock.json">artifact lock</a>. Runtime에서 최신판을 조회해 바꾸지 않는다.</p>
+<h3>3.2 참고 기준</h3>
+<p>mobilityDCAT-AP 1.1.0은 DCAT-AP 2.0.1 기반이다. RC.1은 Transport Mode 1.0.0 어휘만 재사용하며 mobilityDCAT-AP SHACL을 blocking bundle에 병합하지 않는다.</p>
+<p>SOSA/SSN은 실제 Observation instance 모델의 재사용 후보다. <code>molit:ObservationDataset</code>은 카탈로그 Dataset이며 SOSA Observation 또는 ObservationCollection과 동치가 아니다.</p>
+<h3>3.3 국내 기준의 현재 상태</h3>
+<p><code>mappings/domestic-standards-crosswalk.csv</code>는 0.1.0 legacy 국내 상호운용 register에 등록된 표준마다 검토행을 하나 이상 둔다. KS·TTA 원문을 합법적으로 확보하지 못한 행은 다음 값으로 고정했다.</p>
+<pre><code class="language-text">source_clause = PENDING-LAWFUL-FULLTEXT
+conformance_claim = informative-pending
+</code></pre>
+<p>이 행은 구현 순서와 손실검토 위치를 정한다. <code>exactMatch</code>, 조항 적합성 또는 국내 표준 준수를 주장하지 않는다.</p>
+<h2>4. 적합성 문서와 우선순위</h2>
+<table>
+<thead>
+<tr>
+<th>Artifact</th>
+<th>역할</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>manifest.json</code></td>
+<td>Module, bundle, validation dataset와 실행 한도</td>
+</tr>
+<tr>
+<td><code>requirements/profile-requirements.json</code></td>
+<td>Property constraint별 requirement ID와 출처</td>
+</tr>
+<tr>
+<td><code>requirements/conformance-cases.json</code></td>
+<td>Requirement와 양성·음성 fixture 연결</td>
+</tr>
+<tr>
+<td><code>shacl/upstream/</code></td>
+<td>판이 고정된 DCAT-AP·GeoDCAT-AP 원본 constraint</td>
+</tr>
+<tr>
+<td><code>shacl/molit-*.ttl</code></td>
+<td>국토교통 로컬 constraint</td>
+</tr>
+<tr>
+<td><code>bundles/*.ttl</code></td>
+<td>외부 SHACL engine용 결정적 module bundle</td>
+</tr>
+<tr>
+<td><code>bundles/support.ttl</code></td>
+<td>검증기가 추가하는 유일한 trusted support graph</td>
+</tr>
+<tr>
+<td><code>ontology/competency-registry.json</code>, <code>ontology/queries/*.rq</code></td>
+<td>Module별 competency 기대결과와 실행 Query</td>
+</tr>
+<tr>
+<td><code>vocabulary/registry-metadata.json</code></td>
+<td>통제어 118개의 상태·유효기간·출처·대체관계 projection</td>
+</tr>
+<tr>
+<td><code>migration/semantic-diff.json</code></td>
+<td>0.1.0과 RC.1의 module·requirement·ontology·통제어 차이</td>
+</tr>
+<tr>
+<td><code>publication/content-negotiation.json</code></td>
+<td>Profile·ontology IRI의 표현 선택 계약</td>
+</tr>
+<tr>
+<td><code>index.html</code>, <code>ontology.html</code>, <code>serializations/*.jsonld</code></td>
+<td>HTML·JSON-LD 공개 표현</td>
+</tr>
+<tr>
+<td><code>CONFORMANCE.md</code></td>
+<td>적합성 주장과 실행 절차</td>
+</tr>
+</tbody>
+</table>
+<p>문서와 machine artifact가 다르면 어느 한쪽을 임의로 우선하지 않는다. 차이를 release 결함으로 등록하고 같은 변경에서 명세, requirement, shape와 fixture를 함께 고친다.</p>
+<h2>5. 일곱 개 Module</h2>
+<p>RC.1은 여섯 개 conformance module과 한 개 publication validation policy를 제공한다. <code>eu-controlled-audit</code>는 별도 diagnostic이며 일곱 개에 포함하지 않는다.</p>
+<table>
+<thead>
+<tr>
+<th>이름</th>
+<th>종류</th>
+<th>Profile IRI</th>
+<th>포함 범위</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>core</code></td>
+<td>Conformance</td>
+<td><code>/1.0.0-rc.1</code></td>
+<td>DCAT-AP 3.0.1과 국토교통 공통 카탈로그 규칙</td>
+</tr>
+<tr>
+<td><code>geo</code></td>
+<td>Conformance</td>
+<td><code>/1.0.0-rc.1/geo</code></td>
+<td>GeoDCAT-AP 3.1.0, 공간 공개수준과 geometry</td>
+</tr>
+<tr>
+<td><code>network</code></td>
+<td>Conformance</td>
+<td><code>/1.0.0-rc.1/network</code></td>
+<td><code>geo</code> 기반과 판이 있는 교통망 참조</td>
+</tr>
+<tr>
+<td><code>observation</code></td>
+<td>Conformance</td>
+<td><code>/1.0.0-rc.1/observation</code></td>
+<td><code>core</code> 기반과 관측항목·집계·결측·단위</td>
+</tr>
+<tr>
+<td><code>quality</code></td>
+<td>Conformance</td>
+<td><code>/1.0.0-rc.1/quality</code></td>
+<td><code>core</code> 기반과 DQV·방법·범위·결과·손실</td>
+</tr>
+<tr>
+<td><code>dataspace-offering</code></td>
+<td>Conformance</td>
+<td><code>/1.0.0-rc.1/dataspace-offering</code></td>
+<td><code>core</code> 기반과 제공 후보 메타데이터</td>
+</tr>
+<tr>
+<td><code>publication-policy</code></td>
+<td>Validation policy</td>
+<td><code>/1.0.0-rc.1/publication-policy</code></td>
+<td>권고 property와 deprecated IRI 점검</td>
+</tr>
+</tbody>
+</table>
+<h3>5.1 Module 선언</h3>
+<p>Catalog와 해당 CatalogRecord는 주장하는 각 conformance module의 version IRI를 <code>dct:conformsTo</code>로 선언한다. 여러 module IRI를 함께 선언할 수 있다.</p>
+<p>예를 들어 교통 관측 Dataset에 품질 측정값이 있으면 다음 두 marker를 함께 선언할 수 있다.</p>
+<pre><code class="language-turtle">@prefix dct: &lt;http://purl.org/dc/terms/&gt; .
+
+&lt;https://data.molit.go.kr/id/example/catalog&gt;
+    dct:conformsTo
+        &lt;https://data.molit.go.kr/profile/molit-dcat-ap/1.0.0-rc.1/observation&gt;,
+        &lt;https://data.molit.go.kr/profile/molit-dcat-ap/1.0.0-rc.1/quality&gt; .
+</code></pre>
+<p>각 marker는 독립된 주장이다. 위 graph는 <code>observation</code>과 <code>quality</code> bundle을 각각 통과해야 한다. 한 module 통과 결과를 다른 module의 결과로 재사용하지 않는다.</p>
+<h3>5.2 Module 조합</h3>
+<ul>
+<li><code>network</code> bundle은 GeoDCAT-AP와 공간 constraint를 이미 포함한다.</li>
+<li><code>geo</code>와 <code>network</code>를 함께 선언하면 두 module을 각각 검증한다.</li>
+<li><code>observation</code>, <code>quality</code>와 <code>dataspace-offering</code>은 필요에 따라 함께 선언할 수 있다.</li>
+<li><code>core</code> marker는 공통 module 자체의 적합성을 별도로 주장할 때 선언한다. Domain module bundle에는 필요한 공통 constraint가 이미 들어 있다.</li>
+<li><code>publication-policy</code>는 2단계 검증 정책이다. Dataset 내용 profile marker로 대신 사용하지 않는다.</li>
+<li><code>eu-controlled-audit</code>는 EU 교환 진단이다. 한국 게시 적합성 marker가 아니다.</li>
+</ul>
+<p><code>publish-check</code>는 선택한 conformance module에 <code>publication-policy</code>를 자동으로 적용한다. 여러 module을 선언한 graph는 module마다 <code>publish-check</code>를 실행한다.</p>
+<h2>6. 검증 Dataset 구성</h2>
+<h3>6.1 Candidate graph</h3>
+<p>검증 입력은 instance metadata만 포함한다. Class와 property IRI를 사용하는 것은 허용하지만 다음 ontology·shape graph의 본문을 입력에 병합하지 않는다.</p>
+<ul>
+<li>W3C <code>dcat.ttl</code></li>
+<li>GeoSPARQL ontology</li>
+<li>MOLIT ontology</li>
+<li>SHACL shape graph</li>
+</ul>
+<p>Candidate graph에서 <code>owl:imports</code>와 <code>sh:shapesGraph</code>로 원격 graph를 가져오지 않는다.</p>
+<h3>6.2 Support graph</h3>
+<p>검증기는 lock으로 고정한 <code>bundles/support.ttl</code>만 trusted background로 추가한다.</p>
+<pre><code class="language-text">validation data graph = candidate instance graph + exact locked support.ttl
+entailment = none
+</code></pre>
+<p>Support graph는 제출 metadata가 아니며 입력 digest에 섞지 않는다. 외부 검증기도 같은 byte의 support graph를 별도 입력으로 사용해야 한다.</p>
+<h3>6.3 Ontology merge를 금지하는 이유</h3>
+<p>Ontology의 domain, range와 subclass triple을 candidate graph에 합치면 SHACL target이 늘어날 수 있다. 같은 instance graph가 ontology 병합 여부에 따라 적합과 부적합으로 뒤집히면 상호운용 가능한 판정이 아니다.</p>
+<p>따라서 “더 많은 배경지식을 넣으면 더 정확하다”는 방식으로 graph를 확장하지 않는다. 추가 추론 결과가 필요하면 RC.1 적합성 결과와 분리해 보고한다.</p>
+<h2>7. 공통 Core 규칙</h2>
+<h3>7.1 Catalog와 CatalogRecord</h3>
+<table>
+<thead>
+<tr>
+<th>Resource</th>
+<th>핵심 요구사항</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Catalog</td>
+<td>한국어 title·description, Publisher IRI 하나, Dataset·Record 각각 하나 이상, KOR language</td>
+</tr>
+<tr>
+<td>CatalogRecord</td>
+<td>한국어 title, modified 하나, <code>foaf:primaryTopic</code> Dataset 하나, KOR language</td>
+</tr>
+<tr>
+<td>관계</td>
+<td><code>Catalog/dcat:dataset</code> 집합과 <code>Catalog/dcat:record/foaf:primaryTopic</code> 집합이 일치</td>
+</tr>
+<tr>
+<td>Module marker</td>
+<td>주장하는 각 module IRI를 Catalog와 관련 Record에 선언</td>
+</tr>
+</tbody>
+</table>
+<p>Record가 Catalog에 없는 다른 Dataset을 <code>foaf:primaryTopic</code>으로 가리키면 <code>MOLIT-CAT-REL-001</code>로 거부한다.</p>
+<h3>7.2 Dataset</h3>
+<p>Dataset에는 다음 국토교통 공통값이 필요하다.</p>
+<ul>
+<li>Publisher scope에서 관리하는 <code>dct:identifier</code> 하나. 같은 candidate graph에서는 Publisher–identifier 중복을 거부하고 graph 밖 중복은 운영 registry가 검사</li>
+<li>한국어 <code>dct:title</code>과 <code>dct:description</code></li>
+<li><code>foaf:Agent</code> Publisher IRI 하나</li>
+<li>국토교통 주제분류 IRI 하나 이상</li>
+<li>승인된 <code>dct:accessRights</code> IRI 하나</li>
+<li><code>dct:modified</code> 하나</li>
+<li>Dataset을 포함하는 Catalog와 CatalogRecord</li>
+</ul>
+<p>EU <code>TRAN</code>·<code>REGI</code>는 교환용으로 추가할 수 있지만 RC.1 Core의 국내 주제값을 대신하지 않는다. 0.1.0과 달리 EU 주제값을 의무화하지 않는다.</p>
+<h3>7.3 DataService와 Agent</h3>
+<p>DataService에는 한국어 title, HTTPS endpoint와 제공 Dataset 연결이 필요하다. Agent에는 한국어 명칭이 필요하다. Endpoint가 공개 metadata에 안전하다는 판정과 실제 서비스 가용성은 다른 문제다.</p>
+<h2>8. 분야별 의미</h2>
+<h3>8.1 Geo</h3>
+<p><code>molit:SpatialDataset</code>은 DCAT Dataset 유형, reference system과 공간 공개수준을 가진다.</p>
+<table>
+<thead>
+<tr>
+<th>용도</th>
+<th>RC.1 후보 범위</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Source reference system</td>
+<td>CRS84, EPSG:4326·3857·4737·5179·5185·5186·5187·5188</td>
+</tr>
+<tr>
+<td>공개 geometry CRS</td>
+<td>CRS84, EPSG:4326·3857·5179·5186</td>
+</tr>
+<tr>
+<td>WKT geometry</td>
+<td>명시적 CRS가 있는 2차원 Point·LineString·단일 ring Polygon 후보 subset</td>
+</tr>
+<tr>
+<td>GML geometry</td>
+<td>GML 3.2 Point 후보 subset</td>
+</tr>
+<tr>
+<td>공개수준</td>
+<td>exact·generalized·administrative-area·bounding-box·grid·withheld</td>
+</tr>
+</tbody>
+</table>
+<p><code>withheld</code>인 공개 graph에는 location, bbox, centroid와 geometry serialization을 넣지 않는다. Source CRS, 검색용 geometry CRS와 API 요청 CRS가 같다고 가정하지 않는다.</p>
+<p><code>RA-CRS=fixed</code>는 다섯 CRS의 고정 근거 byte, RC.1 geometry subset 왕복시험과 EPSG:5186 표준노드링크 표본 1건을 확인했다는 bounded 기술 판정이다.</p>
+<p>이 판정은 전체 기관 corpus의 CRS 분포, 지원하지 않는 geometry·수직 CRS·coordinate epoch 또는 운영 변환 정확도를 입증하지 않는다. Recommendation의 국내 실증은 층화 corpus와 기관 승인 fixture로 별도 수행한다.</p>
+<h3>8.2 Network</h3>
+<p>Network module은 <code>molit:NetworkDataset</code>과 <code>molit:NetworkReference</code>를 사용한다. NetworkDataset에는 고정한 mobilityDCAT-AP Transport Mode 1.0.0 값 하나 이상과 NetworkReference 하나가 필요하다.</p>
+<table>
+<thead>
+<tr>
+<th>의미</th>
+<th>Property</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>발급기관</td>
+<td><code>molit:networkAuthority</code></td>
+</tr>
+<tr>
+<td>망 식별자</td>
+<td><code>molit:networkIdentifier</code></td>
+</tr>
+<tr>
+<td>망 판</td>
+<td><code>molit:networkVersion</code></td>
+</tr>
+<tr>
+<td>요소 유형</td>
+<td><code>molit:networkElementType</code></td>
+</tr>
+<tr>
+<td>Snapshot byte</td>
+<td><code>molit:networkSnapshotChecksum</code> SHA-256 <code>xsd:hexBinary</code></td>
+</tr>
+<tr>
+<td>생명주기</td>
+<td>candidate·current·superseded·withdrawn</td>
+</tr>
+<tr>
+<td>유효일</td>
+<td><code>molit:networkValidFrom</code>, 선택 <code>networkValidUntil</code></td>
+</tr>
+</tbody>
+</table>
+<p>망 식별자 문자열이 같아도 발급기관이나 판이 다르면 같은 참조로 병합하지 않는다. 과거 판은 <code>superseded</code> 상태와 checksum을 보존해 과거 Dataset을 재현한다.</p>
+<p>국가교통정보센터의 <code>[2026-07-01]NODELINKDATA.zip</code>을 관찰해 <a href="examples/source-evidence/standard-node-link-2026-07-01.json">checksum·CRS·최소 node–link 관계 fixture</a>를 만들었다. 이 표본은 구조시험 근거이며 자료의 재배포 허가나 CC BY 적용을 뜻하지 않는다. 권리 승인 전에는 원 ZIP을 release artifact로 배포하지 않는다.</p>
+<h3>8.3 Observation</h3>
+<p>Observation module은 관측 metadata를 다음 축으로 분리한다.</p>
+<table>
+<thead>
+<tr>
+<th>의미</th>
+<th>Property</th>
+<th>후보값 또는 datatype</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>관측기간</td>
+<td><code>dct:temporal</code></td>
+<td><code>dct:PeriodOfTime</code></td>
+</tr>
+<tr>
+<td>시간해상도</td>
+<td><code>dcat:temporalResolution</code></td>
+<td><code>xsd:duration</code></td>
+</tr>
+<tr>
+<td>집계기간</td>
+<td><code>molit:aggregationPeriod</code></td>
+<td>값 하나를 계산한 시간창인 <code>xsd:duration</code></td>
+</tr>
+<tr>
+<td>관측항목</td>
+<td><code>molit:observedProperty</code></td>
+<td>traffic-volume·speed·travel-time</td>
+</tr>
+<tr>
+<td>집계방식</td>
+<td><code>molit:observationAggregation</code></td>
+<td>instantaneous·mean·sum·min·max·median</td>
+</tr>
+<tr>
+<td>결측정책</td>
+<td><code>molit:missingValuePolicy</code></td>
+<td>preserve·explicit-code·exclude·imputed</td>
+</tr>
+<tr>
+<td>관측대상</td>
+<td><code>molit:observationSubjectType</code></td>
+<td>site·section·network-element·facility·vehicle-population·area</td>
+</tr>
+<tr>
+<td>단위</td>
+<td><code>molit:observationUnit</code></td>
+<td>속도: QUDT <code>KiloM-PER-HR</code>·<code>M-PER-SEC</code>; 교통량: 후보 <code>vehicle-per-hour</code>·<code>vehicle-per-day</code> 또는 QUDT <code>NUM</code>; 통행시간: QUDT <code>SEC</code>·<code>MIN</code></td>
+</tr>
+</tbody>
+</table>
+<p>관측값 단위와 DQV 품질값 단위를 혼동하지 않는다. 예를 들어 속도값의 <code>KiloM-PER-HR</code>와 완전성 품질값의 <code>PERCENT</code>는 다른 경로에 기록한다.</p>
+<p><code>vehicle-per-hour</code>와 <code>vehicle-per-day</code>는 QUDT 공식 vocabulary 항목이 아니다. RC.1이 QUDT <code>DerivedUnit</code>·<code>FactorUnit</code> 구조로 정의한 <code>candidate</code> term이며 운영기관과 QUDT의 승인을 주장하지 않는다. <code>vehicle-per-day</code>를 쓰면 하루 집계 경계의 시간대를 Dataset 설명에 기록한다.</p>
+<h3>8.4 Quality</h3>
+<p>Quality module은 Dataset의 품질상태와 DQV QualityMeasurement를 검증한다.</p>
+<p>측정값에는 다음 정보가 필요하다.</p>
+<ul>
+<li><code>dqv:computedOn</code>, <code>dqv:isMeasurementOf</code>, <code>dqv:value</code>와 품질값 단위</li>
+<li><code>molit:qualityEvaluationMethod</code></li>
+<li>공개 projection 범위인 <code>molit:qualityEvaluationScope</code></li>
+<li><code>molit:qualityResultKind</code></li>
+<li>별도 <code>molit:qualityMappingStatement</code></li>
+</ul>
+<p>QualityMappingStatement는 원천 품질요소, 대상 DQV metric, 손실상태와 손실설명을 기록한다. <code>lossless</code>가 아닌 모든 상태에는 <code>molit:qualityLossNote</code>가 필요하다. <code>unmapped</code>·<code>not-published</code>에는 대상 metric을 만들지 않는다. 지원하지 않는 ISO 19157 결과를 기존 수치 metric으로 임의 축약하지 않는다.</p>
+<p><code>dqv:hasQualityMeasurement</code>로 연결한 Dataset과 <code>dqv:computedOn</code> Dataset 집합은 일치해야 한다.</p>
+<h3>8.5 Dataspace offering</h3>
+<p>신규 제공 후보는 <code>molit:DataspaceOfferingMetadata</code>로 기술한다.</p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>요구사항</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>dct:identifier</code></td>
+<td>Registry scope 식별자 하나</td>
+</tr>
+<tr>
+<td><code>dct:title</code></td>
+<td>한국어 title 하나 이상</td>
+</tr>
+<tr>
+<td><code>molit:describesOfferingDataset</code></td>
+<td>카탈로그 Dataset 하나</td>
+</tr>
+<tr>
+<td><code>molit:offeringReadinessStatus</code></td>
+<td>drafting·metadata-conformant·qualification-pending 중 하나</td>
+</tr>
+<tr>
+<td><code>dct:modified</code></td>
+<td>날짜 또는 날짜시각 하나</td>
+</tr>
+</tbody>
+</table>
+<p><code>operationally-qualified</code>는 승인된 외부 authority registry가 부여하는 운영 판정이다. RC.1 SHACL의 후보 readiness 값에 포함하지 않는다.</p>
+<p><code>molit:TransferableDataset</code>과 <code>molit:TransferDistribution</code>은 0.1.0 호환 읽기를 위한 deprecated term이다. 신규 graph에는 각각 <code>dcat:Dataset</code>, <code>dcat:Distribution</code>과 별도 <code>DataspaceOfferingMetadata</code>를 사용한다.</p>
+<h3>8.6 Publication policy</h3>
+<p>Publication policy는 권고 property와 deprecated IRI를 Warning으로 점검한다. Conformance module의 Violation 판정을 대신하지 않는다. Warning waiver 체계가 승인되기 전에는 Warning 0건을 요구한다.</p>
+<h2>9. 통제어와 후보 Registry</h2>
+<h3>9.1 로컬 어휘 상태</h3>
+<p>로컬 ontology와 SKOS term은 <code>rdfs:isDefinedBy</code>, <code>owl:versionInfo</code>와 <code>adms:status</code>를 가진다. RC.1 신규 term의 상태는 <code>candidate</code>다. Deprecated term은 <code>deprecated</code>로 표시하고 change note를 유지한다.</p>
+<p><code>vocabulary/registry-metadata.json</code>은 118개 통제어의 scheme, notation, 원천에 있는 언어별 preferred label, 상태, 유효기간, 출처와 대체관계를 조회용 JSON으로 고정한다. Turtle 정본과 JSON projection이 다르면 <code>npm run profile:vocabulary:verify</code>가 실패한다. Registry의 <code>candidate</code> 상태를 기관 승인으로 해석하지 않는다.</p>
+<h3>9.2 국내 후보 Registry</h3>
+<p><code>vocabulary/domestic-candidate-registries.ttl</code>의 모든 식별자는 <code>/candidate/</code> 아래에 있다.</p>
+<ul>
+<li>기관 후보는 운영 <code>dct:publisher</code> 또는 Provider authority가 아니다.</li>
+<li>행정구역 후보는 운영 <code>dct:spatial</code> 값이 아니다.</li>
+<li>법령 후보 registry는 개별 법령 IRI를 아직 발급하지 않는다.</li>
+<li>공공누리 후보 Concept는 <code>dct:LicenseDocument</code>가 아니다.</li>
+</ul>
+<p>운영기관 승인과 변경·철회정책 없이 후보 IRI를 권위식별자로 승격하지 않는다.</p>
+<h2>10. 검증 실행</h2>
+<h3>10.1 Artifact 검증</h3>
+<pre><code class="language-powershell">node src/profile/cli.mjs verify --version 1.0.0-rc.1
+</code></pre>
+<p>이 명령은 manifest와 artifact lock의 경로·digest 일치를 검사한다.</p>
+<p>RC.1 manifest의 <code>artifactInventoryPolicy</code>는 <code>all-release-files</code>다. Lock 파일 자체를 제외한 release의 모든 일반 파일을 <code>artifact-lock.json</code>에 넣는다. Markdown 문서, HTML·JSON-LD 표현, publication 계약과 ontology Query도 예외가 아니다.</p>
+<p>이 파일 중 하나를 고치면 lock과 그 lock digest를 대상으로 한 detached signature는 더 이상 유효하지 않다. 변경검토, lock 재생성과 기관 재서명을 차례로 거쳐야 한다. 기관 키 서명은 <code>RA-INSTITUTIONAL-SIGNATURE</code>가 열려 있으므로 아직 완료됐다고 표시하지 않는다.</p>
+<h3>10.2 공개 표현 검증</h3>
+<pre><code class="language-powershell">npm run profile:publication:verify
+</code></pre>
+<p>검증 대상은 Profile의 <code>index.html</code>, <code>profile-description.ttl</code>, <code>serializations/profile-description.jsonld</code>와 ontology의 <code>ontology.html</code>, <code>ontology/molit-dcat-ap.ttl</code>, <code>serializations/molit-dcat-ap.jsonld</code>다.</p>
+<p><code>publication/content-negotiation.json</code>은 <code>text/html</code>, <code>text/turtle</code>, <code>application/ld+json</code>, <code>Vary: Accept</code>와 지원하지 않는 Accept의 406 응답을 고정한다. Turtle과 JSON-LD RDF graph가 다르면 실패한다. 이 시험은 배포계약의 일관성만 확인한다. 실제 HTTPS dereference는 <code>RA-NAMESPACE</code>가 닫히기 전까지 완료로 표시하지 않는다.</p>
+<h3>10.3 Ontology 의미 검증</h3>
+<pre><code class="language-powershell">npm run profile:ontology:verify
+</code></pre>
+<p>이 명령은 여섯 module fixture, 열세 competency query의 정확한 결과와 OWL-RL 일관성을 검사한다. 자세한 판정은 <a href="docs/ontology/competency-questions.md">competency question</a>에 있다.</p>
+<h3>10.4 통제어와 이관 차이 검증</h3>
+<pre><code class="language-powershell">npm run profile:vocabulary:verify
+npm run profile:semantic-diff:verify
+</code></pre>
+<p>첫 명령은 <code>vocabulary/registry-metadata.json</code>, 둘째 명령은 <code>migration/semantic-diff.json</code>을 정본 Turtle·manifest·requirement와 다시 계산해 byte 단위로 비교한다. Machine diff는 breaking change의 의미검토와 승인을 대신하지 않는다.</p>
+<h3>10.5 단일 Module 검증</h3>
+<pre><code class="language-powershell">node src/profile/cli.mjs validate `
+  --version 1.0.0-rc.1 `
+  --input profiles/molit-dcat-ap/releases/1.0.0-rc.1/examples/valid/network-catalog.ttl `
+  --profile network `
+  --report .local/network-validation.json
+</code></pre>
+<h3>10.6 복수 Module 검증</h3>
+<p>Observation과 quality marker를 함께 선언한 graph는 같은 byte 입력을 두 번 검증한다.</p>
+<pre><code class="language-powershell">node src/profile/cli.mjs validate --version 1.0.0-rc.1 --input observation.ttl --profile observation
+node src/profile/cli.mjs validate --version 1.0.0-rc.1 --input observation.ttl --profile quality
+</code></pre>
+<h3>10.7 Publication check</h3>
+<pre><code class="language-powershell">node src/profile/cli.mjs publish-check `
+  --version 1.0.0-rc.1 `
+  --input observation.ttl `
+  --profile observation
+</code></pre>
+<p>Manifest v2의 <code>publish-check</code>는 선택한 conformance module과 <code>publication-policy</code>를 같은 입력에 순서대로 적용한다. 두 기술 Gate를 통과해도 release-acceptance 외부 Gate가 열려 있으면 <code>publicationAuthorized=false</code>와 exit code <code>2</code>를 반환한다.</p>
+<h2>11. Artifact 구성</h2>
+<table>
+<thead>
+<tr>
+<th>경로</th>
+<th>내용</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ontology/</code></td>
+<td>국토교통 로컬 class·property와 lifecycle</td>
+</tr>
+<tr>
+<td><code>vocabulary/</code></td>
+<td>로컬 후보 어휘, 외부 allowlist와 고정 upstream 어휘</td>
+</tr>
+<tr>
+<td><code>shacl/</code></td>
+<td>Upstream·로컬·module marker constraint</td>
+</tr>
+<tr>
+<td><code>bundles/</code></td>
+<td>7개 module/policy bundle과 support graph</td>
+</tr>
+<tr>
+<td><code>requirements/</code></td>
+<td>Property constraint 원장과 conformance case</td>
+</tr>
+<tr>
+<td><code>migration/</code></td>
+<td>0.1.0→RC.1 semantic diff</td>
+</tr>
+<tr>
+<td><code>examples/</code></td>
+<td>Module별 양성·음성 fixture</td>
+</tr>
+<tr>
+<td><code>mappings/</code></td>
+<td>외부 profile·국내 표준 후보 crosswalk</td>
+</tr>
+<tr>
+<td><code>context/</code></td>
+<td>Protected JSON-LD context</td>
+</tr>
+<tr>
+<td><code>artifact-lock.json</code></td>
+<td>Machine-readable artifact inventory와 digest</td>
+</tr>
+<tr>
+<td><code>profile-description.ttl</code></td>
+<td>W3C PROF 기반 profile·resource 기술</td>
+</tr>
+<tr>
+<td><code>release-acceptance.json</code></td>
+<td>기술시험과 외부 발행승인의 분리 판정</td>
+</tr>
+</tbody>
+</table>
+<p>외부 artifact의 저작권과 라이선스는 <code>NOTICE.md</code>에 기록한다. 로컬 artifact의 라이선스 상태는 <code>LICENSE.md</code>를 따른다.</p>
+<h2>12. 0.1.0에서 이관</h2>
+<p>0.1.0의 Core·Geo 상호배타 marker 구조는 RC.1의 독립 module 복수 선언 구조로 바뀌었다. 자동 문자열 치환만으로 이관하지 않는다.</p>
+<p>주요 변경은 다음과 같다.</p>
+<ul>
+<li>Core에서 공간·교통망·관측·품질·제공 의미를 분리</li>
+<li>Core의 EU <code>TRAN</code>·<code>REGI</code> 의무를 제거하고 국내 주제를 기본으로 변경</li>
+<li>Network checksum·lifecycle·validity 추가</li>
+<li>Observation 항목·대상·집계·결측·단위 추가</li>
+<li>Quality method·scope·result·mapping loss 추가</li>
+<li><code>Transferable*</code> 유형을 폐기하고 <code>DataspaceOfferingMetadata</code>로 이관</li>
+<li>Candidate graph와 support graph 분리, entailment <code>none</code> 고정</li>
+<li><code>core-publication</code>·<code>geo-publication</code> 이름을 없애고 module별 <code>publish-check</code>로 변경</li>
+</ul>
+<p>구체적인 변환 순서와 rollback 기준은 <code>MIGRATION.md</code>에 둔다.</p>
+<h2>13. 원-윈도우와 기존 플랫폼 Adapter</h2>
+<p>원-윈도우, 통합채널, 기관 Data Lake·Data Hub의 API·Excel·Database 변환기는 이 profile의 규범 artifact가 아니다.</p>
+<p>Adapter는 다음 경계를 지킨다.</p>
+<ol>
+<li>원천 field와 판을 보존한다.</li>
+<li>후보 crosswalk의 손실상태를 기록한다.</li>
+<li>출력 RDF에 적용 module marker를 선언한다.</li>
+<li>선언한 module마다 검증한다.</li>
+<li>운영 자격과 전송 권한을 metadata 적합성으로 대체하지 않는다.</li>
+</ol>
+<p>DCAT-AP-KR 또는 원-윈도우와의 변환이 성공해도 RC.1 전체 국내 상호운용성을 입증하지 않는다. 해당 adapter의 mapping·fixture·운영승인은 별도 release로 관리한다.</p>
+<h2>14. Release acceptance</h2>
+<p>RC.1의 현재 상태는 <code>release-acceptance.json</code>만이 판정한다. 아래 표는 외부 evidence 범위를 설명한 것으로 machine 상태를 대체하지 않는다.</p>
+<p>Candidate에서 발행판으로 전환하려면 최소한 다음 외부 Gate가 닫혀야 한다.</p>
+<table>
+<thead>
+<tr>
+<th>Gate</th>
+<th>필요한 증거</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Owner·governance</td>
+<td>운영기관 승인서, 역할·적용범위·유효기간</td>
+</tr>
+<tr>
+<td>Namespace</td>
+<td>HTTPS dereference, content negotiation, tombstone 시험</td>
+</tr>
+<tr>
+<td>Local license</td>
+<td>명세·온톨로지·어휘·shape의 공개 라이선스 승인</td>
+</tr>
+<tr>
+<td>Signature</td>
+<td>Detached signature, signer trust와 검증 결과</td>
+</tr>
+<tr>
+<td>Domestic standards</td>
+<td>합법 원문, 조항 crosswalk와 이중 validator</td>
+</tr>
+<tr>
+<td>Domestic vocabulary</td>
+<td>기관·지역·법령·공공누리 권위 registry와 철회정책</td>
+</tr>
+<tr>
+<td>Real data</td>
+<td>승인된 층화표본, coverage·loss·거부분포와 digest</td>
+</tr>
+<tr>
+<td>Geo·transport</td>
+<td>Geometry 변환 정확도와 ITS 관측 fixture</td>
+</tr>
+<tr>
+<td>Operations</td>
+<td>변경·폐기·rollback·민원·복구 runbook</td>
+</tr>
+</tbody>
+</table>
+<p>기술시험 성공은 이 표의 외부 승인을 자동으로 완료하지 않는다. 미해결 상태를 위험수용으로 덮으려면 별도 승인근거, 범위와 만료일이 필요하다.</p>
+<h2>15. 규격 출처</h2>
+<ul>
+<li><a href="https://www.w3.org/TR/vocab-dcat-3/">W3C DCAT 3</a></li>
+<li><a href="https://semiceu.github.io/DCAT-AP/releases/3.0.1/">SEMIC DCAT-AP 3.0.1</a></li>
+<li><a href="https://semiceu.github.io/GeoDCAT-AP/releases/3.1.0/">SEMIC GeoDCAT-AP 3.1.0</a></li>
+<li><a href="https://www.w3.org/TR/shacl/">W3C SHACL</a></li>
+<li><a href="https://www.w3.org/TR/skos-reference/">W3C SKOS</a></li>
+<li><a href="https://www.w3.org/TR/vocab-dqv/">W3C Data Quality Vocabulary</a></li>
+<li><a href="https://www.w3.org/TR/prov-o/">W3C PROV-O</a></li>
+<li><a href="https://www.w3.org/TR/dx-prof/">W3C Profiles Vocabulary</a></li>
+<li><a href="https://www.ogc.org/standards/geosparql/">OGC GeoSPARQL 1.1</a></li>
+<li><a href="https://qudt.org/">QUDT</a></li>
+<li><a href="https://w3id.org/mobilitydcat-ap/releases/1.1.0/">mobilityDCAT-AP 1.1.0</a></li>
+</ul>
+</main>
+</body>
+</html>

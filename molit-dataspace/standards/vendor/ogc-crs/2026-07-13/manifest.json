@@ -1,0 +1,36 @@
+{
+  "schemaVersion": "molit.crs-transformation-evidence/1",
+  "retrievedAt": "2026-07-13T00:00:00Z",
+  "artifacts": [
+    {
+      "file": "Conversion-5100.xml",
+      "source": "https://epsg.org/api/v1/Conversion/5100/export?format=gml",
+      "sha256": "1e0c76f38c0b40ad559f37a97d281f97ad16190b8c9775218a49be205ccc892a"
+    },
+    {
+      "file": "Conversion-5102.xml",
+      "source": "https://epsg.org/api/v1/Conversion/5102/export?format=gml",
+      "sha256": "1eee37950149f387dcc15d1a2488e35a23541831d8f176ec3307bf85c673a033"
+    },
+    {
+      "file": "EPSG-3857.xml",
+      "source": "https://www.opengis.net/def/crs/EPSG/0/3857",
+      "sha256": "dd5a5d5d07a540288266176dd310505afb4a3dc266d10c3a75b69de754e42637"
+    },
+    {
+      "file": "EPSG-4326.xml",
+      "source": "https://www.opengis.net/def/crs/EPSG/0/4326",
+      "sha256": "0ca0c3b934c6eb516a77210de9092633e8ff5dd5478deef411611d1d27a44822"
+    },
+    {
+      "file": "EPSG-5179.xml",
+      "source": "https://www.opengis.net/def/crs/EPSG/0/5179",
+      "sha256": "acf25f10b81a05c0a5cab8b35fbe87f358266b0286391bb777b2888442b8c21b"
+    },
+    {
+      "file": "EPSG-5186.xml",
+      "source": "https://www.opengis.net/def/crs/EPSG/0/5186",
+      "sha256": "7919765e518be495a9b53187a297cd70b3826b589fa420468ffd5bd852bc3f8f"
+    }
+  ]
+}

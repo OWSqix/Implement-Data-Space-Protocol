@@ -1,0 +1,90 @@
+@prefix adms: <http://www.w3.org/ns/adms#> .
+@prefix dct: <http://purl.org/dc/terms/> .
+@prefix offering: <https://data.molit.go.kr/id/concept/offering-readiness-status/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix scheme: <https://data.molit.go.kr/scheme/> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix status: <https://data.molit.go.kr/id/concept/term-status/> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+scheme:offering-readiness-status
+    a skos:ConceptScheme ;
+    dct:issued "2026-07-13"^^xsd:date ;
+    dct:title "데이터 스페이스 제공 준비상태"@ko,
+        "Dataspace offering readiness status"@en ;
+    skos:definition "발견용 제공 메타데이터의 작성과 외부 운영 자격검토 단계를 구분하는 후보 분류체계."@ko,
+        "A candidate scheme distinguishing preparation of discovery metadata from external operational qualification."@en ;
+    skos:prefLabel "데이터 스페이스 제공 준비상태"@ko,
+        "Dataspace offering readiness status"@en ;
+    skos:hasTopConcept offering:drafting,
+        offering:metadata-conformant,
+        offering:qualification-pending,
+        offering:operationally-qualified,
+        offering:suspended,
+        offering:withdrawn ;
+    owl:versionInfo "1.0.0-rc.1" ;
+    adms:status status:candidate .
+
+offering:drafting
+    a skos:Concept ;
+    rdfs:isDefinedBy scheme:offering-readiness-status ;
+    skos:inScheme scheme:offering-readiness-status ;
+    skos:prefLabel "메타데이터 작성 중"@ko,
+        "Metadata drafting"@en ;
+    skos:definition "제공 메타데이터를 작성 중이며 profile 적합성이나 운영 자격을 아직 판정하지 않은 상태."@ko,
+        "Offering metadata is being prepared and neither profile conformance nor operational qualification has been decided."@en ;
+    skos:topConceptOf scheme:offering-readiness-status ; owl:versionInfo "1.0.0-rc.1" ; adms:status status:candidate .
+
+offering:metadata-conformant
+    a skos:Concept ;
+    rdfs:isDefinedBy scheme:offering-readiness-status ;
+    skos:inScheme scheme:offering-readiness-status ;
+    skos:prefLabel "메타데이터 적합"@ko,
+        "Metadata conformant"@en ;
+    skos:definition "선택한 Application Profile 기술검증을 통과했지만 제공 권한과 Connector 준비상태는 판정하지 않은 상태."@ko,
+        "The selected Application Profile technical validation passed, while provider authority and connector readiness remain undecided."@en ;
+    skos:topConceptOf scheme:offering-readiness-status ; owl:versionInfo "1.0.0-rc.1" ; adms:status status:candidate .
+
+offering:qualification-pending
+    a skos:Concept ;
+    rdfs:isDefinedBy scheme:offering-readiness-status ;
+    skos:inScheme scheme:offering-readiness-status ;
+    skos:prefLabel "운영 자격검토 대기"@ko,
+        "Operational qualification pending"@en ;
+    skos:definition "승인된 외부 registry에서 제공 권한, 위임, 유효기간과 전송 준비상태를 검토 중인 상태."@ko,
+        "Provider authority, delegation, validity and transfer readiness are under review in an approved external registry."@en ;
+    skos:topConceptOf scheme:offering-readiness-status ; owl:versionInfo "1.0.0-rc.1" ; adms:status status:candidate .
+
+offering:operationally-qualified
+    a skos:Concept ;
+    rdfs:isDefinedBy scheme:offering-readiness-status ;
+    skos:inScheme scheme:offering-readiness-status ;
+    skos:prefLabel "운영 자격 확인"@ko,
+        "Operationally qualified"@en ;
+    skos:definition "승인된 외부 registry의 유효한 evidence로 제공 권한과 운영 준비상태를 확인한 상태. RDF 유형 또는 SHACL 통과만으로 이 값을 부여할 수 없다."@ko,
+        "Provider authority and operational readiness were confirmed by valid evidence in an approved external registry. RDF typing or SHACL conformance alone cannot assign this value."@en ;
+    skos:topConceptOf scheme:offering-readiness-status ; owl:versionInfo "1.0.0-rc.1" ; adms:status status:candidate .
+
+offering:suspended
+    a skos:Concept ;
+    rdfs:isDefinedBy scheme:offering-readiness-status ;
+    skos:inScheme scheme:offering-readiness-status ;
+    skos:prefLabel "제공 중단"@ko,
+        "Suspended"@en ;
+    skos:definition "자격, 보안, 품질 또는 운영 사유로 신규 계약과 전송을 일시 중단한 상태."@ko,
+        "New contracts and transfers are temporarily suspended for qualification, security, quality or operational reasons."@en ;
+    skos:topConceptOf scheme:offering-readiness-status ; owl:versionInfo "1.0.0-rc.1" ; adms:status status:candidate .
+
+offering:withdrawn
+    a skos:Concept ;
+    rdfs:isDefinedBy scheme:offering-readiness-status ;
+    skos:inScheme scheme:offering-readiness-status ;
+    skos:prefLabel "제공 철회"@ko,
+        "Withdrawn"@en ;
+    skos:definition "제공 후보를 철회해 신규 발견, 계약과 전송에 사용하지 않는 상태."@ko,
+        "The offering candidate has been withdrawn and is not used for new discovery, contracts or transfers."@en ;
+    skos:topConceptOf scheme:offering-readiness-status ; owl:versionInfo "1.0.0-rc.1" ; adms:status status:candidate .
+
+# Scheme-definition anchors.
+<https://data.molit.go.kr/scheme/offering-readiness-status> rdfs:isDefinedBy <https://data.molit.go.kr/scheme/offering-readiness-status> .

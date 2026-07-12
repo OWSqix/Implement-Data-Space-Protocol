@@ -1,0 +1,152 @@
+# 규범 요구사항 추적 원장
+
+## 1. 목적과 범위
+
+`profile-requirements.json`은 응용 프로파일 규격, 로컬 SHACL 제약과 적합성시험 fixture를 한 행으로 연결한다. SHACL 파일에 제약을 추가하고 원장이나 시험사례를 빠뜨리는 변경은 release Gate를 통과하지 못한다.
+
+원장이 추적하는 대상은 다음과 같다.
+
+- 버전 namespace에 속하는 로컬 `sh:NodeShape`
+- 로컬 `sh:PropertyShape`
+- 로컬 shape에서 `sh:property`로 직접 연결한 property constraint
+- 위 제약의 양성 fixture와 표적 음성 fixture
+
+DCAT-AP와 GeoDCAT-AP의 고정 upstream shape는 이 원장에 복제하지 않는다. `manifest.json`이 참조하는 Turtle 파일을 검사한 뒤 로컬 shape namespace가 나타난 파일만 원장 범위로 삼는다.
+
+`sh:or`, `sh:not`, `sh:node`와 qualified shape 안에서만 사용하는 property shape는 독립 MUST로 세지 않는다.  
+검증: traceability Gate에서 보조 노드의 별도·충돌 requirement ID가 0건이어야 한다.
+
+이 보조 노드는 가장 가까운 named shape 또는 직접 property requirement ID를 상속한다. 보조 노드가 다른 ID로 의미를 덮어쓰면 Gate가 거부한다.
+
+## 2. 파일
+
+| 파일 | 역할 |
+| --- | --- |
+| `profile-requirements.json` | 요구사항과 shape의 machine register |
+| `profile-requirements.csv` | JSON 정본에서 생성한 사람 검토용 열 projection |
+| `source-overrides.json` | 채택 판단을 다시 확인해야 하는 constraint의 출처·조항·로컬 강화 이유 |
+| `conformance-cases.json` | fixture case, digest와 예상 결과의 machine register |
+| `coverage-blockers.json` | `RA-REQUIREMENTS`가 집계하는 미충족 양성·음성 증거 목록 |
+| `../../../../../contracts/profile-requirements.v1.schema.json` | 원장 JSON Schema |
+| `../../../../../tools/profile/verify-requirement-traceability.mjs` | SHACL·원장·fixture 교차검증기 |
+| `../../../../../tools/profile/build-requirement-evidence.mjs` | 양성 case 검증, 표적 mutation 생성과 coverage 재계산 |
+| `../../../../../tests/contract/profile-requirement-traceability.test.mjs` | Gate의 양성·음성 contract test |
+
+`profile-requirements.json`의 `fixtureCaseRegistry`가 `conformance-cases.json`을 가리킨다. 두 파일의 profile version과 manifest 경로가 일치해야 한다.
+
+CSV는 `requirementId`, `conformanceClass`, `resourceClass`, `property`, `obligation`, `minCount`, `maxCount`, `range`, `controlledVocabulary`, `severity`, `messages`, `remediation`, 출처 3개 필드, shape·fixture 식별자를 이 순서로 기록한다. 배열은 한 셀 안의 JSON 배열로 보존한다. CSV를 직접 고치지 않고 JSON 정본과 생성 명령을 고친다.
+
+## 3. 요구사항 행
+
+| 필드 | 기록 내용 |
+| --- | --- |
+| `requirementId` | SHACL constraint에 적은 고유 `molit:requirementId` |
+| `constraintKey` | source file과 constraint 위치를 묶은 machine locator |
+| `constraintKind` | `node-shape`, `property-shape`, `direct-property-constraint` 중 하나 |
+| `conformanceClass` | 이 shape 파일을 사용하는 manifest profile 이름 |
+| `resourceClass` | `sh:targetClass`에서 확인한 대상 class IRI |
+| `property` | `sh:path`의 IRI 또는 정규화한 복합 경로. NodeShape에는 `null`을 기록할 수 있음 |
+| `obligation` | `MUST`, `MUST-NOT`, `SHOULD`, `SHOULD-NOT`, `MAY` 중 하나 |
+| `cardinality` | 직접 `sh:minCount`와 `sh:maxCount`로 확인되는 최소·최대 수 |
+| `range` | 직접 `sh:class`, `sh:datatype`, `sh:nodeKind`로 확인되는 IRI |
+| `vocabulary` | 직접 `sh:in` 또는 `sh:hasValue`로 고정한 IRI |
+| `severity` | SHACL severity. 생략 시 `Violation` |
+| `messages` | constraint의 실제 `sh:message`. 언어 태그와 본문을 함께 기록함 |
+| `remediation` | 위반값에서 고칠 property, 개수, datatype, class 또는 허용 IRI를 적은 수정 절차 |
+| `sourceStandard` | 요구사항을 가져온 표준·행정규칙·로컬 정책 이름 |
+| `sourceClause` | 원문 조항이나 로컬 규격 조항 |
+| `localRationale` | 상위 규격보다 강화·축소·분기한 이유 |
+| `shapeId` | named shape IRI. blank property constraint에는 이를 소유한 named shape IRI |
+| `shapeFile` | constraint를 선언한 release-relative Turtle 경로 |
+| `positiveFixtureId` | 이 요구사항을 충족하는 case ID |
+| `negativeFixtureId` | 검증 결과에 이 요구사항의 위반을 실제 포함한 case ID |
+
+`constraintKey`는 blank node 식별자를 공개 식별자로 사용하지 않는다. blank property constraint는 source file, 소유 shape와 해당 파일의 `sh:property` 순번으로 찾는다. SHACL 구조를 바꾸면 초안을 다시 만들고 변경된 locator를 심사한다.
+
+## 4. Fixture case
+
+각 case는 release 아래의 고정 파일 한 개를 가리킨다. `sha256`이 파일 바이트를 고정한다.
+
+- 양성 case는 `expectedOutcome=conforms`이며 `expectedRequirementIds`가 비어 있어야 한다.
+- 음성 case는 `expectedOutcome=violates`이며 표적으로 실패할 ID를 `expectedRequirementIds`에 기록한다.
+- `coversRequirementIds`는 해당 파일이 시험하는 전체 요구사항을 기록한다.
+- 요구사항 행의 양성·음성 case ID와 case의 coverage가 서로를 가리켜야 한다.
+
+파일 존재와 digest, case ID, 역방향 coverage는 추적 Gate에서 검사한다. `build-requirement-evidence.mjs`는 각 case를 지정 profile의 SHACL에 실행한 뒤 실제로 관측한 로컬 requirement ID만 `expectedRequirementIds`에 기록한다. 한 mutation이 연관 제약도 함께 위반하면 그 ID를 숨기지 않고 같은 case에 기록한다.
+
+## 5. 로컬 정책과 EU 진단의 경계
+
+주기, EU File Type, EU language, Distribution status와 Availability는 Core 적합성 조건이 아니다. DataService의 EU theme·access-right 목록도 같은 원칙을 적용한다.
+
+이 값은 공식 upstream `mdr-vocabularies`를 사용하는 `eu-controlled-audit`에서 진단한다. 국내 발행 어휘가 정해지기 전에는 EU 목록을 Core MUST로 고정하지 않는다.
+검증: Core profile의 로컬 shape에는 위 EU 전용 allowlist가 없어야 한다. `eu-controlled-audit`에는 upstream `mdr-vocabularies.shape.ttl`이 남아 있어야 한다.
+
+Core에는 다음 조건을 남겼다.
+
+- Dataset과 DataService는 국토교통 세부 주제를 한 개 이상 가짐
+- Dataset accessRights는 값 한 개와 IRI 형식만 검사함
+- checksum 알고리즘·길이와 IANA media type은 전송 무결성 조건으로 검사함
+- 한국어 검색·표시 필드와 단일 publisher 조건을 검사함
+
+`source-overrides.json`은 이 결정과 품질상태 조건의 출처·조항·강화 이유를 requirement ID별로 고정한다. 생성기는 필수 override가 없거나 삭제된 requirement를 가리키면 중단한다. verifier는 override와 JSON 원장의 세 필드를 다시 비교한다.
+
+## 6. 증거와 blocker 재계산
+
+다음 명령은 기존 양성 module fixture를 검증하고, 직접 property requirement에 적용할 수 있는 remove·replace·add mutation을 실행한다. 목표 ID가 실제 결과에 나타난 mutation만 파일로 남긴다.
+
+```bash
+npm run profile:requirements:evidence
+```
+
+명령은 다음 파일을 함께 갱신한다.
+
+- `profile-requirements.json`과 `profile-requirements.csv`
+- `conformance-cases.json`과 `coverage-blockers.json`
+- `examples/invalid/mutation-*.ttl`
+
+현재 RC에는 규범 요구사항 156개가 있다. 모두 양성·음성 증거를 갖고, 잔여 blocker는 0개다.
+
+case는 138개다. 이 중 110개는 한 requirement를 표적으로 만든 mutation이다. 독립 결과를 만들지 않는 소유 NodeShape 46개는 실제 descendant 위반 결과에 귀속한다.
+
+음성 case의 `expectedRequirementIds`에는 실제 SHACL 결과에서 해당 source shape와 소유 NodeShape까지 추적한 ID만 기록한다. 한 property 변경이 역방향 링크나 더 강한 중복 조건도 깨뜨리면 관측한 ID를 모두 남긴다.
+
+양성·음성 증거가 모두 있는 requirement만 완전 coverage로 계산한다. 한쪽이라도 없으면 원장 상태를 `draft`로 유지하고 `coverage-blockers.json`에 requirement ID와 누락 종류를 기록한다. 156개가 모두 연결된 현재 원장 상태는 `approved`다.
+
+## 7. 초안 갱신
+
+다음 명령은 현재 RC의 manifest와 SHACL을 읽어 두 초안을 표준출력으로 만든다.
+
+```powershell
+node tools/profile/verify-requirement-traceability.mjs --draft |
+  Set-Content -Encoding utf8 profiles/molit-dcat-ap/releases/1.0.0-rc.1/requirements/profile-requirements.json
+
+node tools/profile/verify-requirement-traceability.mjs --draft-cases |
+  Set-Content -Encoding utf8 profiles/molit-dcat-ap/releases/1.0.0-rc.1/requirements/conformance-cases.json
+```
+
+초안은 다음 값을 의도적으로 미확정 상태로 둔다.
+
+- SHACL에 ID가 없는 constraint에는 `MOLIT-DRAFT-*` 임시 ID를 부여함
+- `sourceStandard`, `sourceClause`, `localRationale`에 검토 표식을 둠
+- 양성·음성 fixture 연결을 `null`로 둠
+- 두 원장의 `registryStatus`를 `draft`로 둠
+
+자동 생성 결과를 그대로 승인하지 않는다. 원문 조항과 fixture 결과를 검토하고 SHACL의 `molit:requirementId`를 맞춘 뒤 두 원장의 `registryStatus`를 `approved`로 바꾼다.
+
+## 8. Gate 실행
+
+```bash
+node tools/profile/verify-requirement-traceability.mjs
+```
+
+합격 조건은 다음과 같다.
+
+1. 로컬 NodeShape, PropertyShape와 직접 property constraint가 각각 정확히 하나의 고유 requirement ID를 가짐
+2. 스캔한 constraint와 원장 행이 `constraintKey` 기준으로 일대일 대응함
+3. SHACL에서 계산한 profile, class, path, cardinality, range, vocabulary와 severity가 원장 값과 같음
+4. 원장이 `approved` 상태이며 검토 표식이나 빈 fixture 연결이 없음
+5. fixture case ID, 파일, digest, outcome과 양방향 requirement 연결이 모두 유효함
+6. `profile-requirements.csv`의 행과 열 값이 JSON 정본의 projection과 byte 단위로 일치함
+7. 필수 source override가 존재하고 JSON 원장의 출처·조항·로컬 이유와 일치함
+
+합격은 exit code `0`, 추적성 위반은 `2`, 입력·구성 오류는 `1`을 반환한다. `--allow-draft`는 원장 편집 중 진단에만 사용한다. release Gate에서는 사용하지 않는다.

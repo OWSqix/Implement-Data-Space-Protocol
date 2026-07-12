@@ -1,0 +1,167 @@
+{
+  "schemaVersion": "molit.standard-node-link-source-evidence/1",
+  "evidenceStatus": "verified-public-source-extract",
+  "retrievedAt": "2026-07-12T16:48:55Z",
+  "source": {
+    "publisher": "국토교통부 국가교통정보센터",
+    "landingPage": "https://www.its.go.kr/nodelink/nodelinkRef",
+    "downloadPath": "https://www.its.go.kr/opendata/nodelinkFileSDownload/DF_217/0",
+    "sourceRecordId": "DF_217",
+    "sourceFileSequence": "0",
+    "sourceFileName": "[2026-07-01]NODELINKDATA.zip",
+    "datasetVersion": "2026-07-01",
+    "listedSizeMiB": 245.27,
+    "archiveBytes": 257182267,
+    "archiveSha256": "219020fac55f2faab1029ec9306563a00968f9b27f3910b80c534583b750b9ab",
+    "copyrightPolicy": "https://www.its.go.kr/common/infoPolicyPage?service=copyrightPolicy",
+    "reuseStatus": "institutional-redistribution-approval-pending",
+    "extractPolicy": "Only one link record and its two endpoint-node records are retained as a conformance-test extract. The source archive is not redistributed."
+  },
+  "archiveComponents": [
+    {
+      "path": "MOCT_LINK.cpg",
+      "bytes": 3,
+      "sha256": "3033cf66fa728da7a2940d823aad8118fb40687ebfad1147c313478b2baafe4b"
+    },
+    {
+      "path": "MOCT_LINK.dbf",
+      "bytes": 334359676,
+      "sha256": "0d7bbc1487bbf8ae00b6881848aa26f211c8baf0cf1808655f2cdaa46c77fa16"
+    },
+    {
+      "path": "MOCT_LINK.prj",
+      "bytes": 410,
+      "sha256": "1c8a54c46851660d21b9e0a4c5a23cf506369ef7856c786d39319910906986f5"
+    },
+    {
+      "path": "MOCT_LINK.shp",
+      "bytes": 275615620,
+      "sha256": "350152dc6bca154039afd6f7ed05acf548b8fb857e34919e47f6eb77d63afb12"
+    },
+    {
+      "path": "MOCT_LINK.shx",
+      "bytes": 12441364,
+      "sha256": "c80010ab869d8a9c207a147d37e0d31afe2df69ff6862cc9f4f7c4e61367946f"
+    },
+    {
+      "path": "MOCT_NODE.cpg",
+      "bytes": 3,
+      "sha256": "3033cf66fa728da7a2940d823aad8118fb40687ebfad1147c313478b2baafe4b"
+    },
+    {
+      "path": "MOCT_NODE.dbf",
+      "bytes": 166163855,
+      "sha256": "8f6c61aa60557f5bbbb8c21d0a2181941afecb8f4a36d54690fdd3b6575406fa"
+    },
+    {
+      "path": "MOCT_NODE.prj",
+      "bytes": 410,
+      "sha256": "1c8a54c46851660d21b9e0a4c5a23cf506369ef7856c786d39319910906986f5"
+    },
+    {
+      "path": "MOCT_NODE.shp",
+      "bytes": 32997120,
+      "sha256": "8d88d56f865fa0dab1e71e739bcfe71f0f6b80df3f2fea22cd077f4f9f328e6b"
+    },
+    {
+      "path": "MOCT_NODE.shx",
+      "bytes": 9427820,
+      "sha256": "e401bc65999c4fd09dc6e721ad85242aaf26d0a6c265796bea09200472f3de3c"
+    },
+    {
+      "path": "MULTILINK.dbf",
+      "bytes": 1740530,
+      "sha256": "9238c447df25b0776a357d3aaebc44fdf7204f0ad39b35b08db95e116b6b718c"
+    },
+    {
+      "path": "TURNINFO.dbf",
+      "bytes": 3316608,
+      "sha256": "6c668851840a2b8f1c0723228d07ca8ab266a1bd01b1d26947fc357d34cb30b8"
+    },
+    {
+      "path": "내역서.csv",
+      "bytes": 104,
+      "sha256": "2a9f00b31227313cebaa540d4fc7281d5db8e80ec8d469474215cbaaac8eecbf"
+    }
+  ],
+  "coordinateReference": {
+    "sourcePrjWkt": "PROJCS[\"ITRF2000_Central_Belt_60\",GEOGCS[\"GCS_ITRF_2000\",DATUM[\"D_ITRF_2000\",SPHEROID[\"GRS_1980\",6378137.0,298.257222101]],PRIMEM[\"Greenwich\",0.0],UNIT[\"Degree\",0.0174532925199433]],PROJECTION[\"Transverse_Mercator\"],PARAMETER[\"False_Easting\",200000.0],PARAMETER[\"False_Northing\",600000.0],PARAMETER[\"Central_Meridian\",127.0],PARAMETER[\"Scale_Factor\",1.0],PARAMETER[\"Latitude_Of_Origin\",38.0],UNIT[\"Meter\",1.0]]",
+    "identifiedCrs": "http://www.opengis.net/def/crs/EPSG/0/5186",
+    "identificationMethod": "projection parameters matched to the release-pinned EPSG:5186 definition",
+    "sourceCoordinateOrder": [
+      "east-x",
+      "north-y"
+    ],
+    "rdfCoordinateOrder": [
+      "north",
+      "east"
+    ]
+  },
+  "sample": {
+    "link": {
+      "dbfRecordIndex": 0,
+      "shapefileRecordNumber": 1,
+      "fields": {
+        "LINK_ID": "3910040916",
+        "F_NODE": "3910290200",
+        "T_NODE": "3910236100",
+        "LANES": 1,
+        "ROAD_RANK": "106",
+        "ROAD_TYPE": "000",
+        "ROAD_NO": "1034",
+        "ROAD_NAME": "이방대합로",
+        "MAX_SPD": 30,
+        "LENGTH": 93.234638635994,
+        "UPDATEDATE": "20250512",
+        "HIST_TYPE": "LINK1007",
+        "HISTREMARK": "3910040905"
+      },
+      "sourceGeometry": {
+        "type": "LineString",
+        "crs": "http://www.opengis.net/def/crs/EPSG/0/5186",
+        "sourceTupleOrder": "east-x north-y",
+        "coordinates": [
+          [323785.6737745403, 334338.52525891725],
+          [323853.3866999997, 334359.08070000075],
+          [323860.14389999956, 334360.8220000006],
+          [323868.0312999999, 334361.9442999996],
+          [323875.5510163048, 334362.2437273641]
+        ]
+      }
+    },
+    "nodes": [
+      {
+        "dbfRecordIndex": 970293,
+        "shapefileRecordNumber": 970294,
+        "fields": {
+          "NODE_ID": "3910290200",
+          "NODE_TYPE": "101",
+          "NODE_NAME": "이방면 장천리 1150-11",
+          "UPDATEDATE": "20250512",
+          "HIST_TYPE": "NODE0001"
+        },
+        "sourceCoordinate": {
+          "east-x": 323785.6737745403,
+          "north-y": 334338.52525891725
+        },
+        "epsg4326AuthorityTuple": [35.598350406292866, 128.36596432167687]
+      },
+      {
+        "dbfRecordIndex": 707414,
+        "shapefileRecordNumber": 707415,
+        "fields": {
+          "NODE_ID": "3910236100",
+          "NODE_TYPE": "101",
+          "NODE_NAME": "이방면 장천리 542-5",
+          "UPDATEDATE": "20250512",
+          "HIST_TYPE": "NODE0001"
+        },
+        "sourceCoordinate": {
+          "east-x": 323875.5510163048,
+          "north-y": 334362.2437273641
+        },
+        "epsg4326AuthorityTuple": [35.59855287375726, 128.36695949157647]
+      }
+    ]
+  }
+}

@@ -1,0 +1,246 @@
+@prefix adms: <http://www.w3.org/ns/adms#> .
+@prefix dct: <http://purl.org/dc/terms/> .
+@prefix prof: <http://www.w3.org/ns/dx/prof/> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix role: <http://www.w3.org/ns/dx/prof/role/> .
+@prefix status: <https://data.molit.go.kr/id/concept/term-status/> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<https://data.molit.go.kr/profile/molit-dcat-ap>
+    a dct:Standard, prof:Profile ;
+    dct:title "국토교통 메타데이터 응용 프로파일"@ko, "MOLIT Metadata Application Profile"@en ;
+    dct:hasVersion <https://data.molit.go.kr/profile/molit-dcat-ap/1.0.0-rc.1> ;
+    prof:hasToken "molit-dcat-ap" .
+
+<https://data.molit.go.kr/profile/molit-dcat-ap/1.0.0-rc.1>
+    a dct:Standard, prof:Profile ;
+    dct:title "MOLIT Core Metadata Application Profile"@en ;
+    dct:issued "2026-07-13"^^xsd:date ;
+    dct:isVersionOf <https://data.molit.go.kr/profile/molit-dcat-ap> ;
+    prof:hasToken "molit-dcat-ap" ;
+    prof:isProfileOf <https://semiceu.github.io/DCAT-AP/releases/3.0.1/> ;
+    prof:hasResource <https://data.molit.go.kr/profile/molit-dcat-ap/1.0.0-rc.1/resource/specification>, <https://data.molit.go.kr/profile/molit-dcat-ap/1.0.0-rc.1/resource/core-shacl>, <https://data.molit.go.kr/profile/molit-dcat-ap/1.0.0-rc.1/resource/support-graph>, <https://data.molit.go.kr/profile/molit-dcat-ap/1.0.0-rc.1/resource/ontology>, <https://data.molit.go.kr/profile/molit-dcat-ap/1.0.0-rc.1/resource/context>, <https://data.molit.go.kr/profile/molit-dcat-ap/1.0.0-rc.1/resource/requirements>, <https://data.molit.go.kr/profile/molit-dcat-ap/1.0.0-rc.1/resource/examples> .
+
+<https://data.molit.go.kr/profile/molit-dcat-ap/geo> a dct:Standard, prof:Profile ; dct:hasVersion <https://data.molit.go.kr/profile/molit-dcat-ap/1.0.0-rc.1/geo> ; prof:hasToken "molit-geo" .
+
+<https://data.molit.go.kr/profile/molit-dcat-ap/1.0.0-rc.1/geo>
+    a dct:Standard, prof:Profile ;
+    dct:title "MOLIT Geospatial Metadata Application Profile"@en ;
+    dct:issued "2026-07-13"^^xsd:date ;
+    dct:isVersionOf <https://data.molit.go.kr/profile/molit-dcat-ap/geo> ;
+    prof:hasToken "molit-geo" ;
+    prof:isProfileOf <https://semiceu.github.io/GeoDCAT-AP/releases/3.1.0/> ;
+    prof:hasResource <https://data.molit.go.kr/profile/molit-dcat-ap/1.0.0-rc.1/resource/specification>, <https://data.molit.go.kr/profile/molit-dcat-ap/1.0.0-rc.1/resource/geo-shacl>, <https://data.molit.go.kr/profile/molit-dcat-ap/1.0.0-rc.1/resource/support-graph>, <https://data.molit.go.kr/profile/molit-dcat-ap/1.0.0-rc.1/resource/ontology>, <https://data.molit.go.kr/profile/molit-dcat-ap/1.0.0-rc.1/resource/context>, <https://data.molit.go.kr/profile/molit-dcat-ap/1.0.0-rc.1/resource/requirements>, <https://data.molit.go.kr/profile/molit-dcat-ap/1.0.0-rc.1/resource/examples> .
+
+<https://data.molit.go.kr/profile/molit-dcat-ap/network> a dct:Standard, prof:Profile ; dct:hasVersion <https://data.molit.go.kr/profile/molit-dcat-ap/1.0.0-rc.1/network> ; prof:hasToken "molit-network" .
+
+<https://data.molit.go.kr/profile/molit-dcat-ap/1.0.0-rc.1/network>
+    a dct:Standard, prof:Profile ;
+    dct:title "MOLIT Transport Network Metadata Application Profile"@en ;
+    dct:issued "2026-07-13"^^xsd:date ;
+    dct:isVersionOf <https://data.molit.go.kr/profile/molit-dcat-ap/network> ;
+    prof:hasToken "molit-network" ;
+    prof:isProfileOf <https://data.molit.go.kr/profile/molit-dcat-ap/1.0.0-rc.1/geo> ;
+    prof:hasResource <https://data.molit.go.kr/profile/molit-dcat-ap/1.0.0-rc.1/resource/specification>, <https://data.molit.go.kr/profile/molit-dcat-ap/1.0.0-rc.1/resource/network-shacl>, <https://data.molit.go.kr/profile/molit-dcat-ap/1.0.0-rc.1/resource/support-graph>, <https://data.molit.go.kr/profile/molit-dcat-ap/1.0.0-rc.1/resource/ontology>, <https://data.molit.go.kr/profile/molit-dcat-ap/1.0.0-rc.1/resource/context>, <https://data.molit.go.kr/profile/molit-dcat-ap/1.0.0-rc.1/resource/requirements>, <https://data.molit.go.kr/profile/molit-dcat-ap/1.0.0-rc.1/resource/examples> .
+
+<https://data.molit.go.kr/profile/molit-dcat-ap/observation> a dct:Standard, prof:Profile ; dct:hasVersion <https://data.molit.go.kr/profile/molit-dcat-ap/1.0.0-rc.1/observation> ; prof:hasToken "molit-observation" .
+
+<https://data.molit.go.kr/profile/molit-dcat-ap/1.0.0-rc.1/observation>
+    a dct:Standard, prof:Profile ;
+    dct:title "MOLIT Transport Observation Metadata Application Profile"@en ;
+    dct:issued "2026-07-13"^^xsd:date ;
+    dct:isVersionOf <https://data.molit.go.kr/profile/molit-dcat-ap/observation> ;
+    prof:hasToken "molit-observation" ;
+    prof:isProfileOf <https://data.molit.go.kr/profile/molit-dcat-ap/1.0.0-rc.1> ;
+    prof:hasResource <https://data.molit.go.kr/profile/molit-dcat-ap/1.0.0-rc.1/resource/specification>, <https://data.molit.go.kr/profile/molit-dcat-ap/1.0.0-rc.1/resource/observation-shacl>, <https://data.molit.go.kr/profile/molit-dcat-ap/1.0.0-rc.1/resource/support-graph>, <https://data.molit.go.kr/profile/molit-dcat-ap/1.0.0-rc.1/resource/ontology>, <https://data.molit.go.kr/profile/molit-dcat-ap/1.0.0-rc.1/resource/context>, <https://data.molit.go.kr/profile/molit-dcat-ap/1.0.0-rc.1/resource/requirements>, <https://data.molit.go.kr/profile/molit-dcat-ap/1.0.0-rc.1/resource/examples> .
+
+<https://data.molit.go.kr/profile/molit-dcat-ap/quality> a dct:Standard, prof:Profile ; dct:hasVersion <https://data.molit.go.kr/profile/molit-dcat-ap/1.0.0-rc.1/quality> ; prof:hasToken "molit-quality" .
+
+<https://data.molit.go.kr/profile/molit-dcat-ap/1.0.0-rc.1/quality>
+    a dct:Standard, prof:Profile ;
+    dct:title "MOLIT Data Quality Metadata Application Profile"@en ;
+    dct:issued "2026-07-13"^^xsd:date ;
+    dct:isVersionOf <https://data.molit.go.kr/profile/molit-dcat-ap/quality> ;
+    prof:hasToken "molit-quality" ;
+    prof:isProfileOf <https://data.molit.go.kr/profile/molit-dcat-ap/1.0.0-rc.1> ;
+    prof:hasResource <https://data.molit.go.kr/profile/molit-dcat-ap/1.0.0-rc.1/resource/specification>, <https://data.molit.go.kr/profile/molit-dcat-ap/1.0.0-rc.1/resource/quality-shacl>, <https://data.molit.go.kr/profile/molit-dcat-ap/1.0.0-rc.1/resource/support-graph>, <https://data.molit.go.kr/profile/molit-dcat-ap/1.0.0-rc.1/resource/ontology>, <https://data.molit.go.kr/profile/molit-dcat-ap/1.0.0-rc.1/resource/context>, <https://data.molit.go.kr/profile/molit-dcat-ap/1.0.0-rc.1/resource/requirements>, <https://data.molit.go.kr/profile/molit-dcat-ap/1.0.0-rc.1/resource/examples> .
+
+<https://data.molit.go.kr/profile/molit-dcat-ap/dataspace-offering> a dct:Standard, prof:Profile ; dct:hasVersion <https://data.molit.go.kr/profile/molit-dcat-ap/1.0.0-rc.1/dataspace-offering> ; prof:hasToken "molit-dataspace-offering" .
+
+<https://data.molit.go.kr/profile/molit-dcat-ap/1.0.0-rc.1/dataspace-offering>
+    a dct:Standard, prof:Profile ;
+    dct:title "MOLIT Dataspace Offering Metadata Application Profile"@en ;
+    dct:issued "2026-07-13"^^xsd:date ;
+    dct:isVersionOf <https://data.molit.go.kr/profile/molit-dcat-ap/dataspace-offering> ;
+    prof:hasToken "molit-dataspace-offering" ;
+    prof:isProfileOf <https://data.molit.go.kr/profile/molit-dcat-ap/1.0.0-rc.1> ;
+    prof:hasResource <https://data.molit.go.kr/profile/molit-dcat-ap/1.0.0-rc.1/resource/specification>, <https://data.molit.go.kr/profile/molit-dcat-ap/1.0.0-rc.1/resource/dataspace-offering-shacl>, <https://data.molit.go.kr/profile/molit-dcat-ap/1.0.0-rc.1/resource/support-graph>, <https://data.molit.go.kr/profile/molit-dcat-ap/1.0.0-rc.1/resource/ontology>, <https://data.molit.go.kr/profile/molit-dcat-ap/1.0.0-rc.1/resource/context>, <https://data.molit.go.kr/profile/molit-dcat-ap/1.0.0-rc.1/resource/requirements>, <https://data.molit.go.kr/profile/molit-dcat-ap/1.0.0-rc.1/resource/examples> .
+
+<https://data.molit.go.kr/profile/molit-dcat-ap/publication-policy> a dct:Standard, prof:Profile ; dct:hasVersion <https://data.molit.go.kr/profile/molit-dcat-ap/1.0.0-rc.1/publication-policy> ; prof:hasToken "molit-publication-policy" .
+
+<https://data.molit.go.kr/profile/molit-dcat-ap/1.0.0-rc.1/publication-policy>
+    a dct:Standard, prof:Profile ;
+    dct:title "MOLIT Metadata Publication Validation Policy"@en ;
+    dct:issued "2026-07-13"^^xsd:date ;
+    dct:isVersionOf <https://data.molit.go.kr/profile/molit-dcat-ap/publication-policy> ;
+    prof:hasToken "molit-publication-policy" ;
+    prof:isProfileOf <https://data.molit.go.kr/profile/molit-dcat-ap/1.0.0-rc.1> ;
+    prof:hasResource <https://data.molit.go.kr/profile/molit-dcat-ap/1.0.0-rc.1/resource/specification>, <https://data.molit.go.kr/profile/molit-dcat-ap/1.0.0-rc.1/resource/publication-policy-shacl>, <https://data.molit.go.kr/profile/molit-dcat-ap/1.0.0-rc.1/resource/support-graph>, <https://data.molit.go.kr/profile/molit-dcat-ap/1.0.0-rc.1/resource/ontology>, <https://data.molit.go.kr/profile/molit-dcat-ap/1.0.0-rc.1/resource/context>, <https://data.molit.go.kr/profile/molit-dcat-ap/1.0.0-rc.1/resource/requirements>, <https://data.molit.go.kr/profile/molit-dcat-ap/1.0.0-rc.1/resource/examples> .
+
+<https://data.molit.go.kr/profile/molit-dcat-ap/1.0.0-rc.1/resource/specification>
+    a prof:ResourceDescriptor ;
+    prof:hasRole role:specification ;
+    prof:hasArtifact <https://data.molit.go.kr/profile/molit-dcat-ap/1.0.0-rc.1/> .
+
+<https://data.molit.go.kr/profile/molit-dcat-ap/1.0.0-rc.1/resource/core-shacl>
+    a prof:ResourceDescriptor ;
+    dct:conformsTo <https://www.w3.org/TR/2017/REC-shacl-20170720/> ;
+    dct:format <http://publications.europa.eu/resource/authority/file-type/RDF_TURTLE> ;
+    prof:hasRole role:constraints, role:validation ;
+    prof:hasArtifact <https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1/core.ttl> .
+
+<https://data.molit.go.kr/profile/molit-dcat-ap/1.0.0-rc.1/resource/geo-shacl>
+    a prof:ResourceDescriptor ;
+    dct:conformsTo <https://www.w3.org/TR/2017/REC-shacl-20170720/> ;
+    dct:format <http://publications.europa.eu/resource/authority/file-type/RDF_TURTLE> ;
+    prof:hasRole role:constraints, role:validation ;
+    prof:hasArtifact <https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1/geo.ttl> .
+
+<https://data.molit.go.kr/profile/molit-dcat-ap/1.0.0-rc.1/resource/network-shacl>
+    a prof:ResourceDescriptor ;
+    dct:conformsTo <https://www.w3.org/TR/2017/REC-shacl-20170720/> ;
+    dct:format <http://publications.europa.eu/resource/authority/file-type/RDF_TURTLE> ;
+    prof:hasRole role:constraints, role:validation ;
+    prof:hasArtifact <https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1/network.ttl> .
+
+<https://data.molit.go.kr/profile/molit-dcat-ap/1.0.0-rc.1/resource/observation-shacl>
+    a prof:ResourceDescriptor ;
+    dct:conformsTo <https://www.w3.org/TR/2017/REC-shacl-20170720/> ;
+    dct:format <http://publications.europa.eu/resource/authority/file-type/RDF_TURTLE> ;
+    prof:hasRole role:constraints, role:validation ;
+    prof:hasArtifact <https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1/observation.ttl> .
+
+<https://data.molit.go.kr/profile/molit-dcat-ap/1.0.0-rc.1/resource/quality-shacl>
+    a prof:ResourceDescriptor ;
+    dct:conformsTo <https://www.w3.org/TR/2017/REC-shacl-20170720/> ;
+    dct:format <http://publications.europa.eu/resource/authority/file-type/RDF_TURTLE> ;
+    prof:hasRole role:constraints, role:validation ;
+    prof:hasArtifact <https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1/quality.ttl> .
+
+<https://data.molit.go.kr/profile/molit-dcat-ap/1.0.0-rc.1/resource/dataspace-offering-shacl>
+    a prof:ResourceDescriptor ;
+    dct:conformsTo <https://www.w3.org/TR/2017/REC-shacl-20170720/> ;
+    dct:format <http://publications.europa.eu/resource/authority/file-type/RDF_TURTLE> ;
+    prof:hasRole role:constraints, role:validation ;
+    prof:hasArtifact <https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1/dataspace-offering.ttl> .
+
+<https://data.molit.go.kr/profile/molit-dcat-ap/1.0.0-rc.1/resource/publication-policy-shacl>
+    a prof:ResourceDescriptor ;
+    dct:conformsTo <https://www.w3.org/TR/2017/REC-shacl-20170720/> ;
+    dct:format <http://publications.europa.eu/resource/authority/file-type/RDF_TURTLE> ;
+    prof:hasRole role:constraints, role:validation ;
+    prof:hasArtifact <https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1/publication-policy.ttl> .
+
+<https://data.molit.go.kr/profile/molit-dcat-ap/1.0.0-rc.1/resource/support-graph>
+    a prof:ResourceDescriptor ;
+    dct:format <http://publications.europa.eu/resource/authority/file-type/RDF_TURTLE> ;
+    rdfs:comment "The candidate graph contains instance metadata only. A validator may add this exact locked support graph as trusted background. Do not merge W3C dcat.ttl, GeoSPARQL ontology, MOLIT ontology, or SHACL shapes into the candidate graph."@en ;
+    prof:hasRole role:vocabulary ;
+    prof:hasArtifact <https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1/support.ttl> .
+
+<https://data.molit.go.kr/profile/molit-dcat-ap/1.0.0-rc.1/resource/ontology>
+    a prof:ResourceDescriptor ;
+    dct:format <http://publications.europa.eu/resource/authority/file-type/RDF_TURTLE> ;
+    prof:hasRole role:vocabulary ;
+    prof:hasArtifact <https://data.molit.go.kr/def/molit-dcat-ap/1.0.0-rc.1> .
+
+<https://data.molit.go.kr/profile/molit-dcat-ap/1.0.0-rc.1/resource/context>
+    a prof:ResourceDescriptor ;
+    dct:format <http://publications.europa.eu/resource/authority/file-type/JSON_LD> ;
+    prof:hasRole role:schema ;
+    prof:hasArtifact <https://data.molit.go.kr/profile/molit-dcat-ap/1.0.0-rc.1/context.jsonld> .
+
+<https://data.molit.go.kr/profile/molit-dcat-ap/1.0.0-rc.1/resource/requirements>
+    a prof:ResourceDescriptor ;
+    dct:format <http://publications.europa.eu/resource/authority/file-type/JSON> ;
+    prof:hasRole role:specification, role:validation ;
+    prof:hasArtifact <https://data.molit.go.kr/profile/molit-dcat-ap/1.0.0-rc.1/requirements/profile-requirements.json> .
+
+<https://data.molit.go.kr/profile/molit-dcat-ap/1.0.0-rc.1/resource/examples>
+    a prof:ResourceDescriptor ;
+    dct:format <http://publications.europa.eu/resource/authority/file-type/RDF_TURTLE> ;
+    prof:hasRole role:example ;
+    prof:hasArtifact <https://data.molit.go.kr/profile/molit-dcat-ap/1.0.0-rc.1/examples/> .
+
+# Candidate status is stated on each profile resource so that an RDF-only
+# consumer does not infer institutional approval from dct:Standard typing.
+
+<https://data.molit.go.kr/profile/molit-dcat-ap>
+    adms:status status:candidate ;
+    dct:description "운영기관과 namespace 승인 전 응용 프로파일 계열 후보."@ko,
+        "Candidate application-profile series pending operating-authority and namespace approval."@en .
+
+<https://data.molit.go.kr/profile/molit-dcat-ap/1.0.0-rc.1>
+    adms:status status:candidate ;
+    dct:description "발행 승인 전 후보판. Recommendation 또는 기관 표준이 아니다."@ko,
+        "A candidate release pending publication approval; it is not a Recommendation or institutional standard."@en .
+
+<https://data.molit.go.kr/profile/molit-dcat-ap/geo>
+    adms:status status:candidate ;
+    dct:description "운영기관과 namespace 승인 전 공간 module 계열 후보."@ko,
+        "Candidate geospatial-module series pending operating-authority and namespace approval."@en .
+
+<https://data.molit.go.kr/profile/molit-dcat-ap/1.0.0-rc.1/geo>
+    adms:status status:candidate ;
+    dct:description "발행 승인 전 공간 module 후보판."@ko,
+        "Candidate geospatial-module release pending publication approval."@en .
+
+<https://data.molit.go.kr/profile/molit-dcat-ap/network>
+    adms:status status:candidate ;
+    dct:description "운영기관과 namespace 승인 전 교통망 module 계열 후보."@ko,
+        "Candidate network-module series pending operating-authority and namespace approval."@en .
+
+<https://data.molit.go.kr/profile/molit-dcat-ap/1.0.0-rc.1/network>
+    adms:status status:candidate ;
+    dct:description "발행 승인 전 교통망 module 후보판."@ko,
+        "Candidate network-module release pending publication approval."@en .
+
+<https://data.molit.go.kr/profile/molit-dcat-ap/observation>
+    adms:status status:candidate ;
+    dct:description "운영기관과 namespace 승인 전 관측 module 계열 후보."@ko,
+        "Candidate observation-module series pending operating-authority and namespace approval."@en .
+
+<https://data.molit.go.kr/profile/molit-dcat-ap/1.0.0-rc.1/observation>
+    adms:status status:candidate ;
+    dct:description "발행 승인 전 관측 module 후보판."@ko,
+        "Candidate observation-module release pending publication approval."@en .
+
+<https://data.molit.go.kr/profile/molit-dcat-ap/quality>
+    adms:status status:candidate ;
+    dct:description "운영기관과 namespace 승인 전 품질 module 계열 후보."@ko,
+        "Candidate quality-module series pending operating-authority and namespace approval."@en .
+
+<https://data.molit.go.kr/profile/molit-dcat-ap/1.0.0-rc.1/quality>
+    adms:status status:candidate ;
+    dct:description "발행 승인 전 품질 module 후보판."@ko,
+        "Candidate quality-module release pending publication approval."@en .
+
+<https://data.molit.go.kr/profile/molit-dcat-ap/dataspace-offering>
+    adms:status status:candidate ;
+    dct:description "운영기관과 namespace 승인 전 제공 metadata module 계열 후보."@ko,
+        "Candidate offering-metadata-module series pending operating-authority and namespace approval."@en .
+
+<https://data.molit.go.kr/profile/molit-dcat-ap/1.0.0-rc.1/dataspace-offering>
+    adms:status status:candidate ;
+    dct:description "발행 승인 전 제공 metadata module 후보판."@ko,
+        "Candidate offering-metadata-module release pending publication approval."@en .
+
+<https://data.molit.go.kr/profile/molit-dcat-ap/publication-policy>
+    adms:status status:candidate ;
+    dct:description "운영기관과 namespace 승인 전 게시검증 정책 계열 후보."@ko,
+        "Candidate publication-validation-policy series pending operating-authority and namespace approval."@en .
+
+<https://data.molit.go.kr/profile/molit-dcat-ap/1.0.0-rc.1/publication-policy>
+    adms:status status:candidate ;
+    dct:description "발행 승인 전 게시검증 정책 후보판."@ko,
+        "Candidate publication-validation-policy release pending publication approval."@en .

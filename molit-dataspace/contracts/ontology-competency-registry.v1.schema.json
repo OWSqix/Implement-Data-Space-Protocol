@@ -1,0 +1,255 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://data.molit.go.kr/schema/ontology-competency-registry.v1.schema.json",
+  "title": "MOLIT ontology competency registry",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "profileVersion",
+    "status",
+    "documentation",
+    "toolchain",
+    "baseGraphs",
+    "datasets",
+    "moduleProbe",
+    "queries",
+    "owlConsistency"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "const": "molit.ontology-competency-registry/1"
+    },
+    "profileVersion": {
+      "const": "1.0.0-rc.1"
+    },
+    "status": {
+      "const": "candidate-machine-gate"
+    },
+    "documentation": {
+      "$ref": "#/$defs/localPath"
+    },
+    "toolchain": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["jena", "java", "python", "rdflib", "owlrl"],
+      "properties": {
+        "jena": { "const": "6.1.0" },
+        "java": { "const": "21.0.11+10" },
+        "python": { "const": "3.12" },
+        "rdflib": { "const": "7.6.0" },
+        "owlrl": { "const": "7.6.2" }
+      }
+    },
+    "baseGraphs": {
+      "type": "array",
+      "prefixItems": [
+        { "const": "ontology/molit-dcat-ap.ttl" },
+        { "const": "bundles/support.ttl" }
+      ],
+      "items": false,
+      "minItems": 2,
+      "maxItems": 2
+    },
+    "datasets": {
+      "type": "array",
+      "minItems": 6,
+      "maxItems": 6,
+      "items": { "$ref": "#/$defs/dataset" }
+    },
+    "moduleProbe": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["queryFile", "resultForm", "expectedBoolean"],
+      "properties": {
+        "queryFile": { "$ref": "#/$defs/queryPath" },
+        "resultForm": { "const": "ask" },
+        "expectedBoolean": { "const": true }
+      }
+    },
+    "queries": {
+      "type": "array",
+      "minItems": 13,
+      "maxItems": 13,
+      "items": { "$ref": "#/$defs/query" }
+    },
+    "owlConsistency": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "localNamespace",
+        "prohibitLocalEquivalence",
+        "requireDeprecatedReplacement",
+        "failOnDeprecatedFixtureUse",
+        "requireExplicitDomainRangeTypes"
+      ],
+      "properties": {
+        "localNamespace": {
+          "const": "https://data.molit.go.kr/def/molit-dcat-ap#"
+        },
+        "prohibitLocalEquivalence": { "const": true },
+        "requireDeprecatedReplacement": { "const": true },
+        "failOnDeprecatedFixtureUse": { "const": true },
+        "requireExplicitDomainRangeTypes": { "const": true }
+      }
+    }
+  },
+  "$defs": {
+    "localPath": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 500,
+      "pattern": "^(?!/)(?!.*(?:^|/)\\.\\.(?:/|$))(?!.*[\\\\:])[A-Za-z0-9._/-]+$"
+    },
+    "queryPath": {
+      "allOf": [
+        { "$ref": "#/$defs/localPath" },
+        {
+          "type": "string",
+          "pattern": "^ontology/queries/[a-z0-9-]+\\.rq$"
+        }
+      ]
+    },
+    "dataset": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "module", "fixture"],
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9-]{2,80}$"
+        },
+        "module": {
+          "enum": [
+            "core",
+            "geo",
+            "network",
+            "observation",
+            "quality",
+            "dataspace-offering"
+          ]
+        },
+        "fixture": {
+          "allOf": [
+            { "$ref": "#/$defs/localPath" },
+            {
+              "type": "string",
+              "pattern": "^examples/valid/[a-z0-9-]+\\.ttl$"
+            }
+          ]
+        }
+      }
+    },
+    "query": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "documentationSection",
+        "queryFile",
+        "datasetId",
+        "resultForm",
+        "expectedVariables",
+        "expectedRows"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^CQ-(?:OBS|NET|OFF|QUAL|GOV)-[0-9]{2}$"
+        },
+        "documentationSection": {
+          "type": "string",
+          "pattern": "^CQ-(?:OBS|NET|OFF|QUAL|GOV)-[0-9]{2}$"
+        },
+        "queryFile": { "$ref": "#/$defs/queryPath" },
+        "datasetId": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9-]{2,80}$"
+        },
+        "resultForm": { "const": "select" },
+        "expectedVariables": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "pattern": "^[A-Za-z_][A-Za-z0-9_]*$"
+          }
+        },
+        "expectedRows": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/binding" }
+        },
+        "zeroResultMeaning": {
+          "type": "string",
+          "minLength": 20,
+          "maxLength": 1000
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "expectedRows": {
+                "type": "array",
+                "maxItems": 0
+              }
+            }
+          },
+          "then": {
+            "required": ["zeroResultMeaning"],
+            "properties": {
+              "zeroResultMeaning": {
+                "type": "string",
+                "minLength": 20,
+                "maxLength": 1000
+              }
+            }
+          }
+        }
+      ]
+    },
+    "binding": {
+      "type": "object",
+      "minProperties": 1,
+      "additionalProperties": { "$ref": "#/$defs/term" },
+      "propertyNames": {
+        "pattern": "^[A-Za-z_][A-Za-z0-9_]*$"
+      }
+    },
+    "term": {
+      "oneOf": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["type", "value"],
+          "properties": {
+            "type": { "const": "uri" },
+            "value": { "type": "string", "format": "uri" }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["type", "value"],
+          "properties": {
+            "type": { "const": "literal" },
+            "value": { "type": "string" },
+            "datatype": { "type": "string", "format": "uri" },
+            "xml:lang": {
+              "type": "string",
+              "pattern": "^[A-Za-z]+(?:-[A-Za-z0-9]+)*$"
+            }
+          },
+          "not": {
+            "required": ["datatype", "xml:lang"],
+            "properties": {
+              "datatype": { "type": "string" },
+              "xml:lang": { "type": "string" }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

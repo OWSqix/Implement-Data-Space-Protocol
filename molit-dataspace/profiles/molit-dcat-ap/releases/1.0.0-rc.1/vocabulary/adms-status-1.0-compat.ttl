@@ -1,0 +1,36 @@
+@prefix dct: <http://purl.org/dc/terms/> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+
+# Local compatibility background for the single import declared by the
+# official DCAT-AP deprecated-URI shapes. It is not the complete ADMS graph.
+
+<http://purl.org/adms/status/1.0>
+    a skos:ConceptScheme ;
+    dct:title "ADMS legacy status scheme compatibility background"@en .
+
+<http://purl.org/adms/publishertype/1.0>
+    a skos:ConceptScheme ;
+    dct:title "ADMS publisher type compatibility background"@en .
+
+<http://purl.org/adms/publishertype/NationalAuthority>
+    a skos:Concept ;
+    skos:inScheme <http://purl.org/adms/publishertype/1.0> ;
+    skos:prefLabel "National authority"@en .
+
+<http://purl.org/adms/licencetype/1.0>
+    a skos:ConceptScheme ;
+    dct:title "ADMS licence type compatibility background"@en .
+
+<http://purl.org/adms/licencetype/Attribution>
+    a skos:Concept ;
+    skos:inScheme <http://purl.org/adms/licencetype/1.0> ;
+    skos:prefLabel "Attribution"@en .
+
+<http://purl.org/adms/changetype/1.0>
+    a skos:ConceptScheme ;
+    dct:title "ADMS change type compatibility background"@en .
+
+<http://purl.org/adms/changetype/Updated>
+    a skos:Concept ;
+    skos:inScheme <http://purl.org/adms/changetype/1.0> ;
+    skos:prefLabel "Updated"@en .

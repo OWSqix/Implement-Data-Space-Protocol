@@ -1,0 +1,1110 @@
+{
+  "schemaVersion": "molit.profile-requirement-coverage/1",
+  "profileVersion": "1.0.0-rc.1",
+  "releaseAcceptanceItem": "RA-REQUIREMENTS",
+  "counts": {
+    "blockers": 0,
+    "fixtureCases": 138,
+    "fullyCovered": 156,
+    "generatedMutations": 110,
+    "negativeCovered": 156,
+    "normativeRequirements": 156,
+    "positiveCovered": 156
+  },
+  "blockers": [],
+  "mutationAttempts": [
+    {
+      "outcome": "no-triggering-mutation",
+      "requirementId": "MOLIT-CV-CHECKSUM-001"
+    },
+    {
+      "outcome": "no-triggering-mutation",
+      "requirementId": "MOLIT-CV-CHECKSUM-002"
+    },
+    {
+      "outcome": "no-triggering-mutation",
+      "requirementId": "MOLIT-CV-MEDIATYPE-001"
+    },
+    {
+      "additionalRequirementIds": [
+        "MOLIT-CV-CHECKSUM-001",
+        "MOLIT-CV-CHECKSUM-002"
+      ],
+      "mutation": "replace-path-value",
+      "outcome": "generated",
+      "requirementId": "MOLIT-CV-CHECKSUM-001-P-ALGORITHM-001"
+    },
+    {
+      "additionalRequirementIds": [
+        "MOLIT-CV-MEDIATYPE-001"
+      ],
+      "mutation": "remove-path-values",
+      "outcome": "generated",
+      "requirementId": "MOLIT-CV-MEDIATYPE-001-P-TYPE-001"
+    },
+    {
+      "additionalRequirementIds": [
+        "MOLIT-CV-MEDIATYPE-001"
+      ],
+      "mutation": "replace-path-value",
+      "outcome": "generated",
+      "requirementId": "MOLIT-CV-MEDIATYPE-001-P-MEDIATYPE-001"
+    },
+    {
+      "additionalRequirementIds": [
+        "MOLIT-CV-MEDIATYPE-001"
+      ],
+      "mutation": "add-path-value",
+      "outcome": "generated",
+      "requirementId": "MOLIT-CV-MEDIATYPE-001-P-COMPRESSFORMAT-001"
+    },
+    {
+      "additionalRequirementIds": [
+        "MOLIT-CV-MEDIATYPE-001"
+      ],
+      "mutation": "add-path-value",
+      "outcome": "generated",
+      "requirementId": "MOLIT-CV-MEDIATYPE-001-P-PACKAGEFORMAT-001"
+    },
+    {
+      "outcome": "no-triggering-mutation",
+      "requirementId": "MOLIT-PROFILE-CORE-001"
+    },
+    {
+      "outcome": "no-triggering-mutation",
+      "requirementId": "MOLIT-PROFILE-CORE-002"
+    },
+    {
+      "additionalRequirementIds": [],
+      "mutation": "activate-prohibited-target",
+      "outcome": "generated",
+      "requirementId": "MOLIT-PROFILE-SELECTION-MARKER-001"
+    },
+    {
+      "additionalRequirementIds": [],
+      "mutation": "activate-prohibited-target",
+      "outcome": "generated",
+      "requirementId": "MOLIT-PROFILE-SELECTION-GEOSPARQL-001"
+    },
+    {
+      "additionalRequirementIds": [
+        "MOLIT-PROFILE-CORE-001"
+      ],
+      "mutation": "remove-path-values",
+      "outcome": "generated",
+      "requirementId": "MOLIT-PROFILE-CORE-001-P-CONFORMSTO-001"
+    },
+    {
+      "additionalRequirementIds": [
+        "MOLIT-PROFILE-CORE-002"
+      ],
+      "mutation": "remove-path-values",
+      "outcome": "generated",
+      "requirementId": "MOLIT-PROFILE-CORE-002-P-CONFORMSTO-001"
+    },
+    {
+      "outcome": "no-triggering-mutation",
+      "requirementId": "MOLIT-AGENT-001"
+    },
+    {
+      "outcome": "no-triggering-mutation",
+      "requirementId": "MOLIT-CAT-REL-001"
+    },
+    {
+      "outcome": "no-triggering-mutation",
+      "requirementId": "MOLIT-REC-001"
+    },
+    {
+      "outcome": "no-triggering-mutation",
+      "requirementId": "MOLIT-CAT-001"
+    },
+    {
+      "outcome": "no-triggering-mutation",
+      "requirementId": "MOLIT-SVC-001"
+    },
+    {
+      "outcome": "no-triggering-mutation",
+      "requirementId": "MOLIT-DS-001"
+    },
+    {
+      "additionalRequirementIds": [
+        "MOLIT-AGENT-001"
+      ],
+      "mutation": "remove-path-values",
+      "outcome": "generated",
+      "requirementId": "MOLIT-AGENT-001-P-NAME-001"
+    },
+    {
+      "additionalRequirementIds": [
+        "MOLIT-CAT-REL-001",
+        "MOLIT-DS-001",
+        "MOLIT-DS-001-P-PATH-30F94DAB87-001",
+        "MOLIT-REC-001",
+        "MOLIT-REC-001-P-PRIMARYTOPIC-001"
+      ],
+      "mutation": "remove-path-values",
+      "outcome": "generated",
+      "requirementId": "MOLIT-CAT-REL-001-P-PATH-DA00F2B2F6-001"
+    },
+    {
+      "additionalRequirementIds": [
+        "MOLIT-REC-001"
+      ],
+      "mutation": "remove-path-values",
+      "outcome": "generated",
+      "requirementId": "MOLIT-REC-001-P-TITLE-001"
+    },
+    {
+      "additionalRequirementIds": [
+        "MOLIT-REC-001"
+      ],
+      "mutation": "remove-path-values",
+      "outcome": "generated",
+      "requirementId": "MOLIT-REC-001-P-MODIFIED-001"
+    },
+    {
+      "additionalRequirementIds": [
+        "MOLIT-CAT-REL-001",
+        "MOLIT-CAT-REL-001-P-PATH-DA00F2B2F6-001",
+        "MOLIT-DS-001",
+        "MOLIT-DS-001-P-PATH-30F94DAB87-001",
+        "MOLIT-REC-001"
+      ],
+      "mutation": "remove-path-values",
+      "outcome": "generated",
+      "requirementId": "MOLIT-REC-001-P-PRIMARYTOPIC-001"
+    },
+    {
+      "additionalRequirementIds": [
+        "MOLIT-REC-001"
+      ],
+      "mutation": "remove-path-values",
+      "outcome": "generated",
+      "requirementId": "MOLIT-REC-001-P-LANGUAGE-001"
+    },
+    {
+      "additionalRequirementIds": [
+        "MOLIT-CAT-001"
+      ],
+      "mutation": "remove-path-values",
+      "outcome": "generated",
+      "requirementId": "MOLIT-CAT-001-P-TITLE-001"
+    },
+    {
+      "additionalRequirementIds": [
+        "MOLIT-CAT-001"
+      ],
+      "mutation": "remove-path-values",
+      "outcome": "generated",
+      "requirementId": "MOLIT-CAT-001-P-DESCRIPTION-001"
+    },
+    {
+      "additionalRequirementIds": [
+        "MOLIT-CAT-001"
+      ],
+      "mutation": "remove-path-values",
+      "outcome": "generated",
+      "requirementId": "MOLIT-CAT-001-P-PUBLISHER-001"
+    },
+    {
+      "additionalRequirementIds": [
+        "MOLIT-CAT-001",
+        "MOLIT-CAT-REL-001",
+        "MOLIT-CAT-REL-001-P-PATH-DA00F2B2F6-001",
+        "MOLIT-DS-001",
+        "MOLIT-DS-001-P-PATH-0E31B21B99-001"
+      ],
+      "mutation": "remove-path-values",
+      "outcome": "generated",
+      "requirementId": "MOLIT-CAT-001-P-DATASET-001"
+    },
+    {
+      "additionalRequirementIds": [
+        "MOLIT-CAT-001",
+        "MOLIT-CAT-REL-001",
+        "MOLIT-CAT-REL-001-P-PATH-DA00F2B2F6-001"
+      ],
+      "mutation": "remove-path-values",
+      "outcome": "generated",
+      "requirementId": "MOLIT-CAT-001-P-RECORD-001"
+    },
+    {
+      "additionalRequirementIds": [
+        "MOLIT-CAT-001"
+      ],
+      "mutation": "remove-path-values",
+      "outcome": "generated",
+      "requirementId": "MOLIT-CAT-001-P-LANGUAGE-001"
+    },
+    {
+      "additionalRequirementIds": [
+        "MOLIT-SVC-001"
+      ],
+      "mutation": "remove-path-values",
+      "outcome": "generated",
+      "requirementId": "MOLIT-SVC-001-P-TITLE-001"
+    },
+    {
+      "additionalRequirementIds": [
+        "MOLIT-SVC-001"
+      ],
+      "mutation": "remove-path-values",
+      "outcome": "generated",
+      "requirementId": "MOLIT-SVC-001-P-ENDPOINTURL-001"
+    },
+    {
+      "additionalRequirementIds": [
+        "MOLIT-SVC-001"
+      ],
+      "mutation": "remove-path-values",
+      "outcome": "generated",
+      "requirementId": "MOLIT-SVC-001-P-SERVESDATASET-001"
+    },
+    {
+      "additionalRequirementIds": [
+        "MOLIT-SVC-001"
+      ],
+      "mutation": "remove-path-values",
+      "outcome": "generated",
+      "requirementId": "MOLIT-SVC-001-P-THEME-001"
+    },
+    {
+      "additionalRequirementIds": [
+        "MOLIT-CAT-001",
+        "MOLIT-CAT-001-P-DATASET-001",
+        "MOLIT-CAT-REL-001",
+        "MOLIT-CAT-REL-001-P-PATH-DA00F2B2F6-001",
+        "MOLIT-DS-001"
+      ],
+      "mutation": "remove-path-values",
+      "outcome": "generated",
+      "requirementId": "MOLIT-DS-001-P-PATH-0E31B21B99-001"
+    },
+    {
+      "additionalRequirementIds": [
+        "MOLIT-CAT-REL-001",
+        "MOLIT-CAT-REL-001-P-PATH-DA00F2B2F6-001",
+        "MOLIT-DS-001",
+        "MOLIT-REC-001",
+        "MOLIT-REC-001-P-PRIMARYTOPIC-001"
+      ],
+      "mutation": "remove-path-values",
+      "outcome": "generated",
+      "requirementId": "MOLIT-DS-001-P-PATH-30F94DAB87-001"
+    },
+    {
+      "additionalRequirementIds": [
+        "MOLIT-DS-001"
+      ],
+      "mutation": "remove-path-values",
+      "outcome": "generated",
+      "requirementId": "MOLIT-DS-001-P-IDENTIFIER-001"
+    },
+    {
+      "additionalRequirementIds": [
+        "MOLIT-DS-001"
+      ],
+      "mutation": "remove-path-values",
+      "outcome": "generated",
+      "requirementId": "MOLIT-DS-001-P-TITLE-001"
+    },
+    {
+      "additionalRequirementIds": [
+        "MOLIT-DS-001"
+      ],
+      "mutation": "remove-path-values",
+      "outcome": "generated",
+      "requirementId": "MOLIT-DS-001-P-DESCRIPTION-001"
+    },
+    {
+      "additionalRequirementIds": [
+        "MOLIT-DS-001"
+      ],
+      "mutation": "remove-path-values",
+      "outcome": "generated",
+      "requirementId": "MOLIT-DS-001-P-PUBLISHER-001"
+    },
+    {
+      "additionalRequirementIds": [
+        "MOLIT-DS-001",
+        "MOLIT-DS-001-P-THEME-002"
+      ],
+      "mutation": "remove-path-values",
+      "outcome": "generated",
+      "requirementId": "MOLIT-DS-001-P-THEME-001"
+    },
+    {
+      "additionalRequirementIds": [
+        "MOLIT-DS-001",
+        "MOLIT-DS-001-P-THEME-001"
+      ],
+      "mutation": "remove-path-values",
+      "outcome": "generated",
+      "requirementId": "MOLIT-DS-001-P-THEME-002"
+    },
+    {
+      "additionalRequirementIds": [
+        "MOLIT-DS-001"
+      ],
+      "mutation": "remove-path-values",
+      "outcome": "generated",
+      "requirementId": "MOLIT-DS-001-P-ACCESSRIGHTS-001"
+    },
+    {
+      "additionalRequirementIds": [
+        "MOLIT-DS-001"
+      ],
+      "mutation": "replace-path-value",
+      "outcome": "generated",
+      "requirementId": "MOLIT-DS-001-P-ISSUED-001"
+    },
+    {
+      "additionalRequirementIds": [
+        "MOLIT-DS-001"
+      ],
+      "mutation": "remove-path-values",
+      "outcome": "generated",
+      "requirementId": "MOLIT-DS-001-P-MODIFIED-001"
+    },
+    {
+      "outcome": "no-triggering-mutation",
+      "requirementId": "MOLIT-PROFILE-OFFER-001"
+    },
+    {
+      "outcome": "no-triggering-mutation",
+      "requirementId": "MOLIT-PROFILE-OFFER-002"
+    },
+    {
+      "additionalRequirementIds": [
+        "MOLIT-PROFILE-OFFER-001"
+      ],
+      "mutation": "remove-path-values",
+      "outcome": "generated",
+      "requirementId": "MOLIT-PROFILE-OFFER-001-P-CONFORMSTO-001"
+    },
+    {
+      "additionalRequirementIds": [
+        "MOLIT-PROFILE-OFFER-002"
+      ],
+      "mutation": "remove-path-values",
+      "outcome": "generated",
+      "requirementId": "MOLIT-PROFILE-OFFER-002-P-CONFORMSTO-001"
+    },
+    {
+      "outcome": "no-triggering-mutation",
+      "requirementId": "MOLIT-GEO-PROFILE-001"
+    },
+    {
+      "outcome": "no-triggering-mutation",
+      "requirementId": "MOLIT-GEO-PROFILE-002"
+    },
+    {
+      "additionalRequirementIds": [
+        "MOLIT-GEO-PROFILE-001"
+      ],
+      "mutation": "remove-path-values",
+      "outcome": "generated",
+      "requirementId": "MOLIT-GEO-PROFILE-001-P-CONFORMSTO-001"
+    },
+    {
+      "additionalRequirementIds": [
+        "MOLIT-GEO-PROFILE-002"
+      ],
+      "mutation": "remove-path-values",
+      "outcome": "generated",
+      "requirementId": "MOLIT-GEO-PROFILE-002-P-CONFORMSTO-001"
+    },
+    {
+      "outcome": "no-triggering-mutation",
+      "requirementId": "MOLIT-PROFILE-NET-001"
+    },
+    {
+      "outcome": "no-triggering-mutation",
+      "requirementId": "MOLIT-PROFILE-NET-002"
+    },
+    {
+      "additionalRequirementIds": [
+        "MOLIT-PROFILE-NET-001"
+      ],
+      "mutation": "remove-path-values",
+      "outcome": "generated",
+      "requirementId": "MOLIT-PROFILE-NET-001-P-CONFORMSTO-001"
+    },
+    {
+      "additionalRequirementIds": [
+        "MOLIT-PROFILE-NET-002"
+      ],
+      "mutation": "remove-path-values",
+      "outcome": "generated",
+      "requirementId": "MOLIT-PROFILE-NET-002-P-CONFORMSTO-001"
+    },
+    {
+      "outcome": "no-triggering-mutation",
+      "requirementId": "MOLIT-NET-001"
+    },
+    {
+      "outcome": "no-triggering-mutation",
+      "requirementId": "MOLIT-NET-REF-001"
+    },
+    {
+      "outcome": "no-triggering-mutation",
+      "requirementId": "MOLIT-NET-002"
+    },
+    {
+      "outcome": "no-triggering-mutation",
+      "requirementId": "MOLIT-NET-SNAPSHOT-001"
+    },
+    {
+      "outcome": "no-triggering-mutation",
+      "requirementId": "MOLIT-NET-VALIDITY-001"
+    },
+    {
+      "additionalRequirementIds": [
+        "MOLIT-GEO-001",
+        "MOLIT-GEO-001-P-TYPE-001",
+        "MOLIT-GEO-DISCLOSURE-002",
+        "MOLIT-NET-001"
+      ],
+      "mutation": "remove-required-value",
+      "outcome": "generated",
+      "requirementId": "MOLIT-NET-001-P-TYPE-001"
+    },
+    {
+      "additionalRequirementIds": [
+        "MOLIT-NET-001"
+      ],
+      "mutation": "remove-path-values",
+      "outcome": "generated",
+      "requirementId": "MOLIT-NET-001-P-NETWORKREFERENCE-001"
+    },
+    {
+      "additionalRequirementIds": [
+        "MOLIT-NET-001"
+      ],
+      "mutation": "remove-path-values",
+      "outcome": "generated",
+      "requirementId": "MOLIT-NET-001-P-TRANSPORTMODE-001"
+    },
+    {
+      "additionalRequirementIds": [
+        "MOLIT-NET-REF-001"
+      ],
+      "mutation": "remove-path-values",
+      "outcome": "generated",
+      "requirementId": "MOLIT-NET-REF-001-P-NETWORKAUTHORITY-001"
+    },
+    {
+      "additionalRequirementIds": [
+        "MOLIT-NET-REF-001"
+      ],
+      "mutation": "remove-path-values",
+      "outcome": "generated",
+      "requirementId": "MOLIT-NET-REF-001-P-NETWORKIDENTIFIER-001"
+    },
+    {
+      "additionalRequirementIds": [
+        "MOLIT-NET-REF-001"
+      ],
+      "mutation": "remove-path-values",
+      "outcome": "generated",
+      "requirementId": "MOLIT-NET-REF-001-P-NETWORKVERSION-001"
+    },
+    {
+      "additionalRequirementIds": [
+        "MOLIT-NET-REF-001"
+      ],
+      "mutation": "remove-path-values",
+      "outcome": "generated",
+      "requirementId": "MOLIT-NET-REF-001-P-NETWORKELEMENTTYPE-001"
+    },
+    {
+      "additionalRequirementIds": [
+        "MOLIT-NET-002"
+      ],
+      "mutation": "remove-required-value",
+      "outcome": "generated",
+      "requirementId": "MOLIT-NET-002-P-TYPE-001"
+    },
+    {
+      "additionalRequirementIds": [
+        "MOLIT-NET-SNAPSHOT-001"
+      ],
+      "mutation": "replace-path-value",
+      "outcome": "generated",
+      "requirementId": "MOLIT-NET-SNAPSHOT-001-P-NETWORKIDENTIFIER-001"
+    },
+    {
+      "additionalRequirementIds": [
+        "MOLIT-NET-SNAPSHOT-001"
+      ],
+      "mutation": "replace-path-value",
+      "outcome": "generated",
+      "requirementId": "MOLIT-NET-SNAPSHOT-001-P-NETWORKVERSION-001"
+    },
+    {
+      "additionalRequirementIds": [
+        "MOLIT-NET-SNAPSHOT-001"
+      ],
+      "mutation": "remove-path-values",
+      "outcome": "generated",
+      "requirementId": "MOLIT-NET-SNAPSHOT-001-P-NETWORKSNAPSHOTCHECKSUM-001"
+    },
+    {
+      "additionalRequirementIds": [
+        "MOLIT-NET-SNAPSHOT-001"
+      ],
+      "mutation": "remove-path-values",
+      "outcome": "generated",
+      "requirementId": "MOLIT-NET-SNAPSHOT-001-P-NETWORKLIFECYCLESTATUS-001"
+    },
+    {
+      "additionalRequirementIds": [
+        "MOLIT-NET-SNAPSHOT-001"
+      ],
+      "mutation": "remove-path-values",
+      "outcome": "generated",
+      "requirementId": "MOLIT-NET-SNAPSHOT-001-P-NETWORKVALIDFROM-001"
+    },
+    {
+      "additionalRequirementIds": [
+        "MOLIT-NET-SNAPSHOT-001",
+        "MOLIT-NET-VALIDITY-001",
+        "MOLIT-NET-VALIDITY-001-P-NETWORKVALIDFROM-001"
+      ],
+      "mutation": "add-path-value",
+      "outcome": "generated",
+      "requirementId": "MOLIT-NET-SNAPSHOT-001-P-NETWORKVALIDUNTIL-001"
+    },
+    {
+      "outcome": "no-triggering-mutation",
+      "requirementId": "MOLIT-NET-VALIDITY-001-P-NETWORKVALIDFROM-001"
+    },
+    {
+      "outcome": "no-triggering-mutation",
+      "requirementId": "MOLIT-PROFILE-OBS-001"
+    },
+    {
+      "outcome": "no-triggering-mutation",
+      "requirementId": "MOLIT-PROFILE-OBS-002"
+    },
+    {
+      "additionalRequirementIds": [
+        "MOLIT-PROFILE-OBS-001"
+      ],
+      "mutation": "remove-path-values",
+      "outcome": "generated",
+      "requirementId": "MOLIT-PROFILE-OBS-001-P-CONFORMSTO-001"
+    },
+    {
+      "additionalRequirementIds": [
+        "MOLIT-PROFILE-OBS-002"
+      ],
+      "mutation": "remove-path-values",
+      "outcome": "generated",
+      "requirementId": "MOLIT-PROFILE-OBS-002-P-CONFORMSTO-001"
+    },
+    {
+      "outcome": "no-triggering-mutation",
+      "requirementId": "MOLIT-OBS-001"
+    },
+    {
+      "outcome": "no-triggering-mutation",
+      "requirementId": "MOLIT-OBS-UNIT-001"
+    },
+    {
+      "additionalRequirementIds": [
+        "MOLIT-OBS-001"
+      ],
+      "mutation": "remove-required-value",
+      "outcome": "generated",
+      "requirementId": "MOLIT-OBS-001-P-TYPE-001"
+    },
+    {
+      "additionalRequirementIds": [
+        "MOLIT-OBS-001"
+      ],
+      "mutation": "remove-path-values",
+      "outcome": "generated",
+      "requirementId": "MOLIT-OBS-001-P-TEMPORAL-001"
+    },
+    {
+      "additionalRequirementIds": [
+        "MOLIT-OBS-001"
+      ],
+      "mutation": "remove-path-values",
+      "outcome": "generated",
+      "requirementId": "MOLIT-OBS-001-P-TEMPORALRESOLUTION-001"
+    },
+    {
+      "additionalRequirementIds": [
+        "MOLIT-OBS-001"
+      ],
+      "mutation": "remove-path-values",
+      "outcome": "generated",
+      "requirementId": "MOLIT-OBS-001-P-AGGREGATIONPERIOD-001"
+    },
+    {
+      "additionalRequirementIds": [
+        "MOLIT-OBS-001",
+        "MOLIT-OBS-UNIT-001"
+      ],
+      "mutation": "remove-path-values",
+      "outcome": "generated",
+      "requirementId": "MOLIT-OBS-001-P-OBSERVEDPROPERTY-001"
+    },
+    {
+      "additionalRequirementIds": [
+        "MOLIT-OBS-001"
+      ],
+      "mutation": "remove-path-values",
+      "outcome": "generated",
+      "requirementId": "MOLIT-OBS-001-P-OBSERVATIONAGGREGATION-001"
+    },
+    {
+      "additionalRequirementIds": [
+        "MOLIT-OBS-001"
+      ],
+      "mutation": "remove-path-values",
+      "outcome": "generated",
+      "requirementId": "MOLIT-OBS-001-P-MISSINGVALUEPOLICY-001"
+    },
+    {
+      "additionalRequirementIds": [
+        "MOLIT-OBS-001"
+      ],
+      "mutation": "remove-path-values",
+      "outcome": "generated",
+      "requirementId": "MOLIT-OBS-001-P-OBSERVATIONSUBJECTTYPE-001"
+    },
+    {
+      "additionalRequirementIds": [
+        "MOLIT-OBS-001"
+      ],
+      "mutation": "remove-path-values",
+      "outcome": "generated",
+      "requirementId": "MOLIT-OBS-001-P-OBSERVATIONUNIT-001"
+    },
+    {
+      "outcome": "no-triggering-mutation",
+      "requirementId": "MOLIT-OFFER-001"
+    },
+    {
+      "outcome": "no-triggering-mutation",
+      "requirementId": "MOLIT-OFFER-LINK-001"
+    },
+    {
+      "additionalRequirementIds": [
+        "MOLIT-OFFER-001"
+      ],
+      "mutation": "remove-path-values",
+      "outcome": "generated",
+      "requirementId": "MOLIT-OFFER-001-P-IDENTIFIER-001"
+    },
+    {
+      "additionalRequirementIds": [
+        "MOLIT-OFFER-001"
+      ],
+      "mutation": "remove-path-values",
+      "outcome": "generated",
+      "requirementId": "MOLIT-OFFER-001-P-TITLE-001"
+    },
+    {
+      "additionalRequirementIds": [
+        "MOLIT-OFFER-001"
+      ],
+      "mutation": "remove-path-values",
+      "outcome": "generated",
+      "requirementId": "MOLIT-OFFER-001-P-DESCRIBESOFFERINGDATASET-001"
+    },
+    {
+      "additionalRequirementIds": [
+        "MOLIT-OFFER-001"
+      ],
+      "mutation": "remove-path-values",
+      "outcome": "generated",
+      "requirementId": "MOLIT-OFFER-001-P-OFFERINGREADINESSSTATUS-001"
+    },
+    {
+      "additionalRequirementIds": [
+        "MOLIT-OFFER-001"
+      ],
+      "mutation": "remove-path-values",
+      "outcome": "generated",
+      "requirementId": "MOLIT-OFFER-001-P-MODIFIED-001"
+    },
+    {
+      "additionalRequirementIds": [
+        "MOLIT-OFFER-001",
+        "MOLIT-OFFER-001-P-DESCRIBESOFFERINGDATASET-001",
+        "MOLIT-OFFER-LINK-001"
+      ],
+      "mutation": "replace-path-value",
+      "outcome": "generated",
+      "requirementId": "MOLIT-OFFER-LINK-001-P-DESCRIBESOFFERINGDATASET-001"
+    },
+    {
+      "outcome": "no-triggering-mutation",
+      "requirementId": "MOLIT-PROFILE-QUAL-001"
+    },
+    {
+      "outcome": "no-triggering-mutation",
+      "requirementId": "MOLIT-PROFILE-QUAL-002"
+    },
+    {
+      "additionalRequirementIds": [
+        "MOLIT-PROFILE-QUAL-001"
+      ],
+      "mutation": "remove-path-values",
+      "outcome": "generated",
+      "requirementId": "MOLIT-PROFILE-QUAL-001-P-CONFORMSTO-001"
+    },
+    {
+      "additionalRequirementIds": [
+        "MOLIT-PROFILE-QUAL-002"
+      ],
+      "mutation": "remove-path-values",
+      "outcome": "generated",
+      "requirementId": "MOLIT-PROFILE-QUAL-002-P-CONFORMSTO-001"
+    },
+    {
+      "outcome": "no-triggering-mutation",
+      "requirementId": "MOLIT-QUAL-001"
+    },
+    {
+      "outcome": "no-triggering-mutation",
+      "requirementId": "MOLIT-QUAL-PROV-001"
+    },
+    {
+      "outcome": "no-triggering-mutation",
+      "requirementId": "MOLIT-QUAL-MAP-001"
+    },
+    {
+      "outcome": "no-triggering-mutation",
+      "requirementId": "MOLIT-QUAL-LINK-001"
+    },
+    {
+      "outcome": "no-triggering-mutation",
+      "requirementId": "MOLIT-QUAL-MEASURE-001"
+    },
+    {
+      "outcome": "no-triggering-mutation",
+      "requirementId": "MOLIT-QUAL-MEASURE-002"
+    },
+    {
+      "additionalRequirementIds": [
+        "MOLIT-QUAL-001"
+      ],
+      "mutation": "remove-path-values",
+      "outcome": "generated",
+      "requirementId": "MOLIT-QUAL-001-P-QUALITYSTATUS-001"
+    },
+    {
+      "additionalRequirementIds": [
+        "MOLIT-QUAL-PROV-001"
+      ],
+      "mutation": "remove-path-values",
+      "outcome": "generated",
+      "requirementId": "MOLIT-QUAL-PROV-001-P-QUALITYEVALUATIONMETHOD-001"
+    },
+    {
+      "additionalRequirementIds": [
+        "MOLIT-QUAL-PROV-001"
+      ],
+      "mutation": "remove-path-values",
+      "outcome": "generated",
+      "requirementId": "MOLIT-QUAL-PROV-001-P-QUALITYEVALUATIONSCOPE-001"
+    },
+    {
+      "additionalRequirementIds": [
+        "MOLIT-QUAL-PROV-001"
+      ],
+      "mutation": "remove-path-values",
+      "outcome": "generated",
+      "requirementId": "MOLIT-QUAL-PROV-001-P-QUALITYRESULTKIND-001"
+    },
+    {
+      "additionalRequirementIds": [
+        "MOLIT-QUAL-PROV-001"
+      ],
+      "mutation": "remove-path-values",
+      "outcome": "generated",
+      "requirementId": "MOLIT-QUAL-PROV-001-P-QUALITYMAPPINGSTATEMENT-001"
+    },
+    {
+      "additionalRequirementIds": [
+        "MOLIT-QUAL-MAP-001"
+      ],
+      "mutation": "remove-path-values",
+      "outcome": "generated",
+      "requirementId": "MOLIT-QUAL-MAP-001-P-SOURCEQUALITYELEMENT-001"
+    },
+    {
+      "additionalRequirementIds": [
+        "MOLIT-QUAL-MAP-001"
+      ],
+      "mutation": "replace-path-value",
+      "outcome": "generated",
+      "requirementId": "MOLIT-QUAL-MAP-001-P-MAPPEDQUALITYMETRIC-001"
+    },
+    {
+      "additionalRequirementIds": [
+        "MOLIT-QUAL-MAP-001"
+      ],
+      "mutation": "remove-path-values",
+      "outcome": "generated",
+      "requirementId": "MOLIT-QUAL-MAP-001-P-QUALITYLOSSDISPOSITION-001"
+    },
+    {
+      "additionalRequirementIds": [
+        "MOLIT-QUAL-LINK-001"
+      ],
+      "mutation": "remove-path-values",
+      "outcome": "generated",
+      "requirementId": "MOLIT-QUAL-LINK-001-P-PATH-7CC75844D0-001"
+    },
+    {
+      "additionalRequirementIds": [
+        "MOLIT-QUAL-LINK-001",
+        "MOLIT-QUAL-LINK-001-P-PATH-7CC75844D0-001",
+        "MOLIT-QUAL-MEASURE-001"
+      ],
+      "mutation": "remove-path-values",
+      "outcome": "generated",
+      "requirementId": "MOLIT-QUAL-MEASURE-001-P-COMPUTEDON-001"
+    },
+    {
+      "additionalRequirementIds": [
+        "MOLIT-QUAL-MEASURE-001",
+        "MOLIT-QUAL-MEASURE-002"
+      ],
+      "mutation": "remove-path-values",
+      "outcome": "generated",
+      "requirementId": "MOLIT-QUAL-MEASURE-001-P-ISMEASUREMENTOF-001"
+    },
+    {
+      "additionalRequirementIds": [
+        "MOLIT-QUAL-MEASURE-001"
+      ],
+      "mutation": "remove-path-values",
+      "outcome": "generated",
+      "requirementId": "MOLIT-QUAL-MEASURE-001-P-VALUE-001"
+    },
+    {
+      "additionalRequirementIds": [
+        "MOLIT-QUAL-MEASURE-001",
+        "MOLIT-QUAL-MEASURE-002"
+      ],
+      "mutation": "remove-path-values",
+      "outcome": "generated",
+      "requirementId": "MOLIT-QUAL-MEASURE-001-P-UNITMEASURE-001"
+    },
+    {
+      "outcome": "no-triggering-mutation",
+      "requirementId": "MOLIT-REC-DS-001"
+    },
+    {
+      "outcome": "no-triggering-mutation",
+      "requirementId": "MOLIT-REC-DIST-001"
+    },
+    {
+      "outcome": "no-triggering-mutation",
+      "requirementId": "MOLIT-REC-QUAL-001"
+    },
+    {
+      "additionalRequirementIds": [
+        "MOLIT-REC-DS-001"
+      ],
+      "mutation": "remove-path-values",
+      "outcome": "generated",
+      "requirementId": "MOLIT-REC-DS-001-P-CONTACTPOINT-001"
+    },
+    {
+      "additionalRequirementIds": [
+        "MOLIT-REC-DS-001"
+      ],
+      "mutation": "remove-path-values",
+      "outcome": "generated",
+      "requirementId": "MOLIT-REC-DS-001-P-PROVENANCE-001"
+    },
+    {
+      "additionalRequirementIds": [
+        "MOLIT-REC-DIST-001"
+      ],
+      "mutation": "remove-path-values",
+      "outcome": "generated",
+      "requirementId": "MOLIT-REC-DIST-001-P-CHECKSUM-001"
+    },
+    {
+      "additionalRequirementIds": [
+        "MOLIT-REC-QUAL-001"
+      ],
+      "mutation": "remove-path-values",
+      "outcome": "generated",
+      "requirementId": "MOLIT-REC-QUAL-001-P-QUALIFICATIONEVIDENCE-001"
+    },
+    {
+      "additionalRequirementIds": [
+        "MOLIT-GEO-ENCODING-003"
+      ],
+      "mutation": "add-target-object",
+      "outcome": "generated",
+      "requirementId": "MOLIT-GEO-TYPE-003"
+    },
+    {
+      "additionalRequirementIds": [
+        "MOLIT-GEO-TYPE-003"
+      ],
+      "mutation": "add-target-object",
+      "outcome": "generated",
+      "requirementId": "MOLIT-GEO-ENCODING-003"
+    },
+    {
+      "additionalRequirementIds": [],
+      "mutation": "add-target-object",
+      "outcome": "generated",
+      "requirementId": "MOLIT-GEO-TYPE-004"
+    },
+    {
+      "outcome": "no-triggering-mutation",
+      "requirementId": "MOLIT-GEO-LINK-002"
+    },
+    {
+      "additionalRequirementIds": [],
+      "mutation": "add-target-object",
+      "outcome": "generated",
+      "requirementId": "MOLIT-GEO-ENCODING-002"
+    },
+    {
+      "additionalRequirementIds": [],
+      "mutation": "add-target-object",
+      "outcome": "generated",
+      "requirementId": "MOLIT-GEO-TYPE-002"
+    },
+    {
+      "additionalRequirementIds": [],
+      "mutation": "add-target-object",
+      "outcome": "generated",
+      "requirementId": "MOLIT-GEO-ENCODING-004"
+    },
+    {
+      "outcome": "no-triggering-mutation",
+      "requirementId": "MOLIT-GEO-LINK-001"
+    },
+    {
+      "outcome": "no-triggering-mutation",
+      "requirementId": "MOLIT-GEO-001"
+    },
+    {
+      "additionalRequirementIds": [],
+      "mutation": "replace-disclosure-with-withheld",
+      "outcome": "generated",
+      "requirementId": "MOLIT-GEO-DISCLOSURE-001"
+    },
+    {
+      "outcome": "no-triggering-mutation",
+      "requirementId": "MOLIT-GEO-DISCLOSURE-002"
+    },
+    {
+      "outcome": "no-triggering-mutation",
+      "requirementId": "MOLIT-GEO-ENCODING-005"
+    },
+    {
+      "additionalRequirementIds": [
+        "MOLIT-GEO-TYPE-001"
+      ],
+      "mutation": "add-target-object",
+      "outcome": "generated",
+      "requirementId": "MOLIT-GEO-ENCODING-001"
+    },
+    {
+      "additionalRequirementIds": [],
+      "mutation": "add-target-object",
+      "outcome": "generated",
+      "requirementId": "MOLIT-GEO-TYPE-001"
+    },
+    {
+      "outcome": "no-triggering-mutation",
+      "requirementId": "MOLIT-GEO-LINK-002-P-PATH-D6567CFAEC-001"
+    },
+    {
+      "additionalRequirementIds": [
+        "MOLIT-GEO-001",
+        "MOLIT-GEO-LINK-001",
+        "MOLIT-GEO-LINK-002",
+        "MOLIT-GEO-LINK-002-P-PATH-D6567CFAEC-001"
+      ],
+      "mutation": "remove-path-values",
+      "outcome": "generated",
+      "requirementId": "MOLIT-GEO-LINK-001-P-PATH-BFC98936CC-001"
+    },
+    {
+      "additionalRequirementIds": [
+        "MOLIT-GEO-001",
+        "MOLIT-GEO-DISCLOSURE-002"
+      ],
+      "mutation": "remove-required-value",
+      "outcome": "generated",
+      "requirementId": "MOLIT-GEO-001-P-TYPE-001"
+    },
+    {
+      "additionalRequirementIds": [
+        "MOLIT-GEO-001"
+      ],
+      "mutation": "remove-path-values",
+      "outcome": "generated",
+      "requirementId": "MOLIT-GEO-001-P-REFERENCESYSTEM-001"
+    },
+    {
+      "additionalRequirementIds": [
+        "MOLIT-GEO-001",
+        "MOLIT-GEO-LINK-001",
+        "MOLIT-GEO-LINK-001-P-PATH-BFC98936CC-001",
+        "MOLIT-GEO-LINK-002",
+        "MOLIT-GEO-LINK-002-P-PATH-D6567CFAEC-001"
+      ],
+      "mutation": "remove-path-values",
+      "outcome": "generated",
+      "requirementId": "MOLIT-GEO-001-P-SPATIALDISCLOSURELEVEL-001"
+    },
+    {
+      "additionalRequirementIds": [
+        "MOLIT-GEO-001"
+      ],
+      "mutation": "replace-path-value",
+      "outcome": "generated",
+      "requirementId": "MOLIT-GEO-001-P-SPATIALRESOLUTIONINMETERS-001"
+    },
+    {
+      "additionalRequirementIds": [
+        "MOLIT-GEO-ENCODING-005"
+      ],
+      "mutation": "add-path-value",
+      "outcome": "generated",
+      "requirementId": "MOLIT-GEO-ENCODING-005-P-ASGEOJSON-001"
+    },
+    {
+      "additionalRequirementIds": [
+        "MOLIT-GEO-ENCODING-005"
+      ],
+      "mutation": "add-path-value",
+      "outcome": "generated",
+      "requirementId": "MOLIT-GEO-ENCODING-005-P-ASKML-001"
+    },
+    {
+      "additionalRequirementIds": [
+        "MOLIT-GEO-ENCODING-005"
+      ],
+      "mutation": "add-path-value",
+      "outcome": "generated",
+      "requirementId": "MOLIT-GEO-ENCODING-005-P-ASDGGS-001"
+    },
+    {
+      "additionalRequirementIds": [
+        "MOLIT-GEO-ENCODING-005"
+      ],
+      "mutation": "add-path-value",
+      "outcome": "generated",
+      "requirementId": "MOLIT-GEO-ENCODING-005-P-HASSERIALIZATION-001"
+    }
+  ]
+}

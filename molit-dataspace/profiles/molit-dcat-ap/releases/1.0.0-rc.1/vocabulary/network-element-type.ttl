@@ -1,0 +1,138 @@
+@prefix dct: <http://purl.org/dc/terms/> .
+@prefix net: <https://data.molit.go.kr/id/concept/network-element-type/> .
+@prefix molit-scheme: <https://data.molit.go.kr/scheme/> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+molit-scheme:network-element-type
+    a skos:ConceptScheme ;
+    dct:issued "2026-07-12"^^xsd:date ;
+    dct:title "국토교통 망 요소 유형"@ko ;
+    skos:note "License for locally authored concepts is pending owner approval."@en ;
+    skos:prefLabel "국토교통 망 요소 유형"@ko,
+        "MOLIT network element types"@en ;
+    skos:definition "교통망 참조가 포함하는 노드, 링크, 구간, 역, 정류장, 시설, 존과 관측지점을 구분하는 후보 분류체계."@ko,
+        "A candidate scheme distinguishing nodes, links, sections, stations, stops, facilities, zones and sensor sites included by a network reference."@en ;
+    skos:hasTopConcept net:node,
+        net:link,
+        net:section,
+        net:station,
+        net:stop,
+        net:facility,
+        net:zone,
+        net:sensor-site .
+
+net:node
+    a skos:Concept ;
+    skos:inScheme molit-scheme:network-element-type ;
+    skos:prefLabel "노드"@ko, "Node"@en ;
+    skos:definition "교통망에서 링크의 시작·종료 또는 연결 지점을 식별하는 요소."@ko,
+        "An element identifying the start, end or connection point of links in a transport network."@en ;
+    skos:topConceptOf molit-scheme:network-element-type .
+
+net:link
+    a skos:Concept ;
+    skos:inScheme molit-scheme:network-element-type ;
+    skos:prefLabel "링크"@ko, "Link"@en ;
+    skos:definition "교통망의 두 노드 사이에서 이동 가능한 연결을 나타내는 방향성 또는 비방향성 요소."@ko,
+        "A directed or undirected element representing a traversable connection between two network nodes."@en ;
+    skos:topConceptOf molit-scheme:network-element-type .
+
+net:section
+    a skos:Concept ;
+    skos:inScheme molit-scheme:network-element-type ;
+    skos:prefLabel "구간"@ko, "Section"@en ;
+    skos:definition "운영, 관리 또는 분석 목적으로 하나 이상의 연속 링크를 묶은 망 요소."@ko,
+        "A network element grouping one or more consecutive links for operational, management or analytical purposes."@en ;
+    skos:topConceptOf molit-scheme:network-element-type .
+
+net:station
+    a skos:Concept ;
+    skos:inScheme molit-scheme:network-element-type ;
+    skos:prefLabel "역"@ko, "Station"@en ;
+    skos:definition "철도 또는 도시철도에서 승하차, 환승이나 운영 기능을 제공하는 장소."@ko,
+        "A place providing boarding, alighting, interchange or operational functions for rail services."@en ;
+    skos:topConceptOf molit-scheme:network-element-type .
+
+net:stop
+    a skos:Concept ;
+    skos:inScheme molit-scheme:network-element-type ;
+    skos:prefLabel "정류장"@ko, "Stop"@en ;
+    skos:definition "버스, 노면전차 또는 그 밖의 교통서비스가 승하차를 위해 정차하는 지정 장소."@ko,
+        "A designated place where a bus, tram or other transport service stops for boarding and alighting."@en ;
+    skos:topConceptOf molit-scheme:network-element-type .
+
+net:facility
+    a skos:Concept ;
+    skos:inScheme molit-scheme:network-element-type ;
+    skos:prefLabel "시설"@ko, "Facility"@en ;
+    skos:definition "교통망의 건설, 운영, 이용 또는 안전을 지원하는 물리적 시설."@ko,
+        "A physical facility supporting construction, operation, use or safety of a transport network."@en ;
+    skos:topConceptOf molit-scheme:network-element-type .
+
+net:zone
+    a skos:Concept ;
+    skos:inScheme molit-scheme:network-element-type ;
+    skos:prefLabel "교통 존"@ko, "Transport zone"@en ;
+    skos:definition "교통수요, 통행 또는 서비스 범위를 집계하기 위해 설정한 공간 단위."@ko,
+        "A spatial unit defined for aggregating transport demand, trips or service coverage."@en ;
+    skos:topConceptOf molit-scheme:network-element-type .
+
+net:sensor-site
+    a skos:Concept ;
+    skos:inScheme molit-scheme:network-element-type ;
+    skos:prefLabel "관측 지점"@ko, "Sensor site"@en ;
+    skos:definition "교통량, 속도, 상태 또는 환경값을 관측하는 장비의 위치를 식별하는 망 요소."@ko,
+        "A network element identifying the location of equipment that observes traffic, speed, condition or environmental values."@en ;
+    skos:topConceptOf molit-scheme:network-element-type .
+
+# RC.1 local-term governance. The candidate status is not institutional approval.
+@prefix adms: <http://www.w3.org/ns/adms#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix term-status: <https://data.molit.go.kr/id/concept/term-status/> .
+
+<https://data.molit.go.kr/id/concept/network-element-type/facility>
+    rdfs:isDefinedBy <https://data.molit.go.kr/scheme/network-element-type> ;
+    owl:versionInfo "1.0.0-rc.1" ;
+    adms:status term-status:candidate .
+
+<https://data.molit.go.kr/id/concept/network-element-type/link>
+    rdfs:isDefinedBy <https://data.molit.go.kr/scheme/network-element-type> ;
+    owl:versionInfo "1.0.0-rc.1" ;
+    adms:status term-status:candidate .
+
+<https://data.molit.go.kr/id/concept/network-element-type/node>
+    rdfs:isDefinedBy <https://data.molit.go.kr/scheme/network-element-type> ;
+    owl:versionInfo "1.0.0-rc.1" ;
+    adms:status term-status:candidate .
+
+<https://data.molit.go.kr/id/concept/network-element-type/section>
+    rdfs:isDefinedBy <https://data.molit.go.kr/scheme/network-element-type> ;
+    owl:versionInfo "1.0.0-rc.1" ;
+    adms:status term-status:candidate .
+
+<https://data.molit.go.kr/id/concept/network-element-type/sensor-site>
+    rdfs:isDefinedBy <https://data.molit.go.kr/scheme/network-element-type> ;
+    owl:versionInfo "1.0.0-rc.1" ;
+    adms:status term-status:candidate .
+
+<https://data.molit.go.kr/id/concept/network-element-type/station>
+    rdfs:isDefinedBy <https://data.molit.go.kr/scheme/network-element-type> ;
+    owl:versionInfo "1.0.0-rc.1" ;
+    adms:status term-status:candidate .
+
+<https://data.molit.go.kr/id/concept/network-element-type/stop>
+    rdfs:isDefinedBy <https://data.molit.go.kr/scheme/network-element-type> ;
+    owl:versionInfo "1.0.0-rc.1" ;
+    adms:status term-status:candidate .
+
+<https://data.molit.go.kr/id/concept/network-element-type/zone>
+    rdfs:isDefinedBy <https://data.molit.go.kr/scheme/network-element-type> ;
+    owl:versionInfo "1.0.0-rc.1" ;
+    adms:status term-status:candidate .
+
+<https://data.molit.go.kr/scheme/network-element-type>
+    rdfs:isDefinedBy <https://data.molit.go.kr/scheme/network-element-type> ;
+    owl:versionInfo "1.0.0-rc.1" ;
+    adms:status term-status:candidate .

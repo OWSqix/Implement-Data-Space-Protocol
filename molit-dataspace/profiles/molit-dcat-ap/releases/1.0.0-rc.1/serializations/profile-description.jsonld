@@ -1,0 +1,1075 @@
+{
+  "@graph": [
+    {
+      "@id": "https://data.molit.go.kr/profile/molit-dcat-ap",
+      "@type": [
+        "http://purl.org/dc/terms/Standard",
+        "http://www.w3.org/ns/dx/prof/Profile"
+      ],
+      "http://purl.org/dc/terms/description": [
+        {
+          "@language": "en",
+          "@value": "Candidate application-profile series pending operating-authority and namespace approval."
+        },
+        {
+          "@language": "ko",
+          "@value": "운영기관과 namespace 승인 전 응용 프로파일 계열 후보."
+        }
+      ],
+      "http://purl.org/dc/terms/hasVersion": [
+        {
+          "@id": "https://data.molit.go.kr/profile/molit-dcat-ap/1.0.0-rc.1"
+        }
+      ],
+      "http://purl.org/dc/terms/title": [
+        {
+          "@language": "en",
+          "@value": "MOLIT Metadata Application Profile"
+        },
+        {
+          "@language": "ko",
+          "@value": "국토교통 메타데이터 응용 프로파일"
+        }
+      ],
+      "http://www.w3.org/ns/adms#status": [
+        {
+          "@id": "https://data.molit.go.kr/id/concept/term-status/candidate"
+        }
+      ],
+      "http://www.w3.org/ns/dx/prof/hasToken": [
+        {
+          "@value": "molit-dcat-ap"
+        }
+      ]
+    },
+    {
+      "@id": "https://data.molit.go.kr/profile/molit-dcat-ap/1.0.0-rc.1",
+      "@type": [
+        "http://purl.org/dc/terms/Standard",
+        "http://www.w3.org/ns/dx/prof/Profile"
+      ],
+      "http://purl.org/dc/terms/description": [
+        {
+          "@language": "en",
+          "@value": "A candidate release pending publication approval; it is not a Recommendation or institutional standard."
+        },
+        {
+          "@language": "ko",
+          "@value": "발행 승인 전 후보판. Recommendation 또는 기관 표준이 아니다."
+        }
+      ],
+      "http://purl.org/dc/terms/isVersionOf": [
+        {
+          "@id": "https://data.molit.go.kr/profile/molit-dcat-ap"
+        }
+      ],
+      "http://purl.org/dc/terms/issued": [
+        {
+          "@type": "http://www.w3.org/2001/XMLSchema#date",
+          "@value": "2026-07-13"
+        }
+      ],
+      "http://purl.org/dc/terms/title": [
+        {
+          "@language": "en",
+          "@value": "MOLIT Core Metadata Application Profile"
+        }
+      ],
+      "http://www.w3.org/ns/adms#status": [
+        {
+          "@id": "https://data.molit.go.kr/id/concept/term-status/candidate"
+        }
+      ],
+      "http://www.w3.org/ns/dx/prof/hasResource": [
+        {
+          "@id": "https://data.molit.go.kr/profile/molit-dcat-ap/1.0.0-rc.1/resource/context"
+        },
+        {
+          "@id": "https://data.molit.go.kr/profile/molit-dcat-ap/1.0.0-rc.1/resource/core-shacl"
+        },
+        {
+          "@id": "https://data.molit.go.kr/profile/molit-dcat-ap/1.0.0-rc.1/resource/examples"
+        },
+        {
+          "@id": "https://data.molit.go.kr/profile/molit-dcat-ap/1.0.0-rc.1/resource/ontology"
+        },
+        {
+          "@id": "https://data.molit.go.kr/profile/molit-dcat-ap/1.0.0-rc.1/resource/requirements"
+        },
+        {
+          "@id": "https://data.molit.go.kr/profile/molit-dcat-ap/1.0.0-rc.1/resource/specification"
+        },
+        {
+          "@id": "https://data.molit.go.kr/profile/molit-dcat-ap/1.0.0-rc.1/resource/support-graph"
+        }
+      ],
+      "http://www.w3.org/ns/dx/prof/hasToken": [
+        {
+          "@value": "molit-dcat-ap"
+        }
+      ],
+      "http://www.w3.org/ns/dx/prof/isProfileOf": [
+        {
+          "@id": "https://semiceu.github.io/DCAT-AP/releases/3.0.1/"
+        }
+      ]
+    },
+    {
+      "@id": "https://data.molit.go.kr/profile/molit-dcat-ap/1.0.0-rc.1/dataspace-offering",
+      "@type": [
+        "http://purl.org/dc/terms/Standard",
+        "http://www.w3.org/ns/dx/prof/Profile"
+      ],
+      "http://purl.org/dc/terms/description": [
+        {
+          "@language": "en",
+          "@value": "Candidate offering-metadata-module release pending publication approval."
+        },
+        {
+          "@language": "ko",
+          "@value": "발행 승인 전 제공 metadata module 후보판."
+        }
+      ],
+      "http://purl.org/dc/terms/isVersionOf": [
+        {
+          "@id": "https://data.molit.go.kr/profile/molit-dcat-ap/dataspace-offering"
+        }
+      ],
+      "http://purl.org/dc/terms/issued": [
+        {
+          "@type": "http://www.w3.org/2001/XMLSchema#date",
+          "@value": "2026-07-13"
+        }
+      ],
+      "http://purl.org/dc/terms/title": [
+        {
+          "@language": "en",
+          "@value": "MOLIT Dataspace Offering Metadata Application Profile"
+        }
+      ],
+      "http://www.w3.org/ns/adms#status": [
+        {
+          "@id": "https://data.molit.go.kr/id/concept/term-status/candidate"
+        }
+      ],
+      "http://www.w3.org/ns/dx/prof/hasResource": [
+        {
+          "@id": "https://data.molit.go.kr/profile/molit-dcat-ap/1.0.0-rc.1/resource/context"
+        },
+        {
+          "@id": "https://data.molit.go.kr/profile/molit-dcat-ap/1.0.0-rc.1/resource/dataspace-offering-shacl"
+        },
+        {
+          "@id": "https://data.molit.go.kr/profile/molit-dcat-ap/1.0.0-rc.1/resource/examples"
+        },
+        {
+          "@id": "https://data.molit.go.kr/profile/molit-dcat-ap/1.0.0-rc.1/resource/ontology"
+        },
+        {
+          "@id": "https://data.molit.go.kr/profile/molit-dcat-ap/1.0.0-rc.1/resource/requirements"
+        },
+        {
+          "@id": "https://data.molit.go.kr/profile/molit-dcat-ap/1.0.0-rc.1/resource/specification"
+        },
+        {
+          "@id": "https://data.molit.go.kr/profile/molit-dcat-ap/1.0.0-rc.1/resource/support-graph"
+        }
+      ],
+      "http://www.w3.org/ns/dx/prof/hasToken": [
+        {
+          "@value": "molit-dataspace-offering"
+        }
+      ],
+      "http://www.w3.org/ns/dx/prof/isProfileOf": [
+        {
+          "@id": "https://data.molit.go.kr/profile/molit-dcat-ap/1.0.0-rc.1"
+        }
+      ]
+    },
+    {
+      "@id": "https://data.molit.go.kr/profile/molit-dcat-ap/1.0.0-rc.1/geo",
+      "@type": [
+        "http://purl.org/dc/terms/Standard",
+        "http://www.w3.org/ns/dx/prof/Profile"
+      ],
+      "http://purl.org/dc/terms/description": [
+        {
+          "@language": "en",
+          "@value": "Candidate geospatial-module release pending publication approval."
+        },
+        {
+          "@language": "ko",
+          "@value": "발행 승인 전 공간 module 후보판."
+        }
+      ],
+      "http://purl.org/dc/terms/isVersionOf": [
+        {
+          "@id": "https://data.molit.go.kr/profile/molit-dcat-ap/geo"
+        }
+      ],
+      "http://purl.org/dc/terms/issued": [
+        {
+          "@type": "http://www.w3.org/2001/XMLSchema#date",
+          "@value": "2026-07-13"
+        }
+      ],
+      "http://purl.org/dc/terms/title": [
+        {
+          "@language": "en",
+          "@value": "MOLIT Geospatial Metadata Application Profile"
+        }
+      ],
+      "http://www.w3.org/ns/adms#status": [
+        {
+          "@id": "https://data.molit.go.kr/id/concept/term-status/candidate"
+        }
+      ],
+      "http://www.w3.org/ns/dx/prof/hasResource": [
+        {
+          "@id": "https://data.molit.go.kr/profile/molit-dcat-ap/1.0.0-rc.1/resource/context"
+        },
+        {
+          "@id": "https://data.molit.go.kr/profile/molit-dcat-ap/1.0.0-rc.1/resource/examples"
+        },
+        {
+          "@id": "https://data.molit.go.kr/profile/molit-dcat-ap/1.0.0-rc.1/resource/geo-shacl"
+        },
+        {
+          "@id": "https://data.molit.go.kr/profile/molit-dcat-ap/1.0.0-rc.1/resource/ontology"
+        },
+        {
+          "@id": "https://data.molit.go.kr/profile/molit-dcat-ap/1.0.0-rc.1/resource/requirements"
+        },
+        {
+          "@id": "https://data.molit.go.kr/profile/molit-dcat-ap/1.0.0-rc.1/resource/specification"
+        },
+        {
+          "@id": "https://data.molit.go.kr/profile/molit-dcat-ap/1.0.0-rc.1/resource/support-graph"
+        }
+      ],
+      "http://www.w3.org/ns/dx/prof/hasToken": [
+        {
+          "@value": "molit-geo"
+        }
+      ],
+      "http://www.w3.org/ns/dx/prof/isProfileOf": [
+        {
+          "@id": "https://semiceu.github.io/GeoDCAT-AP/releases/3.1.0/"
+        }
+      ]
+    },
+    {
+      "@id": "https://data.molit.go.kr/profile/molit-dcat-ap/1.0.0-rc.1/network",
+      "@type": [
+        "http://purl.org/dc/terms/Standard",
+        "http://www.w3.org/ns/dx/prof/Profile"
+      ],
+      "http://purl.org/dc/terms/description": [
+        {
+          "@language": "en",
+          "@value": "Candidate network-module release pending publication approval."
+        },
+        {
+          "@language": "ko",
+          "@value": "발행 승인 전 교통망 module 후보판."
+        }
+      ],
+      "http://purl.org/dc/terms/isVersionOf": [
+        {
+          "@id": "https://data.molit.go.kr/profile/molit-dcat-ap/network"
+        }
+      ],
+      "http://purl.org/dc/terms/issued": [
+        {
+          "@type": "http://www.w3.org/2001/XMLSchema#date",
+          "@value": "2026-07-13"
+        }
+      ],
+      "http://purl.org/dc/terms/title": [
+        {
+          "@language": "en",
+          "@value": "MOLIT Transport Network Metadata Application Profile"
+        }
+      ],
+      "http://www.w3.org/ns/adms#status": [
+        {
+          "@id": "https://data.molit.go.kr/id/concept/term-status/candidate"
+        }
+      ],
+      "http://www.w3.org/ns/dx/prof/hasResource": [
+        {
+          "@id": "https://data.molit.go.kr/profile/molit-dcat-ap/1.0.0-rc.1/resource/context"
+        },
+        {
+          "@id": "https://data.molit.go.kr/profile/molit-dcat-ap/1.0.0-rc.1/resource/examples"
+        },
+        {
+          "@id": "https://data.molit.go.kr/profile/molit-dcat-ap/1.0.0-rc.1/resource/network-shacl"
+        },
+        {
+          "@id": "https://data.molit.go.kr/profile/molit-dcat-ap/1.0.0-rc.1/resource/ontology"
+        },
+        {
+          "@id": "https://data.molit.go.kr/profile/molit-dcat-ap/1.0.0-rc.1/resource/requirements"
+        },
+        {
+          "@id": "https://data.molit.go.kr/profile/molit-dcat-ap/1.0.0-rc.1/resource/specification"
+        },
+        {
+          "@id": "https://data.molit.go.kr/profile/molit-dcat-ap/1.0.0-rc.1/resource/support-graph"
+        }
+      ],
+      "http://www.w3.org/ns/dx/prof/hasToken": [
+        {
+          "@value": "molit-network"
+        }
+      ],
+      "http://www.w3.org/ns/dx/prof/isProfileOf": [
+        {
+          "@id": "https://data.molit.go.kr/profile/molit-dcat-ap/1.0.0-rc.1/geo"
+        }
+      ]
+    },
+    {
+      "@id": "https://data.molit.go.kr/profile/molit-dcat-ap/1.0.0-rc.1/observation",
+      "@type": [
+        "http://purl.org/dc/terms/Standard",
+        "http://www.w3.org/ns/dx/prof/Profile"
+      ],
+      "http://purl.org/dc/terms/description": [
+        {
+          "@language": "en",
+          "@value": "Candidate observation-module release pending publication approval."
+        },
+        {
+          "@language": "ko",
+          "@value": "발행 승인 전 관측 module 후보판."
+        }
+      ],
+      "http://purl.org/dc/terms/isVersionOf": [
+        {
+          "@id": "https://data.molit.go.kr/profile/molit-dcat-ap/observation"
+        }
+      ],
+      "http://purl.org/dc/terms/issued": [
+        {
+          "@type": "http://www.w3.org/2001/XMLSchema#date",
+          "@value": "2026-07-13"
+        }
+      ],
+      "http://purl.org/dc/terms/title": [
+        {
+          "@language": "en",
+          "@value": "MOLIT Transport Observation Metadata Application Profile"
+        }
+      ],
+      "http://www.w3.org/ns/adms#status": [
+        {
+          "@id": "https://data.molit.go.kr/id/concept/term-status/candidate"
+        }
+      ],
+      "http://www.w3.org/ns/dx/prof/hasResource": [
+        {
+          "@id": "https://data.molit.go.kr/profile/molit-dcat-ap/1.0.0-rc.1/resource/context"
+        },
+        {
+          "@id": "https://data.molit.go.kr/profile/molit-dcat-ap/1.0.0-rc.1/resource/examples"
+        },
+        {
+          "@id": "https://data.molit.go.kr/profile/molit-dcat-ap/1.0.0-rc.1/resource/observation-shacl"
+        },
+        {
+          "@id": "https://data.molit.go.kr/profile/molit-dcat-ap/1.0.0-rc.1/resource/ontology"
+        },
+        {
+          "@id": "https://data.molit.go.kr/profile/molit-dcat-ap/1.0.0-rc.1/resource/requirements"
+        },
+        {
+          "@id": "https://data.molit.go.kr/profile/molit-dcat-ap/1.0.0-rc.1/resource/specification"
+        },
+        {
+          "@id": "https://data.molit.go.kr/profile/molit-dcat-ap/1.0.0-rc.1/resource/support-graph"
+        }
+      ],
+      "http://www.w3.org/ns/dx/prof/hasToken": [
+        {
+          "@value": "molit-observation"
+        }
+      ],
+      "http://www.w3.org/ns/dx/prof/isProfileOf": [
+        {
+          "@id": "https://data.molit.go.kr/profile/molit-dcat-ap/1.0.0-rc.1"
+        }
+      ]
+    },
+    {
+      "@id": "https://data.molit.go.kr/profile/molit-dcat-ap/1.0.0-rc.1/publication-policy",
+      "@type": [
+        "http://purl.org/dc/terms/Standard",
+        "http://www.w3.org/ns/dx/prof/Profile"
+      ],
+      "http://purl.org/dc/terms/description": [
+        {
+          "@language": "en",
+          "@value": "Candidate publication-validation-policy release pending publication approval."
+        },
+        {
+          "@language": "ko",
+          "@value": "발행 승인 전 게시검증 정책 후보판."
+        }
+      ],
+      "http://purl.org/dc/terms/isVersionOf": [
+        {
+          "@id": "https://data.molit.go.kr/profile/molit-dcat-ap/publication-policy"
+        }
+      ],
+      "http://purl.org/dc/terms/issued": [
+        {
+          "@type": "http://www.w3.org/2001/XMLSchema#date",
+          "@value": "2026-07-13"
+        }
+      ],
+      "http://purl.org/dc/terms/title": [
+        {
+          "@language": "en",
+          "@value": "MOLIT Metadata Publication Validation Policy"
+        }
+      ],
+      "http://www.w3.org/ns/adms#status": [
+        {
+          "@id": "https://data.molit.go.kr/id/concept/term-status/candidate"
+        }
+      ],
+      "http://www.w3.org/ns/dx/prof/hasResource": [
+        {
+          "@id": "https://data.molit.go.kr/profile/molit-dcat-ap/1.0.0-rc.1/resource/context"
+        },
+        {
+          "@id": "https://data.molit.go.kr/profile/molit-dcat-ap/1.0.0-rc.1/resource/examples"
+        },
+        {
+          "@id": "https://data.molit.go.kr/profile/molit-dcat-ap/1.0.0-rc.1/resource/ontology"
+        },
+        {
+          "@id": "https://data.molit.go.kr/profile/molit-dcat-ap/1.0.0-rc.1/resource/publication-policy-shacl"
+        },
+        {
+          "@id": "https://data.molit.go.kr/profile/molit-dcat-ap/1.0.0-rc.1/resource/requirements"
+        },
+        {
+          "@id": "https://data.molit.go.kr/profile/molit-dcat-ap/1.0.0-rc.1/resource/specification"
+        },
+        {
+          "@id": "https://data.molit.go.kr/profile/molit-dcat-ap/1.0.0-rc.1/resource/support-graph"
+        }
+      ],
+      "http://www.w3.org/ns/dx/prof/hasToken": [
+        {
+          "@value": "molit-publication-policy"
+        }
+      ],
+      "http://www.w3.org/ns/dx/prof/isProfileOf": [
+        {
+          "@id": "https://data.molit.go.kr/profile/molit-dcat-ap/1.0.0-rc.1"
+        }
+      ]
+    },
+    {
+      "@id": "https://data.molit.go.kr/profile/molit-dcat-ap/1.0.0-rc.1/quality",
+      "@type": [
+        "http://purl.org/dc/terms/Standard",
+        "http://www.w3.org/ns/dx/prof/Profile"
+      ],
+      "http://purl.org/dc/terms/description": [
+        {
+          "@language": "en",
+          "@value": "Candidate quality-module release pending publication approval."
+        },
+        {
+          "@language": "ko",
+          "@value": "발행 승인 전 품질 module 후보판."
+        }
+      ],
+      "http://purl.org/dc/terms/isVersionOf": [
+        {
+          "@id": "https://data.molit.go.kr/profile/molit-dcat-ap/quality"
+        }
+      ],
+      "http://purl.org/dc/terms/issued": [
+        {
+          "@type": "http://www.w3.org/2001/XMLSchema#date",
+          "@value": "2026-07-13"
+        }
+      ],
+      "http://purl.org/dc/terms/title": [
+        {
+          "@language": "en",
+          "@value": "MOLIT Data Quality Metadata Application Profile"
+        }
+      ],
+      "http://www.w3.org/ns/adms#status": [
+        {
+          "@id": "https://data.molit.go.kr/id/concept/term-status/candidate"
+        }
+      ],
+      "http://www.w3.org/ns/dx/prof/hasResource": [
+        {
+          "@id": "https://data.molit.go.kr/profile/molit-dcat-ap/1.0.0-rc.1/resource/context"
+        },
+        {
+          "@id": "https://data.molit.go.kr/profile/molit-dcat-ap/1.0.0-rc.1/resource/examples"
+        },
+        {
+          "@id": "https://data.molit.go.kr/profile/molit-dcat-ap/1.0.0-rc.1/resource/ontology"
+        },
+        {
+          "@id": "https://data.molit.go.kr/profile/molit-dcat-ap/1.0.0-rc.1/resource/quality-shacl"
+        },
+        {
+          "@id": "https://data.molit.go.kr/profile/molit-dcat-ap/1.0.0-rc.1/resource/requirements"
+        },
+        {
+          "@id": "https://data.molit.go.kr/profile/molit-dcat-ap/1.0.0-rc.1/resource/specification"
+        },
+        {
+          "@id": "https://data.molit.go.kr/profile/molit-dcat-ap/1.0.0-rc.1/resource/support-graph"
+        }
+      ],
+      "http://www.w3.org/ns/dx/prof/hasToken": [
+        {
+          "@value": "molit-quality"
+        }
+      ],
+      "http://www.w3.org/ns/dx/prof/isProfileOf": [
+        {
+          "@id": "https://data.molit.go.kr/profile/molit-dcat-ap/1.0.0-rc.1"
+        }
+      ]
+    },
+    {
+      "@id": "https://data.molit.go.kr/profile/molit-dcat-ap/1.0.0-rc.1/resource/context",
+      "@type": [
+        "http://www.w3.org/ns/dx/prof/ResourceDescriptor"
+      ],
+      "http://purl.org/dc/terms/format": [
+        {
+          "@id": "http://publications.europa.eu/resource/authority/file-type/JSON_LD"
+        }
+      ],
+      "http://www.w3.org/ns/dx/prof/hasArtifact": [
+        {
+          "@id": "https://data.molit.go.kr/profile/molit-dcat-ap/1.0.0-rc.1/context.jsonld"
+        }
+      ],
+      "http://www.w3.org/ns/dx/prof/hasRole": [
+        {
+          "@id": "http://www.w3.org/ns/dx/prof/role/schema"
+        }
+      ]
+    },
+    {
+      "@id": "https://data.molit.go.kr/profile/molit-dcat-ap/1.0.0-rc.1/resource/core-shacl",
+      "@type": [
+        "http://www.w3.org/ns/dx/prof/ResourceDescriptor"
+      ],
+      "http://purl.org/dc/terms/conformsTo": [
+        {
+          "@id": "https://www.w3.org/TR/2017/REC-shacl-20170720/"
+        }
+      ],
+      "http://purl.org/dc/terms/format": [
+        {
+          "@id": "http://publications.europa.eu/resource/authority/file-type/RDF_TURTLE"
+        }
+      ],
+      "http://www.w3.org/ns/dx/prof/hasArtifact": [
+        {
+          "@id": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1/core.ttl"
+        }
+      ],
+      "http://www.w3.org/ns/dx/prof/hasRole": [
+        {
+          "@id": "http://www.w3.org/ns/dx/prof/role/constraints"
+        },
+        {
+          "@id": "http://www.w3.org/ns/dx/prof/role/validation"
+        }
+      ]
+    },
+    {
+      "@id": "https://data.molit.go.kr/profile/molit-dcat-ap/1.0.0-rc.1/resource/dataspace-offering-shacl",
+      "@type": [
+        "http://www.w3.org/ns/dx/prof/ResourceDescriptor"
+      ],
+      "http://purl.org/dc/terms/conformsTo": [
+        {
+          "@id": "https://www.w3.org/TR/2017/REC-shacl-20170720/"
+        }
+      ],
+      "http://purl.org/dc/terms/format": [
+        {
+          "@id": "http://publications.europa.eu/resource/authority/file-type/RDF_TURTLE"
+        }
+      ],
+      "http://www.w3.org/ns/dx/prof/hasArtifact": [
+        {
+          "@id": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1/dataspace-offering.ttl"
+        }
+      ],
+      "http://www.w3.org/ns/dx/prof/hasRole": [
+        {
+          "@id": "http://www.w3.org/ns/dx/prof/role/constraints"
+        },
+        {
+          "@id": "http://www.w3.org/ns/dx/prof/role/validation"
+        }
+      ]
+    },
+    {
+      "@id": "https://data.molit.go.kr/profile/molit-dcat-ap/1.0.0-rc.1/resource/examples",
+      "@type": [
+        "http://www.w3.org/ns/dx/prof/ResourceDescriptor"
+      ],
+      "http://purl.org/dc/terms/format": [
+        {
+          "@id": "http://publications.europa.eu/resource/authority/file-type/RDF_TURTLE"
+        }
+      ],
+      "http://www.w3.org/ns/dx/prof/hasArtifact": [
+        {
+          "@id": "https://data.molit.go.kr/profile/molit-dcat-ap/1.0.0-rc.1/examples/"
+        }
+      ],
+      "http://www.w3.org/ns/dx/prof/hasRole": [
+        {
+          "@id": "http://www.w3.org/ns/dx/prof/role/example"
+        }
+      ]
+    },
+    {
+      "@id": "https://data.molit.go.kr/profile/molit-dcat-ap/1.0.0-rc.1/resource/geo-shacl",
+      "@type": [
+        "http://www.w3.org/ns/dx/prof/ResourceDescriptor"
+      ],
+      "http://purl.org/dc/terms/conformsTo": [
+        {
+          "@id": "https://www.w3.org/TR/2017/REC-shacl-20170720/"
+        }
+      ],
+      "http://purl.org/dc/terms/format": [
+        {
+          "@id": "http://publications.europa.eu/resource/authority/file-type/RDF_TURTLE"
+        }
+      ],
+      "http://www.w3.org/ns/dx/prof/hasArtifact": [
+        {
+          "@id": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1/geo.ttl"
+        }
+      ],
+      "http://www.w3.org/ns/dx/prof/hasRole": [
+        {
+          "@id": "http://www.w3.org/ns/dx/prof/role/constraints"
+        },
+        {
+          "@id": "http://www.w3.org/ns/dx/prof/role/validation"
+        }
+      ]
+    },
+    {
+      "@id": "https://data.molit.go.kr/profile/molit-dcat-ap/1.0.0-rc.1/resource/network-shacl",
+      "@type": [
+        "http://www.w3.org/ns/dx/prof/ResourceDescriptor"
+      ],
+      "http://purl.org/dc/terms/conformsTo": [
+        {
+          "@id": "https://www.w3.org/TR/2017/REC-shacl-20170720/"
+        }
+      ],
+      "http://purl.org/dc/terms/format": [
+        {
+          "@id": "http://publications.europa.eu/resource/authority/file-type/RDF_TURTLE"
+        }
+      ],
+      "http://www.w3.org/ns/dx/prof/hasArtifact": [
+        {
+          "@id": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1/network.ttl"
+        }
+      ],
+      "http://www.w3.org/ns/dx/prof/hasRole": [
+        {
+          "@id": "http://www.w3.org/ns/dx/prof/role/constraints"
+        },
+        {
+          "@id": "http://www.w3.org/ns/dx/prof/role/validation"
+        }
+      ]
+    },
+    {
+      "@id": "https://data.molit.go.kr/profile/molit-dcat-ap/1.0.0-rc.1/resource/observation-shacl",
+      "@type": [
+        "http://www.w3.org/ns/dx/prof/ResourceDescriptor"
+      ],
+      "http://purl.org/dc/terms/conformsTo": [
+        {
+          "@id": "https://www.w3.org/TR/2017/REC-shacl-20170720/"
+        }
+      ],
+      "http://purl.org/dc/terms/format": [
+        {
+          "@id": "http://publications.europa.eu/resource/authority/file-type/RDF_TURTLE"
+        }
+      ],
+      "http://www.w3.org/ns/dx/prof/hasArtifact": [
+        {
+          "@id": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1/observation.ttl"
+        }
+      ],
+      "http://www.w3.org/ns/dx/prof/hasRole": [
+        {
+          "@id": "http://www.w3.org/ns/dx/prof/role/constraints"
+        },
+        {
+          "@id": "http://www.w3.org/ns/dx/prof/role/validation"
+        }
+      ]
+    },
+    {
+      "@id": "https://data.molit.go.kr/profile/molit-dcat-ap/1.0.0-rc.1/resource/ontology",
+      "@type": [
+        "http://www.w3.org/ns/dx/prof/ResourceDescriptor"
+      ],
+      "http://purl.org/dc/terms/format": [
+        {
+          "@id": "http://publications.europa.eu/resource/authority/file-type/RDF_TURTLE"
+        }
+      ],
+      "http://www.w3.org/ns/dx/prof/hasArtifact": [
+        {
+          "@id": "https://data.molit.go.kr/def/molit-dcat-ap/1.0.0-rc.1"
+        }
+      ],
+      "http://www.w3.org/ns/dx/prof/hasRole": [
+        {
+          "@id": "http://www.w3.org/ns/dx/prof/role/vocabulary"
+        }
+      ]
+    },
+    {
+      "@id": "https://data.molit.go.kr/profile/molit-dcat-ap/1.0.0-rc.1/resource/publication-policy-shacl",
+      "@type": [
+        "http://www.w3.org/ns/dx/prof/ResourceDescriptor"
+      ],
+      "http://purl.org/dc/terms/conformsTo": [
+        {
+          "@id": "https://www.w3.org/TR/2017/REC-shacl-20170720/"
+        }
+      ],
+      "http://purl.org/dc/terms/format": [
+        {
+          "@id": "http://publications.europa.eu/resource/authority/file-type/RDF_TURTLE"
+        }
+      ],
+      "http://www.w3.org/ns/dx/prof/hasArtifact": [
+        {
+          "@id": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1/publication-policy.ttl"
+        }
+      ],
+      "http://www.w3.org/ns/dx/prof/hasRole": [
+        {
+          "@id": "http://www.w3.org/ns/dx/prof/role/constraints"
+        },
+        {
+          "@id": "http://www.w3.org/ns/dx/prof/role/validation"
+        }
+      ]
+    },
+    {
+      "@id": "https://data.molit.go.kr/profile/molit-dcat-ap/1.0.0-rc.1/resource/quality-shacl",
+      "@type": [
+        "http://www.w3.org/ns/dx/prof/ResourceDescriptor"
+      ],
+      "http://purl.org/dc/terms/conformsTo": [
+        {
+          "@id": "https://www.w3.org/TR/2017/REC-shacl-20170720/"
+        }
+      ],
+      "http://purl.org/dc/terms/format": [
+        {
+          "@id": "http://publications.europa.eu/resource/authority/file-type/RDF_TURTLE"
+        }
+      ],
+      "http://www.w3.org/ns/dx/prof/hasArtifact": [
+        {
+          "@id": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1/quality.ttl"
+        }
+      ],
+      "http://www.w3.org/ns/dx/prof/hasRole": [
+        {
+          "@id": "http://www.w3.org/ns/dx/prof/role/constraints"
+        },
+        {
+          "@id": "http://www.w3.org/ns/dx/prof/role/validation"
+        }
+      ]
+    },
+    {
+      "@id": "https://data.molit.go.kr/profile/molit-dcat-ap/1.0.0-rc.1/resource/requirements",
+      "@type": [
+        "http://www.w3.org/ns/dx/prof/ResourceDescriptor"
+      ],
+      "http://purl.org/dc/terms/format": [
+        {
+          "@id": "http://publications.europa.eu/resource/authority/file-type/JSON"
+        }
+      ],
+      "http://www.w3.org/ns/dx/prof/hasArtifact": [
+        {
+          "@id": "https://data.molit.go.kr/profile/molit-dcat-ap/1.0.0-rc.1/requirements/profile-requirements.json"
+        }
+      ],
+      "http://www.w3.org/ns/dx/prof/hasRole": [
+        {
+          "@id": "http://www.w3.org/ns/dx/prof/role/specification"
+        },
+        {
+          "@id": "http://www.w3.org/ns/dx/prof/role/validation"
+        }
+      ]
+    },
+    {
+      "@id": "https://data.molit.go.kr/profile/molit-dcat-ap/1.0.0-rc.1/resource/specification",
+      "@type": [
+        "http://www.w3.org/ns/dx/prof/ResourceDescriptor"
+      ],
+      "http://www.w3.org/ns/dx/prof/hasArtifact": [
+        {
+          "@id": "https://data.molit.go.kr/profile/molit-dcat-ap/1.0.0-rc.1/"
+        }
+      ],
+      "http://www.w3.org/ns/dx/prof/hasRole": [
+        {
+          "@id": "http://www.w3.org/ns/dx/prof/role/specification"
+        }
+      ]
+    },
+    {
+      "@id": "https://data.molit.go.kr/profile/molit-dcat-ap/1.0.0-rc.1/resource/support-graph",
+      "@type": [
+        "http://www.w3.org/ns/dx/prof/ResourceDescriptor"
+      ],
+      "http://purl.org/dc/terms/format": [
+        {
+          "@id": "http://publications.europa.eu/resource/authority/file-type/RDF_TURTLE"
+        }
+      ],
+      "http://www.w3.org/2000/01/rdf-schema#comment": [
+        {
+          "@language": "en",
+          "@value": "The candidate graph contains instance metadata only. A validator may add this exact locked support graph as trusted background. Do not merge W3C dcat.ttl, GeoSPARQL ontology, MOLIT ontology, or SHACL shapes into the candidate graph."
+        }
+      ],
+      "http://www.w3.org/ns/dx/prof/hasArtifact": [
+        {
+          "@id": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1/support.ttl"
+        }
+      ],
+      "http://www.w3.org/ns/dx/prof/hasRole": [
+        {
+          "@id": "http://www.w3.org/ns/dx/prof/role/vocabulary"
+        }
+      ]
+    },
+    {
+      "@id": "https://data.molit.go.kr/profile/molit-dcat-ap/dataspace-offering",
+      "@type": [
+        "http://purl.org/dc/terms/Standard",
+        "http://www.w3.org/ns/dx/prof/Profile"
+      ],
+      "http://purl.org/dc/terms/description": [
+        {
+          "@language": "en",
+          "@value": "Candidate offering-metadata-module series pending operating-authority and namespace approval."
+        },
+        {
+          "@language": "ko",
+          "@value": "운영기관과 namespace 승인 전 제공 metadata module 계열 후보."
+        }
+      ],
+      "http://purl.org/dc/terms/hasVersion": [
+        {
+          "@id": "https://data.molit.go.kr/profile/molit-dcat-ap/1.0.0-rc.1/dataspace-offering"
+        }
+      ],
+      "http://www.w3.org/ns/adms#status": [
+        {
+          "@id": "https://data.molit.go.kr/id/concept/term-status/candidate"
+        }
+      ],
+      "http://www.w3.org/ns/dx/prof/hasToken": [
+        {
+          "@value": "molit-dataspace-offering"
+        }
+      ]
+    },
+    {
+      "@id": "https://data.molit.go.kr/profile/molit-dcat-ap/geo",
+      "@type": [
+        "http://purl.org/dc/terms/Standard",
+        "http://www.w3.org/ns/dx/prof/Profile"
+      ],
+      "http://purl.org/dc/terms/description": [
+        {
+          "@language": "en",
+          "@value": "Candidate geospatial-module series pending operating-authority and namespace approval."
+        },
+        {
+          "@language": "ko",
+          "@value": "운영기관과 namespace 승인 전 공간 module 계열 후보."
+        }
+      ],
+      "http://purl.org/dc/terms/hasVersion": [
+        {
+          "@id": "https://data.molit.go.kr/profile/molit-dcat-ap/1.0.0-rc.1/geo"
+        }
+      ],
+      "http://www.w3.org/ns/adms#status": [
+        {
+          "@id": "https://data.molit.go.kr/id/concept/term-status/candidate"
+        }
+      ],
+      "http://www.w3.org/ns/dx/prof/hasToken": [
+        {
+          "@value": "molit-geo"
+        }
+      ]
+    },
+    {
+      "@id": "https://data.molit.go.kr/profile/molit-dcat-ap/network",
+      "@type": [
+        "http://purl.org/dc/terms/Standard",
+        "http://www.w3.org/ns/dx/prof/Profile"
+      ],
+      "http://purl.org/dc/terms/description": [
+        {
+          "@language": "en",
+          "@value": "Candidate network-module series pending operating-authority and namespace approval."
+        },
+        {
+          "@language": "ko",
+          "@value": "운영기관과 namespace 승인 전 교통망 module 계열 후보."
+        }
+      ],
+      "http://purl.org/dc/terms/hasVersion": [
+        {
+          "@id": "https://data.molit.go.kr/profile/molit-dcat-ap/1.0.0-rc.1/network"
+        }
+      ],
+      "http://www.w3.org/ns/adms#status": [
+        {
+          "@id": "https://data.molit.go.kr/id/concept/term-status/candidate"
+        }
+      ],
+      "http://www.w3.org/ns/dx/prof/hasToken": [
+        {
+          "@value": "molit-network"
+        }
+      ]
+    },
+    {
+      "@id": "https://data.molit.go.kr/profile/molit-dcat-ap/observation",
+      "@type": [
+        "http://purl.org/dc/terms/Standard",
+        "http://www.w3.org/ns/dx/prof/Profile"
+      ],
+      "http://purl.org/dc/terms/description": [
+        {
+          "@language": "en",
+          "@value": "Candidate observation-module series pending operating-authority and namespace approval."
+        },
+        {
+          "@language": "ko",
+          "@value": "운영기관과 namespace 승인 전 관측 module 계열 후보."
+        }
+      ],
+      "http://purl.org/dc/terms/hasVersion": [
+        {
+          "@id": "https://data.molit.go.kr/profile/molit-dcat-ap/1.0.0-rc.1/observation"
+        }
+      ],
+      "http://www.w3.org/ns/adms#status": [
+        {
+          "@id": "https://data.molit.go.kr/id/concept/term-status/candidate"
+        }
+      ],
+      "http://www.w3.org/ns/dx/prof/hasToken": [
+        {
+          "@value": "molit-observation"
+        }
+      ]
+    },
+    {
+      "@id": "https://data.molit.go.kr/profile/molit-dcat-ap/publication-policy",
+      "@type": [
+        "http://purl.org/dc/terms/Standard",
+        "http://www.w3.org/ns/dx/prof/Profile"
+      ],
+      "http://purl.org/dc/terms/description": [
+        {
+          "@language": "en",
+          "@value": "Candidate publication-validation-policy series pending operating-authority and namespace approval."
+        },
+        {
+          "@language": "ko",
+          "@value": "운영기관과 namespace 승인 전 게시검증 정책 계열 후보."
+        }
+      ],
+      "http://purl.org/dc/terms/hasVersion": [
+        {
+          "@id": "https://data.molit.go.kr/profile/molit-dcat-ap/1.0.0-rc.1/publication-policy"
+        }
+      ],
+      "http://www.w3.org/ns/adms#status": [
+        {
+          "@id": "https://data.molit.go.kr/id/concept/term-status/candidate"
+        }
+      ],
+      "http://www.w3.org/ns/dx/prof/hasToken": [
+        {
+          "@value": "molit-publication-policy"
+        }
+      ]
+    },
+    {
+      "@id": "https://data.molit.go.kr/profile/molit-dcat-ap/quality",
+      "@type": [
+        "http://purl.org/dc/terms/Standard",
+        "http://www.w3.org/ns/dx/prof/Profile"
+      ],
+      "http://purl.org/dc/terms/description": [
+        {
+          "@language": "en",
+          "@value": "Candidate quality-module series pending operating-authority and namespace approval."
+        },
+        {
+          "@language": "ko",
+          "@value": "운영기관과 namespace 승인 전 품질 module 계열 후보."
+        }
+      ],
+      "http://purl.org/dc/terms/hasVersion": [
+        {
+          "@id": "https://data.molit.go.kr/profile/molit-dcat-ap/1.0.0-rc.1/quality"
+        }
+      ],
+      "http://www.w3.org/ns/adms#status": [
+        {
+          "@id": "https://data.molit.go.kr/id/concept/term-status/candidate"
+        }
+      ],
+      "http://www.w3.org/ns/dx/prof/hasToken": [
+        {
+          "@value": "molit-quality"
+        }
+      ]
+    }
+  ]
+}

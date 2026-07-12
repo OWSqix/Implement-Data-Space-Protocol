@@ -1,0 +1,165 @@
+# Expected requirement: MOLIT-CAT-REL-001.
+@prefix dcat: <http://www.w3.org/ns/dcat#>.
+@prefix dct: <http://purl.org/dc/terms/>.
+@prefix foaf: <http://xmlns.com/foaf/0.1/>.
+@prefix dqv: <http://www.w3.org/ns/dqv#>.
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
+@prefix owl: <http://www.w3.org/2002/07/owl#>.
+@prefix ex: <https://data.molit.go.kr/id/example/>.
+
+ex:observation-catalog a dcat:Catalog;
+    dct:title "교통 관측 데이터 카탈로그 예시"@ko;
+    dct:description "시간 해상도와 품질 측정값을 가진 교통량 관측 예시다."@ko;
+    dct:publisher ex:traffic-office;
+    dct:language <http://publications.europa.eu/resource/authority/language/KOR>;
+    dct:license <https://creativecommons.org/licenses/by/4.0/>;
+    dct:issued "2026-07-12"^^<http://www.w3.org/2001/XMLSchema#date>;
+    dct:modified "2026-07-12"^^<http://www.w3.org/2001/XMLSchema#date>;
+    dct:conformsTo <https://data.molit.go.kr/profile/molit-dcat-ap/1.0.0-rc.1>;
+    dct:spatial ex:republic-of-korea-core;
+    foaf:homepage <https://data.molit.go.kr/>;
+    dcat:themeTaxonomy <http://publications.europa.eu/resource/authority/data-theme>, <https://data.molit.go.kr/scheme/domain>;
+    dcat:dataset ex:traffic-observation;
+    dcat:record ex:traffic-observation-record;
+    <https://data.molit.go.kr/def/molit-dcat-ap#spatialDisclosureLevel> <https://data.molit.go.kr/id/concept/spatial-disclosure-level/generalized>.
+ex:traffic-office a foaf:Agent;
+    dct:type <http://purl.org/adms/publishertype/NationalAuthority>;
+    foaf:name "교통 관측 담당기관"@ko.
+<https://creativecommons.org/licenses/by/4.0/> a dct:LicenseDocument;
+    dct:type <http://purl.org/adms/licencetype/Attribution>.
+ex:republic-of-korea-core a dct:Location;
+    dcat:bbox "<http://www.opengis.net/def/crs/OGC/1.3/CRS84> POLYGON((124 33,132 33,132 39,124 39,124 33))"^^<http://www.opengis.net/ont/geosparql#wktLiteral>;
+    dcat:centroid "<http://www.opengis.net/def/crs/OGC/1.3/CRS84> POINT(128 36)"^^<http://www.opengis.net/ont/geosparql#wktLiteral>;
+    <http://www.w3.org/2004/02/skos/core#prefLabel> "대한민국"@ko, "Republic of Korea"@en.
+<https://data.molit.go.kr/> a foaf:Document.
+ex:traffic-observation a dcat:Dataset, dcat:Resource;
+    dct:title "시간대별 교통량 관측"@ko;
+    dct:description "2026년 7월의 시간대별 교통량 관측값을 제공한다."@ko;
+    dct:publisher ex:traffic-office;
+    dct:issued "2026-07-12"^^<http://www.w3.org/2001/XMLSchema#date>;
+    dct:modified "2026-07-12T09:00:00+09:00"^^<http://www.w3.org/2001/XMLSchema#dateTime>;
+    dct:spatial ex:republic-of-korea-core;
+    <https://data.molit.go.kr/def/molit-dcat-ap#spatialDisclosureLevel> <https://data.molit.go.kr/id/concept/spatial-disclosure-level/generalized>;
+    dct:type ex:observation-dataset-type;
+    dct:identifier "traffic-observation-hourly-2026-07";
+    dct:accessRights <http://publications.europa.eu/resource/authority/access-right/PUBLIC>;
+    dct:temporal ex:july-2026;
+    dct:provenance ex:traffic-observation-provenance;
+    dcat:temporalResolution "PT1H"^^<http://www.w3.org/2001/XMLSchema#duration>;
+    dcat:theme <http://publications.europa.eu/resource/authority/data-theme/TRAN>, <https://data.molit.go.kr/id/concept/domain/road>;
+    dcat:keyword "교통량"@ko, "시간대별 관측"@ko;
+    dcat:contactPoint ex:traffic-data-contact;
+    dcat:distribution ex:traffic-observation-csv;
+    dqv:hasQualityMeasurement ex:traffic-completeness;
+    <https://data.molit.go.kr/def/molit-dcat-ap#qualityStatus> <https://data.molit.go.kr/id/concept/quality-status/assessed>.
+ex:traffic-observation-record a dcat:CatalogRecord;
+    dct:title "시간대별 교통량 관측 레코드"@ko;
+    dct:language <http://publications.europa.eu/resource/authority/language/KOR>;
+    dct:issued "2026-07-12"^^<http://www.w3.org/2001/XMLSchema#date>;
+    dct:modified "2026-07-12"^^<http://www.w3.org/2001/XMLSchema#date>;
+    dct:conformsTo <https://data.molit.go.kr/profile/molit-dcat-ap/1.0.0-rc.1>;
+    <http://www.w3.org/ns/adms#status> <http://purl.org/adms/changetype/Updated>;
+    foaf:primaryTopic <https://data.molit.go.kr/id/example/copy/traffic-observation>.
+ex:observation-dataset-type a <http://www.w3.org/2004/02/skos/core#Concept>;
+    <http://www.w3.org/2004/02/skos/core#prefLabel> "교통 관측 데이터셋"@ko, "Traffic observation dataset"@en.
+ex:july-2026 a dct:PeriodOfTime;
+    dcat:startDate "2026-07-01"^^<http://www.w3.org/2001/XMLSchema#date>;
+    dcat:endDate "2026-07-31"^^<http://www.w3.org/2001/XMLSchema#date>.
+ex:traffic-observation-provenance a dct:ProvenanceStatement;
+    dct:description "교통 관측 담당기관이 승인한 2026년 7월 집계본에서 변환했다."@ko.
+ex:traffic-data-contact a <http://www.w3.org/2006/vcard/ns#Kind>;
+    <http://www.w3.org/2006/vcard/ns#fn> "교통 관측 데이터 담당부서"@ko;
+    <http://www.w3.org/2006/vcard/ns#hasEmail> <mailto:traffic-data@data.molit.go.kr>.
+ex:traffic-observation-csv a dcat:Distribution;
+    dct:title "시간대별 교통량 관측 CSV 배포본"@ko;
+    dct:description "시간대별 집계 관측값을 CSV 파일로 제공한다."@ko;
+    dct:license <https://creativecommons.org/licenses/by/4.0/>;
+    dct:issued "2026-07-12"^^<http://www.w3.org/2001/XMLSchema#date>;
+    dct:format <http://publications.europa.eu/resource/authority/file-type/CSV>;
+    dcat:accessURL <https://data.molit.go.kr/dataset/traffic-observation/access>;
+    dcat:downloadURL <https://data.molit.go.kr/dataset/traffic-observation/download>;
+    dcat:mediaType <https://www.iana.org/assignments/media-types/text/csv>;
+    <http://data.europa.eu/r5r/availability> <http://publications.europa.eu/resource/authority/planned-availability/STABLE>.
+ex:traffic-completeness a dqv:QualityMeasurement;
+    dqv:computedOn ex:traffic-observation;
+    dqv:isMeasurementOf <https://data.molit.go.kr/id/metric/completeness>;
+    dqv:value 98.7;
+    <http://purl.org/linked-data/sdmx/2009/attribute#unitMeasure> <http://qudt.org/vocab/unit/PERCENT>.
+<https://data.molit.go.kr/dataset/traffic-observation/access> a <http://www.w3.org/2000/01/rdf-schema#Resource>.
+<https://data.molit.go.kr/dataset/traffic-observation/download> a <http://www.w3.org/2000/01/rdf-schema#Resource>.
+<https://www.iana.org/assignments/media-types/text/csv> a dct:MediaType.
+<https://data.molit.go.kr/id/example/copy/observation-catalog> a dcat:Catalog;
+    dct:title "교통 관측 데이터 카탈로그 예시"@ko;
+    dct:description "시간 해상도와 품질 측정값을 가진 교통량 관측 예시다."@ko;
+    dct:publisher <https://data.molit.go.kr/id/example/copy/traffic-office>;
+    dct:language <http://publications.europa.eu/resource/authority/language/KOR>;
+    dct:license <https://creativecommons.org/licenses/by/4.0/>;
+    dct:issued "2026-07-12"^^<http://www.w3.org/2001/XMLSchema#date>;
+    dct:modified "2026-07-12"^^<http://www.w3.org/2001/XMLSchema#date>;
+    dct:conformsTo <https://data.molit.go.kr/profile/molit-dcat-ap/1.0.0-rc.1>;
+    dct:spatial <https://data.molit.go.kr/id/example/copy/republic-of-korea-core>;
+    foaf:homepage <https://data.molit.go.kr/>;
+    dcat:themeTaxonomy <http://publications.europa.eu/resource/authority/data-theme>, <https://data.molit.go.kr/scheme/domain>;
+    dcat:dataset <https://data.molit.go.kr/id/example/copy/traffic-observation>;
+    dcat:record <https://data.molit.go.kr/id/example/copy/traffic-observation-record>;
+    <https://data.molit.go.kr/def/molit-dcat-ap#spatialDisclosureLevel> <https://data.molit.go.kr/id/concept/spatial-disclosure-level/generalized>.
+<https://data.molit.go.kr/id/example/copy/traffic-office> a foaf:Agent;
+    dct:type <http://purl.org/adms/publishertype/NationalAuthority>;
+    foaf:name "교통 관측 담당기관"@ko.
+<https://data.molit.go.kr/id/example/copy/republic-of-korea-core> a dct:Location;
+    dcat:bbox "<http://www.opengis.net/def/crs/OGC/1.3/CRS84> POLYGON((124 33,132 33,132 39,124 39,124 33))"^^<http://www.opengis.net/ont/geosparql#wktLiteral>;
+    dcat:centroid "<http://www.opengis.net/def/crs/OGC/1.3/CRS84> POINT(128 36)"^^<http://www.opengis.net/ont/geosparql#wktLiteral>;
+    <http://www.w3.org/2004/02/skos/core#prefLabel> "대한민국"@ko, "Republic of Korea"@en.
+<https://data.molit.go.kr/id/example/copy/traffic-observation> a dcat:Dataset, dcat:Resource;
+    dct:title "시간대별 교통량 관측"@ko;
+    dct:description "2026년 7월의 시간대별 교통량 관측값을 제공한다."@ko;
+    dct:publisher <https://data.molit.go.kr/id/example/copy/traffic-office>;
+    dct:issued "2026-07-12"^^<http://www.w3.org/2001/XMLSchema#date>;
+    dct:modified "2026-07-12T09:00:00+09:00"^^<http://www.w3.org/2001/XMLSchema#dateTime>;
+    dct:spatial <https://data.molit.go.kr/id/example/copy/republic-of-korea-core>;
+    <https://data.molit.go.kr/def/molit-dcat-ap#spatialDisclosureLevel> <https://data.molit.go.kr/id/concept/spatial-disclosure-level/generalized>;
+    dct:type <https://data.molit.go.kr/id/example/copy/observation-dataset-type>;
+    dct:identifier "traffic-observation-hourly-2026-07";
+    dct:accessRights <http://publications.europa.eu/resource/authority/access-right/PUBLIC>;
+    dct:temporal <https://data.molit.go.kr/id/example/copy/july-2026>;
+    dct:provenance <https://data.molit.go.kr/id/example/copy/traffic-observation-provenance>;
+    dcat:temporalResolution "PT1H"^^<http://www.w3.org/2001/XMLSchema#duration>;
+    dcat:theme <http://publications.europa.eu/resource/authority/data-theme/TRAN>, <https://data.molit.go.kr/id/concept/domain/road>;
+    dcat:keyword "교통량"@ko, "시간대별 관측"@ko;
+    dcat:contactPoint <https://data.molit.go.kr/id/example/copy/traffic-data-contact>;
+    dcat:distribution <https://data.molit.go.kr/id/example/copy/traffic-observation-csv>;
+    dqv:hasQualityMeasurement <https://data.molit.go.kr/id/example/copy/traffic-completeness>;
+    <https://data.molit.go.kr/def/molit-dcat-ap#qualityStatus> <https://data.molit.go.kr/id/concept/quality-status/assessed>.
+<https://data.molit.go.kr/id/example/copy/traffic-observation-record> a dcat:CatalogRecord;
+    dct:title "시간대별 교통량 관측 레코드"@ko;
+    dct:language <http://publications.europa.eu/resource/authority/language/KOR>;
+    dct:issued "2026-07-12"^^<http://www.w3.org/2001/XMLSchema#date>;
+    dct:modified "2026-07-12"^^<http://www.w3.org/2001/XMLSchema#date>;
+    dct:conformsTo <https://data.molit.go.kr/profile/molit-dcat-ap/1.0.0-rc.1>;
+    <http://www.w3.org/ns/adms#status> <http://purl.org/adms/changetype/Updated>;
+    foaf:primaryTopic ex:traffic-observation.
+<https://data.molit.go.kr/id/example/copy/observation-dataset-type> a <http://www.w3.org/2004/02/skos/core#Concept>;
+    <http://www.w3.org/2004/02/skos/core#prefLabel> "교통 관측 데이터셋"@ko, "Traffic observation dataset"@en.
+<https://data.molit.go.kr/id/example/copy/july-2026> a dct:PeriodOfTime;
+    dcat:startDate "2026-07-01"^^<http://www.w3.org/2001/XMLSchema#date>;
+    dcat:endDate "2026-07-31"^^<http://www.w3.org/2001/XMLSchema#date>.
+<https://data.molit.go.kr/id/example/copy/traffic-observation-provenance> a dct:ProvenanceStatement;
+    dct:description "교통 관측 담당기관이 승인한 2026년 7월 집계본에서 변환했다."@ko.
+<https://data.molit.go.kr/id/example/copy/traffic-data-contact> a <http://www.w3.org/2006/vcard/ns#Kind>;
+    <http://www.w3.org/2006/vcard/ns#fn> "교통 관측 데이터 담당부서"@ko;
+    <http://www.w3.org/2006/vcard/ns#hasEmail> <mailto:traffic-data@data.molit.go.kr>.
+<https://data.molit.go.kr/id/example/copy/traffic-observation-csv> a dcat:Distribution;
+    dct:title "시간대별 교통량 관측 CSV 배포본"@ko;
+    dct:description "시간대별 집계 관측값을 CSV 파일로 제공한다."@ko;
+    dct:license <https://creativecommons.org/licenses/by/4.0/>;
+    dct:issued "2026-07-12"^^<http://www.w3.org/2001/XMLSchema#date>;
+    dct:format <http://publications.europa.eu/resource/authority/file-type/CSV>;
+    dcat:accessURL <https://data.molit.go.kr/dataset/traffic-observation/access>;
+    dcat:downloadURL <https://data.molit.go.kr/dataset/traffic-observation/download>;
+    dcat:mediaType <https://www.iana.org/assignments/media-types/text/csv>;
+    <http://data.europa.eu/r5r/availability> <http://publications.europa.eu/resource/authority/planned-availability/STABLE>.
+<https://data.molit.go.kr/id/example/copy/traffic-completeness> a dqv:QualityMeasurement;
+    dqv:computedOn <https://data.molit.go.kr/id/example/copy/traffic-observation>;
+    dqv:isMeasurementOf <https://data.molit.go.kr/id/metric/completeness>;
+    dqv:value 98.7;
+    <http://purl.org/linked-data/sdmx/2009/attribute#unitMeasure> <http://qudt.org/vocab/unit/PERCENT>.

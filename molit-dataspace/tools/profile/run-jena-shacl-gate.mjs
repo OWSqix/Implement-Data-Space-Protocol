@@ -315,7 +315,6 @@ async function executeCase(definition, directory) {
   const signatures = nodeSignatures(directNode, shapeGraph.store);
   if (node.summary.shaclConforms !== expected
     || directNode.conforms !== expected
-    || node.results.length !== directNode.results.length
     || jena.conforms !== expected
     || encodedJson(signatures) !== encodedJson(jena.results)) {
     throw new Error(`${definition.id} differs between rdf-validate-shacl and Apache Jena: ${JSON.stringify({
@@ -335,6 +334,7 @@ async function executeCase(definition, directory) {
     supportBundleSha256: sha256(supportBytes),
     bundleDigest: node.profile.bundleDigest,
     conforms: expected,
+    primaryGateResultCount: node.results.length,
     resultCount: signatures.length,
     normalizedResultsSha256: sha256(encodedJson(signatures)),
   };

@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<gml:Conversion xmlns:epsg="urn:x-ogp:spec:schema-xsd:EPSG:2.3:dataset" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:gmd="http://www.isotc211.org/2005/gmd" xmlns:gco="http://www.isotc211.org/2005/gco" gml:id="epsg-op-5100" xmlns:gml="http://www.opengis.net/gml/3.2">
+  <gml:metaDataProperty>
+    <epsg:CommonMetaData>
+      <epsg:type>conversion</epsg:type>
+      <epsg:alias code="13363" codeSpace="7301" alias="Unified CS" />
+      <epsg:informationSource>National Geographic Information Institute (NGII).</epsg:informationSource>
+      <epsg:revisionDate>2010-06-28</epsg:revisionDate>
+      <epsg:changes>
+        <epsg:changeID xlink:href="https://epsg.org/api/v1/Change/2010.05/export?format=gml" />
+      </epsg:changes>
+      <epsg:show>true</epsg:show>
+      <epsg:isDeprecated>false</epsg:isDeprecated>
+      <epsg:Usage>
+        <epsg:extent xlink:href="https://epsg.org/api/v1/Extent/1135/export?format=gml" />
+        <gml:scope>Topographic mapping (small scale).</gml:scope>
+      </epsg:Usage>
+    </epsg:CommonMetaData>
+  </gml:metaDataProperty>
+  <gml:identifier codeSpace="EPSG">5100</gml:identifier>
+  <gml:name>Korea Unified Belt</gml:name>
+  <gml:remarks>Introduced in 2004.</gml:remarks>
+  <gml:scope />
+  <gml:coordinateOperationAccuracy>
+    <gmd:DQ_RelativeInternalPositionalAccuracy>
+      <gmd:result>
+        <gmd:DQ_QuantitativeResult>
+          <gmd:valueUnit xlink:href="https://epsg.org/api/v1/Unit/9001/export?format=gml" />
+          <gmd:value>
+            <gco:Record>
+              <gco:Decimal>0</gco:Decimal>
+            </gco:Record>
+          </gmd:value>
+        </gmd:DQ_QuantitativeResult>
+      </gmd:result>
+    </gmd:DQ_RelativeInternalPositionalAccuracy>
+  </gml:coordinateOperationAccuracy>
+  <gml:method xlink:href="https://epsg.org/api/v1/CoordOperationMethod/9807/export?format=gml" />
+  <gml:parameterValue>
+    <gml:ParameterValue>
+      <gml:value uom="9102">38</gml:value>
+      <gml:operationParameter xlink:href="https://epsg.org/api/v1/CoordOperationParameter/8801/export?format=gml" />
+    </gml:ParameterValue>
+  </gml:parameterValue>
+  <gml:parameterValue>
+    <gml:ParameterValue>
+      <gml:value uom="9110">127.3</gml:value>
+      <gml:operationParameter xlink:href="https://epsg.org/api/v1/CoordOperationParameter/8802/export?format=gml" />
+    </gml:ParameterValue>
+  </gml:parameterValue>
+  <gml:parameterValue>
+    <gml:ParameterValue>
+      <gml:value uom="9201">0.9996</gml:value>
+      <gml:operationParameter xlink:href="https://epsg.org/api/v1/CoordOperationParameter/8805/export?format=gml" />
+    </gml:ParameterValue>
+  </gml:parameterValue>
+  <gml:parameterValue>
+    <gml:ParameterValue>
+      <gml:value uom="9001">1000000</gml:value>
+      <gml:operationParameter xlink:href="https://epsg.org/api/v1/CoordOperationParameter/8806/export?format=gml" />
+    </gml:ParameterValue>
+  </gml:parameterValue>
+  <gml:parameterValue>
+    <gml:ParameterValue>
+      <gml:value uom="9001">2000000</gml:value>
+      <gml:operationParameter xlink:href="https://epsg.org/api/v1/CoordOperationParameter/8807/export?format=gml" />
+    </gml:ParameterValue>
+  </gml:parameterValue>
+</gml:Conversion>

@@ -1,0 +1,150 @@
+{
+  "schemaVersion": "molit.profile-requirement-source-overrides/1",
+  "profileVersion": "1.0.0-rc.1",
+  "overrides": [
+    {
+      "requirementId": "MOLIT-AGENT-001-P-NAME-001",
+      "sourceStandard": "MOLIT DCAT-AP 1.0.0-rc.1 Korean discovery policy",
+      "sourceClause": "Agent name: Korean label",
+      "localRationale": "기관명이 한국어 검색·화면표시에서 비어 보이지 않도록 한국어 foaf:name을 한 개 요구한다. 다른 언어 이름을 함께 쓰는 것은 막지 않는다."
+    },
+    {
+      "requirementId": "MOLIT-CAT-001-P-DESCRIPTION-001",
+      "sourceStandard": "MOLIT DCAT-AP 1.0.0-rc.1 Korean discovery policy",
+      "sourceClause": "Catalogue description: Korean text",
+      "localRationale": "국내 카탈로그 탐색 화면이 번역 서비스 없이도 자료 범위를 설명할 수 있도록 한국어 설명을 한 개 요구한다. 다른 언어 설명은 추가할 수 있다."
+    },
+    {
+      "requirementId": "MOLIT-CAT-001-P-PUBLISHER-001",
+      "sourceStandard": "DCAT-AP 3.0.1",
+      "sourceClause": "Catalogue.publisher",
+      "localRationale": "DCAT-AP의 Catalogue publisher 최대 1개 조건을 유지하고, 국내 카탈로그 공개 책임 주체가 비어 있지 않도록 최소 1개를 함께 적용한다. 값은 검증 가능한 foaf:Agent IRI여야 한다."
+    },
+    {
+      "requirementId": "MOLIT-CAT-001-P-TITLE-001",
+      "sourceStandard": "MOLIT DCAT-AP 1.0.0-rc.1 Korean discovery policy",
+      "sourceClause": "Catalogue title: Korean text",
+      "localRationale": "국내 카탈로그 검색 결과와 행정 화면에 표시할 기본 제목을 확보하기 위해 한국어 제목을 한 개 요구한다. 언어별 제목은 한 개씩만 허용한다."
+    },
+    {
+      "requirementId": "MOLIT-CV-CHECKSUM-001",
+      "sourceStandard": "SPDX 2.3 RDF terms and MOLIT cryptographic baseline",
+      "sourceClause": "spdx:Checksum algorithm policy",
+      "localRationale": "배포 파일 무결성 검증을 SHA-256·SHA-384·SHA-512로 제한한다. 약한 알고리즘이나 이름만 비슷한 IRI는 공개 검증 경로에서 받아들이지 않는다."
+    },
+    {
+      "requirementId": "MOLIT-CV-CHECKSUM-001-P-ALGORITHM-001",
+      "sourceStandard": "SPDX 2.3 RDF terms and MOLIT cryptographic baseline",
+      "sourceClause": "spdx:algorithm allowlist",
+      "localRationale": "checksum 알고리즘 값은 SPDX가 정의한 SHA-256·SHA-384·SHA-512 IRI 중 하나여야 한다. 문자열 별칭과 미등록 알고리즘 IRI는 상호운용 검증에서 제외한다."
+    },
+    {
+      "requirementId": "MOLIT-CV-CHECKSUM-002",
+      "sourceStandard": "SPDX 2.3 RDF terms and XML Schema hexBinary",
+      "sourceClause": "spdx:checksumValue length by selected SHA algorithm",
+      "localRationale": "선택한 SHA 알고리즘의 byte 길이와 checksumValue의 소문자 16진수 길이를 맞춰 잘린 digest와 알고리즘-값 불일치를 차단한다."
+    },
+    {
+      "requirementId": "MOLIT-CV-MEDIATYPE-001",
+      "sourceStandard": "DCAT 3 and IANA Media Types registry",
+      "sourceClause": "Distribution media type, compression format and package format",
+      "localRationale": "전송 형식 식별자는 IANA registry의 정규 media type IRI로 고정한다. 압축·패키지 형식은 실제 운영에서 지원하는 gzip과 ZIP 범위만 공개한다."
+    },
+    {
+      "requirementId": "MOLIT-CV-MEDIATYPE-001-P-COMPRESSFORMAT-001",
+      "sourceStandard": "IANA Media Types registry",
+      "sourceClause": "dcat:compressFormat",
+      "localRationale": "압축 형식은 gateway와 connector가 해제 시험을 수행하는 gzip 또는 ZIP IRI로 제한한다. 파일 확장자 문자열은 media type 식별자로 사용하지 않는다."
+    },
+    {
+      "requirementId": "MOLIT-CV-MEDIATYPE-001-P-MEDIATYPE-001",
+      "sourceStandard": "DCAT 3 and IANA Media Types registry",
+      "sourceClause": "dcat:mediaType",
+      "localRationale": "Distribution의 표현 형식을 IANA registry의 HTTPS IRI로 기록해 Content-Type 매핑과 connector 전송 협상을 같은 식별자로 수행한다."
+    },
+    {
+      "requirementId": "MOLIT-CV-MEDIATYPE-001-P-PACKAGEFORMAT-001",
+      "sourceStandard": "IANA Media Types registry",
+      "sourceClause": "dcat:packageFormat",
+      "localRationale": "여러 파일을 묶는 패키지 형식은 검증 harness가 해제할 수 있는 gzip 또는 ZIP IRI만 허용한다. 미지원 컨테이너는 후보 release에서 거부한다."
+    },
+    {
+      "requirementId": "MOLIT-CV-MEDIATYPE-001-P-TYPE-001",
+      "sourceStandard": "DCAT 3",
+      "sourceClause": "Distribution media type properties",
+      "localRationale": "mediaType·compressFormat·packageFormat은 전송 가능한 dcat:Distribution에만 붙인다. Dataset이나 DataService에 직접 붙인 형식 주장은 배포 단위와 혼동되므로 거부한다."
+    },
+    {
+      "requirementId": "MOLIT-DS-001-P-ACCESSRIGHTS-001",
+      "sourceStandard": "DCAT-AP 3.0.1 and MOLIT domestic publication policy",
+      "sourceClause": "Dataset.accessRights",
+      "localRationale": "Core는 접근권한 IRI 한 개의 존재와 식별자 형태만 검사한다. 국내 승인 어휘가 확정되지 않았으므로 EU access-right 목록은 강제하지 않고 eu-controlled-audit에서 별도로 진단한다."
+    },
+    {
+      "requirementId": "MOLIT-DS-001-P-DESCRIPTION-001",
+      "sourceStandard": "MOLIT DCAT-AP 1.0.0-rc.1 Korean discovery policy",
+      "sourceClause": "Dataset description: Korean text",
+      "localRationale": "국내 이용자가 데이터 범위와 한계를 번역 없이 확인하도록 한국어 설명을 한 개 요구한다. 다른 언어 설명은 병행할 수 있다."
+    },
+    {
+      "requirementId": "MOLIT-DS-001-P-PUBLISHER-001",
+      "sourceStandard": "DCAT-AP 3.0.1",
+      "sourceClause": "Dataset.publisher",
+      "localRationale": "DCAT-AP의 Dataset publisher 최대 1개 조건을 유지하고, 공개 데이터셋의 책임 주체를 추적하기 위해 최소 1개의 foaf:Agent IRI를 요구한다."
+    },
+    {
+      "requirementId": "MOLIT-DS-001-P-THEME-001",
+      "sourceStandard": "DCAT-AP 3.0.1 and MOLIT domain vocabulary",
+      "sourceClause": "Dataset.theme allowed union",
+      "localRationale": "입력 단계에서는 국토교통 세부 주제 IRI와 DCAT-AP 교환용 TRAN·REGI를 함께 허용한다. 국내 검색 분류의 존재 여부는 별도 THEME-002 조건으로 검사한다."
+    },
+    {
+      "requirementId": "MOLIT-DS-001-P-THEME-002",
+      "sourceStandard": "MOLIT domain vocabulary 1.0.0-rc.1",
+      "sourceClause": "Dataset.theme domestic minimum",
+      "localRationale": "TRAN·REGI만으로는 국토·주택·건설·도로·철도 등 국내 업무 분야를 구분할 수 없으므로 국토교통 세부 주제 IRI를 최소 한 개 요구한다."
+    },
+    {
+      "requirementId": "MOLIT-DS-001-P-TITLE-001",
+      "sourceStandard": "MOLIT DCAT-AP 1.0.0-rc.1 Korean discovery policy",
+      "sourceClause": "Dataset title: Korean text",
+      "localRationale": "국내 검색·목록 화면의 기본 표시값을 확보하기 위해 한국어 데이터셋 제목을 한 개 요구한다. 다른 언어 제목은 함께 게시할 수 있다."
+    },
+    {
+      "requirementId": "MOLIT-OFFER-001-P-TITLE-001",
+      "sourceStandard": "MOLIT dataspace offering metadata policy 1.0.0-rc.1",
+      "sourceClause": "Offering title: Korean text",
+      "localRationale": "오퍼링 후보를 국내 운영자가 식별할 수 있도록 한국어 제목을 한 개 요구한다. 이 제목이나 메타데이터 적합성만으로 전송 가능 상태를 주장하지 않는다."
+    },
+    {
+      "requirementId": "MOLIT-QUAL-001-P-QUALITYSTATUS-001",
+      "sourceStandard": "MOLIT quality vocabulary 1.0.0-rc.1",
+      "sourceClause": "Dataset qualityStatus",
+      "localRationale": "품질 측정을 하지 않은 상태와 assessed·warning·failed를 구분해 카탈로그 이용자가 측정값 부재를 양호 판정으로 오해하지 않도록 한다. ISO 품질 적합을 주장하는 값은 아니다."
+    },
+    {
+      "requirementId": "MOLIT-REC-001-P-LANGUAGE-001",
+      "sourceStandard": "MOLIT DCAT-AP 1.0.0-rc.1 Korean discovery policy",
+      "sourceClause": "CatalogRecord language: KOR included",
+      "localRationale": "레코드가 한국어 메타데이터를 포함함을 EU language authority의 KOR IRI로 표시한다. 다른 언어 IRI를 추가하는 것은 허용한다."
+    },
+    {
+      "requirementId": "MOLIT-REC-001-P-TITLE-001",
+      "sourceStandard": "MOLIT DCAT-AP 1.0.0-rc.1 Korean discovery policy",
+      "sourceClause": "CatalogRecord title: Korean text",
+      "localRationale": "국내 카탈로그의 레코드 목록에서 식별 가능한 기본 표시값을 확보하기 위해 한국어 제목을 한 개 요구한다."
+    },
+    {
+      "requirementId": "MOLIT-SVC-001-P-THEME-001",
+      "sourceStandard": "MOLIT domain vocabulary 1.0.0-rc.1",
+      "sourceClause": "DataService.theme domestic minimum",
+      "localRationale": "DataService도 제공 대상 업무 분야를 국내 세부 주제로 식별해야 한다. EU TRAN·REGI 포함 여부는 Core 적합성에서 강제하지 않고 eu-controlled-audit에서만 진단한다."
+    },
+    {
+      "requirementId": "MOLIT-SVC-001-P-TITLE-001",
+      "sourceStandard": "MOLIT DCAT-AP 1.0.0-rc.1 Korean discovery policy",
+      "sourceClause": "DataService title: Korean text",
+      "localRationale": "국내 서비스 목록과 장애 대응 화면에서 endpoint를 사람이 구분할 수 있도록 한국어 제목을 한 개 요구한다."
+    }
+  ]
+}

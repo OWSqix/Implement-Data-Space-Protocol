@@ -1,0 +1,197 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://data.molit.go.kr/schema/release-gate-status.v2.schema.json",
+  "title": "MOLIT profile release gate status v2",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "profileVersion",
+    "targetLane",
+    "candidateEligible",
+    "recommendationEligible",
+    "candidateDecision",
+    "recommendationDecision",
+    "blockers",
+    "checks",
+    "inputEvidence",
+    "decisionDigest"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "const": "molit.release-gate-status/2"
+    },
+    "profileVersion": {
+      "type": "string",
+      "pattern": "^[0-9]+[.][0-9]+[.][0-9]+(?:-[0-9A-Za-z.-]+)?$"
+    },
+    "targetLane": {
+      "const": "win32-x64"
+    },
+    "candidateEligible": {
+      "type": "boolean"
+    },
+    "recommendationEligible": {
+      "type": "boolean"
+    },
+    "candidateDecision": {
+      "enum": ["eligible", "blocked", "indeterminate"]
+    },
+    "recommendationDecision": {
+      "enum": ["eligible", "blocked", "indeterminate"]
+    },
+    "blockers": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "scope",
+          "source",
+          "status",
+          "blocksCandidate",
+          "blocksRecommendation"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^(?:RA-[A-Z0-9-]+|RELEASE-GATE-INPUT)$"
+          },
+          "scope": {
+            "enum": ["profile-core", "institutional", "interoperability-pack"]
+          },
+          "source": {
+            "enum": [
+              "release-acceptance-register",
+              "artifact-lock",
+              "release-gate"
+            ]
+          },
+          "status": {
+            "enum": [
+              "open",
+              "blocked-external-evidence",
+              "check-failed",
+              "evidence-invalid",
+              "invalid-input"
+            ]
+          },
+          "severity": {
+            "enum": ["P0", "P1", "P2"]
+          },
+          "blocksCandidate": {
+            "type": "boolean"
+          },
+          "blocksRecommendation": {
+            "type": "boolean"
+          }
+        }
+      }
+    },
+    "checks": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "acceptanceRegister",
+        "artifactLock",
+        "fixedEvidence",
+        "git",
+        "requirementTraceability"
+      ],
+      "properties": {
+        "acceptanceRegister": {
+          "$ref": "#/$defs/check"
+        },
+        "artifactLock": {
+          "$ref": "#/$defs/check"
+        },
+        "fixedEvidence": {
+          "$ref": "#/$defs/check"
+        },
+        "git": {
+          "$ref": "#/$defs/check"
+        },
+        "requirementTraceability": {
+          "$ref": "#/$defs/check"
+        }
+      }
+    },
+    "inputEvidence": {
+      "type": "object",
+      "propertyNames": {
+        "type": "string",
+        "minLength": 1
+      },
+      "additionalProperties": {
+        "type": "string",
+        "pattern": "^[0-9a-f]{64}$"
+      }
+    },
+    "decisionDigest": {
+      "type": "string",
+      "pattern": "^sha256:[0-9a-f]{64}$"
+    },
+    "reason": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 1000
+    }
+  },
+  "$defs": {
+    "check": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["status"],
+      "properties": {
+        "status": {
+          "enum": ["passed", "failed", "not-run"]
+        },
+        "artifactCount": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "coverageBlockerCount": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "digest": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "dirtyPathCount": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "errorCode": {
+          "type": ["string", "null"],
+          "minLength": 1
+        },
+        "errorCount": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "head": {
+          "type": ["string", "null"],
+          "pattern": "^(?:[0-9a-f]{40}|[0-9a-f]{64})$"
+        },
+        "invalidItemCount": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "itemCount": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "path": {
+          "type": "string",
+          "minLength": 1
+        },
+        "sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        }
+      }
+    }
+  }
+}

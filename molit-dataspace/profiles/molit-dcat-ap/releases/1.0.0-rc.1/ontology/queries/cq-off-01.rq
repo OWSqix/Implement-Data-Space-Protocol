@@ -1,0 +1,7 @@
+PREFIX molit: <https://data.molit.go.kr/def/molit-dcat-ap#>
+SELECT ?offeringMetadata ?dataset ?readiness
+WHERE {
+  ?offeringMetadata a molit:DataspaceOfferingMetadata ;
+                    molit:describesOfferingDataset ?dataset ;
+                    molit:offeringReadinessStatus ?readiness .
+}

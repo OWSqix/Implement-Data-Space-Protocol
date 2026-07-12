@@ -1,0 +1,50 @@
+@prefix dct: <http://purl.org/dc/terms/> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+
+# This is a deliberately bounded publication allowlist, not a copy of the full
+# EU authority tables. Every listed IRI was checked against its issuing URI.
+
+<http://publications.europa.eu/resource/authority/language> a skos:ConceptScheme ; dct:title "EU language authority table"@en .
+<http://publications.europa.eu/resource/authority/language/KOR> a dct:LinguisticSystem, skos:Concept ; skos:inScheme <http://publications.europa.eu/resource/authority/language> ; skos:prefLabel "KOR"@en .
+<http://publications.europa.eu/resource/authority/language/ENG> a dct:LinguisticSystem, skos:Concept ; skos:inScheme <http://publications.europa.eu/resource/authority/language> ; skos:prefLabel "ENG"@en .
+
+<http://publications.europa.eu/resource/authority/data-theme> a skos:ConceptScheme ; dct:title "EU data theme authority table"@en .
+<http://publications.europa.eu/resource/authority/data-theme/TRAN> a skos:Concept ; skos:inScheme <http://publications.europa.eu/resource/authority/data-theme> ; skos:prefLabel "TRAN"@en .
+<http://publications.europa.eu/resource/authority/data-theme/REGI> a skos:Concept ; skos:inScheme <http://publications.europa.eu/resource/authority/data-theme> ; skos:prefLabel "REGI"@en .
+
+<http://publications.europa.eu/resource/authority/access-right> a skos:ConceptScheme ; dct:title "EU access right authority table"@en .
+<http://publications.europa.eu/resource/authority/access-right/PUBLIC> a dct:RightsStatement, skos:Concept ; skos:inScheme <http://publications.europa.eu/resource/authority/access-right> ; skos:prefLabel "PUBLIC"@en .
+<http://publications.europa.eu/resource/authority/access-right/RESTRICTED> a dct:RightsStatement, skos:Concept ; skos:inScheme <http://publications.europa.eu/resource/authority/access-right> ; skos:prefLabel "RESTRICTED"@en .
+<http://publications.europa.eu/resource/authority/access-right/NON_PUBLIC> a dct:RightsStatement, skos:Concept ; skos:inScheme <http://publications.europa.eu/resource/authority/access-right> ; skos:prefLabel "NON_PUBLIC"@en .
+
+<http://publications.europa.eu/resource/authority/file-type> a skos:ConceptScheme ; dct:title "EU file type authority table"@en .
+<http://publications.europa.eu/resource/authority/file-type/CSV> a dct:MediaTypeOrExtent, skos:Concept ; skos:inScheme <http://publications.europa.eu/resource/authority/file-type> ; skos:prefLabel "CSV"@en .
+<http://publications.europa.eu/resource/authority/file-type/JSON> a dct:MediaTypeOrExtent, skos:Concept ; skos:inScheme <http://publications.europa.eu/resource/authority/file-type> ; skos:prefLabel "JSON"@en .
+<http://publications.europa.eu/resource/authority/file-type/JSON_LD> a dct:MediaTypeOrExtent, skos:Concept ; skos:inScheme <http://publications.europa.eu/resource/authority/file-type> ; skos:prefLabel "JSON_LD"@en .
+<http://publications.europa.eu/resource/authority/file-type/RDF_TURTLE> a dct:MediaTypeOrExtent, skos:Concept ; skos:inScheme <http://publications.europa.eu/resource/authority/file-type> ; skos:prefLabel "RDF_TURTLE"@en .
+<http://publications.europa.eu/resource/authority/file-type/RDF_XML> a dct:MediaTypeOrExtent, skos:Concept ; skos:inScheme <http://publications.europa.eu/resource/authority/file-type> ; skos:prefLabel "RDF_XML"@en .
+<http://publications.europa.eu/resource/authority/file-type/XML> a dct:MediaTypeOrExtent, skos:Concept ; skos:inScheme <http://publications.europa.eu/resource/authority/file-type> ; skos:prefLabel "XML"@en .
+<http://publications.europa.eu/resource/authority/file-type/GML> a dct:MediaTypeOrExtent, skos:Concept ; skos:inScheme <http://publications.europa.eu/resource/authority/file-type> ; skos:prefLabel "GML"@en .
+<http://publications.europa.eu/resource/authority/file-type/GEOJSON> a dct:MediaTypeOrExtent, skos:Concept ; skos:inScheme <http://publications.europa.eu/resource/authority/file-type> ; skos:prefLabel "GEOJSON"@en .
+<http://publications.europa.eu/resource/authority/file-type/SHP> a dct:MediaTypeOrExtent, skos:Concept ; skos:inScheme <http://publications.europa.eu/resource/authority/file-type> ; skos:prefLabel "SHP"@en .
+
+<http://publications.europa.eu/resource/authority/frequency> a skos:ConceptScheme ; dct:title "EU frequency authority table"@en .
+<http://publications.europa.eu/resource/authority/frequency/CONT> a dct:Frequency, skos:Concept ; skos:inScheme <http://publications.europa.eu/resource/authority/frequency> ; skos:prefLabel "CONT"@en .
+<http://publications.europa.eu/resource/authority/frequency/DAILY> a dct:Frequency, skos:Concept ; skos:inScheme <http://publications.europa.eu/resource/authority/frequency> ; skos:prefLabel "DAILY"@en .
+<http://publications.europa.eu/resource/authority/frequency/WEEKLY> a dct:Frequency, skos:Concept ; skos:inScheme <http://publications.europa.eu/resource/authority/frequency> ; skos:prefLabel "WEEKLY"@en .
+<http://publications.europa.eu/resource/authority/frequency/MONTHLY> a dct:Frequency, skos:Concept ; skos:inScheme <http://publications.europa.eu/resource/authority/frequency> ; skos:prefLabel "MONTHLY"@en .
+<http://publications.europa.eu/resource/authority/frequency/ANNUAL> a dct:Frequency, skos:Concept ; skos:inScheme <http://publications.europa.eu/resource/authority/frequency> ; skos:prefLabel "ANNUAL"@en .
+<http://publications.europa.eu/resource/authority/frequency/IRREG> a dct:Frequency, skos:Concept ; skos:inScheme <http://publications.europa.eu/resource/authority/frequency> ; skos:prefLabel "IRREG"@en .
+<http://publications.europa.eu/resource/authority/frequency/UNKNOWN> a dct:Frequency, skos:Concept ; skos:inScheme <http://publications.europa.eu/resource/authority/frequency> ; skos:prefLabel "UNKNOWN"@en .
+
+<http://publications.europa.eu/resource/authority/planned-availability> a skos:ConceptScheme ; dct:title "EU planned availability authority table"@en .
+<http://publications.europa.eu/resource/authority/planned-availability/AVAILABLE> a skos:Concept ; skos:inScheme <http://publications.europa.eu/resource/authority/planned-availability> ; skos:prefLabel "AVAILABLE"@en .
+<http://publications.europa.eu/resource/authority/planned-availability/EXPERIMENTAL> a skos:Concept ; skos:inScheme <http://publications.europa.eu/resource/authority/planned-availability> ; skos:prefLabel "EXPERIMENTAL"@en .
+<http://publications.europa.eu/resource/authority/planned-availability/STABLE> a skos:Concept ; skos:inScheme <http://publications.europa.eu/resource/authority/planned-availability> ; skos:prefLabel "STABLE"@en .
+<http://publications.europa.eu/resource/authority/planned-availability/TEMPORARY> a skos:Concept ; skos:inScheme <http://publications.europa.eu/resource/authority/planned-availability> ; skos:prefLabel "TEMPORARY"@en .
+
+<http://publications.europa.eu/resource/authority/distribution-status> a skos:ConceptScheme ; dct:title "EU distribution status authority table"@en .
+<http://publications.europa.eu/resource/authority/distribution-status/COMPLETED> a skos:Concept ; skos:inScheme <http://publications.europa.eu/resource/authority/distribution-status> ; skos:prefLabel "COMPLETED"@en .
+<http://publications.europa.eu/resource/authority/distribution-status/DEPRECATED> a skos:Concept ; skos:inScheme <http://publications.europa.eu/resource/authority/distribution-status> ; skos:prefLabel "DEPRECATED"@en .
+<http://publications.europa.eu/resource/authority/distribution-status/DEVELOP> a skos:Concept ; skos:inScheme <http://publications.europa.eu/resource/authority/distribution-status> ; skos:prefLabel "DEVELOP"@en .
+<http://publications.europa.eu/resource/authority/distribution-status/WITHDRAWN> a skos:Concept ; skos:inScheme <http://publications.europa.eu/resource/authority/distribution-status> ; skos:prefLabel "WITHDRAWN"@en .

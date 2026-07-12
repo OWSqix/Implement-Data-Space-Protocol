@@ -1,0 +1,527 @@
+{
+  "schemaVersion": "molit.ontology-competency-registry/1",
+  "profileVersion": "1.0.0-rc.1",
+  "status": "candidate-machine-gate",
+  "documentation": "docs/ontology/competency-questions.md",
+  "toolchain": {
+    "jena": "6.1.0",
+    "java": "21.0.11+10",
+    "python": "3.12",
+    "rdflib": "7.6.0",
+    "owlrl": "7.6.2"
+  },
+  "baseGraphs": [
+    "ontology/molit-dcat-ap.ttl",
+    "bundles/support.ttl"
+  ],
+  "datasets": [
+    {
+      "id": "core-valid",
+      "module": "core",
+      "fixture": "examples/valid/core-catalog.ttl"
+    },
+    {
+      "id": "geo-valid",
+      "module": "geo",
+      "fixture": "examples/valid/geo-catalog.ttl"
+    },
+    {
+      "id": "network-valid",
+      "module": "network",
+      "fixture": "examples/valid/network-catalog.ttl"
+    },
+    {
+      "id": "observation-valid",
+      "module": "observation",
+      "fixture": "examples/valid/observation-catalog.ttl"
+    },
+    {
+      "id": "quality-valid",
+      "module": "quality",
+      "fixture": "examples/valid/quality-catalog.ttl"
+    },
+    {
+      "id": "dataspace-offering-valid",
+      "module": "dataspace-offering",
+      "fixture": "examples/valid/dataspace-offering-catalog.ttl"
+    }
+  ],
+  "moduleProbe": {
+    "queryFile": "ontology/queries/module-catalog-present.rq",
+    "resultForm": "ask",
+    "expectedBoolean": true
+  },
+  "queries": [
+    {
+      "id": "CQ-GOV-01",
+      "documentationSection": "CQ-GOV-01",
+      "queryFile": "ontology/queries/cq-gov-01.rq",
+      "datasetId": "core-valid",
+      "resultForm": "select",
+      "expectedVariables": [
+        "resource"
+      ],
+      "expectedRows": [
+        {
+          "resource": {
+            "type": "uri",
+            "value": "https://data.molit.go.kr/candidate/concept/mois-kik-h"
+          }
+        },
+        {
+          "resource": {
+            "type": "uri",
+            "value": "https://data.molit.go.kr/candidate/concept/kr-admin-org"
+          }
+        },
+        {
+          "resource": {
+            "type": "uri",
+            "value": "https://data.molit.go.kr/candidate/scheme/organization"
+          }
+        },
+        {
+          "resource": {
+            "type": "uri",
+            "value": "https://data.molit.go.kr/candidate/concept/agent-type/unverified-publisher"
+          }
+        },
+        {
+          "resource": {
+            "type": "uri",
+            "value": "https://data.molit.go.kr/candidate/concept/kogl-type-3"
+          }
+        },
+        {
+          "resource": {
+            "type": "uri",
+            "value": "https://data.molit.go.kr/candidate/concept/mois-kik-b"
+          }
+        },
+        {
+          "resource": {
+            "type": "uri",
+            "value": "https://data.molit.go.kr/candidate/concept/organization-molit"
+          }
+        },
+        {
+          "resource": {
+            "type": "uri",
+            "value": "https://data.molit.go.kr/candidate/concept/kogl-type-2"
+          }
+        },
+        {
+          "resource": {
+            "type": "uri",
+            "value": "https://data.molit.go.kr/candidate/concept/kogl-type-4"
+          }
+        },
+        {
+          "resource": {
+            "type": "uri",
+            "value": "https://data.molit.go.kr/candidate/scheme/kogl-license"
+          }
+        },
+        {
+          "resource": {
+            "type": "uri",
+            "value": "https://data.molit.go.kr/candidate/concept/kogl-type-1"
+          }
+        },
+        {
+          "resource": {
+            "type": "uri",
+            "value": "https://data.molit.go.kr/candidate/scheme/legal-resource"
+          }
+        },
+        {
+          "resource": {
+            "type": "uri",
+            "value": "https://data.molit.go.kr/candidate/scheme/administrative-area"
+          }
+        },
+        {
+          "resource": {
+            "type": "uri",
+            "value": "https://data.molit.go.kr/candidate/concept/kogl-type-0"
+          }
+        },
+        {
+          "resource": {
+            "type": "uri",
+            "value": "https://data.molit.go.kr/candidate/concept/kogl-ai-type"
+          }
+        },
+        {
+          "resource": {
+            "type": "uri",
+            "value": "https://data.molit.go.kr/candidate/scheme/network-edition"
+          }
+        },
+        {
+          "resource": {
+            "type": "uri",
+            "value": "https://data.molit.go.kr/candidate/concept/network-edition/its-standard-node-link-2026-07-01"
+          }
+        }
+      ]
+    },
+    {
+      "id": "CQ-NET-01",
+      "documentationSection": "CQ-NET-01",
+      "queryFile": "ontology/queries/cq-net-01.rq",
+      "datasetId": "network-valid",
+      "resultForm": "select",
+      "expectedVariables": [
+        "dataset",
+        "authority",
+        "networkId",
+        "edition"
+      ],
+      "expectedRows": [
+        {
+          "dataset": {
+            "type": "uri",
+            "value": "https://data.molit.go.kr/id/example/standard-node-link-dataset"
+          },
+          "authority": {
+            "type": "uri",
+            "value": "https://data.molit.go.kr/id/example/molit"
+          },
+          "networkId": {
+            "type": "literal",
+            "value": "MOLIT-STANDARD-NODE-LINK"
+          },
+          "edition": {
+            "type": "literal",
+            "value": "2026-07-01"
+          }
+        }
+      ]
+    },
+    {
+      "id": "CQ-NET-02",
+      "documentationSection": "CQ-NET-02",
+      "queryFile": "ontology/queries/cq-net-02.rq",
+      "datasetId": "network-valid",
+      "resultForm": "select",
+      "expectedVariables": [
+        "reference",
+        "checksum",
+        "status",
+        "from",
+        "until"
+      ],
+      "expectedRows": [
+        {
+          "reference": {
+            "type": "uri",
+            "value": "https://data.molit.go.kr/id/example/standard-node-link-2026-07-01"
+          },
+          "checksum": {
+            "type": "literal",
+            "datatype": "http://www.w3.org/2001/XMLSchema#hexBinary",
+            "value": "219020fac55f2faab1029ec9306563a00968f9b27f3910b80c534583b750b9ab"
+          },
+          "status": {
+            "type": "uri",
+            "value": "https://data.molit.go.kr/id/concept/network-lifecycle-status/current"
+          },
+          "from": {
+            "type": "literal",
+            "datatype": "http://www.w3.org/2001/XMLSchema#date",
+            "value": "2026-07-01"
+          }
+        }
+      ]
+    },
+    {
+      "id": "CQ-NET-03",
+      "documentationSection": "CQ-NET-03",
+      "queryFile": "ontology/queries/cq-net-03.rq",
+      "datasetId": "network-valid",
+      "resultForm": "select",
+      "expectedVariables": [
+        "dataset",
+        "edition",
+        "checksum"
+      ],
+      "expectedRows": [],
+      "zeroResultMeaning": "The current network fixture has no superseded edition; zero rows are expected for this fixture and are not a universal invariant."
+    },
+    {
+      "id": "CQ-OBS-01",
+      "documentationSection": "CQ-OBS-01",
+      "queryFile": "ontology/queries/cq-obs-01.rq",
+      "datasetId": "observation-valid",
+      "resultForm": "select",
+      "expectedVariables": [
+        "dataset",
+        "property",
+        "subjectType",
+        "unit"
+      ],
+      "expectedRows": [
+        {
+          "dataset": {
+            "type": "uri",
+            "value": "https://data.molit.go.kr/id/example/traffic-observation"
+          },
+          "property": {
+            "type": "uri",
+            "value": "https://data.molit.go.kr/id/concept/observed-property/traffic-volume"
+          },
+          "subjectType": {
+            "type": "uri",
+            "value": "https://data.molit.go.kr/id/concept/observation-subject-type/section"
+          },
+          "unit": {
+            "type": "uri",
+            "value": "https://data.molit.go.kr/id/unit/vehicle-per-hour"
+          }
+        }
+      ]
+    },
+    {
+      "id": "CQ-OBS-02",
+      "documentationSection": "CQ-OBS-02",
+      "queryFile": "ontology/queries/cq-obs-02.rq",
+      "datasetId": "observation-valid",
+      "resultForm": "select",
+      "expectedVariables": [
+        "dataset",
+        "resolution",
+        "method",
+        "period"
+      ],
+      "expectedRows": [
+        {
+          "dataset": {
+            "type": "uri",
+            "value": "https://data.molit.go.kr/id/example/traffic-observation"
+          },
+          "resolution": {
+            "type": "literal",
+            "datatype": "http://www.w3.org/2001/XMLSchema#duration",
+            "value": "PT1H"
+          },
+          "method": {
+            "type": "uri",
+            "value": "https://data.molit.go.kr/id/concept/observation-aggregation/sum"
+          },
+          "period": {
+            "type": "literal",
+            "datatype": "http://www.w3.org/2001/XMLSchema#duration",
+            "value": "PT1H"
+          }
+        }
+      ]
+    },
+    {
+      "id": "CQ-OBS-03",
+      "documentationSection": "CQ-OBS-03",
+      "queryFile": "ontology/queries/cq-obs-03.rq",
+      "datasetId": "observation-valid",
+      "resultForm": "select",
+      "expectedVariables": [
+        "dataset",
+        "policy",
+        "method"
+      ],
+      "expectedRows": [
+        {
+          "dataset": {
+            "type": "uri",
+            "value": "https://data.molit.go.kr/id/example/traffic-observation"
+          },
+          "policy": {
+            "type": "uri",
+            "value": "https://data.molit.go.kr/id/concept/missing-value-policy/preserve-missing"
+          },
+          "method": {
+            "type": "uri",
+            "value": "https://data.molit.go.kr/id/concept/observation-aggregation/sum"
+          }
+        }
+      ]
+    },
+    {
+      "id": "CQ-OBS-04",
+      "documentationSection": "CQ-OBS-04",
+      "queryFile": "ontology/queries/cq-obs-04.rq",
+      "datasetId": "observation-valid",
+      "resultForm": "select",
+      "expectedVariables": [
+        "dataset",
+        "observationUnit",
+        "measurement",
+        "qualityUnit"
+      ],
+      "expectedRows": [
+        {
+          "dataset": {
+            "type": "uri",
+            "value": "https://data.molit.go.kr/id/example/traffic-observation"
+          },
+          "observationUnit": {
+            "type": "uri",
+            "value": "https://data.molit.go.kr/id/unit/vehicle-per-hour"
+          },
+          "measurement": {
+            "type": "uri",
+            "value": "https://data.molit.go.kr/id/example/traffic-completeness"
+          },
+          "qualityUnit": {
+            "type": "uri",
+            "value": "http://qudt.org/vocab/unit/PERCENT"
+          }
+        }
+      ]
+    },
+    {
+      "id": "CQ-OFF-01",
+      "documentationSection": "CQ-OFF-01",
+      "queryFile": "ontology/queries/cq-off-01.rq",
+      "datasetId": "dataspace-offering-valid",
+      "resultForm": "select",
+      "expectedVariables": [
+        "offeringMetadata",
+        "dataset",
+        "readiness"
+      ],
+      "expectedRows": [
+        {
+          "offeringMetadata": {
+            "type": "uri",
+            "value": "https://data.molit.go.kr/id/example/traffic-observation-offering-metadata"
+          },
+          "dataset": {
+            "type": "uri",
+            "value": "https://data.molit.go.kr/id/example/traffic-observation"
+          },
+          "readiness": {
+            "type": "uri",
+            "value": "https://data.molit.go.kr/id/concept/offering-readiness-status/metadata-conformant"
+          }
+        }
+      ]
+    },
+    {
+      "id": "CQ-OFF-02",
+      "documentationSection": "CQ-OFF-02",
+      "queryFile": "ontology/queries/cq-off-02.rq",
+      "datasetId": "dataspace-offering-valid",
+      "resultForm": "select",
+      "expectedVariables": [
+        "offeringMetadata",
+        "evidence"
+      ],
+      "expectedRows": [],
+      "zeroResultMeaning": "The candidate offering fixture is metadata-conformant, not operationally-qualified, so no qualification evidence row is expected."
+    },
+    {
+      "id": "CQ-QUAL-01",
+      "documentationSection": "CQ-QUAL-01",
+      "queryFile": "ontology/queries/cq-qual-01.rq",
+      "datasetId": "quality-valid",
+      "resultForm": "select",
+      "expectedVariables": [
+        "measurement",
+        "metric",
+        "value",
+        "method",
+        "scope",
+        "resultKind"
+      ],
+      "expectedRows": [
+        {
+          "measurement": {
+            "type": "uri",
+            "value": "https://data.molit.go.kr/id/example/traffic-completeness"
+          },
+          "metric": {
+            "type": "uri",
+            "value": "https://data.molit.go.kr/id/metric/completeness"
+          },
+          "value": {
+            "type": "literal",
+            "datatype": "http://www.w3.org/2001/XMLSchema#decimal",
+            "value": "98.7"
+          },
+          "method": {
+            "type": "uri",
+            "value": "https://data.molit.go.kr/id/concept/quality-evaluation-method/whole-population"
+          },
+          "scope": {
+            "type": "literal",
+            "value": "all published observation rows in the declared temporal extent"
+          },
+          "resultKind": {
+            "type": "uri",
+            "value": "https://data.molit.go.kr/id/concept/quality-result-kind/quantitative"
+          }
+        }
+      ]
+    },
+    {
+      "id": "CQ-QUAL-02",
+      "documentationSection": "CQ-QUAL-02",
+      "queryFile": "ontology/queries/cq-qual-02.rq",
+      "datasetId": "quality-valid",
+      "resultForm": "select",
+      "expectedVariables": [
+        "measurement",
+        "mapping",
+        "sourceElement",
+        "targetMetric",
+        "loss",
+        "note"
+      ],
+      "expectedRows": [
+        {
+          "measurement": {
+            "type": "uri",
+            "value": "https://data.molit.go.kr/id/example/traffic-completeness"
+          },
+          "mapping": {
+            "type": "uri",
+            "value": "https://data.molit.go.kr/id/example/traffic-completeness-mapping"
+          },
+          "sourceElement": {
+            "type": "uri",
+            "value": "https://data.molit.go.kr/id/example/source-completeness-element"
+          },
+          "targetMetric": {
+            "type": "uri",
+            "value": "https://data.molit.go.kr/id/metric/completeness"
+          },
+          "loss": {
+            "type": "uri",
+            "value": "https://data.molit.go.kr/id/concept/quality-loss-disposition/lossless"
+          }
+        }
+      ]
+    },
+    {
+      "id": "CQ-QUAL-03",
+      "documentationSection": "CQ-QUAL-03",
+      "queryFile": "ontology/queries/cq-qual-03.rq",
+      "datasetId": "quality-valid",
+      "resultForm": "select",
+      "expectedVariables": [
+        "dataset",
+        "measurement",
+        "computedOn"
+      ],
+      "expectedRows": [],
+      "zeroResultMeaning": "Invariant: a valid fixture must return zero Dataset/measurement computedOn mismatches."
+    }
+  ],
+  "owlConsistency": {
+    "localNamespace": "https://data.molit.go.kr/def/molit-dcat-ap#",
+    "prohibitLocalEquivalence": true,
+    "requireDeprecatedReplacement": true,
+    "failOnDeprecatedFixtureUse": true,
+    "requireExplicitDomainRangeTypes": true
+  }
+}

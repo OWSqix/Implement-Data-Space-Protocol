@@ -1,0 +1,410 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://molit-dataspace.example.invalid/schemas/profile-requirements.v1.schema.json",
+  "title": "MOLIT application-profile requirement traceability register v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "profileVersion",
+    "registryStatus",
+    "shapeNamespace",
+    "shapeFiles",
+    "fixtureCaseRegistry",
+    "requirements"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "const": "molit.profile-requirements/1"
+    },
+    "profileVersion": {
+      "$ref": "#/$defs/semanticVersion"
+    },
+    "registryStatus": {
+      "enum": ["draft", "approved"]
+    },
+    "shapeNamespace": {
+      "type": "string",
+      "format": "uri",
+      "pattern": "^https://data[.]molit[.]go[.]kr/shape/molit-dcat-ap/[^#]+#$"
+    },
+    "shapeFiles": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "$ref": "#/$defs/shapeFile"
+      }
+    },
+    "fixtureCaseRegistry": {
+      "type": "string",
+      "const": "requirements/conformance-cases.json"
+    },
+    "requirements": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/requirement"
+      }
+    }
+  },
+  "$defs": {
+    "semanticVersion": {
+      "type": "string",
+      "pattern": "^[0-9]+[.][0-9]+[.][0-9]+(?:-[0-9A-Za-z.-]+)?$"
+    },
+    "requirementId": {
+      "type": "string",
+      "minLength": 9,
+      "maxLength": 120,
+      "pattern": "^MOLIT-[A-Z0-9]+(?:-[A-Z0-9]+)*$"
+    },
+    "fixtureId": {
+      "type": "string",
+      "minLength": 5,
+      "maxLength": 120,
+      "pattern": "^(?:POS|NEG)-[A-Z0-9]+(?:-[A-Z0-9]+)*$"
+    },
+    "shapeFile": {
+      "type": "string",
+      "minLength": 12,
+      "maxLength": 240,
+      "pattern": "^shacl/(?:[A-Za-z0-9._-]+/)*[A-Za-z0-9._-]+[.]ttl$"
+    },
+    "conformanceClasses": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "minLength": 3,
+        "maxLength": 80,
+        "pattern": "^[a-z][a-z0-9]*(?:-[a-z0-9]+)*$"
+      }
+    },
+    "iriList": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "format": "uri"
+      }
+    },
+    "nullableFixtureId": {
+      "oneOf": [
+        { "$ref": "#/$defs/fixtureId" },
+        { "type": "null" }
+      ]
+    },
+    "cardinality": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["minimum", "maximum"],
+      "properties": {
+        "minimum": {
+          "oneOf": [
+            { "type": "integer", "minimum": 0 },
+            { "type": "null" }
+          ]
+        },
+        "maximum": {
+          "oneOf": [
+            { "type": "integer", "minimum": 0 },
+            { "type": "null" }
+          ]
+        }
+      }
+    },
+    "requirement": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "requirementId",
+        "constraintKey",
+        "constraintKind",
+        "conformanceClass",
+        "resourceClass",
+        "property",
+        "obligation",
+        "cardinality",
+        "range",
+        "vocabulary",
+        "severity",
+        "messages",
+        "remediation",
+        "sourceStandard",
+        "sourceClause",
+        "localRationale",
+        "shapeId",
+        "shapeFile",
+        "positiveFixtureId",
+        "negativeFixtureId"
+      ],
+      "properties": {
+        "requirementId": {
+          "$ref": "#/$defs/requirementId"
+        },
+        "constraintKey": {
+          "type": "string",
+          "minLength": 16,
+          "maxLength": 500,
+          "pattern": "^shacl/[^#]+[.]ttl#(?:node-shape|property-shape|property):[^\\s]+$"
+        },
+        "constraintKind": {
+          "enum": ["node-shape", "property-shape", "direct-property-constraint"]
+        },
+        "conformanceClass": {
+          "$ref": "#/$defs/conformanceClasses"
+        },
+        "resourceClass": {
+          "$ref": "#/$defs/iriList"
+        },
+        "property": {
+          "oneOf": [
+            {
+              "type": "string",
+              "minLength": 3,
+              "maxLength": 1000
+            },
+            { "type": "null" }
+          ]
+        },
+        "obligation": {
+          "enum": ["MUST", "MUST-NOT", "SHOULD", "SHOULD-NOT", "MAY"]
+        },
+        "cardinality": {
+          "$ref": "#/$defs/cardinality"
+        },
+        "range": {
+          "$ref": "#/$defs/iriList"
+        },
+        "vocabulary": {
+          "$ref": "#/$defs/iriList"
+        },
+        "severity": {
+          "enum": ["Violation", "Warning", "Info"]
+        },
+        "messages": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["language", "text"],
+            "properties": {
+              "language": {
+                "type": "string",
+                "minLength": 2,
+                "maxLength": 35,
+                "pattern": "^(?:und|[A-Za-z]{2,8}(?:-[A-Za-z0-9]{1,8})*)$"
+              },
+              "text": {
+                "type": "string",
+                "minLength": 3,
+                "maxLength": 2000
+              }
+            }
+          }
+        },
+        "remediation": {
+          "type": "string",
+          "minLength": 10,
+          "maxLength": 5000
+        },
+        "sourceStandard": {
+          "type": "string",
+          "minLength": 2,
+          "maxLength": 240
+        },
+        "sourceClause": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 240
+        },
+        "localRationale": {
+          "type": "string",
+          "minLength": 5,
+          "maxLength": 1200
+        },
+        "shapeId": {
+          "type": "string",
+          "format": "uri",
+          "pattern": "^https://data[.]molit[.]go[.]kr/shape/molit-dcat-ap/"
+        },
+        "shapeFile": {
+          "$ref": "#/$defs/shapeFile"
+        },
+        "positiveFixtureId": {
+          "$ref": "#/$defs/nullableFixtureId"
+        },
+        "negativeFixtureId": {
+          "$ref": "#/$defs/nullableFixtureId"
+        }
+      }
+    },
+    "fixtureCase": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "fixtureId",
+        "path",
+        "sha256",
+        "description",
+        "conformanceClass",
+        "expectedOutcome",
+        "coversRequirementIds",
+        "expectedRequirementIds"
+      ],
+      "properties": {
+        "fixtureId": {
+          "$ref": "#/$defs/fixtureId"
+        },
+        "path": {
+          "type": "string",
+          "minLength": 16,
+          "maxLength": 240,
+          "pattern": "^examples/(?:valid|invalid)/[A-Za-z0-9._-]+$"
+        },
+        "sha256": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "description": {
+          "type": "string",
+          "minLength": 5,
+          "maxLength": 500
+        },
+        "conformanceClass": {
+          "$ref": "#/$defs/conformanceClasses"
+        },
+        "expectedOutcome": {
+          "enum": ["conforms", "violates"]
+        },
+        "coversRequirementIds": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "$ref": "#/$defs/requirementId"
+          }
+        },
+        "expectedRequirementIds": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "$ref": "#/$defs/requirementId"
+          }
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "expectedOutcome": { "const": "conforms" }
+            },
+            "required": ["expectedOutcome"]
+          },
+          "then": {
+            "properties": {
+              "expectedRequirementIds": { "type": "array", "maxItems": 0 }
+            }
+          }
+        }
+      ]
+    },
+    "fixtureCaseRegistryDocument": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["schemaVersion", "profileVersion", "registryStatus", "fixtureCases"],
+      "properties": {
+        "schemaVersion": {
+          "const": "molit.profile-conformance-cases/1"
+        },
+        "profileVersion": {
+          "$ref": "#/$defs/semanticVersion"
+        },
+        "registryStatus": {
+          "enum": ["draft", "approved"]
+        },
+        "fixtureCases": {
+          "type": "array",
+          "minItems": 2,
+          "items": {
+            "$ref": "#/$defs/fixtureCase"
+          }
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "registryStatus": { "const": "approved" }
+            },
+            "required": ["registryStatus"]
+          },
+          "then": {
+            "properties": {
+              "fixtureCases": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "allOf": [
+                    {
+                      "properties": {
+                        "coversRequirementIds": { "type": "array", "minItems": 1 },
+                        "description": {
+                          "type": "string",
+                          "pattern": "^(?!TODO|TBD|DRAFT)"
+                        }
+                      }
+                    },
+                    {
+                      "if": {
+                        "properties": {
+                          "expectedOutcome": { "const": "violates" }
+                        },
+                        "required": ["expectedOutcome"]
+                      },
+                      "then": {
+                        "properties": {
+                          "expectedRequirementIds": { "type": "array", "minItems": 1 }
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "registryStatus": { "const": "approved" }
+        },
+        "required": ["registryStatus"]
+      },
+      "then": {
+        "properties": {
+          "requirements": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "positiveFixtureId": { "$ref": "#/$defs/fixtureId" },
+                "negativeFixtureId": { "$ref": "#/$defs/fixtureId" },
+                "sourceStandard": { "type": "string", "pattern": "^(?!TODO|TBD|DRAFT)" },
+                "sourceClause": { "type": "string", "pattern": "^(?!TODO|TBD|DRAFT)" },
+                "localRationale": { "type": "string", "pattern": "^(?!TODO|TBD|DRAFT)" }
+              }
+            }
+          }
+        }
+      }
+    }
+  ]
+}

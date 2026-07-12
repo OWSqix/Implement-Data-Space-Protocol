@@ -1,0 +1,9 @@
+PREFIX dcat: <http://www.w3.org/ns/dcat#>
+PREFIX molit: <https://data.molit.go.kr/def/molit-dcat-ap#>
+SELECT ?dataset ?resolution ?method ?period
+WHERE {
+  ?dataset a molit:ObservationDataset ;
+           dcat:temporalResolution ?resolution ;
+           molit:observationAggregation ?method ;
+           molit:aggregationPeriod ?period .
+}

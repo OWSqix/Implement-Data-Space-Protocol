@@ -1,0 +1,168 @@
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+@prefix molit: <https://data.molit.go.kr/def/molit-dcat-ap#> .
+@prefix mobilitydcatap: <https://w3id.org/mobilitydcat-ap#> .
+@prefix netlife: <https://data.molit.go.kr/id/concept/network-lifecycle-status/> .
+@prefix net: <https://data.molit.go.kr/id/concept/network-element-type/> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix dcat: <http://www.w3.org/ns/dcat#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#NetworkDatasetShape>
+    a sh:NodeShape ;
+    sh:targetClass molit:NetworkDataset ;
+    molit:requirementId "MOLIT-NET-001" ;
+    molit:controlOwner "network-data-governance" ;
+    sh:property [ molit:requirementId "MOLIT-NET-001-P-TYPE-001" ;
+        sh:path rdf:type ;
+        sh:hasValue dcat:Dataset ;
+        sh:message "확장 유형과 함께 dcat:Dataset 유형을 명시해야 한다."@ko
+    ], [ molit:requirementId "MOLIT-NET-001-P-NETWORKREFERENCE-001" ;
+        sh:path molit:networkReference ;
+        sh:class molit:NetworkReference ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:message "교통망 데이터셋에는 발급기관 범위를 보존한 망 참조가 하나 있어야 한다."@ko
+    ], [ molit:requirementId "MOLIT-NET-001-P-TRANSPORTMODE-001" ;
+        sh:path mobilitydcatap:transportMode ;
+        sh:minCount 1 ;
+        sh:class skos:Concept ;
+        sh:nodeKind sh:IRI ;
+        sh:in (
+            <https://w3id.org/mobilitydcat-ap/transport-mode/air>
+            <https://w3id.org/mobilitydcat-ap/transport-mode/bicycle>
+            <https://w3id.org/mobilitydcat-ap/transport-mode/bike-hire>
+            <https://w3id.org/mobilitydcat-ap/transport-mode/bike-sharing>
+            <https://w3id.org/mobilitydcat-ap/transport-mode/bus>
+            <https://w3id.org/mobilitydcat-ap/transport-mode/car>
+            <https://w3id.org/mobilitydcat-ap/transport-mode/car-hire>
+            <https://w3id.org/mobilitydcat-ap/transport-mode/car-pooling>
+            <https://w3id.org/mobilitydcat-ap/transport-mode/car-sharing>
+            <https://w3id.org/mobilitydcat-ap/transport-mode/e-scooter>
+            <https://w3id.org/mobilitydcat-ap/transport-mode/long-distance-coach>
+            <https://w3id.org/mobilitydcat-ap/transport-mode/long-distance-rail>
+            <https://w3id.org/mobilitydcat-ap/transport-mode/maritime>
+            <https://w3id.org/mobilitydcat-ap/transport-mode/metro-subway-train>
+            <https://w3id.org/mobilitydcat-ap/transport-mode/motorcycle>
+            <https://w3id.org/mobilitydcat-ap/transport-mode/other>
+            <https://w3id.org/mobilitydcat-ap/transport-mode/pedestrian>
+            <https://w3id.org/mobilitydcat-ap/transport-mode/regional-and-local-rail>
+            <https://w3id.org/mobilitydcat-ap/transport-mode/ride-pooling>
+            <https://w3id.org/mobilitydcat-ap/transport-mode/shuttle-bus>
+            <https://w3id.org/mobilitydcat-ap/transport-mode/shuttle-ferry>
+            <https://w3id.org/mobilitydcat-ap/transport-mode/taxi>
+            <https://w3id.org/mobilitydcat-ap/transport-mode/tram-light-rail>
+            <https://w3id.org/mobilitydcat-ap/transport-mode/truck>
+        ) ;
+        sh:message "교통수단은 mobilityDCAT-AP Transport Mode 통제어 IRI를 사용해야 한다."@ko
+    ] .
+
+<https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#NetworkReferenceUseShape>
+    a sh:NodeShape ;
+    sh:targetSubjectsOf molit:networkReference ;
+    molit:requirementId "MOLIT-NET-002" ;
+    molit:controlOwner "network-data-governance" ;
+    sh:property [ molit:requirementId "MOLIT-NET-002-P-TYPE-001" ;
+        sh:path rdf:type ;
+        sh:hasValue molit:NetworkDataset ;
+        sh:message "networkReference를 사용하는 자원은 molit:NetworkDataset 유형을 명시해야 한다."@ko
+    ] .
+
+<https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#NetworkReferenceShape>
+    a sh:NodeShape ;
+    sh:targetClass molit:NetworkReference ;
+    molit:requirementId "MOLIT-NET-REF-001" ;
+    molit:controlOwner "network-data-governance" ;
+    sh:property [ molit:requirementId "MOLIT-NET-REF-001-P-NETWORKAUTHORITY-001" ;
+        sh:path molit:networkAuthority ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:nodeKind sh:IRI ;
+        sh:class foaf:Agent ;
+        sh:message "교통망 식별자와 버전의 발급기관 IRI 하나가 필요하다."@ko
+    ], [ molit:requirementId "MOLIT-NET-REF-001-P-NETWORKIDENTIFIER-001" ;
+        sh:path molit:networkIdentifier ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:datatype xsd:string ;
+        sh:minLength 1 ;
+        sh:maxLength 200 ;
+        sh:pattern "\\S" ;
+        sh:message "교통망 식별자 하나가 필요하다."@ko
+    ], [ molit:requirementId "MOLIT-NET-REF-001-P-NETWORKVERSION-001" ;
+        sh:path molit:networkVersion ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:datatype xsd:string ;
+        sh:minLength 1 ;
+        sh:maxLength 200 ;
+        sh:pattern "\\S" ;
+        sh:message "교통망 버전 하나가 필요하다."@ko
+    ], [ molit:requirementId "MOLIT-NET-REF-001-P-NETWORKELEMENTTYPE-001" ;
+        sh:path molit:networkElementType ;
+        sh:minCount 1 ;
+        sh:nodeKind sh:IRI ;
+        sh:in (
+            net:node
+            net:link
+            net:section
+            net:station
+            net:stop
+            net:facility
+            net:zone
+            net:sensor-site
+        ) ;
+        sh:message "망 요소 유형은 국토교통 망 요소 통제어 IRI여야 한다."@ko
+    ] .
+
+<https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#NetworkSnapshotIdentityShape>
+    a sh:NodeShape ;
+    sh:targetClass molit:NetworkReference ;
+    molit:requirementId "MOLIT-NET-SNAPSHOT-001" ;
+    molit:controlOwner "network-data-governance" ;
+    sh:property [ molit:requirementId "MOLIT-NET-SNAPSHOT-001-P-NETWORKIDENTIFIER-001" ;
+        sh:path molit:networkIdentifier ;
+        sh:pattern "^[A-Za-z0-9][A-Za-z0-9._:/-]{0,199}$" ;
+        sh:message "Network identifiers must use the profile's portable lexical form."@en
+    ], [ molit:requirementId "MOLIT-NET-SNAPSHOT-001-P-NETWORKVERSION-001" ;
+        sh:path molit:networkVersion ;
+        sh:pattern "^[A-Za-z0-9][A-Za-z0-9._:+/-]{0,199}$" ;
+        sh:message "Network versions must use the profile's portable lexical form."@en
+    ], [ molit:requirementId "MOLIT-NET-SNAPSHOT-001-P-NETWORKSNAPSHOTCHECKSUM-001" ;
+        sh:path molit:networkSnapshotChecksum ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:datatype xsd:hexBinary ;
+        sh:pattern "^[0-9A-Fa-f]{64}$" ;
+        sh:message "State one SHA-256 network snapshot checksum as a 64-digit xsd:hexBinary value."@en
+    ], [ molit:requirementId "MOLIT-NET-SNAPSHOT-001-P-NETWORKLIFECYCLESTATUS-001" ;
+        sh:path molit:networkLifecycleStatus ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:nodeKind sh:IRI ;
+        sh:in ( netlife:candidate netlife:current netlife:superseded netlife:withdrawn ) ;
+        sh:message "State one approved network snapshot lifecycle status."@en
+    ], [ molit:requirementId "MOLIT-NET-SNAPSHOT-001-P-NETWORKVALIDFROM-001" ;
+        sh:path molit:networkValidFrom ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:datatype xsd:date ;
+        sh:message "State the first date on which this network snapshot is valid."@en
+    ], [ molit:requirementId "MOLIT-NET-SNAPSHOT-001-P-NETWORKVALIDUNTIL-001" ;
+        sh:path molit:networkValidUntil ;
+        sh:maxCount 1 ;
+        sh:datatype xsd:date ;
+        sh:message "When known, state the last date on which this network snapshot is valid."@en
+    ] .
+
+<https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#NetworkSnapshotValidityShape>
+    a sh:NodeShape ;
+    sh:targetClass molit:NetworkReference ;
+    molit:requirementId "MOLIT-NET-VALIDITY-001" ;
+    molit:controlOwner "network-data-governance" ;
+    sh:property [ molit:requirementId "MOLIT-NET-VALIDITY-001-P-NETWORKVALIDFROM-001" ;
+        sh:path molit:networkValidFrom ;
+        sh:lessThanOrEquals molit:networkValidUntil ;
+        sh:message "networkValidFrom must not be later than networkValidUntil when an end date is stated."@en
+    ] .

@@ -1,0 +1,142 @@
+@prefix adms: <http://www.w3.org/ns/adms#> .
+@prefix candidate: <https://data.molit.go.kr/candidate/concept/> .
+@prefix candidate-scheme: <https://data.molit.go.kr/candidate/scheme/> .
+@prefix dct: <http://purl.org/dc/terms/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix status: <https://data.molit.go.kr/id/concept/term-status/> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+# Every IRI in this file is deliberately under /candidate/. These records are
+# test and review identifiers, not authoritative Korean public identifiers.
+
+candidate-scheme:organization
+    a skos:ConceptScheme ;
+    dct:issued "2026-07-13"^^xsd:date ;
+    dct:title "국내 기관 식별자 후보 registry"@ko,
+        "Candidate Korean organization identifier registry"@en ;
+    skos:definition "기관 식별자 발급원, 합병, 폐지, 위임과 Provider authority 연결을 검토하기 위한 후보 registry. 운영기관 승인 전에는 공개 Dataset의 권위 기관 IRI로 사용할 수 없다."@ko,
+        "A candidate registry for reviewing issuer, merger, closure, delegation and provider-authority links for organization identifiers. It cannot be used as an authoritative organization IRI for public datasets before operating-authority approval."@en ;
+    skos:prefLabel "국내 기관 식별자 후보 registry"@ko,
+        "Candidate Korean organization identifier registry"@en ;
+    skos:hasTopConcept candidate:organization-molit ;
+    owl:versionInfo "1.0.0-rc.1" ; adms:status status:candidate .
+
+candidate:organization-molit
+    a skos:Concept ;
+    rdfs:isDefinedBy candidate-scheme:organization ;
+    skos:inScheme candidate-scheme:organization ;
+    skos:notation "MOLIT-CANDIDATE" ;
+    skos:prefLabel "국토교통부 후보 기관 레코드"@ko,
+        "Candidate MOLIT organization record"@en ;
+    skos:definition "기관 URI 발급, 조직개편 이력과 위임 evidence 구조를 시험하기 위한 후보 레코드. 행정표준기관코드 또는 승인된 Provider Participant 식별자를 주장하지 않는다."@ko,
+        "A candidate record for testing organization-IRI issuance, reorganization history and delegation evidence. It does not assert a Korean administrative organization code or an approved Provider Participant identifier."@en ;
+    skos:topConceptOf candidate-scheme:organization ;
+    owl:versionInfo "1.0.0-rc.1" ; adms:status status:candidate .
+
+candidate-scheme:administrative-area
+    a skos:ConceptScheme ;
+    dct:issued "2026-07-13"^^xsd:date ;
+    dct:title "국내 행정구역 식별자 후보 registry"@ko,
+        "Candidate Korean administrative-area identifier registry"@en ;
+    skos:definition "행정동, 법정동, 기관코드의 scheme과 기준일을 구분해 검토하기 위한 후보 registry. code 위치나 명칭만으로 서로 다른 scheme을 결합하지 않는다."@ko,
+        "A candidate registry for reviewing administrative-dong, legal-dong and organization-code schemes with reference dates. Different schemes are not joined by code position or label alone."@en ;
+    skos:prefLabel "국내 행정구역 식별자 후보 registry"@ko,
+        "Candidate Korean administrative-area identifier registry"@en ;
+    skos:hasTopConcept candidate:mois-kik-h,
+        candidate:mois-kik-b,
+        candidate:kr-admin-org ;
+    owl:versionInfo "1.0.0-rc.1" ; adms:status status:candidate .
+
+candidate:mois-kik-h
+    a skos:Concept ; rdfs:isDefinedBy candidate-scheme:administrative-area ; skos:inScheme candidate-scheme:administrative-area ;
+    skos:notation "MOIS_KIK_H" ;
+    skos:prefLabel "행정동·주민등록 행정기관코드 scheme 후보"@ko, "Candidate administrative-dong and resident-registration authority code scheme"@en ;
+    skos:definition "10자리 행정동·주민등록 행정기관코드를 수용하기 위한 scheme 후보. 개별 코드의 권위 IRI와 유효기간은 아직 발급하지 않는다."@ko, "A candidate scheme slot for ten-character administrative-dong and resident-registration authority codes; authoritative IRIs and validity for individual codes are not yet issued."@en ;
+    skos:topConceptOf candidate-scheme:administrative-area ; owl:versionInfo "1.0.0-rc.1" ; adms:status status:candidate .
+
+candidate:mois-kik-b
+    a skos:Concept ; rdfs:isDefinedBy candidate-scheme:administrative-area ; skos:inScheme candidate-scheme:administrative-area ;
+    skos:notation "MOIS_KIK_B" ;
+    skos:prefLabel "법정동코드 scheme 후보"@ko, "Candidate legal-dong code scheme"@en ;
+    skos:definition "10자리 법정동코드를 수용하기 위한 scheme 후보. 행정동코드와 같은 식별공간으로 취급하지 않는다."@ko, "A candidate scheme slot for ten-character legal-dong codes; it is not treated as the same identifier space as administrative-dong codes."@en ;
+    skos:topConceptOf candidate-scheme:administrative-area ; owl:versionInfo "1.0.0-rc.1" ; adms:status status:candidate .
+
+candidate:kr-admin-org
+    a skos:Concept ; rdfs:isDefinedBy candidate-scheme:administrative-area ; skos:inScheme candidate-scheme:administrative-area ;
+    skos:notation "KR_ADMIN_ORG" ;
+    skos:prefLabel "행정표준기관코드 scheme 후보"@ko, "Candidate Korean administrative organization code scheme"@en ;
+    skos:definition "7자리 행정표준기관코드를 수용하기 위한 scheme 후보. 행정구역 경계나 법정동을 식별하는 코드로 사용하지 않는다."@ko, "A candidate scheme slot for seven-character Korean administrative organization codes; it is not used to identify administrative boundaries or legal dongs."@en ;
+    skos:topConceptOf candidate-scheme:administrative-area ; owl:versionInfo "1.0.0-rc.1" ; adms:status status:candidate .
+
+candidate-scheme:legal-resource
+    a skos:ConceptScheme ;
+    dct:issued "2026-07-13"^^xsd:date ;
+    dct:title "국내 법령·행정규칙 식별자 후보 registry"@ko,
+        "Candidate Korean legal-resource identifier registry"@en ;
+    skos:definition "법령과 행정규칙의 발급원, 공포번호, 개정판, 시행일과 폐지상태를 함께 보존하기 위한 빈 후보 registry. 승인된 식별자 정책 전에는 개별 법령 concept를 발급하지 않는다."@ko,
+        "An empty candidate registry intended to preserve issuer, promulgation number, amendment edition, effective date and repeal status for laws and administrative rules. No individual legal-resource concepts are issued before approval of an identifier policy."@en ;
+    skos:prefLabel "국내 법령·행정규칙 식별자 후보 registry"@ko,
+        "Candidate Korean legal-resource identifier registry"@en ;
+    owl:versionInfo "1.0.0-rc.1" ; adms:status status:candidate .
+
+candidate-scheme:kogl-license
+    a skos:ConceptScheme ;
+    dct:issued "2026-07-13"^^xsd:date ;
+    dct:source <https://www.kogl.or.kr/info/license.do> ;
+    dct:title "공공누리 이용조건 후보 registry"@ko,
+        "Candidate KOGL licence-condition registry"@en ;
+    skos:definition "공공누리 제0유형, 제1~4유형과 AI유형을 검토하기 위한 후보 registry. 이 concept는 dct:LicenseDocument가 아니며 공식 증서 URI, 지속성, 판과 폐지정책 승인 뒤에만 license 값으로 승격할 수 있다."@ko,
+        "A candidate registry for reviewing KOGL Type 0, Types 1–4 and the AI type. Its concepts are not dct:LicenseDocument resources and can become licence values only after approval of official deed IRIs, persistence, editions and retirement policy."@en ;
+    skos:prefLabel "공공누리 이용조건 후보 registry"@ko,
+        "Candidate KOGL licence-condition registry"@en ;
+    skos:hasTopConcept candidate:kogl-type-0,
+        candidate:kogl-type-1,
+        candidate:kogl-type-2,
+        candidate:kogl-type-3,
+        candidate:kogl-type-4,
+        candidate:kogl-ai-type ;
+    owl:versionInfo "1.0.0-rc.1" ; adms:status status:candidate .
+
+candidate:kogl-type-0
+    a skos:Concept ; rdfs:isDefinedBy candidate-scheme:kogl-license ; skos:inScheme candidate-scheme:kogl-license ; skos:notation "KOGL-0-CANDIDATE" ;
+    skos:prefLabel "공공누리 제0유형 후보"@ko, "Candidate KOGL Type 0"@en ;
+    skos:definition "공식 유형안내의 제0유형을 가리키기 위한 후보 식별자. 운영 license 값이 아니다."@ko, "A candidate identifier referring to Type 0 in the official guidance; it is not an operational licence value."@en ;
+    skos:topConceptOf candidate-scheme:kogl-license ; owl:versionInfo "1.0.0-rc.1" ; adms:status status:candidate .
+
+candidate:kogl-type-1
+    a skos:Concept ; rdfs:isDefinedBy candidate-scheme:kogl-license ; skos:inScheme candidate-scheme:kogl-license ; skos:notation "KOGL-1-CANDIDATE" ;
+    skos:prefLabel "공공누리 제1유형 후보"@ko, "Candidate KOGL Type 1"@en ;
+    skos:definition "공식 유형안내의 제1유형을 가리키기 위한 후보 식별자. 운영 license 값이 아니다."@ko, "A candidate identifier referring to Type 1 in the official guidance; it is not an operational licence value."@en ;
+    skos:topConceptOf candidate-scheme:kogl-license ; owl:versionInfo "1.0.0-rc.1" ; adms:status status:candidate .
+
+candidate:kogl-type-2
+    a skos:Concept ; rdfs:isDefinedBy candidate-scheme:kogl-license ; skos:inScheme candidate-scheme:kogl-license ; skos:notation "KOGL-2-CANDIDATE" ;
+    skos:prefLabel "공공누리 제2유형 후보"@ko, "Candidate KOGL Type 2"@en ;
+    skos:definition "공식 유형안내의 제2유형을 가리키기 위한 후보 식별자. 운영 license 값이 아니다."@ko, "A candidate identifier referring to Type 2 in the official guidance; it is not an operational licence value."@en ;
+    skos:topConceptOf candidate-scheme:kogl-license ; owl:versionInfo "1.0.0-rc.1" ; adms:status status:candidate .
+
+candidate:kogl-type-3
+    a skos:Concept ; rdfs:isDefinedBy candidate-scheme:kogl-license ; skos:inScheme candidate-scheme:kogl-license ; skos:notation "KOGL-3-CANDIDATE" ;
+    skos:prefLabel "공공누리 제3유형 후보"@ko, "Candidate KOGL Type 3"@en ;
+    skos:definition "공식 유형안내의 제3유형을 가리키기 위한 후보 식별자. 운영 license 값이 아니다."@ko, "A candidate identifier referring to Type 3 in the official guidance; it is not an operational licence value."@en ;
+    skos:topConceptOf candidate-scheme:kogl-license ; owl:versionInfo "1.0.0-rc.1" ; adms:status status:candidate .
+
+candidate:kogl-type-4
+    a skos:Concept ; rdfs:isDefinedBy candidate-scheme:kogl-license ; skos:inScheme candidate-scheme:kogl-license ; skos:notation "KOGL-4-CANDIDATE" ;
+    skos:prefLabel "공공누리 제4유형 후보"@ko, "Candidate KOGL Type 4"@en ;
+    skos:definition "공식 유형안내의 제4유형을 가리키기 위한 후보 식별자. 운영 license 값이 아니다."@ko, "A candidate identifier referring to Type 4 in the official guidance; it is not an operational licence value."@en ;
+    skos:topConceptOf candidate-scheme:kogl-license ; owl:versionInfo "1.0.0-rc.1" ; adms:status status:candidate .
+
+candidate:kogl-ai-type
+    a skos:Concept ; rdfs:isDefinedBy candidate-scheme:kogl-license ; skos:inScheme candidate-scheme:kogl-license ; skos:notation "KOGL-AI-CANDIDATE" ;
+    skos:prefLabel "공공누리 AI유형 후보"@ko, "Candidate KOGL AI type"@en ;
+    skos:definition "공식 유형안내의 AI유형을 가리키기 위한 후보 식별자. 운영 license 값이 아니다."@ko, "A candidate identifier referring to the AI type in the official guidance; it is not an operational licence value."@en ;
+    skos:topConceptOf candidate-scheme:kogl-license ; owl:versionInfo "1.0.0-rc.1" ; adms:status status:candidate .
+
+# Scheme-definition anchors.
+<https://data.molit.go.kr/candidate/scheme/organization> rdfs:isDefinedBy <https://data.molit.go.kr/candidate/scheme/organization> .
+<https://data.molit.go.kr/candidate/scheme/administrative-area> rdfs:isDefinedBy <https://data.molit.go.kr/candidate/scheme/administrative-area> .
+<https://data.molit.go.kr/candidate/scheme/legal-resource> rdfs:isDefinedBy <https://data.molit.go.kr/candidate/scheme/legal-resource> .
+<https://data.molit.go.kr/candidate/scheme/kogl-license> rdfs:isDefinedBy <https://data.molit.go.kr/candidate/scheme/kogl-license> .

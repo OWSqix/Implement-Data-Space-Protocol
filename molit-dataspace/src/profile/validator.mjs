@@ -26,6 +26,10 @@ const SH = "http://www.w3.org/ns/shacl#";
 const MOLIT_REQUIREMENT_ID = "https://data.molit.go.kr/def/molit-dcat-ap#requirementId";
 const VALID_SEVERITIES = new Set(["Info", "Violation", "Warning"]);
 const VALIDATOR_SOURCE_ARTIFACTS = [
+  ["contracts/publication-check-report.v1.schema.json", new URL(
+    "../../contracts/publication-check-report.v1.schema.json",
+    import.meta.url,
+  )],
   ["contracts/shacl-validation-report.v1.schema.json", new URL(
     "../../contracts/shacl-validation-report.v1.schema.json",
     import.meta.url,
@@ -33,12 +37,16 @@ const VALIDATOR_SOURCE_ARTIFACTS = [
   ["package-lock.json", new URL("../../package-lock.json", import.meta.url)],
   ["package.json", new URL("../../package.json", import.meta.url)],
   ["src/profile/cli.mjs", new URL("./cli.mjs", import.meta.url)],
+  ["src/profile/isolated-validator.mjs", new URL("./isolated-validator.mjs", import.meta.url)],
+  ["src/profile/crs-coordinate-tuple.mjs", new URL("./crs-coordinate-tuple.mjs", import.meta.url)],
+  ["src/profile/crs-geometry.mjs", new URL("./crs-geometry.mjs", import.meta.url)],
   ["src/profile/local-path.mjs", new URL("./local-path.mjs", import.meta.url)],
   ["src/profile/public-value-policy.mjs", new URL("./public-value-policy.mjs", import.meta.url)],
   ["src/profile/rdf-loader.mjs", new URL("./rdf-loader.mjs", import.meta.url)],
   ["src/profile/registry.mjs", new URL("./registry.mjs", import.meta.url)],
   ["src/profile/report-contract.mjs", new URL("./report-contract.mjs", import.meta.url)],
   ["src/profile/validator.mjs", new URL("./validator.mjs", import.meta.url)],
+  ["src/profile/validation-worker.mjs", new URL("./validation-worker.mjs", import.meta.url)],
   ["src/profile/xsd-lexical.mjs", new URL("./xsd-lexical.mjs", import.meta.url)],
 ];
 
@@ -111,10 +119,13 @@ function buildShapeIdentityIndex(shapeStore) {
   const index = new Map();
   const queue = [];
   for (const quad of shapeStore.getQuads(null, MOLIT_REQUIREMENT_ID, null, null)) {
-    if (quad.subject.termType !== "NamedNode" || quad.object.termType !== "Literal") continue;
+    if (!(["BlankNode", "NamedNode"].includes(quad.subject.termType))
+      || quad.object.termType !== "Literal") continue;
     const identity = {
       requirementId: quad.object.value,
-      sourceShape: quad.subject.value,
+      sourceShape: quad.subject.termType === "NamedNode"
+        ? quad.subject.value
+        : stableAnonymousIri("shape-id", blankShapeAnchors(quad.subject, shapeStore)),
     };
     index.set(`${quad.subject.termType}:${quad.subject.value}`, identity);
     queue.push({ identity, term: quad.subject });
@@ -129,7 +140,7 @@ function buildShapeIdentityIndex(shapeStore) {
       if (quad.object.termType !== "BlankNode") continue;
       const objectKey = `${quad.object.termType}:${quad.object.value}`;
       if (!index.has(objectKey)) index.set(objectKey, identity);
-      queue.push({ identity, term: quad.object });
+      queue.push({ identity: index.get(objectKey), term: quad.object });
     }
   }
   return index;
@@ -226,34 +237,12 @@ function assertSupportedShapeSeverities(shapeStore) {
 export async function validateProfileDocument({
   inputPath,
   profileName = "core",
-  version = "0.1.0",
+  version,
 }) {
   assertLocalFilesystemPath(inputPath, "input path");
   const loadedRelease = await loadProfileRelease(version);
   const lockVerification = await verifyArtifactLock(loadedRelease);
-  const manifestBytes = lockVerification.artifactBytes.get("manifest.json");
-  let snapshotManifest;
-  let manifestSource;
-  try {
-    manifestSource = new TextDecoder("utf-8", { fatal: true }).decode(manifestBytes);
-  } catch (cause) {
-    const error = new Error("profile manifest snapshot is not valid UTF-8", { cause });
-    error.code = "INVALID_UTF8";
-    throw error;
-  }
-  try {
-    snapshotManifest = JSON.parse(manifestSource);
-  } catch (cause) {
-    const error = new Error("profile manifest snapshot is invalid JSON", { cause });
-    error.code = "INVALID_PROFILE_JSON";
-    throw error;
-  }
-  if (JSON.stringify(snapshotManifest) !== JSON.stringify(loadedRelease.manifest)) {
-    const error = new Error("profile manifest changed while the validation snapshot was created");
-    error.code = "PROFILE_CHANGED_DURING_VALIDATION";
-    throw error;
-  }
-  const release = { ...loadedRelease, manifest: snapshotManifest };
+  const release = { ...loadedRelease, manifest: lockVerification.manifest };
   const profile = selectValidationProfile(release, profileName);
   const limits = release.manifest.limits;
   const bundleDigest = await computeBundleDigest(

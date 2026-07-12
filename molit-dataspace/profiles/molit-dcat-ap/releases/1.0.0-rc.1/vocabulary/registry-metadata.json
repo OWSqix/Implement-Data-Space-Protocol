@@ -1,0 +1,3294 @@
+{
+  "schemaVersion": "molit.controlled-vocabulary-registry/1",
+  "profileVersion": "1.0.0-rc.1",
+  "registryStatus": "candidate-pending-authority-approval",
+  "asOf": "2026-07-13",
+  "lifecycleSemantics": {
+    "validFrom": "Date on which the entry was admitted to this profile registry; it is not an assertion about the authority's original issue date unless the source record supplies dct:issued.",
+    "nullValidTo": "No end date is recorded in this candidate snapshot.",
+    "nullReplacedBy": "No replacement is recorded; this does not prevent later deprecation."
+  },
+  "categoryCounts": {
+    "coordinate-reference-system": 10,
+    "dataspace-offering-readiness": 6,
+    "domestic-identifiers-and-licences": 10,
+    "molit-domain": 14,
+    "network-edition": 1,
+    "network-element-type": 8,
+    "network-lifecycle": 4,
+    "quality-semantics": 14,
+    "quality-status-and-metric": 10,
+    "qudt-measurement-unit": 10,
+    "spatial-disclosure": 6,
+    "term-governance": 3,
+    "transport-measurement-unit": 2,
+    "transport-observation": 20
+  },
+  "registries": [
+    {
+      "iri": "http://qudt.org/vocab/unit",
+      "source": {
+        "artifact": "vocabulary/qudt-unit-allowlist.ttl",
+        "authorities": [
+          "https://qudt.org/3.4.0/vocab/unit"
+        ]
+      },
+      "status": "externally-maintained"
+    },
+    {
+      "iri": "http://www.opengis.net/def/crs",
+      "source": {
+        "artifact": "vocabulary/ogc-crs-allowlist.ttl",
+        "authorities": [
+          "https://www.opengis.net/def/crs/"
+        ]
+      },
+      "status": "externally-maintained"
+    },
+    {
+      "iri": "https://data.molit.go.kr/candidate/scheme/administrative-area",
+      "source": {
+        "artifact": "vocabulary/domestic-candidate-registries.ttl",
+        "authorities": [
+          "https://data.molit.go.kr/candidate/scheme/"
+        ]
+      },
+      "status": "candidate"
+    },
+    {
+      "iri": "https://data.molit.go.kr/candidate/scheme/kogl-license",
+      "source": {
+        "artifact": "vocabulary/domestic-candidate-registries.ttl",
+        "authorities": [
+          "https://data.molit.go.kr/candidate/scheme/",
+          "https://www.kogl.or.kr/info/license.do"
+        ]
+      },
+      "status": "candidate"
+    },
+    {
+      "iri": "https://data.molit.go.kr/candidate/scheme/legal-resource",
+      "source": {
+        "artifact": "vocabulary/domestic-candidate-registries.ttl",
+        "authorities": [
+          "https://data.molit.go.kr/candidate/scheme/"
+        ]
+      },
+      "status": "candidate"
+    },
+    {
+      "iri": "https://data.molit.go.kr/candidate/scheme/network-edition",
+      "source": {
+        "artifact": "vocabulary/network-edition.ttl",
+        "authorities": [
+          "https://www.its.go.kr/nodelink/nodelinkRef"
+        ]
+      },
+      "status": "candidate"
+    },
+    {
+      "iri": "https://data.molit.go.kr/candidate/scheme/organization",
+      "source": {
+        "artifact": "vocabulary/domestic-candidate-registries.ttl",
+        "authorities": [
+          "https://data.molit.go.kr/candidate/scheme/"
+        ]
+      },
+      "status": "candidate"
+    },
+    {
+      "iri": "https://data.molit.go.kr/scheme/domain",
+      "source": {
+        "artifact": "vocabulary/molit-domain.ttl",
+        "authorities": [
+          "https://data.molit.go.kr/scheme/domain"
+        ]
+      },
+      "status": "candidate"
+    },
+    {
+      "iri": "https://data.molit.go.kr/scheme/missing-value-policy",
+      "source": {
+        "artifact": "vocabulary/observation-semantics.ttl",
+        "authorities": [
+          "https://data.molit.go.kr/scheme/"
+        ]
+      },
+      "status": "candidate"
+    },
+    {
+      "iri": "https://data.molit.go.kr/scheme/network-element-type",
+      "source": {
+        "artifact": "vocabulary/network-element-type.ttl",
+        "authorities": [
+          "https://data.molit.go.kr/scheme/network-element-type"
+        ]
+      },
+      "status": "candidate"
+    },
+    {
+      "iri": "https://data.molit.go.kr/scheme/network-lifecycle-status",
+      "source": {
+        "artifact": "vocabulary/network-lifecycle-status.ttl",
+        "authorities": [
+          "https://data.molit.go.kr/scheme/network-lifecycle-status"
+        ]
+      },
+      "status": "candidate"
+    },
+    {
+      "iri": "https://data.molit.go.kr/scheme/observation-aggregation",
+      "source": {
+        "artifact": "vocabulary/observation-semantics.ttl",
+        "authorities": [
+          "https://data.molit.go.kr/scheme/"
+        ]
+      },
+      "status": "candidate"
+    },
+    {
+      "iri": "https://data.molit.go.kr/scheme/observation-subject-type",
+      "source": {
+        "artifact": "vocabulary/observation-semantics.ttl",
+        "authorities": [
+          "https://data.molit.go.kr/scheme/"
+        ]
+      },
+      "status": "candidate"
+    },
+    {
+      "iri": "https://data.molit.go.kr/scheme/observed-property",
+      "source": {
+        "artifact": "vocabulary/observation-semantics.ttl",
+        "authorities": [
+          "https://data.molit.go.kr/scheme/"
+        ]
+      },
+      "status": "candidate"
+    },
+    {
+      "iri": "https://data.molit.go.kr/scheme/offering-readiness-status",
+      "source": {
+        "artifact": "vocabulary/offering-readiness-status.ttl",
+        "authorities": [
+          "https://data.molit.go.kr/scheme/offering-readiness-status"
+        ]
+      },
+      "status": "candidate"
+    },
+    {
+      "iri": "https://data.molit.go.kr/scheme/quality-evaluation-method",
+      "source": {
+        "artifact": "vocabulary/quality-semantics.ttl",
+        "authorities": [
+          "https://data.molit.go.kr/scheme/"
+        ]
+      },
+      "status": "candidate"
+    },
+    {
+      "iri": "https://data.molit.go.kr/scheme/quality-loss-disposition",
+      "source": {
+        "artifact": "vocabulary/quality-semantics.ttl",
+        "authorities": [
+          "https://data.molit.go.kr/scheme/"
+        ]
+      },
+      "status": "candidate"
+    },
+    {
+      "iri": "https://data.molit.go.kr/scheme/quality-metric",
+      "source": {
+        "artifact": "vocabulary/quality.ttl",
+        "authorities": [
+          "https://data.molit.go.kr/scheme/"
+        ]
+      },
+      "status": "candidate"
+    },
+    {
+      "iri": "https://data.molit.go.kr/scheme/quality-result-kind",
+      "source": {
+        "artifact": "vocabulary/quality-semantics.ttl",
+        "authorities": [
+          "https://data.molit.go.kr/scheme/"
+        ]
+      },
+      "status": "candidate"
+    },
+    {
+      "iri": "https://data.molit.go.kr/scheme/quality-status",
+      "source": {
+        "artifact": "vocabulary/quality.ttl",
+        "authorities": [
+          "https://data.molit.go.kr/scheme/"
+        ]
+      },
+      "status": "candidate"
+    },
+    {
+      "iri": "https://data.molit.go.kr/scheme/spatial-disclosure-level",
+      "source": {
+        "artifact": "vocabulary/spatial-disclosure-level.ttl",
+        "authorities": [
+          "https://data.molit.go.kr/scheme/spatial-disclosure-level"
+        ]
+      },
+      "status": "candidate"
+    },
+    {
+      "iri": "https://data.molit.go.kr/scheme/term-status",
+      "source": {
+        "artifact": "vocabulary/term-status.ttl",
+        "authorities": [
+          "https://data.molit.go.kr/scheme/term-status"
+        ]
+      },
+      "status": "candidate"
+    },
+    {
+      "iri": "https://data.molit.go.kr/scheme/transport-unit",
+      "source": {
+        "artifact": "vocabulary/transport-unit.ttl",
+        "authorities": [
+          "http://qudt.org/3.4.0/vocab/unit",
+          "https://data.molit.go.kr/scheme/transport-unit"
+        ]
+      },
+      "status": "candidate"
+    }
+  ],
+  "entries": [
+    {
+      "category": "coordinate-reference-system",
+      "iri": "http://inspire.ec.europa.eu/glossary/SpatialReferenceSystem",
+      "notation": "SpatialReferenceSystem",
+      "preferredLabel": [
+        {
+          "language": "en",
+          "value": "Spatial reference system"
+        },
+        {
+          "language": "ko",
+          "value": "공간 좌표참조체계"
+        }
+      ],
+      "replacedBy": null,
+      "scheme": "http://www.opengis.net/def/crs",
+      "source": {
+        "artifact": "vocabulary/ogc-crs-allowlist.ttl",
+        "authorities": [
+          "https://www.opengis.net/def/crs/"
+        ]
+      },
+      "status": "externally-maintained",
+      "validFrom": "2026-07-13",
+      "validTo": null
+    },
+    {
+      "category": "qudt-measurement-unit",
+      "iri": "http://qudt.org/vocab/unit/DAY",
+      "notation": "DAY",
+      "preferredLabel": [
+        {
+          "language": "en",
+          "value": "day"
+        }
+      ],
+      "replacedBy": null,
+      "scheme": "http://qudt.org/vocab/unit",
+      "source": {
+        "artifact": "vocabulary/qudt-unit-allowlist.ttl",
+        "authorities": [
+          "https://qudt.org/3.4.0/vocab/unit"
+        ]
+      },
+      "status": "externally-maintained",
+      "validFrom": "2026-07-13",
+      "validTo": null
+    },
+    {
+      "category": "qudt-measurement-unit",
+      "iri": "http://qudt.org/vocab/unit/HR",
+      "notation": "HR",
+      "preferredLabel": [
+        {
+          "language": "en",
+          "value": "hour"
+        }
+      ],
+      "replacedBy": null,
+      "scheme": "http://qudt.org/vocab/unit",
+      "source": {
+        "artifact": "vocabulary/qudt-unit-allowlist.ttl",
+        "authorities": [
+          "https://qudt.org/3.4.0/vocab/unit"
+        ]
+      },
+      "status": "externally-maintained",
+      "validFrom": "2026-07-13",
+      "validTo": null
+    },
+    {
+      "category": "qudt-measurement-unit",
+      "iri": "http://qudt.org/vocab/unit/KiloM-PER-HR",
+      "notation": "KiloM-PER-HR",
+      "preferredLabel": [
+        {
+          "language": "en",
+          "value": "kilometre per hour"
+        }
+      ],
+      "replacedBy": null,
+      "scheme": "http://qudt.org/vocab/unit",
+      "source": {
+        "artifact": "vocabulary/qudt-unit-allowlist.ttl",
+        "authorities": [
+          "https://qudt.org/3.4.0/vocab/unit"
+        ]
+      },
+      "status": "externally-maintained",
+      "validFrom": "2026-07-13",
+      "validTo": null
+    },
+    {
+      "category": "qudt-measurement-unit",
+      "iri": "http://qudt.org/vocab/unit/M",
+      "notation": "M",
+      "preferredLabel": [
+        {
+          "language": "en",
+          "value": "metre"
+        }
+      ],
+      "replacedBy": null,
+      "scheme": "http://qudt.org/vocab/unit",
+      "source": {
+        "artifact": "vocabulary/qudt-unit-allowlist.ttl",
+        "authorities": [
+          "https://qudt.org/3.4.0/vocab/unit"
+        ]
+      },
+      "status": "externally-maintained",
+      "validFrom": "2026-07-13",
+      "validTo": null
+    },
+    {
+      "category": "qudt-measurement-unit",
+      "iri": "http://qudt.org/vocab/unit/M-PER-SEC",
+      "notation": "M-PER-SEC",
+      "preferredLabel": [
+        {
+          "language": "en",
+          "value": "metre per second"
+        }
+      ],
+      "replacedBy": null,
+      "scheme": "http://qudt.org/vocab/unit",
+      "source": {
+        "artifact": "vocabulary/qudt-unit-allowlist.ttl",
+        "authorities": [
+          "https://qudt.org/3.4.0/vocab/unit"
+        ]
+      },
+      "status": "externally-maintained",
+      "validFrom": "2026-07-13",
+      "validTo": null
+    },
+    {
+      "category": "qudt-measurement-unit",
+      "iri": "http://qudt.org/vocab/unit/MIN",
+      "notation": "MIN",
+      "preferredLabel": [
+        {
+          "language": "en",
+          "value": "minute"
+        }
+      ],
+      "replacedBy": null,
+      "scheme": "http://qudt.org/vocab/unit",
+      "source": {
+        "artifact": "vocabulary/qudt-unit-allowlist.ttl",
+        "authorities": [
+          "https://qudt.org/3.4.0/vocab/unit"
+        ]
+      },
+      "status": "externally-maintained",
+      "validFrom": "2026-07-13",
+      "validTo": null
+    },
+    {
+      "category": "qudt-measurement-unit",
+      "iri": "http://qudt.org/vocab/unit/NUM",
+      "notation": "NUM",
+      "preferredLabel": [
+        {
+          "language": "en",
+          "value": "number"
+        }
+      ],
+      "replacedBy": null,
+      "scheme": "http://qudt.org/vocab/unit",
+      "source": {
+        "artifact": "vocabulary/qudt-unit-allowlist.ttl",
+        "authorities": [
+          "https://qudt.org/3.4.0/vocab/unit"
+        ]
+      },
+      "status": "externally-maintained",
+      "validFrom": "2026-07-13",
+      "validTo": null
+    },
+    {
+      "category": "qudt-measurement-unit",
+      "iri": "http://qudt.org/vocab/unit/NUM-PER-HR",
+      "notation": "NUM-PER-HR",
+      "preferredLabel": [
+        {
+          "language": "en",
+          "value": "number per hour"
+        }
+      ],
+      "replacedBy": null,
+      "scheme": "http://qudt.org/vocab/unit",
+      "source": {
+        "artifact": "vocabulary/qudt-unit-allowlist.ttl",
+        "authorities": [
+          "https://qudt.org/3.4.0/vocab/unit"
+        ]
+      },
+      "status": "externally-maintained",
+      "validFrom": "2026-07-13",
+      "validTo": null
+    },
+    {
+      "category": "qudt-measurement-unit",
+      "iri": "http://qudt.org/vocab/unit/PERCENT",
+      "notation": "PERCENT",
+      "preferredLabel": [
+        {
+          "language": "en",
+          "value": "percent"
+        }
+      ],
+      "replacedBy": null,
+      "scheme": "http://qudt.org/vocab/unit",
+      "source": {
+        "artifact": "vocabulary/qudt-unit-allowlist.ttl",
+        "authorities": [
+          "https://qudt.org/3.4.0/vocab/unit"
+        ]
+      },
+      "status": "externally-maintained",
+      "validFrom": "2026-07-13",
+      "validTo": null
+    },
+    {
+      "category": "qudt-measurement-unit",
+      "iri": "http://qudt.org/vocab/unit/SEC",
+      "notation": "SEC",
+      "preferredLabel": [
+        {
+          "language": "en",
+          "value": "second"
+        }
+      ],
+      "replacedBy": null,
+      "scheme": "http://qudt.org/vocab/unit",
+      "source": {
+        "artifact": "vocabulary/qudt-unit-allowlist.ttl",
+        "authorities": [
+          "https://qudt.org/3.4.0/vocab/unit"
+        ]
+      },
+      "status": "externally-maintained",
+      "validFrom": "2026-07-13",
+      "validTo": null
+    },
+    {
+      "category": "coordinate-reference-system",
+      "iri": "http://www.opengis.net/def/crs/EPSG/0/3857",
+      "notation": "3857",
+      "preferredLabel": [
+        {
+          "language": "en",
+          "value": "WGS 84 / Pseudo-Mercator (EPSG:3857)"
+        },
+        {
+          "language": "ko",
+          "value": "WGS 84 웹 메르카토르(EPSG:3857)"
+        }
+      ],
+      "replacedBy": null,
+      "scheme": "http://www.opengis.net/def/crs",
+      "source": {
+        "artifact": "vocabulary/ogc-crs-allowlist.ttl",
+        "authorities": [
+          "https://www.opengis.net/def/crs/"
+        ]
+      },
+      "status": "externally-maintained",
+      "validFrom": "2026-07-13",
+      "validTo": null
+    },
+    {
+      "category": "coordinate-reference-system",
+      "iri": "http://www.opengis.net/def/crs/EPSG/0/4326",
+      "notation": "4326",
+      "preferredLabel": [
+        {
+          "language": "en",
+          "value": "WGS 84 latitude-longitude coordinate reference system (EPSG:4326)"
+        },
+        {
+          "language": "ko",
+          "value": "WGS 84 위도-경도 좌표참조체계(EPSG:4326)"
+        }
+      ],
+      "replacedBy": null,
+      "scheme": "http://www.opengis.net/def/crs",
+      "source": {
+        "artifact": "vocabulary/ogc-crs-allowlist.ttl",
+        "authorities": [
+          "https://www.opengis.net/def/crs/"
+        ]
+      },
+      "status": "externally-maintained",
+      "validFrom": "2026-07-13",
+      "validTo": null
+    },
+    {
+      "category": "coordinate-reference-system",
+      "iri": "http://www.opengis.net/def/crs/EPSG/0/4737",
+      "notation": "4737",
+      "preferredLabel": [
+        {
+          "language": "en",
+          "value": "KGD2002 geographic coordinate reference system (EPSG:4737)"
+        },
+        {
+          "language": "ko",
+          "value": "한국측지계 2002 경위도 좌표참조체계(EPSG:4737)"
+        }
+      ],
+      "replacedBy": null,
+      "scheme": "http://www.opengis.net/def/crs",
+      "source": {
+        "artifact": "vocabulary/ogc-crs-allowlist.ttl",
+        "authorities": [
+          "https://www.opengis.net/def/crs/"
+        ]
+      },
+      "status": "externally-maintained",
+      "validFrom": "2026-07-13",
+      "validTo": null
+    },
+    {
+      "category": "coordinate-reference-system",
+      "iri": "http://www.opengis.net/def/crs/EPSG/0/5179",
+      "notation": "5179",
+      "preferredLabel": [
+        {
+          "language": "en",
+          "value": "Korea 2000 Unified CS (EPSG:5179)"
+        },
+        {
+          "language": "ko",
+          "value": "Korea 2000 통합좌표계(EPSG:5179)"
+        }
+      ],
+      "replacedBy": null,
+      "scheme": "http://www.opengis.net/def/crs",
+      "source": {
+        "artifact": "vocabulary/ogc-crs-allowlist.ttl",
+        "authorities": [
+          "https://www.opengis.net/def/crs/"
+        ]
+      },
+      "status": "externally-maintained",
+      "validFrom": "2026-07-13",
+      "validTo": null
+    },
+    {
+      "category": "coordinate-reference-system",
+      "iri": "http://www.opengis.net/def/crs/EPSG/0/5185",
+      "notation": "5185",
+      "preferredLabel": [
+        {
+          "language": "en",
+          "value": "KGD2002 / West Belt 2010 (EPSG:5185)"
+        },
+        {
+          "language": "ko",
+          "value": "한국측지계 2002 서부원점 좌표계 2010(EPSG:5185)"
+        }
+      ],
+      "replacedBy": null,
+      "scheme": "http://www.opengis.net/def/crs",
+      "source": {
+        "artifact": "vocabulary/ogc-crs-allowlist.ttl",
+        "authorities": [
+          "https://www.opengis.net/def/crs/"
+        ]
+      },
+      "status": "externally-maintained",
+      "validFrom": "2026-07-13",
+      "validTo": null
+    },
+    {
+      "category": "coordinate-reference-system",
+      "iri": "http://www.opengis.net/def/crs/EPSG/0/5186",
+      "notation": "5186",
+      "preferredLabel": [
+        {
+          "language": "en",
+          "value": "KGD2002 / Central Belt 2010 (EPSG:5186)"
+        },
+        {
+          "language": "ko",
+          "value": "한국측지계 2002 중부원점 좌표계 2010(EPSG:5186)"
+        }
+      ],
+      "replacedBy": null,
+      "scheme": "http://www.opengis.net/def/crs",
+      "source": {
+        "artifact": "vocabulary/ogc-crs-allowlist.ttl",
+        "authorities": [
+          "https://www.opengis.net/def/crs/"
+        ]
+      },
+      "status": "externally-maintained",
+      "validFrom": "2026-07-13",
+      "validTo": null
+    },
+    {
+      "category": "coordinate-reference-system",
+      "iri": "http://www.opengis.net/def/crs/EPSG/0/5187",
+      "notation": "5187",
+      "preferredLabel": [
+        {
+          "language": "en",
+          "value": "KGD2002 / East Belt 2010 (EPSG:5187)"
+        },
+        {
+          "language": "ko",
+          "value": "한국측지계 2002 동부원점 좌표계 2010(EPSG:5187)"
+        }
+      ],
+      "replacedBy": null,
+      "scheme": "http://www.opengis.net/def/crs",
+      "source": {
+        "artifact": "vocabulary/ogc-crs-allowlist.ttl",
+        "authorities": [
+          "https://www.opengis.net/def/crs/"
+        ]
+      },
+      "status": "externally-maintained",
+      "validFrom": "2026-07-13",
+      "validTo": null
+    },
+    {
+      "category": "coordinate-reference-system",
+      "iri": "http://www.opengis.net/def/crs/EPSG/0/5188",
+      "notation": "5188",
+      "preferredLabel": [
+        {
+          "language": "en",
+          "value": "KGD2002 / East Sea Belt 2010 (EPSG:5188)"
+        },
+        {
+          "language": "ko",
+          "value": "한국측지계 2002 동해원점 좌표계 2010(EPSG:5188)"
+        }
+      ],
+      "replacedBy": null,
+      "scheme": "http://www.opengis.net/def/crs",
+      "source": {
+        "artifact": "vocabulary/ogc-crs-allowlist.ttl",
+        "authorities": [
+          "https://www.opengis.net/def/crs/"
+        ]
+      },
+      "status": "externally-maintained",
+      "validFrom": "2026-07-13",
+      "validTo": null
+    },
+    {
+      "category": "coordinate-reference-system",
+      "iri": "http://www.opengis.net/def/crs/OGC/1.3/CRS84",
+      "notation": "CRS84",
+      "preferredLabel": [
+        {
+          "language": "en",
+          "value": "WGS 84 longitude-latitude coordinate reference system (CRS84)"
+        },
+        {
+          "language": "ko",
+          "value": "WGS 84 경도-위도 좌표참조체계(CRS84)"
+        }
+      ],
+      "replacedBy": null,
+      "scheme": "http://www.opengis.net/def/crs",
+      "source": {
+        "artifact": "vocabulary/ogc-crs-allowlist.ttl",
+        "authorities": [
+          "https://www.opengis.net/def/crs/"
+        ]
+      },
+      "status": "externally-maintained",
+      "validFrom": "2026-07-13",
+      "validTo": null
+    },
+    {
+      "category": "domestic-identifiers-and-licences",
+      "iri": "https://data.molit.go.kr/candidate/concept/kogl-ai-type",
+      "notation": "KOGL-AI-CANDIDATE",
+      "preferredLabel": [
+        {
+          "language": "en",
+          "value": "Candidate KOGL AI type"
+        },
+        {
+          "language": "ko",
+          "value": "공공누리 AI유형 후보"
+        }
+      ],
+      "replacedBy": null,
+      "scheme": "https://data.molit.go.kr/candidate/scheme/kogl-license",
+      "source": {
+        "artifact": "vocabulary/domestic-candidate-registries.ttl",
+        "authorities": [
+          "https://data.molit.go.kr/candidate/scheme/"
+        ]
+      },
+      "status": "candidate",
+      "validFrom": "2026-07-13",
+      "validTo": null
+    },
+    {
+      "category": "domestic-identifiers-and-licences",
+      "iri": "https://data.molit.go.kr/candidate/concept/kogl-type-0",
+      "notation": "KOGL-0-CANDIDATE",
+      "preferredLabel": [
+        {
+          "language": "en",
+          "value": "Candidate KOGL Type 0"
+        },
+        {
+          "language": "ko",
+          "value": "공공누리 제0유형 후보"
+        }
+      ],
+      "replacedBy": null,
+      "scheme": "https://data.molit.go.kr/candidate/scheme/kogl-license",
+      "source": {
+        "artifact": "vocabulary/domestic-candidate-registries.ttl",
+        "authorities": [
+          "https://data.molit.go.kr/candidate/scheme/"
+        ]
+      },
+      "status": "candidate",
+      "validFrom": "2026-07-13",
+      "validTo": null
+    },
+    {
+      "category": "domestic-identifiers-and-licences",
+      "iri": "https://data.molit.go.kr/candidate/concept/kogl-type-1",
+      "notation": "KOGL-1-CANDIDATE",
+      "preferredLabel": [
+        {
+          "language": "en",
+          "value": "Candidate KOGL Type 1"
+        },
+        {
+          "language": "ko",
+          "value": "공공누리 제1유형 후보"
+        }
+      ],
+      "replacedBy": null,
+      "scheme": "https://data.molit.go.kr/candidate/scheme/kogl-license",
+      "source": {
+        "artifact": "vocabulary/domestic-candidate-registries.ttl",
+        "authorities": [
+          "https://data.molit.go.kr/candidate/scheme/"
+        ]
+      },
+      "status": "candidate",
+      "validFrom": "2026-07-13",
+      "validTo": null
+    },
+    {
+      "category": "domestic-identifiers-and-licences",
+      "iri": "https://data.molit.go.kr/candidate/concept/kogl-type-2",
+      "notation": "KOGL-2-CANDIDATE",
+      "preferredLabel": [
+        {
+          "language": "en",
+          "value": "Candidate KOGL Type 2"
+        },
+        {
+          "language": "ko",
+          "value": "공공누리 제2유형 후보"
+        }
+      ],
+      "replacedBy": null,
+      "scheme": "https://data.molit.go.kr/candidate/scheme/kogl-license",
+      "source": {
+        "artifact": "vocabulary/domestic-candidate-registries.ttl",
+        "authorities": [
+          "https://data.molit.go.kr/candidate/scheme/"
+        ]
+      },
+      "status": "candidate",
+      "validFrom": "2026-07-13",
+      "validTo": null
+    },
+    {
+      "category": "domestic-identifiers-and-licences",
+      "iri": "https://data.molit.go.kr/candidate/concept/kogl-type-3",
+      "notation": "KOGL-3-CANDIDATE",
+      "preferredLabel": [
+        {
+          "language": "en",
+          "value": "Candidate KOGL Type 3"
+        },
+        {
+          "language": "ko",
+          "value": "공공누리 제3유형 후보"
+        }
+      ],
+      "replacedBy": null,
+      "scheme": "https://data.molit.go.kr/candidate/scheme/kogl-license",
+      "source": {
+        "artifact": "vocabulary/domestic-candidate-registries.ttl",
+        "authorities": [
+          "https://data.molit.go.kr/candidate/scheme/"
+        ]
+      },
+      "status": "candidate",
+      "validFrom": "2026-07-13",
+      "validTo": null
+    },
+    {
+      "category": "domestic-identifiers-and-licences",
+      "iri": "https://data.molit.go.kr/candidate/concept/kogl-type-4",
+      "notation": "KOGL-4-CANDIDATE",
+      "preferredLabel": [
+        {
+          "language": "en",
+          "value": "Candidate KOGL Type 4"
+        },
+        {
+          "language": "ko",
+          "value": "공공누리 제4유형 후보"
+        }
+      ],
+      "replacedBy": null,
+      "scheme": "https://data.molit.go.kr/candidate/scheme/kogl-license",
+      "source": {
+        "artifact": "vocabulary/domestic-candidate-registries.ttl",
+        "authorities": [
+          "https://data.molit.go.kr/candidate/scheme/"
+        ]
+      },
+      "status": "candidate",
+      "validFrom": "2026-07-13",
+      "validTo": null
+    },
+    {
+      "category": "domestic-identifiers-and-licences",
+      "iri": "https://data.molit.go.kr/candidate/concept/kr-admin-org",
+      "notation": "KR_ADMIN_ORG",
+      "preferredLabel": [
+        {
+          "language": "en",
+          "value": "Candidate Korean administrative organization code scheme"
+        },
+        {
+          "language": "ko",
+          "value": "행정표준기관코드 scheme 후보"
+        }
+      ],
+      "replacedBy": null,
+      "scheme": "https://data.molit.go.kr/candidate/scheme/administrative-area",
+      "source": {
+        "artifact": "vocabulary/domestic-candidate-registries.ttl",
+        "authorities": [
+          "https://data.molit.go.kr/candidate/scheme/"
+        ]
+      },
+      "status": "candidate",
+      "validFrom": "2026-07-13",
+      "validTo": null
+    },
+    {
+      "category": "domestic-identifiers-and-licences",
+      "iri": "https://data.molit.go.kr/candidate/concept/mois-kik-b",
+      "notation": "MOIS_KIK_B",
+      "preferredLabel": [
+        {
+          "language": "en",
+          "value": "Candidate legal-dong code scheme"
+        },
+        {
+          "language": "ko",
+          "value": "법정동코드 scheme 후보"
+        }
+      ],
+      "replacedBy": null,
+      "scheme": "https://data.molit.go.kr/candidate/scheme/administrative-area",
+      "source": {
+        "artifact": "vocabulary/domestic-candidate-registries.ttl",
+        "authorities": [
+          "https://data.molit.go.kr/candidate/scheme/"
+        ]
+      },
+      "status": "candidate",
+      "validFrom": "2026-07-13",
+      "validTo": null
+    },
+    {
+      "category": "domestic-identifiers-and-licences",
+      "iri": "https://data.molit.go.kr/candidate/concept/mois-kik-h",
+      "notation": "MOIS_KIK_H",
+      "preferredLabel": [
+        {
+          "language": "en",
+          "value": "Candidate administrative-dong and resident-registration authority code scheme"
+        },
+        {
+          "language": "ko",
+          "value": "행정동·주민등록 행정기관코드 scheme 후보"
+        }
+      ],
+      "replacedBy": null,
+      "scheme": "https://data.molit.go.kr/candidate/scheme/administrative-area",
+      "source": {
+        "artifact": "vocabulary/domestic-candidate-registries.ttl",
+        "authorities": [
+          "https://data.molit.go.kr/candidate/scheme/"
+        ]
+      },
+      "status": "candidate",
+      "validFrom": "2026-07-13",
+      "validTo": null
+    },
+    {
+      "category": "network-edition",
+      "iri": "https://data.molit.go.kr/candidate/concept/network-edition/its-standard-node-link-2026-07-01",
+      "notation": "ITS-NODELINK-2026-07-01",
+      "preferredLabel": [
+        {
+          "language": "en",
+          "value": "Candidate standard node-link edition 2026-07-01"
+        },
+        {
+          "language": "ko",
+          "value": "표준 노드링크 2026-07-01 판본 후보"
+        }
+      ],
+      "replacedBy": null,
+      "scheme": "https://data.molit.go.kr/candidate/scheme/network-edition",
+      "source": {
+        "artifact": "vocabulary/network-edition.ttl",
+        "authorities": [
+          "https://www.its.go.kr/nodelink/nodelinkRef"
+        ]
+      },
+      "status": "candidate",
+      "validFrom": "2026-07-01",
+      "validTo": null
+    },
+    {
+      "category": "domestic-identifiers-and-licences",
+      "iri": "https://data.molit.go.kr/candidate/concept/organization-molit",
+      "notation": "MOLIT-CANDIDATE",
+      "preferredLabel": [
+        {
+          "language": "en",
+          "value": "Candidate MOLIT organization record"
+        },
+        {
+          "language": "ko",
+          "value": "국토교통부 후보 기관 레코드"
+        }
+      ],
+      "replacedBy": null,
+      "scheme": "https://data.molit.go.kr/candidate/scheme/organization",
+      "source": {
+        "artifact": "vocabulary/domestic-candidate-registries.ttl",
+        "authorities": [
+          "https://data.molit.go.kr/candidate/scheme/"
+        ]
+      },
+      "status": "candidate",
+      "validFrom": "2026-07-13",
+      "validTo": null
+    },
+    {
+      "category": "molit-domain",
+      "iri": "https://data.molit.go.kr/id/concept/domain/aviation",
+      "notation": "aviation",
+      "preferredLabel": [
+        {
+          "language": "en",
+          "value": "Aviation"
+        },
+        {
+          "language": "ko",
+          "value": "항공"
+        }
+      ],
+      "replacedBy": null,
+      "scheme": "https://data.molit.go.kr/scheme/domain",
+      "source": {
+        "artifact": "vocabulary/molit-domain.ttl",
+        "authorities": [
+          "https://data.molit.go.kr/scheme/domain"
+        ]
+      },
+      "status": "candidate",
+      "validFrom": "2026-07-13",
+      "validTo": null
+    },
+    {
+      "category": "molit-domain",
+      "iri": "https://data.molit.go.kr/id/concept/domain/building",
+      "notation": "building",
+      "preferredLabel": [
+        {
+          "language": "en",
+          "value": "Building"
+        },
+        {
+          "language": "ko",
+          "value": "건축"
+        }
+      ],
+      "replacedBy": null,
+      "scheme": "https://data.molit.go.kr/scheme/domain",
+      "source": {
+        "artifact": "vocabulary/molit-domain.ttl",
+        "authorities": [
+          "https://data.molit.go.kr/scheme/domain"
+        ]
+      },
+      "status": "candidate",
+      "validFrom": "2026-07-13",
+      "validTo": null
+    },
+    {
+      "category": "molit-domain",
+      "iri": "https://data.molit.go.kr/id/concept/domain/construction",
+      "notation": "construction",
+      "preferredLabel": [
+        {
+          "language": "en",
+          "value": "Construction"
+        },
+        {
+          "language": "ko",
+          "value": "건설"
+        }
+      ],
+      "replacedBy": null,
+      "scheme": "https://data.molit.go.kr/scheme/domain",
+      "source": {
+        "artifact": "vocabulary/molit-domain.ttl",
+        "authorities": [
+          "https://data.molit.go.kr/scheme/domain"
+        ]
+      },
+      "status": "candidate",
+      "validFrom": "2026-07-13",
+      "validTo": null
+    },
+    {
+      "category": "molit-domain",
+      "iri": "https://data.molit.go.kr/id/concept/domain/housing",
+      "notation": "housing",
+      "preferredLabel": [
+        {
+          "language": "en",
+          "value": "Housing"
+        },
+        {
+          "language": "ko",
+          "value": "주택"
+        }
+      ],
+      "replacedBy": null,
+      "scheme": "https://data.molit.go.kr/scheme/domain",
+      "source": {
+        "artifact": "vocabulary/molit-domain.ttl",
+        "authorities": [
+          "https://data.molit.go.kr/scheme/domain"
+        ]
+      },
+      "status": "candidate",
+      "validFrom": "2026-07-13",
+      "validTo": null
+    },
+    {
+      "category": "molit-domain",
+      "iri": "https://data.molit.go.kr/id/concept/domain/land",
+      "notation": "land",
+      "preferredLabel": [
+        {
+          "language": "en",
+          "value": "Land and territory"
+        },
+        {
+          "language": "ko",
+          "value": "국토"
+        }
+      ],
+      "replacedBy": null,
+      "scheme": "https://data.molit.go.kr/scheme/domain",
+      "source": {
+        "artifact": "vocabulary/molit-domain.ttl",
+        "authorities": [
+          "https://data.molit.go.kr/scheme/domain"
+        ]
+      },
+      "status": "candidate",
+      "validFrom": "2026-07-13",
+      "validTo": null
+    },
+    {
+      "category": "molit-domain",
+      "iri": "https://data.molit.go.kr/id/concept/domain/logistics",
+      "notation": "logistics",
+      "preferredLabel": [
+        {
+          "language": "en",
+          "value": "Logistics"
+        },
+        {
+          "language": "ko",
+          "value": "물류"
+        }
+      ],
+      "replacedBy": null,
+      "scheme": "https://data.molit.go.kr/scheme/domain",
+      "source": {
+        "artifact": "vocabulary/molit-domain.ttl",
+        "authorities": [
+          "https://data.molit.go.kr/scheme/domain"
+        ]
+      },
+      "status": "candidate",
+      "validFrom": "2026-07-13",
+      "validTo": null
+    },
+    {
+      "category": "molit-domain",
+      "iri": "https://data.molit.go.kr/id/concept/domain/mobility",
+      "notation": "mobility",
+      "preferredLabel": [
+        {
+          "language": "en",
+          "value": "Mobility"
+        },
+        {
+          "language": "ko",
+          "value": "모빌리티"
+        }
+      ],
+      "replacedBy": null,
+      "scheme": "https://data.molit.go.kr/scheme/domain",
+      "source": {
+        "artifact": "vocabulary/molit-domain.ttl",
+        "authorities": [
+          "https://data.molit.go.kr/scheme/domain"
+        ]
+      },
+      "status": "candidate",
+      "validFrom": "2026-07-13",
+      "validTo": null
+    },
+    {
+      "category": "molit-domain",
+      "iri": "https://data.molit.go.kr/id/concept/domain/railway",
+      "notation": "railway",
+      "preferredLabel": [
+        {
+          "language": "en",
+          "value": "Railway"
+        },
+        {
+          "language": "ko",
+          "value": "철도"
+        }
+      ],
+      "replacedBy": null,
+      "scheme": "https://data.molit.go.kr/scheme/domain",
+      "source": {
+        "artifact": "vocabulary/molit-domain.ttl",
+        "authorities": [
+          "https://data.molit.go.kr/scheme/domain"
+        ]
+      },
+      "status": "candidate",
+      "validFrom": "2026-07-13",
+      "validTo": null
+    },
+    {
+      "category": "molit-domain",
+      "iri": "https://data.molit.go.kr/id/concept/domain/real-estate",
+      "notation": "real-estate",
+      "preferredLabel": [
+        {
+          "language": "en",
+          "value": "Real estate"
+        },
+        {
+          "language": "ko",
+          "value": "부동산"
+        }
+      ],
+      "replacedBy": null,
+      "scheme": "https://data.molit.go.kr/scheme/domain",
+      "source": {
+        "artifact": "vocabulary/molit-domain.ttl",
+        "authorities": [
+          "https://data.molit.go.kr/scheme/domain"
+        ]
+      },
+      "status": "candidate",
+      "validFrom": "2026-07-13",
+      "validTo": null
+    },
+    {
+      "category": "molit-domain",
+      "iri": "https://data.molit.go.kr/id/concept/domain/road",
+      "notation": "road",
+      "preferredLabel": [
+        {
+          "language": "en",
+          "value": "Road"
+        },
+        {
+          "language": "ko",
+          "value": "도로"
+        }
+      ],
+      "replacedBy": null,
+      "scheme": "https://data.molit.go.kr/scheme/domain",
+      "source": {
+        "artifact": "vocabulary/molit-domain.ttl",
+        "authorities": [
+          "https://data.molit.go.kr/scheme/domain"
+        ]
+      },
+      "status": "candidate",
+      "validFrom": "2026-07-13",
+      "validTo": null
+    },
+    {
+      "category": "molit-domain",
+      "iri": "https://data.molit.go.kr/id/concept/domain/spatial-information",
+      "notation": "spatial-information",
+      "preferredLabel": [
+        {
+          "language": "en",
+          "value": "Geospatial information"
+        },
+        {
+          "language": "ko",
+          "value": "공간정보"
+        }
+      ],
+      "replacedBy": null,
+      "scheme": "https://data.molit.go.kr/scheme/domain",
+      "source": {
+        "artifact": "vocabulary/molit-domain.ttl",
+        "authorities": [
+          "https://data.molit.go.kr/scheme/domain"
+        ]
+      },
+      "status": "candidate",
+      "validFrom": "2026-07-13",
+      "validTo": null
+    },
+    {
+      "category": "molit-domain",
+      "iri": "https://data.molit.go.kr/id/concept/domain/transport",
+      "notation": "transport",
+      "preferredLabel": [
+        {
+          "language": "en",
+          "value": "Transport and logistics"
+        },
+        {
+          "language": "ko",
+          "value": "교통·물류"
+        }
+      ],
+      "replacedBy": null,
+      "scheme": "https://data.molit.go.kr/scheme/domain",
+      "source": {
+        "artifact": "vocabulary/molit-domain.ttl",
+        "authorities": [
+          "https://data.molit.go.kr/scheme/domain"
+        ]
+      },
+      "status": "candidate",
+      "validFrom": "2026-07-13",
+      "validTo": null
+    },
+    {
+      "category": "molit-domain",
+      "iri": "https://data.molit.go.kr/id/concept/domain/transport-safety",
+      "notation": "transport-safety",
+      "preferredLabel": [
+        {
+          "language": "en",
+          "value": "Transport safety"
+        },
+        {
+          "language": "ko",
+          "value": "교통안전"
+        }
+      ],
+      "replacedBy": null,
+      "scheme": "https://data.molit.go.kr/scheme/domain",
+      "source": {
+        "artifact": "vocabulary/molit-domain.ttl",
+        "authorities": [
+          "https://data.molit.go.kr/scheme/domain"
+        ]
+      },
+      "status": "candidate",
+      "validFrom": "2026-07-13",
+      "validTo": null
+    },
+    {
+      "category": "molit-domain",
+      "iri": "https://data.molit.go.kr/id/concept/domain/urban",
+      "notation": "urban",
+      "preferredLabel": [
+        {
+          "language": "en",
+          "value": "Urban planning"
+        },
+        {
+          "language": "ko",
+          "value": "도시"
+        }
+      ],
+      "replacedBy": null,
+      "scheme": "https://data.molit.go.kr/scheme/domain",
+      "source": {
+        "artifact": "vocabulary/molit-domain.ttl",
+        "authorities": [
+          "https://data.molit.go.kr/scheme/domain"
+        ]
+      },
+      "status": "candidate",
+      "validFrom": "2026-07-13",
+      "validTo": null
+    },
+    {
+      "category": "transport-observation",
+      "iri": "https://data.molit.go.kr/id/concept/missing-value-policy/exclude-from-aggregation",
+      "notation": "exclude-from-aggregation",
+      "preferredLabel": [
+        {
+          "language": "en",
+          "value": "Exclude from aggregation"
+        },
+        {
+          "language": "ko",
+          "value": "집계 제외"
+        }
+      ],
+      "replacedBy": null,
+      "scheme": "https://data.molit.go.kr/scheme/missing-value-policy",
+      "source": {
+        "artifact": "vocabulary/observation-semantics.ttl",
+        "authorities": [
+          "https://data.molit.go.kr/scheme/"
+        ]
+      },
+      "status": "candidate",
+      "validFrom": "2026-07-13",
+      "validTo": null
+    },
+    {
+      "category": "transport-observation",
+      "iri": "https://data.molit.go.kr/id/concept/missing-value-policy/explicit-code",
+      "notation": "explicit-code",
+      "preferredLabel": [
+        {
+          "language": "en",
+          "value": "Explicit missing code"
+        },
+        {
+          "language": "ko",
+          "value": "명시적 결측 코드"
+        }
+      ],
+      "replacedBy": null,
+      "scheme": "https://data.molit.go.kr/scheme/missing-value-policy",
+      "source": {
+        "artifact": "vocabulary/observation-semantics.ttl",
+        "authorities": [
+          "https://data.molit.go.kr/scheme/"
+        ]
+      },
+      "status": "candidate",
+      "validFrom": "2026-07-13",
+      "validTo": null
+    },
+    {
+      "category": "transport-observation",
+      "iri": "https://data.molit.go.kr/id/concept/missing-value-policy/imputed",
+      "notation": "imputed",
+      "preferredLabel": [
+        {
+          "language": "en",
+          "value": "Imputed"
+        },
+        {
+          "language": "ko",
+          "value": "대치"
+        }
+      ],
+      "replacedBy": null,
+      "scheme": "https://data.molit.go.kr/scheme/missing-value-policy",
+      "source": {
+        "artifact": "vocabulary/observation-semantics.ttl",
+        "authorities": [
+          "https://data.molit.go.kr/scheme/"
+        ]
+      },
+      "status": "candidate",
+      "validFrom": "2026-07-13",
+      "validTo": null
+    },
+    {
+      "category": "transport-observation",
+      "iri": "https://data.molit.go.kr/id/concept/missing-value-policy/preserve-missing",
+      "notation": "preserve-missing",
+      "preferredLabel": [
+        {
+          "language": "en",
+          "value": "Preserve missing"
+        },
+        {
+          "language": "ko",
+          "value": "결측 유지"
+        }
+      ],
+      "replacedBy": null,
+      "scheme": "https://data.molit.go.kr/scheme/missing-value-policy",
+      "source": {
+        "artifact": "vocabulary/observation-semantics.ttl",
+        "authorities": [
+          "https://data.molit.go.kr/scheme/"
+        ]
+      },
+      "status": "candidate",
+      "validFrom": "2026-07-13",
+      "validTo": null
+    },
+    {
+      "category": "network-element-type",
+      "iri": "https://data.molit.go.kr/id/concept/network-element-type/facility",
+      "notation": "facility",
+      "preferredLabel": [
+        {
+          "language": "en",
+          "value": "Facility"
+        },
+        {
+          "language": "ko",
+          "value": "시설"
+        }
+      ],
+      "replacedBy": null,
+      "scheme": "https://data.molit.go.kr/scheme/network-element-type",
+      "source": {
+        "artifact": "vocabulary/network-element-type.ttl",
+        "authorities": [
+          "https://data.molit.go.kr/scheme/network-element-type"
+        ]
+      },
+      "status": "candidate",
+      "validFrom": "2026-07-13",
+      "validTo": null
+    },
+    {
+      "category": "network-element-type",
+      "iri": "https://data.molit.go.kr/id/concept/network-element-type/link",
+      "notation": "link",
+      "preferredLabel": [
+        {
+          "language": "en",
+          "value": "Link"
+        },
+        {
+          "language": "ko",
+          "value": "링크"
+        }
+      ],
+      "replacedBy": null,
+      "scheme": "https://data.molit.go.kr/scheme/network-element-type",
+      "source": {
+        "artifact": "vocabulary/network-element-type.ttl",
+        "authorities": [
+          "https://data.molit.go.kr/scheme/network-element-type"
+        ]
+      },
+      "status": "candidate",
+      "validFrom": "2026-07-13",
+      "validTo": null
+    },
+    {
+      "category": "network-element-type",
+      "iri": "https://data.molit.go.kr/id/concept/network-element-type/node",
+      "notation": "node",
+      "preferredLabel": [
+        {
+          "language": "en",
+          "value": "Node"
+        },
+        {
+          "language": "ko",
+          "value": "노드"
+        }
+      ],
+      "replacedBy": null,
+      "scheme": "https://data.molit.go.kr/scheme/network-element-type",
+      "source": {
+        "artifact": "vocabulary/network-element-type.ttl",
+        "authorities": [
+          "https://data.molit.go.kr/scheme/network-element-type"
+        ]
+      },
+      "status": "candidate",
+      "validFrom": "2026-07-13",
+      "validTo": null
+    },
+    {
+      "category": "network-element-type",
+      "iri": "https://data.molit.go.kr/id/concept/network-element-type/section",
+      "notation": "section",
+      "preferredLabel": [
+        {
+          "language": "en",
+          "value": "Section"
+        },
+        {
+          "language": "ko",
+          "value": "구간"
+        }
+      ],
+      "replacedBy": null,
+      "scheme": "https://data.molit.go.kr/scheme/network-element-type",
+      "source": {
+        "artifact": "vocabulary/network-element-type.ttl",
+        "authorities": [
+          "https://data.molit.go.kr/scheme/network-element-type"
+        ]
+      },
+      "status": "candidate",
+      "validFrom": "2026-07-13",
+      "validTo": null
+    },
+    {
+      "category": "network-element-type",
+      "iri": "https://data.molit.go.kr/id/concept/network-element-type/sensor-site",
+      "notation": "sensor-site",
+      "preferredLabel": [
+        {
+          "language": "en",
+          "value": "Sensor site"
+        },
+        {
+          "language": "ko",
+          "value": "관측 지점"
+        }
+      ],
+      "replacedBy": null,
+      "scheme": "https://data.molit.go.kr/scheme/network-element-type",
+      "source": {
+        "artifact": "vocabulary/network-element-type.ttl",
+        "authorities": [
+          "https://data.molit.go.kr/scheme/network-element-type"
+        ]
+      },
+      "status": "candidate",
+      "validFrom": "2026-07-13",
+      "validTo": null
+    },
+    {
+      "category": "network-element-type",
+      "iri": "https://data.molit.go.kr/id/concept/network-element-type/station",
+      "notation": "station",
+      "preferredLabel": [
+        {
+          "language": "en",
+          "value": "Station"
+        },
+        {
+          "language": "ko",
+          "value": "역"
+        }
+      ],
+      "replacedBy": null,
+      "scheme": "https://data.molit.go.kr/scheme/network-element-type",
+      "source": {
+        "artifact": "vocabulary/network-element-type.ttl",
+        "authorities": [
+          "https://data.molit.go.kr/scheme/network-element-type"
+        ]
+      },
+      "status": "candidate",
+      "validFrom": "2026-07-13",
+      "validTo": null
+    },
+    {
+      "category": "network-element-type",
+      "iri": "https://data.molit.go.kr/id/concept/network-element-type/stop",
+      "notation": "stop",
+      "preferredLabel": [
+        {
+          "language": "en",
+          "value": "Stop"
+        },
+        {
+          "language": "ko",
+          "value": "정류장"
+        }
+      ],
+      "replacedBy": null,
+      "scheme": "https://data.molit.go.kr/scheme/network-element-type",
+      "source": {
+        "artifact": "vocabulary/network-element-type.ttl",
+        "authorities": [
+          "https://data.molit.go.kr/scheme/network-element-type"
+        ]
+      },
+      "status": "candidate",
+      "validFrom": "2026-07-13",
+      "validTo": null
+    },
+    {
+      "category": "network-element-type",
+      "iri": "https://data.molit.go.kr/id/concept/network-element-type/zone",
+      "notation": "zone",
+      "preferredLabel": [
+        {
+          "language": "en",
+          "value": "Transport zone"
+        },
+        {
+          "language": "ko",
+          "value": "교통 존"
+        }
+      ],
+      "replacedBy": null,
+      "scheme": "https://data.molit.go.kr/scheme/network-element-type",
+      "source": {
+        "artifact": "vocabulary/network-element-type.ttl",
+        "authorities": [
+          "https://data.molit.go.kr/scheme/network-element-type"
+        ]
+      },
+      "status": "candidate",
+      "validFrom": "2026-07-13",
+      "validTo": null
+    },
+    {
+      "category": "network-lifecycle",
+      "iri": "https://data.molit.go.kr/id/concept/network-lifecycle-status/candidate",
+      "notation": "candidate",
+      "preferredLabel": [
+        {
+          "language": "en",
+          "value": "Candidate edition"
+        },
+        {
+          "language": "ko",
+          "value": "후보 판"
+        }
+      ],
+      "replacedBy": null,
+      "scheme": "https://data.molit.go.kr/scheme/network-lifecycle-status",
+      "source": {
+        "artifact": "vocabulary/network-lifecycle-status.ttl",
+        "authorities": [
+          "https://data.molit.go.kr/scheme/network-lifecycle-status"
+        ]
+      },
+      "status": "candidate",
+      "validFrom": "2026-07-13",
+      "validTo": null
+    },
+    {
+      "category": "network-lifecycle",
+      "iri": "https://data.molit.go.kr/id/concept/network-lifecycle-status/current",
+      "notation": "current",
+      "preferredLabel": [
+        {
+          "language": "en",
+          "value": "Current edition"
+        },
+        {
+          "language": "ko",
+          "value": "현행 판"
+        }
+      ],
+      "replacedBy": null,
+      "scheme": "https://data.molit.go.kr/scheme/network-lifecycle-status",
+      "source": {
+        "artifact": "vocabulary/network-lifecycle-status.ttl",
+        "authorities": [
+          "https://data.molit.go.kr/scheme/network-lifecycle-status"
+        ]
+      },
+      "status": "candidate",
+      "validFrom": "2026-07-13",
+      "validTo": null
+    },
+    {
+      "category": "network-lifecycle",
+      "iri": "https://data.molit.go.kr/id/concept/network-lifecycle-status/superseded",
+      "notation": "superseded",
+      "preferredLabel": [
+        {
+          "language": "en",
+          "value": "Superseded"
+        },
+        {
+          "language": "ko",
+          "value": "대체됨"
+        }
+      ],
+      "replacedBy": null,
+      "scheme": "https://data.molit.go.kr/scheme/network-lifecycle-status",
+      "source": {
+        "artifact": "vocabulary/network-lifecycle-status.ttl",
+        "authorities": [
+          "https://data.molit.go.kr/scheme/network-lifecycle-status"
+        ]
+      },
+      "status": "candidate",
+      "validFrom": "2026-07-13",
+      "validTo": null
+    },
+    {
+      "category": "network-lifecycle",
+      "iri": "https://data.molit.go.kr/id/concept/network-lifecycle-status/withdrawn",
+      "notation": "withdrawn",
+      "preferredLabel": [
+        {
+          "language": "en",
+          "value": "Withdrawn"
+        },
+        {
+          "language": "ko",
+          "value": "철회됨"
+        }
+      ],
+      "replacedBy": null,
+      "scheme": "https://data.molit.go.kr/scheme/network-lifecycle-status",
+      "source": {
+        "artifact": "vocabulary/network-lifecycle-status.ttl",
+        "authorities": [
+          "https://data.molit.go.kr/scheme/network-lifecycle-status"
+        ]
+      },
+      "status": "candidate",
+      "validFrom": "2026-07-13",
+      "validTo": null
+    },
+    {
+      "category": "transport-observation",
+      "iri": "https://data.molit.go.kr/id/concept/observation-aggregation/arithmetic-mean",
+      "notation": "arithmetic-mean",
+      "preferredLabel": [
+        {
+          "language": "en",
+          "value": "Arithmetic mean"
+        },
+        {
+          "language": "ko",
+          "value": "산술평균"
+        }
+      ],
+      "replacedBy": null,
+      "scheme": "https://data.molit.go.kr/scheme/observation-aggregation",
+      "source": {
+        "artifact": "vocabulary/observation-semantics.ttl",
+        "authorities": [
+          "https://data.molit.go.kr/scheme/"
+        ]
+      },
+      "status": "candidate",
+      "validFrom": "2026-07-13",
+      "validTo": null
+    },
+    {
+      "category": "transport-observation",
+      "iri": "https://data.molit.go.kr/id/concept/observation-aggregation/instantaneous",
+      "notation": "instantaneous",
+      "preferredLabel": [
+        {
+          "language": "en",
+          "value": "Instantaneous value"
+        },
+        {
+          "language": "ko",
+          "value": "순간값"
+        }
+      ],
+      "replacedBy": null,
+      "scheme": "https://data.molit.go.kr/scheme/observation-aggregation",
+      "source": {
+        "artifact": "vocabulary/observation-semantics.ttl",
+        "authorities": [
+          "https://data.molit.go.kr/scheme/"
+        ]
+      },
+      "status": "candidate",
+      "validFrom": "2026-07-13",
+      "validTo": null
+    },
+    {
+      "category": "transport-observation",
+      "iri": "https://data.molit.go.kr/id/concept/observation-aggregation/maximum",
+      "notation": "maximum",
+      "preferredLabel": [
+        {
+          "language": "en",
+          "value": "Maximum"
+        },
+        {
+          "language": "ko",
+          "value": "최댓값"
+        }
+      ],
+      "replacedBy": null,
+      "scheme": "https://data.molit.go.kr/scheme/observation-aggregation",
+      "source": {
+        "artifact": "vocabulary/observation-semantics.ttl",
+        "authorities": [
+          "https://data.molit.go.kr/scheme/"
+        ]
+      },
+      "status": "candidate",
+      "validFrom": "2026-07-13",
+      "validTo": null
+    },
+    {
+      "category": "transport-observation",
+      "iri": "https://data.molit.go.kr/id/concept/observation-aggregation/median",
+      "notation": "median",
+      "preferredLabel": [
+        {
+          "language": "en",
+          "value": "Median"
+        },
+        {
+          "language": "ko",
+          "value": "중앙값"
+        }
+      ],
+      "replacedBy": null,
+      "scheme": "https://data.molit.go.kr/scheme/observation-aggregation",
+      "source": {
+        "artifact": "vocabulary/observation-semantics.ttl",
+        "authorities": [
+          "https://data.molit.go.kr/scheme/"
+        ]
+      },
+      "status": "candidate",
+      "validFrom": "2026-07-13",
+      "validTo": null
+    },
+    {
+      "category": "transport-observation",
+      "iri": "https://data.molit.go.kr/id/concept/observation-aggregation/minimum",
+      "notation": "minimum",
+      "preferredLabel": [
+        {
+          "language": "en",
+          "value": "Minimum"
+        },
+        {
+          "language": "ko",
+          "value": "최솟값"
+        }
+      ],
+      "replacedBy": null,
+      "scheme": "https://data.molit.go.kr/scheme/observation-aggregation",
+      "source": {
+        "artifact": "vocabulary/observation-semantics.ttl",
+        "authorities": [
+          "https://data.molit.go.kr/scheme/"
+        ]
+      },
+      "status": "candidate",
+      "validFrom": "2026-07-13",
+      "validTo": null
+    },
+    {
+      "category": "transport-observation",
+      "iri": "https://data.molit.go.kr/id/concept/observation-aggregation/sum",
+      "notation": "sum",
+      "preferredLabel": [
+        {
+          "language": "en",
+          "value": "Sum"
+        },
+        {
+          "language": "ko",
+          "value": "합계"
+        }
+      ],
+      "replacedBy": null,
+      "scheme": "https://data.molit.go.kr/scheme/observation-aggregation",
+      "source": {
+        "artifact": "vocabulary/observation-semantics.ttl",
+        "authorities": [
+          "https://data.molit.go.kr/scheme/"
+        ]
+      },
+      "status": "candidate",
+      "validFrom": "2026-07-13",
+      "validTo": null
+    },
+    {
+      "category": "transport-observation",
+      "iri": "https://data.molit.go.kr/id/concept/observation-subject-type/area",
+      "notation": "area",
+      "preferredLabel": [
+        {
+          "language": "en",
+          "value": "Area"
+        },
+        {
+          "language": "ko",
+          "value": "지역"
+        }
+      ],
+      "replacedBy": null,
+      "scheme": "https://data.molit.go.kr/scheme/observation-subject-type",
+      "source": {
+        "artifact": "vocabulary/observation-semantics.ttl",
+        "authorities": [
+          "https://data.molit.go.kr/scheme/"
+        ]
+      },
+      "status": "candidate",
+      "validFrom": "2026-07-13",
+      "validTo": null
+    },
+    {
+      "category": "transport-observation",
+      "iri": "https://data.molit.go.kr/id/concept/observation-subject-type/facility",
+      "notation": "facility",
+      "preferredLabel": [
+        {
+          "language": "en",
+          "value": "Facility"
+        },
+        {
+          "language": "ko",
+          "value": "시설"
+        }
+      ],
+      "replacedBy": null,
+      "scheme": "https://data.molit.go.kr/scheme/observation-subject-type",
+      "source": {
+        "artifact": "vocabulary/observation-semantics.ttl",
+        "authorities": [
+          "https://data.molit.go.kr/scheme/"
+        ]
+      },
+      "status": "candidate",
+      "validFrom": "2026-07-13",
+      "validTo": null
+    },
+    {
+      "category": "transport-observation",
+      "iri": "https://data.molit.go.kr/id/concept/observation-subject-type/network-element",
+      "notation": "network-element",
+      "preferredLabel": [
+        {
+          "language": "en",
+          "value": "Transport-network element"
+        },
+        {
+          "language": "ko",
+          "value": "교통망 요소"
+        }
+      ],
+      "replacedBy": null,
+      "scheme": "https://data.molit.go.kr/scheme/observation-subject-type",
+      "source": {
+        "artifact": "vocabulary/observation-semantics.ttl",
+        "authorities": [
+          "https://data.molit.go.kr/scheme/"
+        ]
+      },
+      "status": "candidate",
+      "validFrom": "2026-07-13",
+      "validTo": null
+    },
+    {
+      "category": "transport-observation",
+      "iri": "https://data.molit.go.kr/id/concept/observation-subject-type/section",
+      "notation": "section",
+      "preferredLabel": [
+        {
+          "language": "en",
+          "value": "Section"
+        },
+        {
+          "language": "ko",
+          "value": "구간"
+        }
+      ],
+      "replacedBy": null,
+      "scheme": "https://data.molit.go.kr/scheme/observation-subject-type",
+      "source": {
+        "artifact": "vocabulary/observation-semantics.ttl",
+        "authorities": [
+          "https://data.molit.go.kr/scheme/"
+        ]
+      },
+      "status": "candidate",
+      "validFrom": "2026-07-13",
+      "validTo": null
+    },
+    {
+      "category": "transport-observation",
+      "iri": "https://data.molit.go.kr/id/concept/observation-subject-type/site",
+      "notation": "site",
+      "preferredLabel": [
+        {
+          "language": "en",
+          "value": "Observation site"
+        },
+        {
+          "language": "ko",
+          "value": "관측지점"
+        }
+      ],
+      "replacedBy": null,
+      "scheme": "https://data.molit.go.kr/scheme/observation-subject-type",
+      "source": {
+        "artifact": "vocabulary/observation-semantics.ttl",
+        "authorities": [
+          "https://data.molit.go.kr/scheme/"
+        ]
+      },
+      "status": "candidate",
+      "validFrom": "2026-07-13",
+      "validTo": null
+    },
+    {
+      "category": "transport-observation",
+      "iri": "https://data.molit.go.kr/id/concept/observation-subject-type/vehicle-population",
+      "notation": "vehicle-population",
+      "preferredLabel": [
+        {
+          "language": "en",
+          "value": "Vehicle population"
+        },
+        {
+          "language": "ko",
+          "value": "차량 집단"
+        }
+      ],
+      "replacedBy": null,
+      "scheme": "https://data.molit.go.kr/scheme/observation-subject-type",
+      "source": {
+        "artifact": "vocabulary/observation-semantics.ttl",
+        "authorities": [
+          "https://data.molit.go.kr/scheme/"
+        ]
+      },
+      "status": "candidate",
+      "validFrom": "2026-07-13",
+      "validTo": null
+    },
+    {
+      "category": "transport-observation",
+      "iri": "https://data.molit.go.kr/id/concept/observed-property/facility-status",
+      "notation": "facility-status",
+      "preferredLabel": [
+        {
+          "language": "en",
+          "value": "Facility status"
+        },
+        {
+          "language": "ko",
+          "value": "시설 상태"
+        }
+      ],
+      "replacedBy": null,
+      "scheme": "https://data.molit.go.kr/scheme/observed-property",
+      "source": {
+        "artifact": "vocabulary/observation-semantics.ttl",
+        "authorities": [
+          "https://data.molit.go.kr/scheme/"
+        ]
+      },
+      "status": "candidate",
+      "validFrom": "2026-07-13",
+      "validTo": null
+    },
+    {
+      "category": "transport-observation",
+      "iri": "https://data.molit.go.kr/id/concept/observed-property/speed",
+      "notation": "speed",
+      "preferredLabel": [
+        {
+          "language": "en",
+          "value": "Speed"
+        },
+        {
+          "language": "ko",
+          "value": "속도"
+        }
+      ],
+      "replacedBy": null,
+      "scheme": "https://data.molit.go.kr/scheme/observed-property",
+      "source": {
+        "artifact": "vocabulary/observation-semantics.ttl",
+        "authorities": [
+          "https://data.molit.go.kr/scheme/"
+        ]
+      },
+      "status": "candidate",
+      "validFrom": "2026-07-13",
+      "validTo": null
+    },
+    {
+      "category": "transport-observation",
+      "iri": "https://data.molit.go.kr/id/concept/observed-property/traffic-volume",
+      "notation": "traffic-volume",
+      "preferredLabel": [
+        {
+          "language": "en",
+          "value": "Traffic volume"
+        },
+        {
+          "language": "ko",
+          "value": "교통량"
+        }
+      ],
+      "replacedBy": null,
+      "scheme": "https://data.molit.go.kr/scheme/observed-property",
+      "source": {
+        "artifact": "vocabulary/observation-semantics.ttl",
+        "authorities": [
+          "https://data.molit.go.kr/scheme/"
+        ]
+      },
+      "status": "candidate",
+      "validFrom": "2026-07-13",
+      "validTo": null
+    },
+    {
+      "category": "transport-observation",
+      "iri": "https://data.molit.go.kr/id/concept/observed-property/travel-time",
+      "notation": "travel-time",
+      "preferredLabel": [
+        {
+          "language": "en",
+          "value": "Travel time"
+        },
+        {
+          "language": "ko",
+          "value": "통행시간"
+        }
+      ],
+      "replacedBy": null,
+      "scheme": "https://data.molit.go.kr/scheme/observed-property",
+      "source": {
+        "artifact": "vocabulary/observation-semantics.ttl",
+        "authorities": [
+          "https://data.molit.go.kr/scheme/"
+        ]
+      },
+      "status": "candidate",
+      "validFrom": "2026-07-13",
+      "validTo": null
+    },
+    {
+      "category": "dataspace-offering-readiness",
+      "iri": "https://data.molit.go.kr/id/concept/offering-readiness-status/drafting",
+      "notation": "drafting",
+      "preferredLabel": [
+        {
+          "language": "en",
+          "value": "Metadata drafting"
+        },
+        {
+          "language": "ko",
+          "value": "메타데이터 작성 중"
+        }
+      ],
+      "replacedBy": null,
+      "scheme": "https://data.molit.go.kr/scheme/offering-readiness-status",
+      "source": {
+        "artifact": "vocabulary/offering-readiness-status.ttl",
+        "authorities": [
+          "https://data.molit.go.kr/scheme/offering-readiness-status"
+        ]
+      },
+      "status": "candidate",
+      "validFrom": "2026-07-13",
+      "validTo": null
+    },
+    {
+      "category": "dataspace-offering-readiness",
+      "iri": "https://data.molit.go.kr/id/concept/offering-readiness-status/metadata-conformant",
+      "notation": "metadata-conformant",
+      "preferredLabel": [
+        {
+          "language": "en",
+          "value": "Metadata conformant"
+        },
+        {
+          "language": "ko",
+          "value": "메타데이터 적합"
+        }
+      ],
+      "replacedBy": null,
+      "scheme": "https://data.molit.go.kr/scheme/offering-readiness-status",
+      "source": {
+        "artifact": "vocabulary/offering-readiness-status.ttl",
+        "authorities": [
+          "https://data.molit.go.kr/scheme/offering-readiness-status"
+        ]
+      },
+      "status": "candidate",
+      "validFrom": "2026-07-13",
+      "validTo": null
+    },
+    {
+      "category": "dataspace-offering-readiness",
+      "iri": "https://data.molit.go.kr/id/concept/offering-readiness-status/operationally-qualified",
+      "notation": "operationally-qualified",
+      "preferredLabel": [
+        {
+          "language": "en",
+          "value": "Operationally qualified"
+        },
+        {
+          "language": "ko",
+          "value": "운영 자격 확인"
+        }
+      ],
+      "replacedBy": null,
+      "scheme": "https://data.molit.go.kr/scheme/offering-readiness-status",
+      "source": {
+        "artifact": "vocabulary/offering-readiness-status.ttl",
+        "authorities": [
+          "https://data.molit.go.kr/scheme/offering-readiness-status"
+        ]
+      },
+      "status": "candidate",
+      "validFrom": "2026-07-13",
+      "validTo": null
+    },
+    {
+      "category": "dataspace-offering-readiness",
+      "iri": "https://data.molit.go.kr/id/concept/offering-readiness-status/qualification-pending",
+      "notation": "qualification-pending",
+      "preferredLabel": [
+        {
+          "language": "en",
+          "value": "Operational qualification pending"
+        },
+        {
+          "language": "ko",
+          "value": "운영 자격검토 대기"
+        }
+      ],
+      "replacedBy": null,
+      "scheme": "https://data.molit.go.kr/scheme/offering-readiness-status",
+      "source": {
+        "artifact": "vocabulary/offering-readiness-status.ttl",
+        "authorities": [
+          "https://data.molit.go.kr/scheme/offering-readiness-status"
+        ]
+      },
+      "status": "candidate",
+      "validFrom": "2026-07-13",
+      "validTo": null
+    },
+    {
+      "category": "dataspace-offering-readiness",
+      "iri": "https://data.molit.go.kr/id/concept/offering-readiness-status/suspended",
+      "notation": "suspended",
+      "preferredLabel": [
+        {
+          "language": "en",
+          "value": "Suspended"
+        },
+        {
+          "language": "ko",
+          "value": "제공 중단"
+        }
+      ],
+      "replacedBy": null,
+      "scheme": "https://data.molit.go.kr/scheme/offering-readiness-status",
+      "source": {
+        "artifact": "vocabulary/offering-readiness-status.ttl",
+        "authorities": [
+          "https://data.molit.go.kr/scheme/offering-readiness-status"
+        ]
+      },
+      "status": "candidate",
+      "validFrom": "2026-07-13",
+      "validTo": null
+    },
+    {
+      "category": "dataspace-offering-readiness",
+      "iri": "https://data.molit.go.kr/id/concept/offering-readiness-status/withdrawn",
+      "notation": "withdrawn",
+      "preferredLabel": [
+        {
+          "language": "en",
+          "value": "Withdrawn"
+        },
+        {
+          "language": "ko",
+          "value": "제공 철회"
+        }
+      ],
+      "replacedBy": null,
+      "scheme": "https://data.molit.go.kr/scheme/offering-readiness-status",
+      "source": {
+        "artifact": "vocabulary/offering-readiness-status.ttl",
+        "authorities": [
+          "https://data.molit.go.kr/scheme/offering-readiness-status"
+        ]
+      },
+      "status": "candidate",
+      "validFrom": "2026-07-13",
+      "validTo": null
+    },
+    {
+      "category": "quality-semantics",
+      "iri": "https://data.molit.go.kr/id/concept/quality-evaluation-method/reference-comparison",
+      "notation": "reference-comparison",
+      "preferredLabel": [
+        {
+          "language": "en",
+          "value": "Reference comparison"
+        },
+        {
+          "language": "ko",
+          "value": "기준자료 비교"
+        }
+      ],
+      "replacedBy": null,
+      "scheme": "https://data.molit.go.kr/scheme/quality-evaluation-method",
+      "source": {
+        "artifact": "vocabulary/quality-semantics.ttl",
+        "authorities": [
+          "https://data.molit.go.kr/scheme/"
+        ]
+      },
+      "status": "candidate",
+      "validFrom": "2026-07-13",
+      "validTo": null
+    },
+    {
+      "category": "quality-semantics",
+      "iri": "https://data.molit.go.kr/id/concept/quality-evaluation-method/rule-based",
+      "notation": "rule-based",
+      "preferredLabel": [
+        {
+          "language": "en",
+          "value": "Rule-based evaluation"
+        },
+        {
+          "language": "ko",
+          "value": "규칙 기반 평가"
+        }
+      ],
+      "replacedBy": null,
+      "scheme": "https://data.molit.go.kr/scheme/quality-evaluation-method",
+      "source": {
+        "artifact": "vocabulary/quality-semantics.ttl",
+        "authorities": [
+          "https://data.molit.go.kr/scheme/"
+        ]
+      },
+      "status": "candidate",
+      "validFrom": "2026-07-13",
+      "validTo": null
+    },
+    {
+      "category": "quality-semantics",
+      "iri": "https://data.molit.go.kr/id/concept/quality-evaluation-method/sample-based",
+      "notation": "sample-based",
+      "preferredLabel": [
+        {
+          "language": "en",
+          "value": "Sample-based evaluation"
+        },
+        {
+          "language": "ko",
+          "value": "표본 평가"
+        }
+      ],
+      "replacedBy": null,
+      "scheme": "https://data.molit.go.kr/scheme/quality-evaluation-method",
+      "source": {
+        "artifact": "vocabulary/quality-semantics.ttl",
+        "authorities": [
+          "https://data.molit.go.kr/scheme/"
+        ]
+      },
+      "status": "candidate",
+      "validFrom": "2026-07-13",
+      "validTo": null
+    },
+    {
+      "category": "quality-semantics",
+      "iri": "https://data.molit.go.kr/id/concept/quality-evaluation-method/self-diagnostic",
+      "notation": "self-diagnostic",
+      "preferredLabel": [
+        {
+          "language": "en",
+          "value": "Self-diagnostic"
+        },
+        {
+          "language": "ko",
+          "value": "자체 진단"
+        }
+      ],
+      "replacedBy": null,
+      "scheme": "https://data.molit.go.kr/scheme/quality-evaluation-method",
+      "source": {
+        "artifact": "vocabulary/quality-semantics.ttl",
+        "authorities": [
+          "https://data.molit.go.kr/scheme/"
+        ]
+      },
+      "status": "candidate",
+      "validFrom": "2026-07-13",
+      "validTo": null
+    },
+    {
+      "category": "quality-semantics",
+      "iri": "https://data.molit.go.kr/id/concept/quality-evaluation-method/whole-population",
+      "notation": "whole-population",
+      "preferredLabel": [
+        {
+          "language": "en",
+          "value": "Whole-population evaluation"
+        },
+        {
+          "language": "ko",
+          "value": "전수 평가"
+        }
+      ],
+      "replacedBy": null,
+      "scheme": "https://data.molit.go.kr/scheme/quality-evaluation-method",
+      "source": {
+        "artifact": "vocabulary/quality-semantics.ttl",
+        "authorities": [
+          "https://data.molit.go.kr/scheme/"
+        ]
+      },
+      "status": "candidate",
+      "validFrom": "2026-07-13",
+      "validTo": null
+    },
+    {
+      "category": "quality-semantics",
+      "iri": "https://data.molit.go.kr/id/concept/quality-loss-disposition/irreversible-loss",
+      "notation": "irreversible-loss",
+      "preferredLabel": [
+        {
+          "language": "en",
+          "value": "Irreversible loss"
+        },
+        {
+          "language": "ko",
+          "value": "비가역 손실"
+        }
+      ],
+      "replacedBy": null,
+      "scheme": "https://data.molit.go.kr/scheme/quality-loss-disposition",
+      "source": {
+        "artifact": "vocabulary/quality-semantics.ttl",
+        "authorities": [
+          "https://data.molit.go.kr/scheme/"
+        ]
+      },
+      "status": "candidate",
+      "validFrom": "2026-07-13",
+      "validTo": null
+    },
+    {
+      "category": "quality-semantics",
+      "iri": "https://data.molit.go.kr/id/concept/quality-loss-disposition/lossless",
+      "notation": "lossless",
+      "preferredLabel": [
+        {
+          "language": "en",
+          "value": "Lossless"
+        },
+        {
+          "language": "ko",
+          "value": "무손실"
+        }
+      ],
+      "replacedBy": null,
+      "scheme": "https://data.molit.go.kr/scheme/quality-loss-disposition",
+      "source": {
+        "artifact": "vocabulary/quality-semantics.ttl",
+        "authorities": [
+          "https://data.molit.go.kr/scheme/"
+        ]
+      },
+      "status": "candidate",
+      "validFrom": "2026-07-13",
+      "validTo": null
+    },
+    {
+      "category": "quality-semantics",
+      "iri": "https://data.molit.go.kr/id/concept/quality-loss-disposition/not-published",
+      "notation": "not-published",
+      "preferredLabel": [
+        {
+          "language": "en",
+          "value": "Not published"
+        },
+        {
+          "language": "ko",
+          "value": "게시 제외"
+        }
+      ],
+      "replacedBy": null,
+      "scheme": "https://data.molit.go.kr/scheme/quality-loss-disposition",
+      "source": {
+        "artifact": "vocabulary/quality-semantics.ttl",
+        "authorities": [
+          "https://data.molit.go.kr/scheme/"
+        ]
+      },
+      "status": "candidate",
+      "validFrom": "2026-07-13",
+      "validTo": null
+    },
+    {
+      "category": "quality-semantics",
+      "iri": "https://data.molit.go.kr/id/concept/quality-loss-disposition/reversible-loss",
+      "notation": "reversible-loss",
+      "preferredLabel": [
+        {
+          "language": "en",
+          "value": "Reversible with retained source"
+        },
+        {
+          "language": "ko",
+          "value": "별도 원문으로 복원 가능"
+        }
+      ],
+      "replacedBy": null,
+      "scheme": "https://data.molit.go.kr/scheme/quality-loss-disposition",
+      "source": {
+        "artifact": "vocabulary/quality-semantics.ttl",
+        "authorities": [
+          "https://data.molit.go.kr/scheme/"
+        ]
+      },
+      "status": "candidate",
+      "validFrom": "2026-07-13",
+      "validTo": null
+    },
+    {
+      "category": "quality-semantics",
+      "iri": "https://data.molit.go.kr/id/concept/quality-loss-disposition/unmapped",
+      "notation": "unmapped",
+      "preferredLabel": [
+        {
+          "language": "en",
+          "value": "Unmapped"
+        },
+        {
+          "language": "ko",
+          "value": "미매핑"
+        }
+      ],
+      "replacedBy": null,
+      "scheme": "https://data.molit.go.kr/scheme/quality-loss-disposition",
+      "source": {
+        "artifact": "vocabulary/quality-semantics.ttl",
+        "authorities": [
+          "https://data.molit.go.kr/scheme/"
+        ]
+      },
+      "status": "candidate",
+      "validFrom": "2026-07-13",
+      "validTo": null
+    },
+    {
+      "category": "quality-semantics",
+      "iri": "https://data.molit.go.kr/id/concept/quality-result-kind/boolean",
+      "notation": "boolean",
+      "preferredLabel": [
+        {
+          "language": "en",
+          "value": "Boolean result"
+        },
+        {
+          "language": "ko",
+          "value": "논리 결과"
+        }
+      ],
+      "replacedBy": null,
+      "scheme": "https://data.molit.go.kr/scheme/quality-result-kind",
+      "source": {
+        "artifact": "vocabulary/quality-semantics.ttl",
+        "authorities": [
+          "https://data.molit.go.kr/scheme/"
+        ]
+      },
+      "status": "candidate",
+      "validFrom": "2026-07-13",
+      "validTo": null
+    },
+    {
+      "category": "quality-semantics",
+      "iri": "https://data.molit.go.kr/id/concept/quality-result-kind/categorical",
+      "notation": "categorical",
+      "preferredLabel": [
+        {
+          "language": "en",
+          "value": "Categorical result"
+        },
+        {
+          "language": "ko",
+          "value": "범주 결과"
+        }
+      ],
+      "replacedBy": null,
+      "scheme": "https://data.molit.go.kr/scheme/quality-result-kind",
+      "source": {
+        "artifact": "vocabulary/quality-semantics.ttl",
+        "authorities": [
+          "https://data.molit.go.kr/scheme/"
+        ]
+      },
+      "status": "candidate",
+      "validFrom": "2026-07-13",
+      "validTo": null
+    },
+    {
+      "category": "quality-semantics",
+      "iri": "https://data.molit.go.kr/id/concept/quality-result-kind/descriptive",
+      "notation": "descriptive",
+      "preferredLabel": [
+        {
+          "language": "en",
+          "value": "Descriptive result"
+        },
+        {
+          "language": "ko",
+          "value": "서술 결과"
+        }
+      ],
+      "replacedBy": null,
+      "scheme": "https://data.molit.go.kr/scheme/quality-result-kind",
+      "source": {
+        "artifact": "vocabulary/quality-semantics.ttl",
+        "authorities": [
+          "https://data.molit.go.kr/scheme/"
+        ]
+      },
+      "status": "candidate",
+      "validFrom": "2026-07-13",
+      "validTo": null
+    },
+    {
+      "category": "quality-semantics",
+      "iri": "https://data.molit.go.kr/id/concept/quality-result-kind/quantitative",
+      "notation": "quantitative",
+      "preferredLabel": [
+        {
+          "language": "en",
+          "value": "Quantitative result"
+        },
+        {
+          "language": "ko",
+          "value": "수치 결과"
+        }
+      ],
+      "replacedBy": null,
+      "scheme": "https://data.molit.go.kr/scheme/quality-result-kind",
+      "source": {
+        "artifact": "vocabulary/quality-semantics.ttl",
+        "authorities": [
+          "https://data.molit.go.kr/scheme/"
+        ]
+      },
+      "status": "candidate",
+      "validFrom": "2026-07-13",
+      "validTo": null
+    },
+    {
+      "category": "quality-status-and-metric",
+      "iri": "https://data.molit.go.kr/id/concept/quality-status/assessed",
+      "notation": "assessed",
+      "preferredLabel": [
+        {
+          "language": "en",
+          "value": "Assessed"
+        },
+        {
+          "language": "ko",
+          "value": "평가 완료"
+        }
+      ],
+      "replacedBy": null,
+      "scheme": "https://data.molit.go.kr/scheme/quality-status",
+      "source": {
+        "artifact": "vocabulary/quality.ttl",
+        "authorities": [
+          "https://data.molit.go.kr/scheme/"
+        ]
+      },
+      "status": "candidate",
+      "validFrom": "2026-07-13",
+      "validTo": null
+    },
+    {
+      "category": "quality-status-and-metric",
+      "iri": "https://data.molit.go.kr/id/concept/quality-status/failed",
+      "notation": "failed",
+      "preferredLabel": [
+        {
+          "language": "en",
+          "value": "Failed"
+        },
+        {
+          "language": "ko",
+          "value": "기준 미달"
+        }
+      ],
+      "replacedBy": null,
+      "scheme": "https://data.molit.go.kr/scheme/quality-status",
+      "source": {
+        "artifact": "vocabulary/quality.ttl",
+        "authorities": [
+          "https://data.molit.go.kr/scheme/"
+        ]
+      },
+      "status": "candidate",
+      "validFrom": "2026-07-13",
+      "validTo": null
+    },
+    {
+      "category": "quality-status-and-metric",
+      "iri": "https://data.molit.go.kr/id/concept/quality-status/not-assessed",
+      "notation": "not-assessed",
+      "preferredLabel": [
+        {
+          "language": "en",
+          "value": "Not assessed"
+        },
+        {
+          "language": "ko",
+          "value": "미평가"
+        }
+      ],
+      "replacedBy": null,
+      "scheme": "https://data.molit.go.kr/scheme/quality-status",
+      "source": {
+        "artifact": "vocabulary/quality.ttl",
+        "authorities": [
+          "https://data.molit.go.kr/scheme/"
+        ]
+      },
+      "status": "candidate",
+      "validFrom": "2026-07-13",
+      "validTo": null
+    },
+    {
+      "category": "quality-status-and-metric",
+      "iri": "https://data.molit.go.kr/id/concept/quality-status/stale",
+      "notation": "stale",
+      "preferredLabel": [
+        {
+          "language": "en",
+          "value": "Stale"
+        },
+        {
+          "language": "ko",
+          "value": "최신성 만료"
+        }
+      ],
+      "replacedBy": null,
+      "scheme": "https://data.molit.go.kr/scheme/quality-status",
+      "source": {
+        "artifact": "vocabulary/quality.ttl",
+        "authorities": [
+          "https://data.molit.go.kr/scheme/"
+        ]
+      },
+      "status": "candidate",
+      "validFrom": "2026-07-13",
+      "validTo": null
+    },
+    {
+      "category": "quality-status-and-metric",
+      "iri": "https://data.molit.go.kr/id/concept/quality-status/warning",
+      "notation": "warning",
+      "preferredLabel": [
+        {
+          "language": "en",
+          "value": "Warning"
+        },
+        {
+          "language": "ko",
+          "value": "주의"
+        }
+      ],
+      "replacedBy": null,
+      "scheme": "https://data.molit.go.kr/scheme/quality-status",
+      "source": {
+        "artifact": "vocabulary/quality.ttl",
+        "authorities": [
+          "https://data.molit.go.kr/scheme/"
+        ]
+      },
+      "status": "candidate",
+      "validFrom": "2026-07-13",
+      "validTo": null
+    },
+    {
+      "category": "spatial-disclosure",
+      "iri": "https://data.molit.go.kr/id/concept/spatial-disclosure-level/administrative-area",
+      "notation": "administrative-area",
+      "preferredLabel": [
+        {
+          "language": "en",
+          "value": "Administrative area"
+        },
+        {
+          "language": "ko",
+          "value": "행정구역"
+        }
+      ],
+      "replacedBy": null,
+      "scheme": "https://data.molit.go.kr/scheme/spatial-disclosure-level",
+      "source": {
+        "artifact": "vocabulary/spatial-disclosure-level.ttl",
+        "authorities": [
+          "https://data.molit.go.kr/scheme/spatial-disclosure-level"
+        ]
+      },
+      "status": "candidate",
+      "validFrom": "2026-07-13",
+      "validTo": null
+    },
+    {
+      "category": "spatial-disclosure",
+      "iri": "https://data.molit.go.kr/id/concept/spatial-disclosure-level/bounding-box",
+      "notation": "bounding-box",
+      "preferredLabel": [
+        {
+          "language": "en",
+          "value": "Bounding box"
+        },
+        {
+          "language": "ko",
+          "value": "경계 상자"
+        }
+      ],
+      "replacedBy": null,
+      "scheme": "https://data.molit.go.kr/scheme/spatial-disclosure-level",
+      "source": {
+        "artifact": "vocabulary/spatial-disclosure-level.ttl",
+        "authorities": [
+          "https://data.molit.go.kr/scheme/spatial-disclosure-level"
+        ]
+      },
+      "status": "candidate",
+      "validFrom": "2026-07-13",
+      "validTo": null
+    },
+    {
+      "category": "spatial-disclosure",
+      "iri": "https://data.molit.go.kr/id/concept/spatial-disclosure-level/exact",
+      "notation": "exact",
+      "preferredLabel": [
+        {
+          "language": "en",
+          "value": "Exact"
+        },
+        {
+          "language": "ko",
+          "value": "원 정밀도"
+        }
+      ],
+      "replacedBy": null,
+      "scheme": "https://data.molit.go.kr/scheme/spatial-disclosure-level",
+      "source": {
+        "artifact": "vocabulary/spatial-disclosure-level.ttl",
+        "authorities": [
+          "https://data.molit.go.kr/scheme/spatial-disclosure-level"
+        ]
+      },
+      "status": "candidate",
+      "validFrom": "2026-07-13",
+      "validTo": null
+    },
+    {
+      "category": "spatial-disclosure",
+      "iri": "https://data.molit.go.kr/id/concept/spatial-disclosure-level/generalized",
+      "notation": "generalized",
+      "preferredLabel": [
+        {
+          "language": "en",
+          "value": "Generalized"
+        },
+        {
+          "language": "ko",
+          "value": "일반화"
+        }
+      ],
+      "replacedBy": null,
+      "scheme": "https://data.molit.go.kr/scheme/spatial-disclosure-level",
+      "source": {
+        "artifact": "vocabulary/spatial-disclosure-level.ttl",
+        "authorities": [
+          "https://data.molit.go.kr/scheme/spatial-disclosure-level"
+        ]
+      },
+      "status": "candidate",
+      "validFrom": "2026-07-13",
+      "validTo": null
+    },
+    {
+      "category": "spatial-disclosure",
+      "iri": "https://data.molit.go.kr/id/concept/spatial-disclosure-level/grid",
+      "notation": "grid",
+      "preferredLabel": [
+        {
+          "language": "en",
+          "value": "Grid"
+        },
+        {
+          "language": "ko",
+          "value": "격자"
+        }
+      ],
+      "replacedBy": null,
+      "scheme": "https://data.molit.go.kr/scheme/spatial-disclosure-level",
+      "source": {
+        "artifact": "vocabulary/spatial-disclosure-level.ttl",
+        "authorities": [
+          "https://data.molit.go.kr/scheme/spatial-disclosure-level"
+        ]
+      },
+      "status": "candidate",
+      "validFrom": "2026-07-13",
+      "validTo": null
+    },
+    {
+      "category": "spatial-disclosure",
+      "iri": "https://data.molit.go.kr/id/concept/spatial-disclosure-level/withheld",
+      "notation": "withheld",
+      "preferredLabel": [
+        {
+          "language": "en",
+          "value": "Withheld"
+        },
+        {
+          "language": "ko",
+          "value": "비공개"
+        }
+      ],
+      "replacedBy": null,
+      "scheme": "https://data.molit.go.kr/scheme/spatial-disclosure-level",
+      "source": {
+        "artifact": "vocabulary/spatial-disclosure-level.ttl",
+        "authorities": [
+          "https://data.molit.go.kr/scheme/spatial-disclosure-level"
+        ]
+      },
+      "status": "candidate",
+      "validFrom": "2026-07-13",
+      "validTo": null
+    },
+    {
+      "category": "term-governance",
+      "iri": "https://data.molit.go.kr/id/concept/term-status/approved",
+      "notation": "approved",
+      "preferredLabel": [
+        {
+          "language": "en",
+          "value": "Approved"
+        },
+        {
+          "language": "ko",
+          "value": "승인됨"
+        }
+      ],
+      "replacedBy": null,
+      "scheme": "https://data.molit.go.kr/scheme/term-status",
+      "source": {
+        "artifact": "vocabulary/term-status.ttl",
+        "authorities": [
+          "https://data.molit.go.kr/scheme/term-status"
+        ]
+      },
+      "status": "candidate",
+      "validFrom": "2026-07-13",
+      "validTo": null
+    },
+    {
+      "category": "term-governance",
+      "iri": "https://data.molit.go.kr/id/concept/term-status/candidate",
+      "notation": "candidate",
+      "preferredLabel": [
+        {
+          "language": "en",
+          "value": "Candidate pending approval"
+        },
+        {
+          "language": "ko",
+          "value": "승인 전 후보"
+        }
+      ],
+      "replacedBy": null,
+      "scheme": "https://data.molit.go.kr/scheme/term-status",
+      "source": {
+        "artifact": "vocabulary/term-status.ttl",
+        "authorities": [
+          "https://data.molit.go.kr/scheme/term-status"
+        ]
+      },
+      "status": "candidate",
+      "validFrom": "2026-07-13",
+      "validTo": null
+    },
+    {
+      "category": "term-governance",
+      "iri": "https://data.molit.go.kr/id/concept/term-status/deprecated",
+      "notation": "deprecated",
+      "preferredLabel": [
+        {
+          "language": "en",
+          "value": "Deprecated"
+        },
+        {
+          "language": "ko",
+          "value": "사용 중단"
+        }
+      ],
+      "replacedBy": null,
+      "scheme": "https://data.molit.go.kr/scheme/term-status",
+      "source": {
+        "artifact": "vocabulary/term-status.ttl",
+        "authorities": [
+          "https://data.molit.go.kr/scheme/term-status"
+        ]
+      },
+      "status": "candidate",
+      "validFrom": "2026-07-13",
+      "validTo": null
+    },
+    {
+      "category": "quality-status-and-metric",
+      "iri": "https://data.molit.go.kr/id/metric/completeness",
+      "notation": "completeness",
+      "preferredLabel": [
+        {
+          "language": "en",
+          "value": "Completeness"
+        },
+        {
+          "language": "ko",
+          "value": "완전성"
+        }
+      ],
+      "replacedBy": null,
+      "scheme": "https://data.molit.go.kr/scheme/quality-metric",
+      "source": {
+        "artifact": "vocabulary/quality.ttl",
+        "authorities": [
+          "https://data.molit.go.kr/scheme/"
+        ]
+      },
+      "status": "candidate",
+      "validFrom": "2026-07-13",
+      "validTo": null
+    },
+    {
+      "category": "quality-status-and-metric",
+      "iri": "https://data.molit.go.kr/id/metric/logical-consistency",
+      "notation": "logical-consistency",
+      "preferredLabel": [
+        {
+          "language": "en",
+          "value": "Logical consistency"
+        },
+        {
+          "language": "ko",
+          "value": "논리 일관성"
+        }
+      ],
+      "replacedBy": null,
+      "scheme": "https://data.molit.go.kr/scheme/quality-metric",
+      "source": {
+        "artifact": "vocabulary/quality.ttl",
+        "authorities": [
+          "https://data.molit.go.kr/scheme/"
+        ]
+      },
+      "status": "candidate",
+      "validFrom": "2026-07-13",
+      "validTo": null
+    },
+    {
+      "category": "quality-status-and-metric",
+      "iri": "https://data.molit.go.kr/id/metric/positional-accuracy",
+      "notation": "positional-accuracy",
+      "preferredLabel": [
+        {
+          "language": "en",
+          "value": "Positional accuracy"
+        },
+        {
+          "language": "ko",
+          "value": "위치 정확도"
+        }
+      ],
+      "replacedBy": null,
+      "scheme": "https://data.molit.go.kr/scheme/quality-metric",
+      "source": {
+        "artifact": "vocabulary/quality.ttl",
+        "authorities": [
+          "https://data.molit.go.kr/scheme/"
+        ]
+      },
+      "status": "candidate",
+      "validFrom": "2026-07-13",
+      "validTo": null
+    },
+    {
+      "category": "quality-status-and-metric",
+      "iri": "https://data.molit.go.kr/id/metric/temporal-accuracy",
+      "notation": "temporal-accuracy",
+      "preferredLabel": [
+        {
+          "language": "en",
+          "value": "Temporal accuracy"
+        },
+        {
+          "language": "ko",
+          "value": "시간 정확도"
+        }
+      ],
+      "replacedBy": null,
+      "scheme": "https://data.molit.go.kr/scheme/quality-metric",
+      "source": {
+        "artifact": "vocabulary/quality.ttl",
+        "authorities": [
+          "https://data.molit.go.kr/scheme/"
+        ]
+      },
+      "status": "candidate",
+      "validFrom": "2026-07-13",
+      "validTo": null
+    },
+    {
+      "category": "quality-status-and-metric",
+      "iri": "https://data.molit.go.kr/id/metric/timeliness",
+      "notation": "timeliness",
+      "preferredLabel": [
+        {
+          "language": "en",
+          "value": "Timeliness"
+        },
+        {
+          "language": "ko",
+          "value": "적시성"
+        }
+      ],
+      "replacedBy": null,
+      "scheme": "https://data.molit.go.kr/scheme/quality-metric",
+      "source": {
+        "artifact": "vocabulary/quality.ttl",
+        "authorities": [
+          "https://data.molit.go.kr/scheme/"
+        ]
+      },
+      "status": "candidate",
+      "validFrom": "2026-07-13",
+      "validTo": null
+    },
+    {
+      "category": "transport-measurement-unit",
+      "iri": "https://data.molit.go.kr/id/unit/vehicle-per-day",
+      "notation": "veh/d",
+      "preferredLabel": [
+        {
+          "language": "en",
+          "value": "vehicle per day"
+        },
+        {
+          "language": "ko",
+          "value": "일당 차량 수"
+        }
+      ],
+      "replacedBy": null,
+      "scheme": "https://data.molit.go.kr/scheme/transport-unit",
+      "source": {
+        "artifact": "vocabulary/transport-unit.ttl",
+        "authorities": [
+          "http://qudt.org/vocab/unit/DAY",
+          "http://qudt.org/vocab/unit/NUM",
+          "https://data.molit.go.kr/scheme/transport-unit"
+        ]
+      },
+      "status": "candidate",
+      "validFrom": "2026-07-13",
+      "validTo": null
+    },
+    {
+      "category": "transport-measurement-unit",
+      "iri": "https://data.molit.go.kr/id/unit/vehicle-per-hour",
+      "notation": "veh/h",
+      "preferredLabel": [
+        {
+          "language": "en",
+          "value": "vehicle per hour"
+        },
+        {
+          "language": "ko",
+          "value": "시간당 차량 수"
+        }
+      ],
+      "replacedBy": null,
+      "scheme": "https://data.molit.go.kr/scheme/transport-unit",
+      "source": {
+        "artifact": "vocabulary/transport-unit.ttl",
+        "authorities": [
+          "http://qudt.org/vocab/unit/NUM-PER-HR",
+          "https://data.molit.go.kr/scheme/transport-unit"
+        ]
+      },
+      "status": "candidate",
+      "validFrom": "2026-07-13",
+      "validTo": null
+    }
+  ]
+}

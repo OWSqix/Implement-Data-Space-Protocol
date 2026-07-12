@@ -1,0 +1,76 @@
+@prefix adms: <http://www.w3.org/ns/adms#> .
+@prefix dct: <http://purl.org/dc/terms/> .
+@prefix lifecycle: <https://data.molit.go.kr/id/concept/network-lifecycle-status/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix scheme: <https://data.molit.go.kr/scheme/> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix status: <https://data.molit.go.kr/id/concept/term-status/> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+scheme:network-lifecycle-status
+    a skos:ConceptScheme ;
+    dct:issued "2026-07-13"^^xsd:date ;
+    dct:title "교통망 판 생명주기 상태"@ko,
+        "Transport-network edition lifecycle status"@en ;
+    skos:definition "교통망 판이 식별자 해석과 조인에 사용되는 생명주기 상태의 후보 분류체계."@ko,
+        "A candidate scheme for lifecycle states governing use of a transport-network edition in identifier resolution and joins."@en ;
+    skos:prefLabel "교통망 판 생명주기 상태"@ko,
+        "Transport-network edition lifecycle status"@en ;
+    skos:hasTopConcept lifecycle:candidate,
+        lifecycle:current,
+        lifecycle:superseded,
+        lifecycle:withdrawn ;
+    owl:versionInfo "1.0.0-rc.1" ;
+    adms:status status:candidate .
+
+lifecycle:candidate
+    a skos:Concept ;
+    rdfs:isDefinedBy scheme:network-lifecycle-status ;
+    skos:inScheme scheme:network-lifecycle-status ;
+    skos:prefLabel "후보 판"@ko,
+        "Candidate edition"@en ;
+    skos:definition "배포 또는 기술검토 중이며 현행 조인 기준으로 승인되지 않은 교통망 판."@ko,
+        "A network edition under distribution or technical review and not approved as the current join baseline."@en ;
+    skos:topConceptOf scheme:network-lifecycle-status ;
+    owl:versionInfo "1.0.0-rc.1" ;
+    adms:status status:candidate .
+
+lifecycle:current
+    a skos:Concept ;
+    rdfs:isDefinedBy scheme:network-lifecycle-status ;
+    skos:inScheme scheme:network-lifecycle-status ;
+    skos:prefLabel "현행 판"@ko,
+        "Current edition"@en ;
+    skos:definition "발급기관이 명시한 유효기간 안에서 식별자 해석과 조인에 사용하는 교통망 판."@ko,
+        "A network edition used for identifier resolution and joins within the validity period stated by its authority."@en ;
+    skos:topConceptOf scheme:network-lifecycle-status ;
+    owl:versionInfo "1.0.0-rc.1" ;
+    adms:status status:candidate .
+
+lifecycle:superseded
+    a skos:Concept ;
+    rdfs:isDefinedBy scheme:network-lifecycle-status ;
+    skos:inScheme scheme:network-lifecycle-status ;
+    skos:prefLabel "대체됨"@ko,
+        "Superseded"@en ;
+    skos:definition "새 판으로 대체됐지만 과거 데이터의 식별자 해석과 재현을 위해 보존하는 교통망 판."@ko,
+        "A network edition replaced by a newer edition but retained for historical identifier resolution and reproducibility."@en ;
+    skos:topConceptOf scheme:network-lifecycle-status ;
+    owl:versionInfo "1.0.0-rc.1" ;
+    adms:status status:candidate .
+
+lifecycle:withdrawn
+    a skos:Concept ;
+    rdfs:isDefinedBy scheme:network-lifecycle-status ;
+    skos:inScheme scheme:network-lifecycle-status ;
+    skos:prefLabel "철회됨"@ko,
+        "Withdrawn"@en ;
+    skos:definition "오류, 권한 또는 무결성 사유로 신규 해석과 조인에 사용하지 않는 교통망 판."@ko,
+        "A network edition not used for new resolution or joins because of error, authority or integrity grounds."@en ;
+    skos:topConceptOf scheme:network-lifecycle-status ;
+    owl:versionInfo "1.0.0-rc.1" ;
+    adms:status status:candidate .
+
+# Scheme-definition anchors.
+<https://data.molit.go.kr/scheme/network-lifecycle-status> rdfs:isDefinedBy <https://data.molit.go.kr/scheme/network-lifecycle-status> .

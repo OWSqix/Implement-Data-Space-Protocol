@@ -7,11 +7,40 @@ import jsonld from "jsonld";
 import { Parser, Store } from "n3";
 import rdfCanonize from "rdf-canonize";
 import { RdfXmlParser } from "rdfxml-streaming-parser";
+import { parseGmlPoint } from "./crs-coordinate-tuple.mjs";
+import { crsTransformationPolicy, parseWktGeometry } from "./crs-geometry.mjs";
 import { validateSupportedXsdLiteral } from "./xsd-lexical.mjs";
 
 const OWL_IMPORTS = "http://www.w3.org/2002/07/owl#imports";
 const SH_SHAPES_GRAPH = "http://www.w3.org/ns/shacl#shapesGraph";
 const DCT_CONFORMS_TO = "http://purl.org/dc/terms/conformsTo";
+const RDF_TYPE = "http://www.w3.org/1999/02/22-rdf-syntax-ns#type";
+const DCAT_DATASET = "http://www.w3.org/ns/dcat#Dataset";
+const DCT_IDENTIFIER = "http://purl.org/dc/terms/identifier";
+const DCT_PUBLISHER = "http://purl.org/dc/terms/publisher";
+const GEO_WKT_LITERAL = "http://www.opengis.net/ont/geosparql#wktLiteral";
+const GEO_GML_LITERAL = "http://www.opengis.net/ont/geosparql#gmlLiteral";
+const APPROVED_GEOMETRY_CRS = new Set(Object.keys(crsTransformationPolicy().crs));
+const SCHEMA_DOCUMENT_CLASSES = new Set([
+  "http://www.w3.org/2002/07/owl#Ontology",
+  "http://www.w3.org/2002/07/owl#Class",
+  "http://www.w3.org/2002/07/owl#ObjectProperty",
+  "http://www.w3.org/2002/07/owl#DatatypeProperty",
+  "http://www.w3.org/2002/07/owl#AnnotationProperty",
+  "http://www.w3.org/1999/02/22-rdf-syntax-ns#Property",
+  "http://www.w3.org/ns/shacl#NodeShape",
+  "http://www.w3.org/ns/shacl#PropertyShape",
+]);
+const SCHEMA_DOCUMENT_PREDICATES = new Set([
+  "http://www.w3.org/2000/01/rdf-schema#domain",
+  "http://www.w3.org/2000/01/rdf-schema#range",
+  "http://www.w3.org/2000/01/rdf-schema#subClassOf",
+  "http://www.w3.org/2000/01/rdf-schema#subPropertyOf",
+  "http://www.w3.org/2002/07/owl#equivalentClass",
+  "http://www.w3.org/2002/07/owl#equivalentProperty",
+  "http://www.w3.org/2002/07/owl#versionIRI",
+  "http://www.w3.org/2002/07/owl#versionInfo",
+]);
 const PRIVATE_PREDICATE_FRAGMENTS = [
   "approvalevidence",
   "credentialref",
@@ -1225,6 +1254,53 @@ export function scanPublicGraph(
         }
       }
       if (term.termType === "Literal") {
+        if (term.datatype?.value === GEO_WKT_LITERAL) {
+          try {
+            parseWktGeometry(term.value);
+          } catch {
+            const requirementId = predicate === "http://www.w3.org/ns/dcat#bbox"
+              || predicate === "http://www.w3.org/ns/dcat#centroid"
+              ? "MOLIT-GEO-ENCODING-003"
+              : predicate === "http://www.w3.org/ns/locn#geometry"
+                ? "MOLIT-GEO-ENCODING-004"
+                : "MOLIT-GEO-ENCODING-001";
+            add({
+              ...validationFinding({
+                focusNode: subject,
+                message: "GeoSPARQL WKT는 명시적 CRS와 승인된 2차원 geometry subset을 사용해야 한다.",
+                path: diagnosticPath,
+                value: sanitizeDiagnosticValue(term.value, 4096),
+              }),
+              requirementId,
+              sourceConstraintComponent: "urn:kr:molit:profile:BoundedWktGeometryConstraint",
+              sourceShape: "urn:kr:molit:profile:BoundedWktGeometryShape",
+            });
+          }
+        }
+        if (term.datatype?.value === GEO_GML_LITERAL) {
+          try {
+            const parsed = parseGmlPoint(term.value);
+            if (!APPROVED_GEOMETRY_CRS.has(parsed.crsIri)) throw new Error("unsupported CRS");
+          } catch {
+            const requirementId = predicate === "http://www.w3.org/ns/dcat#bbox"
+              || predicate === "http://www.w3.org/ns/dcat#centroid"
+              ? "MOLIT-GEO-ENCODING-003"
+              : predicate === "http://www.w3.org/ns/locn#geometry"
+                ? "MOLIT-GEO-ENCODING-004"
+                : "MOLIT-GEO-ENCODING-002";
+            add({
+              ...validationFinding({
+                focusNode: subject,
+                message: "GeoSPARQL GML은 승인된 CRS를 명시한 2차원 GML 3.2 Point subset이어야 한다.",
+                path: diagnosticPath,
+                value: sanitizeDiagnosticValue(term.value, 4096),
+              }),
+              requirementId,
+              sourceConstraintComponent: "urn:kr:molit:profile:BoundedGmlGeometryConstraint",
+              sourceShape: "urn:kr:molit:profile:BoundedGmlGeometryShape",
+            });
+          }
+        }
         const lexical = validateSupportedXsdLiteral(term);
         if (lexical && !lexical.valid) {
           const message = lexical.reason === "unsupported-xsd-datatype"
@@ -1263,6 +1339,63 @@ export function scanPublicGraph(
             sourceShape: "urn:kr:molit:profile:PublicPiiShape",
           });
         }
+      }
+    }
+  }
+
+  // Candidate input is an instance metadata graph. Ontologies and SHACL are
+  // supplied only through the locked support and shapes graphs. Treating a
+  // schema graph as instance data changes targeting and profile routing.
+  for (const quad of store) {
+    if (limitReached) break;
+    const schemaType = quad.predicate.value === RDF_TYPE
+      && quad.object.termType === "NamedNode"
+      && SCHEMA_DOCUMENT_CLASSES.has(quad.object.value);
+    const schemaPredicate = SCHEMA_DOCUMENT_PREDICATES.has(quad.predicate.value);
+    if (!schemaType && !schemaPredicate) continue;
+    add({
+      ...validationFinding({
+        focusNode: safeFocusNode(quad.subject),
+        message: "후보 입력에는 인스턴스 메타데이터만 넣는다. 온톨로지와 SHACL은 잠긴 support·shape graph로 분리한다.",
+        path: sanitizeDiagnosticValue(quad.predicate.value, 4096),
+        value: sanitizeDiagnosticValue(termValue(quad.object), 4096),
+      }),
+      requirementId: "MOLIT-SEM-DATASET-BOUNDARY-001",
+      sourceConstraintComponent: "urn:kr:molit:profile:ValidationDatasetBoundaryConstraint",
+      sourceShape: "urn:kr:molit:profile:ValidationDatasetBoundaryShape",
+    });
+  }
+
+  // Enforce the graph-local part of the publisher-scoped dataset key. The
+  // external registry still decides uniqueness across independently submitted
+  // graphs, but a single candidate graph may not contain a known collision.
+  const datasetSubjects = store.getSubjects(RDF_TYPE, DCAT_DATASET, null);
+  const datasetKeys = new Map();
+  for (const dataset of datasetSubjects) {
+    const publishers = store.getObjects(dataset, DCT_PUBLISHER, null)
+      .filter((term) => term.termType === "NamedNode");
+    const identifiers = store.getObjects(dataset, DCT_IDENTIFIER, null)
+      .filter((term) => term.termType === "Literal");
+    for (const publisher of publishers) {
+      for (const identifier of identifiers) {
+        const key = `${publisher.value}\u0000${identifier.value}`;
+        const previous = datasetKeys.get(key);
+        if (!previous) {
+          datasetKeys.set(key, dataset);
+          continue;
+        }
+        if (previous.equals(dataset)) continue;
+        add({
+          ...validationFinding({
+            focusNode: safeFocusNode(dataset),
+            message: "같은 발행기관 범위의 두 Dataset이 동일한 dct:identifier를 사용할 수 없다.",
+            path: DCT_IDENTIFIER,
+            value: sanitizeDiagnosticValue(identifier.value, 4096),
+          }),
+          requirementId: "MOLIT-DS-ID-UNIQUE-001",
+          sourceConstraintComponent: "urn:kr:molit:profile:PublisherDatasetKeyConstraint",
+          sourceShape: "urn:kr:molit:profile:PublisherDatasetKeyShape",
+        });
       }
     }
   }

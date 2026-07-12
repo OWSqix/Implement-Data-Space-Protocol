@@ -1,0 +1,10 @@
+PREFIX molit: <https://data.molit.go.kr/def/molit-dcat-ap#>
+SELECT ?measurement ?mapping ?sourceElement ?targetMetric ?loss ?note
+WHERE {
+  ?measurement molit:qualityMappingStatement ?mapping .
+  ?mapping a molit:QualityMappingStatement ;
+           molit:sourceQualityElement ?sourceElement ;
+           molit:qualityLossDisposition ?loss .
+  OPTIONAL { ?mapping molit:mappedQualityMetric ?targetMetric }
+  OPTIONAL { ?mapping molit:qualityLossNote ?note }
+}

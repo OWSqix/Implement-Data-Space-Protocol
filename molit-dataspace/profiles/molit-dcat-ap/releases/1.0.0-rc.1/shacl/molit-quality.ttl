@@ -1,0 +1,224 @@
+@prefix dcat: <http://www.w3.org/ns/dcat#> .
+@prefix dct: <http://purl.org/dc/terms/> .
+@prefix dqv: <http://www.w3.org/ns/dqv#> .
+@prefix metric: <https://data.molit.go.kr/id/metric/> .
+@prefix molit: <https://data.molit.go.kr/def/molit-dcat-ap#> .
+@prefix qloss: <https://data.molit.go.kr/id/concept/quality-loss-disposition/> .
+@prefix qmethod: <https://data.molit.go.kr/id/concept/quality-evaluation-method/> .
+@prefix qresult: <https://data.molit.go.kr/id/concept/quality-result-kind/> .
+@prefix quality: <https://data.molit.go.kr/id/concept/quality-status/> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix sdmx-attribute: <http://purl.org/linked-data/sdmx/2009/attribute#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#DatasetQualityStatusShape>
+    a sh:NodeShape ;
+    sh:targetClass dcat:Dataset ;
+    molit:requirementId "MOLIT-QUAL-001" ;
+    molit:controlOwner "data-quality" ;
+    sh:property [ molit:requirementId "MOLIT-QUAL-001-P-QUALITYSTATUS-001" ;
+        sh:path molit:qualityStatus ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:nodeKind sh:IRI ;
+        sh:in (
+            quality:not-assessed
+            quality:assessed
+            quality:warning
+            quality:failed
+            quality:stale
+        ) ;
+        sh:message "데이터셋에는 품질 평가 상태 IRI가 하나 있어야 한다."@ko
+    ] .
+
+<https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#QualityMeasurementShape>
+    a sh:NodeShape ;
+    sh:targetClass dqv:QualityMeasurement ;
+    molit:requirementId "MOLIT-QUAL-MEASURE-001" ;
+    molit:controlOwner "data-quality" ;
+    sh:property [ molit:requirementId "MOLIT-QUAL-MEASURE-001-P-COMPUTEDON-001" ;
+        sh:path dqv:computedOn ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:class dcat:Dataset ;
+        sh:message "품질 측정값은 측정 대상 데이터셋 하나를 가리켜야 한다."@ko
+    ], [ molit:requirementId "MOLIT-QUAL-MEASURE-001-P-ISMEASUREMENTOF-001" ;
+        sh:path dqv:isMeasurementOf ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:nodeKind sh:IRI ;
+        sh:in (
+            metric:completeness
+            metric:positional-accuracy
+            metric:temporal-accuracy
+            metric:logical-consistency
+            metric:timeliness
+        ) ;
+        sh:message "품질 측정항목은 승인된 품질 metric IRI여야 한다."@ko
+    ], [ molit:requirementId "MOLIT-QUAL-MEASURE-001-P-VALUE-001" ;
+        sh:path dqv:value ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:or (
+            [ sh:datatype xsd:decimal ]
+            [ sh:datatype xsd:double ]
+            [ sh:datatype xsd:integer ]
+        ) ;
+        sh:message "품질 측정값은 숫자 하나여야 한다."@ko
+    ], [ molit:requirementId "MOLIT-QUAL-MEASURE-001-P-UNITMEASURE-001" ;
+        sh:path sdmx-attribute:unitMeasure ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:nodeKind sh:IRI ;
+        sh:in (
+            <http://qudt.org/vocab/unit/PERCENT>
+            <http://qudt.org/vocab/unit/M>
+            <http://qudt.org/vocab/unit/SEC>
+            <http://qudt.org/vocab/unit/MIN>
+            <http://qudt.org/vocab/unit/HR>
+            <http://qudt.org/vocab/unit/DAY>
+        ) ;
+        sh:message "측정 단위는 QUDT Unit IRI를 사용해야 한다."@ko
+    ] .
+
+<https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#QualityMetricSemanticsShape>
+    a sh:NodeShape ;
+    sh:targetClass dqv:QualityMeasurement ;
+    molit:requirementId "MOLIT-QUAL-MEASURE-002" ;
+    molit:controlOwner "data-quality" ;
+    sh:or (
+        [
+            sh:property [ sh:path dqv:isMeasurementOf ; sh:hasValue metric:completeness ] ;
+            sh:property [ sh:path dqv:value ; sh:minInclusive 0 ; sh:maxInclusive 100 ] ;
+            sh:property [
+                sh:path sdmx-attribute:unitMeasure ;
+                sh:hasValue <http://qudt.org/vocab/unit/PERCENT>
+            ]
+        ]
+        [
+            sh:property [ sh:path dqv:isMeasurementOf ; sh:hasValue metric:logical-consistency ] ;
+            sh:property [ sh:path dqv:value ; sh:minInclusive 0 ; sh:maxInclusive 100 ] ;
+            sh:property [
+                sh:path sdmx-attribute:unitMeasure ;
+                sh:hasValue <http://qudt.org/vocab/unit/PERCENT>
+            ]
+        ]
+        [
+            sh:property [ sh:path dqv:isMeasurementOf ; sh:hasValue metric:positional-accuracy ] ;
+            sh:property [ sh:path dqv:value ; sh:minInclusive 0 ] ;
+            sh:property [
+                sh:path sdmx-attribute:unitMeasure ;
+                sh:hasValue <http://qudt.org/vocab/unit/M>
+            ]
+        ]
+        [
+            sh:property [ sh:path dqv:isMeasurementOf ; sh:hasValue metric:temporal-accuracy ] ;
+            sh:property [ sh:path dqv:value ; sh:minInclusive 0 ] ;
+            sh:property [
+                sh:path sdmx-attribute:unitMeasure ;
+                sh:hasValue <http://qudt.org/vocab/unit/SEC>
+            ]
+        ]
+        [
+            sh:property [ sh:path dqv:isMeasurementOf ; sh:hasValue metric:timeliness ] ;
+            sh:property [ sh:path dqv:value ; sh:minInclusive 0 ] ;
+            sh:property [
+                sh:path sdmx-attribute:unitMeasure ;
+                sh:in (
+                    <http://qudt.org/vocab/unit/SEC>
+                    <http://qudt.org/vocab/unit/MIN>
+                    <http://qudt.org/vocab/unit/HR>
+                    <http://qudt.org/vocab/unit/DAY>
+                )
+            ]
+        ]
+    ) ;
+    sh:message "품질 측정값은 측정항목별 허용 단위와 값 범위를 따라야 한다."@ko .
+
+<https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#QualityMeasurementDatasetCoherenceShape>
+    a sh:NodeShape ;
+    sh:targetClass dqv:QualityMeasurement ;
+    molit:requirementId "MOLIT-QUAL-LINK-001" ;
+    molit:controlOwner "data-quality" ;
+    sh:property [ molit:requirementId "MOLIT-QUAL-LINK-001-P-PATH-7CC75844D0-001" ;
+        sh:path [ sh:inversePath dqv:hasQualityMeasurement ] ;
+        sh:equals dqv:computedOn ;
+        sh:message "A quality measurement must be computed on exactly the dataset or datasets that link to it with dqv:hasQualityMeasurement."@en ;
+        sh:message "품질 측정값의 dqv:computedOn 집합은 해당 측정값을 dqv:hasQualityMeasurement로 연결한 데이터셋 집합과 일치해야 한다."@ko
+    ] .
+
+<https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#QualityEvaluationProvenanceShape>
+    a sh:NodeShape ;
+    sh:targetClass dqv:QualityMeasurement ;
+    molit:requirementId "MOLIT-QUAL-PROV-001" ;
+    molit:controlOwner "data-quality" ;
+    sh:property [ molit:requirementId "MOLIT-QUAL-PROV-001-P-QUALITYEVALUATIONMETHOD-001" ;
+        sh:path molit:qualityEvaluationMethod ;
+        sh:minCount 1 ; sh:maxCount 1 ; sh:nodeKind sh:IRI ;
+        sh:in ( qmethod:whole-population qmethod:sample-based qmethod:rule-based qmethod:reference-comparison qmethod:self-diagnostic ) ;
+        sh:message "State one approved quality evaluation method."@en
+    ], [ molit:requirementId "MOLIT-QUAL-PROV-001-P-QUALITYEVALUATIONSCOPE-001" ;
+        sh:path molit:qualityEvaluationScope ;
+        sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:string ; sh:minLength 1 ; sh:maxLength 2000 ;
+        sh:message "State the population, fields, time range or spatial extent evaluated by the measurement."@en
+    ], [ molit:requirementId "MOLIT-QUAL-PROV-001-P-QUALITYRESULTKIND-001" ;
+        sh:path molit:qualityResultKind ;
+        sh:minCount 1 ; sh:maxCount 1 ; sh:nodeKind sh:IRI ;
+        sh:in ( qresult:quantitative qresult:boolean qresult:categorical qresult:descriptive ) ;
+        sh:message "State the quality result kind."@en
+    ], [ molit:requirementId "MOLIT-QUAL-PROV-001-P-QUALITYMAPPINGSTATEMENT-001" ;
+        sh:path molit:qualityMappingStatement ;
+        sh:minCount 1 ; sh:maxCount 1 ;
+        sh:class molit:QualityMappingStatement ;
+        sh:message "Link each measurement to one loss-ledger entry; a DQV-native measurement records a lossless self-mapping."@en
+    ] .
+
+<https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#QualityMappingStatementShape>
+    a sh:NodeShape ;
+    sh:targetClass molit:QualityMappingStatement ;
+    molit:requirementId "MOLIT-QUAL-MAP-001" ;
+    molit:controlOwner "data-quality" ;
+    sh:property [ molit:requirementId "MOLIT-QUAL-MAP-001-P-SOURCEQUALITYELEMENT-001" ;
+        sh:path molit:sourceQualityElement ;
+        sh:minCount 1 ; sh:maxCount 1 ; sh:nodeKind sh:IRI ; sh:class skos:Concept ;
+        sh:message "Identify the source quality element."@en
+    ], [ molit:requirementId "MOLIT-QUAL-MAP-001-P-MAPPEDQUALITYMETRIC-001" ;
+        sh:path molit:mappedQualityMetric ;
+        sh:maxCount 1 ; sh:nodeKind sh:IRI ; sh:class dqv:Metric ;
+        sh:message "Identify at most one target DQV metric; unmapped and not-published entries have none."@en
+    ], [ molit:requirementId "MOLIT-QUAL-MAP-001-P-QUALITYLOSSDISPOSITION-001" ;
+        sh:path molit:qualityLossDisposition ;
+        sh:minCount 1 ; sh:maxCount 1 ; sh:nodeKind sh:IRI ;
+        sh:in ( qloss:lossless qloss:reversible-loss qloss:irreversible-loss qloss:unmapped qloss:not-published ) ;
+        sh:message "State whether the source quality result was preserved, recoverable, lost, unmapped, or withheld."@en
+    ] ;
+    sh:and (
+        [
+            sh:or (
+                [
+                    sh:property [
+                        sh:path molit:qualityLossDisposition ;
+                        sh:in ( qloss:lossless qloss:reversible-loss qloss:irreversible-loss )
+                    ] ;
+                    sh:property [ sh:path molit:mappedQualityMetric ; sh:minCount 1 ; sh:maxCount 1 ]
+                ]
+                [
+                    sh:property [
+                        sh:path molit:qualityLossDisposition ;
+                        sh:in ( qloss:unmapped qloss:not-published )
+                    ] ;
+                    sh:property [ sh:path molit:mappedQualityMetric ; sh:maxCount 0 ]
+                ]
+            ) ;
+            sh:message "Preserved or lossy mappings require one target metric; unmapped or not-published entries must not invent one."@en
+        ]
+        [
+            sh:or (
+                [ sh:property [ sh:path molit:qualityLossDisposition ; sh:hasValue qloss:lossless ] ]
+                [ sh:property [ sh:path molit:qualityLossNote ; sh:minCount 1 ; sh:maxCount 1 ; sh:datatype xsd:string ; sh:minLength 1 ] ]
+            ) ;
+            sh:message "Every non-lossless mapping must explain the lost, unmapped or unpublished information."@en
+        ]
+    ) .

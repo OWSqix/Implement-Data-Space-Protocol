@@ -1,0 +1,38 @@
+@prefix dcat: <http://www.w3.org/ns/dcat#> .
+@prefix dct: <http://purl.org/dc/terms/> .
+@prefix molit: <https://data.molit.go.kr/def/molit-dcat-ap#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+
+<https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#DataspaceOfferingCatalogProfileShape>
+    a sh:NodeShape ;
+    sh:targetClass dcat:Catalog ;
+    molit:requirementId "MOLIT-PROFILE-OFFER-001" ;
+    molit:controlOwner "metadata-governance" ;
+    sh:property [ molit:requirementId "MOLIT-PROFILE-OFFER-001-P-CONFORMSTO-001" ;
+        sh:path dct:conformsTo ;
+        sh:hasValue <https://data.molit.go.kr/profile/molit-dcat-ap/1.0.0-rc.1/dataspace-offering> ;
+        sh:qualifiedValueShape [
+            sh:nodeKind sh:IRI ;
+            sh:pattern "^https://data[.]molit[.]go[.]kr[.]?(:443)?/profile/molit-dcat-ap(/.*)?$" ;
+            sh:flags "i"
+        ] ;
+        sh:qualifiedMinCount 1 ;
+        sh:message "Catalog must declare the selected dataspace-offering release IRI as its MOLIT profile marker."@en
+    ] .
+
+<https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#DataspaceOfferingCatalogRecordProfileShape>
+    a sh:NodeShape ;
+    sh:targetClass dcat:CatalogRecord ;
+    molit:requirementId "MOLIT-PROFILE-OFFER-002" ;
+    molit:controlOwner "metadata-governance" ;
+    sh:property [ molit:requirementId "MOLIT-PROFILE-OFFER-002-P-CONFORMSTO-001" ;
+        sh:path dct:conformsTo ;
+        sh:hasValue <https://data.molit.go.kr/profile/molit-dcat-ap/1.0.0-rc.1/dataspace-offering> ;
+        sh:qualifiedValueShape [
+            sh:nodeKind sh:IRI ;
+            sh:pattern "^https://data[.]molit[.]go[.]kr[.]?(:443)?/profile/molit-dcat-ap(/.*)?$" ;
+            sh:flags "i"
+        ] ;
+        sh:qualifiedMinCount 1 ;
+        sh:message "CatalogRecord must declare the selected dataspace-offering release IRI as its MOLIT profile marker."@en
+    ] .

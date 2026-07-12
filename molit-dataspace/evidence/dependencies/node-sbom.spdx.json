@@ -10,7 +10,7 @@
   "documentDescribes": [
     "SPDXRef-Package-molit-dataspace-platform-bridge-0.1.0"
   ],
-  "documentNamespace": "https://data.molit.go.kr/sbom/node/fbf958ebccbc346e2d5fd995b30b59e4a0bbd80272a66d77d2c522cbe330bb31",
+  "documentNamespace": "https://data.molit.go.kr/sbom/node/ee5e3fba868b4dc170a8286098c30ed0289bcc8c1bede4821d7785b93c67a12f",
   "name": "molit-dataspace-platform-bridge@0.1.0",
   "packages": [
     {
@@ -1850,6 +1850,29 @@
       "versionInfo": "1.4.1"
     },
     {
+      "SPDXID": "SPDXRef-Package-mgrs-1.0.0",
+      "checksums": [
+        {
+          "algorithm": "SHA512",
+          "checksumValue": "6b035b4cea82c4ad430468da94adf1a9622cb4166037a7f1b0c4a25cbb3dfeca6a5a4176a4085bdabad80854acaf5fed4fb3e17031a3667746f125989f46f260"
+        }
+      ],
+      "downloadLocation": "https://registry.npmjs.org/mgrs/-/mgrs-1.0.0.tgz",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceLocator": "pkg:npm/mgrs@1.0.0",
+          "referenceType": "purl"
+        }
+      ],
+      "filesAnalyzed": false,
+      "homepage": "NOASSERTION",
+      "licenseDeclared": "MIT",
+      "name": "mgrs",
+      "packageFileName": "node_modules/mgrs",
+      "versionInfo": "1.0.0"
+    },
+    {
       "SPDXID": "SPDXRef-Package-micromark-4.0.2",
       "checksums": [
         {
@@ -2607,6 +2630,29 @@
       "name": "process",
       "packageFileName": "node_modules/process",
       "versionInfo": "0.11.10"
+    },
+    {
+      "SPDXID": "SPDXRef-Package-proj4-2.20.9",
+      "checksums": [
+        {
+          "algorithm": "SHA512",
+          "checksumValue": "18b046a9769371d5a7a69adede8d6c326cb80dc306486abf9e0fbd93631335d75aad12ba4af78836a96a6338b7c445eecb4ea58d8d534eb0ba1fd0b87f7eb421"
+        }
+      ],
+      "downloadLocation": "https://registry.npmjs.org/proj4/-/proj4-2.20.9.tgz",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceLocator": "pkg:npm/proj4@2.20.9",
+          "referenceType": "purl"
+        }
+      ],
+      "filesAnalyzed": false,
+      "homepage": "NOASSERTION",
+      "licenseDeclared": "MIT",
+      "name": "proj4",
+      "packageFileName": "node_modules/proj4",
+      "versionInfo": "2.20.9"
     },
     {
       "SPDXID": "SPDXRef-Package-prsc-4.0.0",
@@ -3368,6 +3414,29 @@
       "versionInfo": "5.0.0"
     },
     {
+      "SPDXID": "SPDXRef-Package-wkt-parser-1.5.5",
+      "checksums": [
+        {
+          "algorithm": "SHA512",
+          "checksumValue": "ff33188bde3fec3edfc5c3929559969fabe738c8f71aae5dd71bd58da60e4bd9fa874a8e27823b61857105661c1f5beaf7eb2e86acd7927d39631e3bcd035420"
+        }
+      ],
+      "downloadLocation": "https://registry.npmjs.org/wkt-parser/-/wkt-parser-1.5.5.tgz",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceLocator": "pkg:npm/wkt-parser@1.5.5",
+          "referenceType": "purl"
+        }
+      ],
+      "filesAnalyzed": false,
+      "homepage": "NOASSERTION",
+      "licenseDeclared": "MIT",
+      "name": "wkt-parser",
+      "packageFileName": "node_modules/wkt-parser",
+      "versionInfo": "1.5.5"
+    },
+    {
       "SPDXID": "SPDXRef-Package-xmlchars-2.2.0",
       "checksums": [
         {
@@ -3490,6 +3559,11 @@
       "relatedSpdxElement": "SPDXRef-Package-molit-dataspace-platform-bridge-0.1.0",
       "relationshipType": "DEPENDENCY_OF",
       "spdxElementId": "SPDXRef-Package-n3-2.1.1"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-molit-dataspace-platform-bridge-0.1.0",
+      "relationshipType": "DEPENDENCY_OF",
+      "spdxElementId": "SPDXRef-Package-proj4-2.20.9"
     },
     {
       "relatedSpdxElement": "SPDXRef-Package-molit-dataspace-platform-bridge-0.1.0",
@@ -4540,6 +4614,16 @@
       "relatedSpdxElement": "SPDXRef-Package-parse5-8.0.1",
       "relationshipType": "DEPENDENCY_OF",
       "spdxElementId": "SPDXRef-Package-entities-8.0.0"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-proj4-2.20.9",
+      "relationshipType": "DEPENDENCY_OF",
+      "spdxElementId": "SPDXRef-Package-mgrs-1.0.0"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-proj4-2.20.9",
+      "relationshipType": "DEPENDENCY_OF",
+      "spdxElementId": "SPDXRef-Package-wkt-parser-1.5.5"
     },
     {
       "relatedSpdxElement": "SPDXRef-Package-rdf-canonize-5.0.0",

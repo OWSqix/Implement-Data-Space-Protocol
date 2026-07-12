@@ -1,0 +1,9 @@
+PREFIX molit: <https://data.molit.go.kr/def/molit-dcat-ap#>
+PREFIX lifecycle: <https://data.molit.go.kr/id/concept/network-lifecycle-status/>
+SELECT ?dataset ?edition ?checksum
+WHERE {
+  ?dataset molit:networkReference ?reference .
+  ?reference molit:networkVersion ?edition ;
+             molit:networkSnapshotChecksum ?checksum ;
+             molit:networkLifecycleStatus lifecycle:superseded .
+}

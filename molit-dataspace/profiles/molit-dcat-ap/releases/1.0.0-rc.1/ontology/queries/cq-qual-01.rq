@@ -1,0 +1,11 @@
+PREFIX dqv: <http://www.w3.org/ns/dqv#>
+PREFIX molit: <https://data.molit.go.kr/def/molit-dcat-ap#>
+SELECT ?measurement ?metric ?value ?method ?scope ?resultKind
+WHERE {
+  ?measurement a dqv:QualityMeasurement ;
+               dqv:isMeasurementOf ?metric ;
+               dqv:value ?value ;
+               molit:qualityEvaluationMethod ?method ;
+               molit:qualityEvaluationScope ?scope ;
+               molit:qualityResultKind ?resultKind .
+}

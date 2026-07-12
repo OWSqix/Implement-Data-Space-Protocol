@@ -1,0 +1,7 @@
+PREFIX molit: <https://data.molit.go.kr/def/molit-dcat-ap#>
+SELECT ?dataset ?policy ?method
+WHERE {
+  ?dataset a molit:ObservationDataset ;
+           molit:missingValuePolicy ?policy ;
+           molit:observationAggregation ?method .
+}

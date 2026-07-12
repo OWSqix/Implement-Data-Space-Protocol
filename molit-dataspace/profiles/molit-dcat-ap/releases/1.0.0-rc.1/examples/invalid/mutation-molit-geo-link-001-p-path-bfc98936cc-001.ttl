@@ -1,0 +1,144 @@
+@prefix adms: <http://www.w3.org/ns/adms#>.
+@prefix dcat: <http://www.w3.org/ns/dcat#>.
+@prefix dcatap: <http://data.europa.eu/r5r/>.
+@prefix dct: <http://purl.org/dc/terms/>.
+@prefix dqv: <http://www.w3.org/ns/dqv#>.
+@prefix ex: <https://data.molit.go.kr/id/example/>.
+@prefix foaf: <http://xmlns.com/foaf/0.1/>.
+@prefix geodcatap: <http://data.europa.eu/930/>.
+@prefix geo: <http://www.opengis.net/ont/geosparql#>.
+@prefix locn: <http://www.w3.org/ns/locn#>.
+@prefix metric: <https://data.molit.go.kr/id/metric/>.
+@prefix mobilitydcatap: <https://w3id.org/mobilitydcat-ap#>.
+@prefix molit: <https://data.molit.go.kr/def/molit-dcat-ap#>.
+@prefix molit-domain: <https://data.molit.go.kr/id/concept/domain/>.
+@prefix net: <https://data.molit.go.kr/id/concept/network-element-type/>.
+@prefix prov: <http://www.w3.org/ns/prov#>.
+@prefix quality: <https://data.molit.go.kr/id/concept/quality-status/>.
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
+@prefix sdmx-attribute: <http://purl.org/linked-data/sdmx/2009/attribute#>.
+@prefix skos: <http://www.w3.org/2004/02/skos/core#>.
+@prefix spdx: <http://spdx.org/rdf/terms#>.
+@prefix vcard: <http://www.w3.org/2006/vcard/ns#>.
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#>.
+
+ex:catalog a dcat:Catalog;
+    dct:title "국토교통 데이터 스페이스 카탈로그 예시"@ko, "MOLIT dataspace catalogue example"@en;
+    dct:description "도로망 스냅샷의 표준 메타데이터 예시를 제공한다."@ko, "Provides a standards-oriented metadata example for a road-network snapshot."@en;
+    dct:publisher ex:molit;
+    dct:language <http://publications.europa.eu/resource/authority/language/KOR>;
+    dct:license <https://creativecommons.org/licenses/by/4.0/>;
+    dct:issued "2026-07-12"^^xsd:date;
+    dct:modified "2026-07-12"^^xsd:date;
+    dct:conformsTo <https://data.molit.go.kr/profile/molit-dcat-ap/1.0.0-rc.1/geo>;
+    foaf:homepage <https://data.molit.go.kr/>;
+    dcat:themeTaxonomy <http://publications.europa.eu/resource/authority/data-theme>, <https://data.molit.go.kr/scheme/domain>;
+    dcat:record ex:record-road-network;
+    dcat:dataset ex:road-network;
+    molit:spatialDisclosureLevel <https://data.molit.go.kr/id/concept/spatial-disclosure-level/generalized>.
+ex:molit a foaf:Agent;
+    dct:identifier "MOLIT";
+    dct:type <http://purl.org/adms/publishertype/NationalAuthority>;
+    foaf:name "국토교통부"@ko, "Ministry of Land, Infrastructure and Transport"@en.
+<https://creativecommons.org/licenses/by/4.0/> a dct:LicenseDocument;
+    dct:type <http://purl.org/adms/licencetype/Attribution>.
+ex:republic-of-korea a dct:Location;
+    dcat:bbox "<http://www.opengis.net/def/crs/OGC/1.3/CRS84> POLYGON((124 33,132 33,132 39,124 39,124 33))"^^geo:wktLiteral;
+    dcat:centroid "<http://www.opengis.net/def/crs/OGC/1.3/CRS84> POINT(128 36)"^^geo:wktLiteral;
+    locn:geometry ex:republic-of-korea-geometry.
+<https://data.molit.go.kr/> a foaf:Document.
+ex:record-road-network a dcat:CatalogRecord;
+    dct:title "전국 도로 노드·링크 메타데이터 레코드"@ko;
+    dct:language <http://publications.europa.eu/resource/authority/language/KOR>;
+    dct:issued "2026-07-12"^^xsd:date;
+    dct:modified "2026-07-12T09:00:00+09:00"^^xsd:dateTime;
+    dct:conformsTo <https://data.molit.go.kr/profile/molit-dcat-ap/1.0.0-rc.1/geo>;
+    adms:status <http://purl.org/adms/changetype/Updated>;
+    foaf:primaryTopic ex:road-network.
+ex:road-network a dcat:Dataset, dcat:Resource, molit:NetworkDataset, molit:SpatialDataset;
+    dct:title "전국 도로 노드·링크 스냅샷"@ko, "National road node-link snapshot"@en;
+    dct:description "2026년 7월 기준 도로 노드와 링크의 식별자, 연결 관계와 위치를 제공한다."@ko, "Provides road node and link identifiers, connectivity and location as of July 2026."@en;
+    dct:publisher ex:road-data-office;
+    dct:issued "2026-07-01"^^xsd:date;
+    dct:modified "2026-07-11T23:00:00+09:00"^^xsd:dateTime;
+    molit:spatialDisclosureLevel <https://data.molit.go.kr/id/concept/spatial-disclosure-level/generalized>;
+    dct:identifier "molit-road-network-2026-07";
+    dct:accrualPeriodicity <http://publications.europa.eu/resource/authority/frequency/MONTHLY>;
+    dct:accessRights <http://publications.europa.eu/resource/authority/access-right/PUBLIC>;
+    dct:temporal ex:period-2026-07;
+    dct:provenance ex:road-network-provenance;
+    geodcatap:referenceSystem <http://www.opengis.net/def/crs/OGC/1.3/CRS84>;
+    dcat:theme <http://publications.europa.eu/resource/authority/data-theme/TRAN>, molit-domain:road;
+    dcat:keyword "도로"@ko, "노드"@ko, "링크"@ko;
+    dcat:contactPoint ex:road-data-contact;
+    dcat:landingPage <https://data.molit.go.kr/dataset/road-network-2026-07>;
+    dcat:spatialResolutionInMeters 1.0;
+    dcat:distribution ex:road-network-csv;
+    dqv:hasQualityMeasurement ex:road-network-completeness;
+    mobilitydcatap:transportMode <https://w3id.org/mobilitydcat-ap/transport-mode/car>, <https://w3id.org/mobilitydcat-ap/transport-mode/bus>, <https://w3id.org/mobilitydcat-ap/transport-mode/truck>;
+    molit:networkReference ex:standard-node-link-2026-07;
+    molit:qualityStatus quality:assessed.
+ex:republic-of-korea-geometry a locn:Geometry;
+    geo:asGML "<gml:Point srsName=\"http://www.opengis.net/def/crs/OGC/1.3/CRS84\" xmlns:gml=\"http://www.opengis.net/gml/3.2\"><gml:pos>128 36</gml:pos></gml:Point>"^^geo:gmlLiteral;
+    geo:asWKT "<http://www.opengis.net/def/crs/OGC/1.3/CRS84> POLYGON((124 33,132 33,132 39,124 39,124 33))"^^geo:wktLiteral.
+ex:road-data-office a foaf:Agent;
+    dct:identifier "MOLIT-ROAD-DATA-OFFICE";
+    dct:type <http://purl.org/adms/publishertype/NationalAuthority>;
+    foaf:name "도로 데이터 담당기관"@ko.
+ex:period-2026-07 a dct:PeriodOfTime;
+    dcat:startDate "2026-07-01"^^xsd:date;
+    dcat:endDate "2026-07-31"^^xsd:date.
+ex:road-network-provenance a dct:ProvenanceStatement;
+    dct:description "도로 데이터 담당기관의 2026년 7월 승인 스냅샷에서 변환했다."@ko.
+<http://www.opengis.net/def/crs/OGC/1.3/CRS84> a dct:Standard, skos:Concept;
+    dct:type <http://inspire.ec.europa.eu/glossary/SpatialReferenceSystem>.
+ex:road-data-contact a vcard:Kind;
+    vcard:fn "도로 데이터 담당부서"@ko;
+    vcard:hasEmail <mailto:road-data@data.molit.go.kr>.
+<https://data.molit.go.kr/dataset/road-network-2026-07> a foaf:Document.
+ex:road-network-csv a dcat:Distribution;
+    dct:title "전국 도로 노드·링크 CSV 배포본"@ko;
+    dct:description "계약 완료 뒤 CSV 스냅샷으로 전달하는 배포본이다."@ko;
+    dct:license <https://creativecommons.org/licenses/by/4.0/>;
+    dct:issued "2026-07-12"^^xsd:date;
+    dct:conformsTo <https://www.rfc-editor.org/rfc/rfc4180>;
+    dct:format <http://publications.europa.eu/resource/authority/file-type/CSV>;
+    dcat:accessURL <https://data.molit.go.kr/dataset/road-network-2026-07/access>;
+    dcat:downloadURL <https://data.molit.go.kr/dataset/road-network-2026-07/download>;
+    dcat:accessService ex:connector-service;
+    dcat:mediaType <https://www.iana.org/assignments/media-types/text/csv>;
+    dcatap:availability <http://publications.europa.eu/resource/authority/planned-availability/STABLE>;
+    spdx:checksum ex:road-network-sha256.
+ex:road-network-completeness a dqv:QualityMeasurement;
+    dqv:computedOn ex:road-network;
+    dqv:isMeasurementOf metric:completeness;
+    dqv:value 99.5;
+    sdmx-attribute:unitMeasure <http://qudt.org/vocab/unit/PERCENT>.
+ex:standard-node-link-2026-07 a molit:NetworkReference;
+    molit:networkAuthority ex:road-data-office;
+    molit:networkIdentifier "MOLIT-STANDARD-NODE-LINK";
+    molit:networkVersion "2026-07";
+    molit:networkElementType net:node, net:link.
+<https://www.rfc-editor.org/rfc/rfc4180> a dct:Standard.
+<https://data.molit.go.kr/dataset/road-network-2026-07/access> a rdfs:Resource.
+<https://data.molit.go.kr/dataset/road-network-2026-07/download> a rdfs:Resource.
+ex:connector-service a dcat:DataService;
+    dct:title "국토교통 데이터 스페이스 제공자 커넥터"@ko;
+    dct:description "계약 협상과 전송 절차를 제공하는 공개 서비스 기술이다."@ko;
+    dct:publisher ex:road-data-office;
+    dct:conformsTo <https://eclipse-dataspace-protocol-base.github.io/DataspaceProtocol/2025-1-err1/>;
+    dct:accessRights <http://publications.europa.eu/resource/authority/access-right/PUBLIC>;
+    dcat:theme <http://publications.europa.eu/resource/authority/data-theme/TRAN>, molit-domain:road;
+    dcat:keyword "데이터 스페이스 제공 서비스"@ko;
+    dcat:contactPoint ex:road-data-contact;
+    dcat:endpointURL <https://connector.data.molit.go.kr/api/dsp>;
+    dcat:endpointDescription <https://connector.data.molit.go.kr/openapi/dsp.json>;
+    dcat:servesDataset ex:road-network.
+<https://www.iana.org/assignments/media-types/text/csv> a dct:MediaType.
+ex:road-network-sha256 a spdx:Checksum;
+    spdx:algorithm spdx:checksumAlgorithm_sha256;
+    spdx:checksumValue "8f9b1f8e7f0833dfc5b9ce0b3a7a53bd6c74e0d13f27a5b4b82fe2d271d6a7de"^^xsd:hexBinary.
+<https://eclipse-dataspace-protocol-base.github.io/DataspaceProtocol/2025-1-err1/> a dct:Standard.
+<https://connector.data.molit.go.kr/api/dsp> a rdfs:Resource.
+<https://connector.data.molit.go.kr/openapi/dsp.json> a rdfs:Resource.
+spdx:checksumAlgorithm_sha256 a spdx:ChecksumAlgorithm.

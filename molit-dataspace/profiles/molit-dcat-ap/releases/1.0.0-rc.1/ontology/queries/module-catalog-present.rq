@@ -1,0 +1,2 @@
+﻿PREFIX dcat: <http://www.w3.org/ns/dcat#>
+ASK WHERE { ?catalog a dcat:Catalog }

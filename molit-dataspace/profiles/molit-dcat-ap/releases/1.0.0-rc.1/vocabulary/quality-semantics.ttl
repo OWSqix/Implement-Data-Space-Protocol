@@ -1,0 +1,134 @@
+@prefix adms: <http://www.w3.org/ns/adms#> .
+@prefix dct: <http://purl.org/dc/terms/> .
+@prefix loss: <https://data.molit.go.kr/id/concept/quality-loss-disposition/> .
+@prefix method: <https://data.molit.go.kr/id/concept/quality-evaluation-method/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix result: <https://data.molit.go.kr/id/concept/quality-result-kind/> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix scheme: <https://data.molit.go.kr/scheme/> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix status: <https://data.molit.go.kr/id/concept/term-status/> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+scheme:quality-evaluation-method
+    a skos:ConceptScheme ;
+    dct:issued "2026-07-13"^^xsd:date ;
+    dct:title "품질 평가 방법 유형"@ko,
+        "Quality evaluation method types"@en ;
+    skos:definition "품질 측정값을 산출한 방법의 일반 유형을 구분하는 후보 분류체계. 실제 알고리즘, 표본설계와 매개변수는 판이 있는 별도 방법 문서로 기록한다."@ko,
+        "A candidate scheme distinguishing general types of methods used to produce quality measurements. Actual algorithms, sample designs and parameters are recorded in a separate versioned method document."@en ;
+    skos:prefLabel "품질 평가 방법 유형"@ko,
+        "Quality evaluation method types"@en ;
+    skos:hasTopConcept method:whole-population,
+        method:sample-based,
+        method:rule-based,
+        method:reference-comparison,
+        method:self-diagnostic ;
+    owl:versionInfo "1.0.0-rc.1" ; adms:status status:candidate .
+
+method:whole-population
+    a skos:Concept ; rdfs:isDefinedBy scheme:quality-evaluation-method ; skos:inScheme scheme:quality-evaluation-method ;
+    skos:prefLabel "전수 평가"@ko, "Whole-population evaluation"@en ;
+    skos:definition "명시된 평가 범위의 모든 레코드 또는 요소에 평가규칙을 적용한 방법."@ko, "A method applying evaluation rules to every record or element in the stated evaluation scope."@en ;
+    skos:topConceptOf scheme:quality-evaluation-method ; owl:versionInfo "1.0.0-rc.1" ; adms:status status:candidate .
+
+method:sample-based
+    a skos:Concept ; rdfs:isDefinedBy scheme:quality-evaluation-method ; skos:inScheme scheme:quality-evaluation-method ;
+    skos:prefLabel "표본 평가"@ko, "Sample-based evaluation"@en ;
+    skos:definition "모집단에서 명시된 표본설계로 추출한 일부 레코드 또는 요소를 평가한 방법."@ko, "A method evaluating a subset of records or elements selected from a population by a stated sample design."@en ;
+    skos:topConceptOf scheme:quality-evaluation-method ; owl:versionInfo "1.0.0-rc.1" ; adms:status status:candidate .
+
+method:rule-based
+    a skos:Concept ; rdfs:isDefinedBy scheme:quality-evaluation-method ; skos:inScheme scheme:quality-evaluation-method ;
+    skos:prefLabel "규칙 기반 평가"@ko, "Rule-based evaluation"@en ;
+    skos:definition "schema, 무결성 규칙 또는 도메인 제약의 통과 여부를 계산한 방법."@ko, "A method calculating conformance with schema, integrity rules or domain constraints."@en ;
+    skos:topConceptOf scheme:quality-evaluation-method ; owl:versionInfo "1.0.0-rc.1" ; adms:status status:candidate .
+
+method:reference-comparison
+    a skos:Concept ; rdfs:isDefinedBy scheme:quality-evaluation-method ; skos:inScheme scheme:quality-evaluation-method ;
+    skos:prefLabel "기준자료 비교"@ko, "Reference comparison"@en ;
+    skos:definition "판과 신뢰수준이 명시된 기준자료에 관측 또는 제공값을 비교한 방법."@ko, "A method comparing observed or supplied values with reference data having a stated edition and confidence level."@en ;
+    skos:topConceptOf scheme:quality-evaluation-method ; owl:versionInfo "1.0.0-rc.1" ; adms:status status:candidate .
+
+method:self-diagnostic
+    a skos:Concept ; rdfs:isDefinedBy scheme:quality-evaluation-method ; skos:inScheme scheme:quality-evaluation-method ;
+    skos:prefLabel "자체 진단"@ko, "Self-diagnostic"@en ;
+    skos:definition "센서, 장비 또는 원천시스템이 제공한 자체 상태와 진단 결과를 사용한 방법."@ko, "A method using health and diagnostic results supplied by a sensor, device or source system itself."@en ;
+    skos:topConceptOf scheme:quality-evaluation-method ; owl:versionInfo "1.0.0-rc.1" ; adms:status status:candidate .
+
+scheme:quality-result-kind
+    a skos:ConceptScheme ;
+    dct:issued "2026-07-13"^^xsd:date ;
+    dct:title "품질 결과 유형"@ko, "Quality result kinds"@en ;
+    skos:definition "품질 결과의 값 표현 유형을 구분하는 후보 분류체계."@ko, "A candidate scheme distinguishing value-representation kinds for quality results."@en ;
+    skos:prefLabel "품질 결과 유형"@ko, "Quality result kinds"@en ;
+    skos:hasTopConcept result:quantitative, result:boolean, result:categorical, result:descriptive ;
+    owl:versionInfo "1.0.0-rc.1" ; adms:status status:candidate .
+
+result:quantitative
+    a skos:Concept ; rdfs:isDefinedBy scheme:quality-result-kind ; skos:inScheme scheme:quality-result-kind ;
+    skos:prefLabel "수치 결과"@ko, "Quantitative result"@en ;
+    skos:definition "단위와 함께 해석하는 수치 품질 결과."@ko, "A numeric quality result interpreted together with a unit."@en ;
+    skos:topConceptOf scheme:quality-result-kind ; owl:versionInfo "1.0.0-rc.1" ; adms:status status:candidate .
+
+result:boolean
+    a skos:Concept ; rdfs:isDefinedBy scheme:quality-result-kind ; skos:inScheme scheme:quality-result-kind ;
+    skos:prefLabel "논리 결과"@ko, "Boolean result"@en ;
+    skos:definition "명시된 조건의 참 또는 거짓으로 표현한 품질 결과."@ko, "A quality result represented as true or false for a stated condition."@en ;
+    skos:topConceptOf scheme:quality-result-kind ; owl:versionInfo "1.0.0-rc.1" ; adms:status status:candidate .
+
+result:categorical
+    a skos:Concept ; rdfs:isDefinedBy scheme:quality-result-kind ; skos:inScheme scheme:quality-result-kind ;
+    skos:prefLabel "범주 결과"@ko, "Categorical result"@en ;
+    skos:definition "승인된 코드 또는 등급 분류에서 선택한 품질 결과."@ko, "A quality result selected from an approved code or grade classification."@en ;
+    skos:topConceptOf scheme:quality-result-kind ; owl:versionInfo "1.0.0-rc.1" ; adms:status status:candidate .
+
+result:descriptive
+    a skos:Concept ; rdfs:isDefinedBy scheme:quality-result-kind ; skos:inScheme scheme:quality-result-kind ;
+    skos:prefLabel "서술 결과"@ko, "Descriptive result"@en ;
+    skos:definition "구조화된 수치나 코드로 축약하지 않은 설명형 품질 결과."@ko, "A narrative quality result not reduced to a structured number or code."@en ;
+    skos:topConceptOf scheme:quality-result-kind ; owl:versionInfo "1.0.0-rc.1" ; adms:status status:candidate .
+
+scheme:quality-loss-disposition
+    a skos:ConceptScheme ;
+    dct:issued "2026-07-13"^^xsd:date ;
+    dct:title "품질 매핑 손실 처리"@ko, "Quality mapping loss dispositions"@en ;
+    skos:definition "원천 품질 요소를 DQV projection으로 변환할 때의 정보 보존과 역변환 상태를 구분하는 후보 분류체계."@ko, "A candidate scheme distinguishing information preservation and reversibility when a source quality element is projected to DQV."@en ;
+    skos:prefLabel "품질 매핑 손실 처리"@ko, "Quality mapping loss dispositions"@en ;
+    skos:hasTopConcept loss:lossless, loss:reversible-loss, loss:irreversible-loss, loss:unmapped, loss:not-published ;
+    owl:versionInfo "1.0.0-rc.1" ; adms:status status:candidate .
+
+loss:lossless
+    a skos:Concept ; rdfs:isDefinedBy scheme:quality-loss-disposition ; skos:inScheme scheme:quality-loss-disposition ;
+    skos:prefLabel "무손실"@ko, "Lossless"@en ;
+    skos:definition "원천 의미와 값을 대상 표현에서 모두 보존해 승인된 역변환이 가능한 매핑."@ko, "A mapping preserving source meaning and value in the target representation with an approved reverse mapping."@en ;
+    skos:topConceptOf scheme:quality-loss-disposition ; owl:versionInfo "1.0.0-rc.1" ; adms:status status:candidate .
+
+loss:reversible-loss
+    a skos:Concept ; rdfs:isDefinedBy scheme:quality-loss-disposition ; skos:inScheme scheme:quality-loss-disposition ;
+    skos:prefLabel "별도 원문으로 복원 가능"@ko, "Reversible with retained source"@en ;
+    skos:definition "대상 projection은 일부 의미를 생략하지만 보존한 원문과 loss ledger로 복원할 수 있는 매핑."@ko, "A mapping whose target projection omits some meaning that can be restored from retained source content and a loss ledger."@en ;
+    skos:topConceptOf scheme:quality-loss-disposition ; owl:versionInfo "1.0.0-rc.1" ; adms:status status:candidate .
+
+loss:irreversible-loss
+    a skos:Concept ; rdfs:isDefinedBy scheme:quality-loss-disposition ; skos:inScheme scheme:quality-loss-disposition ;
+    skos:prefLabel "비가역 손실"@ko, "Irreversible loss"@en ;
+    skos:definition "대상 projection에서 원천 의미 또는 값을 복원할 수 없는 매핑."@ko, "A mapping from whose target projection the source meaning or value cannot be reconstructed."@en ;
+    skos:topConceptOf scheme:quality-loss-disposition ; owl:versionInfo "1.0.0-rc.1" ; adms:status status:candidate .
+
+loss:unmapped
+    a skos:Concept ; rdfs:isDefinedBy scheme:quality-loss-disposition ; skos:inScheme scheme:quality-loss-disposition ;
+    skos:prefLabel "미매핑"@ko, "Unmapped"@en ;
+    skos:definition "대상 품질 측정항목을 정하지 못해 원천 요소를 projection하지 않은 상태."@ko, "A state in which the source element is not projected because no target quality metric has been determined."@en ;
+    skos:topConceptOf scheme:quality-loss-disposition ; owl:versionInfo "1.0.0-rc.1" ; adms:status status:candidate .
+
+loss:not-published
+    a skos:Concept ; rdfs:isDefinedBy scheme:quality-loss-disposition ; skos:inScheme scheme:quality-loss-disposition ;
+    skos:prefLabel "게시 제외"@ko, "Not published"@en ;
+    skos:definition "보안, 권리 또는 공개정책에 따라 원천 요소를 공개 projection에서 제외한 상태."@ko, "A state in which the source element is excluded from the public projection under security, rights or publication policy."@en ;
+    skos:topConceptOf scheme:quality-loss-disposition ; owl:versionInfo "1.0.0-rc.1" ; adms:status status:candidate .
+
+# Scheme-definition anchors.
+<https://data.molit.go.kr/scheme/quality-evaluation-method> rdfs:isDefinedBy <https://data.molit.go.kr/scheme/quality-evaluation-method> .
+<https://data.molit.go.kr/scheme/quality-result-kind> rdfs:isDefinedBy <https://data.molit.go.kr/scheme/quality-result-kind> .
+<https://data.molit.go.kr/scheme/quality-loss-disposition> rdfs:isDefinedBy <https://data.molit.go.kr/scheme/quality-loss-disposition> .

@@ -1,0 +1,140 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://data.molit.go.kr/schema/publication-check-report.v1.schema.json",
+  "title": "MOLIT composite publication-check report v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "validatedAt",
+    "decisionDigest",
+    "input",
+    "profileVersion",
+    "profiles",
+    "summary",
+    "authority",
+    "reports"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "const": "molit.publication-check-report/1"
+    },
+    "validatedAt": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "decisionDigest": {
+      "type": "string",
+      "pattern": "^sha256:[0-9a-f]{64}$"
+    },
+    "input": {
+      "$ref": "https://data.molit.go.kr/schema/shacl-validation-report.v1.schema.json#/properties/input"
+    },
+    "profileVersion": {
+      "type": "string",
+      "pattern": "^[0-9]+[.][0-9]+[.][0-9]+(?:-[0-9A-Za-z.-]+)?$"
+    },
+    "profiles": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["conformance", "publicationPolicy"],
+      "properties": {
+        "conformance": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 100
+        },
+        "publicationPolicy": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 100
+        }
+      }
+    },
+    "summary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "conformanceGatePassed",
+        "counts",
+        "gatePassed",
+        "publicationPolicyGatePassed",
+        "resultCount"
+      ],
+      "properties": {
+        "conformanceGatePassed": { "type": "boolean" },
+        "counts": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["Info", "Violation", "Warning"],
+          "properties": {
+            "Info": { "type": "integer", "minimum": 0, "maximum": 1000 },
+            "Violation": { "type": "integer", "minimum": 0, "maximum": 1000 },
+            "Warning": { "type": "integer", "minimum": 0, "maximum": 1000 }
+          }
+        },
+        "gatePassed": { "type": "boolean" },
+        "publicationPolicyGatePassed": { "type": "boolean" },
+        "resultCount": { "type": "integer", "minimum": 0, "maximum": 1000 }
+      }
+    },
+    "authority": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["publicationAuthorized", "reasons", "validationScope"],
+      "properties": {
+        "publicationAuthorized": { "const": false },
+        "reasons": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 40,
+          "items": { "type": "string", "minLength": 1, "maxLength": 220 }
+        },
+        "validationScope": {
+          "const": "composite-technical-conformance-and-publication-policy"
+        }
+      }
+    },
+    "reports": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["conformance", "publicationPolicy"],
+      "properties": {
+        "conformance": {
+          "allOf": [
+            { "$ref": "https://data.molit.go.kr/schema/shacl-validation-report.v1.schema.json" },
+            {
+              "type": "object",
+              "properties": {
+                "profile": {
+                  "type": "object",
+                  "properties": {
+                    "gate": { "const": "violation" },
+                    "kind": { "const": "conformance" }
+                  }
+                }
+              }
+            }
+          ]
+        },
+        "publicationPolicy": {
+          "allOf": [
+            { "$ref": "https://data.molit.go.kr/schema/shacl-validation-report.v1.schema.json" },
+            {
+              "type": "object",
+              "properties": {
+                "profile": {
+                  "type": "object",
+                  "properties": {
+                    "gate": { "const": "warning" },
+                    "kind": { "const": "validation-policy" }
+                  }
+                }
+              }
+            }
+          ]
+        }
+      }
+    }
+  }
+}

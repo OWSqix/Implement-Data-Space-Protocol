@@ -125,29 +125,73 @@ export async function evaluateReleaseGate() {
   };
 }
 
-async function main() {
-  if (process.argv.length !== 2) throw new Error("release-gate status accepts no arguments");
+async function legacyMain() {
   const report = await evaluateReleaseGate();
   process.stdout.write(`${JSON.stringify(report, null, 2)}\n`);
   process.exitCode = report.releaseEligible ? 0 : 2;
 }
 
-if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
+function selectedVersion(argv) {
+  if (argv.length !== 2 || argv[0] !== "--version" || !argv[1]) {
+    const error = new Error(
+      "release-gate accepts either no arguments or --version <semantic-version>",
+    );
+    error.code = "INVALID_ARGUMENTS";
+    throw error;
+  }
+  return argv[1];
+}
+
+async function v2Main(argv) {
+  const version = selectedVersion(argv);
+  if (version === "0.1.0") {
+    await legacyMain();
+    return;
+  }
+  const {
+    evaluateReleaseGateV2,
+    invalidV2Report,
+    releaseGateV2ExitCode,
+  } = await import("./release-gate-v2.mjs");
   try {
-    await main();
+    const report = await evaluateReleaseGateV2(version);
+    process.stdout.write(`${JSON.stringify(report, null, 2)}\n`);
+    process.exitCode = releaseGateV2ExitCode(report);
   } catch (error) {
-    process.stdout.write(`${JSON.stringify({
-      blockers: [{
-        id: "RELEASE-GATE-INPUT",
-        source: "release-gate",
-        status: "invalid-or-unreadable",
-      }],
-      decision: "indeterminate",
-      reason: error.message,
-      releaseEligible: false,
-      schemaVersion: "molit.release-gate-status/1",
-      targetLane: "win32-x64",
-    }, null, 2)}\n`);
-    process.exitCode = 2;
+    const report = invalidV2Report(version, error);
+    process.stdout.write(`${JSON.stringify(report, null, 2)}\n`);
+    process.exitCode = 1;
+  }
+}
+
+if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
+  const argv = process.argv.slice(2);
+  if (argv.length === 0) {
+    try {
+      await legacyMain();
+    } catch (error) {
+      process.stdout.write(`${JSON.stringify({
+        blockers: [{
+          id: "RELEASE-GATE-INPUT",
+          source: "release-gate",
+          status: "invalid-or-unreadable",
+        }],
+        decision: "indeterminate",
+        reason: error.message,
+        releaseEligible: false,
+        schemaVersion: "molit.release-gate-status/1",
+        targetLane: "win32-x64",
+      }, null, 2)}\n`);
+      process.exitCode = 2;
+    }
+  } else {
+    try {
+      await v2Main(argv);
+    } catch (error) {
+      const version = argv[0] === "--version" ? argv[1] : null;
+      const { invalidV2Report } = await import("./release-gate-v2.mjs");
+      process.stdout.write(`${JSON.stringify(invalidV2Report(version, error), null, 2)}\n`);
+      process.exitCode = 1;
+    }
   }
 }

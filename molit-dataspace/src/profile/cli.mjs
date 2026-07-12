@@ -8,22 +8,34 @@ import {
   writeFile,
 } from "node:fs/promises";
 import path from "node:path";
-import { randomUUID } from "node:crypto";
+import { createHash, randomUUID } from "node:crypto";
+import { fileURLToPath } from "node:url";
 import {
+  computeBundleDigest,
+  isPublicationProfile,
   loadProfileRelease,
+  profileVersionEnvironmentVariable,
   publicProfileSummary,
+  resolveProfileVersion,
+  selectPublicationCheckPlan,
+  selectValidationProfile,
   verifyArtifactLock,
 } from "./registry.mjs";
 import { assertLocalFilesystemPath } from "./local-path.mjs";
-import { validateProfileDocument } from "./validator.mjs";
+import { assertPublicationCheckReport } from "./report-contract.mjs";
+import { validateProfileDocumentIsolated } from "./isolated-validator.mjs";
 
 function usage() {
   return [
     "Usage:",
-    "  node src/profile/cli.mjs list [--version 0.1.0]",
-    "  node src/profile/cli.mjs verify [--version 0.1.0]",
-    "  node src/profile/cli.mjs validate --input FILE [--profile core] [--version 0.1.0] [--report FILE]",
-    "  node src/profile/cli.mjs publish-check --input FILE --profile core-publication|geo-publication [--version 0.1.0] [--report FILE]",
+    "  node src/profile/cli.mjs list [--version VERSION]",
+    "  node src/profile/cli.mjs verify [--version VERSION]",
+    "  node src/profile/cli.mjs validate --input FILE [--profile PROFILE] [--version VERSION] [--report FILE]",
+    "  node src/profile/cli.mjs publish-check --input FILE --profile PROFILE [--version VERSION] [--report FILE]",
+    "",
+    "For manifest v2, publish-check PROFILE is a conformance module; its publication policy is added automatically.",
+    "For manifest v1, publish-check PROFILE is the legacy publication profile.",
+    `If --version is omitted, ${profileVersionEnvironmentVariable} selects the release.`,
   ].join("\n");
 }
 
@@ -44,7 +56,8 @@ function parseArguments(argv) {
       throw error;
     }
     const name = flag.slice(2);
-    if (!["input", "profile", "report", "version"].includes(name) || options[name]) {
+    if (!["input", "profile", "report", "version"].includes(name)
+      || Object.hasOwn(options, name)) {
       const error = new Error(`unknown or duplicate option: ${flag}`);
       error.code = "INVALID_ARGUMENTS";
       throw error;
@@ -125,9 +138,98 @@ async function assertDistinctInputAndReport(inputPath, reportPath) {
   }
 }
 
-async function main() {
-  const { command, options } = parseArguments(process.argv.slice(2));
-  const version = options.version ?? "0.1.0";
+function publicationCheckError(code, message, details = {}) {
+  const error = new Error(message);
+  error.code = code;
+  error.details = details;
+  return error;
+}
+
+export function composePublicationCheckReport(
+  conformanceReport,
+  publicationPolicyReport,
+) {
+  const inputDigest = conformanceReport?.input?.byteSha256;
+  const sameInput = typeof inputDigest === "string"
+    && /^[0-9a-f]{64}$/u.test(inputDigest)
+    && inputDigest === publicationPolicyReport?.input?.byteSha256
+    && conformanceReport?.input?.bytes === publicationPolicyReport?.input?.bytes
+    && conformanceReport?.input?.quads === publicationPolicyReport?.input?.quads;
+  if (!sameInput) {
+    throw publicationCheckError(
+      "PROFILE_INPUT_CHANGED_DURING_PUBLICATION_CHECK",
+      "publication-check input changed between conformance and policy validation",
+    );
+  }
+  if (conformanceReport?.profile?.kind !== "conformance"
+    || conformanceReport?.profile?.gate !== "violation"
+    || !isPublicationProfile(publicationPolicyReport?.profile)
+    || conformanceReport.profile.version !== publicationPolicyReport.profile.version
+    || conformanceReport.profile.versionIri !== publicationPolicyReport.profile.versionIri) {
+    throw publicationCheckError(
+      "PROFILE_CHANGED_DURING_VALIDATION",
+      "publication-check profiles changed during validation",
+    );
+  }
+
+  const counts = Object.fromEntries(
+    ["Info", "Violation", "Warning"].map((severity) => [
+      severity,
+      conformanceReport.summary.counts[severity]
+        + publicationPolicyReport.summary.counts[severity],
+    ]),
+  );
+  const gatePassed = conformanceReport.summary.gatePassed
+    && publicationPolicyReport.summary.gatePassed;
+  const publicationAuthorized = gatePassed
+    && conformanceReport.authority.publicationAuthorized
+    && publicationPolicyReport.authority.publicationAuthorized;
+  const authorityReasons = [...new Set([
+    ...conformanceReport.authority.reasons.map((reason) => `conformance:${reason}`),
+    ...publicationPolicyReport.authority.reasons.map((reason) => `policy:${reason}`),
+  ])];
+  const decisionDigest = `sha256:${createHash("sha256").update(JSON.stringify({
+    conformanceDecisionDigest: conformanceReport.decisionDigest,
+    conformanceProfile: conformanceReport.profile.name,
+    profileVersion: conformanceReport.profile.version,
+    publicationAuthorized,
+    publicationPolicyDecisionDigest: publicationPolicyReport.decisionDigest,
+    publicationPolicyProfile: publicationPolicyReport.profile.name,
+  })).digest("hex")}`;
+
+  return assertPublicationCheckReport({
+    schemaVersion: "molit.publication-check-report/1",
+    validatedAt: publicationPolicyReport.validatedAt,
+    input: conformanceReport.input,
+    profileVersion: conformanceReport.profile.version,
+    profiles: {
+      conformance: conformanceReport.profile.name,
+      publicationPolicy: publicationPolicyReport.profile.name,
+    },
+    summary: {
+      conformanceGatePassed: conformanceReport.summary.gatePassed,
+      counts,
+      gatePassed,
+      publicationPolicyGatePassed: publicationPolicyReport.summary.gatePassed,
+      resultCount: conformanceReport.summary.resultCount
+        + publicationPolicyReport.summary.resultCount,
+    },
+    authority: {
+      publicationAuthorized,
+      reasons: authorityReasons,
+      validationScope: "composite-technical-conformance-and-publication-policy",
+    },
+    reports: {
+      conformance: conformanceReport,
+      publicationPolicy: publicationPolicyReport,
+    },
+    decisionDigest,
+  });
+}
+
+export async function main(argv = process.argv.slice(2)) {
+  const { command, options } = parseArguments(argv);
+  const version = resolveProfileVersion(options.version);
   if (command === "list") {
     const summary = publicProfileSummary(await loadProfileRelease(version));
     process.stdout.write(`${JSON.stringify(summary, null, 2)}\n`);
@@ -151,17 +253,75 @@ async function main() {
   assertLocalFilesystemPath(options.input, "input path");
   if (options.report) assertLocalFilesystemPath(options.report, "report path");
   await assertDistinctInputAndReport(options.input, options.report);
-  if (command === "publish-check"
-    && !["core-publication", "geo-publication"].includes(options.profile)) {
-    const error = new Error("publish-check requires --profile core-publication or geo-publication");
+  if (command === "publish-check" && !options.profile) {
+    const error = new Error("publish-check requires --profile");
     error.code = "INVALID_PUBLICATION_PROFILE";
     throw error;
   }
-  const report = await validateProfileDocument({
-    inputPath: options.input,
-    profileName: options.profile ?? "core",
-    version,
-  });
+  let publicationPlan = null;
+  if (command === "publish-check") {
+    const release = await loadProfileRelease(version);
+    publicationPlan = selectPublicationCheckPlan(release, options.profile);
+    const snapshot = await verifyArtifactLock(release);
+    const profileNames = publicationPlan.mode === "composite"
+      ? [
+        publicationPlan.conformanceProfileName,
+        publicationPlan.publicationPolicyProfileName,
+      ]
+      : [publicationPlan.publicationPolicyProfileName];
+    publicationPlan.bundleDigests = Object.fromEntries(await Promise.all(
+      profileNames.map(async (profileName) => [
+        profileName,
+        await computeBundleDigest(
+          release,
+          selectValidationProfile(release, profileName),
+          snapshot.artifactBytes,
+        ),
+      ]),
+    ));
+  }
+  let report;
+  if (publicationPlan?.mode === "composite") {
+    const conformanceReport = await validateProfileDocumentIsolated({
+      inputPath: options.input,
+      profileName: publicationPlan.conformanceProfileName,
+      version,
+    });
+    const publicationPolicyReport = await validateProfileDocumentIsolated({
+      inputPath: options.input,
+      profileName: publicationPlan.publicationPolicyProfileName,
+      version,
+    });
+    if (conformanceReport.profile.name !== publicationPlan.conformanceProfileName
+      || publicationPolicyReport.profile.name
+        !== publicationPlan.publicationPolicyProfileName
+      || conformanceReport.profile.bundleDigest
+        !== publicationPlan.bundleDigests[publicationPlan.conformanceProfileName]
+      || publicationPolicyReport.profile.bundleDigest
+        !== publicationPlan.bundleDigests[publicationPlan.publicationPolicyProfileName]) {
+      throw publicationCheckError(
+        "PROFILE_CHANGED_DURING_VALIDATION",
+        "publication-check profile selection changed during validation",
+      );
+    }
+    report = composePublicationCheckReport(conformanceReport, publicationPolicyReport);
+  } else {
+    report = await validateProfileDocumentIsolated({
+      inputPath: options.input,
+      profileName: options.profile ?? "core",
+      version,
+    });
+    if (publicationPlan?.mode === "legacy"
+      && (!isPublicationProfile(report.profile)
+        || report.profile.name !== publicationPlan.publicationPolicyProfileName
+        || report.profile.bundleDigest
+          !== publicationPlan.bundleDigests[publicationPlan.publicationPolicyProfileName])) {
+      throw publicationCheckError(
+        "PROFILE_CHANGED_DURING_VALIDATION",
+        "publication profile changed during validation",
+      );
+    }
+  }
   if (options.report) {
     await assertDistinctInputAndReport(options.input, options.report);
     await writeAtomicJson(options.report, report);
@@ -173,11 +333,14 @@ async function main() {
   }
 }
 
-main().catch((error) => {
-  process.stderr.write(`${JSON.stringify({
-    code: error.code ?? "PROFILE_CLI_FAILURE",
-    details: error.details ?? null,
-    message: error.message,
-  }, null, 2)}\n`);
-  process.exitCode = 1;
-});
+const invokedPath = process.argv[1] ? path.resolve(process.argv[1]) : null;
+if (invokedPath === fileURLToPath(import.meta.url)) {
+  main().catch((error) => {
+    process.stderr.write(`${JSON.stringify({
+      code: error.code ?? "PROFILE_CLI_FAILURE",
+      details: error.details ?? null,
+      message: error.message,
+    }, null, 2)}\n`);
+    process.exitCode = 1;
+  });
+}

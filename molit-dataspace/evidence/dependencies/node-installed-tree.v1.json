@@ -6,13 +6,13 @@
     "fileCount": 21
   },
   "installMetadata": {
-    "bytes": 74562,
+    "bytes": 75810,
     "path": "node_modules/.package-lock.json",
-    "sha256": "13f04012404bf4798448acda7d7877b1c832218dd97b7b7ca06eb29d14412378"
+    "sha256": "127415c85be81dad9d686052c408a10dec1bdcc9f06d18810605fe8f804f8995"
   },
   "nodeVersion": "v24.16.0",
-  "packageCount": 149,
-  "packageLockSha256": "fbf958ebccbc346e2d5fd995b30b59e4a0bbd80272a66d77d2c522cbe330bb31",
+  "packageCount": 152,
+  "packageLockSha256": "ee5e3fba868b4dc170a8286098c30ed0289bcc8c1bede4821d7785b93c67a12f",
   "packages": [
     {
       "bytes": 20853,
@@ -805,6 +805,16 @@
       "version": "1.4.1"
     },
     {
+      "bytes": 54186,
+      "contentSha256": "4e055e4c2d73460b00a677a31d8662c8ec4c35193b27df0d67727df0c613caa7",
+      "fileCount": 11,
+      "integrity": "sha512-awNbTOqCxK1DBGjalK3xqWIstBZgN6fxsMSiXLs9/spqWkF2pAhb2rrYCFSsr1/tT7PhcDGjZndG8SWYn0byYA==",
+      "name": "mgrs",
+      "packageJsonSha256": "ba6f1803fc341074e9e0d474eb190f1d7fc894c7673a9f0642a859f7144198ce",
+      "path": "node_modules/mgrs",
+      "version": "1.0.0"
+    },
+    {
       "bytes": 209635,
       "contentSha256": "71cdf37c8e4c5d2cccba02c03d207e8f2e895df7813ef79ea061c7dc0b4fe5d3",
       "fileCount": 75,
@@ -1133,6 +1143,16 @@
       "packageJsonSha256": "8501b4909630e60c9e9f68c4ca8ccb1964688500e61c60408a26d5480a9dd3d4",
       "path": "node_modules/process",
       "version": "0.11.10"
+    },
+    {
+      "bytes": 840086,
+      "contentSha256": "1af9712d2b1861dfe9db4d7b1e916b49a0e2d79fa059930a6af4e01d8dac65fe",
+      "fileCount": 223,
+      "integrity": "sha512-GLBGqXaTcdWnppre3o1sMmy4DcMGSGq/ng+9k2MTNddarRK6SveINqlqYzi3xEXuy06ljY1TTrC6H9C4f360IQ==",
+      "name": "proj4",
+      "packageJsonSha256": "59dd2e128859b754bee64e74ab5cdcb33d281fb33ee7b883bfd971af574dc3e3",
+      "path": "node_modules/proj4",
+      "version": "2.20.9"
     },
     {
       "bytes": 104556,
@@ -1465,6 +1485,16 @@
       "version": "5.0.0"
     },
     {
+      "bytes": 168540,
+      "contentSha256": "e6fe1ce965759d2df5bf92bd0082e88ba79d5cee741f12622f9b178275e658b0",
+      "fileCount": 24,
+      "integrity": "sha512-/zMYi94/7D7fxcOSlVmWn6vnOMj3Gq5d1xvVjaYOS9n6h0qOJ4I7YYVxBWYcH1vq9+suhqzXkn05Yx47zQNUIA==",
+      "name": "wkt-parser",
+      "packageJsonSha256": "f94215c815d85cdb8318b2610143b49ec561c8ba555fa034dda2fe15b13ce4a4",
+      "path": "node_modules/wkt-parser",
+      "version": "1.5.5"
+    },
+    {
       "bytes": 58957,
       "contentSha256": "7de6cb5d4dcb37407e635ff1c53e74e599ebaafd035052a0c2b90e7d5befd224",
       "fileCount": 18,
@@ -1508,9 +1538,9 @@
   "platform": "win32",
   "sbom": {
     "format": "SPDX-2.3-json",
-    "packageCount": 150,
+    "packageCount": 153,
     "path": "evidence/dependencies/node-sbom.spdx.json",
-    "sha256": "65b2ffffa71883d689fd515172626f7efda7c3469abef729a1eb4a85ef393a26"
+    "sha256": "b0c58996e2112099960af9c53709fdcc3ebcfcf0b5100013bb3606a9c88c0d8d"
   },
   "schemaVersion": "molit.node-installed-tree/1"
 }

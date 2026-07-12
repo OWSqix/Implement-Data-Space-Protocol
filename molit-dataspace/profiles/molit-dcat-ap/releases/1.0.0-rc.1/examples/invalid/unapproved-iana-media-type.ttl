@@ -1,0 +1,11 @@
+@prefix dcat: <http://www.w3.org/ns/dcat#> .
+@prefix dct: <http://purl.org/dc/terms/> .
+@prefix ex: <https://data.molit.go.kr/id/example-invalid/> .
+
+ex:distribution
+    a dcat:Distribution ;
+    dcat:accessURL <https://data.molit.go.kr/example/access> ;
+    dcat:mediaType <https://www.iana.org/assignments/media-types/application/not-real> .
+
+<https://www.iana.org/assignments/media-types/application/not-real>
+    a dct:MediaType .

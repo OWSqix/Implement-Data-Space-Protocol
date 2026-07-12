@@ -5,7 +5,11 @@ import { fileURLToPath } from "node:url";
 
 const PROJECT_ROOT = path.resolve(fileURLToPath(new URL("../../", import.meta.url)));
 const PROFILE_ROOT = path.join(PROJECT_ROOT, "profiles", "molit-dcat-ap", "releases");
-const DEFAULT_VERSION = "0.1.0";
+const LEGACY_DEFAULT_VERSION = "0.1.0";
+const LEGACY_MANIFEST_SCHEMA = "molit.application-profile-manifest/1";
+const CURRENT_MANIFEST_SCHEMA = "molit.application-profile-manifest/2";
+export const profileVersionEnvironmentVariable = "MOLIT_PROFILE_VERSION";
+const semanticVersionPattern = /^(?:0|[1-9]\d*)\.(?:0|[1-9]\d*)\.(?:0|[1-9]\d*)(?:-(?:[0-9A-Za-z-]+(?:\.[0-9A-Za-z-]+)*))?$/u;
 export const releaseMachineExtensions = Object.freeze([
   ".csv",
   ".json",
@@ -29,14 +33,7 @@ function assert(condition, code, message, details = {}) {
   }
 }
 
-async function readJson(filePath, code) {
-  let bytes;
-  try {
-    bytes = await readFile(filePath);
-  } catch (error) {
-    if (error.code === "ENOENT") error.code = code;
-    throw error;
-  }
+function parseJsonBytes(bytes, filePath) {
   let source;
   try {
     source = new TextDecoder("utf-8", { fatal: true }).decode(bytes);
@@ -54,58 +51,190 @@ async function readJson(filePath, code) {
   }
 }
 
-function validateManifest(manifest, version) {
+async function readJson(filePath, code) {
+  let bytes;
+  try {
+    bytes = await readFile(filePath);
+  } catch (error) {
+    if (error.code === "ENOENT") error.code = code;
+    throw error;
+  }
+  return parseJsonBytes(bytes, filePath);
+}
+
+function isRecord(value) {
+  return value !== null && typeof value === "object" && !Array.isArray(value);
+}
+
+function validArtifactPath(value) {
+  return typeof value === "string"
+    && value.length > 0
+    && !path.isAbsolute(value)
+    && !value.split(/[\\/]/u).includes("..");
+}
+
+export function isPublicationProfile(profile) {
+  return profile?.kind === "validation-policy" && profile?.gate === "warning";
+}
+
+export function resolveProfileVersion(
+  explicitVersion,
+  environment = process.env,
+) {
+  const environmentVersion = environment?.[profileVersionEnvironmentVariable];
+  const version = explicitVersion ?? environmentVersion ?? LEGACY_DEFAULT_VERSION;
+  assert(
+    typeof version === "string" && semanticVersionPattern.test(version),
+    "INVALID_PROFILE_VERSION",
+    "profile version must be a semantic version",
+    {
+      environmentVariable: profileVersionEnvironmentVariable,
+      version,
+    },
+  );
+  return version;
+}
+
+export function resolveProfileReleaseRoot(version) {
+  const selectedVersion = resolveProfileVersion(version);
+  const releaseRoot = path.resolve(PROFILE_ROOT, selectedVersion);
+  assert(
+    releaseRoot.startsWith(`${path.resolve(PROFILE_ROOT)}${path.sep}`),
+    "PROFILE_PATH_ESCAPE",
+    "profile release path escaped the profile root",
+  );
+  return releaseRoot;
+}
+
+export function validateProfileManifest(manifest, version) {
+  assert(
+    isRecord(manifest),
+    "INVALID_PROFILE_MANIFEST",
+    "profile manifest must be a JSON object",
+    { version },
+  );
   const limits = manifest.limits;
   const validInteger = (value, minimum, maximum) => (
     Number.isSafeInteger(value) && value >= minimum && value <= maximum
   );
-  const validArtifactPath = (value) => (
-    typeof value === "string"
-      && value.length > 0
-      && !path.isAbsolute(value)
-      && !value.split(/[\\/]/u).includes("..")
+  const profiles = isRecord(manifest.profiles) ? manifest.profiles : {};
+  const profileEntries = Object.entries(profiles);
+  const publishedBundles = isRecord(manifest.publishedBundles)
+    ? manifest.publishedBundles
+    : {};
+  const publishedBundleEntries = Object.entries(publishedBundles);
+  const usesLegacyBundleInference = manifest.schemaVersion === LEGACY_MANIFEST_SCHEMA;
+  const validProfile = ([name, profile]) => {
+    if (name.length === 0
+      || name.length > 100
+      || !isRecord(profile)
+      || !["conformance", "diagnostic", "validation-policy"].includes(profile.kind)
+      || !["violation", "warning"].includes(profile.gate)
+      || typeof profile.conformanceIri !== "string"
+      || !profile.conformanceIri.startsWith("https://")
+      || typeof profile.description !== "string"
+      || profile.description.length === 0
+      || !Array.isArray(profile.shapes)
+      || profile.shapes.length === 0
+      || !profile.shapes.every(validArtifactPath)) {
+      return false;
+    }
+    if (profile.bundle !== undefined) {
+      return typeof profile.bundle === "string"
+        && profile.bundle.length > 0
+        && Object.hasOwn(publishedBundles, profile.bundle)
+        && profile.bundle !== "support";
+    }
+    return profile.kind === "diagnostic" || usesLegacyBundleInference;
+  };
+  const conformanceProfiles = profileEntries.filter(([, profile]) => (
+    profile?.kind === "conformance"
+  ));
+  const explicitProfileBundles = profileEntries
+    .map(([, profile]) => profile.bundle)
+    .filter((bundle) => bundle !== undefined);
+  const publishedProfileBundles = publishedBundleEntries
+    .map(([bundle]) => bundle)
+    .filter((bundle) => bundle !== "support");
+  const currentBundleMappingIsComplete = usesLegacyBundleInference || (
+    new Set(explicitProfileBundles).size === explicitProfileBundles.length
+      && explicitProfileBundles.length === publishedProfileBundles.length
+      && publishedProfileBundles.every((bundle) => explicitProfileBundles.includes(bundle))
   );
-  const requiredProfiles = ["core", "core-publication", "geo", "geo-publication"];
-  const profileEntries = Object.entries(manifest.profiles ?? {});
+  const publicationPolicyProfile = profiles[manifest.publicationPolicyProfile];
+  const publicationPolicyMappingIsValid = manifest.publicationPolicyProfile === undefined
+    ? usesLegacyBundleInference
+    : typeof manifest.publicationPolicyProfile === "string"
+      && manifest.publicationPolicyProfile.length > 0
+      && isPublicationProfile(publicationPolicyProfile);
+  const isolationLimitsAreValid = usesLegacyBundleInference
+    ? (limits?.maxValidationMillis === undefined
+        || validInteger(limits.maxValidationMillis, 100, 120_000))
+      && (limits?.maxWorkerHeapMb === undefined
+        || validInteger(limits.maxWorkerHeapMb, 32, 1_024))
+    : validInteger(limits?.maxValidationMillis, 100, 120_000)
+      && validInteger(limits?.maxWorkerHeapMb, 32, 1_024);
+  const artifactInventoryPolicyIsValid = usesLegacyBundleInference
+    ? manifest.artifactInventoryPolicy === undefined
+    : manifest.artifactInventoryPolicy === "all-release-files";
+  const representationArtifactsAreValid = usesLegacyBundleInference
+    ? manifest.representationArtifacts === undefined
+      && manifest.publicationContract === undefined
+    : validArtifactPath(manifest.publicationContract)
+      && isRecord(manifest.representationArtifacts)
+      && [
+        "profileHtml",
+        "profileTurtle",
+        "profileJsonLd",
+        "ontologyHtml",
+        "ontologyTurtle",
+        "ontologyJsonLd",
+      ].every((key) => validArtifactPath(manifest.representationArtifacts[key]));
   assert(
-    manifest.schemaVersion === "molit.application-profile-manifest/1"
+    [LEGACY_MANIFEST_SCHEMA, CURRENT_MANIFEST_SCHEMA].includes(manifest.schemaVersion)
       && manifest.profileId === "molit-dcat-ap"
       && manifest.version === version
       && manifest.profileIri === "https://data.molit.go.kr/profile/molit-dcat-ap"
-      && manifest.geoProfileIri === "https://data.molit.go.kr/profile/molit-dcat-ap/geo"
+      && (manifest.geoProfileIri === undefined
+        || (typeof manifest.geoProfileIri === "string"
+          && manifest.geoProfileIri.startsWith("https://")))
       && manifest.versionIri === `${manifest.profileIri}/${version}`
       && ["candidate", "deprecated", "recommendation", "working-draft"].includes(manifest.status)
       && ["dereferenceable", "proposed-not-yet-dereferenceable"].includes(manifest.namespaceStatus)
       && Array.isArray(manifest.background)
       && manifest.background.every(validArtifactPath)
-      && manifest.profiles && typeof manifest.profiles === "object"
-      && requiredProfiles.every((name) => manifest.profiles[name])
-      && profileEntries.every(([, profile]) => (
-        Array.isArray(profile.shapes)
-          && profile.shapes.length > 0
-          && profile.shapes.every(validArtifactPath)
-      ))
-      && manifest.localImportMap && typeof manifest.localImportMap === "object"
+      && isRecord(manifest.profiles)
+      && profileEntries.length > 0
+      && conformanceProfiles.length > 0
+      && profileEntries.every(validProfile)
+      && currentBundleMappingIsComplete
+      && publicationPolicyMappingIsValid
+      && artifactInventoryPolicyIsValid
+      && representationArtifactsAreValid
+      && isRecord(manifest.localImportMap)
       && Object.entries(manifest.localImportMap).every(([iri, artifact]) => (
         iri.startsWith("https://") && validArtifactPath(artifact)
       ))
+      && isRecord(manifest.routingVocabularySources)
+      && Object.values(manifest.routingVocabularySources).every(validArtifactPath)
+      && isRecord(manifest.publishedBundles)
+      && publishedBundleEntries.length > 1
+      && publishedBundleEntries.every(([, artifact]) => validArtifactPath(artifact))
+      && validArtifactPath(publishedBundles.support)
       && [
         manifest.context,
         manifest.lockFile,
         manifest.ontology,
         manifest.profileDescription,
         manifest.publicValuePolicy,
-        manifest.routingVocabularySources?.geosparql11,
-        manifest.publishedBundles?.core,
-        manifest.publishedBundles?.geo,
-        manifest.publishedBundles?.support,
         manifest.shapeMetaValidation?.shaclShacl,
       ].every(validArtifactPath)
       && validInteger(limits?.maxInputBytes, 1, 5_242_880)
       && validInteger(limits?.maxInputQuads, 1, 100_000)
       && validInteger(limits?.maxValuesPerSubjectPredicate, 1, 1_000)
       && validInteger(limits?.maxValidationResults, 1, 500)
-      && validInteger(limits?.maxLiteralLength, 1, 20_000),
+      && validInteger(limits?.maxLiteralLength, 1, 20_000)
+      && isolationLimitsAreValid,
     "INVALID_PROFILE_MANIFEST",
     "profile manifest identity, status, paths or limits are invalid",
     { version },
@@ -116,22 +245,12 @@ export function projectRoot() {
   return PROJECT_ROOT;
 }
 
-export async function loadProfileRelease(version = DEFAULT_VERSION) {
-  assert(
-    /^\d+\.\d+\.\d+(?:-[0-9A-Za-z.-]+)?$/u.test(version),
-    "INVALID_PROFILE_VERSION",
-    "profile version must be a semantic version",
-    { version },
-  );
-  const releaseRoot = path.resolve(PROFILE_ROOT, version);
-  assert(
-    releaseRoot.startsWith(`${path.resolve(PROFILE_ROOT)}${path.sep}`),
-    "PROFILE_PATH_ESCAPE",
-    "profile release path escaped the profile root",
-  );
+export async function loadProfileRelease(requestedVersion) {
+  const version = resolveProfileVersion(requestedVersion);
+  const releaseRoot = resolveProfileReleaseRoot(version);
   const manifestPath = path.join(releaseRoot, "manifest.json");
   const manifest = await readJson(manifestPath, "PROFILE_RELEASE_NOT_FOUND");
-  validateManifest(manifest, version);
+  validateProfileManifest(manifest, version);
   return { manifest, manifestPath, releaseRoot, version };
 }
 
@@ -177,9 +296,100 @@ export function selectValidationProfile(release, profileName) {
   return profile;
 }
 
+export function selectProfileBundle(release, profile, profileName = null) {
+  if (profile?.kind === "diagnostic" && profile.bundle === undefined) return null;
+
+  let bundle = profile?.bundle;
+  if (bundle === undefined
+    && release.manifest.schemaVersion === LEGACY_MANIFEST_SCHEMA) {
+    if (profileName && Object.hasOwn(release.manifest.publishedBundles, profileName)) {
+      bundle = profileName;
+    } else if (profileName?.endsWith("-publication")) {
+      const conformanceName = profileName.slice(0, -"-publication".length);
+      if (Object.hasOwn(release.manifest.publishedBundles, conformanceName)) {
+        bundle = conformanceName;
+      }
+    }
+    if (bundle === undefined) {
+      bundle = profile?.conformanceIri?.endsWith("/geo") ? "geo" : "core";
+    }
+  }
+
+  assert(
+    typeof bundle === "string"
+      && bundle.length > 0
+      && bundle !== "support"
+      && Object.hasOwn(release.manifest.publishedBundles ?? {}, bundle),
+    "INVALID_PROFILE_BUNDLE",
+    "profile bundle must name a published bundle",
+    {
+      available: Object.keys(release.manifest.publishedBundles ?? {}).sort(),
+      bundle: bundle ?? null,
+      profileName,
+    },
+  );
+  return {
+    name: bundle,
+    path: release.manifest.publishedBundles[bundle],
+  };
+}
+
+export function selectPublicationCheckPlan(release, profileName) {
+  const selectedProfile = selectValidationProfile(release, profileName);
+  const policyProfileName = release.manifest.publicationPolicyProfile;
+  if (policyProfileName === undefined) {
+    assert(
+      isPublicationProfile(selectedProfile),
+      "INVALID_PUBLICATION_PROFILE",
+      "legacy publish-check requires a warning-gated validation-policy profile",
+      {
+        gate: selectedProfile.gate,
+        kind: selectedProfile.kind,
+        profile: profileName,
+      },
+    );
+    return {
+      conformanceProfileName: null,
+      mode: "legacy",
+      publicationPolicyProfileName: profileName,
+    };
+  }
+
+  const policyProfile = selectValidationProfile(release, policyProfileName);
+  assert(
+    isPublicationProfile(policyProfile),
+    "INVALID_PROFILE_MANIFEST",
+    "publicationPolicyProfile must identify a warning-gated validation-policy profile",
+    { publicationPolicyProfile: policyProfileName },
+  );
+  assert(
+    selectedProfile.kind === "conformance" && selectedProfile.gate === "violation",
+    "INCOMPLETE_PUBLICATION_CHECK",
+    "publish-check requires a violation-gated conformance module; the publication policy is added automatically",
+    {
+      gate: selectedProfile.gate,
+      kind: selectedProfile.kind,
+      profile: profileName,
+      publicationPolicyProfile: policyProfileName,
+    },
+  );
+  return {
+    conformanceProfileName: profileName,
+    mode: "composite",
+    publicationPolicyProfileName: policyProfileName,
+  };
+}
+
 export async function verifyArtifactLock(release) {
   const lockPath = resolveReleaseArtifact(release, release.manifest.lockFile);
-  const lock = await readJson(lockPath, "PROFILE_LOCK_NOT_FOUND");
+  let lockBytes;
+  try {
+    lockBytes = await readFile(lockPath);
+  } catch (error) {
+    if (error.code === "ENOENT") error.code = "PROFILE_LOCK_NOT_FOUND";
+    throw error;
+  }
+  const lock = parseJsonBytes(lockBytes, lockPath);
   assert(
     lock.schemaVersion === "molit.profile-artifact-lock/1"
       && lock.profileVersion === release.version
@@ -227,7 +437,19 @@ export async function verifyArtifactLock(release) {
     "one or more locked profile artifacts have changed",
     { invalid },
   );
-  return { artifactBytes, lock, lockPath, results };
+  const manifestBytes = artifactBytes.get("manifest.json");
+  assert(
+    manifestBytes !== undefined,
+    "INCOMPLETE_ARTIFACT_SNAPSHOT",
+    "validation snapshot is missing the profile manifest",
+  );
+  const manifest = parseJsonBytes(manifestBytes, release.manifestPath);
+  assert(
+    JSON.stringify(manifest) === JSON.stringify(release.manifest),
+    "PROFILE_CHANGED_DURING_VALIDATION",
+    "profile manifest changed while the artifact snapshot was created",
+  );
+  return { artifactBytes, lock, lockBytes, lockPath, manifest, results };
 }
 
 export async function listReleaseMachineArtifacts(release) {
@@ -238,8 +460,11 @@ export async function listReleaseMachineArtifacts(release) {
       if (entry.isDirectory()) await walk(absolute);
       else if (entry.isFile()) {
         const relative = path.relative(release.releaseRoot, absolute).split(path.sep).join("/");
+        const inventoryIncludesAllFiles = release.manifest.artifactInventoryPolicy
+          === "all-release-files";
         if (relative !== release.manifest.lockFile
-          && releaseMachineExtensionSet.has(path.extname(relative).toLowerCase())) {
+          && (inventoryIncludesAllFiles
+            || releaseMachineExtensionSet.has(path.extname(relative).toLowerCase()))) {
           found.push(relative);
         }
       }
@@ -250,6 +475,7 @@ export async function listReleaseMachineArtifacts(release) {
 }
 
 export async function computeBundleDigest(release, profile, artifactBytes = null) {
+  const bundle = selectProfileBundle(release, profile);
   const paths = [...new Set([
     "manifest.json",
     release.manifest.profileDescription,
@@ -259,10 +485,8 @@ export async function computeBundleDigest(release, profile, artifactBytes = null
     ...Object.values(release.manifest.routingVocabularySources ?? {}),
     ...release.manifest.background,
     ...profile.shapes,
-    ...(profile.kind === "diagnostic" ? [] : [
-      profile.conformanceIri.endsWith("/geo")
-        ? release.manifest.publishedBundles.geo
-        : release.manifest.publishedBundles.core,
+    ...(bundle === null ? [] : [
+      bundle.path,
       release.manifest.publishedBundles.support,
     ]),
   ])].sort();
@@ -294,7 +518,9 @@ export function publicProfileSummary(release) {
     namespaceStatus: release.manifest.namespaceStatus,
     profileId: release.manifest.profileId,
     profileIri: release.manifest.profileIri,
+    publicationPolicyProfile: release.manifest.publicationPolicyProfile ?? null,
     profiles: Object.entries(release.manifest.profiles).map(([name, value]) => ({
+      bundle: selectProfileBundle(release, value, name)?.name ?? null,
       conformanceIri: value.conformanceIri,
       description: value.description,
       gate: value.gate,

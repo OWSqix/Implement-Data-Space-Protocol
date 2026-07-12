@@ -1,0 +1,107 @@
+@prefix adms: <http://www.w3.org/ns/adms#> .
+@prefix dct: <http://purl.org/dc/terms/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix qkdv: <http://qudt.org/vocab/dimensionvector/> .
+@prefix quantitykind: <http://qudt.org/vocab/quantitykind/> .
+@prefix qudt: <http://qudt.org/schema/qudt/> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix status: <https://data.molit.go.kr/id/concept/term-status/> .
+@prefix unit: <http://qudt.org/vocab/unit/> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<https://data.molit.go.kr/scheme/transport-unit>
+    a skos:ConceptScheme ;
+    rdfs:isDefinedBy <https://data.molit.go.kr/scheme/transport-unit> ;
+    dct:issued "2026-07-13"^^xsd:date ;
+    dct:source <http://qudt.org/3.4.0/vocab/unit> ;
+    dct:title "국토교통 관측 단위"@ko,
+        "MOLIT transport observation units"@en ;
+    skos:prefLabel "국토교통 관측 단위"@ko,
+        "MOLIT transport observation units"@en ;
+    skos:definition "QUDT에 차량 수를 명시한 시간당·일당 단위가 없어서 QUDT factor unit으로 정의한 국토교통 관측 단위 후보군이다."@ko,
+        "Candidate transport-observation units defined with QUDT factor units where QUDT has no vehicle-specific hourly or daily unit."@en ;
+    skos:hasTopConcept <https://data.molit.go.kr/id/unit/vehicle-per-hour>,
+        <https://data.molit.go.kr/id/unit/vehicle-per-day> ;
+    owl:versionInfo "1.0.0-rc.1" ;
+    adms:status status:candidate .
+
+<https://data.molit.go.kr/id/unit/vehicle-per-hour>
+    a qudt:DerivedUnit,
+        qudt:Unit,
+        skos:Concept ;
+    rdfs:isDefinedBy <https://data.molit.go.kr/scheme/transport-unit> ;
+    dct:issued "2026-07-13"^^xsd:date ;
+    dct:source unit:NUM-PER-HR ;
+    skos:inScheme <https://data.molit.go.kr/scheme/transport-unit> ;
+    skos:topConceptOf <https://data.molit.go.kr/scheme/transport-unit> ;
+    skos:notation "veh/h" ;
+    skos:prefLabel "시간당 차량 수"@ko,
+        "vehicle per hour"@en ;
+    skos:definition "명시한 지점 또는 구간을 한 시간 동안 통과하거나 점유한 차량 수다. 값의 집계방법은 molit:observationAggregation으로 별도 기록한다."@ko,
+        "Number of vehicles passing or occupying a stated site or section per hour; aggregation method is recorded separately."@en ;
+    skos:closeMatch unit:NUM-PER-HR ;
+    qudt:conversionMultiplier "0.0002777777777777777777777777777777778"^^xsd:decimal ;
+    qudt:hasDimensionVector qkdv:A0E0L0I0M0H0T-1D0 ;
+    qudt:hasFactorUnit [
+        a qudt:FactorUnit ;
+        qudt:exponent 1 ;
+        qudt:hasUnit unit:NUM
+    ], [
+        a qudt:FactorUnit ;
+        qudt:exponent -1 ;
+        qudt:hasUnit unit:HR
+    ] ;
+    qudt:hasQuantityKind quantitykind:CountRate ;
+    qudt:symbol "veh/h" ;
+    owl:versionInfo "1.0.0-rc.1" ;
+    adms:status status:candidate .
+
+<https://data.molit.go.kr/id/unit/vehicle-per-day>
+    a qudt:DerivedUnit,
+        qudt:Unit,
+        skos:Concept ;
+    rdfs:isDefinedBy <https://data.molit.go.kr/scheme/transport-unit> ;
+    dct:issued "2026-07-13"^^xsd:date ;
+    dct:source unit:NUM,
+        unit:DAY ;
+    skos:inScheme <https://data.molit.go.kr/scheme/transport-unit> ;
+    skos:topConceptOf <https://data.molit.go.kr/scheme/transport-unit> ;
+    skos:notation "veh/d" ;
+    skos:prefLabel "일당 차량 수"@ko,
+        "vehicle per day"@en ;
+    skos:definition "명시한 지점 또는 구간을 하루 동안 통과하거나 점유한 차량 수다. 1 day는 QUDT DAY를 따르며 집계 경계의 시간대는 데이터셋 설명에 기록한다."@ko,
+        "Number of vehicles passing or occupying a stated site or section per QUDT day; the aggregation-boundary time zone is stated with the dataset."@en ;
+    qudt:conversionMultiplier "0.00001157407407407407407407407407407407"^^xsd:decimal ;
+    qudt:hasDimensionVector qkdv:A0E0L0I0M0H0T-1D0 ;
+    qudt:hasFactorUnit [
+        a qudt:FactorUnit ;
+        qudt:exponent 1 ;
+        qudt:hasUnit unit:NUM
+    ], [
+        a qudt:FactorUnit ;
+        qudt:exponent -1 ;
+        qudt:hasUnit unit:DAY
+    ] ;
+    qudt:hasQuantityKind quantitykind:CountRate ;
+    qudt:symbol "veh/d" ;
+    owl:versionInfo "1.0.0-rc.1" ;
+    adms:status status:candidate .
+
+<http://qudt.org/3.4.0/vocab/unit>
+    a dct:Standard .
+
+unit:NUM-PER-HR
+    a qudt:Unit .
+
+unit:NUM
+    a qudt:Unit .
+
+unit:HR
+    a qudt:Unit .
+
+unit:DAY
+    a qudt:Unit .
+
+quantitykind:CountRate
+    a qudt:QuantityKind .

@@ -1,0 +1,842 @@
+{
+  "schemaVersion": "molit.profile-semantic-diff/1",
+  "from": {
+    "manifestSha256": "77dc454540da6e32db3e0724f620a3ca0afe1017e3193eae09c346fcc687486e",
+    "version": "0.1.0"
+  },
+  "to": {
+    "manifestSha256": "81f72f44357e61ab96a3acb1315acf71d32c366c13ae446b0588433c0abbb3b5",
+    "version": "1.0.0-rc.1"
+  },
+  "profileModules": {
+    "conformance": {
+      "added": [
+        "dataspace-offering",
+        "network",
+        "observation",
+        "quality"
+      ],
+      "from": [
+        "core",
+        "geo"
+      ],
+      "removed": [],
+      "to": [
+        "core",
+        "dataspace-offering",
+        "geo",
+        "network",
+        "observation",
+        "quality"
+      ]
+    },
+    "validationPolicy": {
+      "from": [
+        "core-publication",
+        "geo-publication"
+      ],
+      "to": [
+        "publication-policy"
+      ]
+    }
+  },
+  "requirements": {
+    "added": [
+      "MOLIT-AGENT-001-P-NAME-001",
+      "MOLIT-CAT-001-P-DATASET-001",
+      "MOLIT-CAT-001-P-DESCRIPTION-001",
+      "MOLIT-CAT-001-P-LANGUAGE-001",
+      "MOLIT-CAT-001-P-PUBLISHER-001",
+      "MOLIT-CAT-001-P-RECORD-001",
+      "MOLIT-CAT-001-P-TITLE-001",
+      "MOLIT-CAT-REL-001",
+      "MOLIT-CAT-REL-001-P-PATH-DA00F2B2F6-001",
+      "MOLIT-CV-CHECKSUM-001-P-ALGORITHM-001",
+      "MOLIT-CV-MEDIATYPE-001-P-COMPRESSFORMAT-001",
+      "MOLIT-CV-MEDIATYPE-001-P-MEDIATYPE-001",
+      "MOLIT-CV-MEDIATYPE-001-P-PACKAGEFORMAT-001",
+      "MOLIT-CV-MEDIATYPE-001-P-TYPE-001",
+      "MOLIT-DS-001-P-ACCESSRIGHTS-001",
+      "MOLIT-DS-001-P-DESCRIPTION-001",
+      "MOLIT-DS-001-P-IDENTIFIER-001",
+      "MOLIT-DS-001-P-ISSUED-001",
+      "MOLIT-DS-001-P-MODIFIED-001",
+      "MOLIT-DS-001-P-PATH-0E31B21B99-001",
+      "MOLIT-DS-001-P-PATH-30F94DAB87-001",
+      "MOLIT-DS-001-P-PUBLISHER-001",
+      "MOLIT-DS-001-P-THEME-001",
+      "MOLIT-DS-001-P-THEME-002",
+      "MOLIT-DS-001-P-TITLE-001",
+      "MOLIT-GEO-001-P-REFERENCESYSTEM-001",
+      "MOLIT-GEO-001-P-SPATIALDISCLOSURELEVEL-001",
+      "MOLIT-GEO-001-P-SPATIALRESOLUTIONINMETERS-001",
+      "MOLIT-GEO-001-P-TYPE-001",
+      "MOLIT-GEO-ENCODING-005-P-ASDGGS-001",
+      "MOLIT-GEO-ENCODING-005-P-ASGEOJSON-001",
+      "MOLIT-GEO-ENCODING-005-P-ASKML-001",
+      "MOLIT-GEO-ENCODING-005-P-HASSERIALIZATION-001",
+      "MOLIT-GEO-LINK-001-P-PATH-BFC98936CC-001",
+      "MOLIT-GEO-LINK-002-P-PATH-D6567CFAEC-001",
+      "MOLIT-GEO-PROFILE-001-P-CONFORMSTO-001",
+      "MOLIT-GEO-PROFILE-002-P-CONFORMSTO-001",
+      "MOLIT-GEO-TYPE-001",
+      "MOLIT-GEO-TYPE-002",
+      "MOLIT-GEO-TYPE-003",
+      "MOLIT-GEO-TYPE-004",
+      "MOLIT-NET-001-P-NETWORKREFERENCE-001",
+      "MOLIT-NET-001-P-TRANSPORTMODE-001",
+      "MOLIT-NET-001-P-TYPE-001",
+      "MOLIT-NET-002-P-TYPE-001",
+      "MOLIT-NET-REF-001-P-NETWORKAUTHORITY-001",
+      "MOLIT-NET-REF-001-P-NETWORKELEMENTTYPE-001",
+      "MOLIT-NET-REF-001-P-NETWORKIDENTIFIER-001",
+      "MOLIT-NET-REF-001-P-NETWORKVERSION-001",
+      "MOLIT-NET-SNAPSHOT-001",
+      "MOLIT-NET-SNAPSHOT-001-P-NETWORKIDENTIFIER-001",
+      "MOLIT-NET-SNAPSHOT-001-P-NETWORKLIFECYCLESTATUS-001",
+      "MOLIT-NET-SNAPSHOT-001-P-NETWORKSNAPSHOTCHECKSUM-001",
+      "MOLIT-NET-SNAPSHOT-001-P-NETWORKVALIDFROM-001",
+      "MOLIT-NET-SNAPSHOT-001-P-NETWORKVALIDUNTIL-001",
+      "MOLIT-NET-SNAPSHOT-001-P-NETWORKVERSION-001",
+      "MOLIT-NET-VALIDITY-001",
+      "MOLIT-NET-VALIDITY-001-P-NETWORKVALIDFROM-001",
+      "MOLIT-OBS-001-P-AGGREGATIONPERIOD-001",
+      "MOLIT-OBS-001-P-MISSINGVALUEPOLICY-001",
+      "MOLIT-OBS-001-P-OBSERVATIONAGGREGATION-001",
+      "MOLIT-OBS-001-P-OBSERVATIONSUBJECTTYPE-001",
+      "MOLIT-OBS-001-P-OBSERVATIONUNIT-001",
+      "MOLIT-OBS-001-P-OBSERVEDPROPERTY-001",
+      "MOLIT-OBS-001-P-TEMPORAL-001",
+      "MOLIT-OBS-001-P-TEMPORALRESOLUTION-001",
+      "MOLIT-OBS-001-P-TYPE-001",
+      "MOLIT-OBS-UNIT-001",
+      "MOLIT-OFFER-001",
+      "MOLIT-OFFER-001-P-DESCRIBESOFFERINGDATASET-001",
+      "MOLIT-OFFER-001-P-IDENTIFIER-001",
+      "MOLIT-OFFER-001-P-MODIFIED-001",
+      "MOLIT-OFFER-001-P-OFFERINGREADINESSSTATUS-001",
+      "MOLIT-OFFER-001-P-TITLE-001",
+      "MOLIT-OFFER-LINK-001",
+      "MOLIT-OFFER-LINK-001-P-DESCRIBESOFFERINGDATASET-001",
+      "MOLIT-PROFILE-CORE-001-P-CONFORMSTO-001",
+      "MOLIT-PROFILE-CORE-002-P-CONFORMSTO-001",
+      "MOLIT-PROFILE-NET-001",
+      "MOLIT-PROFILE-NET-001-P-CONFORMSTO-001",
+      "MOLIT-PROFILE-NET-002",
+      "MOLIT-PROFILE-NET-002-P-CONFORMSTO-001",
+      "MOLIT-PROFILE-OBS-001",
+      "MOLIT-PROFILE-OBS-001-P-CONFORMSTO-001",
+      "MOLIT-PROFILE-OBS-002",
+      "MOLIT-PROFILE-OBS-002-P-CONFORMSTO-001",
+      "MOLIT-PROFILE-OFFER-001",
+      "MOLIT-PROFILE-OFFER-001-P-CONFORMSTO-001",
+      "MOLIT-PROFILE-OFFER-002",
+      "MOLIT-PROFILE-OFFER-002-P-CONFORMSTO-001",
+      "MOLIT-PROFILE-QUAL-001",
+      "MOLIT-PROFILE-QUAL-001-P-CONFORMSTO-001",
+      "MOLIT-PROFILE-QUAL-002",
+      "MOLIT-PROFILE-QUAL-002-P-CONFORMSTO-001",
+      "MOLIT-PROFILE-SELECTION-GEOSPARQL-001",
+      "MOLIT-PROFILE-SELECTION-MARKER-001",
+      "MOLIT-QUAL-001-P-QUALITYSTATUS-001",
+      "MOLIT-QUAL-LINK-001",
+      "MOLIT-QUAL-LINK-001-P-PATH-7CC75844D0-001",
+      "MOLIT-QUAL-MAP-001",
+      "MOLIT-QUAL-MAP-001-P-MAPPEDQUALITYMETRIC-001",
+      "MOLIT-QUAL-MAP-001-P-QUALITYLOSSDISPOSITION-001",
+      "MOLIT-QUAL-MAP-001-P-SOURCEQUALITYELEMENT-001",
+      "MOLIT-QUAL-MEASURE-001-P-COMPUTEDON-001",
+      "MOLIT-QUAL-MEASURE-001-P-ISMEASUREMENTOF-001",
+      "MOLIT-QUAL-MEASURE-001-P-UNITMEASURE-001",
+      "MOLIT-QUAL-MEASURE-001-P-VALUE-001",
+      "MOLIT-QUAL-PROV-001",
+      "MOLIT-QUAL-PROV-001-P-QUALITYEVALUATIONMETHOD-001",
+      "MOLIT-QUAL-PROV-001-P-QUALITYEVALUATIONSCOPE-001",
+      "MOLIT-QUAL-PROV-001-P-QUALITYMAPPINGSTATEMENT-001",
+      "MOLIT-QUAL-PROV-001-P-QUALITYRESULTKIND-001",
+      "MOLIT-REC-001-P-LANGUAGE-001",
+      "MOLIT-REC-001-P-MODIFIED-001",
+      "MOLIT-REC-001-P-PRIMARYTOPIC-001",
+      "MOLIT-REC-001-P-TITLE-001",
+      "MOLIT-REC-DIST-001-P-CHECKSUM-001",
+      "MOLIT-REC-DS-001-P-CONTACTPOINT-001",
+      "MOLIT-REC-DS-001-P-PROVENANCE-001",
+      "MOLIT-REC-QUAL-001-P-QUALIFICATIONEVIDENCE-001",
+      "MOLIT-SVC-001-P-ENDPOINTURL-001",
+      "MOLIT-SVC-001-P-SERVESDATASET-001",
+      "MOLIT-SVC-001-P-THEME-001",
+      "MOLIT-SVC-001-P-TITLE-001"
+    ],
+    "changed": [
+      {
+        "from": {
+          "constraintCount": 1,
+          "graphSha256": "e552b77da4c30ff8118fe84e1667dd9447712bed08b5bbeaf7d1d171fe5e74ff",
+          "shapeFiles": [
+            "shacl/molit-core.ttl"
+          ]
+        },
+        "requirementId": "MOLIT-AGENT-001",
+        "to": {
+          "constraintCount": 1,
+          "graphSha256": "277e49b232500d0fcee8a518c385fbbfdc67a64f3200be2dd024f11fff232659",
+          "shapeFiles": [
+            "shacl/molit-core.ttl"
+          ]
+        }
+      },
+      {
+        "from": {
+          "constraintCount": 1,
+          "graphSha256": "f9cd073119d00bde9089e661fe48b445ae36c52f21df0e294451a071cb0b5e0c",
+          "shapeFiles": [
+            "shacl/molit-core.ttl"
+          ]
+        },
+        "requirementId": "MOLIT-CAT-001",
+        "to": {
+          "constraintCount": 1,
+          "graphSha256": "99e0c0ba2d2aad219864cdc5bffe80a7149e0ea43c67eccc645da48fbaed1dc1",
+          "shapeFiles": [
+            "shacl/molit-core.ttl"
+          ]
+        }
+      },
+      {
+        "from": {
+          "constraintCount": 1,
+          "graphSha256": "db45ab07bfdbdc86569bf6493f6d05c3b4834a6dd2f36d949c365304fbfcb19a",
+          "shapeFiles": [
+            "shacl/molit-controlled-vocabularies.ttl"
+          ]
+        },
+        "requirementId": "MOLIT-CV-CHECKSUM-001",
+        "to": {
+          "constraintCount": 1,
+          "graphSha256": "19df03c8173e6def3bed7b925654ad4ed8b41e370bb6dc809863c1fd9320cbad",
+          "shapeFiles": [
+            "shacl/molit-controlled-vocabularies.ttl"
+          ]
+        }
+      },
+      {
+        "from": {
+          "constraintCount": 1,
+          "graphSha256": "b4532d906d84b241b5efb34f3c4892ab3b1d5c8e0e218e94b796b136b9ca3340",
+          "shapeFiles": [
+            "shacl/molit-controlled-vocabularies.ttl"
+          ]
+        },
+        "requirementId": "MOLIT-CV-MEDIATYPE-001",
+        "to": {
+          "constraintCount": 1,
+          "graphSha256": "83bc3bb0a3f0eaf2150d1291cbcbd980901ac0be97648bb09a918cea3ea0ed30",
+          "shapeFiles": [
+            "shacl/molit-controlled-vocabularies.ttl"
+          ]
+        }
+      },
+      {
+        "from": {
+          "constraintCount": 1,
+          "graphSha256": "cdadee477ff140d8ce923209b38fd52a7c8710ed5ddf50f2acd5b121f963d504",
+          "shapeFiles": [
+            "shacl/molit-core.ttl"
+          ]
+        },
+        "requirementId": "MOLIT-DS-001",
+        "to": {
+          "constraintCount": 1,
+          "graphSha256": "d5276ddea7ff083a0dd5e0c08983e3151f4833d8c283252f913f9f57af15f1ee",
+          "shapeFiles": [
+            "shacl/molit-core.ttl"
+          ]
+        }
+      },
+      {
+        "from": {
+          "constraintCount": 1,
+          "graphSha256": "2fe2daf33d0fcb90e2192f529bb541fe3cc06e499a2589047ba664d0da3e56d3",
+          "shapeFiles": [
+            "shacl/molit-spatial.ttl"
+          ]
+        },
+        "requirementId": "MOLIT-GEO-001",
+        "to": {
+          "constraintCount": 1,
+          "graphSha256": "0e42197ea7585c15fab4eee71ce3088143067156adc67fd9b2d44b03330eeb56",
+          "shapeFiles": [
+            "shacl/molit-spatial.ttl"
+          ]
+        }
+      },
+      {
+        "from": {
+          "constraintCount": 1,
+          "graphSha256": "9e5f05b14e69d7295cb8609e6bd11e7d79bdef275fc365a6036e94e8d312a1b6",
+          "shapeFiles": [
+            "shacl/molit-spatial.ttl"
+          ]
+        },
+        "requirementId": "MOLIT-GEO-ENCODING-001",
+        "to": {
+          "constraintCount": 1,
+          "graphSha256": "9bd633e34179742824c0ce5f5b21b626239b21558fee92630bac3ba7ad314409",
+          "shapeFiles": [
+            "shacl/molit-spatial.ttl"
+          ]
+        }
+      },
+      {
+        "from": {
+          "constraintCount": 1,
+          "graphSha256": "1c12bce607b064b38bd23849e94e943134ac5a2fe0839e668301700b843ae878",
+          "shapeFiles": [
+            "shacl/molit-spatial.ttl"
+          ]
+        },
+        "requirementId": "MOLIT-GEO-ENCODING-002",
+        "to": {
+          "constraintCount": 1,
+          "graphSha256": "db2f320a32b8c833e7d89e2dc114ec35e9bdca20f93d780a4ffd8b00adc93acb",
+          "shapeFiles": [
+            "shacl/molit-spatial.ttl"
+          ]
+        }
+      },
+      {
+        "from": {
+          "constraintCount": 1,
+          "graphSha256": "e45d28205b6265fc9ecf51038d654265538e8216d98133cde9b534ac431232d4",
+          "shapeFiles": [
+            "shacl/molit-spatial.ttl"
+          ]
+        },
+        "requirementId": "MOLIT-GEO-ENCODING-003",
+        "to": {
+          "constraintCount": 1,
+          "graphSha256": "83bda5b759c22fe369a08df0520aab1e319d4286bc0ac3acb4a08e653b51fe01",
+          "shapeFiles": [
+            "shacl/molit-spatial.ttl"
+          ]
+        }
+      },
+      {
+        "from": {
+          "constraintCount": 1,
+          "graphSha256": "29767760da0f2eb60f642c401c2e0851ad115fac2759aaa9570f66d7bc7f38f3",
+          "shapeFiles": [
+            "shacl/molit-spatial.ttl"
+          ]
+        },
+        "requirementId": "MOLIT-GEO-ENCODING-004",
+        "to": {
+          "constraintCount": 1,
+          "graphSha256": "86e8ca8bea912cfe7a7e19f2db4225bdccbee80dabe8ad9085754def00df700a",
+          "shapeFiles": [
+            "shacl/molit-spatial.ttl"
+          ]
+        }
+      },
+      {
+        "from": {
+          "constraintCount": 1,
+          "graphSha256": "e0e61d94c3cf3916f83add4b1436f113fd0ee865101cbc3950640edb9b3ad3bf",
+          "shapeFiles": [
+            "shacl/molit-spatial.ttl"
+          ]
+        },
+        "requirementId": "MOLIT-GEO-ENCODING-005",
+        "to": {
+          "constraintCount": 1,
+          "graphSha256": "df3bf4dd88504938b225f6a030563573f3731afdac21e6f0be7299c5214c0523",
+          "shapeFiles": [
+            "shacl/molit-spatial.ttl"
+          ]
+        }
+      },
+      {
+        "from": {
+          "constraintCount": 1,
+          "graphSha256": "94f24a7ae1dada9103da373b13af46b3f6d4daccf460cf2630ea35ea62299b11",
+          "shapeFiles": [
+            "shacl/molit-spatial.ttl"
+          ]
+        },
+        "requirementId": "MOLIT-GEO-LINK-001",
+        "to": {
+          "constraintCount": 1,
+          "graphSha256": "150b17763529e1334c2cbc04d23cfa55b08fa784020a821670ad8c9d98deff52",
+          "shapeFiles": [
+            "shacl/molit-spatial.ttl"
+          ]
+        }
+      },
+      {
+        "from": {
+          "constraintCount": 1,
+          "graphSha256": "078dc50b9508d4691475e8da65d736256b80f55b80e09cf06f7da15c12f0ae3e",
+          "shapeFiles": [
+            "shacl/molit-spatial.ttl"
+          ]
+        },
+        "requirementId": "MOLIT-GEO-LINK-002",
+        "to": {
+          "constraintCount": 1,
+          "graphSha256": "0ba9a01c913ca4dbe427e280dbac8e22154421ca7ee433ee673b874a6aa94834",
+          "shapeFiles": [
+            "shacl/molit-spatial.ttl"
+          ]
+        }
+      },
+      {
+        "from": {
+          "constraintCount": 1,
+          "graphSha256": "bfc4d0475e708bf184c304ff3a1e7a196a78c587840be9c2ffc7d4eb2c5b8d17",
+          "shapeFiles": [
+            "shacl/molit-geo-profile.ttl"
+          ]
+        },
+        "requirementId": "MOLIT-GEO-PROFILE-001",
+        "to": {
+          "constraintCount": 1,
+          "graphSha256": "fbdaa7bf7b08612546d293ea7bf401a423df931a3d1567d12079e0a7ea9d47fc",
+          "shapeFiles": [
+            "shacl/molit-geo-profile.ttl"
+          ]
+        }
+      },
+      {
+        "from": {
+          "constraintCount": 1,
+          "graphSha256": "9a74061288a4d324c2d831d712c20996d281fa6a9af58fa83a13950f4975eae5",
+          "shapeFiles": [
+            "shacl/molit-geo-profile.ttl"
+          ]
+        },
+        "requirementId": "MOLIT-GEO-PROFILE-002",
+        "to": {
+          "constraintCount": 1,
+          "graphSha256": "3983772a2b868470effd05ba5681b8364f6150105485b318f516b93fa24cb902",
+          "shapeFiles": [
+            "shacl/molit-geo-profile.ttl"
+          ]
+        }
+      },
+      {
+        "from": {
+          "constraintCount": 1,
+          "graphSha256": "20981bfa135b8f2e5d1d53d69dab0e4427bb7c0a1d8e62cd67472cdb7b7b4749",
+          "shapeFiles": [
+            "shacl/molit-network.ttl"
+          ]
+        },
+        "requirementId": "MOLIT-NET-001",
+        "to": {
+          "constraintCount": 1,
+          "graphSha256": "368994a1f40c5180d225ac14160f5d87623970e29c5a21a1a8765a80b4084fa4",
+          "shapeFiles": [
+            "shacl/molit-network.ttl"
+          ]
+        }
+      },
+      {
+        "from": {
+          "constraintCount": 1,
+          "graphSha256": "b59c06f8cbc8871441aa964b0399d5e09e784fe147ef6cd3a148c430900640ae",
+          "shapeFiles": [
+            "shacl/molit-network.ttl"
+          ]
+        },
+        "requirementId": "MOLIT-NET-002",
+        "to": {
+          "constraintCount": 1,
+          "graphSha256": "5775b28f2fe505969a3edba67a38993e5fb4e1b9faccab0caa99d030f5c68138",
+          "shapeFiles": [
+            "shacl/molit-network.ttl"
+          ]
+        }
+      },
+      {
+        "from": {
+          "constraintCount": 1,
+          "graphSha256": "02461298a6ad0f747cfebe92c8489252196efe6457203efda98d3fbb544d15f1",
+          "shapeFiles": [
+            "shacl/molit-network.ttl"
+          ]
+        },
+        "requirementId": "MOLIT-NET-REF-001",
+        "to": {
+          "constraintCount": 1,
+          "graphSha256": "138d277a359c39e286faa8414e52161722421d31c1d2c0e7ebc6360a37ba4bef",
+          "shapeFiles": [
+            "shacl/molit-network.ttl"
+          ]
+        }
+      },
+      {
+        "from": {
+          "constraintCount": 1,
+          "graphSha256": "c8520e44f5185c18bc57a08730319750d3d33e83db381d3afa53491c94dbce97",
+          "shapeFiles": [
+            "shacl/molit-quality.ttl"
+          ]
+        },
+        "requirementId": "MOLIT-OBS-001",
+        "to": {
+          "constraintCount": 1,
+          "graphSha256": "49758a175a7fa4e560190e089deed3c9d785edce8fed7145ab5a864f24f97911",
+          "shapeFiles": [
+            "shacl/molit-observation.ttl"
+          ]
+        }
+      },
+      {
+        "from": {
+          "constraintCount": 1,
+          "graphSha256": "5557025b703ca73e7792470e27c04b28d62a96c470bcbdc5b104ea4ff5c34de9",
+          "shapeFiles": [
+            "shacl/molit-core-profile.ttl"
+          ]
+        },
+        "requirementId": "MOLIT-PROFILE-CORE-001",
+        "to": {
+          "constraintCount": 1,
+          "graphSha256": "2426f03f99078c5a8fe6164cc7f69a34a0f5d2738e3ce1bd1692eff564a4d256",
+          "shapeFiles": [
+            "shacl/molit-core-profile.ttl"
+          ]
+        }
+      },
+      {
+        "from": {
+          "constraintCount": 1,
+          "graphSha256": "75cfba108622b043d12f780787e0b5ba0651451079855c923545528058e59b45",
+          "shapeFiles": [
+            "shacl/molit-core-profile.ttl"
+          ]
+        },
+        "requirementId": "MOLIT-PROFILE-CORE-002",
+        "to": {
+          "constraintCount": 1,
+          "graphSha256": "cb78cad18d5fe0bca06471cda6adac627ec055cc5e85253b97b53a305009a7cf",
+          "shapeFiles": [
+            "shacl/molit-core-profile.ttl"
+          ]
+        }
+      },
+      {
+        "from": {
+          "constraintCount": 1,
+          "graphSha256": "e6ee7a28b5d948a8a2fe83415ac06d20a036b43a1ff4a9fa79270bf186f682b8",
+          "shapeFiles": [
+            "shacl/molit-quality.ttl"
+          ]
+        },
+        "requirementId": "MOLIT-QUAL-001",
+        "to": {
+          "constraintCount": 1,
+          "graphSha256": "c975e23355c2682fdc6b3afa8ad6c568121cc21dd2dbb5842faad397a38e1e4b",
+          "shapeFiles": [
+            "shacl/molit-quality.ttl"
+          ]
+        }
+      },
+      {
+        "from": {
+          "constraintCount": 1,
+          "graphSha256": "aab60f9b36a44dbccf5be510c3948ceeaff9c540b32a23a218537aa7e8b7901d",
+          "shapeFiles": [
+            "shacl/molit-quality.ttl"
+          ]
+        },
+        "requirementId": "MOLIT-QUAL-MEASURE-001",
+        "to": {
+          "constraintCount": 1,
+          "graphSha256": "b3374f990f6f65f651081d7edfbddd631d261225a86de1c26f3618dcc9a62dde",
+          "shapeFiles": [
+            "shacl/molit-quality.ttl"
+          ]
+        }
+      },
+      {
+        "from": {
+          "constraintCount": 1,
+          "graphSha256": "d4029fbbc98b81d10ffb723ad4c36c740dd4e84d0e3e19235c8cada6112df7df",
+          "shapeFiles": [
+            "shacl/molit-core.ttl"
+          ]
+        },
+        "requirementId": "MOLIT-REC-001",
+        "to": {
+          "constraintCount": 1,
+          "graphSha256": "5af2524e5e8176fa70bae19d427c6ed76bc8f62455eb9f8fb69fc47f96d8f14f",
+          "shapeFiles": [
+            "shacl/molit-core.ttl"
+          ]
+        }
+      },
+      {
+        "from": {
+          "constraintCount": 1,
+          "graphSha256": "1e04efae7ef707604e25ebe7072d927afacc05820827f556eccb1ba77c5a3e81",
+          "shapeFiles": [
+            "shacl/molit-recommended.ttl"
+          ]
+        },
+        "requirementId": "MOLIT-REC-DIST-001",
+        "to": {
+          "constraintCount": 1,
+          "graphSha256": "074ea2aaa2e08f1dfd3637090ad916a5795058f0d76ab022430b5917b9f72f8f",
+          "shapeFiles": [
+            "shacl/molit-recommended.ttl"
+          ]
+        }
+      },
+      {
+        "from": {
+          "constraintCount": 1,
+          "graphSha256": "023a901ec0aaf612ded6e4ad0b1e0dbd963801caa4ca5b5ab2ce2d9c227365ea",
+          "shapeFiles": [
+            "shacl/molit-recommended.ttl"
+          ]
+        },
+        "requirementId": "MOLIT-REC-DS-001",
+        "to": {
+          "constraintCount": 1,
+          "graphSha256": "412c380826c124b4fe4aede317fcf50f2aab308932cca4aaaed31bfb70da37e8",
+          "shapeFiles": [
+            "shacl/molit-recommended.ttl"
+          ]
+        }
+      },
+      {
+        "from": {
+          "constraintCount": 1,
+          "graphSha256": "6d5141d1b423fe768a165c48e2d4428eb1f7cd208cd244e1f19c1464536403e5",
+          "shapeFiles": [
+            "shacl/molit-recommended.ttl"
+          ]
+        },
+        "requirementId": "MOLIT-REC-QUAL-001",
+        "to": {
+          "constraintCount": 1,
+          "graphSha256": "fe2f99967f67b9ef07acbc6998836b28fbc813958531dbc98ac853d8e4b1fd38",
+          "shapeFiles": [
+            "shacl/molit-recommended.ttl"
+          ]
+        }
+      },
+      {
+        "from": {
+          "constraintCount": 1,
+          "graphSha256": "b7becdf51a657a97c42a74f361f40fc8b15c7a76e5ee564e122c6737fa8f9217",
+          "shapeFiles": [
+            "shacl/molit-core.ttl"
+          ]
+        },
+        "requirementId": "MOLIT-SVC-001",
+        "to": {
+          "constraintCount": 1,
+          "graphSha256": "82a63f4410ec8810be3bbfd9b6d7615013883df8dc02fd189d82ee4177bf0e06",
+          "shapeFiles": [
+            "shacl/molit-core.ttl"
+          ]
+        }
+      }
+    ],
+    "fromCount": 41,
+    "removed": [
+      "MOLIT-CV-AVAILABILITY-001",
+      "MOLIT-CV-DIST-STATUS-001",
+      "MOLIT-CV-FILETYPE-001",
+      "MOLIT-CV-FREQ-001",
+      "MOLIT-CV-LANG-001",
+      "MOLIT-CV-SVC-001",
+      "MOLIT-DIST-001",
+      "MOLIT-DS-TRANSFER-001",
+      "MOLIT-PROFILE-SELECTION-001"
+    ],
+    "toCount": 156
+  },
+  "ontology": {
+    "added": [
+      "https://data.molit.go.kr/def/molit-dcat-ap#DataspaceOfferingMetadata",
+      "https://data.molit.go.kr/def/molit-dcat-ap#QualityMappingStatement",
+      "https://data.molit.go.kr/def/molit-dcat-ap#aggregationPeriod",
+      "https://data.molit.go.kr/def/molit-dcat-ap#describesOfferingDataset",
+      "https://data.molit.go.kr/def/molit-dcat-ap#mappedQualityMetric",
+      "https://data.molit.go.kr/def/molit-dcat-ap#missingValuePolicy",
+      "https://data.molit.go.kr/def/molit-dcat-ap#networkLifecycleStatus",
+      "https://data.molit.go.kr/def/molit-dcat-ap#networkSnapshotChecksum",
+      "https://data.molit.go.kr/def/molit-dcat-ap#networkValidFrom",
+      "https://data.molit.go.kr/def/molit-dcat-ap#networkValidUntil",
+      "https://data.molit.go.kr/def/molit-dcat-ap#observationAggregation",
+      "https://data.molit.go.kr/def/molit-dcat-ap#observationSubjectType",
+      "https://data.molit.go.kr/def/molit-dcat-ap#observationUnit",
+      "https://data.molit.go.kr/def/molit-dcat-ap#observedProperty",
+      "https://data.molit.go.kr/def/molit-dcat-ap#offeringReadinessStatus",
+      "https://data.molit.go.kr/def/molit-dcat-ap#qualificationEvidence",
+      "https://data.molit.go.kr/def/molit-dcat-ap#qualityEvaluationMethod",
+      "https://data.molit.go.kr/def/molit-dcat-ap#qualityEvaluationScope",
+      "https://data.molit.go.kr/def/molit-dcat-ap#qualityLossDisposition",
+      "https://data.molit.go.kr/def/molit-dcat-ap#qualityLossNote",
+      "https://data.molit.go.kr/def/molit-dcat-ap#qualityMappingStatement",
+      "https://data.molit.go.kr/def/molit-dcat-ap#qualityResultKind",
+      "https://data.molit.go.kr/def/molit-dcat-ap#sourceQualityElement"
+    ],
+    "changed": [
+      {
+        "iri": "https://data.molit.go.kr/def/molit-dcat-ap#TransferableDataset",
+        "from": {
+          "deprecated": false,
+          "replacements": [],
+          "types": [
+            "http://www.w3.org/2002/07/owl#Class"
+          ]
+        },
+        "to": {
+          "deprecated": true,
+          "replacements": [
+            "http://www.w3.org/ns/dcat#Dataset",
+            "https://data.molit.go.kr/def/molit-dcat-ap#DataspaceOfferingMetadata"
+          ],
+          "types": [
+            "http://www.w3.org/2002/07/owl#Class"
+          ]
+        }
+      },
+      {
+        "iri": "https://data.molit.go.kr/def/molit-dcat-ap#TransferDistribution",
+        "from": {
+          "deprecated": false,
+          "replacements": [],
+          "types": [
+            "http://www.w3.org/2002/07/owl#Class"
+          ]
+        },
+        "to": {
+          "deprecated": true,
+          "replacements": [
+            "http://www.w3.org/ns/dcat#Distribution",
+            "https://data.molit.go.kr/def/molit-dcat-ap#DataspaceOfferingMetadata"
+          ],
+          "types": [
+            "http://www.w3.org/2002/07/owl#Class"
+          ]
+        }
+      }
+    ],
+    "deprecatedInTarget": [
+      {
+        "iri": "https://data.molit.go.kr/def/molit-dcat-ap#TransferableDataset",
+        "replacements": [
+          "http://www.w3.org/ns/dcat#Dataset",
+          "https://data.molit.go.kr/def/molit-dcat-ap#DataspaceOfferingMetadata"
+        ]
+      },
+      {
+        "iri": "https://data.molit.go.kr/def/molit-dcat-ap#TransferDistribution",
+        "replacements": [
+          "http://www.w3.org/ns/dcat#Distribution",
+          "https://data.molit.go.kr/def/molit-dcat-ap#DataspaceOfferingMetadata"
+        ]
+      }
+    ],
+    "removed": []
+  },
+  "controlledValues": {
+    "added": [
+      "https://data.molit.go.kr/candidate/concept/kogl-ai-type",
+      "https://data.molit.go.kr/candidate/concept/kogl-type-0",
+      "https://data.molit.go.kr/candidate/concept/kogl-type-1",
+      "https://data.molit.go.kr/candidate/concept/kogl-type-2",
+      "https://data.molit.go.kr/candidate/concept/kogl-type-3",
+      "https://data.molit.go.kr/candidate/concept/kogl-type-4",
+      "https://data.molit.go.kr/candidate/concept/kr-admin-org",
+      "https://data.molit.go.kr/candidate/concept/mois-kik-b",
+      "https://data.molit.go.kr/candidate/concept/mois-kik-h",
+      "https://data.molit.go.kr/candidate/concept/network-edition/its-standard-node-link-2026-07-01",
+      "https://data.molit.go.kr/candidate/concept/organization-molit",
+      "https://data.molit.go.kr/id/concept/missing-value-policy/exclude-from-aggregation",
+      "https://data.molit.go.kr/id/concept/missing-value-policy/explicit-code",
+      "https://data.molit.go.kr/id/concept/missing-value-policy/imputed",
+      "https://data.molit.go.kr/id/concept/missing-value-policy/preserve-missing",
+      "https://data.molit.go.kr/id/concept/network-lifecycle-status/candidate",
+      "https://data.molit.go.kr/id/concept/network-lifecycle-status/current",
+      "https://data.molit.go.kr/id/concept/network-lifecycle-status/superseded",
+      "https://data.molit.go.kr/id/concept/network-lifecycle-status/withdrawn",
+      "https://data.molit.go.kr/id/concept/observation-aggregation/arithmetic-mean",
+      "https://data.molit.go.kr/id/concept/observation-aggregation/instantaneous",
+      "https://data.molit.go.kr/id/concept/observation-aggregation/maximum",
+      "https://data.molit.go.kr/id/concept/observation-aggregation/median",
+      "https://data.molit.go.kr/id/concept/observation-aggregation/minimum",
+      "https://data.molit.go.kr/id/concept/observation-aggregation/sum",
+      "https://data.molit.go.kr/id/concept/observation-subject-type/area",
+      "https://data.molit.go.kr/id/concept/observation-subject-type/facility",
+      "https://data.molit.go.kr/id/concept/observation-subject-type/network-element",
+      "https://data.molit.go.kr/id/concept/observation-subject-type/section",
+      "https://data.molit.go.kr/id/concept/observation-subject-type/site",
+      "https://data.molit.go.kr/id/concept/observation-subject-type/vehicle-population",
+      "https://data.molit.go.kr/id/concept/observed-property/facility-status",
+      "https://data.molit.go.kr/id/concept/observed-property/speed",
+      "https://data.molit.go.kr/id/concept/observed-property/traffic-volume",
+      "https://data.molit.go.kr/id/concept/observed-property/travel-time",
+      "https://data.molit.go.kr/id/concept/offering-readiness-status/drafting",
+      "https://data.molit.go.kr/id/concept/offering-readiness-status/metadata-conformant",
+      "https://data.molit.go.kr/id/concept/offering-readiness-status/operationally-qualified",
+      "https://data.molit.go.kr/id/concept/offering-readiness-status/qualification-pending",
+      "https://data.molit.go.kr/id/concept/offering-readiness-status/suspended",
+      "https://data.molit.go.kr/id/concept/offering-readiness-status/withdrawn",
+      "https://data.molit.go.kr/id/concept/quality-evaluation-method/reference-comparison",
+      "https://data.molit.go.kr/id/concept/quality-evaluation-method/rule-based",
+      "https://data.molit.go.kr/id/concept/quality-evaluation-method/sample-based",
+      "https://data.molit.go.kr/id/concept/quality-evaluation-method/self-diagnostic",
+      "https://data.molit.go.kr/id/concept/quality-evaluation-method/whole-population",
+      "https://data.molit.go.kr/id/concept/quality-loss-disposition/irreversible-loss",
+      "https://data.molit.go.kr/id/concept/quality-loss-disposition/lossless",
+      "https://data.molit.go.kr/id/concept/quality-loss-disposition/not-published",
+      "https://data.molit.go.kr/id/concept/quality-loss-disposition/reversible-loss",
+      "https://data.molit.go.kr/id/concept/quality-loss-disposition/unmapped",
+      "https://data.molit.go.kr/id/concept/quality-result-kind/boolean",
+      "https://data.molit.go.kr/id/concept/quality-result-kind/categorical",
+      "https://data.molit.go.kr/id/concept/quality-result-kind/descriptive",
+      "https://data.molit.go.kr/id/concept/quality-result-kind/quantitative",
+      "https://data.molit.go.kr/id/concept/term-status/approved",
+      "https://data.molit.go.kr/id/concept/term-status/candidate",
+      "https://data.molit.go.kr/id/concept/term-status/deprecated",
+      "https://data.molit.go.kr/id/unit/vehicle-per-day",
+      "https://data.molit.go.kr/id/unit/vehicle-per-hour"
+    ],
+    "fromCount": 38,
+    "removed": [],
+    "toCount": 98
+  },
+  "reviewedBreakingChanges": [
+    {
+      "id": "BREAK-MODULE-SELECTION",
+      "migrationSection": "MIGRATION.md#4-module-선택",
+      "statement": "A 0.1.0 core or geo marker does not determine the RC domain module; publishers must select and declare each applicable module."
+    },
+    {
+      "id": "BREAK-TRANSFERABLE-DEPRECATION",
+      "migrationSection": "MIGRATION.md#5-deprecated-제공-유형-이행",
+      "statement": "TransferableDataset and TransferDistribution are deprecated; offering metadata and operational DSP qualification are separate assertions."
+    },
+    {
+      "id": "BREAK-DOMESTIC-THEME",
+      "migrationSection": "MIGRATION.md#9-core와-주제-이관",
+      "statement": "A MOLIT domain theme is mandatory; EU TRAN and REGI are optional exchange mappings checked by the diagnostic audit."
+    },
+    {
+      "id": "BREAK-CRS-COVERAGE",
+      "migrationSection": "MIGRATION.md#2-먼저-확인할-변경",
+      "statement": "The spatial CRS allowlist and axis policy expand beyond the 0.1.0 CRS84 and EPSG:5179 subset; publishers must preserve source coordinate order and declare the authority tuple separately."
+    },
+    {
+      "id": "BREAK-INSTANCE-GRAPH-BOUNDARY",
+      "migrationSection": "MIGRATION.md#10-validation-dataset-정리",
+      "statement": "Candidate graphs contain instance data only; the exact support bundle is supplied separately with no entailment."
+    }
+  ]
+}

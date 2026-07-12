@@ -1,0 +1,441 @@
+{
+  "schemaVersion": "molit.profile-release-acceptance/1",
+  "profileVersion": "1.0.0-rc.1",
+  "asOf": "2026-07-13",
+  "items": [
+    {
+      "id": "RA-MODULES",
+      "title": "Independent conformance modules and bundles",
+      "scope": "profile-core",
+      "severity": "P0",
+      "status": "fixed",
+      "blocksCandidate": false,
+      "blocksRecommendation": false,
+      "evidence": [
+        {
+          "kind": "repository-file",
+          "value": "profiles/molit-dcat-ap/releases/1.0.0-rc.1/manifest.json"
+        }
+      ]
+    },
+    {
+      "id": "RA-REQUIREMENTS",
+      "title": "Normative requirement and fixture traceability coverage",
+      "scope": "profile-core",
+      "severity": "P0",
+      "status": "fixed",
+      "blocksCandidate": false,
+      "blocksRecommendation": false,
+      "evidence": [
+        {
+          "kind": "command",
+          "value": "npm run profile:requirements:verify"
+        },
+        {
+          "kind": "requirement-coverage",
+          "value": "profiles/molit-dcat-ap/releases/1.0.0-rc.1/requirements/coverage-blockers.json"
+        }
+      ]
+    },
+    {
+      "id": "RA-ONTOLOGY",
+      "title": "Local-term semantics and competency verification",
+      "scope": "profile-core",
+      "severity": "P0",
+      "status": "fixed",
+      "blocksCandidate": false,
+      "blocksRecommendation": false,
+      "evidence": [
+        {
+          "kind": "repository-file",
+          "value": "profiles/molit-dcat-ap/releases/1.0.0-rc.1/docs/ontology/competency-questions.md"
+        },
+        {
+          "kind": "repository-file",
+          "value": "profiles/molit-dcat-ap/releases/1.0.0-rc.1/ontology/competency-registry.json"
+        },
+        {
+          "kind": "repository-file",
+          "value": "tools/profile/verify-ontology-semantics.mjs"
+        },
+        {
+          "kind": "command",
+          "value": "npm run profile:ontology:verify"
+        }
+      ]
+    },
+    {
+      "id": "RA-GRAPH-INTEGRITY",
+      "title": "Catalog, record, dataset and quality relation integrity",
+      "scope": "profile-core",
+      "severity": "P0",
+      "status": "fixed",
+      "blocksCandidate": false,
+      "blocksRecommendation": false,
+      "evidence": [
+        {
+          "kind": "repository-file",
+          "value": "profiles/molit-dcat-ap/releases/1.0.0-rc.1/examples/invalid/catalog-record-dataset-mismatch.ttl"
+        }
+      ]
+    },
+    {
+      "id": "RA-DATASET-KEY",
+      "title": "Publisher-scoped dataset identifier collision detection",
+      "scope": "profile-core",
+      "severity": "P0",
+      "status": "fixed",
+      "blocksCandidate": false,
+      "blocksRecommendation": false,
+      "evidence": [
+        {
+          "kind": "repository-file",
+          "value": "profiles/molit-dcat-ap/releases/1.0.0-rc.1/examples/invalid/duplicate-publisher-dataset-identifier.ttl"
+        }
+      ]
+    },
+    {
+      "id": "RA-ONTOLOGY-MERGE",
+      "title": "Instance candidate and schema support graph boundary",
+      "scope": "profile-core",
+      "severity": "P0",
+      "status": "fixed",
+      "blocksCandidate": false,
+      "blocksRecommendation": false,
+      "evidence": [
+        {
+          "kind": "repository-file",
+          "value": "profiles/molit-dcat-ap/releases/1.0.0-rc.1/examples/invalid/ontology-in-candidate-graph.ttl"
+        }
+      ]
+    },
+    {
+      "id": "RA-CRS",
+      "title": "CRS axis, geometry subset and transformation round-trip tests",
+      "scope": "profile-core",
+      "severity": "P0",
+      "status": "fixed",
+      "blocksCandidate": false,
+      "blocksRecommendation": false,
+      "evidence": [
+        {
+          "kind": "command",
+          "value": "node --test tests/contract/crs-geometry-transformation.test.mjs"
+        },
+        {
+          "kind": "repository-file",
+          "value": "profiles/molit-dcat-ap/releases/1.0.0-rc.1/examples/source-evidence/standard-node-link-2026-07-01.json"
+        }
+      ]
+    },
+    {
+      "id": "RA-DOMAIN-MODULES",
+      "title": "Network, observation, quality and offering semantics",
+      "scope": "profile-core",
+      "severity": "P0",
+      "status": "fixed",
+      "blocksCandidate": false,
+      "blocksRecommendation": false,
+      "evidence": [
+        {
+          "kind": "repository-file",
+          "value": "profiles/molit-dcat-ap/releases/1.0.0-rc.1/shacl/molit-observation.ttl"
+        }
+      ]
+    },
+    {
+      "id": "RA-NETWORK-SOURCE-SAMPLE",
+      "title": "Observed standard node-link source fixture and snapshot checksum",
+      "scope": "profile-core",
+      "severity": "P0",
+      "status": "fixed",
+      "blocksCandidate": false,
+      "blocksRecommendation": false,
+      "evidence": [
+        {
+          "kind": "repository-file",
+          "value": "profiles/molit-dcat-ap/releases/1.0.0-rc.1/examples/source-evidence/standard-node-link-2026-07-01.json"
+        }
+      ]
+    },
+    {
+      "id": "RA-RUNTIME",
+      "title": "Validator wall-clock and heap isolation",
+      "scope": "profile-core",
+      "severity": "P1",
+      "status": "fixed",
+      "blocksCandidate": false,
+      "blocksRecommendation": false,
+      "evidence": [
+        {
+          "kind": "command",
+          "value": "node --test tests/unit/isolated-validator.test.mjs"
+        }
+      ]
+    },
+    {
+      "id": "RA-LOCK",
+      "title": "Complete byte-locked release inventory",
+      "scope": "profile-core",
+      "severity": "P0",
+      "status": "fixed",
+      "blocksCandidate": false,
+      "blocksRecommendation": false,
+      "evidence": [
+        {
+          "kind": "repository-file",
+          "value": "profiles/molit-dcat-ap/releases/1.0.0-rc.1/artifact-lock.json"
+        }
+      ]
+    },
+    {
+      "id": "RA-INTEGRITY",
+      "title": "Detached-signature mechanism and verifiable release payload",
+      "scope": "profile-core",
+      "severity": "P1",
+      "status": "fixed",
+      "blocksCandidate": false,
+      "blocksRecommendation": false,
+      "evidence": [
+        {
+          "kind": "command",
+          "value": "node --test tests/contract/detached-release-signature.test.mjs"
+        }
+      ]
+    },
+    {
+      "id": "RA-GIT",
+      "title": "Git-tracked release snapshot control",
+      "scope": "profile-core",
+      "severity": "P0",
+      "status": "fixed",
+      "blocksCandidate": false,
+      "blocksRecommendation": false,
+      "evidence": [
+        {
+          "kind": "git-control",
+          "value": "release-gate evaluates that every RC path is tracked and the RC subtree is clean at HEAD"
+        }
+      ]
+    },
+    {
+      "id": "RA-VOCABULARY-REGISTRY",
+      "title": "Controlled-vocabulary lifecycle registry and deterministic projection",
+      "scope": "profile-core",
+      "severity": "P0",
+      "status": "fixed",
+      "blocksCandidate": false,
+      "blocksRecommendation": false,
+      "evidence": [
+        {
+          "kind": "repository-file",
+          "value": "profiles/molit-dcat-ap/releases/1.0.0-rc.1/vocabulary/registry-metadata.json"
+        },
+        {
+          "kind": "command",
+          "value": "npm run profile:vocabulary:verify"
+        }
+      ]
+    },
+    {
+      "id": "RA-SEMANTIC-DIFF",
+      "title": "Machine-readable 0.1.0 to 1.0.0-rc.1 semantic diff",
+      "scope": "profile-core",
+      "severity": "P0",
+      "status": "fixed",
+      "blocksCandidate": false,
+      "blocksRecommendation": false,
+      "evidence": [
+        {
+          "kind": "repository-file",
+          "value": "profiles/molit-dcat-ap/releases/1.0.0-rc.1/migration/semantic-diff.json"
+        },
+        {
+          "kind": "command",
+          "value": "npm run profile:semantic-diff:verify"
+        }
+      ]
+    },
+    {
+      "id": "RA-PUBLICATION-REPRESENTATIONS",
+      "title": "Deterministic HTML, Turtle, JSON-LD and content-negotiation contract",
+      "scope": "profile-core",
+      "severity": "P0",
+      "status": "fixed",
+      "blocksCandidate": false,
+      "blocksRecommendation": false,
+      "evidence": [
+        {
+          "kind": "repository-file",
+          "value": "profiles/molit-dcat-ap/releases/1.0.0-rc.1/publication/content-negotiation.json"
+        },
+        {
+          "kind": "command",
+          "value": "npm run profile:publication:verify"
+        }
+      ]
+    },
+    {
+      "id": "RA-MULTI-ENGINE-MATRIX",
+      "title": "Full requirement-linked Node, pySHACL and Jena decision matrix",
+      "scope": "profile-core",
+      "severity": "P0",
+      "status": "fixed",
+      "blocksCandidate": false,
+      "blocksRecommendation": false,
+      "evidence": [
+        {
+          "kind": "repository-file",
+          "value": "evidence/validators/molit-rc-shacl-matrix.v1.json"
+        },
+        {
+          "kind": "repository-file",
+          "value": "tools/profile/run-rc-shacl-matrix.mjs"
+        }
+      ]
+    },
+    {
+      "id": "RA-SERIALIZATION-PARITY",
+      "title": "Turtle, RDF/XML, JSON-LD, N-Triples and N-Quads semantic parity",
+      "scope": "profile-core",
+      "severity": "P0",
+      "status": "fixed",
+      "blocksCandidate": false,
+      "blocksRecommendation": false,
+      "evidence": [
+        {
+          "kind": "repository-file",
+          "value": "tools/profile/run-rc-serialization-parity.mjs"
+        },
+        {
+          "kind": "repository-file",
+          "value": "tests/contract/rc-release-lane.test.mjs"
+        }
+      ]
+    },
+    {
+      "id": "RA-INSTITUTIONAL-SIGNATURE",
+      "title": "Institution-controlled detached signature and approval provenance",
+      "scope": "institutional",
+      "severity": "P0",
+      "status": "blocked-external-evidence",
+      "blocksCandidate": false,
+      "blocksRecommendation": true,
+      "evidence": [
+        {
+          "kind": "external-action",
+          "value": "the operating authority must sign the reviewed artifact lock with an institution-controlled Ed25519 key and publish approval provenance"
+        }
+      ]
+    },
+    {
+      "id": "RA-SOURCE-RIGHTS",
+      "title": "Permission to redistribute the minimal standard node-link test extract",
+      "scope": "institutional",
+      "severity": "P0",
+      "status": "blocked-external-evidence",
+      "blocksCandidate": false,
+      "blocksRecommendation": true,
+      "evidence": [
+        {
+          "kind": "external-action",
+          "value": "the operating authority must confirm that the attributed three-record source extract may ship with the recommendation package"
+        }
+      ]
+    },
+    {
+      "id": "RA-NAMESPACE",
+      "title": "Stable and version IRI publication with content negotiation",
+      "scope": "institutional",
+      "severity": "P0",
+      "status": "blocked-external-evidence",
+      "blocksCandidate": false,
+      "blocksRecommendation": true,
+      "evidence": [
+        {
+          "kind": "repository-file",
+          "value": "profiles/molit-dcat-ap/releases/1.0.0-rc.1/publication/content-negotiation.json"
+        },
+        {
+          "kind": "external-action",
+          "value": "operating authority must publish the approved data.molit.go.kr namespace"
+        }
+      ]
+    },
+    {
+      "id": "RA-LICENSE",
+      "title": "Public license approval for specification, ontology and vocabularies",
+      "scope": "institutional",
+      "severity": "P0",
+      "status": "blocked-external-evidence",
+      "blocksCandidate": false,
+      "blocksRecommendation": true,
+      "evidence": [
+        {
+          "kind": "external-action",
+          "value": "operating authority and legal owner must approve a license"
+        }
+      ]
+    },
+    {
+      "id": "RA-GOVERNANCE",
+      "title": "Publisher, steward and change-board approval",
+      "scope": "institutional",
+      "severity": "P0",
+      "status": "blocked-external-evidence",
+      "blocksCandidate": false,
+      "blocksRecommendation": true,
+      "evidence": [
+        {
+          "kind": "external-action",
+          "value": "institutional approval record required"
+        }
+      ]
+    },
+    {
+      "id": "RA-DOMESTIC-CLAUSES",
+      "title": "Clause-level review of KS and TTA crosswalk",
+      "scope": "institutional",
+      "severity": "P0",
+      "status": "blocked-external-evidence",
+      "blocksCandidate": false,
+      "blocksRecommendation": true,
+      "evidence": [
+        {
+          "kind": "repository-file",
+          "value": "profiles/molit-dcat-ap/releases/1.0.0-rc.1/mappings/domestic-standards-crosswalk.csv"
+        }
+      ]
+    },
+    {
+      "id": "RA-DOMESTIC-REGISTRIES",
+      "title": "Authority approval for domestic identifier registries",
+      "scope": "institutional",
+      "severity": "P0",
+      "status": "blocked-external-evidence",
+      "blocksCandidate": false,
+      "blocksRecommendation": true,
+      "evidence": [
+        {
+          "kind": "repository-file",
+          "value": "profiles/molit-dcat-ap/releases/1.0.0-rc.1/vocabulary/domestic-candidate-registries.ttl"
+        }
+      ]
+    },
+    {
+      "id": "RA-ONEWINDOW",
+      "title": "One-window and platform transformation pack",
+      "scope": "interoperability-pack",
+      "severity": "P2",
+      "status": "deferred-nonblocking",
+      "blocksCandidate": false,
+      "blocksRecommendation": false,
+      "evidence": [
+        {
+          "kind": "repository-file",
+          "value": "profiles/molit-dcat-ap/releases/1.0.0-rc.1/manifest.json"
+        }
+      ]
+    }
+  ]
+}

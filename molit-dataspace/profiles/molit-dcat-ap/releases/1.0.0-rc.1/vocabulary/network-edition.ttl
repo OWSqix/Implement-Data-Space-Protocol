@@ -1,0 +1,39 @@
+@prefix adms: <http://www.w3.org/ns/adms#> .
+@prefix candidate: <https://data.molit.go.kr/candidate/concept/network-edition/> .
+@prefix dct: <http://purl.org/dc/terms/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix status: <https://data.molit.go.kr/id/concept/term-status/> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<https://data.molit.go.kr/candidate/scheme/network-edition>
+    a skos:ConceptScheme ;
+    dct:issued "2026-07-13"^^xsd:date ;
+    dct:source <https://www.its.go.kr/nodelink/nodelinkRef> ;
+    dct:title "표준 노드링크 판본 후보 registry"@ko,
+        "Candidate standard node-link edition registry"@en ;
+    skos:definition "배포일, 원본 파일명과 원본 byte checksum을 함께 고정한 표준 노드링크 판본 후보 registry다. 운영기관의 판본 URI 정책 승인을 아직 받지 않았다."@ko,
+        "A candidate standard node-link edition registry that fixes the publication date, source file name and source-byte checksum together. The operating authority has not yet approved this edition-IRI policy."@en ;
+    skos:hasTopConcept candidate:its-standard-node-link-2026-07-01 ;
+    skos:prefLabel "표준 노드링크 판본 후보 registry"@ko,
+        "Candidate standard node-link edition registry"@en ;
+    rdfs:isDefinedBy <https://data.molit.go.kr/candidate/scheme/network-edition> ;
+    owl:versionInfo "1.0.0-rc.1" ;
+    adms:status status:candidate .
+
+candidate:its-standard-node-link-2026-07-01
+    a skos:Concept ;
+    dct:issued "2026-07-01"^^xsd:date ;
+    dct:source <https://www.its.go.kr/nodelink/nodelinkRef> ;
+    rdfs:isDefinedBy <https://data.molit.go.kr/candidate/scheme/network-edition> ;
+    skos:definition "ITS 국가교통정보센터에 2026-07-01자로 게시된 NODELINKDATA.zip byte snapshot을 가리키는 후보 판본이다. 원본 ZIP은 이 배포 패키지에 포함하지 않는다."@ko,
+        "A candidate edition for the NODELINKDATA.zip byte snapshot posted by the ITS National Transport Information Center on 2026-07-01. The source ZIP is not included in this release package."@en ;
+    skos:inScheme <https://data.molit.go.kr/candidate/scheme/network-edition> ;
+    skos:notation "ITS-NODELINK-2026-07-01" ;
+    skos:prefLabel "표준 노드링크 2026-07-01 판본 후보"@ko,
+        "Candidate standard node-link edition 2026-07-01"@en ;
+    skos:topConceptOf <https://data.molit.go.kr/candidate/scheme/network-edition> ;
+    skos:note "Source archive SHA-256: 219020fac55f2faab1029ec9306563a00968f9b27f3910b80c534583b750b9ab"@en ;
+    owl:versionInfo "1.0.0-rc.1" ;
+    adms:status status:candidate .

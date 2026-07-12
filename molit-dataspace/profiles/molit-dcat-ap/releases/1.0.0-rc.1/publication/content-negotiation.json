@@ -1,0 +1,54 @@
+{
+  "deploymentGate": "RA-NAMESPACE",
+  "namespaceStatus": "proposed-not-yet-dereferenceable",
+  "notes": [
+    "The operating authority must publish these exact locked bytes or record a new release.",
+    "This file specifies representation selection; it does not claim that data.molit.go.kr is already deployed."
+  ],
+  "profileVersion": "1.0.0-rc.1",
+  "resources": [
+    {
+      "iris": [
+        "https://data.molit.go.kr/def/molit-dcat-ap"
+      ],
+      "representations": {
+        "application/ld+json": "serializations/molit-dcat-ap.jsonld",
+        "text/html": "ontology.html",
+        "text/turtle": "ontology/molit-dcat-ap.ttl"
+      }
+    },
+    {
+      "iris": [
+        "https://data.molit.go.kr/profile/molit-dcat-ap",
+        "https://data.molit.go.kr/profile/molit-dcat-ap/1.0.0-rc.1",
+        "https://data.molit.go.kr/profile/molit-dcat-ap/1.0.0-rc.1/dataspace-offering",
+        "https://data.molit.go.kr/profile/molit-dcat-ap/1.0.0-rc.1/geo",
+        "https://data.molit.go.kr/profile/molit-dcat-ap/1.0.0-rc.1/network",
+        "https://data.molit.go.kr/profile/molit-dcat-ap/1.0.0-rc.1/observation",
+        "https://data.molit.go.kr/profile/molit-dcat-ap/1.0.0-rc.1/publication-policy",
+        "https://data.molit.go.kr/profile/molit-dcat-ap/1.0.0-rc.1/quality",
+        "https://data.molit.go.kr/profile/molit-dcat-ap/dataspace-offering",
+        "https://data.molit.go.kr/profile/molit-dcat-ap/geo",
+        "https://data.molit.go.kr/profile/molit-dcat-ap/network",
+        "https://data.molit.go.kr/profile/molit-dcat-ap/observation",
+        "https://data.molit.go.kr/profile/molit-dcat-ap/publication-policy",
+        "https://data.molit.go.kr/profile/molit-dcat-ap/quality"
+      ],
+      "representations": {
+        "application/ld+json": "serializations/profile-description.jsonld",
+        "text/html": "index.html",
+        "text/turtle": "profile-description.ttl"
+      }
+    }
+  ],
+  "responseRules": {
+    "dynamicNetworkImports": false,
+    "exactByteArtifacts": true,
+    "unsupportedAccept": 406,
+    "vary": [
+      "Accept"
+    ]
+  },
+  "schemaVersion": "molit.content-negotiation-contract/1",
+  "status": "candidate-deployment-contract"
+}

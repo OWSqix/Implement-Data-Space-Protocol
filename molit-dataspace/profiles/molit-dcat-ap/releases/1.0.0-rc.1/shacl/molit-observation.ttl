@@ -1,0 +1,90 @@
+@prefix dcat: <http://www.w3.org/ns/dcat#> .
+@prefix dct: <http://purl.org/dc/terms/> .
+@prefix molit: <https://data.molit.go.kr/def/molit-dcat-ap#> .
+@prefix molit-unit: <https://data.molit.go.kr/id/unit/> .
+@prefix obsagg: <https://data.molit.go.kr/id/concept/observation-aggregation/> .
+@prefix obsmissing: <https://data.molit.go.kr/id/concept/missing-value-policy/> .
+@prefix obsprop: <https://data.molit.go.kr/id/concept/observed-property/> .
+@prefix obssubject: <https://data.molit.go.kr/id/concept/observation-subject-type/> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix unit: <http://qudt.org/vocab/unit/> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#ObservationDatasetShape>
+    a sh:NodeShape ;
+    sh:targetClass molit:ObservationDataset ;
+    molit:requirementId "MOLIT-OBS-001" ;
+    molit:controlOwner "observation-data-governance" ;
+    sh:property [ molit:requirementId "MOLIT-OBS-001-P-TYPE-001" ;
+        sh:path rdf:type ;
+        sh:hasValue dcat:Dataset ;
+        sh:message "An ObservationDataset must also state rdf:type dcat:Dataset."@en
+    ], [ molit:requirementId "MOLIT-OBS-001-P-TEMPORAL-001" ;
+        sh:path dct:temporal ;
+        sh:minCount 1 ;
+        sh:class dct:PeriodOfTime ;
+        sh:message "An observation dataset must state its observation period."@en
+    ], [ molit:requirementId "MOLIT-OBS-001-P-TEMPORALRESOLUTION-001" ;
+        sh:path dcat:temporalResolution ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:datatype xsd:duration ;
+        sh:message "Observation interval must be one ISO 8601 xsd:duration value."@en
+    ], [ molit:requirementId "MOLIT-OBS-001-P-AGGREGATIONPERIOD-001" ;
+        sh:path molit:aggregationPeriod ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:datatype xsd:duration ;
+        sh:message "State the time window used to compute one aggregate value; do not infer it from temporal resolution."@en
+    ], [ molit:requirementId "MOLIT-OBS-001-P-OBSERVEDPROPERTY-001" ;
+        sh:path molit:observedProperty ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:nodeKind sh:IRI ;
+        sh:in ( obsprop:traffic-volume obsprop:speed obsprop:travel-time ) ;
+        sh:message "Select exactly one approved observation property for a homogeneous observation dataset."@en
+    ], [ molit:requirementId "MOLIT-OBS-001-P-OBSERVATIONAGGREGATION-001" ;
+        sh:path molit:observationAggregation ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:nodeKind sh:IRI ;
+        sh:in ( obsagg:instantaneous obsagg:arithmetic-mean obsagg:sum obsagg:minimum obsagg:maximum obsagg:median ) ;
+        sh:message "State exactly one approved aggregation method."@en
+    ], [ molit:requirementId "MOLIT-OBS-001-P-MISSINGVALUEPOLICY-001" ;
+        sh:path molit:missingValuePolicy ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:nodeKind sh:IRI ;
+        sh:in ( obsmissing:preserve-missing obsmissing:explicit-code obsmissing:exclude-from-aggregation obsmissing:imputed ) ;
+        sh:message "State how missing observations are represented."@en
+    ], [ molit:requirementId "MOLIT-OBS-001-P-OBSERVATIONSUBJECTTYPE-001" ;
+        sh:path molit:observationSubjectType ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:nodeKind sh:IRI ;
+        sh:in ( obssubject:site obssubject:section obssubject:network-element obssubject:facility obssubject:vehicle-population obssubject:area ) ;
+        sh:message "State the kind of feature to which observations apply."@en
+    ], [ molit:requirementId "MOLIT-OBS-001-P-OBSERVATIONUNIT-001" ;
+        sh:path molit:observationUnit ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:nodeKind sh:IRI ;
+        sh:in ( unit:KiloM-PER-HR unit:M-PER-SEC molit-unit:vehicle-per-hour molit-unit:vehicle-per-day unit:NUM unit:SEC unit:MIN ) ;
+        sh:message "Use the approved QUDT unit for the selected observation property."@en
+    ] .
+
+<https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#ObservationUnitSemanticsShape>
+    a sh:NodeShape ;
+    sh:targetClass molit:ObservationDataset ;
+    molit:requirementId "MOLIT-OBS-UNIT-001" ;
+    molit:controlOwner "observation-data-governance" ;
+    sh:or (
+        [ sh:property [ sh:path molit:observedProperty ; sh:hasValue obsprop:speed ] ;
+          sh:property [ sh:path molit:observationUnit ; sh:in ( unit:KiloM-PER-HR unit:M-PER-SEC ) ] ]
+        [ sh:property [ sh:path molit:observedProperty ; sh:hasValue obsprop:traffic-volume ] ;
+          sh:property [ sh:path molit:observationUnit ; sh:in ( molit-unit:vehicle-per-hour molit-unit:vehicle-per-day unit:NUM ) ] ]
+        [ sh:property [ sh:path molit:observedProperty ; sh:hasValue obsprop:travel-time ] ;
+          sh:property [ sh:path molit:observationUnit ; sh:in ( unit:SEC unit:MIN ) ] ]
+    ) ;
+    sh:message "Observation property and QUDT unit are not semantically compatible."@en .

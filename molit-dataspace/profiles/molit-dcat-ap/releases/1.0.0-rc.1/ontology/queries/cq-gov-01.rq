@@ -1,0 +1,7 @@
+PREFIX adms: <http://www.w3.org/ns/adms#>
+PREFIX status: <https://data.molit.go.kr/id/concept/term-status/>
+SELECT ?resource
+WHERE {
+  ?resource adms:status status:candidate .
+  FILTER (STRSTARTS(STR(?resource), "https://data.molit.go.kr/candidate/"))
+}

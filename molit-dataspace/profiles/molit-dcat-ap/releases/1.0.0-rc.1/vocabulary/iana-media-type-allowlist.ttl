@@ -1,0 +1,46 @@
+@prefix dct: <http://purl.org/dc/terms/> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+<https://www.iana.org/assignments/media-types/text/csv>
+    a dct:MediaType ;
+    rdfs:label "text/csv" .
+
+<https://www.iana.org/assignments/media-types/application/json>
+    a dct:MediaType ;
+    rdfs:label "application/json" .
+
+<https://www.iana.org/assignments/media-types/application/ld+json>
+    a dct:MediaType ;
+    rdfs:label "application/ld+json" .
+
+<https://www.iana.org/assignments/media-types/text/turtle>
+    a dct:MediaType ;
+    rdfs:label "text/turtle" .
+
+<https://www.iana.org/assignments/media-types/application/rdf+xml>
+    a dct:MediaType ;
+    rdfs:label "application/rdf+xml" .
+
+<https://www.iana.org/assignments/media-types/application/xml>
+    a dct:MediaType ;
+    rdfs:label "application/xml" .
+
+<https://www.iana.org/assignments/media-types/application/gml+xml>
+    a dct:MediaType ;
+    rdfs:label "application/gml+xml" .
+
+<https://www.iana.org/assignments/media-types/application/geo+json>
+    a dct:MediaType ;
+    rdfs:label "application/geo+json" .
+
+<https://www.iana.org/assignments/media-types/application/gzip>
+    a dct:MediaType ;
+    rdfs:label "application/gzip" .
+
+<https://www.iana.org/assignments/media-types/application/zip>
+    a dct:MediaType ;
+    rdfs:label "application/zip" .
+
+<https://www.iana.org/assignments/media-types/application/octet-stream>
+    a dct:MediaType ;
+    rdfs:label "application/octet-stream" .

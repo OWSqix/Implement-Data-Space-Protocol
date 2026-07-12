@@ -1,4 +1,4 @@
-const ROLE_MAILBOX = /^mailto:[a-z0-9](?:[a-z0-9._+-]{0,62}[a-z0-9])?@(?:[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?[.])*molit[.]go[.]kr$/u;
+const ROLE_MAILBOX = /^mailto:[a-z0-9](?:[a-z0-9._+-]{0,62}[a-z0-9])?@(?:(?:[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?[.])*molit[.]go[.]kr|korea[.]kr)$/u;
 const PUBLIC_HOST = /^(?:[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?[.])+[a-z]{2,63}$/u;
 
 function invalid(message, details = {}) {

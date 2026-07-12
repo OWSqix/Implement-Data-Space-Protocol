@@ -1,0 +1,271 @@
+@prefix dcat: <http://www.w3.org/ns/dcat#> .
+@prefix dcatap: <http://data.europa.eu/r5r/> .
+@prefix dct: <http://purl.org/dc/terms/> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+@prefix molit: <https://data.molit.go.kr/def/molit-dcat-ap#> .
+@prefix molit-domain: <https://data.molit.go.kr/id/concept/domain/> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#CatalogShape>
+    a sh:NodeShape ;
+    sh:targetClass dcat:Catalog ;
+    molit:requirementId "MOLIT-CAT-001" ;
+    molit:controlOwner "metadata-governance" ;
+    sh:property [ molit:requirementId "MOLIT-CAT-001-P-TITLE-001" ;
+        sh:path dct:title ;
+        sh:minCount 1 ;
+        sh:nodeKind sh:Literal ;
+        sh:uniqueLang true ;
+        sh:qualifiedValueShape [ sh:languageIn ( "ko" ) ] ;
+        sh:qualifiedMinCount 1 ;
+        sh:message "카탈로그에는 한국어 제목이 하나 이상 있어야 한다."@ko ;
+        sh:message "A catalogue must have at least one Korean title."@en
+    ], [ molit:requirementId "MOLIT-CAT-001-P-DESCRIPTION-001" ;
+        sh:path dct:description ;
+        sh:minCount 1 ;
+        sh:nodeKind sh:Literal ;
+        sh:uniqueLang true ;
+        sh:qualifiedValueShape [ sh:languageIn ( "ko" ) ] ;
+        sh:qualifiedMinCount 1 ;
+        sh:message "카탈로그에는 한국어 설명이 하나 이상 있어야 한다."@ko
+    ], [ molit:requirementId "MOLIT-CAT-001-P-PUBLISHER-001" ;
+        sh:path dct:publisher ;
+        sh:class foaf:Agent ;
+        sh:nodeKind sh:IRI ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:message "카탈로그 발행기관을 foaf:Agent IRI로 하나 지정해야 한다."@ko
+    ], [ molit:requirementId "MOLIT-CAT-001-P-DATASET-001" ;
+        sh:path dcat:dataset ;
+        sh:class dcat:Dataset ;
+        sh:minCount 1 ;
+        sh:message "카탈로그에는 데이터셋이 하나 이상 있어야 한다."@ko
+    ], [ molit:requirementId "MOLIT-CAT-001-P-RECORD-001" ;
+        sh:path dcat:record ;
+        sh:class dcat:CatalogRecord ;
+        sh:minCount 1 ;
+        sh:message "수집 이력을 추적할 CatalogRecord가 하나 이상 있어야 한다."@ko
+    ], [ molit:requirementId "MOLIT-CAT-001-P-LANGUAGE-001" ;
+        sh:path dct:language ;
+        sh:hasValue <http://publications.europa.eu/resource/authority/language/KOR> ;
+        sh:minCount 1 ;
+        sh:message "카탈로그 언어에는 EU 언어 코드 KOR을 포함해야 한다."@ko
+    ] .
+
+<https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#CatalogRecordShape>
+    a sh:NodeShape ;
+    sh:targetClass dcat:CatalogRecord ;
+    molit:requirementId "MOLIT-REC-001" ;
+    molit:controlOwner "catalog-operations" ;
+    sh:property [ molit:requirementId "MOLIT-REC-001-P-TITLE-001" ;
+        sh:path dct:title ;
+        sh:minCount 1 ;
+        sh:nodeKind sh:Literal ;
+        sh:qualifiedValueShape [ sh:languageIn ( "ko" ) ] ;
+        sh:qualifiedMinCount 1 ;
+        sh:message "CatalogRecord에는 한국어 제목이 있어야 한다."@ko
+    ], [ molit:requirementId "MOLIT-REC-001-P-MODIFIED-001" ;
+        sh:path dct:modified ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:or ( [ sh:datatype xsd:date ] [ sh:datatype xsd:dateTime ] ) ;
+        sh:message "CatalogRecord 수정일은 xsd:date 또는 xsd:dateTime 값 하나여야 한다."@ko
+    ], [ molit:requirementId "MOLIT-REC-001-P-PRIMARYTOPIC-001" ;
+        sh:path foaf:primaryTopic ;
+        sh:class dcat:Dataset ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:message "CatalogRecord는 데이터셋 하나를 foaf:primaryTopic으로 가리켜야 한다."@ko
+    ], [ molit:requirementId "MOLIT-REC-001-P-LANGUAGE-001" ;
+        sh:path dct:language ;
+        sh:hasValue <http://publications.europa.eu/resource/authority/language/KOR> ;
+        sh:minCount 1 ;
+        sh:message "CatalogRecord 언어에는 KOR을 포함해야 한다."@ko
+    ] .
+
+<https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#DatasetShape>
+    a sh:NodeShape ;
+    sh:targetClass dcat:Dataset ;
+    molit:requirementId "MOLIT-DS-001" ;
+    molit:controlOwner "dataset-steward" ;
+    sh:property [ molit:requirementId "MOLIT-DS-001-P-PATH-0E31B21B99-001" ;
+        sh:path [ sh:inversePath dcat:dataset ] ;
+        sh:minCount 1 ;
+        sh:class dcat:Catalog ;
+        sh:message "게시 Dataset은 하나 이상의 dcat:Catalog에 포함돼야 한다."@ko
+    ], [ molit:requirementId "MOLIT-DS-001-P-PATH-30F94DAB87-001" ;
+        sh:path [ sh:inversePath foaf:primaryTopic ] ;
+        sh:minCount 1 ;
+        sh:class dcat:CatalogRecord ;
+        sh:message "게시 Dataset에는 하나 이상의 dcat:CatalogRecord가 있어야 한다."@ko
+    ], [ molit:requirementId "MOLIT-DS-001-P-IDENTIFIER-001" ;
+        sh:path dct:identifier ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:datatype xsd:string ;
+        sh:minLength 1 ;
+        sh:maxLength 500 ;
+        sh:pattern "\\S" ;
+        sh:message "데이터셋의 발급기관 범위 안에서 고유한 식별자 하나가 필요하다."@ko
+    ], [ molit:requirementId "MOLIT-DS-001-P-TITLE-001" ;
+        sh:path dct:title ;
+        sh:minCount 1 ;
+        sh:nodeKind sh:Literal ;
+        sh:uniqueLang true ;
+        sh:qualifiedValueShape [ sh:languageIn ( "ko" ) ] ;
+        sh:qualifiedMinCount 1 ;
+        sh:message "데이터셋에는 한국어 제목이 하나 이상 있어야 한다."@ko
+    ], [ molit:requirementId "MOLIT-DS-001-P-DESCRIPTION-001" ;
+        sh:path dct:description ;
+        sh:minCount 1 ;
+        sh:nodeKind sh:Literal ;
+        sh:uniqueLang true ;
+        sh:qualifiedValueShape [ sh:languageIn ( "ko" ) ] ;
+        sh:qualifiedMinCount 1 ;
+        sh:message "데이터셋에는 한국어 설명이 하나 이상 있어야 한다."@ko
+    ], [ molit:requirementId "MOLIT-DS-001-P-PUBLISHER-001" ;
+        sh:path dct:publisher ;
+        sh:class foaf:Agent ;
+        sh:nodeKind sh:IRI ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:message "데이터셋 발행기관을 foaf:Agent IRI 하나로 지정해야 한다."@ko
+    ], [ molit:requirementId "MOLIT-DS-001-P-THEME-001" ;
+        sh:path dcat:theme ;
+        sh:minCount 1 ;
+        sh:in (
+            <http://publications.europa.eu/resource/authority/data-theme/TRAN>
+            <http://publications.europa.eu/resource/authority/data-theme/REGI>
+            molit-domain:land
+            molit-domain:urban
+            molit-domain:housing
+            molit-domain:building
+            molit-domain:real-estate
+            molit-domain:construction
+            molit-domain:transport
+            molit-domain:road
+            molit-domain:railway
+            molit-domain:aviation
+            molit-domain:logistics
+            molit-domain:mobility
+            molit-domain:transport-safety
+            molit-domain:spatial-information
+        ) ;
+        sh:message "dcat:theme은 승인된 국토교통 주제 또는 교환용 DCAT-AP 주제 IRI여야 한다."@ko
+    ], [ molit:requirementId "MOLIT-DS-001-P-THEME-002" ;
+        sh:path dcat:theme ;
+        sh:qualifiedValueShape [
+            sh:nodeKind sh:IRI ;
+            sh:in (
+                molit-domain:land
+                molit-domain:urban
+                molit-domain:housing
+                molit-domain:building
+                molit-domain:real-estate
+                molit-domain:construction
+                molit-domain:transport
+                molit-domain:road
+                molit-domain:railway
+                molit-domain:aviation
+                molit-domain:logistics
+                molit-domain:mobility
+                molit-domain:transport-safety
+                molit-domain:spatial-information
+            )
+        ] ;
+        sh:qualifiedMinCount 1 ;
+        sh:message "dcat:theme에는 국토교통 주제 분류 IRI를 하나 이상 포함해야 한다."@ko
+    ], [ molit:requirementId "MOLIT-DS-001-P-ACCESSRIGHTS-001" ;
+        sh:path dct:accessRights ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:nodeKind sh:IRI ;
+        sh:message "접근 권한은 dct:RightsStatement로 관리할 수 있는 IRI 하나여야 한다. 국내 발행 어휘 승인과 EU 교환 어휘 검사는 별도 정책으로 수행한다."@ko
+    ], [ molit:requirementId "MOLIT-DS-001-P-ISSUED-001" ;
+        sh:path dct:issued ;
+        sh:maxCount 1 ;
+        sh:or ( [ sh:datatype xsd:date ] [ sh:datatype xsd:dateTime ] ) ;
+        sh:message "발행일은 xsd:date 또는 xsd:dateTime이어야 한다."@ko
+    ], [ molit:requirementId "MOLIT-DS-001-P-MODIFIED-001" ;
+        sh:path dct:modified ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:or ( [ sh:datatype xsd:date ] [ sh:datatype xsd:dateTime ] ) ;
+        sh:message "수정일은 xsd:date 또는 xsd:dateTime 값 하나여야 한다."@ko
+    ] .
+
+<https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#DataServiceShape>
+    a sh:NodeShape ;
+    sh:targetClass dcat:DataService ;
+    molit:requirementId "MOLIT-SVC-001" ;
+    molit:controlOwner "connector-operations" ;
+    sh:property [ molit:requirementId "MOLIT-SVC-001-P-TITLE-001" ;
+        sh:path dct:title ;
+        sh:minCount 1 ;
+        sh:nodeKind sh:Literal ;
+        sh:qualifiedValueShape [ sh:languageIn ( "ko" ) ] ;
+        sh:qualifiedMinCount 1 ;
+        sh:message "DataService에는 한국어 제목이 있어야 한다."@ko
+    ], [ molit:requirementId "MOLIT-SVC-001-P-ENDPOINTURL-001" ;
+        sh:path dcat:endpointURL ;
+        sh:minCount 1 ;
+        sh:nodeKind sh:IRI ;
+        sh:pattern "^https://" ;
+        sh:message "DataService에는 공개 가능한 endpointURL이 있어야 한다."@ko
+    ], [ molit:requirementId "MOLIT-SVC-001-P-SERVESDATASET-001" ;
+        sh:path dcat:servesDataset ;
+        sh:minCount 1 ;
+        sh:class dcat:Dataset ;
+        sh:message "DataService가 제공하는 데이터셋을 하나 이상 연결해야 한다."@ko
+    ], [ molit:requirementId "MOLIT-SVC-001-P-THEME-001" ;
+        sh:path dcat:theme ;
+        sh:nodeKind sh:IRI ;
+        sh:qualifiedValueShape [
+            sh:in (
+                molit-domain:land
+                molit-domain:urban
+                molit-domain:housing
+                molit-domain:building
+                molit-domain:real-estate
+                molit-domain:construction
+                molit-domain:transport
+                molit-domain:road
+                molit-domain:railway
+                molit-domain:aviation
+                molit-domain:logistics
+                molit-domain:mobility
+                molit-domain:transport-safety
+                molit-domain:spatial-information
+            )
+        ] ;
+        sh:qualifiedMinCount 1 ;
+        sh:message "DataService에는 국토교통 주제 분류 IRI를 하나 이상 지정해야 한다. EU TRAN·REGI는 교환용 진단에서 별도로 검사한다."@ko
+    ] .
+
+<https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#AgentShape>
+    a sh:NodeShape ;
+    sh:targetClass foaf:Agent ;
+    molit:requirementId "MOLIT-AGENT-001" ;
+    molit:controlOwner "participant-registry" ;
+    sh:property [ molit:requirementId "MOLIT-AGENT-001-P-NAME-001" ;
+        sh:path foaf:name ;
+        sh:minCount 1 ;
+        sh:nodeKind sh:Literal ;
+        sh:qualifiedValueShape [ sh:languageIn ( "ko" ) ] ;
+        sh:qualifiedMinCount 1 ;
+        sh:message "기관에는 한국어 명칭이 있어야 한다."@ko
+    ] .
+
+<https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#CatalogRecordDatasetCoherenceShape>
+    a sh:NodeShape ;
+    sh:targetClass dcat:Catalog ;
+    molit:requirementId "MOLIT-CAT-REL-001" ;
+    molit:controlOwner "catalog-operations" ;
+    sh:property [ molit:requirementId "MOLIT-CAT-REL-001-P-PATH-DA00F2B2F6-001" ;
+        sh:path ( dcat:record foaf:primaryTopic ) ;
+        sh:equals dcat:dataset ;
+        sh:message "Each CatalogRecord primary topic must be exactly one of the datasets listed by the same Catalog, and every listed dataset must have a record."@en ;
+        sh:message "CatalogRecord의 primary topic 집합은 같은 Catalog의 dcat:dataset 집합과 일치해야 한다."@ko
+    ] .

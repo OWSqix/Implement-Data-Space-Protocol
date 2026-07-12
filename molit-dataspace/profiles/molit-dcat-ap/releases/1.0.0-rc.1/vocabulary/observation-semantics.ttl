@@ -1,0 +1,236 @@
+@prefix adms: <http://www.w3.org/ns/adms#> .
+@prefix aggregation: <https://data.molit.go.kr/id/concept/observation-aggregation/> .
+@prefix dct: <http://purl.org/dc/terms/> .
+@prefix missing: <https://data.molit.go.kr/id/concept/missing-value-policy/> .
+@prefix observed: <https://data.molit.go.kr/id/concept/observed-property/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix scheme: <https://data.molit.go.kr/scheme/> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix status: <https://data.molit.go.kr/id/concept/term-status/> .
+@prefix subject: <https://data.molit.go.kr/id/concept/observation-subject-type/> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+scheme:observed-property
+    a skos:ConceptScheme ;
+    dct:issued "2026-07-13"^^xsd:date ;
+    dct:title "국토교통 관측항목"@ko,
+        "MOLIT observed properties"@en ;
+    skos:definition "국토교통 관측 데이터셋에 들어 있는 값이 나타내는 현상 또는 특성의 후보 분류체계."@ko,
+        "A candidate scheme for phenomena or characteristics represented by values in MOLIT observation datasets."@en ;
+    skos:prefLabel "국토교통 관측항목"@ko,
+        "MOLIT observed properties"@en ;
+    skos:hasTopConcept observed:traffic-volume,
+        observed:speed,
+        observed:travel-time,
+        observed:facility-status ;
+    owl:versionInfo "1.0.0-rc.1" ;
+    adms:status status:candidate .
+
+observed:traffic-volume
+    a skos:Concept ;
+    rdfs:isDefinedBy scheme:observed-property ;
+    skos:inScheme scheme:observed-property ;
+    skos:prefLabel "교통량"@ko,
+        "Traffic volume"@en ;
+    skos:definition "명시된 지점·구간과 집계기간을 통과하거나 점유한 차량 또는 이동 객체의 수."@ko,
+        "The number of vehicles or moving objects passing or occupying a stated site or section during an aggregation period."@en ;
+    skos:topConceptOf scheme:observed-property ;
+    owl:versionInfo "1.0.0-rc.1" ;
+    adms:status status:candidate .
+
+observed:speed
+    a skos:Concept ;
+    rdfs:isDefinedBy scheme:observed-property ;
+    skos:inScheme scheme:observed-property ;
+    skos:prefLabel "속도"@ko,
+        "Speed"@en ;
+    skos:definition "관측대상의 이동거리를 시간으로 나눈 값. 지점속도, 구간속도와 집계방식을 별도로 기록한다."@ko,
+        "Distance travelled by the observation subject divided by time; site speed, section speed and aggregation method are recorded separately."@en ;
+    skos:topConceptOf scheme:observed-property ;
+    owl:versionInfo "1.0.0-rc.1" ;
+    adms:status status:candidate .
+
+observed:travel-time
+    a skos:Concept ;
+    rdfs:isDefinedBy scheme:observed-property ;
+    skos:inScheme scheme:observed-property ;
+    skos:prefLabel "통행시간"@ko,
+        "Travel time"@en ;
+    skos:definition "명시된 출발점과 도착점 또는 구간을 이동하는 데 걸린 시간."@ko,
+        "Time taken to travel between stated origin and destination points or across a stated section."@en ;
+    skos:topConceptOf scheme:observed-property ;
+    owl:versionInfo "1.0.0-rc.1" ;
+    adms:status status:candidate .
+
+observed:facility-status
+    a skos:Concept ;
+    rdfs:isDefinedBy scheme:observed-property ;
+    skos:inScheme scheme:observed-property ;
+    skos:prefLabel "시설 상태"@ko,
+        "Facility status"@en ;
+    skos:definition "교통시설이나 현장장비의 가동, 장애, 폐쇄 또는 점검 상태를 나타내는 값."@ko,
+        "A value indicating the operational, failed, closed or maintenance state of transport infrastructure or field equipment."@en ;
+    skos:topConceptOf scheme:observed-property ;
+    owl:versionInfo "1.0.0-rc.1" ;
+    adms:status status:candidate .
+
+scheme:observation-subject-type
+    a skos:ConceptScheme ;
+    dct:issued "2026-07-13"^^xsd:date ;
+    dct:title "국토교통 관측대상 유형"@ko,
+        "MOLIT observation subject types"@en ;
+    skos:definition "관측값이 적용되는 공간, 망 요소, 시설 또는 이동 객체 집단의 후보 유형."@ko,
+        "Candidate types of spatial entities, network elements, facilities or moving-object populations to which observations apply."@en ;
+    skos:prefLabel "국토교통 관측대상 유형"@ko,
+        "MOLIT observation subject types"@en ;
+    skos:hasTopConcept subject:site,
+        subject:section,
+        subject:network-element,
+        subject:facility,
+        subject:vehicle-population,
+        subject:area ;
+    owl:versionInfo "1.0.0-rc.1" ;
+    adms:status status:candidate .
+
+subject:site
+    a skos:Concept ; rdfs:isDefinedBy scheme:observation-subject-type ;
+    skos:inScheme scheme:observation-subject-type ;
+    skos:prefLabel "관측지점"@ko, "Observation site"@en ;
+    skos:definition "센서나 조사장비가 값을 측정하는 위치 또는 지점."@ko, "A location or point at which a sensor or survey device measures values."@en ;
+    skos:topConceptOf scheme:observation-subject-type ; owl:versionInfo "1.0.0-rc.1" ; adms:status status:candidate .
+
+subject:section
+    a skos:Concept ; rdfs:isDefinedBy scheme:observation-subject-type ;
+    skos:inScheme scheme:observation-subject-type ;
+    skos:prefLabel "구간"@ko, "Section"@en ;
+    skos:definition "두 기준점 사이의 도로, 철도 또는 교통서비스 구간."@ko, "A road, railway or transport-service section between two reference points."@en ;
+    skos:topConceptOf scheme:observation-subject-type ; owl:versionInfo "1.0.0-rc.1" ; adms:status status:candidate .
+
+subject:network-element
+    a skos:Concept ; rdfs:isDefinedBy scheme:observation-subject-type ;
+    skos:inScheme scheme:observation-subject-type ;
+    skos:prefLabel "교통망 요소"@ko, "Transport-network element"@en ;
+    skos:definition "판이 명시된 교통망의 노드, 링크 또는 그 밖의 식별 가능한 요소."@ko, "A node, link or other identifiable element in a versioned transport network."@en ;
+    skos:topConceptOf scheme:observation-subject-type ; owl:versionInfo "1.0.0-rc.1" ; adms:status status:candidate .
+
+subject:facility
+    a skos:Concept ; rdfs:isDefinedBy scheme:observation-subject-type ;
+    skos:inScheme scheme:observation-subject-type ;
+    skos:prefLabel "시설"@ko, "Facility"@en ;
+    skos:definition "관측 또는 상태 판정의 대상이 되는 교통·건설·공간정보 시설."@ko, "Transport, construction or geospatial infrastructure subject to observation or status assessment."@en ;
+    skos:topConceptOf scheme:observation-subject-type ; owl:versionInfo "1.0.0-rc.1" ; adms:status status:candidate .
+
+subject:vehicle-population
+    a skos:Concept ; rdfs:isDefinedBy scheme:observation-subject-type ;
+    skos:inScheme scheme:observation-subject-type ;
+    skos:prefLabel "차량 집단"@ko, "Vehicle population"@en ;
+    skos:definition "집계기간과 선별조건으로 정의한 차량 또는 이동체의 집단."@ko, "A population of vehicles or moving objects defined by an aggregation period and selection criteria."@en ;
+    skos:topConceptOf scheme:observation-subject-type ; owl:versionInfo "1.0.0-rc.1" ; adms:status status:candidate .
+
+subject:area
+    a skos:Concept ; rdfs:isDefinedBy scheme:observation-subject-type ;
+    skos:inScheme scheme:observation-subject-type ;
+    skos:prefLabel "지역"@ko, "Area"@en ;
+    skos:definition "행정구역, 격자 또는 명시된 geometry로 한정한 관측 집계 영역."@ko, "An observation aggregation area bounded by an administrative area, grid or stated geometry."@en ;
+    skos:topConceptOf scheme:observation-subject-type ; owl:versionInfo "1.0.0-rc.1" ; adms:status status:candidate .
+
+scheme:observation-aggregation
+    a skos:ConceptScheme ;
+    dct:issued "2026-07-13"^^xsd:date ;
+    dct:title "국토교통 관측 집계방식"@ko,
+        "MOLIT observation aggregation methods"@en ;
+    skos:definition "원 관측값으로부터 제공값을 산출한 통계적 집계방식의 후보 분류체계."@ko,
+        "A candidate scheme for statistical aggregation methods used to derive supplied values from source observations."@en ;
+    skos:prefLabel "국토교통 관측 집계방식"@ko,
+        "MOLIT observation aggregation methods"@en ;
+    skos:hasTopConcept aggregation:instantaneous,
+        aggregation:sum,
+        aggregation:arithmetic-mean,
+        aggregation:minimum,
+        aggregation:maximum,
+        aggregation:median ;
+    owl:versionInfo "1.0.0-rc.1" ;
+    adms:status status:candidate .
+
+aggregation:instantaneous
+    a skos:Concept ; rdfs:isDefinedBy scheme:observation-aggregation ; skos:inScheme scheme:observation-aggregation ;
+    skos:prefLabel "순간값"@ko, "Instantaneous value"@en ;
+    skos:definition "집계기간의 통계연산을 적용하지 않은 개별 관측 또는 기준시각 값."@ko, "An individual observation or reference-time value without a statistical operation over a period."@en ;
+    skos:topConceptOf scheme:observation-aggregation ; owl:versionInfo "1.0.0-rc.1" ; adms:status status:candidate .
+
+aggregation:sum
+    a skos:Concept ; rdfs:isDefinedBy scheme:observation-aggregation ; skos:inScheme scheme:observation-aggregation ;
+    skos:prefLabel "합계"@ko, "Sum"@en ;
+    skos:definition "집계기간에 포함된 유효 관측값을 더한 값."@ko, "The sum of valid observation values included in an aggregation period."@en ;
+    skos:topConceptOf scheme:observation-aggregation ; owl:versionInfo "1.0.0-rc.1" ; adms:status status:candidate .
+
+aggregation:arithmetic-mean
+    a skos:Concept ; rdfs:isDefinedBy scheme:observation-aggregation ; skos:inScheme scheme:observation-aggregation ;
+    skos:prefLabel "산술평균"@ko, "Arithmetic mean"@en ;
+    skos:definition "집계기간의 유효 관측값 합을 그 값의 수로 나눈 값."@ko, "The sum of valid observation values in a period divided by their count."@en ;
+    skos:topConceptOf scheme:observation-aggregation ; owl:versionInfo "1.0.0-rc.1" ; adms:status status:candidate .
+
+aggregation:minimum
+    a skos:Concept ; rdfs:isDefinedBy scheme:observation-aggregation ; skos:inScheme scheme:observation-aggregation ;
+    skos:prefLabel "최솟값"@ko, "Minimum"@en ;
+    skos:definition "집계기간에 포함된 유효 관측값 중 가장 작은 값."@ko, "The smallest valid observation value included in an aggregation period."@en ;
+    skos:topConceptOf scheme:observation-aggregation ; owl:versionInfo "1.0.0-rc.1" ; adms:status status:candidate .
+
+aggregation:maximum
+    a skos:Concept ; rdfs:isDefinedBy scheme:observation-aggregation ; skos:inScheme scheme:observation-aggregation ;
+    skos:prefLabel "최댓값"@ko, "Maximum"@en ;
+    skos:definition "집계기간에 포함된 유효 관측값 중 가장 큰 값."@ko, "The largest valid observation value included in an aggregation period."@en ;
+    skos:topConceptOf scheme:observation-aggregation ; owl:versionInfo "1.0.0-rc.1" ; adms:status status:candidate .
+
+aggregation:median
+    a skos:Concept ; rdfs:isDefinedBy scheme:observation-aggregation ; skos:inScheme scheme:observation-aggregation ;
+    skos:prefLabel "중앙값"@ko, "Median"@en ;
+    skos:definition "집계기간의 유효 관측값을 정렬했을 때 가운데에 위치하는 값."@ko, "The middle value after ordering valid observation values in an aggregation period."@en ;
+    skos:topConceptOf scheme:observation-aggregation ; owl:versionInfo "1.0.0-rc.1" ; adms:status status:candidate .
+
+scheme:missing-value-policy
+    a skos:ConceptScheme ;
+    dct:issued "2026-07-13"^^xsd:date ;
+    dct:title "국토교통 관측 결측값 처리정책"@ko,
+        "MOLIT observation missing-value policies"@en ;
+    skos:definition "누락되거나 유효하지 않은 관측값을 제공 데이터에서 처리하는 방식의 후보 분류체계."@ko,
+        "A candidate scheme for handling absent or invalid observation values in supplied data."@en ;
+    skos:prefLabel "국토교통 관측 결측값 처리정책"@ko,
+        "MOLIT observation missing-value policies"@en ;
+    skos:hasTopConcept missing:preserve-missing,
+        missing:explicit-code,
+        missing:exclude-from-aggregation,
+        missing:imputed ;
+    owl:versionInfo "1.0.0-rc.1" ;
+    adms:status status:candidate .
+
+missing:preserve-missing
+    a skos:Concept ; rdfs:isDefinedBy scheme:missing-value-policy ; skos:inScheme scheme:missing-value-policy ;
+    skos:prefLabel "결측 유지"@ko, "Preserve missing"@en ;
+    skos:definition "값을 생성하거나 대치하지 않고 원 관측의 부재를 유지하는 방식."@ko, "A policy preserving absence of a source observation without generating or replacing a value."@en ;
+    skos:topConceptOf scheme:missing-value-policy ; owl:versionInfo "1.0.0-rc.1" ; adms:status status:candidate .
+
+missing:explicit-code
+    a skos:Concept ; rdfs:isDefinedBy scheme:missing-value-policy ; skos:inScheme scheme:missing-value-policy ;
+    skos:prefLabel "명시적 결측 코드"@ko, "Explicit missing code"@en ;
+    skos:definition "등록된 상태코드로 결측 이유를 표현하고 수치값과 구분하는 방식."@ko, "A policy representing the reason for missingness with a registered status code distinct from numeric values."@en ;
+    skos:topConceptOf scheme:missing-value-policy ; owl:versionInfo "1.0.0-rc.1" ; adms:status status:candidate .
+
+missing:exclude-from-aggregation
+    a skos:Concept ; rdfs:isDefinedBy scheme:missing-value-policy ; skos:inScheme scheme:missing-value-policy ;
+    skos:prefLabel "집계 제외"@ko, "Exclude from aggregation"@en ;
+    skos:definition "결측 관측을 집계 계산에서 제외하고 유효 관측수 또는 coverage를 별도로 제공하는 방식."@ko, "A policy excluding missing observations from aggregation while supplying valid-observation count or coverage separately."@en ;
+    skos:topConceptOf scheme:missing-value-policy ; owl:versionInfo "1.0.0-rc.1" ; adms:status status:candidate .
+
+missing:imputed
+    a skos:Concept ; rdfs:isDefinedBy scheme:missing-value-policy ; skos:inScheme scheme:missing-value-policy ;
+    skos:prefLabel "대치"@ko, "Imputed"@en ;
+    skos:definition "승인된 방법으로 결측값을 추정해 채우고 원 관측과 대치값을 구분하는 방식."@ko, "A policy estimating a missing value with an approved method while distinguishing imputed values from source observations."@en ;
+    skos:topConceptOf scheme:missing-value-policy ; owl:versionInfo "1.0.0-rc.1" ; adms:status status:candidate .
+
+# Scheme-definition anchors.
+<https://data.molit.go.kr/scheme/observed-property> rdfs:isDefinedBy <https://data.molit.go.kr/scheme/observed-property> .
+<https://data.molit.go.kr/scheme/observation-subject-type> rdfs:isDefinedBy <https://data.molit.go.kr/scheme/observation-subject-type> .
+<https://data.molit.go.kr/scheme/observation-aggregation> rdfs:isDefinedBy <https://data.molit.go.kr/scheme/observation-aggregation> .
+<https://data.molit.go.kr/scheme/missing-value-policy> rdfs:isDefinedBy <https://data.molit.go.kr/scheme/missing-value-policy> .

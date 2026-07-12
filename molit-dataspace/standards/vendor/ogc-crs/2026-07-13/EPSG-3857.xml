@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<gml:ProjectedCRS xmlns:epsg="urn:x-ogp:spec:schema-xsd:EPSG:2.3:dataset" xmlns:xlink="http://www.w3.org/1999/xlink" gml:id="epsg-crs-3857" xmlns:gml="http://www.opengis.net/gml/3.2">
+  <gml:metaDataProperty>
+    <epsg:CommonMetaData>
+      <epsg:type>projected</epsg:type>
+      <epsg:alias code="5966" codeSpace="7301" alias="WGS 84 / Popular Visualisation Pseudo-Mercator" />
+      <epsg:alias code="7067" codeSpace="7301" alias="Web Mercator" />
+      <epsg:informationSource>Microsoft.</epsg:informationSource>
+      <epsg:revisionDate>2020-03-14</epsg:revisionDate>
+      <epsg:changes>
+        <epsg:changeID xlink:href="https://epsg.org/api/v1/Change/2008.114/export?format=gml" />
+        <epsg:changeID xlink:href="https://epsg.org/api/v1/Change/2014.033/export?format=gml" />
+        <epsg:changeID xlink:href="https://epsg.org/api/v1/Change/2014.052/export?format=gml" />
+        <epsg:changeID xlink:href="https://epsg.org/api/v1/Change/2015.063/export?format=gml" />
+        <epsg:changeID xlink:href="https://epsg.org/api/v1/Change/2020.027/export?format=gml" />
+      </epsg:changes>
+      <epsg:show>true</epsg:show>
+      <epsg:isDeprecated>false</epsg:isDeprecated>
+      <epsg:Usage>
+        <epsg:extent xlink:href="https://epsg.org/api/v1/Extent/3544/export?format=gml" />
+        <gml:scope>Web mapping and visualisation.</gml:scope>
+      </epsg:Usage>
+    </epsg:CommonMetaData>
+  </gml:metaDataProperty>
+  <gml:identifier codeSpace="EPSG">3857</gml:identifier>
+  <gml:name>WGS 84 / Pseudo-Mercator</gml:name>
+  <gml:remarks>Not a recognised geodetic system. Uses spherical development of ellipsoidal coordinates. Relative to WGS 84 / World Mercator (CRS code 3395) gives errors of 0.7 percent in scale and differences in northing of up to 43km in the map (21km on the ground).</gml:remarks>
+  <gml:scope />
+  <gml:conversion xlink:href="https://epsg.org/api/v1/Conversion/3856/export?format=gml" />
+  <gml:baseGeodeticCRS xlink:href="https://epsg.org/api/v1/CoordRefSystem/4326/export?format=gml" />
+  <gml:cartesianCS xlink:href="https://epsg.org/api/v1/CoordSystem/4499/export?format=gml" />
+</gml:ProjectedCRS>

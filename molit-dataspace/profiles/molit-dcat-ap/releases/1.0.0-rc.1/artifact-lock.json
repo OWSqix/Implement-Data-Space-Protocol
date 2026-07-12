@@ -1,0 +1,1666 @@
+{
+  "schemaVersion": "molit.profile-artifact-lock/1",
+  "profileVersion": "1.0.0-rc.1",
+  "generatedAt": "2026-07-13",
+  "networkFetchAtRuntime": false,
+  "artifacts": [
+    {
+      "license": "PENDING-OWNER-APPROVAL",
+      "origin": "local",
+      "version": "1.0.0-rc.1",
+      "path": "CONFORMANCE.md",
+      "sha256": "bc84c85243e0db6dc1dd6a1a7b86af934ff609f592fcdb1276c500c7805d3bd7"
+    },
+    {
+      "license": "PENDING-OWNER-APPROVAL",
+      "origin": "local",
+      "version": "1.0.0-rc.1",
+      "path": "LICENSE.md",
+      "sha256": "52012fea13f72e436ada94b600405de06d7b85ff1a23243554bc77ede1fc7d12"
+    },
+    {
+      "license": "PENDING-OWNER-APPROVAL",
+      "origin": "local",
+      "version": "1.0.0-rc.1",
+      "path": "MIGRATION.md",
+      "sha256": "3e6a77dc82b8b0a84f91256f07c306a78d1e6fbb1a7d2356df00e09c39b53616"
+    },
+    {
+      "license": "PENDING-OWNER-APPROVAL",
+      "origin": "local",
+      "version": "1.0.0-rc.1",
+      "path": "NOTICE.md",
+      "sha256": "265437869ce0ab638f0f460d3d3fa14740ecd7bdd6c5728b73b4279674d3b5cd"
+    },
+    {
+      "license": "PENDING-OWNER-APPROVAL",
+      "origin": "generated-local",
+      "version": "1.0.0-rc.1",
+      "path": "bundles/core.ttl",
+      "sha256": "f05e5b0acb007b15010d12e0819120d492ebbe3b13fca8e2f4dc7bce8cfb4d31"
+    },
+    {
+      "license": "PENDING-OWNER-APPROVAL",
+      "origin": "generated-local",
+      "version": "1.0.0-rc.1",
+      "path": "bundles/dataspace-offering.ttl",
+      "sha256": "eb2c635e350870440dbac0029b2b77925b9513aee87793ac6f63fc380b744d7f"
+    },
+    {
+      "license": "PENDING-OWNER-APPROVAL",
+      "origin": "generated-local",
+      "version": "1.0.0-rc.1",
+      "path": "bundles/geo.ttl",
+      "sha256": "3934aac6dfd2a5b8c53143158298b334999feac36c16ab02f28ef66efaa4ce1c"
+    },
+    {
+      "license": "PENDING-OWNER-APPROVAL",
+      "origin": "generated-local",
+      "version": "1.0.0-rc.1",
+      "path": "bundles/network.ttl",
+      "sha256": "5f4ad2367096cdd95b2db5f0dc8c45c81bc1f80875da5d897d6a3f34ad66583b"
+    },
+    {
+      "license": "PENDING-OWNER-APPROVAL",
+      "origin": "generated-local",
+      "version": "1.0.0-rc.1",
+      "path": "bundles/observation.ttl",
+      "sha256": "c490ad741e996f81ae0898e8f3d3bf9b06e58e243b7c58c8318a78183208101a"
+    },
+    {
+      "license": "PENDING-OWNER-APPROVAL",
+      "origin": "generated-local",
+      "version": "1.0.0-rc.1",
+      "path": "bundles/publication-policy.ttl",
+      "sha256": "e75aaa5881e1487050c63ba17d7a8b3cc6f1d2ebe2ddb060caa9aa7b2d8fa20d"
+    },
+    {
+      "license": "PENDING-OWNER-APPROVAL",
+      "origin": "generated-local",
+      "version": "1.0.0-rc.1",
+      "path": "bundles/quality.ttl",
+      "sha256": "9d2fbe58f84b7bc661c51406a1fce874a5656060672a8e4fb69e488ee8997425"
+    },
+    {
+      "license": "PENDING-OWNER-APPROVAL",
+      "origin": "generated-local",
+      "version": "1.0.0-rc.1",
+      "path": "bundles/support.ttl",
+      "sha256": "4cbe28513e30495168057e9d9ffd72097613889e82c06e466621dd23b2b81adc"
+    },
+    {
+      "license": "PENDING-OWNER-APPROVAL",
+      "origin": "local",
+      "version": "1.0.0-rc.1",
+      "path": "context/molit-dcat-ap.context.jsonld",
+      "sha256": "074ee70def4b14a30b8ca2b7f0251005682b78cf60e229ab4af0435a6d218fa6"
+    },
+    {
+      "license": "PENDING-OWNER-APPROVAL",
+      "origin": "local",
+      "version": "1.0.0-rc.1",
+      "path": "docs/ontology/competency-questions.md",
+      "sha256": "c7e31560e3e510c4ed84b12d62db72cecc98a5475beaffefde907f93397f7fd1"
+    },
+    {
+      "license": "PENDING-OWNER-APPROVAL",
+      "origin": "local",
+      "version": "1.0.0-rc.1",
+      "path": "examples/invalid/catalog-record-dataset-mismatch.ttl",
+      "sha256": "d9a6a7db0f442b3a716511a9081b780dc1b7055f873f7fb2bfc09b47a949281f"
+    },
+    {
+      "license": "PENDING-OWNER-APPROVAL",
+      "origin": "local",
+      "version": "1.0.0-rc.1",
+      "path": "examples/invalid/duplicate-publisher-dataset-identifier.ttl",
+      "sha256": "414f9a8edfc32dd27b6cfe489954130e6d08f5c2749e0365b34c2e57c15bcc26"
+    },
+    {
+      "license": "PENDING-OWNER-APPROVAL",
+      "origin": "local",
+      "version": "0.1.0",
+      "path": "examples/invalid/literal-access-rights.ttl",
+      "sha256": "c7a74456ff51924bc230c228dcd68611621feda83224a85d51812a5e840c120b"
+    },
+    {
+      "license": "PENDING-OWNER-APPROVAL",
+      "origin": "local",
+      "version": "0.1.0",
+      "path": "examples/invalid/missing-korean-title.ttl",
+      "sha256": "e07e0d588a9facab33a1bc84da3da3fbd865848c7938a3d454944512c633c225"
+    },
+    {
+      "license": "PENDING-OWNER-APPROVAL",
+      "origin": "local",
+      "version": "1.0.0-rc.1",
+      "path": "examples/invalid/mutation-molit-agent-001-p-name-001.ttl",
+      "sha256": "8d239f13b1a179d97f7b62ffc6f939b90557f3cfbb5119b10b420b36ee8bf51c"
+    },
+    {
+      "license": "PENDING-OWNER-APPROVAL",
+      "origin": "local",
+      "version": "1.0.0-rc.1",
+      "path": "examples/invalid/mutation-molit-cat-001-p-dataset-001.ttl",
+      "sha256": "2e71a5eec1026470bb4ae471746986fe678c073fa04576951e28d5f8619d0844"
+    },
+    {
+      "license": "PENDING-OWNER-APPROVAL",
+      "origin": "local",
+      "version": "1.0.0-rc.1",
+      "path": "examples/invalid/mutation-molit-cat-001-p-description-001.ttl",
+      "sha256": "47f29ad6f57f7f8526bb4a5f3b7c3980b27b42e90702730d500679159ba81e8b"
+    },
+    {
+      "license": "PENDING-OWNER-APPROVAL",
+      "origin": "local",
+      "version": "1.0.0-rc.1",
+      "path": "examples/invalid/mutation-molit-cat-001-p-language-001.ttl",
+      "sha256": "5eaa0e86b62e318dc512d4c53de4c00b6aec2572f93839b1a26466a57a7e97b0"
+    },
+    {
+      "license": "PENDING-OWNER-APPROVAL",
+      "origin": "local",
+      "version": "1.0.0-rc.1",
+      "path": "examples/invalid/mutation-molit-cat-001-p-publisher-001.ttl",
+      "sha256": "82f6394f880e3a1e580609f9274fd4d7d6529c19d2fdb0961d5686b7115e40d2"
+    },
+    {
+      "license": "PENDING-OWNER-APPROVAL",
+      "origin": "local",
+      "version": "1.0.0-rc.1",
+      "path": "examples/invalid/mutation-molit-cat-001-p-record-001.ttl",
+      "sha256": "d4069c33132c800d787c1d182eb9a7302a01bd0a08a844a56c0de2b46e99e9a4"
+    },
+    {
+      "license": "PENDING-OWNER-APPROVAL",
+      "origin": "local",
+      "version": "1.0.0-rc.1",
+      "path": "examples/invalid/mutation-molit-cat-001-p-title-001.ttl",
+      "sha256": "1aac80b76522d5a88a9211835192d79f92946644b6d1a4237f478717e7b616ee"
+    },
+    {
+      "license": "PENDING-OWNER-APPROVAL",
+      "origin": "generated-local",
+      "version": "1.0.0-rc.1",
+      "path": "examples/invalid/mutation-molit-cat-rel-001-p-path-da00f2b2f6-001.ttl",
+      "sha256": "4be230e7d37641f5764d18fac1b861e48153ac36bd9a5aece5782db18c76765a"
+    },
+    {
+      "license": "PENDING-OWNER-APPROVAL",
+      "origin": "local",
+      "version": "1.0.0-rc.1",
+      "path": "examples/invalid/mutation-molit-cv-checksum-001-p-algorithm-001.ttl",
+      "sha256": "1fd4e21a0a41da391a04ea58a0462756f98bc09cbc69c08771eabadc7c35836c"
+    },
+    {
+      "license": "PENDING-OWNER-APPROVAL",
+      "origin": "local",
+      "version": "1.0.0-rc.1",
+      "path": "examples/invalid/mutation-molit-cv-mediatype-001-p-compressformat-001.ttl",
+      "sha256": "f89d3ad12d353bc5342cee39766dab762c6cfc2891b4bdb8f001c7e0f733d619"
+    },
+    {
+      "license": "PENDING-OWNER-APPROVAL",
+      "origin": "generated-local",
+      "version": "1.0.0-rc.1",
+      "path": "examples/invalid/mutation-molit-cv-mediatype-001-p-mediatype-001.ttl",
+      "sha256": "17facafe6c97ce98197b5b4ad7f735726c55ef20cdb14fad25c5f451d41c2e78"
+    },
+    {
+      "license": "PENDING-OWNER-APPROVAL",
+      "origin": "local",
+      "version": "1.0.0-rc.1",
+      "path": "examples/invalid/mutation-molit-cv-mediatype-001-p-packageformat-001.ttl",
+      "sha256": "e3c11d7ec01a66d13e9bcf51f26d5cf76c0bfec2c09eefc40a055847438aa73e"
+    },
+    {
+      "license": "PENDING-OWNER-APPROVAL",
+      "origin": "generated-local",
+      "version": "1.0.0-rc.1",
+      "path": "examples/invalid/mutation-molit-cv-mediatype-001-p-type-001.ttl",
+      "sha256": "b5752400bd6d5f5b481f2845546b41ee64114c26647ce6367ada863be8301fc0"
+    },
+    {
+      "license": "PENDING-OWNER-APPROVAL",
+      "origin": "generated-local",
+      "version": "1.0.0-rc.1",
+      "path": "examples/invalid/mutation-molit-ds-001-p-accessrights-001.ttl",
+      "sha256": "1f6ea3345cc8a0f31c69bd8ff76773c1f97947ba61c30ac9bb5042bf6f05dcd0"
+    },
+    {
+      "license": "PENDING-OWNER-APPROVAL",
+      "origin": "local",
+      "version": "1.0.0-rc.1",
+      "path": "examples/invalid/mutation-molit-ds-001-p-description-001.ttl",
+      "sha256": "08bb52ad903195d8e95526ef050e9bd7799538036391447196d82e7864812106"
+    },
+    {
+      "license": "PENDING-OWNER-APPROVAL",
+      "origin": "local",
+      "version": "1.0.0-rc.1",
+      "path": "examples/invalid/mutation-molit-ds-001-p-identifier-001.ttl",
+      "sha256": "c8f6cff0306d036fea553e31944830e04a8961b3159e956c428d9d37339a32bb"
+    },
+    {
+      "license": "PENDING-OWNER-APPROVAL",
+      "origin": "local",
+      "version": "1.0.0-rc.1",
+      "path": "examples/invalid/mutation-molit-ds-001-p-issued-001.ttl",
+      "sha256": "a798f41bcee4fd0e97c4fc97a1d7c7bb13df2ef25a4f1ef02e6875c209956877"
+    },
+    {
+      "license": "PENDING-OWNER-APPROVAL",
+      "origin": "local",
+      "version": "1.0.0-rc.1",
+      "path": "examples/invalid/mutation-molit-ds-001-p-modified-001.ttl",
+      "sha256": "20951b9093a87cc641f2602c2bef95718e19aa022d34ae7a715b35bd0e7ad798"
+    },
+    {
+      "license": "PENDING-OWNER-APPROVAL",
+      "origin": "generated-local",
+      "version": "1.0.0-rc.1",
+      "path": "examples/invalid/mutation-molit-ds-001-p-path-0e31b21b99-001.ttl",
+      "sha256": "2e71a5eec1026470bb4ae471746986fe678c073fa04576951e28d5f8619d0844"
+    },
+    {
+      "license": "PENDING-OWNER-APPROVAL",
+      "origin": "generated-local",
+      "version": "1.0.0-rc.1",
+      "path": "examples/invalid/mutation-molit-ds-001-p-path-30f94dab87-001.ttl",
+      "sha256": "4be230e7d37641f5764d18fac1b861e48153ac36bd9a5aece5782db18c76765a"
+    },
+    {
+      "license": "PENDING-OWNER-APPROVAL",
+      "origin": "local",
+      "version": "1.0.0-rc.1",
+      "path": "examples/invalid/mutation-molit-ds-001-p-publisher-001.ttl",
+      "sha256": "abe2026f41c4e8c63137ffb1ec873d04099616d77b9196fee3b32ffb9f596cce"
+    },
+    {
+      "license": "PENDING-OWNER-APPROVAL",
+      "origin": "generated-local",
+      "version": "1.0.0-rc.1",
+      "path": "examples/invalid/mutation-molit-ds-001-p-theme-001.ttl",
+      "sha256": "99dc0ca2a0e7b97ac7676b3473f7676fb4f45eaa16eb7b786f5958be8cc46fb8"
+    },
+    {
+      "license": "PENDING-OWNER-APPROVAL",
+      "origin": "local",
+      "version": "1.0.0-rc.1",
+      "path": "examples/invalid/mutation-molit-ds-001-p-theme-002.ttl",
+      "sha256": "99dc0ca2a0e7b97ac7676b3473f7676fb4f45eaa16eb7b786f5958be8cc46fb8"
+    },
+    {
+      "license": "PENDING-OWNER-APPROVAL",
+      "origin": "generated-local",
+      "version": "1.0.0-rc.1",
+      "path": "examples/invalid/mutation-molit-ds-001-p-title-001.ttl",
+      "sha256": "b342d11856380fd819128e76f6295afd038c17a98984416124210e197bd69cd3"
+    },
+    {
+      "license": "PENDING-OWNER-APPROVAL",
+      "origin": "local",
+      "version": "1.0.0-rc.1",
+      "path": "examples/invalid/mutation-molit-geo-001-p-referencesystem-001.ttl",
+      "sha256": "f17c146246d3fca0c77dd8aab24873f1de23231bb6437c79b0e5a83e0809ec6b"
+    },
+    {
+      "license": "PENDING-OWNER-APPROVAL",
+      "origin": "local",
+      "version": "1.0.0-rc.1",
+      "path": "examples/invalid/mutation-molit-geo-001-p-spatialdisclosurelevel-001.ttl",
+      "sha256": "a6753257c747f86ae9e98b82c31f617445f8422bde6528de472fed9d6d270408"
+    },
+    {
+      "license": "PENDING-OWNER-APPROVAL",
+      "origin": "local",
+      "version": "1.0.0-rc.1",
+      "path": "examples/invalid/mutation-molit-geo-001-p-spatialresolutioninmeters-001.ttl",
+      "sha256": "f9eec531e918615a7e29686cf075474c0ff4c9fc47abf9dbb7a2dc75c93b328a"
+    },
+    {
+      "license": "PENDING-OWNER-APPROVAL",
+      "origin": "generated-local",
+      "version": "1.0.0-rc.1",
+      "path": "examples/invalid/mutation-molit-geo-001-p-type-001.ttl",
+      "sha256": "aa0cf78ff163df8da6fbb40dfb39d9a0972f6793eeff266f12159bf88891b5e2"
+    },
+    {
+      "license": "PENDING-OWNER-APPROVAL",
+      "origin": "generated-local",
+      "version": "1.0.0-rc.1",
+      "path": "examples/invalid/mutation-molit-geo-disclosure-001.ttl",
+      "sha256": "1a6839c3fa92abca567c43dd143ac0acf845deea8672bd5b2131ef883bd62900"
+    },
+    {
+      "license": "PENDING-OWNER-APPROVAL",
+      "origin": "generated-local",
+      "version": "1.0.0-rc.1",
+      "path": "examples/invalid/mutation-molit-geo-encoding-001.ttl",
+      "sha256": "c1d56503357d60805bc2083a455574cb10fe33ca058aadf32b35c2a7ecfecbaa"
+    },
+    {
+      "license": "PENDING-OWNER-APPROVAL",
+      "origin": "generated-local",
+      "version": "1.0.0-rc.1",
+      "path": "examples/invalid/mutation-molit-geo-encoding-002.ttl",
+      "sha256": "417d115abcae829629cc2849c37d4e7ea20437cf565d0f1ebc682f5c008d0c42"
+    },
+    {
+      "license": "PENDING-OWNER-APPROVAL",
+      "origin": "generated-local",
+      "version": "1.0.0-rc.1",
+      "path": "examples/invalid/mutation-molit-geo-encoding-003.ttl",
+      "sha256": "9485264cc7f8151553f19fcfc72ba928ff56f2c1191143ff9d74455d22bb3068"
+    },
+    {
+      "license": "PENDING-OWNER-APPROVAL",
+      "origin": "generated-local",
+      "version": "1.0.0-rc.1",
+      "path": "examples/invalid/mutation-molit-geo-encoding-004.ttl",
+      "sha256": "5e90421ea94a1ea33b59b961a337ac3ab05caed9d873fd2f76a72f277c9b0570"
+    },
+    {
+      "license": "PENDING-OWNER-APPROVAL",
+      "origin": "generated-local",
+      "version": "1.0.0-rc.1",
+      "path": "examples/invalid/mutation-molit-geo-encoding-005-p-asdggs-001.ttl",
+      "sha256": "fdbefdbd033ad2f9161203dd45b3a031d6ed92401720a5ca7b09630ab0cb25df"
+    },
+    {
+      "license": "PENDING-OWNER-APPROVAL",
+      "origin": "generated-local",
+      "version": "1.0.0-rc.1",
+      "path": "examples/invalid/mutation-molit-geo-encoding-005-p-asgeojson-001.ttl",
+      "sha256": "c79e203a0b4dd504912d4d66cb1b3828ca400ed9566121415e9a81ee75c8be21"
+    },
+    {
+      "license": "PENDING-OWNER-APPROVAL",
+      "origin": "generated-local",
+      "version": "1.0.0-rc.1",
+      "path": "examples/invalid/mutation-molit-geo-encoding-005-p-askml-001.ttl",
+      "sha256": "29a09a37f04bceb127e2b2f5a8e0d043214141e01973debdb2b65fd7bfd430f2"
+    },
+    {
+      "license": "PENDING-OWNER-APPROVAL",
+      "origin": "generated-local",
+      "version": "1.0.0-rc.1",
+      "path": "examples/invalid/mutation-molit-geo-encoding-005-p-hasserialization-001.ttl",
+      "sha256": "752af780630da567887ea649cc679b3c017b20acc9348dbfada879d61be754e7"
+    },
+    {
+      "license": "PENDING-OWNER-APPROVAL",
+      "origin": "generated-local",
+      "version": "1.0.0-rc.1",
+      "path": "examples/invalid/mutation-molit-geo-link-001-p-path-bfc98936cc-001.ttl",
+      "sha256": "1c64c64c2d72ef2da64471b75da4a18988eadfc3e5e6c796d3f2a2a287f5e9ac"
+    },
+    {
+      "license": "PENDING-OWNER-APPROVAL",
+      "origin": "local",
+      "version": "1.0.0-rc.1",
+      "path": "examples/invalid/mutation-molit-geo-profile-001-p-conformsto-001.ttl",
+      "sha256": "64eb04ee4cb35014ec43f667244ef9ff508af0e488d4ddde1c3e343379ca7a54"
+    },
+    {
+      "license": "PENDING-OWNER-APPROVAL",
+      "origin": "local",
+      "version": "1.0.0-rc.1",
+      "path": "examples/invalid/mutation-molit-geo-profile-002-p-conformsto-001.ttl",
+      "sha256": "cc0eba38bcecce34fdbf75e02f6b08b6cbc73098d46e98595b42ecb210ade5f2"
+    },
+    {
+      "license": "PENDING-OWNER-APPROVAL",
+      "origin": "generated-local",
+      "version": "1.0.0-rc.1",
+      "path": "examples/invalid/mutation-molit-geo-type-001.ttl",
+      "sha256": "e9ba2e745c72cbf02b870e27919b1ca8f507b6d01e01528061210a2873f52e1a"
+    },
+    {
+      "license": "PENDING-OWNER-APPROVAL",
+      "origin": "generated-local",
+      "version": "1.0.0-rc.1",
+      "path": "examples/invalid/mutation-molit-geo-type-002.ttl",
+      "sha256": "710980d16e7c556f25cb1a5369deaf1051326a73edb3e55fc4cc2860ab02f82d"
+    },
+    {
+      "license": "PENDING-OWNER-APPROVAL",
+      "origin": "generated-local",
+      "version": "1.0.0-rc.1",
+      "path": "examples/invalid/mutation-molit-geo-type-003.ttl",
+      "sha256": "9485264cc7f8151553f19fcfc72ba928ff56f2c1191143ff9d74455d22bb3068"
+    },
+    {
+      "license": "PENDING-OWNER-APPROVAL",
+      "origin": "generated-local",
+      "version": "1.0.0-rc.1",
+      "path": "examples/invalid/mutation-molit-geo-type-004.ttl",
+      "sha256": "a1011bbb92a5ea4d39c4791d54b9043a865973c82856d2e5a4c519978e477011"
+    },
+    {
+      "license": "PENDING-OWNER-APPROVAL",
+      "origin": "local",
+      "version": "1.0.0-rc.1",
+      "path": "examples/invalid/mutation-molit-net-001-p-networkreference-001.ttl",
+      "sha256": "1e1d68aaf005b8ee570a29272f0f60e91d6ef298ed13d81e649e11dc9ca82942"
+    },
+    {
+      "license": "PENDING-OWNER-APPROVAL",
+      "origin": "local",
+      "version": "1.0.0-rc.1",
+      "path": "examples/invalid/mutation-molit-net-001-p-transportmode-001.ttl",
+      "sha256": "c7de17f88f1b97c1bc4a9fb2049332a76a41806a99c9d6d20e775f433386df17"
+    },
+    {
+      "license": "PENDING-OWNER-APPROVAL",
+      "origin": "generated-local",
+      "version": "1.0.0-rc.1",
+      "path": "examples/invalid/mutation-molit-net-001-p-type-001.ttl",
+      "sha256": "c5f59caed346ce8dc9f889540f2154f740c1c28e4b380d380802da7b5c69c19c"
+    },
+    {
+      "license": "PENDING-OWNER-APPROVAL",
+      "origin": "local",
+      "version": "1.0.0-rc.1",
+      "path": "examples/invalid/mutation-molit-net-002-p-type-001.ttl",
+      "sha256": "c4e90a64aee8c89cd163273138c3821066a3aa29ed3d571edfde1209dabb0f7e"
+    },
+    {
+      "license": "PENDING-OWNER-APPROVAL",
+      "origin": "local",
+      "version": "1.0.0-rc.1",
+      "path": "examples/invalid/mutation-molit-net-ref-001-p-networkauthority-001.ttl",
+      "sha256": "5c33f29288bfc366e2e80d3c834722f754522a5646367634d244e56de053f744"
+    },
+    {
+      "license": "PENDING-OWNER-APPROVAL",
+      "origin": "local",
+      "version": "1.0.0-rc.1",
+      "path": "examples/invalid/mutation-molit-net-ref-001-p-networkelementtype-001.ttl",
+      "sha256": "75d7196391a85975917cec57ba813c518126fdae096dace1dcfc2a05f2fac29c"
+    },
+    {
+      "license": "PENDING-OWNER-APPROVAL",
+      "origin": "local",
+      "version": "1.0.0-rc.1",
+      "path": "examples/invalid/mutation-molit-net-ref-001-p-networkidentifier-001.ttl",
+      "sha256": "c0ba1414686d27a3c584ef50388f28cd296b082b2b5dbfe98b80ad5c9b75ed15"
+    },
+    {
+      "license": "PENDING-OWNER-APPROVAL",
+      "origin": "generated-local",
+      "version": "1.0.0-rc.1",
+      "path": "examples/invalid/mutation-molit-net-ref-001-p-networkversion-001.ttl",
+      "sha256": "c6749c5ec918a9ffaaeb7f438bd48f2ef2efe0c8c5ae99dd3c8afec1d85aa0b4"
+    },
+    {
+      "license": "PENDING-OWNER-APPROVAL",
+      "origin": "local",
+      "version": "1.0.0-rc.1",
+      "path": "examples/invalid/mutation-molit-net-snapshot-001-p-networkidentifier-001.ttl",
+      "sha256": "5e352c7223ff4f8f66e50ce75f204acfec9e33d4dd98acb680293cbd532fa906"
+    },
+    {
+      "license": "PENDING-OWNER-APPROVAL",
+      "origin": "generated-local",
+      "version": "1.0.0-rc.1",
+      "path": "examples/invalid/mutation-molit-net-snapshot-001-p-networklifecyclestatus-001.ttl",
+      "sha256": "0fd2b3d2cd01106ef2229b11c083d4077fe59a2a38abdfdd431bccd99b52862d"
+    },
+    {
+      "license": "PENDING-OWNER-APPROVAL",
+      "origin": "generated-local",
+      "version": "1.0.0-rc.1",
+      "path": "examples/invalid/mutation-molit-net-snapshot-001-p-networksnapshotchecksum-001.ttl",
+      "sha256": "1c090c046d0bba2246163fc7e7eb714bab1354b393993492b82b911fb3039310"
+    },
+    {
+      "license": "PENDING-OWNER-APPROVAL",
+      "origin": "generated-local",
+      "version": "1.0.0-rc.1",
+      "path": "examples/invalid/mutation-molit-net-snapshot-001-p-networkvalidfrom-001.ttl",
+      "sha256": "4a60000d03ae0ac71b49d880ebf59c9aa279b210d589c0ccf67814af16dc7089"
+    },
+    {
+      "license": "PENDING-OWNER-APPROVAL",
+      "origin": "local",
+      "version": "1.0.0-rc.1",
+      "path": "examples/invalid/mutation-molit-net-snapshot-001-p-networkvaliduntil-001.ttl",
+      "sha256": "7ed8f6984e52f06ea507cbdfbd5413ad782becefdc78e87abfde8094a70884cb"
+    },
+    {
+      "license": "PENDING-OWNER-APPROVAL",
+      "origin": "local",
+      "version": "1.0.0-rc.1",
+      "path": "examples/invalid/mutation-molit-net-snapshot-001-p-networkversion-001.ttl",
+      "sha256": "1f1d498bcf40001988fcdd039cef00dc4e1f6d19caacce2cb25bb8a355856f56"
+    },
+    {
+      "license": "PENDING-OWNER-APPROVAL",
+      "origin": "generated-local",
+      "version": "1.0.0-rc.1",
+      "path": "examples/invalid/mutation-molit-obs-001-p-aggregationperiod-001.ttl",
+      "sha256": "42ee60bde3959e3793230813fc7740574840d73c437e9d670b67a42e03697558"
+    },
+    {
+      "license": "PENDING-OWNER-APPROVAL",
+      "origin": "local",
+      "version": "1.0.0-rc.1",
+      "path": "examples/invalid/mutation-molit-obs-001-p-missingvaluepolicy-001.ttl",
+      "sha256": "fd0b841e99b06aecc3a3ccef0b5cdea69ccae4d5e6c62f69c99078d71202af01"
+    },
+    {
+      "license": "PENDING-OWNER-APPROVAL",
+      "origin": "local",
+      "version": "1.0.0-rc.1",
+      "path": "examples/invalid/mutation-molit-obs-001-p-observationaggregation-001.ttl",
+      "sha256": "01c669526c7cde07925092ba19bb24905c2a24301891e734dd99a308797c209c"
+    },
+    {
+      "license": "PENDING-OWNER-APPROVAL",
+      "origin": "local",
+      "version": "1.0.0-rc.1",
+      "path": "examples/invalid/mutation-molit-obs-001-p-observationsubjecttype-001.ttl",
+      "sha256": "345dc81c63cbc8668341bbf5bf0fdc328124e0f0e49ad1d8a8bc0f75dde4d479"
+    },
+    {
+      "license": "PENDING-OWNER-APPROVAL",
+      "origin": "local",
+      "version": "1.0.0-rc.1",
+      "path": "examples/invalid/mutation-molit-obs-001-p-observationunit-001.ttl",
+      "sha256": "c6b57966c265358a52f7c6df953b56f8bd05c73a4899e981d2a8a2f210c4c2f1"
+    },
+    {
+      "license": "PENDING-OWNER-APPROVAL",
+      "origin": "local",
+      "version": "1.0.0-rc.1",
+      "path": "examples/invalid/mutation-molit-obs-001-p-observedproperty-001.ttl",
+      "sha256": "331650cb81aadc42fca5a5e46f0792554ff4f237864dcda8695d527c6f633a40"
+    },
+    {
+      "license": "PENDING-OWNER-APPROVAL",
+      "origin": "local",
+      "version": "1.0.0-rc.1",
+      "path": "examples/invalid/mutation-molit-obs-001-p-temporal-001.ttl",
+      "sha256": "baebb88654bcb36fc5ce560293648acbf4898ec4427b346abc2da289c11edf5c"
+    },
+    {
+      "license": "PENDING-OWNER-APPROVAL",
+      "origin": "local",
+      "version": "1.0.0-rc.1",
+      "path": "examples/invalid/mutation-molit-obs-001-p-temporalresolution-001.ttl",
+      "sha256": "f02ab54295d5bd3d8fda2d07a9a6c47728c144dd4ec9fdb64ef00dea04aafd86"
+    },
+    {
+      "license": "PENDING-OWNER-APPROVAL",
+      "origin": "generated-local",
+      "version": "1.0.0-rc.1",
+      "path": "examples/invalid/mutation-molit-obs-001-p-type-001.ttl",
+      "sha256": "d2a452fb6ea10bcb9f56afa1e15d981e549c191ac8ad156e0712b6a8cf3895d0"
+    },
+    {
+      "license": "PENDING-OWNER-APPROVAL",
+      "origin": "local",
+      "version": "1.0.0-rc.1",
+      "path": "examples/invalid/mutation-molit-offer-001-p-describesofferingdataset-001.ttl",
+      "sha256": "31a252af72d6809527853309c2a437ae6b1241f89443b0332faac141e4f564ca"
+    },
+    {
+      "license": "PENDING-OWNER-APPROVAL",
+      "origin": "local",
+      "version": "1.0.0-rc.1",
+      "path": "examples/invalid/mutation-molit-offer-001-p-identifier-001.ttl",
+      "sha256": "5100eede3bf0db0fcf172003c4839eb4c9581e25cd2c42e84b0802b7055dc52b"
+    },
+    {
+      "license": "PENDING-OWNER-APPROVAL",
+      "origin": "local",
+      "version": "1.0.0-rc.1",
+      "path": "examples/invalid/mutation-molit-offer-001-p-modified-001.ttl",
+      "sha256": "77745f1372fa678898958307e279aae44fc088da3a00a4a7db70996e90e39003"
+    },
+    {
+      "license": "PENDING-OWNER-APPROVAL",
+      "origin": "generated-local",
+      "version": "1.0.0-rc.1",
+      "path": "examples/invalid/mutation-molit-offer-001-p-offeringreadinessstatus-001.ttl",
+      "sha256": "53d96f84c921654667358a74ff77774c98cd71fe879cf470a392dd25b06e226b"
+    },
+    {
+      "license": "PENDING-OWNER-APPROVAL",
+      "origin": "local",
+      "version": "1.0.0-rc.1",
+      "path": "examples/invalid/mutation-molit-offer-001-p-title-001.ttl",
+      "sha256": "194285ac3a56fe690aed77548065a9692efc81ceb03b72a7fbce0511a635b668"
+    },
+    {
+      "license": "PENDING-OWNER-APPROVAL",
+      "origin": "local",
+      "version": "1.0.0-rc.1",
+      "path": "examples/invalid/mutation-molit-offer-link-001-p-describesofferingdataset-001.ttl",
+      "sha256": "9f5a4ae233b2bb16d2df9ca453fb560b994a9270ab20fa4c2c6381c7e592ae2a"
+    },
+    {
+      "license": "PENDING-OWNER-APPROVAL",
+      "origin": "local",
+      "version": "1.0.0-rc.1",
+      "path": "examples/invalid/mutation-molit-profile-core-001-p-conformsto-001.ttl",
+      "sha256": "cf7562e8861fecf9b5bcccff533b2eb21fb26e121a7bee914f0255ba1d16ee06"
+    },
+    {
+      "license": "PENDING-OWNER-APPROVAL",
+      "origin": "local",
+      "version": "1.0.0-rc.1",
+      "path": "examples/invalid/mutation-molit-profile-core-002-p-conformsto-001.ttl",
+      "sha256": "59ad0cdf075f14d3954a5dad37eb10a634fc40d419b31e8277b9e599880b556a"
+    },
+    {
+      "license": "PENDING-OWNER-APPROVAL",
+      "origin": "local",
+      "version": "1.0.0-rc.1",
+      "path": "examples/invalid/mutation-molit-profile-net-001-p-conformsto-001.ttl",
+      "sha256": "6dafd8360a6c38b0f52fd3bb02d7c25af15949dc3463408b718e006dc45e85f7"
+    },
+    {
+      "license": "PENDING-OWNER-APPROVAL",
+      "origin": "local",
+      "version": "1.0.0-rc.1",
+      "path": "examples/invalid/mutation-molit-profile-net-002-p-conformsto-001.ttl",
+      "sha256": "d648def17ace953dbbbf6e3667e0845dace5e9a77c2b75758c3df32921d64255"
+    },
+    {
+      "license": "PENDING-OWNER-APPROVAL",
+      "origin": "local",
+      "version": "1.0.0-rc.1",
+      "path": "examples/invalid/mutation-molit-profile-obs-001-p-conformsto-001.ttl",
+      "sha256": "e2f20aad0ff786bce104df242e8fccbe319dd86b800e2c2ff92f3f691eec2025"
+    },
+    {
+      "license": "PENDING-OWNER-APPROVAL",
+      "origin": "local",
+      "version": "1.0.0-rc.1",
+      "path": "examples/invalid/mutation-molit-profile-obs-002-p-conformsto-001.ttl",
+      "sha256": "8d3153ffc8efa0e9bd4ad6bd9083dd4705da2a0595f3ec74f5ed0235662bac99"
+    },
+    {
+      "license": "PENDING-OWNER-APPROVAL",
+      "origin": "local",
+      "version": "1.0.0-rc.1",
+      "path": "examples/invalid/mutation-molit-profile-offer-001-p-conformsto-001.ttl",
+      "sha256": "097d4d94ef4d7e2002aaca2de3c8683f315797f14f310809cfb4668535d0d946"
+    },
+    {
+      "license": "PENDING-OWNER-APPROVAL",
+      "origin": "local",
+      "version": "1.0.0-rc.1",
+      "path": "examples/invalid/mutation-molit-profile-offer-002-p-conformsto-001.ttl",
+      "sha256": "801110cbe2aa645aed9a8cff7d225e8dccd3f9754fbd749ba553cd11513a7791"
+    },
+    {
+      "license": "PENDING-OWNER-APPROVAL",
+      "origin": "local",
+      "version": "1.0.0-rc.1",
+      "path": "examples/invalid/mutation-molit-profile-qual-001-p-conformsto-001.ttl",
+      "sha256": "704f6fa6c657aa3c0205ceec62b724c31a427391387bcfa81043d3bae8ce829b"
+    },
+    {
+      "license": "PENDING-OWNER-APPROVAL",
+      "origin": "local",
+      "version": "1.0.0-rc.1",
+      "path": "examples/invalid/mutation-molit-profile-qual-002-p-conformsto-001.ttl",
+      "sha256": "cb1ef164dfe84f80f023537b206ae3e1c5e61b942cc52d81bd412e747bd02f83"
+    },
+    {
+      "license": "PENDING-OWNER-APPROVAL",
+      "origin": "generated-local",
+      "version": "1.0.0-rc.1",
+      "path": "examples/invalid/mutation-molit-profile-selection-geosparql-001.ttl",
+      "sha256": "ebbbeb5e9e9766021e49efd4d18c8aa90ff584d1b994141e9ebe2ff8e788c7f0"
+    },
+    {
+      "license": "PENDING-OWNER-APPROVAL",
+      "origin": "generated-local",
+      "version": "1.0.0-rc.1",
+      "path": "examples/invalid/mutation-molit-profile-selection-marker-001.ttl",
+      "sha256": "0fef7558af747a8644e883422337ece779c5381f2ca3cd75a7b8a93e26e9e548"
+    },
+    {
+      "license": "PENDING-OWNER-APPROVAL",
+      "origin": "generated-local",
+      "version": "1.0.0-rc.1",
+      "path": "examples/invalid/mutation-molit-qual-001-p-qualitystatus-001.ttl",
+      "sha256": "23105dca029d1db4fd0675795b6f88944377568ff3aa4baca0f2eab71c340eb5"
+    },
+    {
+      "license": "PENDING-OWNER-APPROVAL",
+      "origin": "generated-local",
+      "version": "1.0.0-rc.1",
+      "path": "examples/invalid/mutation-molit-qual-link-001-p-path-7cc75844d0-001.ttl",
+      "sha256": "f0bf90ef6ff2a8ea918166bb40cc119fabdaeb10c679b88513bba001ac82176d"
+    },
+    {
+      "license": "PENDING-OWNER-APPROVAL",
+      "origin": "local",
+      "version": "1.0.0-rc.1",
+      "path": "examples/invalid/mutation-molit-qual-map-001-p-mappedqualitymetric-001.ttl",
+      "sha256": "a264c0cfc4ef705664a83837ee1e9726528cd66a34241fea6d1a387b4d371284"
+    },
+    {
+      "license": "PENDING-OWNER-APPROVAL",
+      "origin": "local",
+      "version": "1.0.0-rc.1",
+      "path": "examples/invalid/mutation-molit-qual-map-001-p-qualitylossdisposition-001.ttl",
+      "sha256": "59bff82cee34aee802d81b67e92fb363f07658db03cbeff915cef90f7f29a3d5"
+    },
+    {
+      "license": "PENDING-OWNER-APPROVAL",
+      "origin": "local",
+      "version": "1.0.0-rc.1",
+      "path": "examples/invalid/mutation-molit-qual-map-001-p-sourcequalityelement-001.ttl",
+      "sha256": "b515dcbea32a6a18367e1a393ac5d06bdb91a7c3c13439ed63c87f1aa9c6c106"
+    },
+    {
+      "license": "PENDING-OWNER-APPROVAL",
+      "origin": "local",
+      "version": "1.0.0-rc.1",
+      "path": "examples/invalid/mutation-molit-qual-measure-001-p-computedon-001.ttl",
+      "sha256": "b90cff3f948e8bbd104ef9a712e8ef237905f70763592e9755e123275b4db923"
+    },
+    {
+      "license": "PENDING-OWNER-APPROVAL",
+      "origin": "local",
+      "version": "1.0.0-rc.1",
+      "path": "examples/invalid/mutation-molit-qual-measure-001-p-ismeasurementof-001.ttl",
+      "sha256": "48ad0835b62d5cb19bf99d72115ad4fb773227b81756fe7cbddeeedbbc48f291"
+    },
+    {
+      "license": "PENDING-OWNER-APPROVAL",
+      "origin": "generated-local",
+      "version": "1.0.0-rc.1",
+      "path": "examples/invalid/mutation-molit-qual-measure-001-p-unitmeasure-001.ttl",
+      "sha256": "690c738421c178d72dae79a3372cfe70be9dd19ca9fcac72ed94a77d12acfacd"
+    },
+    {
+      "license": "PENDING-OWNER-APPROVAL",
+      "origin": "local",
+      "version": "1.0.0-rc.1",
+      "path": "examples/invalid/mutation-molit-qual-measure-001-p-value-001.ttl",
+      "sha256": "2957344143c8645aa151913571deb4b76a93d6c13d53426589baa83451a31b1a"
+    },
+    {
+      "license": "PENDING-OWNER-APPROVAL",
+      "origin": "generated-local",
+      "version": "1.0.0-rc.1",
+      "path": "examples/invalid/mutation-molit-qual-prov-001-p-qualityevaluationmethod-001.ttl",
+      "sha256": "adc3bd083ce626fda8ed16d5eb42571fa25eeca6fb457ebc3cd8e14da10b610e"
+    },
+    {
+      "license": "PENDING-OWNER-APPROVAL",
+      "origin": "generated-local",
+      "version": "1.0.0-rc.1",
+      "path": "examples/invalid/mutation-molit-qual-prov-001-p-qualityevaluationscope-001.ttl",
+      "sha256": "5edc4ac697f1fde9ff001c922644d3f40d6c1bd1a94e737720b2592b96f5859a"
+    },
+    {
+      "license": "PENDING-OWNER-APPROVAL",
+      "origin": "local",
+      "version": "1.0.0-rc.1",
+      "path": "examples/invalid/mutation-molit-qual-prov-001-p-qualitymappingstatement-001.ttl",
+      "sha256": "c816037501bb83c31f7dc087f5cef2ed4987550de30e34470b4850c97604c350"
+    },
+    {
+      "license": "PENDING-OWNER-APPROVAL",
+      "origin": "generated-local",
+      "version": "1.0.0-rc.1",
+      "path": "examples/invalid/mutation-molit-qual-prov-001-p-qualityresultkind-001.ttl",
+      "sha256": "078d19934fa3318dcf827a2819eb9996130e1571a0c72c024aa81831b55a9901"
+    },
+    {
+      "license": "PENDING-OWNER-APPROVAL",
+      "origin": "generated-local",
+      "version": "1.0.0-rc.1",
+      "path": "examples/invalid/mutation-molit-rec-001-p-language-001.ttl",
+      "sha256": "990489eb39abc0b2a3dd1e2bf6d46c42cd2b2739135ea46900539c32b65303d2"
+    },
+    {
+      "license": "PENDING-OWNER-APPROVAL",
+      "origin": "local",
+      "version": "1.0.0-rc.1",
+      "path": "examples/invalid/mutation-molit-rec-001-p-modified-001.ttl",
+      "sha256": "f393c3a4e13896d3a6f92f2d8a784184c1a5feec358e080cef430fb0bfccf3e0"
+    },
+    {
+      "license": "PENDING-OWNER-APPROVAL",
+      "origin": "local",
+      "version": "1.0.0-rc.1",
+      "path": "examples/invalid/mutation-molit-rec-001-p-primarytopic-001.ttl",
+      "sha256": "4be230e7d37641f5764d18fac1b861e48153ac36bd9a5aece5782db18c76765a"
+    },
+    {
+      "license": "PENDING-OWNER-APPROVAL",
+      "origin": "local",
+      "version": "1.0.0-rc.1",
+      "path": "examples/invalid/mutation-molit-rec-001-p-title-001.ttl",
+      "sha256": "8db141c9743c6d7e4e3e89e0ed96f20df11bf3f8b3b46431297232da02e3e6dc"
+    },
+    {
+      "license": "PENDING-OWNER-APPROVAL",
+      "origin": "local",
+      "version": "1.0.0-rc.1",
+      "path": "examples/invalid/mutation-molit-rec-dist-001-p-checksum-001.ttl",
+      "sha256": "96ff50375a3f12e5b8395720699f1babe776b28713066d7c0508cda1d8cd2ee3"
+    },
+    {
+      "license": "PENDING-OWNER-APPROVAL",
+      "origin": "local",
+      "version": "1.0.0-rc.1",
+      "path": "examples/invalid/mutation-molit-rec-ds-001-p-contactpoint-001.ttl",
+      "sha256": "17297a95c07dfa2605948f067330c43b97051d734b29b57f64bf3c5f81c6e08d"
+    },
+    {
+      "license": "PENDING-OWNER-APPROVAL",
+      "origin": "local",
+      "version": "1.0.0-rc.1",
+      "path": "examples/invalid/mutation-molit-rec-ds-001-p-provenance-001.ttl",
+      "sha256": "6ea2bf9e536ea6dec29bb13b21efec169fd4eae8e1c0d83613e80801b71246bb"
+    },
+    {
+      "license": "PENDING-OWNER-APPROVAL",
+      "origin": "generated-local",
+      "version": "1.0.0-rc.1",
+      "path": "examples/invalid/mutation-molit-rec-qual-001-p-qualificationevidence-001.ttl",
+      "sha256": "a0ddb6259e993b6ceaa9cac6ac72b052ad5fd48e03a6c8b2c8d733bd8bed9fde"
+    },
+    {
+      "license": "PENDING-OWNER-APPROVAL",
+      "origin": "local",
+      "version": "1.0.0-rc.1",
+      "path": "examples/invalid/mutation-molit-svc-001-p-endpointurl-001.ttl",
+      "sha256": "771ade00b4ad2ed80f07d440bd565ab6265a5dfe1d8c3d0442dfbdc5f9659184"
+    },
+    {
+      "license": "PENDING-OWNER-APPROVAL",
+      "origin": "local",
+      "version": "1.0.0-rc.1",
+      "path": "examples/invalid/mutation-molit-svc-001-p-servesdataset-001.ttl",
+      "sha256": "36d1318f474424be9715b965c077060410d4c4b37a7e4d2bb9deb8bf65bae13b"
+    },
+    {
+      "license": "PENDING-OWNER-APPROVAL",
+      "origin": "generated-local",
+      "version": "1.0.0-rc.1",
+      "path": "examples/invalid/mutation-molit-svc-001-p-theme-001.ttl",
+      "sha256": "f49cdaa8219264aa79e7b4fdb1d72d864bec4d5ab425723d2ebad0a180d270a0"
+    },
+    {
+      "license": "PENDING-OWNER-APPROVAL",
+      "origin": "local",
+      "version": "1.0.0-rc.1",
+      "path": "examples/invalid/mutation-molit-svc-001-p-title-001.ttl",
+      "sha256": "39113a935e2a828da242137c11fcad583d0e407083ef977a9bb1c5676aa55370"
+    },
+    {
+      "license": "PENDING-OWNER-APPROVAL",
+      "origin": "local",
+      "version": "0.1.0",
+      "path": "examples/invalid/network-reference-without-version.ttl",
+      "sha256": "20515212b19464caedd6905cc9f3ef7add67e3ee0e2415e96df5ac518fa471bb"
+    },
+    {
+      "license": "PENDING-OWNER-APPROVAL",
+      "origin": "local",
+      "version": "1.0.0-rc.1",
+      "path": "examples/invalid/network-snapshot-without-checksum.ttl",
+      "sha256": "2a541e48aaa21273ca24ea7b7a0a02c3d9da5235cf46ee4e2287766ef1f057bc"
+    },
+    {
+      "license": "PENDING-OWNER-APPROVAL",
+      "origin": "local",
+      "version": "1.0.0-rc.1",
+      "path": "examples/invalid/observation-unit-mismatch.ttl",
+      "sha256": "e4a120ec28f31a49e77807a793a3efc8f9929006944a9aad2b521c7e322242ba"
+    },
+    {
+      "license": "PENDING-OWNER-APPROVAL",
+      "origin": "local",
+      "version": "1.0.0-rc.1",
+      "path": "examples/invalid/offering-operational-claim.ttl",
+      "sha256": "54cf133ced4753dd61a5743379b811decac1209297ff41403158e932ba025309"
+    },
+    {
+      "license": "PENDING-OWNER-APPROVAL",
+      "origin": "local",
+      "version": "1.0.0-rc.1",
+      "path": "examples/invalid/ontology-in-candidate-graph.ttl",
+      "sha256": "de173962f58e50a3d26feeb58bbd16879e5f13ce05688714305b1bc1b1dfc852"
+    },
+    {
+      "license": "PENDING-OWNER-APPROVAL",
+      "origin": "local",
+      "version": "0.1.0",
+      "path": "examples/invalid/private-binding-leak.ttl",
+      "sha256": "fcaa8a1819bc143eb9ea5c8d6e14508fc31d689014793c84ba5b3648beacee48"
+    },
+    {
+      "license": "PENDING-OWNER-APPROVAL",
+      "origin": "local",
+      "version": "1.0.0-rc.1",
+      "path": "examples/invalid/quality-measurement-dataset-mismatch.ttl",
+      "sha256": "370ccebc5f700ee354790c0c19e08ce74b8f1b53ff8d5887b6d28c03e4df6809"
+    },
+    {
+      "license": "PENDING-OWNER-APPROVAL",
+      "origin": "local",
+      "version": "0.1.0",
+      "path": "examples/invalid/quality-unit-not-qudt.ttl",
+      "sha256": "66137546cb5bb8446a83abc69d48b1081042e5793b9fc0649c3ad0e4a0078aff"
+    },
+    {
+      "license": "PENDING-OWNER-APPROVAL",
+      "origin": "local",
+      "version": "1.0.0-rc.1",
+      "path": "examples/invalid/relative-iri.ttl",
+      "sha256": "1d444a7ecb43a41757893b4c96cf595b98c840ded3d40d408b3a0013c9bed2fd"
+    },
+    {
+      "license": "PENDING-OWNER-APPROVAL",
+      "origin": "local",
+      "version": "1.0.0-rc.1",
+      "path": "examples/invalid/rogue-theme.ttl",
+      "sha256": "ec605b93a983aa19b9b801daf42cbcb01026e834bfb4dd7480548af266f5cd20"
+    },
+    {
+      "license": "PENDING-OWNER-APPROVAL",
+      "origin": "local",
+      "version": "0.1.0",
+      "path": "examples/invalid/spoofed-controlled-concept.ttl",
+      "sha256": "327101878c7c574e1029c4dbaac7cf757cf3b21252133faca972b180969713f7"
+    },
+    {
+      "license": "PENDING-OWNER-APPROVAL",
+      "origin": "local",
+      "version": "0.1.0",
+      "path": "examples/invalid/unapproved-frequency.ttl",
+      "sha256": "24c44907d3b53b2796af759c3e568d5ba4f4b84b122f46e4ce29d42b33ba65f7"
+    },
+    {
+      "license": "PENDING-OWNER-APPROVAL",
+      "origin": "local",
+      "version": "1.0.0-rc.1",
+      "path": "examples/invalid/unapproved-geometry-crs.ttl",
+      "sha256": "3bc44f8a712f5550b3f7e17c2beec16b723f0c63c2182a57a95d5ae45cae82ed"
+    },
+    {
+      "license": "PENDING-OWNER-APPROVAL",
+      "origin": "local",
+      "version": "0.1.0",
+      "path": "examples/invalid/unapproved-iana-media-type.ttl",
+      "sha256": "3c4c4720bc99fa589f422ea392014d80024d39c4f9e1a754aa79b362b476b2ca"
+    },
+    {
+      "license": "PENDING-OWNER-APPROVAL",
+      "origin": "local",
+      "version": "0.1.0",
+      "path": "examples/invalid/withheld-spatial-geometry.ttl",
+      "sha256": "c6ce924aed7e635ffef819fa724986a089d9c30f0e80d0425e923b73d7eeef76"
+    },
+    {
+      "license": "PENDING-OWNER-APPROVAL",
+      "origin": "local",
+      "version": "0.1.0",
+      "path": "examples/invalid/wkt-without-crs.ttl",
+      "sha256": "b55f59c5b8bde013c7add31bac52bf736181d3d9ce12ab6a74a8a4285f601f49"
+    },
+    {
+      "license": "SOURCE-RIGHTS-APPROVAL-PENDING",
+      "origin": "local",
+      "version": "1.0.0-rc.1",
+      "path": "examples/source-evidence/standard-node-link-2026-07-01.json",
+      "sha256": "175f13b1e617a8d6fb269175c441d9c0f399a60fcfc375e183934a665dcad24b"
+    },
+    {
+      "license": "PENDING-OWNER-APPROVAL",
+      "origin": "local",
+      "version": "1.0.0-rc.1",
+      "path": "examples/valid/core-catalog.ttl",
+      "sha256": "197d7253020458210f6446bada33c64e1108f09fb69bad28f583b9b253abcc99"
+    },
+    {
+      "license": "PENDING-OWNER-APPROVAL",
+      "origin": "local",
+      "version": "1.0.0-rc.1",
+      "path": "examples/valid/dataspace-offering-catalog.ttl",
+      "sha256": "80934db1f3d5cd44f7b1bd2d56d1da042d8c09cdfde067c8f7baea630670b823"
+    },
+    {
+      "license": "PENDING-OWNER-APPROVAL",
+      "origin": "local",
+      "version": "1.0.0-rc.1",
+      "path": "examples/valid/geo-catalog.ttl",
+      "sha256": "000b345cbac66df16cb5be7995d45e6f89b99a1253d3ade1ca9f599d71950829"
+    },
+    {
+      "license": "PENDING-OWNER-APPROVAL",
+      "origin": "local",
+      "version": "1.0.0-rc.1",
+      "path": "examples/valid/network-catalog.ttl",
+      "sha256": "eae0d3b7cc6c4486a75b428a8dafd5ac7590129a4191be4df0a0060ab52ce83c"
+    },
+    {
+      "license": "PENDING-OWNER-APPROVAL",
+      "origin": "local",
+      "version": "1.0.0-rc.1",
+      "path": "examples/valid/observation-catalog.ttl",
+      "sha256": "397259b51ac85a2e2898625e0de5a8bb949e5f4dbdd9976afdf2a6593120f4f0"
+    },
+    {
+      "license": "PENDING-OWNER-APPROVAL",
+      "origin": "local",
+      "version": "1.0.0-rc.1",
+      "path": "examples/valid/publication-offering-qualification.ttl",
+      "sha256": "9a039a540a5e8382e3c33215d22cbcb697801b176127b96b26073dcad298b6b2"
+    },
+    {
+      "license": "PENDING-OWNER-APPROVAL",
+      "origin": "local",
+      "version": "1.0.0-rc.1",
+      "path": "examples/valid/quality-catalog.ttl",
+      "sha256": "2c4b31c217a352c4471bed05cfe19a2764894cb732be5fb372d7be28ae5c8642"
+    },
+    {
+      "license": "PENDING-OWNER-APPROVAL",
+      "origin": "local",
+      "version": "1.0.0-rc.1",
+      "path": "examples/valid/road-network-catalog.ttl",
+      "sha256": "543e71f3b65940865e38e36d241b9c51bd16a91157cf142a191524c4ede2de67"
+    },
+    {
+      "license": "PENDING-OWNER-APPROVAL",
+      "origin": "local",
+      "version": "1.0.0-rc.1",
+      "path": "examples/valid/sector-and-service-catalog.ttl",
+      "sha256": "e5850fe33cd08e0a6920070f21dfada8f128dfc74253c7683dba54e326244ea3"
+    },
+    {
+      "license": "PENDING-OWNER-APPROVAL",
+      "origin": "local",
+      "version": "1.0.0-rc.1",
+      "path": "examples/valid/traffic-observation-catalog.ttl",
+      "sha256": "7b0f23a787eefad6ad6fa944a967d1d9fac76e011d4413f44f804653f2632629"
+    },
+    {
+      "license": "PENDING-OWNER-APPROVAL",
+      "origin": "local",
+      "version": "1.0.0-rc.1",
+      "path": "governance.md",
+      "sha256": "c6b390da57c3e7216e8ced0e073c776e57281dd2953e8618ab6d8de541747bf2"
+    },
+    {
+      "license": "PENDING-OWNER-APPROVAL",
+      "origin": "generated-local",
+      "version": "1.0.0-rc.1",
+      "path": "index.html",
+      "sha256": "d20b48c0ab25458f527973854af174d82d6fcdbbd27d8b9d0cdb0a665561545e"
+    },
+    {
+      "license": "PENDING-OWNER-APPROVAL",
+      "origin": "local",
+      "version": "1.0.0-rc.1",
+      "path": "index.md",
+      "sha256": "2d9262fafc78ce78f5c324fcb8d6c0515fa6447bef49c6b94f2c7c19730453a8"
+    },
+    {
+      "license": "PENDING-OWNER-APPROVAL",
+      "origin": "local",
+      "version": "1.0.0-rc.1",
+      "path": "manifest.json",
+      "sha256": "81f72f44357e61ab96a3acb1315acf71d32c366c13ae446b0588433c0abbb3b5"
+    },
+    {
+      "license": "PENDING-OWNER-APPROVAL",
+      "origin": "local",
+      "version": "1.0.0-rc.1",
+      "path": "mappings/domestic-standards-alignment.md",
+      "sha256": "efb332d464431ec56830de85b394f2312365eef30c68cd4af20ac73a9900b604"
+    },
+    {
+      "license": "PENDING-OWNER-APPROVAL",
+      "origin": "local",
+      "version": "1.0.0-rc.1",
+      "path": "mappings/domestic-standards-crosswalk.csv",
+      "sha256": "e316e7be19fac43731ec782a10d7dfa073f6857707f396aa07393086214293ef"
+    },
+    {
+      "license": "PENDING-OWNER-APPROVAL",
+      "origin": "local",
+      "version": "1.0.0-rc.1",
+      "path": "mappings/external-profile-alignment.md",
+      "sha256": "62dd225de253c0dfb772cecf56d0601bf9762e279f9026ef5c2044036e878cdd"
+    },
+    {
+      "license": "PENDING-OWNER-APPROVAL",
+      "origin": "generated-local",
+      "version": "1.0.0-rc.1",
+      "path": "migration/semantic-diff.json",
+      "sha256": "5c6d809c26688ec7ec4931eb67ea2be6879d4a42a2d91b481aaaee9393de7763"
+    },
+    {
+      "license": "PENDING-OWNER-APPROVAL",
+      "origin": "generated-local",
+      "version": "1.0.0-rc.1",
+      "path": "ontology.html",
+      "sha256": "fe73080752456ab6b8a3e81684bfe35423584c8b117995697550f2c82ec1899f"
+    },
+    {
+      "license": "PENDING-OWNER-APPROVAL",
+      "origin": "local",
+      "version": "1.0.0-rc.1",
+      "path": "ontology/competency-registry.json",
+      "sha256": "68c15e0e2002c452edd1ec0d70c6f939046fae36a78844485077d39f72fec1b4"
+    },
+    {
+      "license": "PENDING-OWNER-APPROVAL",
+      "origin": "local",
+      "version": "1.0.0-rc.1",
+      "path": "ontology/molit-dcat-ap.ttl",
+      "sha256": "ec4ead1b8286626e67b22e41b90ceb1d96623c0d9b5db756d761d85bc41ffe49"
+    },
+    {
+      "license": "PENDING-OWNER-APPROVAL",
+      "origin": "local",
+      "version": "1.0.0-rc.1",
+      "path": "ontology/queries/cq-gov-01.rq",
+      "sha256": "a2e3294c5201a775b3d38af3d8eac8600f3ff2624cbf466668c5003fadef7dfe"
+    },
+    {
+      "license": "PENDING-OWNER-APPROVAL",
+      "origin": "local",
+      "version": "1.0.0-rc.1",
+      "path": "ontology/queries/cq-net-01.rq",
+      "sha256": "42e9e80872c22e531597b8b709769e8c78415ded4c10270d2774a279c326e34b"
+    },
+    {
+      "license": "PENDING-OWNER-APPROVAL",
+      "origin": "local",
+      "version": "1.0.0-rc.1",
+      "path": "ontology/queries/cq-net-02.rq",
+      "sha256": "7479d627a5f1cb8c8f2c9d5c8ff5041660b8637484635d03d40ac050a4264bb4"
+    },
+    {
+      "license": "PENDING-OWNER-APPROVAL",
+      "origin": "local",
+      "version": "1.0.0-rc.1",
+      "path": "ontology/queries/cq-net-03.rq",
+      "sha256": "1b9821eed5aeb9dd3e6dd0f32256cd4a4145beda7f9e1a7121eb70985d2698c9"
+    },
+    {
+      "license": "PENDING-OWNER-APPROVAL",
+      "origin": "local",
+      "version": "1.0.0-rc.1",
+      "path": "ontology/queries/cq-obs-01.rq",
+      "sha256": "ae6622952c54b6845887d289a5c3cf7ec959763d8e8d46b9551c5a5a8a4e6dd2"
+    },
+    {
+      "license": "PENDING-OWNER-APPROVAL",
+      "origin": "local",
+      "version": "1.0.0-rc.1",
+      "path": "ontology/queries/cq-obs-02.rq",
+      "sha256": "5c8f444df23edf95804de34c0170bef5a973c8b1a91cbae3795c6069d251ba32"
+    },
+    {
+      "license": "PENDING-OWNER-APPROVAL",
+      "origin": "local",
+      "version": "1.0.0-rc.1",
+      "path": "ontology/queries/cq-obs-03.rq",
+      "sha256": "813aca5c184b67efcbe668f625e3b70e4a0623af28a147cd09dccd0395a86d41"
+    },
+    {
+      "license": "PENDING-OWNER-APPROVAL",
+      "origin": "local",
+      "version": "1.0.0-rc.1",
+      "path": "ontology/queries/cq-obs-04.rq",
+      "sha256": "c1fc1b1e2e284c04dc3e48ee097ccb9db9cce9cec3981d7634f8bf8d69796cea"
+    },
+    {
+      "license": "PENDING-OWNER-APPROVAL",
+      "origin": "local",
+      "version": "1.0.0-rc.1",
+      "path": "ontology/queries/cq-off-01.rq",
+      "sha256": "ae106773ebd016252c7bc081d48f4dd383986ebc9bf87e3e70d4c2dce42046e0"
+    },
+    {
+      "license": "PENDING-OWNER-APPROVAL",
+      "origin": "local",
+      "version": "1.0.0-rc.1",
+      "path": "ontology/queries/cq-off-02.rq",
+      "sha256": "4f697dc11797147ad0a55272f114b9d7183a9bd0691d18c3ffbf4ebd50e96757"
+    },
+    {
+      "license": "PENDING-OWNER-APPROVAL",
+      "origin": "local",
+      "version": "1.0.0-rc.1",
+      "path": "ontology/queries/cq-qual-01.rq",
+      "sha256": "ae1cc22af60472e9fa9406a2566974baf00d46b20901b1909973fe58599ee00c"
+    },
+    {
+      "license": "PENDING-OWNER-APPROVAL",
+      "origin": "local",
+      "version": "1.0.0-rc.1",
+      "path": "ontology/queries/cq-qual-02.rq",
+      "sha256": "9c79a6e339a4d97fbc43c9427fc27d1079fb5c0833243eca481df1654deba7c9"
+    },
+    {
+      "license": "PENDING-OWNER-APPROVAL",
+      "origin": "local",
+      "version": "1.0.0-rc.1",
+      "path": "ontology/queries/cq-qual-03.rq",
+      "sha256": "594b625fddd3fab42e2606981e43ee2ffb01a5746525196553a10abfda3760e3"
+    },
+    {
+      "license": "PENDING-OWNER-APPROVAL",
+      "origin": "local",
+      "version": "1.0.0-rc.1",
+      "path": "ontology/queries/module-catalog-present.rq",
+      "sha256": "92e459956ce470c680ffa033f70442fc110b3235cafd6fe3dc8117faa1c2169b"
+    },
+    {
+      "license": "PENDING-OWNER-APPROVAL",
+      "origin": "local",
+      "version": "1.0.0-rc.1",
+      "path": "policy/public-value-policy.json",
+      "sha256": "9ca25bb2e7c74d0f729fa0d5909f55fb62b3c610c1cc1adbe7451a990bc885fb"
+    },
+    {
+      "license": "PENDING-OWNER-APPROVAL",
+      "origin": "local",
+      "version": "1.0.0-rc.1",
+      "path": "profile-description.ttl",
+      "sha256": "aad91d54c1d5810e8c9432a42c64662c5d6139182ef89f9bc38f0e6beb74cde0"
+    },
+    {
+      "license": "PENDING-OWNER-APPROVAL",
+      "origin": "generated-local",
+      "version": "1.0.0-rc.1",
+      "path": "publication/content-negotiation.json",
+      "sha256": "8a3f36d2104be79cdabd1564aedbcbae4931e1ba9bfd7675866a69eeb193e818"
+    },
+    {
+      "license": "PENDING-OWNER-APPROVAL",
+      "origin": "local",
+      "version": "1.0.0-rc.1",
+      "path": "release-acceptance.json",
+      "sha256": "a49ffa8d5b3df5a27cf0f5874c0d8ab305155bdbd05f9e036ca0b3489adf4903"
+    },
+    {
+      "license": "PENDING-OWNER-APPROVAL",
+      "origin": "local",
+      "version": "1.0.0-rc.1",
+      "path": "requirements/README.md",
+      "sha256": "0d6b820591aea63d1d9fec17be3fbbe504c06ae0dd6459ed6d24ec1308e378cd"
+    },
+    {
+      "license": "PENDING-OWNER-APPROVAL",
+      "origin": "local",
+      "version": "1.0.0-rc.1",
+      "path": "requirements/conformance-cases.json",
+      "sha256": "88fee74d87328a118c03608c0f2205cc916e9a4d59943cdd2ca1916b70c9a551"
+    },
+    {
+      "license": "PENDING-OWNER-APPROVAL",
+      "origin": "local",
+      "version": "1.0.0-rc.1",
+      "path": "requirements/coverage-blockers.json",
+      "sha256": "2b886f5db894e5faa8076f01b513c69670b47d1c5810463ea03c659e769e054b"
+    },
+    {
+      "license": "PENDING-OWNER-APPROVAL",
+      "origin": "generated-local",
+      "version": "1.0.0-rc.1",
+      "path": "requirements/profile-requirements.csv",
+      "sha256": "c8762658569251dcfe07fe6ecd6f1c8e5bffbe5bd94ed5f75fda9c708a3efccc"
+    },
+    {
+      "license": "PENDING-OWNER-APPROVAL",
+      "origin": "local",
+      "version": "1.0.0-rc.1",
+      "path": "requirements/profile-requirements.json",
+      "sha256": "633572fcebbff7dcf3b3c03d82f02d8b7c4d44f8b090eb62620c5cf74c99181c"
+    },
+    {
+      "license": "PENDING-OWNER-APPROVAL",
+      "origin": "local",
+      "version": "1.0.0-rc.1",
+      "path": "requirements/source-overrides.json",
+      "sha256": "1b476eeecc6d3a9ab76a371b25d2336969eebdd605fa84b086495e22a0763743"
+    },
+    {
+      "license": "PENDING-OWNER-APPROVAL",
+      "origin": "generated-local",
+      "version": "1.0.0-rc.1",
+      "path": "serializations/molit-dcat-ap.jsonld",
+      "sha256": "0150684dd5641e41f6c4db35a6c7a7b508cfe28f6a77b1177185b1f93fa44066"
+    },
+    {
+      "license": "PENDING-OWNER-APPROVAL",
+      "origin": "generated-local",
+      "version": "1.0.0-rc.1",
+      "path": "serializations/profile-description.jsonld",
+      "sha256": "5a43908db58ca5130d6d3d889ec891d1a9db6ab61ef4261059fa627e98ae9493"
+    },
+    {
+      "license": "CC-BY-4.0",
+      "origin": "local-compatibility-closure",
+      "source": "https://semiceu.github.io/DCAT-AP/releases/3.0.1/shacl/ranges.ttl",
+      "upstream": "DCAT-AP",
+      "version": "3.0.1",
+      "path": "shacl/compatibility/dcat-ap-3.0.1-closure.ttl",
+      "sha256": "7e30f5e98a4995c0b7f17eaadaaff78bdd26dc97918973ea01bd7b3b3e4f25c5"
+    },
+    {
+      "license": "PENDING-OWNER-APPROVAL",
+      "origin": "local",
+      "version": "1.0.0-rc.1",
+      "path": "shacl/molit-controlled-vocabularies.ttl",
+      "sha256": "ff4eaa4cd9c4fa0b101c9742bb833cbb099fa69188cecd8d725461d9d8993404"
+    },
+    {
+      "license": "PENDING-OWNER-APPROVAL",
+      "origin": "local",
+      "version": "1.0.0-rc.1",
+      "path": "shacl/molit-core-profile.ttl",
+      "sha256": "3bcdf5144bef23b7e36fb22f15028413d5bb1d4cef2391d4fd7177124a993518"
+    },
+    {
+      "license": "PENDING-OWNER-APPROVAL",
+      "origin": "local",
+      "version": "1.0.0-rc.1",
+      "path": "shacl/molit-core.ttl",
+      "sha256": "4ce9e7bfef1b84f5e7bd5bc98e52cd771cb710c59d159ed39bde7afdb42f5e08"
+    },
+    {
+      "license": "PENDING-OWNER-APPROVAL",
+      "origin": "local",
+      "version": "1.0.0-rc.1",
+      "path": "shacl/molit-dataspace-offering-profile.ttl",
+      "sha256": "7707e725987dfedc6e5a46733804e2a4f61130bc6397a875a907e1fce6a4b915"
+    },
+    {
+      "license": "PENDING-OWNER-APPROVAL",
+      "origin": "local",
+      "version": "1.0.0-rc.1",
+      "path": "shacl/molit-geo-profile.ttl",
+      "sha256": "57b2e76ed5ce61fa2d56bf2b750f5cbb4b0557b5cafa8584f8b7c317aba344e0"
+    },
+    {
+      "license": "PENDING-OWNER-APPROVAL",
+      "origin": "local",
+      "version": "1.0.0-rc.1",
+      "path": "shacl/molit-network-profile.ttl",
+      "sha256": "111e43eadb43a5fc0479a1b31aa0f3dea9d9daa057c26a5cbd1088af0c2aff9c"
+    },
+    {
+      "license": "PENDING-OWNER-APPROVAL",
+      "origin": "local",
+      "version": "1.0.0-rc.1",
+      "path": "shacl/molit-network.ttl",
+      "sha256": "876843ee960642ffabc094086111e929950f0bf6e95c773fb4da027ffe0a5360"
+    },
+    {
+      "license": "PENDING-OWNER-APPROVAL",
+      "origin": "local",
+      "version": "1.0.0-rc.1",
+      "path": "shacl/molit-observation-profile.ttl",
+      "sha256": "2ace1defad5c190ed03a71dad2da4854bcda97d46c88fb1c54ed52cca7c7c597"
+    },
+    {
+      "license": "PENDING-OWNER-APPROVAL",
+      "origin": "local",
+      "version": "1.0.0-rc.1",
+      "path": "shacl/molit-observation.ttl",
+      "sha256": "46508b70f15040d616806ae0135e8f7172512c60035560ec58f881704b7d787e"
+    },
+    {
+      "license": "PENDING-OWNER-APPROVAL",
+      "origin": "local",
+      "version": "1.0.0-rc.1",
+      "path": "shacl/molit-offering.ttl",
+      "sha256": "ea79f1124396d057755a3c015b4b9f88d45d9b73c221b7c444c37af866d9c421"
+    },
+    {
+      "license": "PENDING-OWNER-APPROVAL",
+      "origin": "local",
+      "version": "1.0.0-rc.1",
+      "path": "shacl/molit-quality-profile.ttl",
+      "sha256": "9040206fc1d66aada9dca33f6c1bc729549490fd121d3c80fa2891ff511346c1"
+    },
+    {
+      "license": "PENDING-OWNER-APPROVAL",
+      "origin": "local",
+      "version": "1.0.0-rc.1",
+      "path": "shacl/molit-quality.ttl",
+      "sha256": "96c2b1802fd7ca7eef3895689d6ca8ed24c155edcf00e5c23966866d33506eee"
+    },
+    {
+      "license": "PENDING-OWNER-APPROVAL",
+      "origin": "local",
+      "version": "1.0.0-rc.1",
+      "path": "shacl/molit-recommended.ttl",
+      "sha256": "fe842f190ca12226b112eebd52a0e029eefd18ddac88f23e0b747c0360312807"
+    },
+    {
+      "license": "PENDING-OWNER-APPROVAL",
+      "origin": "local",
+      "version": "1.0.0-rc.1",
+      "path": "shacl/molit-spatial.ttl",
+      "sha256": "52493a7c7befec9db2f8bb6cec534ad3497562f6b23a25e854040c459398adbd"
+    },
+    {
+      "source": "https://semiceu.github.io/DCAT-AP/releases/3.0.1/shacl/dcat-ap-SHACL.ttl",
+      "upstream": "DCAT-AP",
+      "version": "3.0.1",
+      "license": "CC-BY-4.0",
+      "path": "shacl/upstream/dcat-ap-3.0.1/dcat-ap-SHACL.ttl",
+      "sha256": "990d3e42721de6a4be8cc338a7171559f195e62dea89c0b56531356b78cc026f"
+    },
+    {
+      "source": "https://semiceu.github.io/DCAT-AP/releases/3.0.1/html/shacl/deprecateduris.ttl",
+      "upstream": "DCAT-AP",
+      "version": "3.0.1",
+      "license": "CC-BY-4.0",
+      "path": "shacl/upstream/dcat-ap-3.0.1/deprecateduris.ttl",
+      "sha256": "30a20a51a487c40ab7ae04f5905f02ef28238ec5cb390e37053334d835021948"
+    },
+    {
+      "source": "https://semiceu.github.io/DCAT-AP/releases/3.0.1/html/shacl/mdr-vocabularies.shape.ttl",
+      "upstream": "DCAT-AP",
+      "version": "3.0.1",
+      "license": "CC-BY-4.0",
+      "path": "shacl/upstream/dcat-ap-3.0.1/mdr-vocabularies.shape.ttl",
+      "sha256": "2362f83971766a15cc20b2b54420022dc10547dd2c483da02080847c61b4b45a"
+    },
+    {
+      "source": "https://semiceu.github.io/DCAT-AP/releases/3.0.1/shacl/ranges.ttl",
+      "upstream": "DCAT-AP",
+      "version": "3.0.1",
+      "license": "CC-BY-4.0",
+      "path": "shacl/upstream/dcat-ap-3.0.1/ranges.ttl",
+      "sha256": "a6eed0fae8d0f5ca977fe2098ca12081ac60b0efe1ddce802d5c08e49505ebcc"
+    },
+    {
+      "source": "https://semiceu.github.io/DCAT-AP/releases/3.0.1/html/shacl/shapes_recommended.ttl",
+      "upstream": "DCAT-AP",
+      "version": "3.0.1",
+      "license": "CC-BY-4.0",
+      "path": "shacl/upstream/dcat-ap-3.0.1/shapes_recommended.ttl",
+      "sha256": "9afbf23f1f56d10d6839259684934137e20506a9aedce0249b619bbc593b9abd"
+    },
+    {
+      "source": "https://semiceu.github.io/GeoDCAT-AP/releases/3.1.0/shacl/geodcat-ap-SHACL.ttl",
+      "upstream": "GeoDCAT-AP",
+      "version": "3.1.0",
+      "license": "CC-BY-4.0",
+      "path": "shacl/upstream/geodcat-ap-3.1.0/geodcat-ap-SHACL.ttl",
+      "sha256": "53f72ec0bd77f0dfdcbeac6718586986be3d3628791618d61db0de7444eb4bb0"
+    },
+    {
+      "license": "W3C-20150513",
+      "origin": "upstream",
+      "source": "https://raw.githubusercontent.com/w3c/data-shapes/d4da3e48bb52c51d81667c054a65981cdaa1bd0b/shacl/shacl-shacl.ttl",
+      "upstream": "W3C SHACL-SHACL",
+      "version": "d4da3e48bb52c51d81667c054a65981cdaa1bd0b",
+      "path": "shacl/upstream/w3c-shacl-2017/shacl-shacl.ttl",
+      "sha256": "c97f1928d134b0798b21737f7a0967d8d8503fc84569e92ee1c31871a2362931"
+    },
+    {
+      "license": "PENDING-OWNER-APPROVAL",
+      "origin": "local",
+      "version": "0.1.0",
+      "path": "vocabulary/adms-status-1.0-compat.ttl",
+      "sha256": "5e40be073f4d5343dff428ebfe41ef07a03c884699a9043e4a595e54e3deb889"
+    },
+    {
+      "license": "PENDING-OWNER-APPROVAL",
+      "origin": "local",
+      "version": "1.0.0-rc.1",
+      "path": "vocabulary/approved-role-mailboxes.ttl",
+      "sha256": "a702645c1d193d566bc85fae10baf8668c92d0f7f808421fe20ee7c3617412a3"
+    },
+    {
+      "license": "PENDING-OWNER-APPROVAL",
+      "origin": "local",
+      "version": "1.0.0-rc.1",
+      "path": "vocabulary/domestic-candidate-registries.ttl",
+      "sha256": "e767a915afbfff8740c8f03e79d3ced1e471a981bef71424d9427484afd93df9"
+    },
+    {
+      "license": "PENDING-OWNER-APPROVAL",
+      "origin": "local",
+      "version": "0.1.0",
+      "path": "vocabulary/eu-authority-allowlist.ttl",
+      "sha256": "09a518ec219c553010f565613e1ea765d5af92418c30287e52b0bee5ff06ab2c"
+    },
+    {
+      "license": "PENDING-OWNER-APPROVAL",
+      "origin": "local",
+      "version": "0.1.0",
+      "path": "vocabulary/iana-media-type-allowlist.ttl",
+      "sha256": "08bd9c7326fc2ae1a8733752b72ab93826ac565f2764e350eb9757ee9fc82b3d"
+    },
+    {
+      "source": "https://mobilitydcat-ap.github.io/controlled-vocabularies/transport-mode/1.0.0/transport-mode.ttl",
+      "upstream": "mobilityDCAT-AP Transport Mode",
+      "version": "1.0.0",
+      "license": "CC-BY-4.0",
+      "path": "vocabulary/mobilitydcat-transport-mode-1.0.0.ttl",
+      "sha256": "ea8dbfdec3ba2991c3d817aeeb92b975e7479efb1643359cc46d45a73d2f9c4c"
+    },
+    {
+      "license": "PENDING-OWNER-APPROVAL",
+      "origin": "local",
+      "version": "1.0.0-rc.1",
+      "path": "vocabulary/molit-domain.ttl",
+      "sha256": "d830d2302805ec7f3d2493e51eb45d971c1a24f41b3efb95a0e8f483723c979d"
+    },
+    {
+      "license": "PENDING-OWNER-APPROVAL",
+      "origin": "local",
+      "version": "1.0.0-rc.1",
+      "path": "vocabulary/network-edition.ttl",
+      "sha256": "4900c647b02a260ed4b176acefcf2dc8846e743b805c0a20443e6659140b8f0f"
+    },
+    {
+      "license": "PENDING-OWNER-APPROVAL",
+      "origin": "local",
+      "version": "1.0.0-rc.1",
+      "path": "vocabulary/network-element-type.ttl",
+      "sha256": "4070880690a12d7d88dd2dd67952f21cbbd2485063788bc9b115a40c7a549462"
+    },
+    {
+      "license": "PENDING-OWNER-APPROVAL",
+      "origin": "local",
+      "version": "1.0.0-rc.1",
+      "path": "vocabulary/network-lifecycle-status.ttl",
+      "sha256": "56b9a6835580fe92d800648673d7b03c25fb06f6723938beb53b57b275f91a5c"
+    },
+    {
+      "license": "PENDING-OWNER-APPROVAL",
+      "origin": "local",
+      "version": "1.0.0-rc.1",
+      "path": "vocabulary/observation-semantics.ttl",
+      "sha256": "b0d28cb764038fe0353d5f93b44d05ab29114a2863efd351301e9632ed54f009"
+    },
+    {
+      "license": "PENDING-OWNER-APPROVAL",
+      "origin": "local",
+      "version": "1.0.0-rc.1",
+      "path": "vocabulary/offering-readiness-status.ttl",
+      "sha256": "6ce3fc2bcf98d8b9eda03efab853cede6d68038532364321ae95b659056a1e5c"
+    },
+    {
+      "license": "PENDING-OWNER-APPROVAL",
+      "origin": "local",
+      "version": "1.0.0-rc.1",
+      "path": "vocabulary/ogc-crs-allowlist.ttl",
+      "sha256": "beb1296b7c0526990e8128768b81edf8f702ed58678474ea0706353b17b08d7c"
+    },
+    {
+      "license": "PENDING-OWNER-APPROVAL",
+      "origin": "local",
+      "version": "1.0.0-rc.1",
+      "path": "vocabulary/quality-semantics.ttl",
+      "sha256": "9ac93974de4612a995f5eeeb7eedaacd30570414342ae6d3391d9fb910b071b7"
+    },
+    {
+      "license": "PENDING-OWNER-APPROVAL",
+      "origin": "local",
+      "version": "1.0.0-rc.1",
+      "path": "vocabulary/quality.ttl",
+      "sha256": "7f1b50aad02a8599fff9cbb5518e30d6e16d9c170065abc7ce283f2ee019e79b"
+    },
+    {
+      "license": "PENDING-OWNER-APPROVAL",
+      "origin": "local",
+      "version": "1.0.0-rc.1",
+      "path": "vocabulary/qudt-unit-allowlist.ttl",
+      "sha256": "90dc25bcaff249bc9ec0f4fa6ab486594097dd860f036353e3d55d347e19a7ab"
+    },
+    {
+      "license": "PENDING-OWNER-APPROVAL",
+      "origin": "generated-local",
+      "version": "1.0.0-rc.1",
+      "path": "vocabulary/registry-metadata.json",
+      "sha256": "74cf9e5629a54f8112c46bbc99fbf4d1c84de1b68edc2db624f55baf3f7e8d88"
+    },
+    {
+      "license": "PENDING-OWNER-APPROVAL",
+      "origin": "local",
+      "version": "1.0.0-rc.1",
+      "path": "vocabulary/spatial-disclosure-level.ttl",
+      "sha256": "aac1aef6c660d449b3bf04674167f6b2500832d1f18ddb21d92671602d684c7a"
+    },
+    {
+      "license": "PENDING-OWNER-APPROVAL",
+      "origin": "local",
+      "version": "1.0.0-rc.1",
+      "path": "vocabulary/term-status.ttl",
+      "sha256": "08afad03d14db0ede0e4c27e8a0b19c42f32d78fb7f8f294b8a74af6d61772f9"
+    },
+    {
+      "license": "PENDING-OWNER-APPROVAL",
+      "origin": "local",
+      "version": "1.0.0-rc.1",
+      "path": "vocabulary/transport-unit.ttl",
+      "sha256": "e404083679de52c5aca3a9661ea7f5037e9d6c8e2837fdb58625aca9a2dcd598"
+    },
+    {
+      "source": "https://raw.githubusercontent.com/opengeospatial/ogc-geosparql/1.1.0-ghpages/geosparql11/geo.ttl",
+      "sourceCommit": "cd53678be2e9775066d63791c84c3fa010fc29ff",
+      "upstream": "OGC GeoSPARQL",
+      "version": "1.1.0",
+      "license": "Apache-2.0",
+      "path": "vocabulary/upstream/geosparql-1.1/geo.ttl",
+      "sha256": "25e319e0c30c6cf026a5cb1a693ac74a17e7cebc3dcad520b731f77c49719867"
+    }
+  ]
+}

@@ -1,0 +1,7 @@
+PREFIX dqv: <http://www.w3.org/ns/dqv#>
+SELECT ?dataset ?measurement ?computedOn
+WHERE {
+  ?dataset dqv:hasQualityMeasurement ?measurement .
+  ?measurement dqv:computedOn ?computedOn .
+  FILTER (?dataset != ?computedOn)
+}

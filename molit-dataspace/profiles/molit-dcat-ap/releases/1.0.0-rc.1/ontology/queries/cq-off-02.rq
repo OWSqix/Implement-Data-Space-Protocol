@@ -1,0 +1,8 @@
+PREFIX molit: <https://data.molit.go.kr/def/molit-dcat-ap#>
+PREFIX offering: <https://data.molit.go.kr/id/concept/offering-readiness-status/>
+SELECT ?offeringMetadata ?evidence
+WHERE {
+  ?offeringMetadata a molit:DataspaceOfferingMetadata ;
+                    molit:offeringReadinessStatus offering:operationally-qualified ;
+                    molit:qualificationEvidence ?evidence .
+}

@@ -1,0 +1,10 @@
+@prefix vcard: <http://www.w3.org/2006/vcard/ns#> .
+
+<mailto:itscenter2@korea.kr>
+    a vcard:Email .
+
+<mailto:road-data@data.molit.go.kr>
+    a vcard:Email .
+
+<mailto:traffic-data@data.molit.go.kr>
+    a vcard:Email .

@@ -1,0 +1,114 @@
+@prefix adms: <http://www.w3.org/ns/adms#> .
+@prefix dcat: <http://www.w3.org/ns/dcat#> .
+@prefix dcatap: <http://data.europa.eu/r5r/> .
+@prefix dct: <http://purl.org/dc/terms/> .
+@prefix molit: <https://data.molit.go.kr/def/molit-dcat-ap#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix spdx: <http://spdx.org/rdf/terms#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#ChecksumAlgorithmVocabularyShape>
+    a sh:NodeShape ;
+    sh:targetClass spdx:Checksum ;
+    molit:requirementId "MOLIT-CV-CHECKSUM-001" ;
+    molit:controlOwner "security-architecture" ;
+    sh:property [ molit:requirementId "MOLIT-CV-CHECKSUM-001-P-ALGORITHM-001" ;
+        sh:path spdx:algorithm ;
+        sh:nodeKind sh:IRI ;
+        sh:in (
+            <http://spdx.org/rdf/terms#checksumAlgorithm_sha256>
+            <http://spdx.org/rdf/terms#checksumAlgorithm_sha384>
+            <http://spdx.org/rdf/terms#checksumAlgorithm_sha512>
+        ) ;
+        sh:message "체크섬 알고리즘은 SHA-256, SHA-384 또는 SHA-512 SPDX IRI여야 한다."@ko
+    ] .
+
+<https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#ChecksumValueLengthShape>
+    a sh:NodeShape ;
+    sh:targetClass spdx:Checksum ;
+    molit:requirementId "MOLIT-CV-CHECKSUM-002" ;
+    molit:controlOwner "security-architecture" ;
+    sh:or (
+        [
+            sh:property [
+                sh:path spdx:algorithm ;
+                sh:hasValue <http://spdx.org/rdf/terms#checksumAlgorithm_sha256>
+            ] ;
+            sh:property [
+                sh:path spdx:checksumValue ;
+                sh:datatype xsd:hexBinary ;
+                sh:pattern "^[0-9a-f]{64}$"
+            ]
+        ]
+        [
+            sh:property [
+                sh:path spdx:algorithm ;
+                sh:hasValue <http://spdx.org/rdf/terms#checksumAlgorithm_sha384>
+            ] ;
+            sh:property [
+                sh:path spdx:checksumValue ;
+                sh:datatype xsd:hexBinary ;
+                sh:pattern "^[0-9a-f]{96}$"
+            ]
+        ]
+        [
+            sh:property [
+                sh:path spdx:algorithm ;
+                sh:hasValue <http://spdx.org/rdf/terms#checksumAlgorithm_sha512>
+            ] ;
+            sh:property [
+                sh:path spdx:checksumValue ;
+                sh:datatype xsd:hexBinary ;
+                sh:pattern "^[0-9a-f]{128}$"
+            ]
+        ]
+    ) ;
+    sh:message "SPDX checksum 값은 선택한 SHA-256·SHA-384·SHA-512의 byte 길이와 일치하는 소문자 16진수여야 한다."@ko .
+
+<https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#IanaMediaTypeVocabularyShape>
+    a sh:NodeShape ;
+    sh:targetSubjectsOf dcat:mediaType,
+        dcat:compressFormat,
+        dcat:packageFormat ;
+    molit:requirementId "MOLIT-CV-MEDIATYPE-001" ;
+    molit:controlOwner "vocabulary-governance" ;
+    sh:property [ molit:requirementId "MOLIT-CV-MEDIATYPE-001-P-TYPE-001" ;
+        sh:path rdf:type ;
+        sh:hasValue dcat:Distribution ;
+        sh:message "mediaType, compression format과 packaging format은 dcat:Distribution에만 사용한다."@ko
+    ], [ molit:requirementId "MOLIT-CV-MEDIATYPE-001-P-MEDIATYPE-001" ;
+        sh:path dcat:mediaType ;
+        sh:nodeKind sh:IRI ;
+        sh:in (
+            <https://www.iana.org/assignments/media-types/text/csv>
+            <https://www.iana.org/assignments/media-types/application/json>
+            <https://www.iana.org/assignments/media-types/application/ld+json>
+            <https://www.iana.org/assignments/media-types/text/turtle>
+            <https://www.iana.org/assignments/media-types/application/rdf+xml>
+            <https://www.iana.org/assignments/media-types/application/xml>
+            <https://www.iana.org/assignments/media-types/application/gml+xml>
+            <https://www.iana.org/assignments/media-types/application/geo+json>
+            <https://www.iana.org/assignments/media-types/application/gzip>
+            <https://www.iana.org/assignments/media-types/application/zip>
+            <https://www.iana.org/assignments/media-types/application/octet-stream>
+        ) ;
+        sh:message "mediaType은 IANA media type IRI여야 한다."@ko
+    ], [ molit:requirementId "MOLIT-CV-MEDIATYPE-001-P-COMPRESSFORMAT-001" ;
+        sh:path dcat:compressFormat ;
+        sh:nodeKind sh:IRI ;
+        sh:in (
+            <https://www.iana.org/assignments/media-types/application/gzip>
+            <https://www.iana.org/assignments/media-types/application/zip>
+        ) ;
+        sh:message "compression format은 IANA media type IRI여야 한다."@ko
+    ], [ molit:requirementId "MOLIT-CV-MEDIATYPE-001-P-PACKAGEFORMAT-001" ;
+        sh:path dcat:packageFormat ;
+        sh:nodeKind sh:IRI ;
+        sh:in (
+            <https://www.iana.org/assignments/media-types/application/gzip>
+            <https://www.iana.org/assignments/media-types/application/zip>
+        ) ;
+        sh:message "packaging format은 IANA media type IRI여야 한다."@ko
+    ] .
+

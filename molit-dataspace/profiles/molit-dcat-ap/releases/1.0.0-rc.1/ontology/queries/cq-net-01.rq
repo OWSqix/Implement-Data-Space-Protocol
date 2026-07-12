@@ -1,0 +1,8 @@
+PREFIX molit: <https://data.molit.go.kr/def/molit-dcat-ap#>
+SELECT ?dataset ?authority ?networkId ?edition
+WHERE {
+  ?dataset a molit:NetworkDataset ; molit:networkReference ?reference .
+  ?reference molit:networkAuthority ?authority ;
+             molit:networkIdentifier ?networkId ;
+             molit:networkVersion ?edition .
+}

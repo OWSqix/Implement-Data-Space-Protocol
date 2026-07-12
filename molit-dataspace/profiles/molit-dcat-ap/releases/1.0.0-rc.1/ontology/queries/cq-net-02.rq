@@ -1,0 +1,9 @@
+PREFIX molit: <https://data.molit.go.kr/def/molit-dcat-ap#>
+SELECT ?reference ?checksum ?status ?from ?until
+WHERE {
+  ?reference a molit:NetworkReference ;
+             molit:networkSnapshotChecksum ?checksum ;
+             molit:networkLifecycleStatus ?status ;
+             molit:networkValidFrom ?from .
+  OPTIONAL { ?reference molit:networkValidUntil ?until }
+}
