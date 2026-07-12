@@ -1,0 +1,44 @@
+{
+  "schemaVersion": "molit.validator-toolchain/1",
+  "toolchainId": "apache-jena-6.1.0-temurin-21.0.11-win32-x64",
+  "platform": "win32",
+  "architecture": "x64",
+  "reviewedAt": "2026-07-12T12:53:04Z",
+  "signatureVerification": "not-performed",
+  "artifacts": [
+    {
+      "role": "java-runtime",
+      "name": "OpenJDK21U-jre_x64_windows_hotspot_21.0.11_10.zip",
+      "version": "21.0.11+10",
+      "url": "https://github.com/adoptium/temurin21-binaries/releases/download/jdk-21.0.11%2B10/OpenJDK21U-jre_x64_windows_hotspot_21.0.11_10.zip",
+      "checksumSource": "https://github.com/adoptium/temurin21-binaries/releases/download/jdk-21.0.11%2B10/OpenJDK21U-jre_x64_windows_hotspot_21.0.11_10.zip.sha256.txt",
+      "checksumAlgorithm": "sha256",
+      "checksumSnapshotPath": "standards/vendor/toolchain-checksums/2026-07-12/OpenJDK21U-jre_x64_windows_hotspot_21.0.11_10.zip.sha256.txt",
+      "checksumSnapshotSha256": "1cf693e2b7e2dcb8c3147895a66a6719c53c91166e4f3bac563873a13de90ceb",
+      "bytes": 49005708,
+      "sha256": "be26677aaa20b39a62edcaab4c8857a8b76673b0f45abc0b6143b142b62717e4",
+      "sha512": "66b7a02dd6c805d2bae90331c8e387a1b5e5b44bb05f075cc7498a80514e89f5d44dea634363d3d37e07dd37d75f4073b1cb93b1995f0fda0ef484452792fc01",
+      "extractDirectory": "jdk-21.0.11+10-jre",
+      "installedFileCount": 315,
+      "installedBytes": 151530953,
+      "installedContentSha256": "3ac8fda291cfcdddeb277d1ebc513a5d6ecb0a6f7e117b7b05e6cf9bc8972f5a"
+    },
+    {
+      "role": "jena-commands",
+      "name": "apache-jena-6.1.0.zip",
+      "version": "6.1.0",
+      "url": "https://downloads.apache.org/jena/binaries/apache-jena-6.1.0.zip",
+      "checksumSource": "https://downloads.apache.org/jena/binaries/apache-jena-6.1.0.zip.sha512",
+      "checksumAlgorithm": "sha512",
+      "checksumSnapshotPath": "standards/vendor/toolchain-checksums/2026-07-12/apache-jena-6.1.0.zip.sha512",
+      "checksumSnapshotSha256": "bee88f4c03396c51a61cab09f9312a4f2249f60d6e0cc969867359f47128253e",
+      "bytes": 24017452,
+      "sha256": "9e2d8c64e2397e61aad4a48ff6c52ae481af1f93ab4cd509d53d68cd49c363a1",
+      "sha512": "fb5647f95d7a5a685c07ace3e691001f2bbe3335fd1b4e0a3953e91aae71eaf89a669af41786c605058e7c55a05131851af19492dbe65c6398ef7a709dc41650",
+      "extractDirectory": "apache-jena-6.1.0",
+      "installedFileCount": 251,
+      "installedBytes": 27131197,
+      "installedContentSha256": "01ac2aeb9fb06ff6b9005dedb1bb45b6f25de5c827e1f7f7ad64613e3f5c6911"
+    }
+  ]
+}

@@ -1,0 +1,7 @@
+{
+  "dspVersion": "2025-1",
+  "allowedConnectorHosts": ["provider-connector.poc.invalid"],
+  "identifierNamespace": "urn:kr:molit-dataspace:poc",
+  "providerConnectorEndpoint": "https://provider-connector.poc.invalid/dsp/2025-1",
+  "serviceId": "default-provider-service"
+}

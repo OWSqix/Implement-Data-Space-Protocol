@@ -1,0 +1,26 @@
+@prefix dcat: <http://www.w3.org/ns/dcat#> .
+@prefix dct: <http://purl.org/dc/terms/> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+
+# DCAT-AP 3.0.1 dcat-ap-SHACL.ttl references these two PropertyShapes but
+# omits their sh:path and range triples. The triples below are copied from the
+# same release's shacl/ranges.ttl. No new constraint is introduced.
+
+<https://data.molit.go.kr/id/profile-artifact/dcat-ap-3.0.1-closure>
+    dct:source <https://semiceu.github.io/DCAT-AP/releases/3.0.1/shacl/ranges.ttl> ;
+    dct:description "DCAT-AP 3.0.1 DataService PropertyShape closure"@en .
+
+<https://semiceu.github.io/DCAT-AP/releases/3.0.1#dcat:DataServiceShape/dc08f4dca4377fade57f89454e3fa06a8389d314>
+    rdfs:seeAlso "https://semiceu.github.io/DCAT-AP/releases/3.0.1#DataService.endpointdescription" ;
+    sh:class rdfs:Resource ;
+    sh:description "A description of the services available via the end-points, including their operations, parameters etc."@en ;
+    sh:name "endpoint description"@en ;
+    sh:path dcat:endpointDescription .
+
+<https://semiceu.github.io/DCAT-AP/releases/3.0.1#dcat:DataServiceShape/eb3ac4e4fdde2e2588a9502c5956060a18c5c99f>
+    rdfs:seeAlso "https://semiceu.github.io/DCAT-AP/releases/3.0.1#DataService.endpointURL" ;
+    sh:class rdfs:Resource ;
+    sh:description "The root location or primary endpoint of the service (an IRI)."@en ;
+    sh:name "endpoint URL"@en ;
+    sh:path dcat:endpointURL .

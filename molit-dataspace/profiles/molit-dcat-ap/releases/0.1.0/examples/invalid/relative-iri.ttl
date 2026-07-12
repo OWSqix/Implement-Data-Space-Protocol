@@ -1,0 +1,41 @@
+@prefix dcat: <http://www.w3.org/ns/dcat#> .
+@prefix dct: <http://purl.org/dc/terms/> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+@prefix molit: <https://data.molit.go.kr/def/molit-dcat-ap#> .
+@prefix quality: <https://data.molit.go.kr/id/concept/quality-status/> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<#catalog>
+    a dcat:Catalog ;
+    dct:title "상대 IRI 오류 카탈로그"@ko ;
+    dct:description "게시 자원 식별자에 상대 IRI를 사용했다."@ko ;
+    dct:publisher <https://data.molit.go.kr/id/example-invalid/publisher> ;
+    dct:language <http://publications.europa.eu/resource/authority/language/KOR> ;
+    dct:conformsTo <https://data.molit.go.kr/profile/molit-dcat-ap/0.1.0> ;
+    dcat:dataset <#dataset> ;
+    dcat:record <#record> .
+
+<#record>
+    a dcat:CatalogRecord ;
+    dct:title "상대 IRI 오류 레코드"@ko ;
+    dct:modified "2026-07-12"^^xsd:date ;
+    dct:language <http://publications.europa.eu/resource/authority/language/KOR> ;
+    dct:conformsTo <https://data.molit.go.kr/profile/molit-dcat-ap/0.1.0> ;
+    foaf:primaryTopic <#dataset> .
+
+<#dataset>
+    a dcat:Dataset,
+        dcat:Resource ;
+    dct:identifier "relative-iri" ;
+    dct:title "상대 IRI 오류 데이터셋"@ko ;
+    dct:description "NamedNode는 절대 IRI여야 한다."@ko ;
+    dct:publisher <https://data.molit.go.kr/id/example-invalid/publisher> ;
+    dct:modified "2026-07-12"^^xsd:date ;
+    dct:accessRights <http://publications.europa.eu/resource/authority/access-right/PUBLIC> ;
+    dcat:theme <http://publications.europa.eu/resource/authority/data-theme/TRAN>,
+        <https://data.molit.go.kr/id/concept/domain/road> ;
+    molit:qualityStatus quality:not-assessed .
+
+<https://data.molit.go.kr/id/example-invalid/publisher>
+    a foaf:Agent ;
+    foaf:name "시험 발행기관"@ko .

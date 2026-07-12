@@ -1,0 +1,85 @@
+{
+  "schemaVersion": "molit.approval-registry/1",
+  "registryId": "mock-governance-registry-2026",
+  "trustMode": "synthetic-test-only",
+  "entries": [
+    {
+      "sourceSystemId": "mock-molit-platform",
+      "recordId": "road-node-link-snapshot",
+      "resourceVersion": "1",
+      "recordDigest": "fcb9c1dacc6c259e5ad56c3cf59f6a5270379071a975904ef62f8f4252ee21d8",
+      "approvalId": "APR-MOCK-ROAD-V1",
+      "approverId": "mock-governance-board",
+      "approvedAt": "2026-07-11T12:00:00+09:00",
+      "validUntil": "2027-07-11T12:00:00+09:00",
+      "catalogVisibility": "public",
+      "offeringDecision": "approved",
+      "evidenceIds": ["EVD-MOCK-GOV-ROAD-V1"]
+    },
+    {
+      "sourceSystemId": "mock-molit-platform",
+      "recordId": "external-traffic-index",
+      "resourceVersion": "1",
+      "recordDigest": "43922819489f963b29ecf6dcc3e8b713a8ffc406934e8f64617543ddb48484e9",
+      "approvalId": "APR-MOCK-INDEX-V1",
+      "approverId": "mock-governance-board",
+      "approvedAt": "2026-07-11T12:00:00+09:00",
+      "validUntil": "2027-07-11T12:00:00+09:00",
+      "catalogVisibility": "public",
+      "offeringDecision": "denied",
+      "evidenceIds": ["EVD-MOCK-GOV-INDEX-V1"]
+    },
+    {
+      "sourceSystemId": "mock-molit-platform",
+      "recordId": "transport-research-agency",
+      "resourceVersion": "1",
+      "recordDigest": "68f7a58ca060f6829f29e052790d023269a7b63ef39e0802e3e1ac1b4bc7a55a",
+      "approvalId": "APR-MOCK-ORG-V1",
+      "approverId": "mock-governance-board",
+      "approvedAt": "2026-07-11T12:00:00+09:00",
+      "validUntil": "2027-07-11T12:00:00+09:00",
+      "catalogVisibility": "public",
+      "offeringDecision": "denied",
+      "evidenceIds": ["EVD-MOCK-GOV-ORG-V1"]
+    },
+    {
+      "sourceSystemId": "mock-molit-platform",
+      "recordId": "unverified-traffic-api",
+      "resourceVersion": "1",
+      "recordDigest": "c973361a39940ef90b8309d0235471f952c48523e1a6227c7865c7109f8f6d6d",
+      "approvalId": "APR-MOCK-UNKNOWN-V1",
+      "approverId": "mock-governance-board",
+      "approvedAt": "2026-07-11T12:00:00+09:00",
+      "validUntil": "2027-07-11T12:00:00+09:00",
+      "catalogVisibility": "internal",
+      "offeringDecision": "pending",
+      "evidenceIds": ["EVD-MOCK-GOV-UNKNOWN-V1"]
+    },
+    {
+      "sourceSystemId": "mock-molit-platform",
+      "recordId": "road-node-link-snapshot",
+      "resourceVersion": "2",
+      "recordDigest": "63f1031dc1c337744abcd70662881db02a59f68215fb7b764bda1c8e4467ab81",
+      "approvalId": "APR-MOCK-ROAD-V2",
+      "approverId": "mock-governance-board",
+      "approvedAt": "2026-07-11T14:30:00+09:00",
+      "validUntil": "2027-07-11T14:30:00+09:00",
+      "catalogVisibility": "public",
+      "offeringDecision": "approved",
+      "evidenceIds": ["EVD-MOCK-GOV-ROAD-V2"]
+    },
+    {
+      "sourceSystemId": "mock-molit-platform",
+      "recordId": "platform-maintenance-post",
+      "resourceVersion": "1",
+      "recordDigest": "705e386fa074da82c4d168ad6bafd7374a40d03a2d26f3c63589c221000d4709",
+      "approvalId": "APR-MOCK-POST-V1",
+      "approverId": "mock-governance-board",
+      "approvedAt": "2026-07-11T14:45:00+09:00",
+      "validUntil": "2027-07-11T14:45:00+09:00",
+      "catalogVisibility": "public",
+      "offeringDecision": "denied",
+      "evidenceIds": ["EVD-MOCK-GOV-POST-V1"]
+    }
+  ]
+}

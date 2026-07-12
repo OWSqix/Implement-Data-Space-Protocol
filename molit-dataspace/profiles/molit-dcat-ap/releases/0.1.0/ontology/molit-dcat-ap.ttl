@@ -1,0 +1,161 @@
+@prefix dcat: <http://www.w3.org/ns/dcat#> .
+@prefix dct: <http://purl.org/dc/terms/> .
+@prefix dqv: <http://www.w3.org/ns/dqv#> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+@prefix molit: <https://data.molit.go.kr/def/molit-dcat-ap#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<https://data.molit.go.kr/def/molit-dcat-ap>
+    a owl:Ontology ;
+    owl:versionIRI <https://data.molit.go.kr/def/molit-dcat-ap/0.1.0> ;
+    owl:versionInfo "0.1.0" ;
+    dct:title "국토교통 데이터 카탈로그 확장 온톨로지"@ko,
+        "MOLIT data catalogue extension ontology"@en ;
+    dct:description "DCAT 3와 DCAT-AP 3.0.1에 없는 국토교통 분야의 최소 개념만 정의한다."@ko,
+        "Defines only the minimum MOLIT-domain terms not supplied by DCAT 3 and DCAT-AP 3.0.1."@en ;
+    dct:issued "2026-07-12"^^xsd:date ;
+    dct:publisher <https://data.molit.go.kr/id/organization/molit> ;
+    rdfs:comment "Working Draft; namespace publication and a license for locally authored terms are pending owner approval."@en .
+
+<https://data.molit.go.kr/profile/molit-dcat-ap/0.1.0>
+    a dct:Standard ;
+    dct:title "국토교통 데이터 카탈로그 응용 프로파일 0.1.0"@ko,
+        "MOLIT Data Catalogue Application Profile 0.1.0"@en ;
+    dct:isVersionOf <https://data.molit.go.kr/profile/molit-dcat-ap> ;
+    dct:issued "2026-07-12"^^xsd:date .
+
+molit:TransferableDataset
+    a owl:Class ;
+    rdfs:subClassOf dcat:Dataset ;
+    rdfs:label "전송 가능한 데이터셋"@ko,
+        "Transferable dataset"@en ;
+    skos:definition "계약과 전송 절차를 거쳐 하나 이상의 배포본을 제공할 수 있는 데이터셋."@ko,
+        "A dataset that can provide one or more distributions through contract and transfer procedures."@en .
+
+molit:SpatialDataset
+    a owl:Class ;
+    rdfs:subClassOf dcat:Dataset ;
+    rdfs:label "공간 데이터셋"@ko,
+        "Spatial dataset"@en ;
+    skos:definition "공간 범위 또는 지오메트리와 좌표참조체계를 갖는 데이터셋."@ko,
+        "A dataset with a spatial extent or geometry and a coordinate reference system."@en .
+
+molit:NetworkDataset
+    a owl:Class ;
+    rdfs:subClassOf molit:SpatialDataset ;
+    rdfs:label "교통망 데이터셋"@ko,
+        "Transport network dataset"@en ;
+    skos:definition "도로, 철도, 정류장, 링크 또는 노드처럼 버전이 있는 교통망 요소를 기술하는 데이터셋."@ko,
+        "A dataset describing versioned transport-network elements such as roads, railways, stops, links or nodes."@en .
+
+molit:ObservationDataset
+    a owl:Class ;
+    rdfs:subClassOf dcat:Dataset ;
+    rdfs:label "관측 데이터셋"@ko,
+        "Observation dataset"@en ;
+    skos:definition "교통량, 속도, 통행시간 또는 시설 상태처럼 시간에 따라 측정한 값을 제공하는 데이터셋."@ko,
+        "A dataset providing time-dependent observations such as traffic volume, speed, travel time or facility status."@en .
+
+molit:TransferDistribution
+    a owl:Class ;
+    rdfs:subClassOf dcat:Distribution ;
+    rdfs:label "전송 배포본"@ko,
+        "Transfer distribution"@en ;
+    skos:definition "계약 이행 후 다운로드할 수 있는 파일 또는 고정된 데이터 표현의 배포본. API와 스트림 접근은 dcat:DataService로 기술한다."@ko,
+        "A distribution of a downloadable file or fixed data representation available after contract execution; API and stream access are described as dcat:DataService."@en .
+
+molit:NetworkReference
+    a owl:Class ;
+    rdfs:label "교통망 참조"@ko,
+        "Network reference"@en ;
+    skos:definition "발급기관, 망 식별자, 버전과 요소 유형을 함께 보존하는 참조 객체."@ko,
+        "A reference object preserving the issuing authority, network identifier, version and element types together."@en .
+
+molit:networkReference
+    a owl:ObjectProperty ;
+    rdfs:domain molit:NetworkDataset ;
+    rdfs:range molit:NetworkReference ;
+    rdfs:label "교통망 참조"@ko,
+        "network reference"@en ;
+    skos:definition "데이터셋이 사용하는 교통망 식별체계와 버전의 참조 객체를 연결한다."@ko,
+        "Links a dataset to the reference object for its transport-network identifier system and version."@en .
+
+molit:networkAuthority
+    a owl:ObjectProperty ;
+    rdfs:domain molit:NetworkReference ;
+    rdfs:range foaf:Agent ;
+    rdfs:label "교통망 식별자 발급기관"@ko,
+        "network identifier authority"@en ;
+    skos:definition "교통망 식별자와 버전의 유일성 범위를 관리하는 발급기관."@ko,
+        "The issuing authority that governs the uniqueness scope of a network identifier and version."@en .
+
+molit:networkIdentifier
+    a owl:DatatypeProperty ;
+    rdfs:domain molit:NetworkReference ;
+    rdfs:range xsd:string ;
+    rdfs:label "교통망 식별자"@ko,
+        "network identifier"@en ;
+    skos:definition "발급기관의 관리 범위에서 교통망을 식별하는 문자열."@ko,
+        "A string identifying a transport network within the issuing authority's scope."@en .
+
+molit:networkVersion
+    a owl:DatatypeProperty ;
+    rdfs:domain molit:NetworkReference ;
+    rdfs:range xsd:string ;
+    rdfs:label "교통망 버전"@ko,
+        "network version"@en ;
+    skos:definition "교통망 식별자가 가리키는 망 상태의 발행 버전."@ko,
+        "The issued version of the network state identified by the network identifier."@en .
+
+molit:networkElementType
+    a owl:ObjectProperty ;
+    rdfs:domain molit:NetworkReference ;
+    rdfs:range skos:Concept ;
+    rdfs:label "교통망 요소 유형"@ko,
+        "network element type"@en ;
+    skos:definition "참조한 교통망에 포함된 노드, 링크, 구간 또는 시설의 유형."@ko,
+        "The type of node, link, section or facility included in the referenced transport network."@en .
+
+molit:qualityStatus
+    a owl:ObjectProperty ;
+    rdfs:domain dcat:Dataset ;
+    rdfs:range skos:Concept ;
+    rdfs:label "품질 평가 상태"@ko,
+        "quality assessment status"@en ;
+    rdfs:seeAlso dqv:hasQualityMeasurement ;
+    skos:definition "데이터셋에 대한 품질 평가 절차의 진행 또는 판정 상태."@ko,
+        "The progress or outcome state of a quality-assessment procedure for a dataset."@en .
+
+molit:spatialDisclosureLevel
+    a owl:ObjectProperty ;
+    rdfs:domain dcat:Resource ;
+    rdfs:range skos:Concept ;
+    rdfs:label "공간 공개 정밀도"@ko,
+        "spatial disclosure level"@en ;
+    skos:definition "공개 카탈로그에서 제공하는 공간 범위의 일반화 수준. 보안 등급이나 접근 권한을 대신하지 않는다."@ko,
+        "The generalization level of a spatial extent exposed for a catalogued resource; it does not replace a security classification or access right."@en .
+
+molit:requirementId
+    a owl:AnnotationProperty ;
+    rdfs:label "요구사항 식별자"@ko,
+        "requirement identifier"@en ;
+    skos:definition "SHACL 제약을 사람용 명세와 시험 항목에 연결하는 안정 식별자."@ko,
+        "A stable identifier linking a SHACL constraint to its human-readable requirement and test cases."@en .
+
+molit:remediation
+    a owl:AnnotationProperty ;
+    rdfs:label "수정 지침"@ko,
+        "remediation"@en ;
+    skos:definition "제약 위반을 수정하기 위한 운영 지침."@ko,
+        "Operational guidance for correcting a constraint violation."@en .
+
+molit:controlOwner
+    a owl:AnnotationProperty ;
+    rdfs:label "통제 책임 역할"@ko,
+        "control owner role"@en ;
+    skos:definition "제약의 의미와 변경을 관리하는 책임 역할 식별자."@ko,
+        "An identifier for the role accountable for the meaning and change control of a constraint."@en .

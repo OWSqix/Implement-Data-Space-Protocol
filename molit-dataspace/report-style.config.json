@@ -1,0 +1,164 @@
+{
+  "$schema": "./tools/report-style/config.schema.json",
+  "schemaVersion": 1,
+  "profile": "molit-government-rd-report-v1",
+  "roots": [
+    "README.md",
+    "docs",
+    "evidence",
+    "profiles",
+    "templates",
+    "tools/report-style/README.md",
+    "tools/report-style/prompts",
+    "tools/report-style/templates"
+  ],
+  "ignore": [
+    "evidence/raw/**",
+    "tools/report-style/test/fixtures/**"
+  ],
+  "failOn": "warning",
+  "maxWarnings": null,
+  "rules": {
+    "STR001": "error",
+    "STR002": "error",
+    "STR003": "warning",
+    "STR004": "warning",
+    "REG101": "error",
+    "REG102": "error",
+    "REG103": "warning",
+    "REG104": "error",
+    "REG105": "warning",
+    "REG106": "warning",
+    "REG107": [
+      "warning",
+      {
+        "maxVisibleChars": 180
+      }
+    ],
+    "REG108": "info",
+    "REG109": "warning",
+    "PRE101": "warning",
+    "PRE102": [
+      "error",
+      {
+        "evidenceWindowLines": 3
+      }
+    ],
+    "PRE103": [
+      "warning",
+      {
+        "evidenceWindowLines": 3
+      }
+    ],
+    "PRE104": [
+      "warning",
+      {
+        "evidenceWindowLines": 3
+      }
+    ],
+    "TRM101": "error",
+    "TRM102": "info",
+    "TRM103": "warning"
+  },
+  "allowedHeadingSchemes": [
+    "decimal",
+    "finding",
+    "korean-alpha"
+  ],
+  "knownAcronyms": [
+    "ADR",
+    "AI",
+    "API",
+    "ATX",
+    "BW",
+    "C2D",
+    "CaaS",
+    "CI",
+    "CRS",
+    "DCP",
+    "DCAT",
+    "DATEX",
+    "DID",
+    "DSP",
+    "EDC",
+    "HTTP",
+    "HTTPS",
+    "URL",
+    "URI",
+    "DNS",
+    "ID",
+    "JSON",
+    "JSON-LD",
+    "MCP",
+    "MDS",
+    "NGSI-LD",
+    "ODRL",
+    "OGC",
+    "OWL",
+    "PDF",
+    "PID",
+    "PoC",
+    "RDF",
+    "RDFC",
+    "REST",
+    "RFP",
+    "SLA",
+    "SLO",
+    "SHACL",
+    "SKOS",
+    "PROF",
+    "QUDT",
+    "DQV",
+    "SEMIC",
+    "NAPCORE",
+    "SPE",
+    "TCK",
+    "TLS",
+    "TTL",
+    "UCL",
+    "VC",
+    "W3C",
+    "ISO"
+  ],
+  "terminology": {
+    "데이터스페이스": "데이터 스페이스",
+    "Dataspace Protocol": "Dataspace Protocol",
+    "Data Space Protocol": "Dataspace Protocol",
+    "GAIA-X": "Gaia-X",
+    "Gaia X": "Gaia-X",
+    "As-Is": "AS-IS",
+    "To-Be": "TO-BE",
+    "To-be": "TO-BE",
+    "유즈 케이스": "유즈케이스"
+  },
+  "overrides": [
+    {
+      "files": [
+        "docs/adr/**"
+      ],
+      "rules": {
+        "STR003": "off",
+        "REG103": "off"
+      }
+    },
+    {
+      "files": [
+        "templates/**",
+        "tools/report-style/templates/**"
+      ],
+      "rules": {
+        "REG103": "off",
+        "PRE104": "off",
+        "TRM102": "off"
+      }
+    },
+    {
+      "files": [
+        "docs/01-research/operator-inquiry-package.md"
+      ],
+      "rules": {
+        "REG102": "off"
+      }
+    }
+  ]
+}

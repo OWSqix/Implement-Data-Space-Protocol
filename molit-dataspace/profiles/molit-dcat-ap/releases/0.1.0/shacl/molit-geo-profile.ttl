@@ -1,0 +1,40 @@
+@prefix dcat: <http://www.w3.org/ns/dcat#> .
+@prefix dct: <http://purl.org/dc/terms/> .
+@prefix molit: <https://data.molit.go.kr/def/molit-dcat-ap#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+
+<https://data.molit.go.kr/shape/molit-dcat-ap/0.1.0#GeoCatalogProfileShape>
+    a sh:NodeShape ;
+    sh:targetClass dcat:Catalog ;
+    molit:requirementId "MOLIT-GEO-PROFILE-001" ;
+    molit:controlOwner "metadata-governance" ;
+    sh:property [
+        sh:path dct:conformsTo ;
+        sh:hasValue <https://data.molit.go.kr/profile/molit-dcat-ap/0.1.0/geo> ;
+        sh:qualifiedValueShape [
+            sh:nodeKind sh:IRI ;
+            sh:pattern "^https://data[.]molit[.]go[.]kr[.]?(:443)?/profile/molit-dcat-ap(/.*)?$" ;
+            sh:flags "i"
+        ] ;
+        sh:qualifiedMinCount 1 ;
+        sh:qualifiedMaxCount 1 ;
+        sh:message "Geo 카탈로그에는 Geo subprofile release IRI만 metadata profile marker로 지정해야 한다."@ko
+    ] .
+
+<https://data.molit.go.kr/shape/molit-dcat-ap/0.1.0#GeoCatalogRecordProfileShape>
+    a sh:NodeShape ;
+    sh:targetClass dcat:CatalogRecord ;
+    molit:requirementId "MOLIT-GEO-PROFILE-002" ;
+    molit:controlOwner "metadata-governance" ;
+    sh:property [
+        sh:path dct:conformsTo ;
+        sh:hasValue <https://data.molit.go.kr/profile/molit-dcat-ap/0.1.0/geo> ;
+        sh:qualifiedValueShape [
+            sh:nodeKind sh:IRI ;
+            sh:pattern "^https://data[.]molit[.]go[.]kr[.]?(:443)?/profile/molit-dcat-ap(/.*)?$" ;
+            sh:flags "i"
+        ] ;
+        sh:qualifiedMinCount 1 ;
+        sh:qualifiedMaxCount 1 ;
+        sh:message "Geo CatalogRecord에는 Geo subprofile release IRI만 metadata profile marker로 지정해야 한다."@ko
+    ] .

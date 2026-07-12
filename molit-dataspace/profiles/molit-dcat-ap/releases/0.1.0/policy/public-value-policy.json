@@ -1,0 +1,36 @@
+{
+  "schemaVersion": "molit.public-value-policy/1",
+  "status": "working-draft",
+  "mailboxPolicy": "exact-match-allowlist",
+  "mailboxPredicate": "http://www.w3.org/2006/vcard/ns#hasEmail",
+  "contactPointPredicate": "http://www.w3.org/ns/dcat#contactPoint",
+  "contactClass": "http://www.w3.org/2006/vcard/ns#Kind",
+  "allowedRoleMailboxes": [
+    "mailto:road-data@data.molit.go.kr",
+    "mailto:traffic-data@data.molit.go.kr"
+  ],
+  "allowedStablePublicHosts": [
+    "connector.data.molit.go.kr",
+    "data.molit.go.kr"
+  ],
+  "allowedPublicHosts": [
+    "connector.data.molit.go.kr",
+    "creativecommons.org",
+    "data.europa.eu",
+    "data.molit.go.kr",
+    "eclipse-dataspace-protocol-base.github.io",
+    "inspire.ec.europa.eu",
+    "publications.europa.eu",
+    "purl.org",
+    "qudt.org",
+    "schema.org",
+    "spdx.org",
+    "w3id.org",
+    "www.iana.org",
+    "www.opengis.net",
+    "www.rfc-editor.org",
+    "www.w3.org",
+    "xmlns.com"
+  ],
+  "telephonePublication": "prohibited"
+}

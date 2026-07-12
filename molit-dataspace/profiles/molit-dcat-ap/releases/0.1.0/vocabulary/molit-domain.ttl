@@ -1,0 +1,142 @@
+@prefix dct: <http://purl.org/dc/terms/> .
+@prefix molit-domain: <https://data.molit.go.kr/id/concept/domain/> .
+@prefix molit-scheme: <https://data.molit.go.kr/scheme/> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+molit-scheme:domain
+    a skos:ConceptScheme ;
+    dct:issued "2026-07-12"^^xsd:date ;
+    dct:title "국토교통 데이터 주제 분류"@ko ;
+    skos:note "License for locally authored concepts is pending owner approval."@en ;
+    skos:prefLabel "국토교통 데이터 주제 분류"@ko,
+        "MOLIT data themes"@en ;
+    skos:hasTopConcept molit-domain:land,
+        molit-domain:transport,
+        molit-domain:spatial-information .
+
+molit-domain:land
+    a skos:Concept ;
+    skos:inScheme molit-scheme:domain ;
+    skos:prefLabel "국토"@ko,
+        "Land and territory"@en ;
+    skos:definition "국토의 이용, 보전, 개발과 정주환경에 관한 데이터의 상위 주제."@ko,
+        "The top-level theme for data about land use, conservation, development and human settlements."@en ;
+    skos:topConceptOf molit-scheme:domain .
+
+molit-domain:urban
+    a skos:Concept ;
+    skos:broader molit-domain:land ;
+    skos:inScheme molit-scheme:domain ;
+    skos:prefLabel "도시"@ko,
+        "Urban planning"@en ;
+    skos:definition "도시의 계획, 개발, 정비, 관리와 도시기능에 관한 데이터."@ko,
+        "Data about the planning, development, renewal, management and functions of urban areas."@en .
+
+molit-domain:housing
+    a skos:Concept ;
+    skos:broader molit-domain:land ;
+    skos:inScheme molit-scheme:domain ;
+    skos:prefLabel "주택"@ko,
+        "Housing"@en ;
+    skos:definition "주택의 공급, 재고, 품질, 이용과 주거정책에 관한 데이터."@ko,
+        "Data about housing supply, stock, quality, use and housing policy."@en .
+
+molit-domain:building
+    a skos:Concept ;
+    skos:broader molit-domain:land ;
+    skos:inScheme molit-scheme:domain ;
+    skos:prefLabel "건축"@ko,
+        "Building"@en ;
+    skos:definition "건축물의 인허가, 설계, 용도, 유지관리와 안전에 관한 데이터."@ko,
+        "Data about building permits, design, use, maintenance and safety."@en .
+
+molit-domain:real-estate
+    a skos:Concept ;
+    skos:broader molit-domain:land ;
+    skos:inScheme molit-scheme:domain ;
+    skos:prefLabel "부동산"@ko,
+        "Real estate"@en ;
+    skos:definition "토지와 건축물의 권리, 거래, 가격, 임대와 시장에 관한 데이터."@ko,
+        "Data about rights, transactions, prices, leases and markets for land and buildings."@en .
+
+molit-domain:construction
+    a skos:Concept ;
+    skos:broader molit-domain:land ;
+    skos:inScheme molit-scheme:domain ;
+    skos:prefLabel "건설"@ko,
+        "Construction"@en ;
+    skos:definition "건설산업, 건설사업, 공사 수행, 자재와 건설기술에 관한 데이터."@ko,
+        "Data about the construction industry, projects, works, materials and construction technology."@en .
+
+molit-domain:transport
+    a skos:Concept ;
+    skos:inScheme molit-scheme:domain ;
+    skos:prefLabel "교통·물류"@ko,
+        "Transport and logistics"@en ;
+    skos:definition "사람과 화물의 이동, 교통수단, 교통시설과 물류활동에 관한 데이터의 상위 주제."@ko,
+        "The top-level theme for data about movement of people and goods, transport modes, infrastructure and logistics."@en ;
+    skos:topConceptOf molit-scheme:domain .
+
+molit-domain:road
+    a skos:Concept ;
+    skos:broader molit-domain:transport ;
+    skos:inScheme molit-scheme:domain ;
+    skos:prefLabel "도로"@ko,
+        "Road"@en ;
+    skos:definition "도로망, 도로시설, 도로교통, 소통상태와 도로운영에 관한 데이터."@ko,
+        "Data about road networks, road facilities, road traffic, traffic conditions and road operations."@en .
+
+molit-domain:railway
+    a skos:Concept ;
+    skos:broader molit-domain:transport ;
+    skos:inScheme molit-scheme:domain ;
+    skos:prefLabel "철도"@ko,
+        "Railway"@en ;
+    skos:definition "철도망, 역, 철도시설, 열차운행과 철도서비스에 관한 데이터."@ko,
+        "Data about railway networks, stations, facilities, train operations and rail services."@en .
+
+molit-domain:aviation
+    a skos:Concept ;
+    skos:broader molit-domain:transport ;
+    skos:inScheme molit-scheme:domain ;
+    skos:prefLabel "항공"@ko,
+        "Aviation"@en ;
+    skos:definition "공항, 항공시설, 항공운송, 항공교통과 운항에 관한 데이터."@ko,
+        "Data about airports, aviation facilities, air transport, air traffic and flight operations."@en .
+
+molit-domain:logistics
+    a skos:Concept ;
+    skos:broader molit-domain:transport ;
+    skos:inScheme molit-scheme:domain ;
+    skos:prefLabel "물류"@ko,
+        "Logistics"@en ;
+    skos:definition "화물의 운송, 보관, 하역, 배송, 물류시설과 물류흐름에 관한 데이터."@ko,
+        "Data about freight transport, storage, handling, delivery, logistics facilities and freight flows."@en .
+
+molit-domain:mobility
+    a skos:Concept ;
+    skos:broader molit-domain:transport ;
+    skos:inScheme molit-scheme:domain ;
+    skos:prefLabel "모빌리티"@ko,
+        "Mobility"@en ;
+    skos:definition "교통수단을 결합한 이동서비스, 이동수요와 이용행태에 관한 데이터."@ko,
+        "Data about multimodal mobility services, travel demand and mobility behaviour."@en .
+
+molit-domain:transport-safety
+    a skos:Concept ;
+    skos:broader molit-domain:transport ;
+    skos:inScheme molit-scheme:domain ;
+    skos:prefLabel "교통안전"@ko,
+        "Transport safety"@en ;
+    skos:definition "교통사고, 위험요인, 안전시설, 안전점검과 예방조치에 관한 데이터."@ko,
+        "Data about transport accidents, risk factors, safety facilities, inspections and preventive measures."@en .
+
+molit-domain:spatial-information
+    a skos:Concept ;
+    skos:inScheme molit-scheme:domain ;
+    skos:prefLabel "공간정보"@ko,
+        "Geospatial information"@en ;
+    skos:definition "위치, 좌표, 지형, 기준점, 지도와 공간객체에 관한 데이터의 상위 주제."@ko,
+        "The top-level theme for data about location, coordinates, terrain, geodetic control, maps and spatial objects."@en ;
+    skos:topConceptOf molit-scheme:domain .

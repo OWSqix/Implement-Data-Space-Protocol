@@ -1,0 +1,142 @@
+{
+  "schemaVersion": "molit.platform-metadata-batch/1",
+  "batchId": "mock-delta-20260711-002",
+  "sourceSystemId": "mock-molit-platform",
+  "mode": "delta",
+  "observedAt": "2026-07-11T15:00:00+09:00",
+  "records": [
+    {
+      "eventId": "event-road-snapshot-v2",
+      "eventType": "record.upsert",
+      "recordId": "road-node-link-snapshot",
+      "resourceVersion": "2",
+      "occurredAt": "2026-07-11T14:40:00+09:00",
+      "record": {
+        "recordType": "dataset",
+        "title": "합성 표준 노드·링크 스냅숏 2판",
+        "description": "변경 동기화 계약시험에 사용하는 합성 파일 Dataset이다.",
+        "publisher": {
+          "id": "urn:mock:organization:road-data-owner",
+          "name": "합성 도로데이터 기관"
+        },
+        "originDataHolderId": "mock-road-data-owner",
+        "landingPage": "https://catalog.poc.invalid/datasets/road-node-link-snapshot",
+        "issuedAt": "2026-07-01T00:00:00+09:00",
+        "modifiedAt": "2026-07-11T14:40:00+09:00",
+        "keywords": ["도로", "노드", "링크"],
+        "themes": ["https://vocab.poc.invalid/theme/road"],
+        "accessRights": "open",
+        "license": "https://license.poc.invalid/open-data-v1",
+        "platformRecordRole": {
+          "value": "hosted",
+          "evidenceIds": ["EVD-MOCK-ROLE-001"]
+        },
+        "providerParticipantId": "mock-road-data-owner",
+        "connectorOperatorId": "mock-connector-operator",
+        "deliveryOperatorId": "mock-delivery-operator",
+        "contractingPartyId": "mock-road-data-owner",
+        "providerAuthority": {
+          "kind": "owner",
+          "evidenceIds": ["EVD-MOCK-AUTH-001"]
+        },
+        "transferDecision": "approved",
+        "policyRef": "policy:mock-open-use-v1",
+        "distributions": [
+          {
+            "id": "snapshot-csv",
+            "accessProfile": "file-snapshot",
+            "format": "CSV",
+            "transferFormat": "transfer:file-snapshot-pull-v1",
+            "mediaType": "https://www.iana.org/assignments/media-types/text/csv",
+            "sourceBindingRef": "binding://mock-road-platform/road-node-link-snapshot/snapshot-csv",
+            "lifecycleMode": "token",
+            "revocationMode": "token-revoke",
+            "evidenceIds": ["EVD-MOCK-DIST-001"]
+          }
+        ],
+        "evidenceIds": ["EVD-MOCK-RECORD-001"]
+      }
+    },
+    {
+      "eventId": "event-road-snapshot-stale-v1",
+      "eventType": "record.upsert",
+      "recordId": "road-node-link-snapshot",
+      "resourceVersion": "1",
+      "occurredAt": "2026-07-11T14:41:00+09:00",
+      "record": {
+        "recordType": "dataset",
+        "title": "역순으로 도착한 과거 레코드",
+        "description": "resourceVersion 비교로 무시해야 하는 합성 레코드다.",
+        "publisher": {
+          "id": "urn:mock:organization:road-data-owner",
+          "name": "합성 도로데이터 기관"
+        },
+        "originDataHolderId": "mock-road-data-owner",
+        "landingPage": "https://catalog.poc.invalid/datasets/road-node-link-snapshot",
+        "issuedAt": "2026-07-01T00:00:00+09:00",
+        "modifiedAt": "2026-07-11T13:50:00+09:00",
+        "keywords": ["도로"],
+        "themes": ["https://vocab.poc.invalid/theme/road"],
+        "accessRights": "open",
+        "license": "https://license.poc.invalid/open-data-v1",
+        "platformRecordRole": {
+          "value": "hosted",
+          "evidenceIds": ["EVD-MOCK-ROLE-001"]
+        },
+        "providerParticipantId": "mock-road-data-owner",
+        "connectorOperatorId": "mock-connector-operator",
+        "deliveryOperatorId": "mock-delivery-operator",
+        "contractingPartyId": "mock-road-data-owner",
+        "providerAuthority": {
+          "kind": "owner",
+          "evidenceIds": ["EVD-MOCK-AUTH-001"]
+        },
+        "transferDecision": "approved",
+        "policyRef": "policy:mock-open-use-v1",
+        "distributions": [
+          {
+            "id": "snapshot-csv",
+            "accessProfile": "file-snapshot",
+            "format": "CSV",
+            "transferFormat": "transfer:file-snapshot-pull-v1",
+            "mediaType": "https://www.iana.org/assignments/media-types/text/csv",
+            "sourceBindingRef": "binding://mock-road-platform/road-node-link-snapshot/snapshot-csv",
+            "lifecycleMode": "token",
+            "revocationMode": "token-revoke",
+            "evidenceIds": ["EVD-MOCK-DIST-001"]
+          }
+        ],
+        "evidenceIds": ["EVD-MOCK-RECORD-001"]
+      }
+    },
+    {
+      "eventId": "event-unknown-api-v2-delete",
+      "eventType": "record.deleted",
+      "recordId": "unverified-traffic-api",
+      "resourceVersion": "2",
+      "occurredAt": "2026-07-11T14:45:00+09:00"
+    },
+    {
+      "eventId": "event-post-v1",
+      "eventType": "record.upsert",
+      "recordId": "platform-maintenance-post",
+      "resourceVersion": "1",
+      "occurredAt": "2026-07-11T14:50:00+09:00",
+      "record": {
+        "recordType": "post",
+        "title": "합성 시스템 점검 게시물",
+        "description": "Dataset으로 직렬화하면 안 되는 합성 게시물이다.",
+        "publisher": {
+          "id": "urn:mock:organization:integration-channel",
+          "name": "합성 통합채널"
+        },
+        "landingPage": "https://catalog.poc.invalid/posts/platform-maintenance-post",
+        "issuedAt": "2026-07-11T14:50:00+09:00",
+        "modifiedAt": "2026-07-11T14:50:00+09:00",
+        "keywords": ["점검"],
+        "themes": [],
+        "evidenceIds": ["EVD-MOCK-RECORD-005"]
+      }
+    }
+  ]
+}

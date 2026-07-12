@@ -1,0 +1,268 @@
+{
+  "schemaVersion": "molit.metadata-crosswalk/1",
+  "mappingId": "data-go-kr-dcat-dialect-v1",
+  "status": "working-draft",
+  "sourceProfile": "공공데이터포털 DCAT RDF/XML 관찰 dialect",
+  "sourceVersion": "snapshot data-go-kr-linked-100299070; 2026-07-12",
+  "targetProfile": "https://data.molit.go.kr/profile/molit-dcat-ap/0.1.0",
+  "authority": "MOLIT profile mapping review; not approved for production",
+  "sourceInventory": [
+    "/rdf:RDF/dcat:Catalog",
+    "/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset",
+    "/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:title[@xml:lang='kr']",
+    "/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:title[@xml:lang='en']",
+    "/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:description[@xml:lang='kr']",
+    "/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:description[@xml:lang='en']",
+    "/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:issued[@rdf:datatype='xsd:date']",
+    "/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:modified[@rdf:datatype='xsd:date']",
+    "/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:publisher/foaf:Organization/foaf:name",
+    "/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dcat:theme",
+    "/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dcat:keyword[@xml:lang='kr']",
+    "/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dcat:keyword[@xml:lang='en']",
+    "/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:accrualPeriodicity",
+    "/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dcat:distribution/dcat:Distribution",
+    "/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dcat:distribution/dcat:Distribution/dcat:mediaType",
+    "/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dcat:distribution/dcat:Distribution/dcat:format",
+    "/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dcat:distribution/dcat:Distribution/dcat:title"
+  ],
+  "rows": [
+    {
+      "id": "PDP-MAP-001",
+      "sourcePointerOrXPath": "/rdf:RDF/dcat:Catalog",
+      "sourceCardinality": "1..1",
+      "targetPath": "dcat:Catalog/@id",
+      "transform": "원천 record ID와 source authority로 안정 IRI 후보 생성",
+      "authority": "URI governance approval required",
+      "lossClass": "derived",
+      "reverseRule": "source snapshot ID와 생성 규칙 version으로 원 blank Catalog를 식별",
+      "publicationGate": "manual-review",
+      "fixtureIds": [
+        "data-go-kr-linked-100299070"
+      ]
+    },
+    {
+      "id": "PDP-MAP-002",
+      "sourcePointerOrXPath": "/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset",
+      "sourceCardinality": "1..n",
+      "targetPath": "dcat:Dataset/@id",
+      "transform": "원천 record ID와 source authority로 안정 IRI 후보 생성",
+      "authority": "URI governance approval required",
+      "lossClass": "derived",
+      "reverseRule": "source snapshot ID와 생성 규칙 version으로 원 blank Dataset을 식별",
+      "publicationGate": "manual-review",
+      "fixtureIds": [
+        "data-go-kr-linked-100299070"
+      ]
+    },
+    {
+      "id": "PDP-MAP-003",
+      "sourcePointerOrXPath": "/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:title[@xml:lang='kr']",
+      "sourceCardinality": "0..1",
+      "targetPath": "dcat:Dataset/dct:title[@lang='ko']",
+      "transform": "원 `kr`은 BCP 47에서 Kanuri이므로 한국어임을 source 계약 또는 담당자 검토로 확인한 경우에만 `ko` 후보를 만들고 원 tag를 보존",
+      "authority": "source language contract or steward confirmation required",
+      "lossClass": "normalized",
+      "reverseRule": "provenance의 originalLanguageTag=kr과 originalValue로 원 literal 복원",
+      "publicationGate": "manual-review",
+      "fixtureIds": [
+        "data-go-kr-linked-100299070"
+      ]
+    },
+    {
+      "id": "PDP-MAP-004",
+      "sourcePointerOrXPath": "/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:title[@xml:lang='en']",
+      "sourceCardinality": "0..1",
+      "targetPath": "dcat:Dataset/dct:title[@lang='en']",
+      "transform": "literal과 language tag 보존",
+      "authority": "RDF 1.1 language-tagged string",
+      "lossClass": "lossless",
+      "reverseRule": "동일 literal 출력",
+      "publicationGate": "automatic",
+      "fixtureIds": [
+        "data-go-kr-linked-100299070"
+      ]
+    },
+    {
+      "id": "PDP-MAP-005",
+      "sourcePointerOrXPath": "/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:description[@xml:lang='kr']",
+      "sourceCardinality": "0..1",
+      "targetPath": "dcat:Dataset/dct:description[@lang='ko']",
+      "transform": "원 `kr`은 BCP 47에서 Kanuri이므로 한국어임을 source 계약 또는 담당자 검토로 확인한 경우에만 `ko` 후보를 만들고 원 tag를 보존",
+      "authority": "source language contract or steward confirmation required",
+      "lossClass": "normalized",
+      "reverseRule": "provenance의 originalLanguageTag=kr과 originalValue로 원 literal 복원",
+      "publicationGate": "manual-review",
+      "fixtureIds": [
+        "data-go-kr-linked-100299070"
+      ]
+    },
+    {
+      "id": "PDP-MAP-006",
+      "sourcePointerOrXPath": "/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:description[@xml:lang='en']",
+      "sourceCardinality": "0..1",
+      "targetPath": "dcat:Dataset/dct:description[@lang='en']",
+      "transform": "literal과 language tag 보존",
+      "authority": "RDF 1.1 language-tagged string",
+      "lossClass": "lossless",
+      "reverseRule": "동일 literal 출력",
+      "publicationGate": "automatic",
+      "fixtureIds": [
+        "data-go-kr-linked-100299070"
+      ]
+    },
+    {
+      "id": "PDP-MAP-007",
+      "sourcePointerOrXPath": "/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:issued[@rdf:datatype='xsd:date']",
+      "sourceCardinality": "0..1",
+      "targetPath": "urn:kr:molit:private:sourceIssuedLexical",
+      "transform": "잘못된 xsd:date lexical 값을 원문으로 보존하고 timezone·의미 확인 전 공개값 생성 금지",
+      "authority": "manual source-date review",
+      "lossClass": "unmapped",
+      "reverseRule": "원 lexical과 datatype IRI를 그대로 반환",
+      "publicationGate": "private-only",
+      "fixtureIds": [
+        "data-go-kr-linked-100299070"
+      ]
+    },
+    {
+      "id": "PDP-MAP-008",
+      "sourcePointerOrXPath": "/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:modified[@rdf:datatype='xsd:date']",
+      "sourceCardinality": "0..1",
+      "targetPath": "urn:kr:molit:private:sourceModifiedLexical",
+      "transform": "잘못된 xsd:date lexical 값을 원문으로 보존하고 timezone·의미 확인 전 공개값 생성 금지",
+      "authority": "manual source-date review",
+      "lossClass": "unmapped",
+      "reverseRule": "원 lexical과 datatype IRI를 그대로 반환",
+      "publicationGate": "private-only",
+      "fixtureIds": [
+        "data-go-kr-linked-100299070"
+      ]
+    },
+    {
+      "id": "PDP-MAP-009",
+      "sourcePointerOrXPath": "/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:publisher/foaf:Organization/foaf:name",
+      "sourceCardinality": "0..1",
+      "targetPath": "dcat:Dataset/dct:publisher",
+      "transform": "기관명으로 authority registry 후보를 조회하고 승인 IRI가 없으면 공개 Dataset 생성 차단",
+      "authority": "organization authority registry required",
+      "lossClass": "derived",
+      "reverseRule": "publisher IRI의 mapping provenance에서 원 기관명 복원",
+      "publicationGate": "manual-review",
+      "fixtureIds": [
+        "data-go-kr-linked-100299070"
+      ]
+    },
+    {
+      "id": "PDP-MAP-010",
+      "sourcePointerOrXPath": "/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dcat:theme",
+      "sourceCardinality": "0..n",
+      "targetPath": "dcat:Dataset/dcat:theme",
+      "transform": "원 literal을 주제 mapping 후보로 보존하고 승인 concept IRI가 없으면 확정하지 않음",
+      "authority": "MOLIT theme mapping registry required",
+      "lossClass": "unmapped",
+      "reverseRule": "mapping provenance에서 원 literal 복원",
+      "publicationGate": "manual-review",
+      "fixtureIds": [
+        "data-go-kr-linked-100299070"
+      ]
+    },
+    {
+      "id": "PDP-MAP-011",
+      "sourcePointerOrXPath": "/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dcat:keyword[@xml:lang='kr']",
+      "sourceCardinality": "0..n",
+      "targetPath": "dcat:Dataset/dcat:keyword[@lang='ko']",
+      "transform": "쉼표 목록 규칙과 값의 언어를 source 계약 또는 담당자 검토로 확인한 뒤 항목별 literal로 분리한다. 원 `kr`은 BCP 47에서 Kanuri이므로 확인 없이 `ko`로 바꾸지 않음",
+      "authority": "source keyword and language contract or steward confirmation required",
+      "lossClass": "normalized",
+      "reverseRule": "순서가 있는 originalCombinedValue와 originalLanguageTag로 원 literal 복원",
+      "publicationGate": "manual-review",
+      "fixtureIds": [
+        "data-go-kr-linked-100299070"
+      ]
+    },
+    {
+      "id": "PDP-MAP-012",
+      "sourcePointerOrXPath": "/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dcat:keyword[@xml:lang='en']",
+      "sourceCardinality": "0..n",
+      "targetPath": "dcat:Dataset/dcat:keyword[@lang='en']",
+      "transform": "portal UI의 쉼표 목록 규칙을 확인한 뒤 항목별 literal로 분리",
+      "authority": "data.go.kr dialect keyword rule requires operator confirmation",
+      "lossClass": "normalized",
+      "reverseRule": "순서가 있는 originalCombinedValue로 원 literal 복원",
+      "publicationGate": "manual-review",
+      "fixtureIds": [
+        "data-go-kr-linked-100299070"
+      ]
+    },
+    {
+      "id": "PDP-MAP-013",
+      "sourcePointerOrXPath": "/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:accrualPeriodicity",
+      "sourceCardinality": "0..1",
+      "targetPath": "dcat:Dataset/dct:accrualPeriodicity",
+      "transform": "원 literal을 주기 mapping 후보로 보존하고 exact concept 승인이 없으면 IRI를 만들지 않음",
+      "authority": "frequency mapping registry required",
+      "lossClass": "unmapped",
+      "reverseRule": "mapping provenance에서 원 literal 복원",
+      "publicationGate": "manual-review",
+      "fixtureIds": [
+        "data-go-kr-linked-100299070"
+      ]
+    },
+    {
+      "id": "PDP-MAP-014",
+      "sourcePointerOrXPath": "/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dcat:distribution/dcat:Distribution",
+      "sourceCardinality": "0..n",
+      "targetPath": "dcat:Dataset/dcat:distribution/dcat:Distribution/@id",
+      "transform": "Dataset IRI와 distribution ordinal·source delivery ID로 후보 IRI 생성",
+      "authority": "URI governance and source delivery identity required",
+      "lossClass": "derived",
+      "reverseRule": "mapping provenance에서 원 blank node와 ordinal 복원",
+      "publicationGate": "manual-review",
+      "fixtureIds": [
+        "data-go-kr-linked-100299070"
+      ]
+    },
+    {
+      "id": "PDP-MAP-015",
+      "sourcePointerOrXPath": "/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dcat:distribution/dcat:Distribution/dcat:mediaType",
+      "sourceCardinality": "0..1",
+      "targetPath": "dcat:Distribution/dcat:mediaType",
+      "transform": "빈 literal 제거, 실제 IANA media type을 delivery endpoint에서 확인하기 전 값 생성 금지",
+      "authority": "IANA media type registry and source capability required",
+      "lossClass": "not-published",
+      "reverseRule": "원 snapshot의 empty literal과 predicate를 provenance에서 복원",
+      "publicationGate": "reject",
+      "fixtureIds": [
+        "data-go-kr-linked-100299070"
+      ]
+    },
+    {
+      "id": "PDP-MAP-016",
+      "sourcePointerOrXPath": "/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dcat:distribution/dcat:Distribution/dcat:format",
+      "sourceCardinality": "0..1",
+      "targetPath": "dcat:Distribution/dct:format",
+      "transform": "비표준 predicate를 dct:format 후보로 정규화하고 media type 자동 확정 금지",
+      "authority": "data.go.kr dialect rule PDP-WRONG-FORMAT-PREDICATE",
+      "lossClass": "normalized",
+      "reverseRule": "originalPredicate=dcat:format과 originalValue로 원 triple 복원",
+      "publicationGate": "manual-review",
+      "fixtureIds": [
+        "data-go-kr-linked-100299070"
+      ]
+    },
+    {
+      "id": "PDP-MAP-017",
+      "sourcePointerOrXPath": "/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dcat:distribution/dcat:Distribution/dcat:title",
+      "sourceCardinality": "0..n",
+      "targetPath": "dcat:Distribution/dct:title",
+      "transform": "비표준 predicate를 dct:title로 정규화하고 언어 미지정 상태를 보존",
+      "authority": "data.go.kr dialect observation",
+      "lossClass": "normalized",
+      "reverseRule": "originalPredicate=dcat:title과 originalValue로 원 triple 복원",
+      "publicationGate": "manual-review",
+      "fixtureIds": [
+        "data-go-kr-linked-100299070"
+      ]
+    }
+  ]
+}

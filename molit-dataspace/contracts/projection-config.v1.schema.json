@@ -1,0 +1,46 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://molit-dataspace.example.invalid/schemas/projection-config.v1.schema.json",
+  "title": "Discovery Bridge projection configuration v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "dspVersion",
+    "allowedConnectorHosts",
+    "identifierNamespace",
+    "providerConnectorEndpoint",
+    "serviceId"
+  ],
+  "properties": {
+    "dspVersion": {
+      "const": "2025-1"
+    },
+    "allowedConnectorHosts": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 50,
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 253,
+        "pattern": "^[A-Za-z0-9](?:[A-Za-z0-9.-]*[A-Za-z0-9])?$"
+      }
+    },
+    "identifierNamespace": {
+      "type": "string",
+      "pattern": "^urn:[A-Za-z0-9][A-Za-z0-9._~-]*(?::[A-Za-z0-9][A-Za-z0-9._~-]*)+$"
+    },
+    "providerConnectorEndpoint": {
+      "type": "string",
+      "format": "uri",
+      "pattern": "^https://[^?#]+$"
+    },
+    "serviceId": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 256,
+      "pattern": "^[^\\s?#@]+$"
+    }
+  }
+}

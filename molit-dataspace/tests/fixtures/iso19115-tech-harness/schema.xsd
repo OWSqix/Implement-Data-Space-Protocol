@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema
+  xmlns:xs="http://www.w3.org/2001/XMLSchema"
+  targetNamespace="urn:molit:iso19115-tech-harness"
+  xmlns:t="urn:molit:iso19115-tech-harness"
+  elementFormDefault="qualified">
+  <xs:element name="record">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="created" type="xs:date"/>
+        <xs:element name="status" type="xs:string"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

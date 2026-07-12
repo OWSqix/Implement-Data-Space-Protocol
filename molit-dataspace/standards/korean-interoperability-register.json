@@ -1,0 +1,1715 @@
+{
+  "schemaVersion": "molit.korean-interoperability-register/1",
+  "asOf": "2026-07-12",
+  "profileVersion": "0.1.0",
+  "claimPolicy": {
+    "institutionalConformanceAllowed": false,
+    "publicClaim": "공개 스키마와 고정 공개 fixture를 대상으로 시험한 Working Draft",
+    "blockedClaimPatterns": [
+      "KS 적합",
+      "국내 기관 메타데이터와 완전 상호운용",
+      "ISO 19115 무손실 왕복 변환",
+      "ISO 19157 무손실 왕복 변환",
+      "공공데이터포털과 완전 호환",
+      "KS compliant",
+      "KS 준수",
+      "KS 부합",
+      "KS 호환",
+      "conforms to KS",
+      "compliant with KS",
+      "KS conformant",
+      "fully interoperable with Korean institutional metadata",
+      "lossless ISO 19115 round-trip",
+      "lossless ISO 19157 round-trip",
+      "fully compatible with data.go.kr"
+    ]
+  },
+  "standards": [
+    {
+      "id": "KS-X-ISO-19115-1",
+      "title": "지리정보 — 메타데이터 — 제1부: 기본사항",
+      "issuer": "국토교통부",
+      "kind": "national-standard",
+      "status": "current",
+      "statusEventType": "confirmed",
+      "statusEventDate": "2025-12-12",
+      "statusObservedAt": "2026-07-12",
+      "statusEvidence": "official-metadata-verified",
+      "accessMode": "paid-fulltext",
+      "officialUrl": "https://www.standard.go.kr/KSCI/standardIntro/getStandardSearchView.do?ksNo=KSXISO19115-1&menuId=919&reformNo=05&tmprKsNo=KSXISO19115&topMenuId=502&upperMenuId=503",
+      "profileRole": "공간 데이터와 서비스의 메타데이터 개념모델",
+      "implementationEvidence": "not-applicable",
+      "crosswalkEvidence": "title-scope-only",
+      "normativeUse": "allowed-reference",
+      "conformanceClaimAllowed": false,
+      "blockers": [
+        "licensed-fulltext-not-reviewed",
+        "clause-mapping-not-complete"
+      ],
+      "sourceIds": [
+        "SRC-STD-003"
+      ]
+    },
+    {
+      "id": "KS-X-ISO-19115-2",
+      "title": "지리정보 — 메타데이터 — 제2부: 획득 및 처리를 위한 확장",
+      "issuer": "국토교통부",
+      "kind": "national-standard",
+      "status": "current",
+      "statusEventType": "revised",
+      "statusEventDate": "2025-01-24",
+      "statusObservedAt": "2026-07-12",
+      "statusEvidence": "official-metadata-verified",
+      "accessMode": "paid-fulltext",
+      "officialUrl": "https://www.kssn.net/search/stddetail.do?itemNo=K001010152645",
+      "profileRole": "센서·영상·관측 자료의 획득 및 처리 메타데이터",
+      "implementationEvidence": "not-applicable",
+      "crosswalkEvidence": "title-scope-only",
+      "normativeUse": "allowed-reference",
+      "conformanceClaimAllowed": false,
+      "blockers": [
+        "licensed-fulltext-not-reviewed",
+        "acquisition-extension-mapping-not-complete"
+      ],
+      "sourceIds": [
+        "SRC-STD-007"
+      ]
+    },
+    {
+      "id": "KS-X-ISO-19115-3",
+      "title": "지리정보 — 메타데이터 — 제3부: 기본 개념을 위한 XML 스키마 구현",
+      "issuer": "국토교통부",
+      "kind": "national-standard",
+      "status": "current",
+      "statusEventType": "established",
+      "statusEventDate": "2025-12-12",
+      "statusObservedAt": "2026-07-12",
+      "statusEvidence": "official-metadata-verified",
+      "accessMode": "paid-fulltext",
+      "officialUrl": "https://www.kssn.net/search/stddetail.do?itemNo=K001010155509",
+      "profileRole": "현행 ISO 19115 XML XSD·Schematron 구현 경로",
+      "implementationEvidence": "implementation-tested",
+      "crosswalkEvidence": "clause-crosswalk-blocked",
+      "normativeUse": "allowed-reference",
+      "conformanceClaimAllowed": false,
+      "blockers": [
+        "licensed-fulltext-not-reviewed",
+        "official-bytes-private-cache-not-approved",
+        "xml-rdf-roundtrip-not-tested",
+        "institution-xml-fixtures-not-tested"
+      ],
+      "sourceIds": [
+        "SRC-STD-008",
+        "SRC-TECH-033"
+      ]
+    },
+    {
+      "id": "KS-X-ISO-19157-1",
+      "title": "지리정보 — 데이터 품질 — 제1부: 일반적인 요구사항",
+      "issuer": "국토교통부",
+      "kind": "national-standard",
+      "status": "current",
+      "statusEventType": "established",
+      "statusEventDate": "2025-12-12",
+      "statusObservedAt": "2026-07-12",
+      "statusEvidence": "official-metadata-verified",
+      "accessMode": "paid-fulltext",
+      "officialUrl": "https://www.kssn.net/search/stddetail.do?itemNo=K001010155510",
+      "profileRole": "품질 요소·척도·평가·보고 구조",
+      "implementationEvidence": "public-schema-identified",
+      "crosswalkEvidence": "clause-crosswalk-blocked",
+      "normativeUse": "allowed-reference",
+      "conformanceClaimAllowed": false,
+      "blockers": [
+        "licensed-fulltext-not-reviewed",
+        "supported-quality-result-types-not-declared",
+        "quality-roundtrip-not-tested"
+      ],
+      "sourceIds": [
+        "SRC-STD-009",
+        "SRC-TECH-035"
+      ]
+    },
+    {
+      "id": "KS-X-ISO-19157",
+      "title": "지리 정보 — 데이터 품질",
+      "issuer": "국토교통부",
+      "kind": "national-standard",
+      "status": "current",
+      "statusEventType": "confirmed",
+      "statusEventDate": "2025-12-12",
+      "statusObservedAt": "2026-07-12",
+      "statusEvidence": "official-metadata-verified",
+      "accessMode": "paid-fulltext",
+      "officialUrl": "https://www.kssn.net/search/stddetail.do?itemNo=K001010130237",
+      "profileRole": "기존 국내 공간 제품표준이 인용하는 데이터 품질 계열",
+      "implementationEvidence": "public-schema-identified",
+      "crosswalkEvidence": "clause-crosswalk-blocked",
+      "normativeUse": "allowed-reference",
+      "conformanceClaimAllowed": false,
+      "blockers": [
+        "licensed-fulltext-not-reviewed",
+        "product-standard-applicability-router-not-complete",
+        "quality-roundtrip-not-tested"
+      ],
+      "sourceIds": [
+        "SRC-STD-024",
+        "SRC-TECH-034"
+      ]
+    },
+    {
+      "id": "KS-X-ISO-TS-19157-2",
+      "title": "지리정보 — 데이터 품질 — 제2부: XML 스키마 구현",
+      "issuer": "국토교통부",
+      "kind": "national-standard",
+      "status": "current",
+      "statusEventType": "confirmed",
+      "statusEventDate": "2025-12-12",
+      "statusObservedAt": "2026-07-12",
+      "statusEvidence": "official-metadata-verified",
+      "accessMode": "paid-fulltext",
+      "officialUrl": "https://www.kssn.net/search/stddetail.do?itemNo=K001010156365",
+      "profileRole": "KS X ISO 19157:2013 계열 데이터 품질 XML 인코딩",
+      "implementationEvidence": "not-tested",
+      "crosswalkEvidence": "clause-crosswalk-blocked",
+      "normativeUse": "allowed-reference",
+      "conformanceClaimAllowed": false,
+      "blockers": [
+        "licensed-fulltext-not-reviewed",
+        "legacy-quality-xsd-not-pinned",
+        "quality-xml-roundtrip-not-tested"
+      ],
+      "sourceIds": [
+        "SRC-STD-025"
+      ]
+    },
+    {
+      "id": "KS-X-ISO-19131",
+      "title": "지리정보 — 데이터 제품 사양",
+      "issuer": "국토교통부",
+      "kind": "national-standard",
+      "status": "current",
+      "statusEventType": "revised",
+      "statusEventDate": "2025-01-24",
+      "statusObservedAt": "2026-07-12",
+      "statusEvidence": "official-metadata-verified",
+      "accessMode": "paid-fulltext",
+      "officialUrl": "https://www.standard.go.kr/KSCI/standardIntro/getStandardSearchView.do?ksNo=KSXISO19131&menuId=919&reformNo=03&tmprKsNo=KSXISO19131&topMenuId=502&upperMenuId=503",
+      "profileRole": "품질 합격값을 포함하는 데이터 제품 사양의 별도 근거",
+      "implementationEvidence": "not-applicable",
+      "crosswalkEvidence": "title-scope-only",
+      "normativeUse": "allowed-reference",
+      "conformanceClaimAllowed": false,
+      "blockers": [
+        "licensed-fulltext-not-reviewed",
+        "product-specification-linkage-not-complete"
+      ],
+      "sourceIds": [
+        "SRC-STD-005"
+      ]
+    },
+    {
+      "id": "KS-X-ISO-19110",
+      "title": "지리정보 — 지형지물 목록작성 방법론",
+      "issuer": "국토교통부",
+      "kind": "national-standard",
+      "status": "current",
+      "statusEventType": "confirmed",
+      "statusEventDate": "2024-05-17",
+      "statusObservedAt": "2026-07-12",
+      "statusEvidence": "official-metadata-verified",
+      "accessMode": "paid-fulltext",
+      "officialUrl": "https://standard.go.kr/KSCI/standardIntro/getStandardSearchView.do?ksNo=KSXISO19110&menuId=503&pageIndex=1&pageUnit=10&reformNo=03&tmprKsNo=KSXISO19110&topMenuId=502",
+      "profileRole": "지형지물 유형·속성 카탈로그와 Dataset 메타데이터의 연결",
+      "implementationEvidence": "not-applicable",
+      "crosswalkEvidence": "title-scope-only",
+      "normativeUse": "allowed-reference",
+      "conformanceClaimAllowed": false,
+      "blockers": [
+        "licensed-fulltext-not-reviewed",
+        "feature-catalog-linkage-not-complete"
+      ],
+      "sourceIds": [
+        "SRC-STD-021"
+      ]
+    },
+    {
+      "id": "KS-X-ISO-19111",
+      "title": "지리정보 — 좌표에 의한 참조",
+      "issuer": "국토교통부",
+      "kind": "national-standard",
+      "status": "current",
+      "statusEventType": "revised",
+      "statusEventDate": "2025-01-24",
+      "statusObservedAt": "2026-07-12",
+      "statusEvidence": "official-metadata-verified",
+      "accessMode": "paid-fulltext",
+      "officialUrl": "https://www.standard.go.kr/KSCI/standardIntro/getStandardSearchView.do?ksNo=KSXISO19111&menuId=919&reformNo=04&tmprKsNo=KSXISO19111&topMenuId=502&upperMenuId=503",
+      "profileRole": "CRS 식별과 좌표축 의미",
+      "implementationEvidence": "implementation-tested",
+      "crosswalkEvidence": "title-scope-only",
+      "normativeUse": "allowed-reference",
+      "conformanceClaimAllowed": false,
+      "blockers": [
+        "licensed-fulltext-not-reviewed",
+        "coordinate-transformation-accuracy-not-tested",
+        "non-point-geometry-coverage-incomplete"
+      ],
+      "sourceIds": [
+        "SRC-STD-004"
+      ]
+    },
+    {
+      "id": "KS-X-ISO-19135-1",
+      "title": "지리정보 — 항목 등록 절차 — 제1부: 기본사항",
+      "issuer": "국토교통부",
+      "kind": "national-standard",
+      "status": "current",
+      "statusEventType": "confirmed",
+      "statusEventDate": "2024-12-27",
+      "statusObservedAt": "2026-07-12",
+      "statusEvidence": "official-metadata-verified",
+      "accessMode": "paid-fulltext",
+      "officialUrl": "https://www.standard.go.kr/KSCI/standardIntro/getStandardSearchView.do?ksNo=KSXISO19135-1&menuId=919&topMenuId=502&upperMenuId=503",
+      "profileRole": "국토교통 코드표와 용어 레지스터 운영 절차",
+      "implementationEvidence": "not-applicable",
+      "crosswalkEvidence": "title-scope-only",
+      "normativeUse": "allowed-reference",
+      "conformanceClaimAllowed": false,
+      "blockers": [
+        "registry-authority-not-appointed",
+        "change-control-procedure-not-approved"
+      ],
+      "sourceIds": [
+        "SRC-STD-010"
+      ]
+    },
+    {
+      "id": "KS-X-ISO-19119",
+      "title": "지리정보 — 서비스",
+      "issuer": "국토교통부",
+      "kind": "national-standard",
+      "status": "current",
+      "statusEventType": "confirmed",
+      "statusEventDate": "2024-05-17",
+      "statusObservedAt": "2026-07-12",
+      "statusEvidence": "official-metadata-verified",
+      "accessMode": "paid-fulltext",
+      "officialUrl": "https://www.kssn.net/search/stddetail.do?itemNo=K001010148119",
+      "profileRole": "플랫폼 중립·종속 공간정보 서비스 사양과 DataService 정렬",
+      "implementationEvidence": "not-applicable",
+      "crosswalkEvidence": "title-scope-only",
+      "normativeUse": "allowed-reference",
+      "conformanceClaimAllowed": false,
+      "blockers": [
+        "licensed-fulltext-not-reviewed",
+        "service-model-crosswalk-not-complete"
+      ],
+      "sourceIds": [
+        "SRC-STD-028"
+      ]
+    },
+    {
+      "id": "KS-X-ISO-19136-1",
+      "title": "지리정보 — 지리 마크업 언어(GML) — 제1부: 기본사항",
+      "issuer": "국토교통부",
+      "kind": "national-standard",
+      "status": "current",
+      "statusEventType": "established",
+      "statusEventDate": "2022-12-30",
+      "statusObservedAt": "2026-07-12",
+      "statusEvidence": "official-metadata-verified",
+      "accessMode": "paid-fulltext",
+      "officialUrl": "https://www.kssn.net/search/stddetail.do?itemNo=K001010141636",
+      "profileRole": "GML 기본 인코딩",
+      "implementationEvidence": "not-tested",
+      "crosswalkEvidence": "clause-crosswalk-blocked",
+      "normativeUse": "allowed-reference",
+      "conformanceClaimAllowed": false,
+      "blockers": [
+        "licensed-fulltext-not-reviewed",
+        "gml-validator-not-integrated"
+      ],
+      "sourceIds": [
+        "SRC-STD-011"
+      ]
+    },
+    {
+      "id": "KS-X-ISO-19136-2",
+      "title": "지리정보 — 지리 마크업 언어(GML) — 제2부: 확장 스키마와 인코딩 규칙",
+      "issuer": "국토교통부",
+      "kind": "national-standard",
+      "status": "current",
+      "statusEventType": "confirmed",
+      "statusEventDate": "2024-12-27",
+      "statusObservedAt": "2026-07-12",
+      "statusEvidence": "official-metadata-verified",
+      "accessMode": "paid-fulltext",
+      "officialUrl": "https://www.kssn.net/search/stddetail.do?itemNo=K001010151618",
+      "profileRole": "GML 확장 스키마와 인코딩 규칙",
+      "implementationEvidence": "not-tested",
+      "crosswalkEvidence": "clause-crosswalk-blocked",
+      "normativeUse": "allowed-reference",
+      "conformanceClaimAllowed": false,
+      "blockers": [
+        "licensed-fulltext-not-reviewed",
+        "gml-extension-validator-not-integrated"
+      ],
+      "sourceIds": [
+        "SRC-STD-012"
+      ]
+    },
+    {
+      "id": "KS-X-ISO-19136",
+      "title": "지리정보 — 지리 마크업 언어(GML)",
+      "issuer": "국토교통부",
+      "kind": "national-standard",
+      "status": "retired",
+      "statusEventType": "retired",
+      "statusEventDate": "2022-12-30",
+      "statusObservedAt": "2026-07-12",
+      "statusEvidence": "official-retirement-verified",
+      "accessMode": "public-html-summary",
+      "officialUrl": "https://www.standard.go.kr/KSCI/standardIntro/getStandardSearchView.do?ksNo=KSXISO19136&menuId=919&reformNo=04&tmprKsNo=KSXISO19136&topMenuId=502&upperMenuId=503",
+      "profileRole": "구형 GML 표준 식별자 차단",
+      "implementationEvidence": "not-applicable",
+      "crosswalkEvidence": "not-applicable",
+      "normativeUse": "prohibited",
+      "conformanceClaimAllowed": false,
+      "blockers": [
+        "retired-standard"
+      ],
+      "sourceIds": [
+        "SRC-STD-006"
+      ]
+    },
+    {
+      "id": "KS-X-ISO-19139",
+      "title": "지리 정보 — 메타데이터 — XML 스키마 구현",
+      "issuer": "국토교통부",
+      "kind": "national-standard",
+      "status": "retired",
+      "statusEventType": "retired",
+      "statusEventDate": "2022-12-30",
+      "statusObservedAt": "2026-07-12",
+      "statusEvidence": "official-retirement-verified",
+      "accessMode": "public-html-summary",
+      "officialUrl": "https://www.standard.go.kr/KSCI/standardIntro/getStandardSearchView.do?ksNo=KSXISO19139&menuId=919&topMenuId=502&upperMenuId=503",
+      "profileRole": "폐지된 ISO 19139 XML 표준 식별자의 신규 규범 인용 차단",
+      "implementationEvidence": "not-applicable",
+      "crosswalkEvidence": "not-applicable",
+      "normativeUse": "prohibited",
+      "conformanceClaimAllowed": false,
+      "blockers": [
+        "retired-standard"
+      ],
+      "sourceIds": [
+        "SRC-STD-026"
+      ]
+    },
+    {
+      "id": "KS-X-ISO-TS-19139-1",
+      "title": "지리정보 — XML 스키마 구현 — 제1부: 인코딩 규칙",
+      "issuer": "국토교통부",
+      "kind": "national-standard",
+      "status": "current",
+      "statusEventType": "established",
+      "statusEventDate": "2022-12-30",
+      "statusObservedAt": "2026-07-12",
+      "statusEvidence": "official-metadata-verified",
+      "accessMode": "paid-fulltext",
+      "officialUrl": "https://www.kssn.net/search/stddetail.do?itemNo=K001010141637",
+      "profileRole": "UML 모델을 XML Schema로 구현하는 인코딩 규칙",
+      "implementationEvidence": "not-tested",
+      "crosswalkEvidence": "clause-crosswalk-blocked",
+      "normativeUse": "allowed-reference",
+      "conformanceClaimAllowed": false,
+      "blockers": [
+        "licensed-fulltext-not-reviewed",
+        "encoding-rule-crosswalk-not-complete"
+      ],
+      "sourceIds": [
+        "SRC-STD-027"
+      ]
+    },
+    {
+      "id": "TTAK.OT-10.1406",
+      "title": "대한민국의 데이터포털을 위한 DCAT 응용 프로파일(DCAT-AP-KR)",
+      "issuer": "한국정보통신기술협회",
+      "kind": "tta-standard",
+      "status": "current",
+      "statusEventType": "established",
+      "statusEventDate": "2022-12-07",
+      "statusObservedAt": "2026-07-12",
+      "statusEvidence": "official-metadata-verified",
+      "accessMode": "login-fulltext",
+      "officialUrl": "https://committee.tta.or.kr/summary/standard_view.jsp?pk_num=TTAK.OT-10.1406",
+      "profileRole": "DCAT-AP 2.1.0 기반 국내 데이터 포털 응용 프로파일과의 migration",
+      "implementationEvidence": "blocked-original",
+      "crosswalkEvidence": "clause-crosswalk-blocked",
+      "normativeUse": "pending-review",
+      "conformanceClaimAllowed": false,
+      "blockers": [
+        "login-fulltext-not-acquired",
+        "dcat-ap-2.1.0-to-3.0.1-migration-not-complete",
+        "domestic-fixtures-not-acquired"
+      ],
+      "sourceIds": [
+        "SRC-STD-022"
+      ]
+    },
+    {
+      "id": "TTAK.KO-10.1422",
+      "title": "공간정보 데이터 포털을 위한 GeoDCAT 응용 프로파일",
+      "issuer": "한국정보통신기술협회",
+      "kind": "tta-standard",
+      "status": "current",
+      "statusEventType": "established",
+      "statusEventDate": "2023-12-06",
+      "statusObservedAt": "2026-07-12",
+      "statusEvidence": "official-metadata-verified",
+      "accessMode": "login-fulltext",
+      "officialUrl": "https://committee.tta.or.kr/summary/standard_view.jsp?pk_num=TTAK.KO-10.1422",
+      "profileRole": "국내 공간정보 포털 메타데이터와 GeoDCAT-AP 3.1.0의 migration",
+      "implementationEvidence": "blocked-original",
+      "crosswalkEvidence": "clause-crosswalk-blocked",
+      "normativeUse": "pending-review",
+      "conformanceClaimAllowed": false,
+      "blockers": [
+        "login-fulltext-not-acquired",
+        "base-profile-version-not-confirmed-from-fulltext",
+        "geodcat-ap-3.1.0-migration-not-complete",
+        "domestic-geo-fixtures-not-acquired"
+      ],
+      "sourceIds": [
+        "SRC-STD-023"
+      ]
+    },
+    {
+      "id": "TTAK.KO-10.1510-Part1",
+      "title": "디지털 국토정보 플랫폼 — 제1부: 데이터 모델",
+      "issuer": "한국정보통신기술협회",
+      "kind": "tta-standard",
+      "status": "current",
+      "statusEventType": "revised",
+      "statusEventDate": "2025-12-05",
+      "statusObservedAt": "2026-07-12",
+      "statusEvidence": "official-metadata-verified",
+      "accessMode": "login-fulltext",
+      "officialUrl": "https://committee.tta.or.kr/summary/standard_view.jsp?pk_num=TTAK.KO-10.1510-Part1",
+      "profileRole": "디지털 국토정보 데이터 모델과 도메인 개념 정렬",
+      "implementationEvidence": "blocked-original",
+      "crosswalkEvidence": "clause-crosswalk-blocked",
+      "normativeUse": "pending-review",
+      "conformanceClaimAllowed": false,
+      "blockers": [
+        "licensed-or-login-fulltext-not-acquired",
+        "data-model-crosswalk-not-complete"
+      ],
+      "sourceIds": [
+        "SRC-STD-013"
+      ]
+    },
+    {
+      "id": "TTAK.KO-10.1510-Part2",
+      "title": "디지털 국토정보 플랫폼 — 제2부: GML 인코딩",
+      "issuer": "한국정보통신기술협회",
+      "kind": "tta-standard",
+      "status": "current",
+      "statusEventType": "established",
+      "statusEventDate": "2025-12-05",
+      "statusObservedAt": "2026-07-12",
+      "statusEvidence": "official-metadata-verified",
+      "accessMode": "login-fulltext",
+      "officialUrl": "https://committee.tta.or.kr/summary/standard_view.jsp?nowSu=87&pk_num=TTAK.KO-10.1510-Part2&publish_year=2025&section=0",
+      "profileRole": "디지털 국토정보 GML 인코딩",
+      "implementationEvidence": "blocked-original",
+      "crosswalkEvidence": "clause-crosswalk-blocked",
+      "normativeUse": "pending-review",
+      "conformanceClaimAllowed": false,
+      "blockers": [
+        "login-fulltext-not-acquired",
+        "official-xsd-location-not-confirmed",
+        "gml-roundtrip-not-tested"
+      ],
+      "sourceIds": [
+        "SRC-STD-014"
+      ]
+    },
+    {
+      "id": "TTAK.KO-10.1510-Part3",
+      "title": "디지털 국토정보 플랫폼 — 제3부: 메타데이터",
+      "issuer": "한국정보통신기술협회",
+      "kind": "tta-standard",
+      "status": "current",
+      "statusEventType": "established",
+      "statusEventDate": "2026-06-26",
+      "statusObservedAt": "2026-07-12",
+      "statusEvidence": "official-metadata-verified",
+      "accessMode": "login-fulltext",
+      "officialUrl": "https://committee.tta.or.kr/summary/standard_view.jsp?pk_num=TTAK.KO-10.1510-Part3",
+      "profileRole": "국내 디지털 국토정보 카탈로그·데이터세트·서비스 메타데이터의 P0 crosswalk",
+      "implementationEvidence": "blocked-original",
+      "crosswalkEvidence": "clause-crosswalk-blocked",
+      "normativeUse": "pending-review",
+      "conformanceClaimAllowed": false,
+      "blockers": [
+        "login-fulltext-not-acquired",
+        "mandatory-optional-cardinality-not-mapped",
+        "controlled-values-not-mapped",
+        "fixtures-not-acquired"
+      ],
+      "sourceIds": [
+        "SRC-STD-015"
+      ]
+    },
+    {
+      "id": "TTAK.KO-10.1557",
+      "title": "빅데이터 유통 플랫폼 — 플랫폼 연계를 위한 공통 카탈로그 항목",
+      "issuer": "한국정보통신기술협회",
+      "kind": "tta-standard",
+      "status": "current",
+      "statusEventType": "established",
+      "statusEventDate": "2024-12-06",
+      "statusObservedAt": "2026-07-12",
+      "statusEvidence": "official-metadata-verified",
+      "accessMode": "login-fulltext",
+      "officialUrl": "https://committee.tta.or.kr/data/standard_view.jsp?by=desc&commit_code=TC010&nowPage=29&order=t.kor_standard&pk_num=TTAK.KO-10.1557",
+      "profileRole": "국내 빅데이터 플랫폼 간 공통 카탈로그 항목의 P0 crosswalk",
+      "implementationEvidence": "blocked-original",
+      "crosswalkEvidence": "clause-crosswalk-blocked",
+      "normativeUse": "pending-review",
+      "conformanceClaimAllowed": false,
+      "blockers": [
+        "login-fulltext-not-acquired",
+        "element-by-element-crosswalk-not-complete",
+        "source-fixtures-not-acquired"
+      ],
+      "sourceIds": [
+        "SRC-STD-016"
+      ]
+    },
+    {
+      "id": "TTAE.IT-Y.3603",
+      "title": "빅데이터 — 데이터 카탈로그를 위한 메타데이터 요구사항 및 개념모델",
+      "issuer": "한국정보통신기술협회",
+      "kind": "tta-standard",
+      "status": "current",
+      "statusEventType": "established",
+      "statusEventDate": "2023-12-06",
+      "statusObservedAt": "2026-07-12",
+      "statusEvidence": "official-metadata-verified",
+      "accessMode": "login-fulltext",
+      "officialUrl": "https://committee.tta.or.kr/summary/standard_view.jsp?pk_num=TTAE.IT-Y.3603",
+      "profileRole": "데이터 카탈로그 개념모델 비교 기준",
+      "implementationEvidence": "blocked-original",
+      "crosswalkEvidence": "clause-crosswalk-blocked",
+      "normativeUse": "pending-review",
+      "conformanceClaimAllowed": false,
+      "blockers": [
+        "login-fulltext-not-acquired",
+        "concept-model-crosswalk-not-complete"
+      ],
+      "sourceIds": [
+        "SRC-STD-017"
+      ]
+    },
+    {
+      "id": "TTAK.KO-10.1352-Part2",
+      "title": "공간정보 기반의 교차 도메인 용어 매핑 — 제2부: 교통정보",
+      "issuer": "한국정보통신기술협회",
+      "kind": "tta-standard",
+      "status": "current",
+      "statusEventType": "established",
+      "statusEventDate": "2022-12-07",
+      "statusObservedAt": "2026-07-12",
+      "statusEvidence": "official-metadata-verified",
+      "accessMode": "login-fulltext",
+      "officialUrl": "https://committee.tta.or.kr/data/standard_view.jsp?by=desc&commit_code=PG409&firstDepthCode=TC4&nowPage=15&order=t.kor_standard&pk_num=TTAK.KO-10.1352-Part2&secondDepthCode=PG409",
+      "profileRole": "공간정보와 교통정보 용어의 동치·차이 관계 검토",
+      "implementationEvidence": "blocked-original",
+      "crosswalkEvidence": "clause-crosswalk-blocked",
+      "normativeUse": "pending-review",
+      "conformanceClaimAllowed": false,
+      "blockers": [
+        "login-fulltext-not-acquired",
+        "term-mapping-not-ingested",
+        "ontology-axioms-not-reviewed"
+      ],
+      "sourceIds": [
+        "SRC-STD-018"
+      ]
+    },
+    {
+      "id": "MOIS-NOTICE-2025-19",
+      "title": "공공기관의 데이터베이스 표준화 지침",
+      "issuer": "행정안전부",
+      "kind": "administrative-rule",
+      "status": "current",
+      "statusEventType": "effective",
+      "statusEventDate": "2025-02-24",
+      "statusObservedAt": "2026-07-12",
+      "statusEvidence": "official-metadata-verified",
+      "accessMode": "public-fulltext",
+      "officialUrl": "https://www.law.go.kr/LSW/admRulLsInfoP.do?admRulSeq=2100000255382",
+      "profileRole": "기관 내부 DB 용어·논리·물리 메타데이터와 공개 카탈로그 메타데이터의 경계",
+      "implementationEvidence": "not-applicable",
+      "crosswalkEvidence": "title-scope-only",
+      "normativeUse": "allowed-reference",
+      "conformanceClaimAllowed": false,
+      "blockers": [
+        "annex-field-classification-test-not-complete",
+        "institution-export-schema-not-acquired"
+      ],
+      "sourceIds": [
+        "SRC-LAW-015"
+      ]
+    },
+    {
+      "id": "NGII-DIRECTIVE-2025-06-02",
+      "title": "공간정보 표준화지침",
+      "issuer": "국토지리정보원",
+      "kind": "administrative-rule",
+      "status": "current",
+      "statusEventType": "effective",
+      "statusEventDate": "2025-06-02",
+      "statusObservedAt": "2026-07-12",
+      "statusEvidence": "official-metadata-verified",
+      "accessMode": "public-fulltext",
+      "officialUrl": "https://www.law.go.kr/LSW/admRulInfoP.do?admRulSeq=2100000259526&chrClsCd=010201",
+      "profileRole": "기관 공간정보 표준의 등록·개정·폐지·공개·이력관리",
+      "implementationEvidence": "not-applicable",
+      "crosswalkEvidence": "title-scope-only",
+      "normativeUse": "allowed-reference",
+      "conformanceClaimAllowed": false,
+      "blockers": [
+        "institution-standard-register-not-acquired",
+        "profile-governance-procedure-not-approved"
+      ],
+      "sourceIds": [
+        "SRC-LAW-016"
+      ]
+    },
+    {
+      "id": "TTAS.KO-10.0157",
+      "title": "지리정보 품질 표준",
+      "issuer": "한국정보통신기술협회",
+      "kind": "tta-standard",
+      "status": "retired",
+      "statusEventType": "retired",
+      "statusEventDate": null,
+      "statusObservedAt": "2026-07-12",
+      "statusEvidence": "official-retirement-verified",
+      "accessMode": "public-html-summary",
+      "officialUrl": "https://committee.tta.or.kr/summary/standard_view.jsp?pk_num=TTAS.KO-10.0157",
+      "profileRole": "폐지된 품질 표준의 신규 규범 인용 차단",
+      "implementationEvidence": "not-applicable",
+      "crosswalkEvidence": "not-applicable",
+      "normativeUse": "prohibited",
+      "conformanceClaimAllowed": false,
+      "blockers": [
+        "retired-standard"
+      ],
+      "sourceIds": [
+        "SRC-STD-019"
+      ]
+    },
+    {
+      "id": "TTAS.KO-10.0139-R1",
+      "title": "지리정보 유통 목록(메타데이터) Ver.2",
+      "issuer": "한국정보통신기술협회",
+      "kind": "tta-standard",
+      "status": "confirmation-required",
+      "statusEventType": "established",
+      "statusEventDate": "2007-12-26",
+      "statusObservedAt": "2026-07-12",
+      "statusEvidence": "status-confirmation-required",
+      "accessMode": "public-html-summary",
+      "officialUrl": "https://committee.tta.or.kr/summary/standard_view.jsp?by=desc&nowSu=1601&order=publish_date&pk_num=TTAS.KO-10.0139%2FR1&section=1",
+      "profileRole": "구형 국내 메타데이터 입력을 위한 legacy 후보",
+      "implementationEvidence": "not-tested",
+      "crosswalkEvidence": "title-scope-only",
+      "normativeUse": "pending-review",
+      "conformanceClaimAllowed": false,
+      "blockers": [
+        "current-status-not-confirmed",
+        "legacy-fixtures-not-acquired",
+        "supersession-relation-not-confirmed"
+      ],
+      "sourceIds": [
+        "SRC-STD-020"
+      ]
+    },
+    {
+      "id": "MOLIT-NODE-LINK-CONSTRUCTION-2026-344",
+      "title": "지능형교통체계 표준 노드·링크 구축기준",
+      "issuer": "국토교통부",
+      "kind": "administrative-rule",
+      "status": "current",
+      "statusEventType": "revised",
+      "statusEventDate": "2026-06-25",
+      "statusObservedAt": "2026-07-12",
+      "statusEvidence": "official-metadata-verified",
+      "accessMode": "public-fulltext",
+      "officialUrl": "https://www.law.go.kr/LSW/admRulInfoP.do?admRulSeq=2100000281252",
+      "profileRole": "표준 노드·링크의 구축판, 좌표기준과 NetworkReference 적용판",
+      "implementationEvidence": "not-tested",
+      "crosswalkEvidence": "title-scope-only",
+      "normativeUse": "allowed-reference",
+      "conformanceClaimAllowed": false,
+      "blockers": [
+        "clause-mapping-not-complete",
+        "official-distribution-fixture-not-ingested",
+        "prj-authority-code-not-explicit"
+      ],
+      "sourceIds": [
+        "SRC-STD-029"
+      ]
+    },
+    {
+      "id": "MOLIT-NODE-LINK-MANAGEMENT-2023-23",
+      "title": "지능형교통체계 표준 노드·링크 구축 및 관리지침",
+      "issuer": "국토교통부",
+      "kind": "administrative-rule",
+      "status": "current",
+      "statusEventType": "revised",
+      "statusEventDate": "2023-01-06",
+      "statusObservedAt": "2026-07-12",
+      "statusEvidence": "official-metadata-verified",
+      "accessMode": "public-fulltext",
+      "officialUrl": "https://www.law.go.kr/LSW/admRulLsInfoP.do?admRulSeq=2100000218571",
+      "profileRole": "표준 노드·링크 배포형식, 변경이력과 관리절차",
+      "implementationEvidence": "not-tested",
+      "crosswalkEvidence": "title-scope-only",
+      "normativeUse": "allowed-reference",
+      "conformanceClaimAllowed": false,
+      "blockers": [
+        "clause-mapping-not-complete",
+        "change-history-fixture-not-tested"
+      ],
+      "sourceIds": [
+        "SRC-STD-001"
+      ]
+    },
+    {
+      "id": "MOLIT-BASIC-TRAFFIC-I-2021-1059",
+      "title": "기본교통정보 교환 기술기준",
+      "issuer": "국토교통부",
+      "kind": "administrative-rule",
+      "status": "current",
+      "statusEventType": "revised",
+      "statusEventDate": "2021-09-01",
+      "statusObservedAt": "2026-07-12",
+      "statusEvidence": "official-metadata-verified",
+      "accessMode": "public-fulltext",
+      "officialUrl": "https://www.law.go.kr/LSW/admRulInfoP.do?admRulSeq=2100000204935",
+      "profileRole": "교통정보센터 사이 기본교통정보 payload interface",
+      "implementationEvidence": "not-tested",
+      "crosswalkEvidence": "title-scope-only",
+      "normativeUse": "allowed-reference",
+      "conformanceClaimAllowed": false,
+      "blockers": [
+        "interface-payload-crosswalk-not-complete",
+        "institutional-fixtures-not-tested"
+      ],
+      "sourceIds": [
+        "SRC-STD-002"
+      ]
+    },
+    {
+      "id": "MOLIT-BASIC-TRAFFIC-II-2021-1060",
+      "title": "기본교통정보 교환 기술기준II",
+      "issuer": "국토교통부",
+      "kind": "administrative-rule",
+      "status": "current",
+      "statusEventType": "revised",
+      "statusEventDate": "2021-09-01",
+      "statusObservedAt": "2026-07-12",
+      "statusEvidence": "official-metadata-verified",
+      "accessMode": "public-fulltext",
+      "officialUrl": "https://www.law.go.kr/LSW/admRulInfoP.do?admRulSeq=2100000204936",
+      "profileRole": "센터와 현장장비 및 현장장비 사이 payload interface",
+      "implementationEvidence": "not-tested",
+      "crosswalkEvidence": "title-scope-only",
+      "normativeUse": "allowed-reference",
+      "conformanceClaimAllowed": false,
+      "blockers": [
+        "interface-payload-crosswalk-not-complete",
+        "institutional-fixtures-not-tested"
+      ],
+      "sourceIds": [
+        "SRC-STD-030"
+      ]
+    },
+    {
+      "id": "MOLIT-BASIC-TRAFFIC-III-2023-20",
+      "title": "기본교통정보교환 기술기준III",
+      "issuer": "국토교통부",
+      "kind": "administrative-rule",
+      "status": "current",
+      "statusEventType": "revised",
+      "statusEventDate": "2023-01-06",
+      "statusObservedAt": "2026-07-12",
+      "statusEvidence": "official-metadata-verified",
+      "accessMode": "public-fulltext",
+      "officialUrl": "https://www.law.go.kr/LSW/admRulInfoP.do?admRulSeq=2100000218568",
+      "profileRole": "인터넷 공개 Open API 기본교통정보 interface",
+      "implementationEvidence": "not-tested",
+      "crosswalkEvidence": "title-scope-only",
+      "normativeUse": "allowed-reference",
+      "conformanceClaimAllowed": false,
+      "blockers": [
+        "open-api-payload-crosswalk-not-complete",
+        "institutional-fixtures-not-tested"
+      ],
+      "sourceIds": [
+        "SRC-STD-031"
+      ]
+    },
+    {
+      "id": "MOLIT-BASIC-TRAFFIC-IV-2016-208",
+      "title": "기본교통정보 교환 기술기준 IV",
+      "issuer": "국토교통부",
+      "kind": "administrative-rule",
+      "status": "current",
+      "statusEventType": "revised",
+      "statusEventDate": "2016-04-15",
+      "statusObservedAt": "2026-07-12",
+      "statusEvidence": "official-metadata-verified",
+      "accessMode": "public-fulltext",
+      "officialUrl": "https://www.law.go.kr/LSW/admRulInfoP.do?admRulSeq=2100000044472",
+      "profileRole": "무선 노변장치와 차량장치 사이 기본교통정보 interface",
+      "implementationEvidence": "not-tested",
+      "crosswalkEvidence": "title-scope-only",
+      "normativeUse": "allowed-reference",
+      "conformanceClaimAllowed": false,
+      "blockers": [
+        "wireless-payload-crosswalk-not-complete",
+        "institutional-fixtures-not-tested"
+      ],
+      "sourceIds": [
+        "SRC-STD-032"
+      ]
+    }
+  ],
+  "referenceSystems": [
+    {
+      "iri": "http://www.opengis.net/def/crs/OGC/1.3/CRS84",
+      "authority": "OGC",
+      "code": "CRS84",
+      "label": "WGS 84 longitude-latitude coordinate reference system (CRS84)",
+      "status": "current",
+      "statusObservedAt": "2026-07-12",
+      "officialUrl": "https://www.opengis.net/def/crs/OGC/1.3/CRS84",
+      "profileUses": [
+        "source-reference",
+        "geometry-literal"
+      ],
+      "sourceIds": [
+        "SRC-CRS-001"
+      ],
+      "evidenceLevel": "content-addressed-offline-snapshot",
+      "contentAddressed": true,
+      "snapshotManifest": "standards/vendor/ogc-crs/2026-07-12/manifest.json",
+      "snapshotArtifactId": "OGC-CRS84",
+      "snapshotSha256": "f44995453dae1d219ef4eb9633f5fa1ad26ce02adace8aab5cbc2a15a0c77727"
+    },
+    {
+      "iri": "http://www.opengis.net/def/crs/EPSG/0/4737",
+      "authority": "EPSG",
+      "code": "4737",
+      "label": "KGD2002 geographic coordinate reference system (EPSG:4737)",
+      "status": "current",
+      "statusObservedAt": "2026-07-12",
+      "officialUrl": "https://www.opengis.net/def/crs/EPSG/0/4737",
+      "profileUses": [
+        "source-reference"
+      ],
+      "sourceIds": [
+        "SRC-CRS-002"
+      ],
+      "evidenceLevel": "content-addressed-offline-snapshot",
+      "contentAddressed": true,
+      "snapshotManifest": "standards/vendor/ogc-crs/2026-07-12/manifest.json",
+      "snapshotArtifactId": "EPSG-4737",
+      "snapshotSha256": "dbfb10c537673e72952f2358f588ab60f241c4d0f0367132486e0bd851612a3f"
+    },
+    {
+      "iri": "http://www.opengis.net/def/crs/EPSG/0/5179",
+      "authority": "EPSG",
+      "code": "5179",
+      "label": "Korea 2000 Unified CS (EPSG:5179)",
+      "status": "current",
+      "statusObservedAt": "2026-07-12",
+      "officialUrl": "https://www.opengis.net/def/crs/EPSG/0/5179",
+      "profileUses": [
+        "source-reference",
+        "geometry-literal"
+      ],
+      "sourceIds": [
+        "SRC-CRS-003"
+      ],
+      "evidenceLevel": "content-addressed-offline-snapshot",
+      "contentAddressed": true,
+      "snapshotManifest": "standards/vendor/ogc-crs/2026-07-12/manifest.json",
+      "snapshotArtifactId": "EPSG-5179",
+      "snapshotSha256": "acf25f10b81a05c0a5cab8b35fbe87f358266b0286391bb777b2888442b8c21b"
+    },
+    {
+      "iri": "http://www.opengis.net/def/crs/EPSG/0/5185",
+      "authority": "EPSG",
+      "code": "5185",
+      "label": "KGD2002 / West Belt 2010 (EPSG:5185)",
+      "status": "current",
+      "statusObservedAt": "2026-07-12",
+      "officialUrl": "https://www.opengis.net/def/crs/EPSG/0/5185",
+      "profileUses": [
+        "source-reference"
+      ],
+      "sourceIds": [
+        "SRC-CRS-004"
+      ],
+      "evidenceLevel": "content-addressed-offline-snapshot",
+      "contentAddressed": true,
+      "snapshotManifest": "standards/vendor/ogc-crs/2026-07-12/manifest.json",
+      "snapshotArtifactId": "EPSG-5185",
+      "snapshotSha256": "bf5d60567becb7b707258e8b120939a63b8ba266507dca4f090a4b3c943c1134"
+    },
+    {
+      "iri": "http://www.opengis.net/def/crs/EPSG/0/5186",
+      "authority": "EPSG",
+      "code": "5186",
+      "label": "KGD2002 / Central Belt 2010 (EPSG:5186)",
+      "status": "current",
+      "statusObservedAt": "2026-07-12",
+      "officialUrl": "https://www.opengis.net/def/crs/EPSG/0/5186",
+      "profileUses": [
+        "source-reference"
+      ],
+      "sourceIds": [
+        "SRC-CRS-005"
+      ],
+      "evidenceLevel": "content-addressed-offline-snapshot",
+      "contentAddressed": true,
+      "snapshotManifest": "standards/vendor/ogc-crs/2026-07-12/manifest.json",
+      "snapshotArtifactId": "EPSG-5186",
+      "snapshotSha256": "7919765e518be495a9b53187a297cd70b3826b589fa420468ffd5bd852bc3f8f"
+    },
+    {
+      "iri": "http://www.opengis.net/def/crs/EPSG/0/5187",
+      "authority": "EPSG",
+      "code": "5187",
+      "label": "KGD2002 / East Belt 2010 (EPSG:5187)",
+      "status": "current",
+      "statusObservedAt": "2026-07-12",
+      "officialUrl": "https://www.opengis.net/def/crs/EPSG/0/5187",
+      "profileUses": [
+        "source-reference"
+      ],
+      "sourceIds": [
+        "SRC-CRS-006"
+      ],
+      "evidenceLevel": "content-addressed-offline-snapshot",
+      "contentAddressed": true,
+      "snapshotManifest": "standards/vendor/ogc-crs/2026-07-12/manifest.json",
+      "snapshotArtifactId": "EPSG-5187",
+      "snapshotSha256": "60f528f9f69d96d6127c318cd2b7ba791938ccfc0c1f89372491809e458653c4"
+    },
+    {
+      "iri": "http://www.opengis.net/def/crs/EPSG/0/5188",
+      "authority": "EPSG",
+      "code": "5188",
+      "label": "KGD2002 / East Sea Belt 2010 (EPSG:5188)",
+      "status": "current",
+      "statusObservedAt": "2026-07-12",
+      "officialUrl": "https://www.opengis.net/def/crs/EPSG/0/5188",
+      "profileUses": [
+        "source-reference"
+      ],
+      "sourceIds": [
+        "SRC-CRS-007"
+      ],
+      "evidenceLevel": "content-addressed-offline-snapshot",
+      "contentAddressed": true,
+      "snapshotManifest": "standards/vendor/ogc-crs/2026-07-12/manifest.json",
+      "snapshotArtifactId": "EPSG-5188",
+      "snapshotSha256": "e51466b13017bb544a30b7425a4b9ffd0bdf48a6aa1876d3a07fe561543bbe2e"
+    }
+  ],
+  "snapshots": [
+    {
+      "id": "data-go-kr-linked-100299070",
+      "sourceUrl": "https://www.data.go.kr/dcat/metadata/linked/100299070",
+      "landingPage": "https://www.data.go.kr/data/100299070/linkedData.do",
+      "retrievedAt": "2026-07-12T09:07:00Z",
+      "requestAccept": "*/*",
+      "responseContentType": "application/xml;charset=UTF-8",
+      "path": "fixtures/interoperability/data-go-kr-100299070.rdf",
+      "sha256": "2e3d631d39d517d6aeb8ba4c63ef87a04963d7f6ce50560d33c519b0984f2115",
+      "bytes": 2265,
+      "expectedDisposition": "quarantine",
+      "expectedShaclResults": 39,
+      "liveFetchInCi": false,
+      "sourceIds": [
+        "SRC-KR-003"
+      ],
+      "observations": [
+        {
+          "code": "PDP-LANG-KR",
+          "category": "adapter-normalization",
+          "finding": "`kr` is Kanuri in the IANA registry; Korean text requires reviewed `ko` normalization."
+        },
+        {
+          "code": "PDP-XSD-DATE-LEXICAL",
+          "category": "datatype-lexical-error",
+          "finding": "Date-time text is declared as xsd:date and is not a valid lexical form for that datatype."
+        },
+        {
+          "code": "PDP-LITERAL-THEME",
+          "category": "dcat-ap-conformance-error",
+          "finding": "dcat:theme is emitted as a literal instead of a controlled concept resource."
+        },
+        {
+          "code": "PDP-LITERAL-FREQUENCY",
+          "category": "dcat-ap-conformance-error",
+          "finding": "dct:accrualPeriodicity is emitted as a literal instead of a frequency resource."
+        },
+        {
+          "code": "PDP-WRONG-FORMAT-PREDICATE",
+          "category": "adapter-normalization",
+          "finding": "The source dialect uses dcat:format where the target mapping expects dct:format."
+        },
+        {
+          "code": "PDP-EMPTY-MEDIA-TYPE",
+          "category": "dcat-ap-conformance-error",
+          "finding": "dcat:mediaType is an empty literal rather than a media-type resource."
+        },
+        {
+          "code": "PDP-BLANK-PUBLISHER",
+          "category": "enrichment-required",
+          "finding": "The publisher blank node requires resolution to an approved stable organization identifier."
+        },
+        {
+          "code": "PDP-BLANK-CATALOG",
+          "category": "enrichment-required",
+          "finding": "The anonymous Catalog requires a stable identifier for managed harvesting and change tracking."
+        },
+        {
+          "code": "PDP-COMBINED-KEYWORDS",
+          "category": "adapter-normalization",
+          "finding": "Comma-delimited source keywords require reviewed splitting; the literal is not treated as a DCAT-AP syntax error."
+        },
+        {
+          "code": "PDP-PROFILE-MARKER-MISSING",
+          "category": "molit-profile-requirement",
+          "finding": "The source record does not assert the MOLIT 0.1.0 profile marker required by this project."
+        }
+      ]
+    }
+  ],
+  "blindspots": [
+    {
+      "id": "BS-ARTIFACT-INVENTORY",
+      "severity": "P0",
+      "finding": "lock 갱신기가 새 machine artifact를 자동 승인해 공급망 파일 삽입을 정상 변경으로 만들 수 있었다.",
+      "status": "fixed",
+      "evidence": [
+        {
+          "kind": "control-id",
+          "value": "ST-SUPPLY-001",
+          "status": "implemented"
+        },
+        {
+          "kind": "repository-file",
+          "path": "tools/profile/update-artifact-lock.mjs"
+        }
+      ],
+      "releaseGateRequired": true,
+      "currentlyBlocksRelease": false
+    },
+    {
+      "id": "BS-XSD-LEXICAL",
+      "severity": "P0",
+      "finding": "SHACL engine만 사용하면 2026-02-30과 같은 잘못된 XSD 날짜 lexical form을 수용할 수 있었다.",
+      "status": "fixed",
+      "evidence": [
+        {
+          "kind": "control-id",
+          "value": "ST-RDF-XSD-001",
+          "status": "implemented"
+        },
+        {
+          "kind": "repository-file",
+          "path": "src/profile/xsd-lexical.mjs"
+        }
+      ],
+      "releaseGateRequired": true,
+      "currentlyBlocksRelease": false
+    },
+    {
+      "id": "BS-SPATIAL-WITHHELD",
+      "severity": "P0",
+      "finding": "withheld 공간정보가 GeoSPARQL 1.1의 직접 geometry·serialization property로 위치를 노출할 수 있었다.",
+      "status": "fixed",
+      "evidence": [
+        {
+          "kind": "repository-file",
+          "path": "profiles/molit-dcat-ap/releases/0.1.0/examples/invalid/withheld-spatial-geometry.ttl"
+        },
+        {
+          "kind": "repository-file",
+          "path": "profiles/molit-dcat-ap/releases/0.1.0/shacl/molit-spatial.ttl"
+        }
+      ],
+      "releaseGateRequired": true,
+      "currentlyBlocksRelease": false
+    },
+    {
+      "id": "BS-SHACL-ENGINE",
+      "severity": "P0",
+      "finding": "기본 SHACL 검증 엔진과 Apache Jena의 결과를 구조적으로 정규화해 비교하는 독립 Gate가 없었다.",
+      "status": "fixed",
+      "evidence": [
+        {
+          "kind": "repository-file",
+          "path": "tools/profile/run-jena-shacl-gate.mjs"
+        },
+        {
+          "kind": "repository-file",
+          "path": "tests/contract/validator-toolchain.test.mjs"
+        },
+        {
+          "kind": "control-id",
+          "value": "SHACL-TOOLCHAIN-002",
+          "status": "implemented"
+        }
+      ],
+      "releaseGateRequired": true,
+      "currentlyBlocksRelease": false
+    },
+    {
+      "id": "BS-RDF-SERIALIZATION",
+      "severity": "P0",
+      "finding": "production loader가 Turtle만 받아 RDF/XML·JSON-LD·N-Triples·N-Quads 입력과 parser 간 RDF dataset 동등성을 검증하지 못했다.",
+      "status": "fixed",
+      "evidence": [
+        {
+          "kind": "repository-file",
+          "path": "src/profile/rdf-loader.mjs"
+        },
+        {
+          "kind": "repository-file",
+          "path": "tests/profile/rdf-ingest-security.test.mjs"
+        },
+        {
+          "kind": "control-id",
+          "value": "ST-RDF-INGEST-001",
+          "status": "implemented"
+        },
+        {
+          "kind": "control-id",
+          "value": "ST-JENA-PROBE-003",
+          "status": "implemented"
+        }
+      ],
+      "releaseGateRequired": true,
+      "currentlyBlocksRelease": false
+    },
+    {
+      "id": "BS-ISO19115-XML-TECH",
+      "severity": "P0",
+      "finding": "공개 ISO 19115 Part 1 XSD·Schematron·예제의 digest manifest와 offline smoke lane은 구현됐으나 공식 bytes의 재배포 허가 또는 승인된 private cache가 없다.",
+      "status": "blocked-external-evidence",
+      "evidence": [
+        {
+          "kind": "source-id",
+          "value": "SRC-TECH-033"
+        },
+        {
+          "kind": "repository-file",
+          "path": "tools/iso19115-tech/offline.mjs"
+        },
+        {
+          "kind": "repository-file",
+          "path": "tests/contract/iso19115-public-technical-gate.test.mjs"
+        },
+        {
+          "kind": "note",
+          "value": "ISO redistribution permission or institution-approved private cache required"
+        }
+      ],
+      "releaseGateRequired": true,
+      "currentlyBlocksRelease": true
+    },
+    {
+      "id": "BS-ISO19115-KS-CLAUSE",
+      "severity": "P0",
+      "finding": "공개 ISO 구현자료만으로 국내 KS X ISO 19115-3 원문 조항 적합성과 기관 XML 왕복성을 판정할 수 없다.",
+      "status": "blocked-external-evidence",
+      "evidence": [
+        {
+          "kind": "source-id",
+          "value": "SRC-STD-008"
+        },
+        {
+          "kind": "note",
+          "value": "licensed KS fulltext required"
+        },
+        {
+          "kind": "note",
+          "value": "institution XML fixtures required"
+        }
+      ],
+      "releaseGateRequired": true,
+      "currentlyBlocksRelease": true
+    },
+    {
+      "id": "BS-TTA-CROSSWALK",
+      "severity": "P0",
+      "finding": "TTAK.KO-10.1510-Part3과 TTAK.KO-10.1557의 항목·cardinality·코드표를 원문 조항 단위로 대조하지 못했다.",
+      "status": "blocked-external-evidence",
+      "evidence": [
+        {
+          "kind": "note",
+          "value": "login-protected TTA fulltext required"
+        },
+        {
+          "kind": "note",
+          "value": "institutional fixtures required"
+        }
+      ],
+      "releaseGateRequired": true,
+      "currentlyBlocksRelease": true
+    },
+    {
+      "id": "BS-DCAT-KR-VERSION",
+      "severity": "P0",
+      "finding": "현행 국내 DCAT-AP-KR·공간정보 DCAT 프로파일과 이 프로젝트의 DCAT-AP 3.0.1·GeoDCAT-AP 3.1.0 사이 version migration 표가 없다.",
+      "status": "blocked-external-evidence",
+      "evidence": [
+        {
+          "kind": "note",
+          "value": "TTAK.OT-10.1406 fulltext required"
+        },
+        {
+          "kind": "note",
+          "value": "TTAK.KO-10.1422 fulltext required"
+        },
+        {
+          "kind": "note",
+          "value": "domestic fixtures required"
+        }
+      ],
+      "releaseGateRequired": true,
+      "currentlyBlocksRelease": true
+    },
+    {
+      "id": "BS-DB-CATALOG-CATEGORY",
+      "severity": "P0",
+      "finding": "기관 내부 DB 관리 메타데이터를 공개 Dataset·Distribution 메타데이터로 잘못 승격하는 변환을 차단하는 mapping gate가 없다.",
+      "status": "open",
+      "evidence": [
+        {
+          "kind": "control-id",
+          "value": "MAP-CATERR-001",
+          "status": "open"
+        },
+        {
+          "kind": "control-id",
+          "value": "MOIS-NOTICE-2025-19",
+          "status": "reference"
+        }
+      ],
+      "releaseGateRequired": true,
+      "currentlyBlocksRelease": true
+    },
+    {
+      "id": "BS-CRS-AXIS",
+      "severity": "P0",
+      "finding": "문서가 모든 CRS 좌표를 경도·위도 순서로 설명했고 EPSG:5179 northing·easting을 구분하지 않았다.",
+      "status": "partially-tested",
+      "evidence": [
+        {
+          "kind": "repository-file",
+          "path": "tools/registries/crs-axis-policy.mjs"
+        },
+        {
+          "kind": "control-id",
+          "value": "RT-SPATIAL-AXIS-001",
+          "status": "implemented"
+        },
+        {
+          "kind": "control-id",
+          "value": "RT-SPATIAL-AXIS-003",
+          "status": "implemented"
+        },
+        {
+          "kind": "control-id",
+          "value": "RT-SPATIAL-ACCURACY-001",
+          "status": "open"
+        },
+        {
+          "kind": "control-id",
+          "value": "GEO-LIT-001",
+          "status": "implemented"
+        },
+        {
+          "kind": "control-id",
+          "value": "GEO-LIT-COVERAGE-001",
+          "status": "open"
+        }
+      ],
+      "releaseGateRequired": true,
+      "currentlyBlocksRelease": true
+    },
+    {
+      "id": "BS-QUALITY-LOSS",
+      "severity": "P1",
+      "finding": "ISO 19157의 다양한 result·method·scope를 일부 숫자 metric으로 축약할 때 손실 분류와 reverse rule이 없다.",
+      "status": "open",
+      "evidence": [
+        {
+          "kind": "control-id",
+          "value": "ISO-DQV-001",
+          "status": "open"
+        },
+        {
+          "kind": "control-id",
+          "value": "MAP-LOSS-001",
+          "status": "open"
+        }
+      ],
+      "releaseGateRequired": true,
+      "currentlyBlocksRelease": true
+    },
+    {
+      "id": "BS-AUTHORITY-REGISTRY",
+      "severity": "P0",
+      "finding": "권한 판정 registry와 fail-closed resolver는 구현됐으나 승인 기관, 위임 증거, 서명 검증용 trust anchor가 등록되지 않았다.",
+      "status": "blocked-external-evidence",
+      "evidence": [
+        {
+          "kind": "repository-file",
+          "path": "src/governance/provider-authority.mjs"
+        },
+        {
+          "kind": "repository-file",
+          "path": "contracts/provider-authority-registry.v1.schema.json"
+        },
+        {
+          "kind": "repository-file",
+          "path": "tests/contract/provider-authority-registry.test.mjs"
+        },
+        {
+          "kind": "note",
+          "value": "institutional approval and delegation evidence and trust anchor required"
+        }
+      ],
+      "releaseGateRequired": true,
+      "currentlyBlocksRelease": true
+    },
+    {
+      "id": "BS-LIVE-DRIFT",
+      "severity": "P1",
+      "finding": "공공 포털과 기관 API의 schema·코드표 변경을 고정 fixture와 비교하는 scheduled drift job이 없다.",
+      "status": "open",
+      "evidence": [
+        {
+          "kind": "control-id",
+          "value": "LIVE-DRIFT-001",
+          "status": "open"
+        },
+        {
+          "kind": "note",
+          "value": "liveFetchInCi=false"
+        }
+      ],
+      "releaseGateRequired": false,
+      "currentlyBlocksRelease": false
+    },
+    {
+      "id": "BS-VALIDATOR-DEPENDENCIES",
+      "severity": "P1",
+      "finding": "검증 결과가 win32-x64 release lane의 실제 Node module tree, SBOM, Jena archive와 설치 tree bytes를 고정하지 않았다.",
+      "status": "fixed",
+      "evidence": [
+        {
+          "kind": "repository-file",
+          "path": "tools/dependencies/node-install-evidence.mjs"
+        },
+        {
+          "kind": "repository-file",
+          "path": "tools/dependencies/jena-toolchain.mjs"
+        },
+        {
+          "kind": "repository-file",
+          "path": "tests/contract/dependency-evidence.test.mjs"
+        },
+        {
+          "kind": "repository-file",
+          "path": "tests/contract/validator-toolchain.test.mjs"
+        }
+      ],
+      "releaseGateRequired": true,
+      "currentlyBlocksRelease": false
+    },
+    {
+      "id": "BS-CROSSWALK-INVENTORY",
+      "severity": "P1",
+      "finding": "수기 source inventory와 수기 mapping 행을 함께 누락하면 MAP-COV-001 집합 비교를 통과할 수 있었다.",
+      "status": "fixed",
+      "evidence": [
+        {
+          "kind": "repository-file",
+          "path": "tools/mappings/rdfxml-source-inventory.mjs"
+        },
+        {
+          "kind": "repository-file",
+          "path": "tests/contract/generated-source-inventory.test.mjs"
+        },
+        {
+          "kind": "control-id",
+          "value": "MAP-COV-002",
+          "status": "implemented"
+        }
+      ],
+      "releaseGateRequired": true,
+      "currentlyBlocksRelease": false
+    },
+    {
+      "id": "BS-XSD-DATATYPE-COVERAGE",
+      "severity": "P1",
+      "finding": "preflight lexical 검사가 일부 XSD datatype만 다뤄 open-world triple의 미승인 XSD datatype 오류를 건너뛸 수 있었다.",
+      "status": "fixed",
+      "evidence": [
+        {
+          "kind": "repository-file",
+          "path": "src/profile/xsd-lexical.mjs"
+        },
+        {
+          "kind": "repository-file",
+          "path": "tests/unit/xsd-datatype-registry.test.mjs"
+        },
+        {
+          "kind": "control-id",
+          "value": "ST-XSD-REG-001",
+          "status": "implemented"
+        }
+      ],
+      "releaseGateRequired": true,
+      "currentlyBlocksRelease": false
+    },
+    {
+      "id": "BS-NETWORK-REGISTRY-DRIFT",
+      "severity": "P1",
+      "finding": "preflight의 수기 IANA IPv4·IPv6 표가 검토된 official snapshot bytes와 생성 정책에 연결되지 않았다.",
+      "status": "fixed",
+      "evidence": [
+        {
+          "kind": "source-id",
+          "value": "SRC-IANA-002"
+        },
+        {
+          "kind": "source-id",
+          "value": "SRC-IANA-003"
+        },
+        {
+          "kind": "repository-file",
+          "path": "tools/registries/generate-iana-network-policy.mjs"
+        },
+        {
+          "kind": "repository-file",
+          "path": "tests/contract/iana-network-registry.test.mjs"
+        },
+        {
+          "kind": "control-id",
+          "value": "NET-REG-001",
+          "status": "implemented"
+        }
+      ],
+      "releaseGateRequired": true,
+      "currentlyBlocksRelease": false
+    },
+    {
+      "id": "BS-CRS-REGISTRY-EVIDENCE",
+      "severity": "P1",
+      "finding": "CRS allowlist가 OGC resolver의 가변 응답 관찰에만 의존하고 응답 bytes·digest를 고정하지 않았다.",
+      "status": "fixed",
+      "evidence": [
+        {
+          "kind": "repository-file",
+          "path": "tools/registries/verify-crs-snapshots.mjs"
+        },
+        {
+          "kind": "repository-file",
+          "path": "tests/contract/crs-snapshot-evidence.test.mjs"
+        },
+        {
+          "kind": "control-id",
+          "value": "CRS-REG-001",
+          "status": "implemented"
+        }
+      ],
+      "releaseGateRequired": true,
+      "currentlyBlocksRelease": false
+    },
+    {
+      "id": "BS-STANDARD-STATUS-EVIDENCE",
+      "severity": "P1",
+      "finding": "표준 lifecycle 정본과 source register가 같은 저장소의 가변 record이며 공식 status 응답 bytes·digest를 고정하지 않았다.",
+      "status": "open",
+      "evidence": [
+        {
+          "kind": "control-id",
+          "value": "CT-KR-STD-005",
+          "status": "implemented"
+        },
+        {
+          "kind": "note",
+          "value": "content-addressed official status captures required"
+        }
+      ],
+      "releaseGateRequired": true,
+      "currentlyBlocksRelease": true
+    },
+    {
+      "id": "BS-CLAIM-SEMANTIC-VARIANTS",
+      "severity": "P1",
+      "finding": "문자열 기반 게시 claim Gate는 등록하지 않은 동의어·우회 표현의 의미를 완전하게 판정할 수 없다.",
+      "status": "open",
+      "evidence": [
+        {
+          "kind": "control-id",
+          "value": "CT-KR-CLAIM-001",
+          "status": "implemented"
+        },
+        {
+          "kind": "note",
+          "value": "semantic claim review and approval workflow required"
+        }
+      ],
+      "releaseGateRequired": true,
+      "currentlyBlocksRelease": true
+    },
+    {
+      "id": "BS-REAL-DATA-COVERAGE",
+      "severity": "P0",
+      "finding": "통합채널과 원천 플랫폼의 운영 모집단 또는 승인 층화표본을 대상으로 mapping coverage, 묵시적 유실과 거부사유 분포를 측정하지 않았다.",
+      "status": "open",
+      "evidence": [
+        {
+          "kind": "repository-file",
+          "path": "docs/03-plan/domestic-real-data-validation-plan.md"
+        },
+        {
+          "kind": "source-id",
+          "value": "SRC-KR-003"
+        },
+        {
+          "kind": "source-id",
+          "value": "SRC-MOLIT-014"
+        },
+        {
+          "kind": "control-id",
+          "value": "REL-MAP-001",
+          "status": "open"
+        }
+      ],
+      "releaseGateRequired": true,
+      "currentlyBlocksRelease": true
+    },
+    {
+      "id": "BS-CRS-COVERAGE",
+      "severity": "P0",
+      "finding": "source-reference 7종과 geometry literal 2종은 고정했지만 실제 기관 corpus의 CRS 분포, 미승인 CRS 처리와 지원 geometry의 변환 정확도를 검증하지 않았다.",
+      "status": "open",
+      "evidence": [
+        {
+          "kind": "repository-file",
+          "path": "profiles/molit-dcat-ap/releases/0.1.0/mappings/domestic-standards-alignment.md"
+        },
+        {
+          "kind": "source-id",
+          "value": "SRC-CRS-001"
+        },
+        {
+          "kind": "source-id",
+          "value": "SRC-TECH-038"
+        },
+        {
+          "kind": "source-id",
+          "value": "SRC-MOLIT-011"
+        },
+        {
+          "kind": "source-id",
+          "value": "SRC-MOLIT-012"
+        },
+        {
+          "kind": "control-id",
+          "value": "CRS-COVERAGE-001",
+          "status": "open"
+        }
+      ],
+      "releaseGateRequired": true,
+      "currentlyBlocksRelease": true
+    },
+    {
+      "id": "BS-DOMESTIC-VOCABULARY",
+      "severity": "P0",
+      "finding": "기관, 행정구역, 법령과 license 식별자의 국내 권위원, 판, 폐지와 변경절차가 승인되지 않아 공개 RDF의 안정 식별자를 확정할 수 없다.",
+      "status": "blocked-external-evidence",
+      "evidence": [
+        {
+          "kind": "repository-file",
+          "path": "profiles/molit-dcat-ap/releases/0.1.0/mappings/domestic-standards-alignment.md"
+        },
+        {
+          "kind": "source-id",
+          "value": "SRC-KR-005"
+        },
+        {
+          "kind": "source-id",
+          "value": "SRC-KR-007"
+        },
+        {
+          "kind": "source-id",
+          "value": "SRC-KR-008"
+        },
+        {
+          "kind": "source-id",
+          "value": "SRC-KR-009"
+        },
+        {
+          "kind": "control-id",
+          "value": "REL-VOC-001",
+          "status": "open"
+        }
+      ],
+      "releaseGateRequired": true,
+      "currentlyBlocksRelease": true
+    },
+    {
+      "id": "BS-TRANSPORT-UNIT-SEMANTICS",
+      "severity": "P1",
+      "finding": "교통 관측속도의 property, 집계구간, 결측 의미와 단위 projection이 없으며 DQV 품질 단위 allowlist에 km per hour를 추가하는 것만으로는 해결되지 않는다.",
+      "status": "open",
+      "evidence": [
+        {
+          "kind": "repository-file",
+          "path": "profiles/molit-dcat-ap/releases/0.1.0/mappings/domestic-standards-alignment.md"
+        },
+        {
+          "kind": "source-id",
+          "value": "SRC-TECH-037"
+        },
+        {
+          "kind": "control-id",
+          "value": "TRANSPORT-UNIT-001",
+          "status": "open"
+        }
+      ],
+      "releaseGateRequired": true,
+      "currentlyBlocksRelease": true
+    }
+  ]
+}

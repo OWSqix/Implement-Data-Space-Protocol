@@ -1,0 +1,21 @@
+@prefix dcat: <http://www.w3.org/ns/dcat#> .
+@prefix dct: <http://purl.org/dc/terms/> .
+@prefix ex: <https://data.molit.go.kr/id/example-invalid/> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+@prefix molit: <https://data.molit.go.kr/def/molit-dcat-ap#> .
+@prefix quality: <https://data.molit.go.kr/id/concept/quality-status/> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+ex:dataset
+    a dcat:Dataset, dcat:Resource ;
+    dct:identifier "invalid-literal-access-rights" ;
+    dct:title "접근 권한 오류 예시"@ko ;
+    dct:description "접근 권한에 통제어 IRI가 아니라 문자열을 사용했다."@ko ;
+    dct:publisher ex:publisher ;
+    dct:modified "2026-07-12"^^xsd:date ;
+    dct:accessRights "open" ;
+    dcat:theme <http://publications.europa.eu/resource/authority/data-theme/TRAN>,
+        <https://data.molit.go.kr/id/concept/domain/road> ;
+    molit:qualityStatus quality:not-assessed .
+
+ex:publisher a foaf:Agent ; foaf:name "시험 발행기관"@ko .

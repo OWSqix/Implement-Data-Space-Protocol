@@ -1,0 +1,96 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://molit-dataspace.example.invalid/schemas/approval-registry.v1.schema.json",
+  "title": "Synthetic approval registry v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "registryId", "trustMode", "entries"],
+  "properties": {
+    "schemaVersion": {
+      "const": "molit.approval-registry/1"
+    },
+    "registryId": {
+      "$ref": "#/$defs/identifier"
+    },
+    "trustMode": {
+      "const": "synthetic-test-only"
+    },
+    "entries": {
+      "type": "array",
+      "maxItems": 20000,
+      "items": {
+        "$ref": "#/$defs/entry"
+      }
+    }
+  },
+  "$defs": {
+    "identifier": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 256,
+      "pattern": "^[^\\s?#@]+$"
+    },
+    "entry": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "sourceSystemId",
+        "recordId",
+        "resourceVersion",
+        "recordDigest",
+        "approvalId",
+        "approverId",
+        "approvedAt",
+        "validUntil",
+        "catalogVisibility",
+        "offeringDecision",
+        "evidenceIds"
+      ],
+      "properties": {
+        "sourceSystemId": {
+          "$ref": "#/$defs/identifier"
+        },
+        "recordId": {
+          "$ref": "#/$defs/identifier"
+        },
+        "resourceVersion": {
+          "type": "string",
+          "maxLength": 64,
+          "pattern": "^(0|[1-9][0-9]*)$"
+        },
+        "recordDigest": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "approvalId": {
+          "$ref": "#/$defs/identifier"
+        },
+        "approverId": {
+          "$ref": "#/$defs/identifier"
+        },
+        "approvedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "validUntil": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "catalogVisibility": {
+          "enum": ["public", "qualified", "internal", "hidden"]
+        },
+        "offeringDecision": {
+          "enum": ["approved", "pending", "denied"]
+        },
+        "evidenceIds": {
+          "type": "array",
+          "maxItems": 200,
+          "uniqueItems": true,
+          "items": {
+            "$ref": "#/$defs/identifier"
+          }
+        }
+      }
+    }
+  }
+}

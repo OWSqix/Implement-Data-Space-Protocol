@@ -1,0 +1,257 @@
+@prefix adms: <http://www.w3.org/ns/adms#> .
+@prefix dcat: <http://www.w3.org/ns/dcat#> .
+@prefix dcatap: <http://data.europa.eu/r5r/> .
+@prefix dct: <http://purl.org/dc/terms/> .
+@prefix molit: <https://data.molit.go.kr/def/molit-dcat-ap#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix spdx: <http://spdx.org/rdf/terms#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<https://data.molit.go.kr/shape/molit-dcat-ap/0.1.0#FrequencyVocabularyShape>
+    a sh:NodeShape ;
+    sh:targetClass dcat:Dataset,
+        dcat:DatasetSeries ;
+    molit:requirementId "MOLIT-CV-FREQ-001" ;
+    molit:controlOwner "vocabulary-governance" ;
+    sh:property [
+        sh:path dct:accrualPeriodicity ;
+        sh:nodeKind sh:IRI ;
+        sh:in (
+            <http://publications.europa.eu/resource/authority/frequency/CONT>
+            <http://publications.europa.eu/resource/authority/frequency/DAILY>
+            <http://publications.europa.eu/resource/authority/frequency/WEEKLY>
+            <http://publications.europa.eu/resource/authority/frequency/MONTHLY>
+            <http://publications.europa.eu/resource/authority/frequency/ANNUAL>
+            <http://publications.europa.eu/resource/authority/frequency/IRREG>
+            <http://publications.europa.eu/resource/authority/frequency/UNKNOWN>
+        ) ;
+        sh:message "갱신주기는 0.1.0에서 승인한 EU Frequency IRI여야 한다."@ko
+    ] .
+
+<https://data.molit.go.kr/shape/molit-dcat-ap/0.1.0#FileTypeVocabularyShape>
+    a sh:NodeShape ;
+    sh:targetClass dcat:Distribution,
+        dcat:DataService ;
+    molit:requirementId "MOLIT-CV-FILETYPE-001" ;
+    molit:controlOwner "vocabulary-governance" ;
+    sh:property [
+        sh:path dct:format ;
+        sh:nodeKind sh:IRI ;
+        sh:in (
+            <http://publications.europa.eu/resource/authority/file-type/CSV>
+            <http://publications.europa.eu/resource/authority/file-type/JSON>
+            <http://publications.europa.eu/resource/authority/file-type/JSON_LD>
+            <http://publications.europa.eu/resource/authority/file-type/RDF_TURTLE>
+            <http://publications.europa.eu/resource/authority/file-type/RDF_XML>
+            <http://publications.europa.eu/resource/authority/file-type/XML>
+            <http://publications.europa.eu/resource/authority/file-type/GML>
+            <http://publications.europa.eu/resource/authority/file-type/GEOJSON>
+            <http://publications.europa.eu/resource/authority/file-type/SHP>
+        ) ;
+        sh:message "dct:format은 0.1.0에서 승인한 EU File Type IRI여야 한다."@ko
+    ] .
+
+<https://data.molit.go.kr/shape/molit-dcat-ap/0.1.0#LanguageVocabularyShape>
+    a sh:NodeShape ;
+    sh:targetClass dcat:Catalog,
+        dcat:CatalogRecord,
+        dcat:Dataset,
+        dcat:Distribution ;
+    molit:requirementId "MOLIT-CV-LANG-001" ;
+    molit:controlOwner "vocabulary-governance" ;
+    sh:property [
+        sh:path dct:language ;
+        sh:nodeKind sh:IRI ;
+        sh:in (
+            <http://publications.europa.eu/resource/authority/language/KOR>
+            <http://publications.europa.eu/resource/authority/language/ENG>
+        ) ;
+        sh:message "메타데이터 언어는 0.1.0에서 승인한 언어 IRI여야 한다."@ko
+    ] .
+
+<https://data.molit.go.kr/shape/molit-dcat-ap/0.1.0#DistributionStatusVocabularyShape>
+    a sh:NodeShape ;
+    sh:targetClass dcat:Distribution ;
+    molit:requirementId "MOLIT-CV-DIST-STATUS-001" ;
+    molit:controlOwner "vocabulary-governance" ;
+    sh:property [
+        sh:path adms:status ;
+        sh:nodeKind sh:IRI ;
+        sh:in (
+            <http://publications.europa.eu/resource/authority/distribution-status/COMPLETED>
+            <http://publications.europa.eu/resource/authority/distribution-status/DEPRECATED>
+            <http://publications.europa.eu/resource/authority/distribution-status/DEVELOP>
+            <http://publications.europa.eu/resource/authority/distribution-status/WITHDRAWN>
+        ) ;
+        sh:message "배포본 상태는 승인된 EU Distribution Status IRI여야 한다."@ko
+    ] .
+
+<https://data.molit.go.kr/shape/molit-dcat-ap/0.1.0#AvailabilityVocabularyShape>
+    a sh:NodeShape ;
+    sh:targetSubjectsOf dcatap:availability ;
+    molit:requirementId "MOLIT-CV-AVAILABILITY-001" ;
+    molit:controlOwner "vocabulary-governance" ;
+    sh:property [
+        sh:path rdf:type ;
+        sh:hasValue dcat:Distribution ;
+        sh:message "dcatap:availability는 dcat:Distribution에만 사용한다."@ko
+    ], [
+        sh:path dcatap:availability ;
+        sh:nodeKind sh:IRI ;
+        sh:in (
+            <http://publications.europa.eu/resource/authority/planned-availability/AVAILABLE>
+            <http://publications.europa.eu/resource/authority/planned-availability/EXPERIMENTAL>
+            <http://publications.europa.eu/resource/authority/planned-availability/STABLE>
+            <http://publications.europa.eu/resource/authority/planned-availability/TEMPORARY>
+        ) ;
+        sh:message "배포 가용성은 승인된 DCAT-AP Availability IRI여야 한다."@ko
+    ] .
+
+<https://data.molit.go.kr/shape/molit-dcat-ap/0.1.0#ChecksumAlgorithmVocabularyShape>
+    a sh:NodeShape ;
+    sh:targetClass spdx:Checksum ;
+    molit:requirementId "MOLIT-CV-CHECKSUM-001" ;
+    molit:controlOwner "security-architecture" ;
+    sh:property [
+        sh:path spdx:algorithm ;
+        sh:nodeKind sh:IRI ;
+        sh:in (
+            <http://spdx.org/rdf/terms#checksumAlgorithm_sha256>
+            <http://spdx.org/rdf/terms#checksumAlgorithm_sha384>
+            <http://spdx.org/rdf/terms#checksumAlgorithm_sha512>
+        ) ;
+        sh:message "체크섬 알고리즘은 SHA-256, SHA-384 또는 SHA-512 SPDX IRI여야 한다."@ko
+    ] .
+
+<https://data.molit.go.kr/shape/molit-dcat-ap/0.1.0#ChecksumValueLengthShape>
+    a sh:NodeShape ;
+    sh:targetClass spdx:Checksum ;
+    molit:requirementId "MOLIT-CV-CHECKSUM-002" ;
+    molit:controlOwner "security-architecture" ;
+    sh:or (
+        [
+            sh:property [
+                sh:path spdx:algorithm ;
+                sh:hasValue <http://spdx.org/rdf/terms#checksumAlgorithm_sha256>
+            ] ;
+            sh:property [
+                sh:path spdx:checksumValue ;
+                sh:datatype xsd:hexBinary ;
+                sh:pattern "^[0-9a-f]{64}$"
+            ]
+        ]
+        [
+            sh:property [
+                sh:path spdx:algorithm ;
+                sh:hasValue <http://spdx.org/rdf/terms#checksumAlgorithm_sha384>
+            ] ;
+            sh:property [
+                sh:path spdx:checksumValue ;
+                sh:datatype xsd:hexBinary ;
+                sh:pattern "^[0-9a-f]{96}$"
+            ]
+        ]
+        [
+            sh:property [
+                sh:path spdx:algorithm ;
+                sh:hasValue <http://spdx.org/rdf/terms#checksumAlgorithm_sha512>
+            ] ;
+            sh:property [
+                sh:path spdx:checksumValue ;
+                sh:datatype xsd:hexBinary ;
+                sh:pattern "^[0-9a-f]{128}$"
+            ]
+        ]
+    ) ;
+    sh:message "SPDX checksum 값은 선택한 SHA-256·SHA-384·SHA-512의 byte 길이와 일치하는 소문자 16진수여야 한다."@ko .
+
+<https://data.molit.go.kr/shape/molit-dcat-ap/0.1.0#IanaMediaTypeVocabularyShape>
+    a sh:NodeShape ;
+    sh:targetSubjectsOf dcat:mediaType,
+        dcat:compressFormat,
+        dcat:packageFormat ;
+    molit:requirementId "MOLIT-CV-MEDIATYPE-001" ;
+    molit:controlOwner "vocabulary-governance" ;
+    sh:property [
+        sh:path rdf:type ;
+        sh:hasValue dcat:Distribution ;
+        sh:message "mediaType, compression format과 packaging format은 dcat:Distribution에만 사용한다."@ko
+    ], [
+        sh:path dcat:mediaType ;
+        sh:nodeKind sh:IRI ;
+        sh:in (
+            <https://www.iana.org/assignments/media-types/text/csv>
+            <https://www.iana.org/assignments/media-types/application/json>
+            <https://www.iana.org/assignments/media-types/application/ld+json>
+            <https://www.iana.org/assignments/media-types/text/turtle>
+            <https://www.iana.org/assignments/media-types/application/rdf+xml>
+            <https://www.iana.org/assignments/media-types/application/xml>
+            <https://www.iana.org/assignments/media-types/application/gml+xml>
+            <https://www.iana.org/assignments/media-types/application/geo+json>
+            <https://www.iana.org/assignments/media-types/application/gzip>
+            <https://www.iana.org/assignments/media-types/application/zip>
+            <https://www.iana.org/assignments/media-types/application/octet-stream>
+        ) ;
+        sh:message "mediaType은 IANA media type IRI여야 한다."@ko
+    ], [
+        sh:path dcat:compressFormat ;
+        sh:nodeKind sh:IRI ;
+        sh:in (
+            <https://www.iana.org/assignments/media-types/application/gzip>
+            <https://www.iana.org/assignments/media-types/application/zip>
+        ) ;
+        sh:message "compression format은 IANA media type IRI여야 한다."@ko
+    ], [
+        sh:path dcat:packageFormat ;
+        sh:nodeKind sh:IRI ;
+        sh:in (
+            <https://www.iana.org/assignments/media-types/application/gzip>
+            <https://www.iana.org/assignments/media-types/application/zip>
+        ) ;
+        sh:message "packaging format은 IANA media type IRI여야 한다."@ko
+    ] .
+
+<https://data.molit.go.kr/shape/molit-dcat-ap/0.1.0#DataServiceControlledVocabularyShape>
+    a sh:NodeShape ;
+    sh:targetClass dcat:DataService ;
+    molit:requirementId "MOLIT-CV-SVC-001" ;
+    molit:controlOwner "vocabulary-governance" ;
+    sh:property [
+        sh:path dcat:theme ;
+        sh:in (
+            <http://publications.europa.eu/resource/authority/data-theme/TRAN>
+            <http://publications.europa.eu/resource/authority/data-theme/REGI>
+            <https://data.molit.go.kr/id/concept/domain/land>
+            <https://data.molit.go.kr/id/concept/domain/urban>
+            <https://data.molit.go.kr/id/concept/domain/housing>
+            <https://data.molit.go.kr/id/concept/domain/building>
+            <https://data.molit.go.kr/id/concept/domain/real-estate>
+            <https://data.molit.go.kr/id/concept/domain/construction>
+            <https://data.molit.go.kr/id/concept/domain/transport>
+            <https://data.molit.go.kr/id/concept/domain/road>
+            <https://data.molit.go.kr/id/concept/domain/railway>
+            <https://data.molit.go.kr/id/concept/domain/aviation>
+            <https://data.molit.go.kr/id/concept/domain/logistics>
+            <https://data.molit.go.kr/id/concept/domain/mobility>
+            <https://data.molit.go.kr/id/concept/domain/transport-safety>
+            <https://data.molit.go.kr/id/concept/domain/spatial-information>
+        ) ;
+        sh:qualifiedValueShape [
+            sh:in (
+                <http://publications.europa.eu/resource/authority/data-theme/TRAN>
+                <http://publications.europa.eu/resource/authority/data-theme/REGI>
+            )
+        ] ;
+        sh:qualifiedMinCount 1 ;
+        sh:message "DataService theme에는 TRAN 또는 REGI를 하나 이상 포함해야 한다."@ko
+    ], [
+        sh:path dct:accessRights ;
+        sh:nodeKind sh:IRI ;
+        sh:in (
+            <http://publications.europa.eu/resource/authority/access-right/PUBLIC>
+            <http://publications.europa.eu/resource/authority/access-right/RESTRICTED>
+            <http://publications.europa.eu/resource/authority/access-right/NON_PUBLIC>
+        ) ;
+        sh:message "DataService accessRights는 승인된 IRI여야 한다."@ko
+    ] .

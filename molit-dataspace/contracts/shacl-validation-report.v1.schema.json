@@ -1,0 +1,167 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://data.molit.go.kr/schema/shacl-validation-report.v1.schema.json",
+  "title": "MOLIT SHACL validation report v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "validatedAt",
+    "decisionDigest",
+    "input",
+    "profile",
+    "engine",
+    "artifacts",
+    "summary",
+    "authority",
+    "results"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "const": "molit.shacl-validation-report/1"
+    },
+    "validatedAt": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "decisionDigest": {
+      "type": "string",
+      "pattern": "^sha256:[0-9a-f]{64}$"
+    },
+    "input": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["byteSha256", "bytes", "path", "quads"],
+      "properties": {
+        "byteSha256": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+        "bytes": { "type": "integer", "minimum": 0, "maximum": 5242880 },
+        "path": { "type": "string", "minLength": 1, "maxLength": 1024 },
+        "quads": { "type": "integer", "minimum": 0, "maximum": 100000 }
+      }
+    },
+    "profile": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["bundleDigest", "conformanceIri", "gate", "kind", "name", "namespaceStatus", "status", "version", "versionIri"],
+      "properties": {
+        "bundleDigest": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" },
+        "conformanceIri": { "type": "string", "format": "uri", "pattern": "^https://" },
+        "gate": { "enum": ["violation", "warning"] },
+        "kind": { "enum": ["conformance", "diagnostic", "validation-policy"] },
+        "name": { "type": "string", "minLength": 1, "maxLength": 100 },
+        "namespaceStatus": {
+          "enum": ["proposed-not-yet-dereferenceable", "dereferenceable"]
+        },
+        "status": { "enum": ["working-draft", "candidate", "recommendation", "deprecated"] },
+        "version": { "type": "string", "pattern": "^[0-9]+[.][0-9]+[.][0-9]+(?:-[0-9A-Za-z.-]+)?$" },
+        "versionIri": { "type": "string", "format": "uri", "pattern": "^https://" }
+      }
+    },
+    "engine": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["dynamicImportsAllowed", "implementation", "implementationVersion", "localImportCount", "molitValidatorBuildDigest", "molitValidatorSourceArtifactCount", "molitValidatorVersion", "nodeVersion", "rdfParser", "rdfParserVersion", "reportBlankNodesCanonical", "reportSchemaDigest", "shaclSparqlSupported"],
+      "properties": {
+        "dynamicImportsAllowed": { "const": false },
+        "implementation": { "const": "rdf-validate-shacl" },
+        "implementationVersion": { "const": "0.6.5" },
+        "localImportCount": { "type": "integer", "minimum": 0, "maximum": 100 },
+        "molitValidatorBuildDigest": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" },
+        "molitValidatorSourceArtifactCount": { "type": "integer", "minimum": 1, "maximum": 100 },
+        "molitValidatorVersion": { "const": "0.1.0" },
+        "nodeVersion": { "type": "string", "pattern": "^v[0-9]+[.]" },
+        "rdfParser": { "const": "n3" },
+        "rdfParserVersion": { "const": "2.1.1" },
+        "reportBlankNodesCanonical": { "type": "boolean" },
+        "reportSchemaDigest": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" },
+        "shaclSparqlSupported": { "const": false }
+      }
+    },
+    "artifacts": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["backgroundQuads", "lockedArtifacts", "shapeQuads"],
+      "properties": {
+        "backgroundQuads": { "type": "integer", "minimum": 0 },
+        "lockedArtifacts": { "type": "integer", "minimum": 1 },
+        "shapeQuads": { "type": "integer", "minimum": 1 }
+      }
+    },
+    "summary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["counts", "gatePassed", "resultLimitReached", "resultCount", "shaclConforms"],
+      "properties": {
+        "counts": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["Info", "Violation", "Warning"],
+          "properties": {
+            "Info": { "type": "integer", "minimum": 0 },
+            "Violation": { "type": "integer", "minimum": 0 },
+            "Warning": { "type": "integer", "minimum": 0 }
+          }
+        },
+        "gatePassed": { "type": "boolean" },
+        "resultLimitReached": { "type": "boolean" },
+        "resultCount": { "type": "integer", "minimum": 0, "maximum": 500 },
+        "shaclConforms": { "type": "boolean" }
+      }
+    },
+    "authority": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["publicationAuthorized", "reasons", "validationScope"],
+      "properties": {
+        "publicationAuthorized": { "const": false },
+        "reasons": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 20,
+          "items": { "type": "string", "minLength": 1, "maxLength": 200 }
+        },
+        "validationScope": { "const": "technical-conformance-only" }
+      }
+    },
+    "results": {
+      "type": "array",
+      "maxItems": 500,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "focusNode",
+          "messages",
+          "path",
+          "requirementId",
+          "severity",
+          "sourceConstraintComponent",
+          "sourceShape",
+          "value"
+        ],
+        "properties": {
+          "focusNode": { "type": ["string", "null"], "maxLength": 4096 },
+          "messages": {
+            "type": "array",
+            "maxItems": 20,
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["language", "value"],
+              "properties": {
+                "language": { "type": ["string", "null"], "maxLength": 35 },
+                "value": { "type": "string", "maxLength": 20000 }
+              }
+            }
+          },
+          "path": { "type": ["string", "null"], "maxLength": 4096 },
+          "requirementId": { "type": ["string", "null"], "maxLength": 200 },
+          "severity": { "enum": ["Info", "Violation", "Warning"] },
+          "sourceConstraintComponent": { "type": ["string", "null"], "maxLength": 4096 },
+          "sourceShape": { "type": ["string", "null"], "maxLength": 4096 },
+          "value": { "type": ["string", "null"], "maxLength": 20000 }
+        }
+      }
+    }
+  }
+}

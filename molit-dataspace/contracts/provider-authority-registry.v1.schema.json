@@ -1,0 +1,258 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://molit-dataspace.example.invalid/schemas/provider-authority-registry.v1.schema.json",
+  "title": "MOLIT provider authority registry v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "registryId",
+    "asOf",
+    "trustMode",
+    "revocationMaxAgeSeconds",
+    "releaseDecision",
+    "entries"
+  ],
+  "properties": {
+    "schemaVersion": { "const": "molit.provider-authority-registry/1" },
+    "registryId": { "$ref": "#/$defs/identifier" },
+    "asOf": { "type": "string", "format": "date-time" },
+    "trustMode": { "const": "production-evidence-required" },
+    "revocationMaxAgeSeconds": {
+      "type": "integer",
+      "minimum": 60,
+      "maximum": 86400
+    },
+    "releaseDecision": {
+      "enum": ["blocked-no-approved-authority", "eligible-after-runtime-verification"]
+    },
+    "entries": {
+      "type": "array",
+      "maxItems": 10000,
+      "items": { "$ref": "#/$defs/entry" }
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "entries": { "type": "array", "maxItems": 0 }
+        },
+        "required": ["entries"]
+      },
+      "then": {
+        "properties": {
+          "releaseDecision": { "const": "blocked-no-approved-authority" }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "releaseDecision": { "const": "eligible-after-runtime-verification" }
+        },
+        "required": ["releaseDecision"]
+      },
+      "then": {
+        "properties": {
+          "entries": {
+            "type": "array",
+            "contains": {
+              "type": "object",
+              "properties": {
+                "decision": { "const": "approved" },
+                "revocationStatus": { "const": "current" }
+              },
+              "required": ["decision", "revocationStatus"]
+            },
+            "minContains": 1
+          }
+        }
+      }
+    }
+  ],
+  "$defs": {
+    "identifier": {
+      "type": "string",
+      "minLength": 3,
+      "maxLength": 256,
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._:/-]*$"
+    },
+    "uriIdentifier": {
+      "type": "string",
+      "format": "uri",
+      "pattern": "^(?:https://|did:)"
+    },
+    "sha256": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "entry": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "authorityId",
+        "participantId",
+        "providerId",
+        "legalEntityName",
+        "sourceSystemId",
+        "assetIds",
+        "roles",
+        "allowedActions",
+        "basis",
+        "effectiveFrom",
+        "validUntil",
+        "revocationStatus",
+        "revocationCheckedAt",
+        "decision",
+        "approval"
+      ],
+      "properties": {
+        "authorityId": { "$ref": "#/$defs/identifier" },
+        "participantId": { "$ref": "#/$defs/uriIdentifier" },
+        "providerId": { "$ref": "#/$defs/uriIdentifier" },
+        "legalEntityName": {
+          "type": "string",
+          "minLength": 2,
+          "maxLength": 300
+        },
+        "sourceSystemId": { "$ref": "#/$defs/identifier" },
+        "assetIds": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 10000,
+          "uniqueItems": true,
+          "items": { "$ref": "#/$defs/identifier" },
+          "not": { "contains": { "const": "*" } }
+        },
+        "roles": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "enum": [
+              "data-owner",
+              "delegated-provider",
+              "platform-operator",
+              "connector-operator"
+            ]
+          }
+        },
+        "allowedActions": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "enum": [
+              "catalog-publish",
+              "contract-negotiate",
+              "data-transfer",
+              "delegate"
+            ]
+          }
+        },
+        "basis": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "kind",
+            "issuerId",
+            "subjectId",
+            "evidenceId",
+            "artifactSha256",
+            "artifactLocator"
+          ],
+          "properties": {
+            "kind": {
+              "enum": [
+                "data-ownership",
+                "delegation-contract",
+                "statutory-mandate",
+                "license",
+                "administrative-decision"
+              ]
+            },
+            "issuerId": { "$ref": "#/$defs/uriIdentifier" },
+            "subjectId": { "$ref": "#/$defs/uriIdentifier" },
+            "evidenceId": {
+              "type": "string",
+              "pattern": "^EVD-AUTH-[A-Z0-9-]+$"
+            },
+            "artifactSha256": { "$ref": "#/$defs/sha256" },
+            "artifactLocator": {
+              "type": "string",
+              "pattern": "^(?:vault|records)://[A-Za-z0-9._/-]+$"
+            }
+          }
+        },
+        "effectiveFrom": { "type": "string", "format": "date-time" },
+        "validUntil": { "type": "string", "format": "date-time" },
+        "revocationStatus": { "enum": ["current", "suspended", "revoked"] },
+        "revocationCheckedAt": { "type": "string", "format": "date-time" },
+        "decision": { "enum": ["approved", "pending", "rejected"] },
+        "approval": {
+          "oneOf": [
+            { "$ref": "#/$defs/verifiedApproval" },
+            { "$ref": "#/$defs/unverifiedApproval" }
+          ]
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": { "decision": { "const": "approved" } },
+            "required": ["decision"]
+          },
+          "then": {
+            "properties": {
+              "approval": { "$ref": "#/$defs/verifiedApproval" }
+            }
+          },
+          "else": {
+            "properties": {
+              "approval": { "$ref": "#/$defs/unverifiedApproval" }
+            }
+          }
+        }
+      ]
+    },
+    "verifiedApproval": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "status",
+        "approvedBy",
+        "approvedAt",
+        "decisionArtifactSha256",
+        "signatureRef",
+        "verifiedBy",
+        "verifiedAt"
+      ],
+      "properties": {
+        "status": { "const": "verified" },
+        "approvedBy": { "$ref": "#/$defs/uriIdentifier" },
+        "approvedAt": { "type": "string", "format": "date-time" },
+        "decisionArtifactSha256": { "$ref": "#/$defs/sha256" },
+        "signatureRef": {
+          "type": "string",
+          "pattern": "^(?:vault|kms)://[A-Za-z0-9._/-]+$"
+        },
+        "verifiedBy": { "$ref": "#/$defs/uriIdentifier" },
+        "verifiedAt": { "type": "string", "format": "date-time" }
+      }
+    },
+    "unverifiedApproval": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["status", "reason"],
+      "properties": {
+        "status": { "const": "unverified" },
+        "reason": {
+          "type": "string",
+          "minLength": 3,
+          "maxLength": 300
+        }
+      }
+    }
+  }
+}

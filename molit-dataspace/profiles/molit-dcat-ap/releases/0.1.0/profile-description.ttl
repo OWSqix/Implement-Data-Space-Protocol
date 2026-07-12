@@ -1,0 +1,137 @@
+@prefix dct: <http://purl.org/dc/terms/> .
+@prefix prof: <http://www.w3.org/ns/dx/prof/> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix role: <http://www.w3.org/ns/dx/prof/role/> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<https://data.molit.go.kr/profile/molit-dcat-ap>
+    a dct:Standard,
+        prof:Profile ;
+    dct:title "국토교통 데이터 카탈로그 응용 프로파일"@ko,
+        "MOLIT Data Catalogue Application Profile"@en ;
+    dct:hasVersion <https://data.molit.go.kr/profile/molit-dcat-ap/0.1.0> ;
+    prof:hasToken "molit-dcat-ap" .
+
+<https://data.molit.go.kr/profile/molit-dcat-ap/geo>
+    a dct:Standard,
+        prof:Profile ;
+    dct:title "국토교통 공간 데이터 카탈로그 응용 프로파일"@ko,
+        "MOLIT Geospatial Data Catalogue Application Profile"@en ;
+    dct:hasVersion <https://data.molit.go.kr/profile/molit-dcat-ap/0.1.0/geo> ;
+    prof:hasToken "molit-dcat-ap-geo" .
+
+<https://data.molit.go.kr/profile/molit-dcat-ap/0.1.0>
+    a dct:Standard,
+        prof:Profile ;
+    dct:title "국토교통 데이터 카탈로그 응용 프로파일 0.1.0"@ko,
+        "MOLIT Data Catalogue Application Profile 0.1.0"@en ;
+    dct:description "DCAT-AP 3.0.1을 제약하고 국토교통 분야의 공간·교통망·관측 품질 조건을 추가한 작업 초안."@ko ;
+    dct:issued "2026-07-12"^^xsd:date ;
+    dct:isVersionOf <https://data.molit.go.kr/profile/molit-dcat-ap> ;
+    rdfs:comment "License for locally authored artifacts and namespace publication are pending owner approval."@en ;
+    prof:hasToken "molit-dcat-ap" ;
+    prof:isProfileOf <https://semiceu.github.io/DCAT-AP/releases/3.0.1/> ;
+    prof:hasResource
+        <https://data.molit.go.kr/profile/molit-dcat-ap/0.1.0/resource/specification>,
+        <https://data.molit.go.kr/profile/molit-dcat-ap/0.1.0/resource/core-shacl>,
+        <https://data.molit.go.kr/profile/molit-dcat-ap/0.1.0/resource/support-graph>,
+        <https://data.molit.go.kr/profile/molit-dcat-ap/0.1.0/resource/publication-policy>,
+        <https://data.molit.go.kr/profile/molit-dcat-ap/0.1.0/resource/public-value-policy>,
+        <https://data.molit.go.kr/profile/molit-dcat-ap/0.1.0/resource/ontology>,
+        <https://data.molit.go.kr/profile/molit-dcat-ap/0.1.0/resource/context>,
+        <https://data.molit.go.kr/profile/molit-dcat-ap/0.1.0/resource/example>,
+        <https://data.molit.go.kr/profile/molit-dcat-ap/0.1.0/resource/mapping> .
+
+<https://data.molit.go.kr/profile/molit-dcat-ap/0.1.0/geo>
+    a dct:Standard,
+        prof:Profile ;
+    dct:title "국토교통 공간 데이터 카탈로그 응용 프로파일 0.1.0"@ko,
+        "MOLIT Geospatial Data Catalogue Application Profile 0.1.0"@en ;
+    dct:description "국토교통 공통 응용 프로파일에 GeoDCAT-AP 3.1.0 제약을 추가한 공간정보 subprofile."@ko ;
+    dct:issued "2026-07-12"^^xsd:date ;
+    dct:isVersionOf <https://data.molit.go.kr/profile/molit-dcat-ap/geo> ;
+    prof:hasToken "molit-dcat-ap-geo" ;
+    prof:isProfileOf
+        <https://data.molit.go.kr/profile/molit-dcat-ap/0.1.0>,
+        <https://semiceu.github.io/GeoDCAT-AP/releases/3.1.0/> ;
+    prof:hasResource
+        <https://data.molit.go.kr/profile/molit-dcat-ap/0.1.0/resource/specification>,
+        <https://data.molit.go.kr/profile/molit-dcat-ap/0.1.0/resource/geo-shacl>,
+        <https://data.molit.go.kr/profile/molit-dcat-ap/0.1.0/resource/support-graph>,
+        <https://data.molit.go.kr/profile/molit-dcat-ap/0.1.0/resource/publication-policy>,
+        <https://data.molit.go.kr/profile/molit-dcat-ap/0.1.0/resource/public-value-policy>,
+        <https://data.molit.go.kr/profile/molit-dcat-ap/0.1.0/resource/ontology>,
+        <https://data.molit.go.kr/profile/molit-dcat-ap/0.1.0/resource/context>,
+        <https://data.molit.go.kr/profile/molit-dcat-ap/0.1.0/resource/example>,
+        <https://data.molit.go.kr/profile/molit-dcat-ap/0.1.0/resource/mapping> .
+
+<https://data.molit.go.kr/profile/molit-dcat-ap/0.1.0/resource/specification>
+    a prof:ResourceDescriptor ;
+    dct:format <http://publications.europa.eu/resource/authority/file-type/HTML> ;
+    prof:hasRole role:specification ;
+    prof:hasArtifact <https://data.molit.go.kr/profile/molit-dcat-ap/0.1.0/> .
+
+<https://data.molit.go.kr/profile/molit-dcat-ap/0.1.0/resource/core-shacl>
+    a prof:ResourceDescriptor ;
+    dct:conformsTo <https://www.w3.org/TR/2017/REC-shacl-20170720/> ;
+    dct:format <http://publications.europa.eu/resource/authority/file-type/RDF_TURTLE> ;
+    rdfs:comment "This SHACL bundle does not replace the pinned MOLIT public-graph and profile-routing preflight."@en ;
+    prof:hasRole role:constraints,
+        role:validation ;
+    prof:hasArtifact <https://data.molit.go.kr/shape/molit-dcat-ap/0.1.0/core.ttl> .
+
+<https://data.molit.go.kr/profile/molit-dcat-ap/0.1.0/resource/geo-shacl>
+    a prof:ResourceDescriptor ;
+    dct:conformsTo <https://www.w3.org/TR/2017/REC-shacl-20170720/> ;
+    dct:format <http://publications.europa.eu/resource/authority/file-type/RDF_TURTLE> ;
+    rdfs:comment "This SHACL bundle does not replace the pinned MOLIT public-graph preflight."@en ;
+    prof:hasRole role:constraints,
+        role:validation ;
+    prof:hasArtifact <https://data.molit.go.kr/shape/molit-dcat-ap/0.1.0/geo.ttl> .
+
+<https://data.molit.go.kr/profile/molit-dcat-ap/0.1.0/resource/support-graph>
+    a prof:ResourceDescriptor ;
+    dct:format <http://publications.europa.eu/resource/authority/file-type/RDF_TURTLE> ;
+    rdfs:comment "Merge this support graph with the candidate data graph before applying the core or Geo SHACL bundle."@en ;
+    prof:hasRole role:vocabulary ;
+    prof:hasArtifact <https://data.molit.go.kr/shape/molit-dcat-ap/0.1.0/support.ttl> .
+
+<https://data.molit.go.kr/profile/molit-dcat-ap/0.1.0/resource/publication-policy>
+    a prof:ResourceDescriptor ;
+    dct:format <http://publications.europa.eu/resource/authority/file-type/HTML> ;
+    rdfs:comment "Warning rejection and publication readiness are operational validation policy, not a separate metadata conformance profile."@en ;
+    prof:hasRole role:guidance,
+        role:validation ;
+    prof:hasArtifact <https://data.molit.go.kr/profile/molit-dcat-ap/0.1.0/#publication-policy> .
+
+<https://data.molit.go.kr/profile/molit-dcat-ap/0.1.0/resource/public-value-policy>
+    a prof:ResourceDescriptor ;
+    dct:format <http://publications.europa.eu/resource/authority/file-type/JSON> ;
+    rdfs:comment "Exact role-mailbox, stable-host and public-host allowlists plus the telephone publication rule used by the 0.1.0 validation runtime."@en ;
+    prof:hasRole role:guidance,
+        role:validation ;
+    prof:hasArtifact <https://data.molit.go.kr/profile/molit-dcat-ap/0.1.0/policy/public-value-policy.json> .
+
+<https://data.molit.go.kr/profile/molit-dcat-ap/0.1.0/resource/ontology>
+    a prof:ResourceDescriptor ;
+    dct:format <http://publications.europa.eu/resource/authority/file-type/RDF_TURTLE> ;
+    prof:hasRole role:vocabulary ;
+    prof:hasArtifact <https://data.molit.go.kr/def/molit-dcat-ap/0.1.0> .
+
+<https://data.molit.go.kr/profile/molit-dcat-ap/0.1.0/resource/context>
+    a prof:ResourceDescriptor ;
+    dct:format <http://publications.europa.eu/resource/authority/file-type/JSON_LD> ;
+    prof:hasRole role:schema ;
+    prof:hasArtifact <https://data.molit.go.kr/profile/molit-dcat-ap/0.1.0/context.jsonld> .
+
+<https://data.molit.go.kr/profile/molit-dcat-ap/0.1.0/resource/example>
+    a prof:ResourceDescriptor ;
+    dct:format <http://publications.europa.eu/resource/authority/file-type/RDF_TURTLE> ;
+    prof:hasRole role:example ;
+    prof:hasArtifact <https://data.molit.go.kr/profile/molit-dcat-ap/0.1.0/examples/road-network-catalog.ttl> .
+
+<https://data.molit.go.kr/profile/molit-dcat-ap/0.1.0/resource/mapping>
+    a prof:ResourceDescriptor ;
+    dct:format <http://publications.europa.eu/resource/authority/file-type/CSV> ;
+    prof:hasRole role:mapping ;
+    prof:hasArtifact <https://data.molit.go.kr/profile/molit-dcat-ap/0.1.0/mappings/platform-field-crosswalk.csv> .

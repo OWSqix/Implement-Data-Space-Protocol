@@ -1,0 +1,143 @@
+{
+  "schemaVersion": "molit.platform-metadata-batch/1",
+  "batchId": "mock-baseline-20260711-001",
+  "sourceSystemId": "mock-molit-platform",
+  "mode": "baseline",
+  "observedAt": "2026-07-11T14:00:00+09:00",
+  "records": [
+    {
+      "eventId": "event-road-snapshot-v1",
+      "eventType": "record.upsert",
+      "recordId": "road-node-link-snapshot",
+      "resourceVersion": "1",
+      "occurredAt": "2026-07-11T13:51:00+09:00",
+      "record": {
+        "recordType": "dataset",
+        "title": "합성 표준 노드·링크 스냅숏",
+        "description": "Discovery Bridge 계약시험에 사용하는 합성 파일 Dataset이다.",
+        "publisher": {
+          "id": "urn:mock:organization:road-data-owner",
+          "name": "합성 도로데이터 기관"
+        },
+        "originDataHolderId": "mock-road-data-owner",
+        "landingPage": "https://catalog.poc.invalid/datasets/road-node-link-snapshot",
+        "issuedAt": "2026-07-01T00:00:00+09:00",
+        "modifiedAt": "2026-07-11T13:50:00+09:00",
+        "keywords": ["도로", "노드", "링크"],
+        "themes": ["https://vocab.poc.invalid/theme/road"],
+        "accessRights": "open",
+        "license": "https://license.poc.invalid/open-data-v1",
+        "platformRecordRole": {
+          "value": "hosted",
+          "evidenceIds": ["EVD-MOCK-ROLE-001"]
+        },
+        "providerParticipantId": "mock-road-data-owner",
+        "connectorOperatorId": "mock-connector-operator",
+        "deliveryOperatorId": "mock-delivery-operator",
+        "contractingPartyId": "mock-road-data-owner",
+        "providerAuthority": {
+          "kind": "owner",
+          "evidenceIds": ["EVD-MOCK-AUTH-001"]
+        },
+        "transferDecision": "approved",
+        "policyRef": "policy:mock-open-use-v1",
+        "distributions": [
+          {
+            "id": "snapshot-csv",
+            "accessProfile": "file-snapshot",
+            "format": "CSV",
+            "transferFormat": "transfer:file-snapshot-pull-v1",
+            "mediaType": "https://www.iana.org/assignments/media-types/text/csv",
+            "sourceBindingRef": "binding://mock-road-platform/road-node-link-snapshot/snapshot-csv",
+            "lifecycleMode": "token",
+            "revocationMode": "token-revoke",
+            "evidenceIds": ["EVD-MOCK-DIST-001"]
+          }
+        ],
+        "evidenceIds": ["EVD-MOCK-RECORD-001"]
+      }
+    },
+    {
+      "eventId": "event-index-only-v1",
+      "eventType": "record.upsert",
+      "recordId": "external-traffic-index",
+      "resourceVersion": "1",
+      "occurredAt": "2026-07-11T13:52:00+09:00",
+      "record": {
+        "recordType": "dataset",
+        "title": "외부 교통정보 위치 색인",
+        "description": "원천 상세페이지의 위치만 알려 주는 합성 검색 레코드다.",
+        "publisher": {
+          "id": "urn:mock:organization:integration-channel",
+          "name": "합성 통합채널"
+        },
+        "landingPage": "https://catalog.poc.invalid/datasets/external-traffic-index",
+        "issuedAt": "2026-07-01T00:00:00+09:00",
+        "modifiedAt": "2026-07-11T13:52:00+09:00",
+        "keywords": ["교통", "색인"],
+        "themes": ["https://vocab.poc.invalid/theme/traffic"],
+        "accessRights": "open",
+        "license": "https://license.poc.invalid/open-data-v1",
+        "platformRecordRole": {
+          "value": "index-only",
+          "evidenceIds": ["EVD-MOCK-ROLE-002"]
+        },
+        "transferDecision": "pending",
+        "distributions": [],
+        "evidenceIds": ["EVD-MOCK-RECORD-002"]
+      }
+    },
+    {
+      "eventId": "event-organization-v1",
+      "eventType": "record.upsert",
+      "recordId": "transport-research-agency",
+      "resourceVersion": "1",
+      "occurredAt": "2026-07-11T13:53:00+09:00",
+      "record": {
+        "recordType": "organization",
+        "title": "합성 교통연구기관",
+        "description": "Dataset이 아닌 기관 검색 레코드다.",
+        "publisher": {
+          "id": "urn:mock:organization:integration-channel",
+          "name": "합성 통합채널"
+        },
+        "landingPage": "https://catalog.poc.invalid/organizations/transport-research-agency",
+        "issuedAt": "2026-07-01T00:00:00+09:00",
+        "modifiedAt": "2026-07-11T13:53:00+09:00",
+        "keywords": ["기관"],
+        "themes": [],
+        "evidenceIds": ["EVD-MOCK-RECORD-003"]
+      }
+    },
+    {
+      "eventId": "event-unknown-api-v1",
+      "eventType": "record.upsert",
+      "recordId": "unverified-traffic-api",
+      "resourceVersion": "1",
+      "occurredAt": "2026-07-11T13:54:00+09:00",
+      "record": {
+        "recordType": "dataset",
+        "title": "제공역할 미확인 교통 API",
+        "description": "Provider 권한과 실제 Distribution이 확인되지 않은 합성 레코드다.",
+        "publisher": {
+          "id": "urn:mock:organization:integration-channel",
+          "name": "합성 통합채널"
+        },
+        "landingPage": "https://catalog.poc.invalid/datasets/unverified-traffic-api",
+        "issuedAt": "2026-07-01T00:00:00+09:00",
+        "modifiedAt": "2026-07-11T13:54:00+09:00",
+        "keywords": ["교통", "API"],
+        "themes": ["https://vocab.poc.invalid/theme/traffic"],
+        "accessRights": "registered",
+        "rights": "운영기관 확인 전 제공조건 미확정",
+        "platformRecordRole": {
+          "value": "unknown",
+          "evidenceIds": []
+        },
+        "transferDecision": "pending",
+        "distributions": [],
+        "evidenceIds": ["EVD-MOCK-RECORD-004"]
+      }
+    }
+  ]
+}

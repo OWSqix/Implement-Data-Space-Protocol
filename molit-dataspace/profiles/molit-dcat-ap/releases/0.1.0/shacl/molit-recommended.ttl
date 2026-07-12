@@ -1,0 +1,51 @@
+@prefix dcat: <http://www.w3.org/ns/dcat#> .
+@prefix dct: <http://purl.org/dc/terms/> .
+@prefix dqv: <http://www.w3.org/ns/dqv#> .
+@prefix molit: <https://data.molit.go.kr/def/molit-dcat-ap#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix spdx: <http://spdx.org/rdf/terms#> .
+@prefix vcard: <http://www.w3.org/2006/vcard/ns#> .
+
+<https://data.molit.go.kr/shape/molit-dcat-ap/0.1.0#DatasetContactRecommendation>
+    a sh:NodeShape ;
+    sh:targetClass dcat:Dataset ;
+    molit:requirementId "MOLIT-REC-DS-001" ;
+    molit:controlOwner "dataset-steward" ;
+    sh:property [
+        sh:path dcat:contactPoint ;
+        sh:minCount 1 ;
+        sh:class vcard:Kind ;
+        sh:severity sh:Warning ;
+        sh:message "운영 문의를 받을 기관 연락 지점을 권고한다. 승인된 기관 role mailbox를 사용하며 0.1.0에서는 전화번호를 게시하지 않는다."@ko
+    ], [
+        sh:path dct:provenance ;
+        sh:minCount 1 ;
+        sh:severity sh:Warning ;
+        sh:message "공개 가능한 기관 단위 계보 설명을 권고한다."@ko
+    ] .
+
+<https://data.molit.go.kr/shape/molit-dcat-ap/0.1.0#TransferableDatasetQualityRecommendation>
+    a sh:NodeShape ;
+    sh:targetClass molit:TransferableDataset ;
+    molit:requirementId "MOLIT-REC-QUAL-001" ;
+    molit:controlOwner "data-quality" ;
+    sh:property [
+        sh:path dqv:hasQualityMeasurement ;
+        sh:minCount 1 ;
+        sh:class dqv:QualityMeasurement ;
+        sh:severity sh:Warning ;
+        sh:message "전송 가능한 데이터셋에는 최신 품질 측정값을 권고한다."@ko
+    ] .
+
+<https://data.molit.go.kr/shape/molit-dcat-ap/0.1.0#DistributionChecksumRecommendation>
+    a sh:NodeShape ;
+    sh:targetClass molit:TransferDistribution ;
+    molit:requirementId "MOLIT-REC-DIST-001" ;
+    molit:controlOwner "data-delivery" ;
+    sh:property [
+        sh:path spdx:checksum ;
+        sh:minCount 1 ;
+        sh:class spdx:Checksum ;
+        sh:severity sh:Warning ;
+        sh:message "파일 배포본에는 SPDX checksum을 권고한다."@ko
+    ] .

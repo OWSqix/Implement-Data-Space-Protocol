@@ -1,0 +1,36 @@
+{
+  "schemaVersion": "molit.registry-snapshot-manifest/1",
+  "authority": "Internet Assigned Numbers Authority",
+  "retrievedAt": "2026-07-12T12:39:31Z",
+  "license": "CC0-1.0",
+  "licenseUrl": "https://www.iana.org/help/licensing-terms",
+  "artifacts": [
+    {
+      "id": "iana-ipv4-special-registry",
+      "url": "https://www.iana.org/assignments/iana-ipv4-special-registry/iana-ipv4-special-registry-1.csv",
+      "path": "standards/vendor/iana/2026-07-12/iana-ipv4-special-registry-1.csv",
+      "contentType": "text/csv; charset=UTF-8; header=present",
+      "lastModified": "2025-10-09T21:51:16Z",
+      "bytes": 2423,
+      "sha256": "e3e39e76d00b1677335db8e9a805c7b9480ea2f4dc9e33f0b93cd3a905128d73"
+    },
+    {
+      "id": "iana-ipv6-special-registry",
+      "url": "https://www.iana.org/assignments/iana-ipv6-special-registry/iana-ipv6-special-registry-1.csv",
+      "path": "standards/vendor/iana/2026-07-12/iana-ipv6-special-registry-1.csv",
+      "contentType": "text/csv; charset=UTF-8; header=present",
+      "lastModified": "2025-10-09T21:51:16Z",
+      "bytes": 2289,
+      "sha256": "775feea0621dec8735a44fbf30f762e721e8f0a1b3ab7eb341961a88cfce2139"
+    },
+    {
+      "id": "ipv6-unicast-address-assignments",
+      "url": "https://www.iana.org/assignments/ipv6-unicast-address-assignments/ipv6-unicast-address-assignments.csv",
+      "path": "standards/vendor/iana/2026-07-12/ipv6-unicast-address-assignments.csv",
+      "contentType": "text/csv; charset=UTF-8; header=present",
+      "lastModified": "2025-10-11T00:06:16Z",
+      "bytes": 5666,
+      "sha256": "ebff425bb1acbbea29c4f28146930873faddd5ee57260e95b57ed9e04ea21dd8"
+    }
+  ]
+}

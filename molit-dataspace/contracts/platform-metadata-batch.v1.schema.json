@@ -1,0 +1,309 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://molit-dataspace.example.invalid/schemas/platform-metadata-batch.v1.schema.json",
+  "title": "Platform metadata batch v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "batchId",
+    "sourceSystemId",
+    "mode",
+    "observedAt",
+    "records"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "const": "molit.platform-metadata-batch/1"
+    },
+    "batchId": {
+      "$ref": "#/$defs/identifier"
+    },
+    "sourceSystemId": {
+      "$ref": "#/$defs/identifier"
+    },
+    "mode": {
+      "enum": ["baseline", "delta"]
+    },
+    "observedAt": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "records": {
+      "type": "array",
+      "maxItems": 10000,
+      "items": {
+        "$ref": "#/$defs/event"
+      }
+    }
+  },
+  "$defs": {
+    "nonEmptyString": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 8192
+    },
+    "identifier": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 256,
+      "pattern": "^[^\\s?#@]+$"
+    },
+    "evidenceIds": {
+      "type": "array",
+      "maxItems": 200,
+      "items": {
+        "$ref": "#/$defs/identifier"
+      },
+      "uniqueItems": true
+    },
+    "organization": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "name"],
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^(urn:|https://[^?#]+$)"
+        },
+        "name": {
+          "$ref": "#/$defs/nonEmptyString"
+        }
+      }
+    },
+    "platformRole": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["value", "evidenceIds"],
+      "properties": {
+        "value": {
+          "enum": ["hosted", "brokered", "index-only", "unknown"]
+        },
+        "evidenceIds": {
+          "$ref": "#/$defs/evidenceIds"
+        }
+      }
+    },
+    "providerAuthority": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["kind", "evidenceIds"],
+      "properties": {
+        "kind": {
+          "enum": ["owner", "delegate", "agent"]
+        },
+        "evidenceIds": {
+          "$ref": "#/$defs/evidenceIds"
+        }
+      }
+    },
+    "distribution": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "accessProfile",
+        "format",
+        "mediaType"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "accessProfile": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "format": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "transferFormat": {
+          "type": "string",
+          "pattern": "^(transfer:|urn:)"
+        },
+        "mediaType": {
+          "type": "string",
+          "format": "uri",
+          "pattern": "^https://"
+        },
+        "sourceBindingRef": {
+          "type": "string",
+          "pattern": "^(binding://[A-Za-z0-9][A-Za-z0-9._~-]*(/[A-Za-z0-9][A-Za-z0-9._~-]*)+|urn:[A-Za-z0-9][A-Za-z0-9._~-]*(:[A-Za-z0-9][A-Za-z0-9._~-]*)+)$"
+        },
+        "lifecycleMode": {
+          "enum": ["none", "manual", "token", "entitlement", "subscription", "job"]
+        },
+        "revocationMode": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "evidenceIds": {
+          "$ref": "#/$defs/evidenceIds"
+        }
+      }
+    },
+    "record": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "recordType",
+        "title",
+        "description",
+        "publisher",
+        "landingPage",
+        "issuedAt",
+        "modifiedAt"
+      ],
+      "properties": {
+        "recordType": {
+          "enum": ["dataset", "organization", "system", "use-case", "post"]
+        },
+        "title": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "description": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "publisher": {
+          "$ref": "#/$defs/organization"
+        },
+        "landingPage": {
+          "type": "string",
+          "format": "uri",
+          "pattern": "^https://[^?#]+$"
+        },
+        "issuedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "modifiedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "keywords": {
+          "type": "array",
+          "maxItems": 200,
+          "items": {
+            "$ref": "#/$defs/nonEmptyString"
+          },
+          "uniqueItems": true
+        },
+        "themes": {
+          "type": "array",
+          "maxItems": 200,
+          "items": {
+            "type": "string",
+            "format": "uri",
+            "pattern": "^(urn:|https://[^?#]+$)"
+          },
+          "uniqueItems": true
+        },
+        "evidenceIds": {
+          "$ref": "#/$defs/evidenceIds"
+        },
+        "originDataHolderId": {
+          "$ref": "#/$defs/identifier"
+        },
+        "platformRecordRole": {
+          "$ref": "#/$defs/platformRole"
+        },
+        "accessRights": {
+          "enum": ["open", "registered", "restricted", "secure", "excluded"]
+        },
+        "license": {
+          "type": "string",
+          "format": "uri",
+          "pattern": "^https://[^?#]+$"
+        },
+        "rights": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "providerParticipantId": {
+          "$ref": "#/$defs/identifier"
+        },
+        "connectorOperatorId": {
+          "$ref": "#/$defs/identifier"
+        },
+        "deliveryOperatorId": {
+          "$ref": "#/$defs/identifier"
+        },
+        "contractingPartyId": {
+          "$ref": "#/$defs/identifier"
+        },
+        "providerAuthority": {
+          "$ref": "#/$defs/providerAuthority"
+        },
+        "transferDecision": {
+          "enum": ["approved", "conditional", "pending", "denied"]
+        },
+        "policyRef": {
+          "type": "string",
+          "pattern": "^(policy:[A-Za-z0-9][A-Za-z0-9._~-]*(?::[A-Za-z0-9][A-Za-z0-9._~-]*)*|urn:[A-Za-z0-9][A-Za-z0-9._~-]*(?::[A-Za-z0-9][A-Za-z0-9._~-]*)+)$"
+        },
+        "distributions": {
+          "type": "array",
+          "maxItems": 50,
+          "items": {
+            "$ref": "#/$defs/distribution"
+          }
+        }
+      }
+    },
+    "event": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "eventId",
+        "eventType",
+        "recordId",
+        "resourceVersion",
+        "occurredAt"
+      ],
+      "properties": {
+        "eventId": {
+          "$ref": "#/$defs/identifier"
+        },
+        "eventType": {
+          "enum": ["record.upsert", "record.deleted"]
+        },
+        "recordId": {
+          "$ref": "#/$defs/identifier"
+        },
+        "resourceVersion": {
+          "type": "string",
+          "maxLength": 64,
+          "pattern": "^(0|[1-9][0-9]*)$"
+        },
+        "occurredAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "record": {
+          "$ref": "#/$defs/record"
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "eventType": {
+                "const": "record.upsert"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "record": {
+                "$ref": "#/$defs/record"
+              }
+            },
+            "required": ["record"]
+          },
+          "else": {
+            "not": {
+              "required": ["record"]
+            }
+          }
+        }
+      ]
+    }
+  }
+}

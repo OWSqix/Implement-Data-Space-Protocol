@@ -1,0 +1,720 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://molit-dataspace.example.invalid/schemas/korean-interoperability-register.v1.schema.json",
+  "title": "Korean standards interoperability evidence register v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "asOf",
+    "profileVersion",
+    "claimPolicy",
+    "standards",
+    "referenceSystems",
+    "snapshots",
+    "blindspots"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "const": "molit.korean-interoperability-register/1"
+    },
+    "asOf": {
+      "type": "string",
+      "format": "date"
+    },
+    "profileVersion": {
+      "type": "string",
+      "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+(?:-[0-9A-Za-z.-]+)?$"
+    },
+    "claimPolicy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["institutionalConformanceAllowed", "publicClaim", "blockedClaimPatterns"],
+      "properties": {
+        "institutionalConformanceAllowed": {
+          "const": false
+        },
+        "publicClaim": {
+          "const": "공개 스키마와 고정 공개 fixture를 대상으로 시험한 Working Draft"
+        },
+        "blockedClaimPatterns": {
+          "type": "array",
+          "minItems": 10,
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "minLength": 2,
+            "maxLength": 100
+          }
+        }
+      }
+    },
+    "standards": {
+      "type": "array",
+      "minItems": 10,
+      "items": {
+        "$ref": "#/$defs/standard"
+      }
+    },
+    "referenceSystems": {
+      "type": "array",
+      "minItems": 2,
+      "uniqueItems": true,
+      "items": {
+        "$ref": "#/$defs/referenceSystem"
+      }
+    },
+    "snapshots": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/snapshot"
+      }
+    },
+    "blindspots": {
+      "type": "array",
+      "minItems": 8,
+      "items": {
+        "$ref": "#/$defs/blindspot"
+      }
+    }
+  },
+  "$defs": {
+    "identifier": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 160,
+      "pattern": "^[^\\s]+$"
+    },
+    "sourceIds": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "pattern": "^SRC-[A-Z]+-[0-9]{3}$"
+      }
+    },
+    "standard": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "title",
+        "issuer",
+        "kind",
+        "status",
+        "statusEventType",
+        "statusEventDate",
+        "statusObservedAt",
+        "statusEvidence",
+        "accessMode",
+        "officialUrl",
+        "profileRole",
+        "implementationEvidence",
+        "crosswalkEvidence",
+        "normativeUse",
+        "conformanceClaimAllowed",
+        "blockers",
+        "sourceIds"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/identifier"
+        },
+        "title": {
+          "type": "string",
+          "minLength": 3,
+          "maxLength": 300
+        },
+        "issuer": {
+          "type": "string",
+          "minLength": 2,
+          "maxLength": 100
+        },
+        "kind": {
+          "enum": ["national-standard", "tta-standard", "administrative-rule"]
+        },
+        "status": {
+          "enum": ["current", "retired", "confirmation-required"]
+        },
+        "statusEventType": {
+          "enum": ["established", "revised", "confirmed", "effective", "retired"]
+        },
+        "statusEventDate": {
+          "oneOf": [
+            {
+              "type": "string",
+              "format": "date"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "statusObservedAt": {
+          "type": "string",
+          "format": "date"
+        },
+        "statusEvidence": {
+          "enum": ["official-metadata-verified", "official-retirement-verified", "status-confirmation-required"]
+        },
+        "accessMode": {
+          "enum": ["public-fulltext", "public-html-summary", "paid-fulltext", "login-fulltext"]
+        },
+        "officialUrl": {
+          "type": "string",
+          "format": "uri",
+          "pattern": "^https://"
+        },
+        "profileRole": {
+          "type": "string",
+          "minLength": 3,
+          "maxLength": 160
+        },
+        "implementationEvidence": {
+          "enum": ["not-applicable", "public-schema-identified", "implementation-tested", "not-tested", "blocked-original"]
+        },
+        "crosswalkEvidence": {
+          "enum": ["title-scope-only", "partial-machine-mapping", "full-clause-tested", "clause-crosswalk-blocked", "not-applicable"]
+        },
+        "normativeUse": {
+          "enum": ["allowed-reference", "legacy-only", "prohibited", "pending-review"]
+        },
+        "conformanceClaimAllowed": {
+          "type": "boolean"
+        },
+        "blockers": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "minLength": 3,
+            "maxLength": 160
+          }
+        },
+        "sourceIds": {
+          "$ref": "#/$defs/sourceIds"
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "status": { "const": "current" }
+            },
+            "required": ["status"]
+          },
+          "then": {
+            "properties": {
+              "statusEvidence": { "const": "official-metadata-verified" },
+              "statusEventType": {
+                "enum": ["established", "revised", "confirmed", "effective"]
+              },
+              "normativeUse": {
+                "enum": ["allowed-reference", "pending-review"]
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "status": { "const": "retired" }
+            },
+            "required": ["status"]
+          },
+          "then": {
+            "properties": {
+              "statusEvidence": { "const": "official-retirement-verified" },
+              "statusEventType": { "const": "retired" },
+              "normativeUse": { "const": "prohibited" },
+              "conformanceClaimAllowed": { "const": false }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "status": { "const": "confirmation-required" }
+            },
+            "required": ["status"]
+          },
+          "then": {
+            "properties": {
+              "statusEvidence": { "const": "status-confirmation-required" },
+              "statusEventType": {
+                "enum": ["established", "revised", "confirmed", "effective"]
+              },
+              "normativeUse": {
+                "enum": ["legacy-only", "prohibited", "pending-review"]
+              },
+              "conformanceClaimAllowed": { "const": false }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "statusEventType": {
+                "enum": ["established", "revised", "confirmed", "effective"]
+              }
+            },
+            "required": ["statusEventType"]
+          },
+          "then": {
+            "properties": {
+              "statusEventDate": {
+                "type": "string",
+                "format": "date"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "conformanceClaimAllowed": { "const": true }
+            },
+            "required": ["conformanceClaimAllowed"]
+          },
+          "then": {
+            "properties": {
+              "status": { "const": "current" },
+              "implementationEvidence": { "const": "implementation-tested" },
+              "crosswalkEvidence": { "const": "full-clause-tested" },
+              "blockers": { "type": "array", "maxItems": 0 }
+            }
+          }
+        }
+      ]
+    },
+    "referenceSystem": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "iri",
+        "authority",
+        "code",
+        "label",
+        "status",
+        "statusObservedAt",
+        "officialUrl",
+        "evidenceLevel",
+        "contentAddressed",
+        "snapshotManifest",
+        "snapshotArtifactId",
+        "snapshotSha256",
+        "profileUses",
+        "sourceIds"
+      ],
+      "properties": {
+        "iri": {
+          "type": "string",
+          "format": "uri",
+          "pattern": "^http://www[.]opengis[.]net/def/crs/"
+        },
+        "authority": {
+          "enum": ["OGC", "EPSG"]
+        },
+        "code": {
+          "type": "string",
+          "pattern": "^(?:CRS84|[0-9]{4,6})$"
+        },
+        "label": {
+          "type": "string",
+          "minLength": 3,
+          "maxLength": 200
+        },
+        "status": {
+          "const": "current"
+        },
+        "statusObservedAt": {
+          "type": "string",
+          "format": "date"
+        },
+        "officialUrl": {
+          "type": "string",
+          "format": "uri",
+          "pattern": "^https://www[.]opengis[.]net/def/crs/"
+        },
+        "evidenceLevel": {
+          "const": "content-addressed-offline-snapshot"
+        },
+        "contentAddressed": {
+          "const": true
+        },
+        "snapshotManifest": {
+          "const": "standards/vendor/ogc-crs/2026-07-12/manifest.json"
+        },
+        "snapshotArtifactId": {
+          "type": "string",
+          "pattern": "^(?:OGC-CRS84|EPSG-[0-9]{4,6})$"
+        },
+        "snapshotSha256": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "profileUses": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "enum": ["source-reference", "geometry-literal"]
+          },
+          "contains": {
+            "const": "source-reference"
+          }
+        },
+        "sourceIds": {
+          "$ref": "#/$defs/sourceIds"
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "authority": { "const": "OGC" }
+            },
+            "required": ["authority"]
+          },
+          "then": {
+            "properties": {
+              "code": { "const": "CRS84" },
+              "iri": { "const": "http://www.opengis.net/def/crs/OGC/1.3/CRS84" },
+              "officialUrl": { "const": "https://www.opengis.net/def/crs/OGC/1.3/CRS84" }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "authority": { "const": "EPSG" }
+            },
+            "required": ["authority"]
+          },
+          "then": {
+            "properties": {
+              "code": { "type": "string", "pattern": "^[0-9]{4,6}$" },
+              "iri": {
+                "type": "string",
+                "pattern": "^http://www[.]opengis[.]net/def/crs/EPSG/0/[0-9]{4,6}$"
+              },
+              "officialUrl": {
+                "type": "string",
+                "pattern": "^https://www[.]opengis[.]net/def/crs/EPSG/0/[0-9]{4,6}$"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "snapshot": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "sourceUrl",
+        "landingPage",
+        "retrievedAt",
+        "requestAccept",
+        "responseContentType",
+        "path",
+        "sha256",
+        "bytes",
+        "expectedDisposition",
+        "expectedShaclResults",
+        "observations",
+        "liveFetchInCi",
+        "sourceIds"
+      ],
+      "properties": {
+        "id": { "$ref": "#/$defs/identifier" },
+        "sourceUrl": {
+          "type": "string",
+          "format": "uri",
+          "pattern": "^https://"
+        },
+        "landingPage": {
+          "type": "string",
+          "format": "uri",
+          "pattern": "^https://"
+        },
+        "retrievedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "requestAccept": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 100
+        },
+        "responseContentType": {
+          "type": "string",
+          "minLength": 3,
+          "maxLength": 100
+        },
+        "path": {
+          "type": "string",
+          "pattern": "^fixtures/interoperability/[A-Za-z0-9._-]+$"
+        },
+        "sha256": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "bytes": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 1048576
+        },
+        "expectedDisposition": {
+          "const": "quarantine"
+        },
+        "expectedShaclResults": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 500
+        },
+        "observations": {
+          "type": "array",
+          "minItems": 5,
+          "uniqueItems": true,
+          "items": {
+            "$ref": "#/$defs/portalObservation"
+          }
+        },
+        "liveFetchInCi": {
+          "const": false
+        },
+        "sourceIds": {
+          "$ref": "#/$defs/sourceIds"
+        }
+      }
+    },
+    "portalObservation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["code", "category", "finding"],
+      "properties": {
+        "code": {
+          "type": "string",
+          "pattern": "^PDP-[A-Z0-9-]+$"
+        },
+        "category": {
+          "enum": [
+            "datatype-lexical-error",
+            "dcat-ap-conformance-error",
+            "molit-profile-requirement",
+            "adapter-normalization",
+            "enrichment-required"
+          ]
+        },
+        "finding": {
+          "type": "string",
+          "minLength": 5,
+          "maxLength": 300
+        }
+      }
+    },
+    "blindspot": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "severity",
+        "finding",
+        "status",
+        "evidence",
+        "releaseGateRequired",
+        "currentlyBlocksRelease"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^BS-[A-Z0-9-]+$"
+        },
+        "severity": {
+          "enum": ["P0", "P1", "P2"]
+        },
+        "finding": {
+          "type": "string",
+          "minLength": 5,
+          "maxLength": 400
+        },
+        "status": {
+          "enum": ["fixed", "partially-tested", "open", "blocked-external-evidence", "not-applicable"]
+        },
+        "evidence": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "$ref": "#/$defs/blindspotEvidence"
+          }
+        },
+        "releaseGateRequired": {
+          "type": "boolean"
+        },
+        "currentlyBlocksRelease": {
+          "type": "boolean"
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "status": { "enum": ["fixed", "not-applicable"] }
+            },
+            "required": ["status"]
+          },
+          "then": {
+            "properties": {
+              "currentlyBlocksRelease": { "const": false }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "status": {
+                "enum": ["partially-tested", "open", "blocked-external-evidence"]
+              },
+              "releaseGateRequired": { "const": true }
+            },
+            "required": ["status", "releaseGateRequired"]
+          },
+          "then": {
+            "properties": {
+              "currentlyBlocksRelease": { "const": true }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "releaseGateRequired": { "const": false }
+            },
+            "required": ["releaseGateRequired"]
+          },
+          "then": {
+            "properties": {
+              "currentlyBlocksRelease": { "const": false }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "currentlyBlocksRelease": { "const": true }
+            },
+            "required": ["currentlyBlocksRelease"]
+          },
+          "then": {
+            "properties": {
+              "status": {
+                "enum": ["partially-tested", "open", "blocked-external-evidence"]
+              },
+              "releaseGateRequired": { "const": true }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "status": { "const": "fixed" }
+            },
+            "required": ["status"]
+          },
+          "then": {
+            "properties": {
+              "evidence": {
+                "type": "array",
+                "contains": {
+                  "anyOf": [
+                    {
+                      "type": "object",
+                      "properties": {
+                        "kind": { "const": "repository-file" }
+                      },
+                      "required": ["kind"]
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "kind": { "const": "control-id" },
+                        "status": { "const": "implemented" }
+                      },
+                      "required": ["kind", "status"]
+                    }
+                  ]
+                },
+                "minContains": 1
+              }
+            }
+          }
+        }
+      ]
+    },
+    "blindspotEvidence": {
+      "oneOf": [
+        { "$ref": "#/$defs/repositoryFileEvidence" },
+        { "$ref": "#/$defs/sourceIdEvidence" },
+        { "$ref": "#/$defs/controlIdEvidence" },
+        { "$ref": "#/$defs/noteEvidence" }
+      ]
+    },
+    "repositoryFileEvidence": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["kind", "path"],
+      "properties": {
+        "kind": { "const": "repository-file" },
+        "path": {
+          "type": "string",
+          "pattern": "^(?:contracts|docs|fixtures|profiles|src|tests|tools)/(?:[A-Za-z0-9_-](?:[A-Za-z0-9._-]*[A-Za-z0-9_-])?)(?:/(?:[A-Za-z0-9_-](?:[A-Za-z0-9._-]*[A-Za-z0-9_-])?))*$"
+        }
+      }
+    },
+    "sourceIdEvidence": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["kind", "value"],
+      "properties": {
+        "kind": { "const": "source-id" },
+        "value": {
+          "type": "string",
+          "pattern": "^SRC-[A-Z]+-[0-9]{3}$"
+        }
+      }
+    },
+    "controlIdEvidence": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["kind", "value", "status"],
+      "properties": {
+        "kind": { "const": "control-id" },
+        "value": {
+          "type": "string",
+          "pattern": "^[A-Z][A-Z0-9]*(?:-[A-Z0-9]+){1,7}$"
+        },
+        "status": {
+          "enum": ["implemented", "open", "reference"]
+        }
+      }
+    },
+    "noteEvidence": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["kind", "value"],
+      "properties": {
+        "kind": { "const": "note" },
+        "value": {
+          "type": "string",
+          "minLength": 3,
+          "maxLength": 240,
+          "pattern": "^(?![A-Z][A-Z0-9]*(?:-[A-Z0-9]+){1,7}$)(?!.*[\\\\/:])(?!.*(?:^| )[.]{1,2}(?: |$))[A-Za-z0-9][A-Za-z0-9 ._=+-]{2,239}$"
+        }
+      }
+    }
+  }
+}

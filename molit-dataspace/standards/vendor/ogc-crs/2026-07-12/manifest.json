@@ -1,0 +1,124 @@
+{
+  "schemaVersion": "molit.crs-snapshot-manifest/1",
+  "authority": "Open Geospatial Consortium CRS Resolver",
+  "retrievedAt": "2026-07-12T12:46:00Z",
+  "requestAccept": "application/gml+xml",
+  "epsgTermsUrl": "https://epsg.org/terms-of-use.html",
+  "coordinateSystemAuthority": "EPSG Geodetic Parameter Dataset API",
+  "coordinateSystemRetrievedAt": "2026-07-12T12:50:55Z",
+  "coordinateSystemRequestAccept": "application/json",
+  "coordinateSystems": [
+    {
+      "id": "EPSG-CS-4530",
+      "code": 4530,
+      "sourceUrl": "https://apps.epsg.org/api/v1/CoordSystem/4530",
+      "path": "standards/vendor/ogc-crs/2026-07-12/EPSG-CS-4530.json",
+      "bytes": 1152,
+      "sha256": "04203517fe717ec70c307cce9d86ef07af7e137f3cf3f05699482a0b9a725e77",
+      "responseContentType": "application/json; charset=utf-8",
+      "type": "Cartesian",
+      "dimension": 2,
+      "name": "Cartesian 2D CS. Axes: northing, easting (X,Y). Orientations: north, east. UoM: m.",
+      "liveFetchInCi": false
+    },
+    {
+      "id": "EPSG-CS-6422",
+      "code": 6422,
+      "sourceUrl": "https://apps.epsg.org/api/v1/CoordSystem/6422",
+      "path": "standards/vendor/ogc-crs/2026-07-12/EPSG-CS-6422.json",
+      "bytes": 1571,
+      "sha256": "47ee124159a444ac3b16e892c72f300af5efdabe0620ebdc41f3e216a20ec60a",
+      "responseContentType": "application/json; charset=utf-8",
+      "type": "ellipsoidal",
+      "dimension": 2,
+      "name": "Ellipsoidal 2D CS. Axes: latitude, longitude. Orientations: north, east. UoM: degree",
+      "liveFetchInCi": false
+    }
+  ],
+  "artifacts": [
+    {
+      "id": "OGC-CRS84",
+      "sourceUrl": "https://www.opengis.net/def/crs/OGC/1.3/CRS84",
+      "canonicalIri": "http://www.opengis.net/def/crs/OGC/1.3/CRS84",
+      "path": "standards/vendor/ogc-crs/2026-07-12/CRS84.xml",
+      "bytes": 11375,
+      "sha256": "f44995453dae1d219ef4eb9633f5fa1ad26ce02adace8aab5cbc2a15a0c77727",
+      "xmlEncoding": "ISO-8859-1",
+      "rootElement": "GeodeticCRS",
+      "identifier": "https://www.opengis.net/def/crs/OGC/1.3/CRS84",
+      "name": "WGS 84 longitude-latitude"
+    },
+    {
+      "id": "EPSG-4737",
+      "sourceUrl": "https://www.opengis.net/def/crs/EPSG/0/4737",
+      "canonicalIri": "http://www.opengis.net/def/crs/EPSG/0/4737",
+      "path": "standards/vendor/ogc-crs/2026-07-12/EPSG-4737.xml",
+      "bytes": 2234,
+      "sha256": "dbfb10c537673e72952f2358f588ab60f241c4d0f0367132486e0bd851612a3f",
+      "xmlEncoding": "UTF-8",
+      "rootElement": "GeodeticCRS",
+      "identifier": "4737",
+      "name": "KGD2002"
+    },
+    {
+      "id": "EPSG-5179",
+      "sourceUrl": "https://www.opengis.net/def/crs/EPSG/0/5179",
+      "canonicalIri": "http://www.opengis.net/def/crs/EPSG/0/5179",
+      "path": "standards/vendor/ogc-crs/2026-07-12/EPSG-5179.xml",
+      "bytes": 1733,
+      "sha256": "acf25f10b81a05c0a5cab8b35fbe87f358266b0286391bb777b2888442b8c21b",
+      "xmlEncoding": "UTF-8",
+      "rootElement": "ProjectedCRS",
+      "identifier": "5179",
+      "name": "KGD2002 / Unified CS"
+    },
+    {
+      "id": "EPSG-5185",
+      "sourceUrl": "https://www.opengis.net/def/crs/EPSG/0/5185",
+      "canonicalIri": "http://www.opengis.net/def/crs/EPSG/0/5185",
+      "path": "standards/vendor/ogc-crs/2026-07-12/EPSG-5185.xml",
+      "bytes": 1854,
+      "sha256": "bf5d60567becb7b707258e8b120939a63b8ba266507dca4f090a4b3c943c1134",
+      "xmlEncoding": "UTF-8",
+      "rootElement": "ProjectedCRS",
+      "identifier": "5185",
+      "name": "KGD2002 / West Belt 2010"
+    },
+    {
+      "id": "EPSG-5186",
+      "sourceUrl": "https://www.opengis.net/def/crs/EPSG/0/5186",
+      "canonicalIri": "http://www.opengis.net/def/crs/EPSG/0/5186",
+      "path": "standards/vendor/ogc-crs/2026-07-12/EPSG-5186.xml",
+      "bytes": 1934,
+      "sha256": "7919765e518be495a9b53187a297cd70b3826b589fa420468ffd5bd852bc3f8f",
+      "xmlEncoding": "UTF-8",
+      "rootElement": "ProjectedCRS",
+      "identifier": "5186",
+      "name": "KGD2002 / Central Belt 2010"
+    },
+    {
+      "id": "EPSG-5187",
+      "sourceUrl": "https://www.opengis.net/def/crs/EPSG/0/5187",
+      "canonicalIri": "http://www.opengis.net/def/crs/EPSG/0/5187",
+      "path": "standards/vendor/ogc-crs/2026-07-12/EPSG-5187.xml",
+      "bytes": 1854,
+      "sha256": "60f528f9f69d96d6127c318cd2b7ba791938ccfc0c1f89372491809e458653c4",
+      "xmlEncoding": "UTF-8",
+      "rootElement": "ProjectedCRS",
+      "identifier": "5187",
+      "name": "KGD2002 / East Belt 2010"
+    },
+    {
+      "id": "EPSG-5188",
+      "sourceUrl": "https://www.opengis.net/def/crs/EPSG/0/5188",
+      "canonicalIri": "http://www.opengis.net/def/crs/EPSG/0/5188",
+      "path": "standards/vendor/ogc-crs/2026-07-12/EPSG-5188.xml",
+      "bytes": 1874,
+      "sha256": "e51466b13017bb544a30b7425a4b9ffd0bdf48a6aa1876d3a07fe561543bbe2e",
+      "xmlEncoding": "UTF-8",
+      "rootElement": "ProjectedCRS",
+      "identifier": "5188",
+      "name": "KGD2002 / East Sea Belt 2010"
+    }
+  ]
+}

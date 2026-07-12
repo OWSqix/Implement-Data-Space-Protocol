@@ -1,0 +1,374 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://molit-dataspace.example.invalid/schemas/outbox-envelope.v2.schema.json",
+  "title": "Synthetic review outbox envelope v2",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "automaticDispatchAllowed",
+    "family",
+    "id",
+    "sequence",
+    "type",
+    "aggregateKey",
+    "resourceVersion",
+    "routing",
+    "status",
+    "trustMode",
+    "payload"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "const": "molit.review-outbox-envelope/2"
+    },
+    "automaticDispatchAllowed": {
+      "const": false
+    },
+    "family": {
+      "enum": ["discovery", "connector-review"]
+    },
+    "id": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "sequence": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 9007199254740991
+    },
+    "type": {
+      "enum": [
+        "DISCOVERY_UPSERT",
+        "DISCOVERY_DELETE",
+        "CONNECTOR_REGISTRATION_REVIEW",
+        "CONNECTOR_REGISTRATION_REVIEW_REPLACE",
+        "CONNECTOR_REGISTRATION_REVIEW_WITHDRAW"
+      ]
+    },
+    "aggregateKey": {
+      "type": "string",
+      "minLength": 3,
+      "maxLength": 1536
+    },
+    "resourceVersion": {
+      "$ref": "#/$defs/resourceVersion"
+    },
+    "routing": {
+      "enum": ["synthetic-discovery-review-only", "internal-review-only"]
+    },
+    "status": {
+      "enum": ["pending", "superseded"]
+    },
+    "trustMode": {
+      "const": "synthetic-test-only"
+    },
+    "payload": {
+      "type": "object"
+    },
+    "approvalGate": {
+      "$ref": "#/$defs/approvalGate"
+    },
+    "supersededBy": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    }
+  },
+  "$defs": {
+    "identifier": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 256,
+      "pattern": "^[^\\s?#@]+$"
+    },
+    "digest": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "resourceVersion": {
+      "type": "string",
+      "maxLength": 64,
+      "pattern": "^(0|[1-9][0-9]*)$"
+    },
+    "approvalGate": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "approvalRegistryDigest",
+        "registryId",
+        "approvalEntryDigest",
+        "approvalId",
+        "approverId",
+        "sourceSystemId",
+        "recordId",
+        "resourceVersion",
+        "recordDigest",
+        "approvedAt",
+        "validUntil",
+        "catalogVisibility",
+        "offeringDecision",
+        "evaluatedAt",
+        "payloadDigest",
+        "projectionConfigDigest"
+      ],
+      "properties": {
+        "approvalRegistryDigest": {
+          "$ref": "#/$defs/digest"
+        },
+        "registryId": {
+          "$ref": "#/$defs/identifier"
+        },
+        "approvalEntryDigest": {
+          "$ref": "#/$defs/digest"
+        },
+        "approvalId": {
+          "$ref": "#/$defs/identifier"
+        },
+        "approverId": {
+          "$ref": "#/$defs/identifier"
+        },
+        "sourceSystemId": {
+          "$ref": "#/$defs/identifier"
+        },
+        "recordId": {
+          "$ref": "#/$defs/identifier"
+        },
+        "resourceVersion": {
+          "$ref": "#/$defs/resourceVersion"
+        },
+        "recordDigest": {
+          "$ref": "#/$defs/digest"
+        },
+        "approvedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "validUntil": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "catalogVisibility": {
+          "enum": ["public", "qualified", "internal", "hidden"]
+        },
+        "offeringDecision": {
+          "enum": ["approved", "pending", "denied"]
+        },
+        "evaluatedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "payloadDigest": {
+          "$ref": "#/$defs/digest"
+        },
+        "projectionConfigDigest": {
+          "$ref": "#/$defs/digest"
+        }
+      }
+    },
+    "source": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["systemId", "recordId"],
+      "properties": {
+        "systemId": { "$ref": "#/$defs/identifier" },
+        "recordId": { "$ref": "#/$defs/identifier" }
+      }
+    },
+    "discoveryDelete": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["schemaVersion", "source", "reason"],
+      "properties": {
+        "schemaVersion": { "const": "molit.discovery-delete/1" },
+        "source": { "$ref": "#/$defs/source" },
+        "reason": {
+          "enum": [
+            "SOURCE_DELETED",
+            "RECORD_QUARANTINED",
+            "DISCOVERY_APPROVAL_MISSING",
+            "DISCOVERY_NOT_PUBLIC",
+            "S1_NON_OPEN_DISCOVERY_BLOCKED"
+          ]
+        }
+      }
+    },
+    "registrationReplacement": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schemaVersion",
+        "automaticDispatchAllowed",
+        "routing",
+        "previousDatasetIds",
+        "candidate",
+        "reason"
+      ],
+      "properties": {
+        "schemaVersion": { "const": "molit.connector-registration-replacement/1" },
+        "automaticDispatchAllowed": { "const": false },
+        "routing": { "const": "internal-review-only" },
+        "previousDatasetIds": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 50,
+          "uniqueItems": true,
+          "items": { "type": "string", "pattern": "^urn:" }
+        },
+        "candidate": {
+          "$ref": "https://molit-dataspace.example.invalid/schemas/connector-registration-candidate.v1.schema.json"
+        },
+        "reason": {
+          "enum": ["APPROVAL_REEVALUATED", "PROJECTION_CONFIG_CHANGED"]
+        }
+      }
+    },
+    "registrationWithdrawal": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["schemaVersion", "source", "candidateDatasetIds", "reason"],
+      "properties": {
+        "schemaVersion": { "const": "molit.connector-registration-withdrawal/1" },
+        "source": { "$ref": "#/$defs/source" },
+        "candidateDatasetIds": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 50,
+          "uniqueItems": true,
+          "items": { "type": "string", "pattern": "^urn:" }
+        },
+        "reason": {
+          "enum": [
+            "SOURCE_DELETED",
+            "RECORD_QUARANTINED",
+            "APPROVAL_REEVALUATED",
+            "CATALOG_ONLY",
+            "PENDING_EVIDENCE",
+            "QUARANTINED"
+          ]
+        }
+      }
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "family": {
+            "const": "discovery"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "type": {
+            "enum": ["DISCOVERY_UPSERT", "DISCOVERY_DELETE"]
+          },
+          "routing": {
+            "const": "synthetic-discovery-review-only"
+          }
+        }
+      },
+      "else": {
+        "properties": {
+          "type": {
+            "enum": [
+              "CONNECTOR_REGISTRATION_REVIEW",
+              "CONNECTOR_REGISTRATION_REVIEW_REPLACE",
+              "CONNECTOR_REGISTRATION_REVIEW_WITHDRAW"
+            ]
+          },
+          "routing": {
+            "const": "internal-review-only"
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "status": {
+            "const": "superseded"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "supersededBy": {
+            "type": "string",
+            "pattern": "^[a-f0-9]{64}$"
+          }
+        },
+        "required": ["supersededBy"]
+      },
+      "else": {
+        "not": {
+          "required": ["supersededBy"]
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "type": {
+            "enum": [
+              "DISCOVERY_UPSERT",
+              "CONNECTOR_REGISTRATION_REVIEW",
+              "CONNECTOR_REGISTRATION_REVIEW_REPLACE"
+            ]
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "approvalGate": {
+            "$ref": "#/$defs/approvalGate"
+          }
+        },
+        "required": ["approvalGate"]
+      },
+      "else": {
+        "not": {
+          "required": ["approvalGate"]
+        }
+      }
+    },
+    {
+      "oneOf": [
+        {
+          "properties": {
+            "type": { "const": "DISCOVERY_UPSERT" },
+            "payload": {
+              "$ref": "https://molit-dataspace.example.invalid/schemas/discovery-record.v1.schema.json"
+            }
+          }
+        },
+        {
+          "properties": {
+            "type": { "const": "DISCOVERY_DELETE" },
+            "payload": { "$ref": "#/$defs/discoveryDelete" }
+          }
+        },
+        {
+          "properties": {
+            "type": { "const": "CONNECTOR_REGISTRATION_REVIEW" },
+            "payload": {
+              "$ref": "https://molit-dataspace.example.invalid/schemas/connector-registration-candidate.v1.schema.json"
+            }
+          }
+        },
+        {
+          "properties": {
+            "type": { "const": "CONNECTOR_REGISTRATION_REVIEW_REPLACE" },
+            "payload": { "$ref": "#/$defs/registrationReplacement" }
+          }
+        },
+        {
+          "properties": {
+            "type": { "const": "CONNECTOR_REGISTRATION_REVIEW_WITHDRAW" },
+            "payload": { "$ref": "#/$defs/registrationWithdrawal" }
+          }
+        }
+      ]
+    }
+  ]
+}

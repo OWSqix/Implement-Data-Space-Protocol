@@ -1,0 +1,9 @@
+{
+  "schemaVersion": "molit.provider-authority-registry/1",
+  "registryId": "molit-provider-authority-working-draft",
+  "asOf": "2026-07-12T00:00:00+09:00",
+  "trustMode": "production-evidence-required",
+  "revocationMaxAgeSeconds": 86400,
+  "releaseDecision": "blocked-no-approved-authority",
+  "entries": []
+}

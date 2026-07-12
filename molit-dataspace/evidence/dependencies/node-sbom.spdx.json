@@ -1,0 +1,4761 @@
+{
+  "SPDXID": "SPDXRef-DOCUMENT",
+  "creationInfo": {
+    "created": "2026-07-12T00:00:00Z",
+    "creators": [
+      "Tool: npm/cli-11.13.0"
+    ]
+  },
+  "dataLicense": "CC0-1.0",
+  "documentDescribes": [
+    "SPDXRef-Package-molit-dataspace-platform-bridge-0.1.0"
+  ],
+  "documentNamespace": "https://data.molit.go.kr/sbom/node/fbf958ebccbc346e2d5fd995b30b59e4a0bbd80272a66d77d2c522cbe330bb31",
+  "name": "molit-dataspace-platform-bridge@0.1.0",
+  "packages": [
+    {
+      "SPDXID": "SPDXRef-Package-molit-dataspace-platform-bridge-0.1.0",
+      "description": "Connector-neutral Platform Bridge for MOLIT dataspace integration",
+      "downloadLocation": "NOASSERTION",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceLocator": "pkg:npm/molit-dataspace-platform-bridge@0.1.0",
+          "referenceType": "purl"
+        }
+      ],
+      "filesAnalyzed": false,
+      "homepage": "NOASSERTION",
+      "licenseDeclared": "NOASSERTION",
+      "name": "molit-dataspace-platform-bridge",
+      "packageFileName": "",
+      "primaryPackagePurpose": "LIBRARY",
+      "versionInfo": "0.1.0"
+    },
+    {
+      "SPDXID": "SPDXRef-Package-digitalbazaar.http-client-4.3.0",
+      "checksums": [
+        {
+          "algorithm": "SHA512",
+          "checksumValue": "ea5329c69b7d04e9aa1ca1acf579ba0cfe0b9594c115eaff6631ef3f715c5b721a516608582eddc39445667bf0e1f3f9ee4015726d5da77205f98e74aa106f03"
+        }
+      ],
+      "downloadLocation": "https://registry.npmjs.org/@digitalbazaar/http-client/-/http-client-4.3.0.tgz",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceLocator": "pkg:npm/%40digitalbazaar/http-client@4.3.0",
+          "referenceType": "purl"
+        }
+      ],
+      "filesAnalyzed": false,
+      "homepage": "NOASSERTION",
+      "licenseDeclared": "BSD-3-Clause",
+      "name": "@digitalbazaar/http-client",
+      "packageFileName": "node_modules/@digitalbazaar/http-client",
+      "versionInfo": "4.3.0"
+    },
+    {
+      "SPDXID": "SPDXRef-Package-nodelib.fs.scandir-2.1.5",
+      "checksums": [
+        {
+          "algorithm": "SHA512",
+          "checksumValue": "beadb806adf29b91c4426d8d282af7c970f08dceef4ec1138510e7929d832bda75baa2d1f831eeae6fcd393a34286ec760753b7a9a4a663dcccaa62e3017fada"
+        }
+      ],
+      "downloadLocation": "https://registry.npmjs.org/@nodelib/fs.scandir/-/fs.scandir-2.1.5.tgz",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceLocator": "pkg:npm/%40nodelib/fs.scandir@2.1.5",
+          "referenceType": "purl"
+        }
+      ],
+      "filesAnalyzed": false,
+      "homepage": "NOASSERTION",
+      "licenseDeclared": "MIT",
+      "name": "@nodelib/fs.scandir",
+      "packageFileName": "node_modules/@nodelib/fs.scandir",
+      "versionInfo": "2.1.5"
+    },
+    {
+      "SPDXID": "SPDXRef-Package-nodelib.fs.stat-2.0.5",
+      "checksums": [
+        {
+          "algorithm": "SHA512",
+          "checksumValue": "46484f3e9db3aea0c0400ff68cd867ced70f025bfae17761229edaef8e78039a2f23b06e93182decc5fbb9dc00bb7ce0d437293d4d2bcf7555d5279aaaf638f8"
+        }
+      ],
+      "downloadLocation": "https://registry.npmjs.org/@nodelib/fs.stat/-/fs.stat-2.0.5.tgz",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceLocator": "pkg:npm/%40nodelib/fs.stat@2.0.5",
+          "referenceType": "purl"
+        }
+      ],
+      "filesAnalyzed": false,
+      "homepage": "NOASSERTION",
+      "licenseDeclared": "MIT",
+      "name": "@nodelib/fs.stat",
+      "packageFileName": "node_modules/@nodelib/fs.stat",
+      "versionInfo": "2.0.5"
+    },
+    {
+      "SPDXID": "SPDXRef-Package-nodelib.fs.walk-1.2.8",
+      "checksums": [
+        {
+          "algorithm": "SHA512",
+          "checksumValue": "a0607e53196059c810920c28f067041b07a6a1316ddc520ef5a6da6c199a1b05c8a01299f864f2d293f5f396de1a0ecb96287f3521d25765c0b35967ce7a1c4a"
+        }
+      ],
+      "downloadLocation": "https://registry.npmjs.org/@nodelib/fs.walk/-/fs.walk-1.2.8.tgz",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceLocator": "pkg:npm/%40nodelib/fs.walk@1.2.8",
+          "referenceType": "purl"
+        }
+      ],
+      "filesAnalyzed": false,
+      "homepage": "NOASSERTION",
+      "licenseDeclared": "MIT",
+      "name": "@nodelib/fs.walk",
+      "packageFileName": "node_modules/@nodelib/fs.walk",
+      "versionInfo": "1.2.8"
+    },
+    {
+      "SPDXID": "SPDXRef-Package-rdfjs.data-model-2.1.2",
+      "checksums": [
+        {
+          "algorithm": "SHA512",
+          "checksumValue": "ca84959720a5b6a6da093b1edee49d7f9568deae14b247139bede495a5104f03aaed9e5a0992ed2cf65ab574cfcebf92d1611c8d366f0fef80fabdd09a06a6b0"
+        }
+      ],
+      "downloadLocation": "https://registry.npmjs.org/@rdfjs/data-model/-/data-model-2.1.2.tgz",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceLocator": "pkg:npm/%40rdfjs/data-model@2.1.2",
+          "referenceType": "purl"
+        }
+      ],
+      "filesAnalyzed": false,
+      "homepage": "NOASSERTION",
+      "licenseDeclared": "MIT",
+      "name": "@rdfjs/data-model",
+      "packageFileName": "node_modules/@rdfjs/data-model",
+      "versionInfo": "2.1.2"
+    },
+    {
+      "SPDXID": "SPDXRef-Package-rdfjs.dataset-2.0.3",
+      "checksums": [
+        {
+          "algorithm": "SHA512",
+          "checksumValue": "52be8cd270c55cc2563587b52010c169057f9c8c116dedfe239f2cc8e1e7cd935b7bb647ba650e4bfd17435fbd598177d6d99053bc3be353119fa5b727e3937a"
+        }
+      ],
+      "downloadLocation": "https://registry.npmjs.org/@rdfjs/dataset/-/dataset-2.0.3.tgz",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceLocator": "pkg:npm/%40rdfjs/dataset@2.0.3",
+          "referenceType": "purl"
+        }
+      ],
+      "filesAnalyzed": false,
+      "homepage": "NOASSERTION",
+      "licenseDeclared": "MIT",
+      "name": "@rdfjs/dataset",
+      "packageFileName": "node_modules/@rdfjs/dataset",
+      "versionInfo": "2.0.3"
+    },
+    {
+      "SPDXID": "SPDXRef-Package-rdfjs.environment-1.0.0",
+      "checksums": [
+        {
+          "algorithm": "SHA512",
+          "checksumValue": "f92e588d2bdfa10479afb610091082547bc8132ad689aec526fda0a8cdece440dfa2da0042615e05a800a5af5cfde4058b91223619811021399c1f0b2314da1e"
+        }
+      ],
+      "downloadLocation": "https://registry.npmjs.org/@rdfjs/environment/-/environment-1.0.0.tgz",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceLocator": "pkg:npm/%40rdfjs/environment@1.0.0",
+          "referenceType": "purl"
+        }
+      ],
+      "filesAnalyzed": false,
+      "homepage": "NOASSERTION",
+      "licenseDeclared": "MIT",
+      "name": "@rdfjs/environment",
+      "packageFileName": "node_modules/@rdfjs/environment",
+      "versionInfo": "1.0.0"
+    },
+    {
+      "SPDXID": "SPDXRef-Package-rdfjs.namespace-2.0.1",
+      "checksums": [
+        {
+          "algorithm": "SHA512",
+          "checksumValue": "53ce4d5951a72f7816bce678797c1472fdff6e89bb3c072eb52050aa6556bce6ac94fcbe903cc02421f559804ba5d41de3232627e6e925c0e5f6b707b577a2c6"
+        }
+      ],
+      "downloadLocation": "https://registry.npmjs.org/@rdfjs/namespace/-/namespace-2.0.1.tgz",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceLocator": "pkg:npm/%40rdfjs/namespace@2.0.1",
+          "referenceType": "purl"
+        }
+      ],
+      "filesAnalyzed": false,
+      "homepage": "NOASSERTION",
+      "licenseDeclared": "MIT",
+      "name": "@rdfjs/namespace",
+      "packageFileName": "node_modules/@rdfjs/namespace",
+      "versionInfo": "2.0.1"
+    },
+    {
+      "SPDXID": "SPDXRef-Package-rdfjs.term-map-2.0.2",
+      "checksums": [
+        {
+          "algorithm": "SHA512",
+          "checksumValue": "109d859a674452c491fed5359eb8b344b5b31f6e18ce1baf7acadb516c42dc5b348a560d76d4db83445a1490d49c91771e46cd0507bc66bb7fbaf53f85c2a71e"
+        }
+      ],
+      "downloadLocation": "https://registry.npmjs.org/@rdfjs/term-map/-/term-map-2.0.2.tgz",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceLocator": "pkg:npm/%40rdfjs/term-map@2.0.2",
+          "referenceType": "purl"
+        }
+      ],
+      "filesAnalyzed": false,
+      "homepage": "NOASSERTION",
+      "licenseDeclared": "MIT",
+      "name": "@rdfjs/term-map",
+      "packageFileName": "node_modules/@rdfjs/term-map",
+      "versionInfo": "2.0.2"
+    },
+    {
+      "SPDXID": "SPDXRef-Package-rdfjs.term-set-2.0.3",
+      "checksums": [
+        {
+          "algorithm": "SHA512",
+          "checksumValue": "0f25eb296131fa6b4015465553b6dcdd56bafca67c3ec229d1155dc964fd8df0e023f1c2bcd8ac65a06d01c9be4984c2e39a3eed62e46ee7649356df68a541d0"
+        }
+      ],
+      "downloadLocation": "https://registry.npmjs.org/@rdfjs/term-set/-/term-set-2.0.3.tgz",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceLocator": "pkg:npm/%40rdfjs/term-set@2.0.3",
+          "referenceType": "purl"
+        }
+      ],
+      "filesAnalyzed": false,
+      "homepage": "NOASSERTION",
+      "licenseDeclared": "MIT",
+      "name": "@rdfjs/term-set",
+      "packageFileName": "node_modules/@rdfjs/term-set",
+      "versionInfo": "2.0.3"
+    },
+    {
+      "SPDXID": "SPDXRef-Package-rdfjs.to-ntriples-3.0.1",
+      "checksums": [
+        {
+          "algorithm": "SHA512",
+          "checksumValue": "823a0f02f8788fb01b18c8dc0e7ffc478716f9dfc53ed6df6cc334b905e4c9f045b4d516da2560aeab2027ae6ba0b739e18f40d934c569e793192bd8f5ad0709"
+        }
+      ],
+      "downloadLocation": "https://registry.npmjs.org/@rdfjs/to-ntriples/-/to-ntriples-3.0.1.tgz",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceLocator": "pkg:npm/%40rdfjs/to-ntriples@3.0.1",
+          "referenceType": "purl"
+        }
+      ],
+      "filesAnalyzed": false,
+      "homepage": "NOASSERTION",
+      "licenseDeclared": "MIT",
+      "name": "@rdfjs/to-ntriples",
+      "packageFileName": "node_modules/@rdfjs/to-ntriples",
+      "versionInfo": "3.0.1"
+    },
+    {
+      "SPDXID": "SPDXRef-Package-rdfjs.types-2.0.1",
+      "checksums": [
+        {
+          "algorithm": "SHA512",
+          "checksumValue": "bb2033a6e817eca7a4017007ab6ea6dc995421924e0b4b92061a6779f195e62d796debc3cb27a3a01ec8fbd30a794af35c3f0e394237fb815e575c3042be6284"
+        }
+      ],
+      "downloadLocation": "https://registry.npmjs.org/@rdfjs/types/-/types-2.0.1.tgz",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceLocator": "pkg:npm/%40rdfjs/types@2.0.1",
+          "referenceType": "purl"
+        }
+      ],
+      "filesAnalyzed": false,
+      "homepage": "NOASSERTION",
+      "licenseDeclared": "MIT",
+      "name": "@rdfjs/types",
+      "packageFileName": "node_modules/@rdfjs/types",
+      "versionInfo": "2.0.1"
+    },
+    {
+      "SPDXID": "SPDXRef-Package-rubensworks.saxes-6.0.1",
+      "checksums": [
+        {
+          "algorithm": "SHA512",
+          "checksumValue": "516e0e4c8b0eb49e4a497a364dc862e25859aaefad947ace02ce2736d8bb0abb41e77900665dff872ad38ba1e432287175b0ccea6d99737b3073f65ec047b5c7"
+        }
+      ],
+      "downloadLocation": "https://registry.npmjs.org/@rubensworks/saxes/-/saxes-6.0.1.tgz",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceLocator": "pkg:npm/%40rubensworks/saxes@6.0.1",
+          "referenceType": "purl"
+        }
+      ],
+      "filesAnalyzed": false,
+      "homepage": "NOASSERTION",
+      "licenseDeclared": "ISC",
+      "name": "@rubensworks/saxes",
+      "packageFileName": "node_modules/@rubensworks/saxes",
+      "versionInfo": "6.0.1"
+    },
+    {
+      "SPDXID": "SPDXRef-Package-sindresorhus.merge-streams-4.0.0",
+      "checksums": [
+        {
+          "algorithm": "SHA512",
+          "checksumValue": "b65a98f71ab9ba4c53519066a0ea7e9bad5cab0403e691c9b45637327f0203ca6ceb28212c7fc7c3c50f76a83838b9855b720595c5e740d9a8fdd87c1f35d821"
+        }
+      ],
+      "downloadLocation": "https://registry.npmjs.org/@sindresorhus/merge-streams/-/merge-streams-4.0.0.tgz",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceLocator": "pkg:npm/%40sindresorhus/merge-streams@4.0.0",
+          "referenceType": "purl"
+        }
+      ],
+      "filesAnalyzed": false,
+      "homepage": "NOASSERTION",
+      "licenseDeclared": "MIT",
+      "name": "@sindresorhus/merge-streams",
+      "packageFileName": "node_modules/@sindresorhus/merge-streams",
+      "versionInfo": "4.0.0"
+    },
+    {
+      "SPDXID": "SPDXRef-Package-tpluscode.rdf-ns-builders-5.0.0",
+      "checksums": [
+        {
+          "algorithm": "SHA512",
+          "checksumValue": "aed3056c0add89e7feb34cf60374ce6ff80d7b93b9c67f4b0e21298a509fea519809421fcaaa0ebd963cd1f4bf7882f0705d8c8fa71440dd56050fb59de2666b"
+        }
+      ],
+      "downloadLocation": "https://registry.npmjs.org/@tpluscode/rdf-ns-builders/-/rdf-ns-builders-5.0.0.tgz",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceLocator": "pkg:npm/%40tpluscode/rdf-ns-builders@5.0.0",
+          "referenceType": "purl"
+        }
+      ],
+      "filesAnalyzed": false,
+      "homepage": "NOASSERTION",
+      "licenseDeclared": "MIT",
+      "name": "@tpluscode/rdf-ns-builders",
+      "packageFileName": "node_modules/@tpluscode/rdf-ns-builders",
+      "versionInfo": "5.0.0"
+    },
+    {
+      "SPDXID": "SPDXRef-Package-types.debug-4.1.13",
+      "checksums": [
+        {
+          "algorithm": "SHA512",
+          "checksumValue": "2925609909b33303e59ad9633a899aca847cf56e05ca70808b713c3cfb3bbe60d53def38853faf18f2a425f4e19265ecd31d2301a6bd53cb96f1b6dfc92d9f5b"
+        }
+      ],
+      "downloadLocation": "https://registry.npmjs.org/@types/debug/-/debug-4.1.13.tgz",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceLocator": "pkg:npm/%40types/debug@4.1.13",
+          "referenceType": "purl"
+        }
+      ],
+      "filesAnalyzed": false,
+      "homepage": "NOASSERTION",
+      "licenseDeclared": "MIT",
+      "name": "@types/debug",
+      "packageFileName": "node_modules/@types/debug",
+      "versionInfo": "4.1.13"
+    },
+    {
+      "SPDXID": "SPDXRef-Package-types.katex-0.16.8",
+      "checksums": [
+        {
+          "algorithm": "SHA512",
+          "checksumValue": "b6b81a3727d4f978764dcf800486f8e1ae40614a62701deec22ace8a878e90d3cf6e681136d716c8379e151ce33d910d3bd56af20bd5a9f85a69758b95ebd5c2"
+        }
+      ],
+      "downloadLocation": "https://registry.npmjs.org/@types/katex/-/katex-0.16.8.tgz",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceLocator": "pkg:npm/%40types/katex@0.16.8",
+          "referenceType": "purl"
+        }
+      ],
+      "filesAnalyzed": false,
+      "homepage": "NOASSERTION",
+      "licenseDeclared": "MIT",
+      "name": "@types/katex",
+      "packageFileName": "node_modules/@types/katex",
+      "versionInfo": "0.16.8"
+    },
+    {
+      "SPDXID": "SPDXRef-Package-types.ms-2.1.0",
+      "checksums": [
+        {
+          "algorithm": "SHA512",
+          "checksumValue": "1ac0822190c4fe9de2f7abed12ac7eedd054197adcef37922b7c303c721a453852fbd3a15885d1ab3b3877a93549553c83dd43acd456c56506869e4a5d06f654"
+        }
+      ],
+      "downloadLocation": "https://registry.npmjs.org/@types/ms/-/ms-2.1.0.tgz",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceLocator": "pkg:npm/%40types/ms@2.1.0",
+          "referenceType": "purl"
+        }
+      ],
+      "filesAnalyzed": false,
+      "homepage": "NOASSERTION",
+      "licenseDeclared": "MIT",
+      "name": "@types/ms",
+      "packageFileName": "node_modules/@types/ms",
+      "versionInfo": "2.1.0"
+    },
+    {
+      "SPDXID": "SPDXRef-Package-types.node-26.1.1",
+      "checksums": [
+        {
+          "algorithm": "SHA512",
+          "checksumValue": "9f1024452564375634242d56f24cbf7d37e41ac32672b46c6f1fb75e8644fab30e5fbd642d84d5edf2d7a6ab9dd46a5ba4fe53b9f7d716a7d7edf1f61a065113"
+        }
+      ],
+      "downloadLocation": "https://registry.npmjs.org/@types/node/-/node-26.1.1.tgz",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceLocator": "pkg:npm/%40types/node@26.1.1",
+          "referenceType": "purl"
+        }
+      ],
+      "filesAnalyzed": false,
+      "homepage": "NOASSERTION",
+      "licenseDeclared": "MIT",
+      "name": "@types/node",
+      "packageFileName": "node_modules/@types/node",
+      "versionInfo": "26.1.1"
+    },
+    {
+      "SPDXID": "SPDXRef-Package-types.rdfjs__namespace-2.0.10",
+      "checksums": [
+        {
+          "algorithm": "SHA512",
+          "checksumValue": "c685731083b1729cad7849b36a3f7831205bac116cfafaafd398e8321ccb1223d1c2c0410e786474109a683c51d537fbc0e5b4901d91d4861ee02def10114f80"
+        }
+      ],
+      "downloadLocation": "https://registry.npmjs.org/@types/rdfjs__namespace/-/rdfjs__namespace-2.0.10.tgz",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceLocator": "pkg:npm/%40types/rdfjs__namespace@2.0.10",
+          "referenceType": "purl"
+        }
+      ],
+      "filesAnalyzed": false,
+      "homepage": "NOASSERTION",
+      "licenseDeclared": "MIT",
+      "name": "@types/rdfjs__namespace",
+      "packageFileName": "node_modules/@types/rdfjs__namespace",
+      "versionInfo": "2.0.10"
+    },
+    {
+      "SPDXID": "SPDXRef-Package-types.readable-stream-4.0.24",
+      "checksums": [
+        {
+          "algorithm": "SHA512",
+          "checksumValue": "351bd4342fc91463c9bea7407c4bdef288229db33a574f2ee4dccb5a91bc3300369133ce2e7aa4fb0a70b8f4fe9a9dda52cc72b93ea6da09eb3ee1d80abbb312"
+        }
+      ],
+      "downloadLocation": "https://registry.npmjs.org/@types/readable-stream/-/readable-stream-4.0.24.tgz",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceLocator": "pkg:npm/%40types/readable-stream@4.0.24",
+          "referenceType": "purl"
+        }
+      ],
+      "filesAnalyzed": false,
+      "homepage": "NOASSERTION",
+      "licenseDeclared": "MIT",
+      "name": "@types/readable-stream",
+      "packageFileName": "node_modules/@types/readable-stream",
+      "versionInfo": "4.0.24"
+    },
+    {
+      "SPDXID": "SPDXRef-Package-types.unist-2.0.11",
+      "checksums": [
+        {
+          "algorithm": "SHA512",
+          "checksumValue": "0a604a88be8d368fceaa098c9fde4593d5a1969da6b6f22ff8a36940a3761784a3beb11eb2e6d34561984a0f819d664e9e509a493535b0ca6c04ece06d8867b0"
+        }
+      ],
+      "downloadLocation": "https://registry.npmjs.org/@types/unist/-/unist-2.0.11.tgz",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceLocator": "pkg:npm/%40types/unist@2.0.11",
+          "referenceType": "purl"
+        }
+      ],
+      "filesAnalyzed": false,
+      "homepage": "NOASSERTION",
+      "licenseDeclared": "MIT",
+      "name": "@types/unist",
+      "packageFileName": "node_modules/@types/unist",
+      "versionInfo": "2.0.11"
+    },
+    {
+      "SPDXID": "SPDXRef-Package-vocabulary.sh-1.1.6",
+      "checksums": [
+        {
+          "algorithm": "SHA512",
+          "checksumValue": "f087c04282a1e7b4c7cfc2c0dbe9f58da63f542d976aa30d4ac260cc12924ab8f6d32e4f48c01ac1be9d32cc682f1a8320f043b354c5465ffd0a28d49f06c150"
+        }
+      ],
+      "downloadLocation": "https://registry.npmjs.org/@vocabulary/sh/-/sh-1.1.6.tgz",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceLocator": "pkg:npm/%40vocabulary/sh@1.1.6",
+          "referenceType": "purl"
+        }
+      ],
+      "filesAnalyzed": false,
+      "homepage": "NOASSERTION",
+      "licenseDeclared": "MIT",
+      "name": "@vocabulary/sh",
+      "packageFileName": "node_modules/@vocabulary/sh",
+      "versionInfo": "1.1.6"
+    },
+    {
+      "SPDXID": "SPDXRef-Package-zazuko.prefixes-2.6.1",
+      "checksums": [
+        {
+          "algorithm": "SHA512",
+          "checksumValue": "7db39a74feedc31b746584fd9a0202fb140c93a7f7a5860b2396bfd9427f99cff282a6ff36856fdabc8ade54eda22ef8c7091da54783c08b85412a2ca30cd482"
+        }
+      ],
+      "downloadLocation": "https://registry.npmjs.org/@zazuko/prefixes/-/prefixes-2.6.1.tgz",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceLocator": "pkg:npm/%40zazuko/prefixes@2.6.1",
+          "referenceType": "purl"
+        }
+      ],
+      "filesAnalyzed": false,
+      "homepage": "NOASSERTION",
+      "licenseDeclared": "MIT",
+      "name": "@zazuko/prefixes",
+      "packageFileName": "node_modules/@zazuko/prefixes",
+      "versionInfo": "2.6.1"
+    },
+    {
+      "SPDXID": "SPDXRef-Package-abort-controller-3.0.0",
+      "checksums": [
+        {
+          "algorithm": "SHA512",
+          "checksumValue": "87c950f2d69c6589d1def3504e089b8feb4e0c7239ffe974e80bb63dcae2bff1a67add1e6a3e13c161f8d6c3bdc271c3890b048f5f6ad1daf375675e007b707a"
+        }
+      ],
+      "downloadLocation": "https://registry.npmjs.org/abort-controller/-/abort-controller-3.0.0.tgz",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceLocator": "pkg:npm/abort-controller@3.0.0",
+          "referenceType": "purl"
+        }
+      ],
+      "filesAnalyzed": false,
+      "homepage": "NOASSERTION",
+      "licenseDeclared": "MIT",
+      "name": "abort-controller",
+      "packageFileName": "node_modules/abort-controller",
+      "versionInfo": "3.0.0"
+    },
+    {
+      "SPDXID": "SPDXRef-Package-ajv-8.20.0",
+      "checksums": [
+        {
+          "algorithm": "SHA512",
+          "checksumValue": "4e16e58be3a53a3fa230f60505505f2773a60809da4b2367e0cd6fcfd4fa1a46b926df5b6bf1c8479ea3a32eb9b58ea4c7f142179557341f35f58eff194ac118"
+        }
+      ],
+      "downloadLocation": "https://registry.npmjs.org/ajv/-/ajv-8.20.0.tgz",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceLocator": "pkg:npm/ajv@8.20.0",
+          "referenceType": "purl"
+        }
+      ],
+      "filesAnalyzed": false,
+      "homepage": "NOASSERTION",
+      "licenseDeclared": "MIT",
+      "name": "ajv",
+      "packageFileName": "node_modules/ajv",
+      "versionInfo": "8.20.0"
+    },
+    {
+      "SPDXID": "SPDXRef-Package-ajv-formats-3.0.1",
+      "checksums": [
+        {
+          "algorithm": "SHA512",
+          "checksumValue": "f2252a979d04511fae51c7514371c3a9ae84572a3776870bf20e5627714d7169aeeb621b90652e7bfa44c8b056f1518a2ae7133e0a9e92ce1f214d43038ca8c1"
+        }
+      ],
+      "downloadLocation": "https://registry.npmjs.org/ajv-formats/-/ajv-formats-3.0.1.tgz",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceLocator": "pkg:npm/ajv-formats@3.0.1",
+          "referenceType": "purl"
+        }
+      ],
+      "filesAnalyzed": false,
+      "homepage": "NOASSERTION",
+      "licenseDeclared": "MIT",
+      "name": "ajv-formats",
+      "packageFileName": "node_modules/ajv-formats",
+      "versionInfo": "3.0.1"
+    },
+    {
+      "SPDXID": "SPDXRef-Package-ansi-regex-6.2.2",
+      "checksums": [
+        {
+          "algorithm": "SHA512",
+          "checksumValue": "06add2992a721476968cf93c21ff7273ab2f33c739e9d079040b56e106f0e631d3c305d77132e844c9290c9a7a54bd17ce559a0874d7ae415444c6260f4b0baa"
+        }
+      ],
+      "downloadLocation": "https://registry.npmjs.org/ansi-regex/-/ansi-regex-6.2.2.tgz",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceLocator": "pkg:npm/ansi-regex@6.2.2",
+          "referenceType": "purl"
+        }
+      ],
+      "filesAnalyzed": false,
+      "homepage": "NOASSERTION",
+      "licenseDeclared": "MIT",
+      "name": "ansi-regex",
+      "packageFileName": "node_modules/ansi-regex",
+      "versionInfo": "6.2.2"
+    },
+    {
+      "SPDXID": "SPDXRef-Package-argparse-2.0.1",
+      "checksums": [
+        {
+          "algorithm": "SHA512",
+          "checksumValue": "f3ef56a9e6db173a57f4e47e59ae8edbd6ac22881e44ccdc1ad00835da4c1c7c80835d1fd3969215505b704a867ff3d7c35123019faadbf6c4060dc3beeacadd"
+        }
+      ],
+      "downloadLocation": "https://registry.npmjs.org/argparse/-/argparse-2.0.1.tgz",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceLocator": "pkg:npm/argparse@2.0.1",
+          "referenceType": "purl"
+        }
+      ],
+      "filesAnalyzed": false,
+      "homepage": "NOASSERTION",
+      "licenseDeclared": "Python-2.0",
+      "name": "argparse",
+      "packageFileName": "node_modules/argparse",
+      "versionInfo": "2.0.1"
+    },
+    {
+      "SPDXID": "SPDXRef-Package-base64-js-1.5.1",
+      "checksums": [
+        {
+          "algorithm": "SHA512",
+          "checksumValue": "00aa5a6251e7f2de1255b3870b2f9be7e28a82f478bebb03f2f6efadb890269b3b7ca0d3923903af2ea38b4ad42630b49336cd78f2f0cf1abc8b2a68e35a9e58"
+        }
+      ],
+      "downloadLocation": "https://registry.npmjs.org/base64-js/-/base64-js-1.5.1.tgz",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceLocator": "pkg:npm/base64-js@1.5.1",
+          "referenceType": "purl"
+        }
+      ],
+      "filesAnalyzed": false,
+      "homepage": "NOASSERTION",
+      "licenseDeclared": "MIT",
+      "name": "base64-js",
+      "packageFileName": "node_modules/base64-js",
+      "versionInfo": "1.5.1"
+    },
+    {
+      "SPDXID": "SPDXRef-Package-braces-3.0.3",
+      "checksums": [
+        {
+          "algorithm": "SHA512",
+          "checksumValue": "c906d780efce499543d88b222e5ae8fbb1dfe90d7c109aca484b1da0ccca78f29772dde0bc3f282dc390748cc6ba9af9163f840def203bf9717350737cca71bc"
+        }
+      ],
+      "downloadLocation": "https://registry.npmjs.org/braces/-/braces-3.0.3.tgz",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceLocator": "pkg:npm/braces@3.0.3",
+          "referenceType": "purl"
+        }
+      ],
+      "filesAnalyzed": false,
+      "homepage": "NOASSERTION",
+      "licenseDeclared": "MIT",
+      "name": "braces",
+      "packageFileName": "node_modules/braces",
+      "versionInfo": "3.0.3"
+    },
+    {
+      "SPDXID": "SPDXRef-Package-buffer-6.0.3",
+      "checksums": [
+        {
+          "algorithm": "SHA512",
+          "checksumValue": "153882a4dc6dc226591c465b71b4c87198c44552029fdcaafe90c591397de7f031cc3d6768172d37b60eebcae233f80b48363bb1dacc6f2f21a1f00362ebaa38"
+        }
+      ],
+      "downloadLocation": "https://registry.npmjs.org/buffer/-/buffer-6.0.3.tgz",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceLocator": "pkg:npm/buffer@6.0.3",
+          "referenceType": "purl"
+        }
+      ],
+      "filesAnalyzed": false,
+      "homepage": "NOASSERTION",
+      "licenseDeclared": "MIT",
+      "name": "buffer",
+      "packageFileName": "node_modules/buffer",
+      "versionInfo": "6.0.3"
+    },
+    {
+      "SPDXID": "SPDXRef-Package-canonicalize-2.1.0",
+      "checksums": [
+        {
+          "algorithm": "SHA512",
+          "checksumValue": "17bd393b7c6bb14b60b7df23ee579eb4d85358f7bee52ef6ae52f93b88c0d692aa05543f753d4ed43e8f1719925ef7344943a29d64b9ec32b1d08dc21eb5c91d"
+        }
+      ],
+      "downloadLocation": "https://registry.npmjs.org/canonicalize/-/canonicalize-2.1.0.tgz",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceLocator": "pkg:npm/canonicalize@2.1.0",
+          "referenceType": "purl"
+        }
+      ],
+      "filesAnalyzed": false,
+      "homepage": "NOASSERTION",
+      "licenseDeclared": "Apache-2.0",
+      "name": "canonicalize",
+      "packageFileName": "node_modules/canonicalize",
+      "versionInfo": "2.1.0"
+    },
+    {
+      "SPDXID": "SPDXRef-Package-character-entities-2.0.2",
+      "checksums": [
+        {
+          "algorithm": "SHA512",
+          "checksumValue": "b21c7ba10d00c1e9ff05121d92392fcf9e0f9c4108fc48f05c3488669f3afca29d6da7c78750dffd16060619f885b7b6fae282f459d3e540847723f3dda8bd85"
+        }
+      ],
+      "downloadLocation": "https://registry.npmjs.org/character-entities/-/character-entities-2.0.2.tgz",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceLocator": "pkg:npm/character-entities@2.0.2",
+          "referenceType": "purl"
+        }
+      ],
+      "filesAnalyzed": false,
+      "homepage": "NOASSERTION",
+      "licenseDeclared": "MIT",
+      "name": "character-entities",
+      "packageFileName": "node_modules/character-entities",
+      "versionInfo": "2.0.2"
+    },
+    {
+      "SPDXID": "SPDXRef-Package-character-entities-legacy-3.0.0",
+      "checksums": [
+        {
+          "algorithm": "SHA512",
+          "checksumValue": "4693e9d1ab13ffab9f466fff009570a558996c633f3248d017125c710447988485ff6d8d06db07a805a62fefe99a43d6a08509756c9e565793975c3274701355"
+        }
+      ],
+      "downloadLocation": "https://registry.npmjs.org/character-entities-legacy/-/character-entities-legacy-3.0.0.tgz",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceLocator": "pkg:npm/character-entities-legacy@3.0.0",
+          "referenceType": "purl"
+        }
+      ],
+      "filesAnalyzed": false,
+      "homepage": "NOASSERTION",
+      "licenseDeclared": "MIT",
+      "name": "character-entities-legacy",
+      "packageFileName": "node_modules/character-entities-legacy",
+      "versionInfo": "3.0.0"
+    },
+    {
+      "SPDXID": "SPDXRef-Package-character-reference-invalid-2.0.1",
+      "checksums": [
+        {
+          "algorithm": "SHA512",
+          "checksumValue": "881678178c116f239156cbb48cf57b81790eb066231873e6032bfe1e21c6f208b93ed0bd288da3d7ebfcfed9626d1be3a165f4dbbca9986fe7d07b4ee6deee9f"
+        }
+      ],
+      "downloadLocation": "https://registry.npmjs.org/character-reference-invalid/-/character-reference-invalid-2.0.1.tgz",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceLocator": "pkg:npm/character-reference-invalid@2.0.1",
+          "referenceType": "purl"
+        }
+      ],
+      "filesAnalyzed": false,
+      "homepage": "NOASSERTION",
+      "licenseDeclared": "MIT",
+      "name": "character-reference-invalid",
+      "packageFileName": "node_modules/character-reference-invalid",
+      "versionInfo": "2.0.1"
+    },
+    {
+      "SPDXID": "SPDXRef-Package-clownface-2.0.3",
+      "checksums": [
+        {
+          "algorithm": "SHA512",
+          "checksumValue": "13be93049ec2814f7eff9a5a480bee35d30ef9fcc54e19ef455b62768b24b58a696245ccf15eed89df04cf3a3c4b53a6a16c4a51a9b7c9f91995f0a27783a225"
+        }
+      ],
+      "downloadLocation": "https://registry.npmjs.org/clownface/-/clownface-2.0.3.tgz",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceLocator": "pkg:npm/clownface@2.0.3",
+          "referenceType": "purl"
+        }
+      ],
+      "filesAnalyzed": false,
+      "homepage": "NOASSERTION",
+      "licenseDeclared": "MIT",
+      "name": "clownface",
+      "packageFileName": "node_modules/clownface",
+      "versionInfo": "2.0.3"
+    },
+    {
+      "SPDXID": "SPDXRef-Package-commander-8.3.0",
+      "checksums": [
+        {
+          "algorithm": "SHA512",
+          "checksumValue": "3a44cbf6e99ff877b60d9914abc7fc27da1fef22fa449288db875521306635f6419ab8bdcd8650aca92e5e22a1c9f3d2bbcb5486754107588a5debef9e54785b"
+        }
+      ],
+      "downloadLocation": "https://registry.npmjs.org/commander/-/commander-8.3.0.tgz",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceLocator": "pkg:npm/commander@8.3.0",
+          "referenceType": "purl"
+        }
+      ],
+      "filesAnalyzed": false,
+      "homepage": "NOASSERTION",
+      "licenseDeclared": "MIT",
+      "name": "commander",
+      "packageFileName": "node_modules/commander",
+      "versionInfo": "8.3.0"
+    },
+    {
+      "SPDXID": "SPDXRef-Package-debug-4.4.3",
+      "checksums": [
+        {
+          "algorithm": "SHA512",
+          "checksumValue": "446c305a7c10be455f6af295b76d8518bc3ec5849dcc04709b4aeee83853540dee994e6165cdbc57790ee2cb6062bcab4e52e9baf808f468a28e5b408cd6dca8"
+        }
+      ],
+      "downloadLocation": "https://registry.npmjs.org/debug/-/debug-4.4.3.tgz",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceLocator": "pkg:npm/debug@4.4.3",
+          "referenceType": "purl"
+        }
+      ],
+      "filesAnalyzed": false,
+      "homepage": "NOASSERTION",
+      "licenseDeclared": "MIT",
+      "name": "debug",
+      "packageFileName": "node_modules/debug",
+      "versionInfo": "4.4.3"
+    },
+    {
+      "SPDXID": "SPDXRef-Package-decode-named-character-reference-1.3.0",
+      "checksums": [
+        {
+          "algorithm": "SHA512",
+          "checksumValue": "1ada50601dbcdcaacfa7a9d1c39d2add4f7f55f3aeb5939ed74dea94dec13cfe80776ef16273885afe253f3a3c1c200bfa6319a1f27d284cb7d1faba31f68ae9"
+        }
+      ],
+      "downloadLocation": "https://registry.npmjs.org/decode-named-character-reference/-/decode-named-character-reference-1.3.0.tgz",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceLocator": "pkg:npm/decode-named-character-reference@1.3.0",
+          "referenceType": "purl"
+        }
+      ],
+      "filesAnalyzed": false,
+      "homepage": "NOASSERTION",
+      "licenseDeclared": "MIT",
+      "name": "decode-named-character-reference",
+      "packageFileName": "node_modules/decode-named-character-reference",
+      "versionInfo": "1.3.0"
+    },
+    {
+      "SPDXID": "SPDXRef-Package-dequal-2.0.3",
+      "checksums": [
+        {
+          "algorithm": "SHA512",
+          "checksumValue": "d237bea8f28710ca21bdf453084a370ab3c6e9c033018826ccacb1462612483912e9e1897725499bb59a600e4409a003f702c1d93e0411eca603968555c61708"
+        }
+      ],
+      "downloadLocation": "https://registry.npmjs.org/dequal/-/dequal-2.0.3.tgz",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceLocator": "pkg:npm/dequal@2.0.3",
+          "referenceType": "purl"
+        }
+      ],
+      "filesAnalyzed": false,
+      "homepage": "NOASSERTION",
+      "licenseDeclared": "MIT",
+      "name": "dequal",
+      "packageFileName": "node_modules/dequal",
+      "versionInfo": "2.0.3"
+    },
+    {
+      "SPDXID": "SPDXRef-Package-devlop-1.1.0",
+      "checksums": [
+        {
+          "algorithm": "SHA512",
+          "checksumValue": "456988aa17057f5951601bcd9abeea4cdbb20adffbfe7b368dba69d7e3da96013fac341c053d1f8a848c52927dde2ae55210b986b838718a9ee94fb42265b4ac"
+        }
+      ],
+      "downloadLocation": "https://registry.npmjs.org/devlop/-/devlop-1.1.0.tgz",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceLocator": "pkg:npm/devlop@1.1.0",
+          "referenceType": "purl"
+        }
+      ],
+      "filesAnalyzed": false,
+      "homepage": "NOASSERTION",
+      "licenseDeclared": "MIT",
+      "name": "devlop",
+      "packageFileName": "node_modules/devlop",
+      "versionInfo": "1.1.0"
+    },
+    {
+      "SPDXID": "SPDXRef-Package-entities-4.5.0",
+      "checksums": [
+        {
+          "algorithm": "SHA512",
+          "checksumValue": "5748631f87463e1f40a39a74328458e8156ab700a3873eaf2392d3f00279e47fb883dff8bdb1f1d48e787d2d17b9c94b8431c0acf40288c8c3c6368bf1f3f187"
+        }
+      ],
+      "downloadLocation": "https://registry.npmjs.org/entities/-/entities-4.5.0.tgz",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceLocator": "pkg:npm/entities@4.5.0",
+          "referenceType": "purl"
+        }
+      ],
+      "filesAnalyzed": false,
+      "homepage": "NOASSERTION",
+      "licenseDeclared": "BSD-2-Clause",
+      "name": "entities",
+      "packageFileName": "node_modules/entities",
+      "versionInfo": "4.5.0"
+    },
+    {
+      "SPDXID": "SPDXRef-Package-event-target-shim-5.0.1",
+      "checksums": [
+        {
+          "algorithm": "SHA512",
+          "checksumValue": "8bfd976e74b3feec51094ebe35d54980a5834cce36efe32a61b910cc3df6d43b8240952a3ae24a200d08336f96db1b581dd28e999e1d47a7c4c6c7784972fe59"
+        }
+      ],
+      "downloadLocation": "https://registry.npmjs.org/event-target-shim/-/event-target-shim-5.0.1.tgz",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceLocator": "pkg:npm/event-target-shim@5.0.1",
+          "referenceType": "purl"
+        }
+      ],
+      "filesAnalyzed": false,
+      "homepage": "NOASSERTION",
+      "licenseDeclared": "MIT",
+      "name": "event-target-shim",
+      "packageFileName": "node_modules/event-target-shim",
+      "versionInfo": "5.0.1"
+    },
+    {
+      "SPDXID": "SPDXRef-Package-events-3.3.0",
+      "checksums": [
+        {
+          "algorithm": "SHA512",
+          "checksumValue": "990c3ed9f9106c02f343b574318d08a9d9d734e793b4fe2bd2537dcfb0006b009782a79aedb0e28b6d0062b201ac577f1f1d0cd8e733e92d75d4268591471bd1"
+        }
+      ],
+      "downloadLocation": "https://registry.npmjs.org/events/-/events-3.3.0.tgz",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceLocator": "pkg:npm/events@3.3.0",
+          "referenceType": "purl"
+        }
+      ],
+      "filesAnalyzed": false,
+      "homepage": "NOASSERTION",
+      "licenseDeclared": "MIT",
+      "name": "events",
+      "packageFileName": "node_modules/events",
+      "versionInfo": "3.3.0"
+    },
+    {
+      "SPDXID": "SPDXRef-Package-fast-deep-equal-3.1.3",
+      "checksums": [
+        {
+          "algorithm": "SHA512",
+          "checksumValue": "7f7a90f68432f63d808417bf1fd542f75c0b98a042094fe00ce9ca340606e61b303bb04b2a3d3d1dce4760dcfd70623efb19690c22200da8ad56cd3701347ce1"
+        }
+      ],
+      "downloadLocation": "https://registry.npmjs.org/fast-deep-equal/-/fast-deep-equal-3.1.3.tgz",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceLocator": "pkg:npm/fast-deep-equal@3.1.3",
+          "referenceType": "purl"
+        }
+      ],
+      "filesAnalyzed": false,
+      "homepage": "NOASSERTION",
+      "licenseDeclared": "MIT",
+      "name": "fast-deep-equal",
+      "packageFileName": "node_modules/fast-deep-equal",
+      "versionInfo": "3.1.3"
+    },
+    {
+      "SPDXID": "SPDXRef-Package-fast-glob-3.3.3",
+      "checksums": [
+        {
+          "algorithm": "SHA512",
+          "checksumValue": "ecca6d2fc53472a705773233c0e4c7a22957f71e41acdab27bb67f2ee0bb9023118a8d44312caa44adc1100503eec5d1ab8893e00cd356e65d8604364c2bd82e"
+        }
+      ],
+      "downloadLocation": "https://registry.npmjs.org/fast-glob/-/fast-glob-3.3.3.tgz",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceLocator": "pkg:npm/fast-glob@3.3.3",
+          "referenceType": "purl"
+        }
+      ],
+      "filesAnalyzed": false,
+      "homepage": "NOASSERTION",
+      "licenseDeclared": "MIT",
+      "name": "fast-glob",
+      "packageFileName": "node_modules/fast-glob",
+      "versionInfo": "3.3.3"
+    },
+    {
+      "SPDXID": "SPDXRef-Package-fast-uri-3.1.3",
+      "checksums": [
+        {
+          "algorithm": "SHA512",
+          "checksumValue": "8bbd0bc0659476e5eace270a5d6b21a28abeb162f52b7594539aca64d1bfd22ddad4e4a85f71ea847e566d6c139aa59fa2be2ead46a418f89141c95e4594f03a"
+        }
+      ],
+      "downloadLocation": "https://registry.npmjs.org/fast-uri/-/fast-uri-3.1.3.tgz",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceLocator": "pkg:npm/fast-uri@3.1.3",
+          "referenceType": "purl"
+        }
+      ],
+      "filesAnalyzed": false,
+      "homepage": "NOASSERTION",
+      "licenseDeclared": "BSD-3-Clause",
+      "name": "fast-uri",
+      "packageFileName": "node_modules/fast-uri",
+      "versionInfo": "3.1.3"
+    },
+    {
+      "SPDXID": "SPDXRef-Package-fastq-1.20.1",
+      "checksums": [
+        {
+          "algorithm": "SHA512",
+          "checksumValue": "1864e8c49ff0d71df6b3f0f610a343ee44e29789fc39593ff66c9c4dce150f36b5de53afa54653197de61520ad57d92c746055cefb320152ccea61c54e1c57c7"
+        }
+      ],
+      "downloadLocation": "https://registry.npmjs.org/fastq/-/fastq-1.20.1.tgz",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceLocator": "pkg:npm/fastq@1.20.1",
+          "referenceType": "purl"
+        }
+      ],
+      "filesAnalyzed": false,
+      "homepage": "NOASSERTION",
+      "licenseDeclared": "ISC",
+      "name": "fastq",
+      "packageFileName": "node_modules/fastq",
+      "versionInfo": "1.20.1"
+    },
+    {
+      "SPDXID": "SPDXRef-Package-fill-range-7.1.1",
+      "checksums": [
+        {
+          "algorithm": "SHA512",
+          "checksumValue": "62c1a97b75872caf19622e2d583836272dde6d1cf6ad7a300f19e57786e4401d3471cff5670f405a70b48bdced0c98ad8afb50bda23d29a2f22ab73e8415b4ca"
+        }
+      ],
+      "downloadLocation": "https://registry.npmjs.org/fill-range/-/fill-range-7.1.1.tgz",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceLocator": "pkg:npm/fill-range@7.1.1",
+          "referenceType": "purl"
+        }
+      ],
+      "filesAnalyzed": false,
+      "homepage": "NOASSERTION",
+      "licenseDeclared": "MIT",
+      "name": "fill-range",
+      "packageFileName": "node_modules/fill-range",
+      "versionInfo": "7.1.1"
+    },
+    {
+      "SPDXID": "SPDXRef-Package-fontoxpath-3.34.0",
+      "checksums": [
+        {
+          "algorithm": "SHA512",
+          "checksumValue": "ec5801411a219f8591ff6795758a99b4a04566424d6a23f890675fa92e9b020e3ae68834e62c460363a07cc771b0ed669d7ebbfbae095fff0929c955a92f9bcc"
+        }
+      ],
+      "downloadLocation": "https://registry.npmjs.org/fontoxpath/-/fontoxpath-3.34.0.tgz",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceLocator": "pkg:npm/fontoxpath@3.34.0",
+          "referenceType": "purl"
+        }
+      ],
+      "filesAnalyzed": false,
+      "homepage": "NOASSERTION",
+      "licenseDeclared": "MIT",
+      "name": "fontoxpath",
+      "packageFileName": "node_modules/fontoxpath",
+      "versionInfo": "3.34.0"
+    },
+    {
+      "SPDXID": "SPDXRef-Package-get-east-asian-width-1.6.0",
+      "checksums": [
+        {
+          "algorithm": "SHA512",
+          "checksumValue": "4116ef0c86f1e9892551ee91c5e4de95e311d32bf77181fa3ec3d91dc9d59fbc6fef33b504737caf45c44eef27e987b743e6a1b526ab7375a0b4d5a67a12017c"
+        }
+      ],
+      "downloadLocation": "https://registry.npmjs.org/get-east-asian-width/-/get-east-asian-width-1.6.0.tgz",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceLocator": "pkg:npm/get-east-asian-width@1.6.0",
+          "referenceType": "purl"
+        }
+      ],
+      "filesAnalyzed": false,
+      "homepage": "NOASSERTION",
+      "licenseDeclared": "MIT",
+      "name": "get-east-asian-width",
+      "packageFileName": "node_modules/get-east-asian-width",
+      "versionInfo": "1.6.0"
+    },
+    {
+      "SPDXID": "SPDXRef-Package-glob-parent-5.1.2",
+      "checksums": [
+        {
+          "algorithm": "SHA512",
+          "checksumValue": "00e22049009ea62258c0fdc04671b1fb95674eed870587736c63f8e5e2f0d6faf7cc1def64b7b279dd6c0bd8676dc39cf7f4ab33233944f42b906cf8692f59a3"
+        }
+      ],
+      "downloadLocation": "https://registry.npmjs.org/glob-parent/-/glob-parent-5.1.2.tgz",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceLocator": "pkg:npm/glob-parent@5.1.2",
+          "referenceType": "purl"
+        }
+      ],
+      "filesAnalyzed": false,
+      "homepage": "NOASSERTION",
+      "licenseDeclared": "ISC",
+      "name": "glob-parent",
+      "packageFileName": "node_modules/glob-parent",
+      "versionInfo": "5.1.2"
+    },
+    {
+      "SPDXID": "SPDXRef-Package-globby-16.2.0",
+      "checksums": [
+        {
+          "algorithm": "SHA512",
+          "checksumValue": "42b2626b6a837f9041fd5e876250d3b342349416a1ca32f3a46420dca4fb16709d4e89c0c8fcb646d63cd369b693800bc7a0e9ef9d9ff365ac39ccc456bde5e9"
+        }
+      ],
+      "downloadLocation": "https://registry.npmjs.org/globby/-/globby-16.2.0.tgz",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceLocator": "pkg:npm/globby@16.2.0",
+          "referenceType": "purl"
+        }
+      ],
+      "filesAnalyzed": false,
+      "homepage": "NOASSERTION",
+      "licenseDeclared": "MIT",
+      "name": "globby",
+      "packageFileName": "node_modules/globby",
+      "versionInfo": "16.2.0"
+    },
+    {
+      "SPDXID": "SPDXRef-Package-ieee754-1.2.1",
+      "checksums": [
+        {
+          "algorithm": "SHA512",
+          "checksumValue": "75ccaa843bd7d42e3a95765c56a0a92be16d31141574830debf0dfe63b36ce8b94b2a1bb23ab05c62b480beeca60adbd29d5ce2c776ef732f8b059e85509ea68"
+        }
+      ],
+      "downloadLocation": "https://registry.npmjs.org/ieee754/-/ieee754-1.2.1.tgz",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceLocator": "pkg:npm/ieee754@1.2.1",
+          "referenceType": "purl"
+        }
+      ],
+      "filesAnalyzed": false,
+      "homepage": "NOASSERTION",
+      "licenseDeclared": "BSD-3-Clause",
+      "name": "ieee754",
+      "packageFileName": "node_modules/ieee754",
+      "versionInfo": "1.2.1"
+    },
+    {
+      "SPDXID": "SPDXRef-Package-ignore-7.0.6",
+      "checksums": [
+        {
+          "algorithm": "SHA512",
+          "checksumValue": "04083a42413c5be4ee40baebc34520afb1de81776e46eba3f3fb62da448e73e8f3d5d9b1f3f58d723afa5c69eae58a435b1170c1a6afa83d3e8c850e29e953b3"
+        }
+      ],
+      "downloadLocation": "https://registry.npmjs.org/ignore/-/ignore-7.0.6.tgz",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceLocator": "pkg:npm/ignore@7.0.6",
+          "referenceType": "purl"
+        }
+      ],
+      "filesAnalyzed": false,
+      "homepage": "NOASSERTION",
+      "licenseDeclared": "MIT",
+      "name": "ignore",
+      "packageFileName": "node_modules/ignore",
+      "versionInfo": "7.0.6"
+    },
+    {
+      "SPDXID": "SPDXRef-Package-is-alphabetical-2.0.1",
+      "checksums": [
+        {
+          "algorithm": "SHA512",
+          "checksumValue": "156cb263ad0c79337279246990cd88af2d06f61a6befff640f8d260ff706404ba295c6584b8a24cfc48dd90eab2c227c81b0ade9f37eac2fbab4c192f7d2dac5"
+        }
+      ],
+      "downloadLocation": "https://registry.npmjs.org/is-alphabetical/-/is-alphabetical-2.0.1.tgz",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceLocator": "pkg:npm/is-alphabetical@2.0.1",
+          "referenceType": "purl"
+        }
+      ],
+      "filesAnalyzed": false,
+      "homepage": "NOASSERTION",
+      "licenseDeclared": "MIT",
+      "name": "is-alphabetical",
+      "packageFileName": "node_modules/is-alphabetical",
+      "versionInfo": "2.0.1"
+    },
+    {
+      "SPDXID": "SPDXRef-Package-is-alphanumerical-2.0.1",
+      "checksums": [
+        {
+          "algorithm": "SHA512",
+          "checksumValue": "8666d8857ffd314305e6e87bb4e5f22bf9f466f5a969de5c681035ec6b02eafcae0aa696962446e4ad6a4bd8a799484431a381216effc210274b0bde5bf2ed67"
+        }
+      ],
+      "downloadLocation": "https://registry.npmjs.org/is-alphanumerical/-/is-alphanumerical-2.0.1.tgz",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceLocator": "pkg:npm/is-alphanumerical@2.0.1",
+          "referenceType": "purl"
+        }
+      ],
+      "filesAnalyzed": false,
+      "homepage": "NOASSERTION",
+      "licenseDeclared": "MIT",
+      "name": "is-alphanumerical",
+      "packageFileName": "node_modules/is-alphanumerical",
+      "versionInfo": "2.0.1"
+    },
+    {
+      "SPDXID": "SPDXRef-Package-is-decimal-2.0.1",
+      "checksums": [
+        {
+          "algorithm": "SHA512",
+          "checksumValue": "00007d862a2642ce435d6711075aeab31194b2d6d1ae814e3cf540a26364ff75c74792721190a13b24d67b6a1ac8a9ec4acaff91c1aa17ecfacae1fa1c7a4dd0"
+        }
+      ],
+      "downloadLocation": "https://registry.npmjs.org/is-decimal/-/is-decimal-2.0.1.tgz",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceLocator": "pkg:npm/is-decimal@2.0.1",
+          "referenceType": "purl"
+        }
+      ],
+      "filesAnalyzed": false,
+      "homepage": "NOASSERTION",
+      "licenseDeclared": "MIT",
+      "name": "is-decimal",
+      "packageFileName": "node_modules/is-decimal",
+      "versionInfo": "2.0.1"
+    },
+    {
+      "SPDXID": "SPDXRef-Package-is-extglob-2.1.1",
+      "checksums": [
+        {
+          "algorithm": "SHA512",
+          "checksumValue": "49b29b00d90deb4dd58b88c466fe3d2de549327e321b0b1bcd9c28ac4a32122badb0dde725875b3b7eb37e1189e90103a4e6481640ed9eae494719af9778eca1"
+        }
+      ],
+      "downloadLocation": "https://registry.npmjs.org/is-extglob/-/is-extglob-2.1.1.tgz",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceLocator": "pkg:npm/is-extglob@2.1.1",
+          "referenceType": "purl"
+        }
+      ],
+      "filesAnalyzed": false,
+      "homepage": "NOASSERTION",
+      "licenseDeclared": "MIT",
+      "name": "is-extglob",
+      "packageFileName": "node_modules/is-extglob",
+      "versionInfo": "2.1.1"
+    },
+    {
+      "SPDXID": "SPDXRef-Package-is-glob-4.0.3",
+      "checksums": [
+        {
+          "algorithm": "SHA512",
+          "checksumValue": "c5e9526b21c7dfa66013b6568658bba56df884d6cd97c3a3bf92959a4243e2105d0f7b61f137e4f6f61ab0b33e99758e6611648197f184b4a7af046be1e9524a"
+        }
+      ],
+      "downloadLocation": "https://registry.npmjs.org/is-glob/-/is-glob-4.0.3.tgz",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceLocator": "pkg:npm/is-glob@4.0.3",
+          "referenceType": "purl"
+        }
+      ],
+      "filesAnalyzed": false,
+      "homepage": "NOASSERTION",
+      "licenseDeclared": "MIT",
+      "name": "is-glob",
+      "packageFileName": "node_modules/is-glob",
+      "versionInfo": "4.0.3"
+    },
+    {
+      "SPDXID": "SPDXRef-Package-is-hexadecimal-2.0.1",
+      "checksums": [
+        {
+          "algorithm": "SHA512",
+          "checksumValue": "0e0650a76e3573ca0ee9c03549b4c45a25dea31578daf95c271807f81de18b5022aaa2abb9947764617c227ddf8f8fbfcbfeeb1ef94e64b66d809ff8b6d60666"
+        }
+      ],
+      "downloadLocation": "https://registry.npmjs.org/is-hexadecimal/-/is-hexadecimal-2.0.1.tgz",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceLocator": "pkg:npm/is-hexadecimal@2.0.1",
+          "referenceType": "purl"
+        }
+      ],
+      "filesAnalyzed": false,
+      "homepage": "NOASSERTION",
+      "licenseDeclared": "MIT",
+      "name": "is-hexadecimal",
+      "packageFileName": "node_modules/is-hexadecimal",
+      "versionInfo": "2.0.1"
+    },
+    {
+      "SPDXID": "SPDXRef-Package-is-number-7.0.0",
+      "checksums": [
+        {
+          "algorithm": "SHA512",
+          "checksumValue": "e350a27e483a7bc4f2952a5db53a5e2d532abd20445734edb47bc4443ef8d7ea6767c00dbf4d34e0c44be3740a3c394af5c1af369e8d6566540656c65d8c719e"
+        }
+      ],
+      "downloadLocation": "https://registry.npmjs.org/is-number/-/is-number-7.0.0.tgz",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceLocator": "pkg:npm/is-number@7.0.0",
+          "referenceType": "purl"
+        }
+      ],
+      "filesAnalyzed": false,
+      "homepage": "NOASSERTION",
+      "licenseDeclared": "MIT",
+      "name": "is-number",
+      "packageFileName": "node_modules/is-number",
+      "versionInfo": "7.0.0"
+    },
+    {
+      "SPDXID": "SPDXRef-Package-is-path-inside-4.0.0",
+      "checksums": [
+        {
+          "algorithm": "SHA512",
+          "checksumValue": "949255ff97584be45c2fcb907410d6f5cf6e5852cb04d4721619c0297c39b55a8b94a67844c1992aff9843f200dce843f91a5b25ad4b2c53351503c6c885ef38"
+        }
+      ],
+      "downloadLocation": "https://registry.npmjs.org/is-path-inside/-/is-path-inside-4.0.0.tgz",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceLocator": "pkg:npm/is-path-inside@4.0.0",
+          "referenceType": "purl"
+        }
+      ],
+      "filesAnalyzed": false,
+      "homepage": "NOASSERTION",
+      "licenseDeclared": "MIT",
+      "name": "is-path-inside",
+      "packageFileName": "node_modules/is-path-inside",
+      "versionInfo": "4.0.0"
+    },
+    {
+      "SPDXID": "SPDXRef-Package-js-yaml-5.2.0",
+      "checksums": [
+        {
+          "algorithm": "SHA512",
+          "checksumValue": "61e2d4325bd1e0ebb5075d7d2c868cd2beb926f6ce068a090dcf7212ed1d0a56ffb920b93f816b2d4f0e082cff1d75afb4fa08ad1d1d4730014e3a35b1337d07"
+        }
+      ],
+      "downloadLocation": "https://registry.npmjs.org/js-yaml/-/js-yaml-5.2.0.tgz",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceLocator": "pkg:npm/js-yaml@5.2.0",
+          "referenceType": "purl"
+        }
+      ],
+      "filesAnalyzed": false,
+      "homepage": "NOASSERTION",
+      "licenseDeclared": "MIT",
+      "name": "js-yaml",
+      "packageFileName": "node_modules/js-yaml",
+      "versionInfo": "5.2.0"
+    },
+    {
+      "SPDXID": "SPDXRef-Package-json-schema-traverse-1.0.0",
+      "checksums": [
+        {
+          "algorithm": "SHA512",
+          "checksumValue": "34cf3f3fd9f75e35e12199f594b86415a0024ce5114178d6855e0103f4673aff31be0aadaa9017f483b89914314b1d51968e2dab37aa6f4b0e96bb9a3b2dddba"
+        }
+      ],
+      "downloadLocation": "https://registry.npmjs.org/json-schema-traverse/-/json-schema-traverse-1.0.0.tgz",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceLocator": "pkg:npm/json-schema-traverse@1.0.0",
+          "referenceType": "purl"
+        }
+      ],
+      "filesAnalyzed": false,
+      "homepage": "NOASSERTION",
+      "licenseDeclared": "MIT",
+      "name": "json-schema-traverse",
+      "packageFileName": "node_modules/json-schema-traverse",
+      "versionInfo": "1.0.0"
+    },
+    {
+      "SPDXID": "SPDXRef-Package-jsonc-parser-3.3.1",
+      "checksums": [
+        {
+          "algorithm": "SHA512",
+          "checksumValue": "1d4807eb92b27a3ad414fbc714f6ea398d2bb058a9dc1a39c1be2782f762d44a426165100c2e55f98ee6670b3e0cb92be0cfffcd02686a7bb548ffbcec3bf5a1"
+        }
+      ],
+      "downloadLocation": "https://registry.npmjs.org/jsonc-parser/-/jsonc-parser-3.3.1.tgz",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceLocator": "pkg:npm/jsonc-parser@3.3.1",
+          "referenceType": "purl"
+        }
+      ],
+      "filesAnalyzed": false,
+      "homepage": "NOASSERTION",
+      "licenseDeclared": "MIT",
+      "name": "jsonc-parser",
+      "packageFileName": "node_modules/jsonc-parser",
+      "versionInfo": "3.3.1"
+    },
+    {
+      "SPDXID": "SPDXRef-Package-jsonld-9.0.0",
+      "checksums": [
+        {
+          "algorithm": "SHA512",
+          "checksumValue": "a633087645df0b54f6c2b5fd07d8b6b978467720a681e737aa0321b7e4c38fe4b4a97ddb8d631051f2fb35ea8486e4538bc1b9112ce62fdb869524fb9f34845a"
+        }
+      ],
+      "downloadLocation": "https://registry.npmjs.org/jsonld/-/jsonld-9.0.0.tgz",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceLocator": "pkg:npm/jsonld@9.0.0",
+          "referenceType": "purl"
+        }
+      ],
+      "filesAnalyzed": false,
+      "homepage": "NOASSERTION",
+      "licenseDeclared": "BSD-3-Clause",
+      "name": "jsonld",
+      "packageFileName": "node_modules/jsonld",
+      "versionInfo": "9.0.0"
+    },
+    {
+      "SPDXID": "SPDXRef-Package-jsonpointer-5.0.1",
+      "checksums": [
+        {
+          "algorithm": "SHA512",
+          "checksumValue": "a7f9d76e148472ede96517645b539f261a6c56d5b581de166b57e741cf582e24df0239f4df5d9e30a8a66dd210cee665f5a6bdc5419a4653fd4ff08913f762b5"
+        }
+      ],
+      "downloadLocation": "https://registry.npmjs.org/jsonpointer/-/jsonpointer-5.0.1.tgz",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceLocator": "pkg:npm/jsonpointer@5.0.1",
+          "referenceType": "purl"
+        }
+      ],
+      "filesAnalyzed": false,
+      "homepage": "NOASSERTION",
+      "licenseDeclared": "MIT",
+      "name": "jsonpointer",
+      "packageFileName": "node_modules/jsonpointer",
+      "versionInfo": "5.0.1"
+    },
+    {
+      "SPDXID": "SPDXRef-Package-katex-0.16.47",
+      "checksums": [
+        {
+          "algorithm": "SHA512",
+          "checksumValue": "11ea3c62cd5da14d73fb1f0066c3e942efa9fd0719048e4f78ea3b40641dcb6c769b4314fe161a8016c63a65f0af92956c47d5b96bfd2e99d059e7a1a20bab8e"
+        }
+      ],
+      "downloadLocation": "https://registry.npmjs.org/katex/-/katex-0.16.47.tgz",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceLocator": "pkg:npm/katex@0.16.47",
+          "referenceType": "purl"
+        }
+      ],
+      "filesAnalyzed": false,
+      "homepage": "NOASSERTION",
+      "licenseDeclared": "MIT",
+      "name": "katex",
+      "packageFileName": "node_modules/katex",
+      "versionInfo": "0.16.47"
+    },
+    {
+      "SPDXID": "SPDXRef-Package-ky-1.14.3",
+      "checksums": [
+        {
+          "algorithm": "SHA512",
+          "checksumValue": "f73cbd9648da73e4d1d5cdad1be9a4352565c8ea489e759d48c8ae7b817e92af13c094a0bfaa3c8e12d183c1e8e929d9f7039852aff2a33b6cf6a4027e4edb23"
+        }
+      ],
+      "downloadLocation": "https://registry.npmjs.org/ky/-/ky-1.14.3.tgz",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceLocator": "pkg:npm/ky@1.14.3",
+          "referenceType": "purl"
+        }
+      ],
+      "filesAnalyzed": false,
+      "homepage": "NOASSERTION",
+      "licenseDeclared": "MIT",
+      "name": "ky",
+      "packageFileName": "node_modules/ky",
+      "versionInfo": "1.14.3"
+    },
+    {
+      "SPDXID": "SPDXRef-Package-linkify-it-5.0.2",
+      "checksums": [
+        {
+          "algorithm": "SHA512",
+          "checksumValue": "38d4e6da308c0156638106bf172d6449c5ecb8ea05e4d3d3b28141744d4a548676bc087fafdf81aa8fb48c83420589dabd33d0673dfc43315399eefd10da0ddd"
+        }
+      ],
+      "downloadLocation": "https://registry.npmjs.org/linkify-it/-/linkify-it-5.0.2.tgz",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceLocator": "pkg:npm/linkify-it@5.0.2",
+          "referenceType": "purl"
+        }
+      ],
+      "filesAnalyzed": false,
+      "homepage": "NOASSERTION",
+      "licenseDeclared": "MIT",
+      "name": "linkify-it",
+      "packageFileName": "node_modules/linkify-it",
+      "versionInfo": "5.0.2"
+    },
+    {
+      "SPDXID": "SPDXRef-Package-lru-cache-6.0.0",
+      "checksums": [
+        {
+          "algorithm": "SHA512",
+          "checksumValue": "268e9d274e029928eece7c09492de951e5a677f1f47df4e59175e0c198be7aad540a6a90c0287e78bb183980b063df758b615a878875044302c78a938466ec88"
+        }
+      ],
+      "downloadLocation": "https://registry.npmjs.org/lru-cache/-/lru-cache-6.0.0.tgz",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceLocator": "pkg:npm/lru-cache@6.0.0",
+          "referenceType": "purl"
+        }
+      ],
+      "filesAnalyzed": false,
+      "homepage": "NOASSERTION",
+      "licenseDeclared": "ISC",
+      "name": "lru-cache",
+      "packageFileName": "node_modules/lru-cache",
+      "versionInfo": "6.0.0"
+    },
+    {
+      "SPDXID": "SPDXRef-Package-markdown-it-14.2.0",
+      "checksums": [
+        {
+          "algorithm": "SHA512",
+          "checksumValue": "d531a2422255450dcd3e6647eacc7909f9e683a1909bd8ef0b5721e132b9d75363489be3cca2f39f9a4f7d944d66444f64fd07a828a84a776a1fcbf69d169655"
+        }
+      ],
+      "downloadLocation": "https://registry.npmjs.org/markdown-it/-/markdown-it-14.2.0.tgz",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceLocator": "pkg:npm/markdown-it@14.2.0",
+          "referenceType": "purl"
+        }
+      ],
+      "filesAnalyzed": false,
+      "homepage": "NOASSERTION",
+      "licenseDeclared": "MIT",
+      "name": "markdown-it",
+      "packageFileName": "node_modules/markdown-it",
+      "versionInfo": "14.2.0"
+    },
+    {
+      "SPDXID": "SPDXRef-Package-markdownlint-0.41.0",
+      "checksums": [
+        {
+          "algorithm": "SHA512",
+          "checksumValue": "c4c508dc2841b91bb1b8b17810dbc26724bccfff89972d5ca14719c04aca2c8077b038fba23a5a4c16b57bd6153e148de2318422360640295d6d3252fe1a92f8"
+        }
+      ],
+      "downloadLocation": "https://registry.npmjs.org/markdownlint/-/markdownlint-0.41.0.tgz",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceLocator": "pkg:npm/markdownlint@0.41.0",
+          "referenceType": "purl"
+        }
+      ],
+      "filesAnalyzed": false,
+      "homepage": "NOASSERTION",
+      "licenseDeclared": "MIT",
+      "name": "markdownlint",
+      "packageFileName": "node_modules/markdownlint",
+      "versionInfo": "0.41.0"
+    },
+    {
+      "SPDXID": "SPDXRef-Package-markdownlint-cli2-0.23.0",
+      "checksums": [
+        {
+          "algorithm": "SHA512",
+          "checksumValue": "d679a042653f6533115706020ecee2d47237cdf0484a74f634d46ffbd574d6838b65b02da8bf9aeed95da4f841581541b5e9f716a84c08657a11487d31caaeb5"
+        }
+      ],
+      "downloadLocation": "https://registry.npmjs.org/markdownlint-cli2/-/markdownlint-cli2-0.23.0.tgz",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceLocator": "pkg:npm/markdownlint-cli2@0.23.0",
+          "referenceType": "purl"
+        }
+      ],
+      "filesAnalyzed": false,
+      "homepage": "NOASSERTION",
+      "licenseDeclared": "MIT",
+      "name": "markdownlint-cli2",
+      "packageFileName": "node_modules/markdownlint-cli2",
+      "versionInfo": "0.23.0"
+    },
+    {
+      "SPDXID": "SPDXRef-Package-markdownlint-cli2-formatter-default-0.0.6",
+      "checksums": [
+        {
+          "algorithm": "SHA512",
+          "checksumValue": "5550c62acabdb20ceedfbf2cc09d1f7077d289c5273319cbf209cb9bf43827fc6c349e1ee5b03a96f033ecf0b3225d3f368d251f269676a543da3a2dc4e48531"
+        }
+      ],
+      "downloadLocation": "https://registry.npmjs.org/markdownlint-cli2-formatter-default/-/markdownlint-cli2-formatter-default-0.0.6.tgz",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceLocator": "pkg:npm/markdownlint-cli2-formatter-default@0.0.6",
+          "referenceType": "purl"
+        }
+      ],
+      "filesAnalyzed": false,
+      "homepage": "NOASSERTION",
+      "licenseDeclared": "MIT",
+      "name": "markdownlint-cli2-formatter-default",
+      "packageFileName": "node_modules/markdownlint-cli2-formatter-default",
+      "versionInfo": "0.0.6"
+    },
+    {
+      "SPDXID": "SPDXRef-Package-mdurl-2.0.0",
+      "checksums": [
+        {
+          "algorithm": "SHA512",
+          "checksumValue": "2dffbdfb6afe4dda79c170d70b83dc2018d30edab850a8c23cc421288bb3a49356d1bf7a915a92c16d1b4fb1614527e602215880ff92091bddac3a337e1d14e7"
+        }
+      ],
+      "downloadLocation": "https://registry.npmjs.org/mdurl/-/mdurl-2.0.0.tgz",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceLocator": "pkg:npm/mdurl@2.0.0",
+          "referenceType": "purl"
+        }
+      ],
+      "filesAnalyzed": false,
+      "homepage": "NOASSERTION",
+      "licenseDeclared": "MIT",
+      "name": "mdurl",
+      "packageFileName": "node_modules/mdurl",
+      "versionInfo": "2.0.0"
+    },
+    {
+      "SPDXID": "SPDXRef-Package-merge2-1.4.1",
+      "checksums": [
+        {
+          "algorithm": "SHA512",
+          "checksumValue": "f2aed51203095b827cb5c7d53f2f20d3d35c43065d6f0144aa17bf5999282338e7ff74c60f0b4e098b571b10373bcb4fce97330820e0bfe3f63f9cb4d1924e3a"
+        }
+      ],
+      "downloadLocation": "https://registry.npmjs.org/merge2/-/merge2-1.4.1.tgz",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceLocator": "pkg:npm/merge2@1.4.1",
+          "referenceType": "purl"
+        }
+      ],
+      "filesAnalyzed": false,
+      "homepage": "NOASSERTION",
+      "licenseDeclared": "MIT",
+      "name": "merge2",
+      "packageFileName": "node_modules/merge2",
+      "versionInfo": "1.4.1"
+    },
+    {
+      "SPDXID": "SPDXRef-Package-micromark-4.0.2",
+      "checksums": [
+        {
+          "algorithm": "SHA512",
+          "checksumValue": "ce97bdf10ea4bdabe90abd4d3d548231e6c229f0fb080d8da99fabca478d84e348241a5cd6d14ab7d86e70b1b085ade3353348f251e972d5895a88a6545e0f7c"
+        }
+      ],
+      "downloadLocation": "https://registry.npmjs.org/micromark/-/micromark-4.0.2.tgz",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceLocator": "pkg:npm/micromark@4.0.2",
+          "referenceType": "purl"
+        }
+      ],
+      "filesAnalyzed": false,
+      "homepage": "NOASSERTION",
+      "licenseDeclared": "MIT",
+      "name": "micromark",
+      "packageFileName": "node_modules/micromark",
+      "versionInfo": "4.0.2"
+    },
+    {
+      "SPDXID": "SPDXRef-Package-micromark-core-commonmark-2.0.3",
+      "checksums": [
+        {
+          "algorithm": "SHA512",
+          "checksumValue": "44306b1c4312c5514b83ac6f9d799bd40cabd96ccb0168de4804c0a31c0a60957de1378d6af82821d0346bdcadcc3495cc1cb660a14af9e9823ce1226cb782ae"
+        }
+      ],
+      "downloadLocation": "https://registry.npmjs.org/micromark-core-commonmark/-/micromark-core-commonmark-2.0.3.tgz",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceLocator": "pkg:npm/micromark-core-commonmark@2.0.3",
+          "referenceType": "purl"
+        }
+      ],
+      "filesAnalyzed": false,
+      "homepage": "NOASSERTION",
+      "licenseDeclared": "MIT",
+      "name": "micromark-core-commonmark",
+      "packageFileName": "node_modules/micromark-core-commonmark",
+      "versionInfo": "2.0.3"
+    },
+    {
+      "SPDXID": "SPDXRef-Package-micromark-extension-directive-4.0.0",
+      "checksums": [
+        {
+          "algorithm": "SHA512",
+          "checksumValue": "fc2da7a959975e68ac7924ae09d22d08c868ef26f0c28a7a46bad13e4d0a6ce1d6db524aa0295d0bef2b14e6ae9dd0e8441516067249731780fcabe2df85905e"
+        }
+      ],
+      "downloadLocation": "https://registry.npmjs.org/micromark-extension-directive/-/micromark-extension-directive-4.0.0.tgz",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceLocator": "pkg:npm/micromark-extension-directive@4.0.0",
+          "referenceType": "purl"
+        }
+      ],
+      "filesAnalyzed": false,
+      "homepage": "NOASSERTION",
+      "licenseDeclared": "MIT",
+      "name": "micromark-extension-directive",
+      "packageFileName": "node_modules/micromark-extension-directive",
+      "versionInfo": "4.0.0"
+    },
+    {
+      "SPDXID": "SPDXRef-Package-micromark-extension-gfm-autolink-literal-2.1.0",
+      "checksums": [
+        {
+          "algorithm": "SHA512",
+          "checksumValue": "a0e83b927ce189c810dede100a309681399f361bd06c30e725e56ef6ff35afb365b4d0959a13f2d5f2515f6ee921269f7632fe495738777978f066faa5b472a7"
+        }
+      ],
+      "downloadLocation": "https://registry.npmjs.org/micromark-extension-gfm-autolink-literal/-/micromark-extension-gfm-autolink-literal-2.1.0.tgz",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceLocator": "pkg:npm/micromark-extension-gfm-autolink-literal@2.1.0",
+          "referenceType": "purl"
+        }
+      ],
+      "filesAnalyzed": false,
+      "homepage": "NOASSERTION",
+      "licenseDeclared": "MIT",
+      "name": "micromark-extension-gfm-autolink-literal",
+      "packageFileName": "node_modules/micromark-extension-gfm-autolink-literal",
+      "versionInfo": "2.1.0"
+    },
+    {
+      "SPDXID": "SPDXRef-Package-micromark-extension-gfm-footnote-2.1.0",
+      "checksums": [
+        {
+          "algorithm": "SHA512",
+          "checksumValue": "ff23e1c48d67b670cdb221edccb2989c4def7fd259e9c022b2a5436ae869e02107c656f8ba8393c4e089fbdb39d5b201f14d4dd4527545738a4c8943e41fe0ab"
+        }
+      ],
+      "downloadLocation": "https://registry.npmjs.org/micromark-extension-gfm-footnote/-/micromark-extension-gfm-footnote-2.1.0.tgz",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceLocator": "pkg:npm/micromark-extension-gfm-footnote@2.1.0",
+          "referenceType": "purl"
+        }
+      ],
+      "filesAnalyzed": false,
+      "homepage": "NOASSERTION",
+      "licenseDeclared": "MIT",
+      "name": "micromark-extension-gfm-footnote",
+      "packageFileName": "node_modules/micromark-extension-gfm-footnote",
+      "versionInfo": "2.1.0"
+    },
+    {
+      "SPDXID": "SPDXRef-Package-micromark-extension-gfm-table-2.1.1",
+      "checksums": [
+        {
+          "algorithm": "SHA512",
+          "checksumValue": "b76394fdd5d78a8011ac2eb259f27886a07badcb75e1ef1fee6d1c6c8e615260f2c88970bf9bc4b68a29b47f083646cbcce6adccab956d098061c6d6a32cfa0e"
+        }
+      ],
+      "downloadLocation": "https://registry.npmjs.org/micromark-extension-gfm-table/-/micromark-extension-gfm-table-2.1.1.tgz",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceLocator": "pkg:npm/micromark-extension-gfm-table@2.1.1",
+          "referenceType": "purl"
+        }
+      ],
+      "filesAnalyzed": false,
+      "homepage": "NOASSERTION",
+      "licenseDeclared": "MIT",
+      "name": "micromark-extension-gfm-table",
+      "packageFileName": "node_modules/micromark-extension-gfm-table",
+      "versionInfo": "2.1.1"
+    },
+    {
+      "SPDXID": "SPDXRef-Package-micromark-extension-math-3.1.0",
+      "checksums": [
+        {
+          "algorithm": "SHA512",
+          "checksumValue": "96f12a77e7c78c04d5b3edafffc920f62e50d003f693ce47d1650ec29215bd430bf016a9b0cbe1d57028826423382b0ba6829109542a12440107736154172c3a"
+        }
+      ],
+      "downloadLocation": "https://registry.npmjs.org/micromark-extension-math/-/micromark-extension-math-3.1.0.tgz",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceLocator": "pkg:npm/micromark-extension-math@3.1.0",
+          "referenceType": "purl"
+        }
+      ],
+      "filesAnalyzed": false,
+      "homepage": "NOASSERTION",
+      "licenseDeclared": "MIT",
+      "name": "micromark-extension-math",
+      "packageFileName": "node_modules/micromark-extension-math",
+      "versionInfo": "3.1.0"
+    },
+    {
+      "SPDXID": "SPDXRef-Package-micromark-factory-destination-2.0.1",
+      "checksums": [
+        {
+          "algorithm": "SHA512",
+          "checksumValue": "5deeab0dd2659266c5444c694ce9918fd37731a5a66c081da52ac142f085aa17b3527e001ea2476da1277db5586227b1552b3ffeda8e758fc3c618dd0a226720"
+        }
+      ],
+      "downloadLocation": "https://registry.npmjs.org/micromark-factory-destination/-/micromark-factory-destination-2.0.1.tgz",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceLocator": "pkg:npm/micromark-factory-destination@2.0.1",
+          "referenceType": "purl"
+        }
+      ],
+      "filesAnalyzed": false,
+      "homepage": "NOASSERTION",
+      "licenseDeclared": "MIT",
+      "name": "micromark-factory-destination",
+      "packageFileName": "node_modules/micromark-factory-destination",
+      "versionInfo": "2.0.1"
+    },
+    {
+      "SPDXID": "SPDXRef-Package-micromark-factory-label-2.0.1",
+      "checksums": [
+        {
+          "algorithm": "SHA512",
+          "checksumValue": "54531e932404c6a216ef120285c5e7e28936f58137ae7bb2bde5b7c194165aa17836ff56939ae027df4accfbc78e498f5c5f7715721b069e98756dedef5ffb56"
+        }
+      ],
+      "downloadLocation": "https://registry.npmjs.org/micromark-factory-label/-/micromark-factory-label-2.0.1.tgz",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceLocator": "pkg:npm/micromark-factory-label@2.0.1",
+          "referenceType": "purl"
+        }
+      ],
+      "filesAnalyzed": false,
+      "homepage": "NOASSERTION",
+      "licenseDeclared": "MIT",
+      "name": "micromark-factory-label",
+      "packageFileName": "node_modules/micromark-factory-label",
+      "versionInfo": "2.0.1"
+    },
+    {
+      "SPDXID": "SPDXRef-Package-micromark-factory-space-2.0.1",
+      "checksums": [
+        {
+          "algorithm": "SHA512",
+          "checksumValue": "cd19318ed071c4b77649cd1df9f6e712e9ec4e3e3a4965e05dc899987ab49036069dc93f6521a3f7fc142d357de6ea1e6222b98515cfda627df14a3872afcb42"
+        }
+      ],
+      "downloadLocation": "https://registry.npmjs.org/micromark-factory-space/-/micromark-factory-space-2.0.1.tgz",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceLocator": "pkg:npm/micromark-factory-space@2.0.1",
+          "referenceType": "purl"
+        }
+      ],
+      "filesAnalyzed": false,
+      "homepage": "NOASSERTION",
+      "licenseDeclared": "MIT",
+      "name": "micromark-factory-space",
+      "packageFileName": "node_modules/micromark-factory-space",
+      "versionInfo": "2.0.1"
+    },
+    {
+      "SPDXID": "SPDXRef-Package-micromark-factory-title-2.0.1",
+      "checksums": [
+        {
+          "algorithm": "SHA512",
+          "checksumValue": "e5b67edc28e101df5e0a16131ec8f2e931b1a4e1522a028a24f271af6f778d36dfaf2d8a0e85a48416fa4dc3d5078366cda3e132cd45ae6f40647ece0f80a3cf"
+        }
+      ],
+      "downloadLocation": "https://registry.npmjs.org/micromark-factory-title/-/micromark-factory-title-2.0.1.tgz",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceLocator": "pkg:npm/micromark-factory-title@2.0.1",
+          "referenceType": "purl"
+        }
+      ],
+      "filesAnalyzed": false,
+      "homepage": "NOASSERTION",
+      "licenseDeclared": "MIT",
+      "name": "micromark-factory-title",
+      "packageFileName": "node_modules/micromark-factory-title",
+      "versionInfo": "2.0.1"
+    },
+    {
+      "SPDXID": "SPDXRef-Package-micromark-factory-whitespace-2.0.1",
+      "checksums": [
+        {
+          "algorithm": "SHA512",
+          "checksumValue": "39bd27b99dcf2adfe7d213911f2be80fdb9986bf996bcb05a0ff8e9cc72758ae659e04b300b81060a32bf512553962ea418bb29faba5a865925ddc1fe85f3495"
+        }
+      ],
+      "downloadLocation": "https://registry.npmjs.org/micromark-factory-whitespace/-/micromark-factory-whitespace-2.0.1.tgz",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceLocator": "pkg:npm/micromark-factory-whitespace@2.0.1",
+          "referenceType": "purl"
+        }
+      ],
+      "filesAnalyzed": false,
+      "homepage": "NOASSERTION",
+      "licenseDeclared": "MIT",
+      "name": "micromark-factory-whitespace",
+      "packageFileName": "node_modules/micromark-factory-whitespace",
+      "versionInfo": "2.0.1"
+    },
+    {
+      "SPDXID": "SPDXRef-Package-micromark-util-character-2.1.1",
+      "checksums": [
+        {
+          "algorithm": "SHA512",
+          "checksumValue": "c2ff2d7544c9ded8521451492ada5828e62218fdbebfde87be4e13bbc2a9080b1332ceb28be9d5986875b32bd20ac6b1cf8e49e896f0fbd0c3ea0f7bf8d57aed"
+        }
+      ],
+      "downloadLocation": "https://registry.npmjs.org/micromark-util-character/-/micromark-util-character-2.1.1.tgz",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceLocator": "pkg:npm/micromark-util-character@2.1.1",
+          "referenceType": "purl"
+        }
+      ],
+      "filesAnalyzed": false,
+      "homepage": "NOASSERTION",
+      "licenseDeclared": "MIT",
+      "name": "micromark-util-character",
+      "packageFileName": "node_modules/micromark-util-character",
+      "versionInfo": "2.1.1"
+    },
+    {
+      "SPDXID": "SPDXRef-Package-micromark-util-chunked-2.0.1",
+      "checksums": [
+        {
+          "algorithm": "SHA512",
+          "checksumValue": "41434510e3c42df9afbfee3188d836b1161e4bf3fce294d6d130a03f9cdcf45a577ad1d8d1a6fb4b12b201008d09cd5e2b4e39f6ea0b235cb9a0ee5573575b84"
+        }
+      ],
+      "downloadLocation": "https://registry.npmjs.org/micromark-util-chunked/-/micromark-util-chunked-2.0.1.tgz",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceLocator": "pkg:npm/micromark-util-chunked@2.0.1",
+          "referenceType": "purl"
+        }
+      ],
+      "filesAnalyzed": false,
+      "homepage": "NOASSERTION",
+      "licenseDeclared": "MIT",
+      "name": "micromark-util-chunked",
+      "packageFileName": "node_modules/micromark-util-chunked",
+      "versionInfo": "2.0.1"
+    },
+    {
+      "SPDXID": "SPDXRef-Package-micromark-util-classify-character-2.0.1",
+      "checksums": [
+        {
+          "algorithm": "SHA512",
+          "checksumValue": "2b4907ccce9a7d6fcc6de59858b8e81d0bf5b2083643d11c707103cd293188ffc469a80dcc29bb4ff58c299deb8cc6ef229bc189983047774a33282d038986d5"
+        }
+      ],
+      "downloadLocation": "https://registry.npmjs.org/micromark-util-classify-character/-/micromark-util-classify-character-2.0.1.tgz",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceLocator": "pkg:npm/micromark-util-classify-character@2.0.1",
+          "referenceType": "purl"
+        }
+      ],
+      "filesAnalyzed": false,
+      "homepage": "NOASSERTION",
+      "licenseDeclared": "MIT",
+      "name": "micromark-util-classify-character",
+      "packageFileName": "node_modules/micromark-util-classify-character",
+      "versionInfo": "2.0.1"
+    },
+    {
+      "SPDXID": "SPDXRef-Package-micromark-util-combine-extensions-2.0.1",
+      "checksums": [
+        {
+          "algorithm": "SHA512",
+          "checksumValue": "3a70271fc5239b2e7d25cc99c3c2526caf5c1a9755638e0d2a048cec4f4487b0e22d2d84f513507f474e35a183cc41bdca3125e6172a788b23e217d190b1ff06"
+        }
+      ],
+      "downloadLocation": "https://registry.npmjs.org/micromark-util-combine-extensions/-/micromark-util-combine-extensions-2.0.1.tgz",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceLocator": "pkg:npm/micromark-util-combine-extensions@2.0.1",
+          "referenceType": "purl"
+        }
+      ],
+      "filesAnalyzed": false,
+      "homepage": "NOASSERTION",
+      "licenseDeclared": "MIT",
+      "name": "micromark-util-combine-extensions",
+      "packageFileName": "node_modules/micromark-util-combine-extensions",
+      "versionInfo": "2.0.1"
+    },
+    {
+      "SPDXID": "SPDXRef-Package-micromark-util-decode-numeric-character-reference-2.0.2",
+      "checksums": [
+        {
+          "algorithm": "SHA512",
+          "checksumValue": "71c51b624e82c1576498240ccabeb8757cf8d847c71a43d09418f9a7b6151b3abc23b0ad8d7649aee6c061ecdfed1a7e6e33ec7a244ea9eec6e9fa0577e944bb"
+        }
+      ],
+      "downloadLocation": "https://registry.npmjs.org/micromark-util-decode-numeric-character-reference/-/micromark-util-decode-numeric-character-reference-2.0.2.tgz",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceLocator": "pkg:npm/micromark-util-decode-numeric-character-reference@2.0.2",
+          "referenceType": "purl"
+        }
+      ],
+      "filesAnalyzed": false,
+      "homepage": "NOASSERTION",
+      "licenseDeclared": "MIT",
+      "name": "micromark-util-decode-numeric-character-reference",
+      "packageFileName": "node_modules/micromark-util-decode-numeric-character-reference",
+      "versionInfo": "2.0.2"
+    },
+    {
+      "SPDXID": "SPDXRef-Package-micromark-util-encode-2.0.1",
+      "checksums": [
+        {
+          "algorithm": "SHA512",
+          "checksumValue": "737715c76cb82aa527c28a5c3bd6ff482768d8eebb2f0249fd4caa19f6e281a85f7a02fd9b2a041680d8660913edfdfa4f46cbaccf6165301a0321fe3c20178f"
+        }
+      ],
+      "downloadLocation": "https://registry.npmjs.org/micromark-util-encode/-/micromark-util-encode-2.0.1.tgz",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceLocator": "pkg:npm/micromark-util-encode@2.0.1",
+          "referenceType": "purl"
+        }
+      ],
+      "filesAnalyzed": false,
+      "homepage": "NOASSERTION",
+      "licenseDeclared": "MIT",
+      "name": "micromark-util-encode",
+      "packageFileName": "node_modules/micromark-util-encode",
+      "versionInfo": "2.0.1"
+    },
+    {
+      "SPDXID": "SPDXRef-Package-micromark-util-html-tag-name-2.0.1",
+      "checksums": [
+        {
+          "algorithm": "SHA512",
+          "checksumValue": "d9c3448980e1096288f86b3d4f44e2cac935dfa4a7475de184ef325ba04637284e0b8a98167c05d6729f0f71c50085c0e5ce3946b206d6e6f5d46897798775c4"
+        }
+      ],
+      "downloadLocation": "https://registry.npmjs.org/micromark-util-html-tag-name/-/micromark-util-html-tag-name-2.0.1.tgz",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceLocator": "pkg:npm/micromark-util-html-tag-name@2.0.1",
+          "referenceType": "purl"
+        }
+      ],
+      "filesAnalyzed": false,
+      "homepage": "NOASSERTION",
+      "licenseDeclared": "MIT",
+      "name": "micromark-util-html-tag-name",
+      "packageFileName": "node_modules/micromark-util-html-tag-name",
+      "versionInfo": "2.0.1"
+    },
+    {
+      "SPDXID": "SPDXRef-Package-micromark-util-normalize-identifier-2.0.1",
+      "checksums": [
+        {
+          "algorithm": "SHA512",
+          "checksumValue": "b313ea9a8ef42f201126cd30d947250023d4504aa5b42909e8f84a74c203b89de049ffd0fbf1887b758a9742236ff1b21fd94ea5491100edb0a7419590bbd2f5"
+        }
+      ],
+      "downloadLocation": "https://registry.npmjs.org/micromark-util-normalize-identifier/-/micromark-util-normalize-identifier-2.0.1.tgz",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceLocator": "pkg:npm/micromark-util-normalize-identifier@2.0.1",
+          "referenceType": "purl"
+        }
+      ],
+      "filesAnalyzed": false,
+      "homepage": "NOASSERTION",
+      "licenseDeclared": "MIT",
+      "name": "micromark-util-normalize-identifier",
+      "packageFileName": "node_modules/micromark-util-normalize-identifier",
+      "versionInfo": "2.0.1"
+    },
+    {
+      "SPDXID": "SPDXRef-Package-micromark-util-resolve-all-2.0.1",
+      "checksums": [
+        {
+          "algorithm": "SHA512",
+          "checksumValue": "55d432c455854f6fc51898304272586ded638d0a0d4d2e118e09664a34d496950c6bde47b71f4d1de616e2b1832736e3bc2b25f5e2e3310c0678496caa6cdc1e"
+        }
+      ],
+      "downloadLocation": "https://registry.npmjs.org/micromark-util-resolve-all/-/micromark-util-resolve-all-2.0.1.tgz",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceLocator": "pkg:npm/micromark-util-resolve-all@2.0.1",
+          "referenceType": "purl"
+        }
+      ],
+      "filesAnalyzed": false,
+      "homepage": "NOASSERTION",
+      "licenseDeclared": "MIT",
+      "name": "micromark-util-resolve-all",
+      "packageFileName": "node_modules/micromark-util-resolve-all",
+      "versionInfo": "2.0.1"
+    },
+    {
+      "SPDXID": "SPDXRef-Package-micromark-util-sanitize-uri-2.0.1",
+      "checksums": [
+        {
+          "algorithm": "SHA512",
+          "checksumValue": "f4df48a2667f62e18665999079cd4c6e0c6d960a2e8314e8755c03cf3128b8f2a8dea156bf29851d67270e2dafcd5d5f7fa91ab3db9c5bea37cb324af5807501"
+        }
+      ],
+      "downloadLocation": "https://registry.npmjs.org/micromark-util-sanitize-uri/-/micromark-util-sanitize-uri-2.0.1.tgz",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceLocator": "pkg:npm/micromark-util-sanitize-uri@2.0.1",
+          "referenceType": "purl"
+        }
+      ],
+      "filesAnalyzed": false,
+      "homepage": "NOASSERTION",
+      "licenseDeclared": "MIT",
+      "name": "micromark-util-sanitize-uri",
+      "packageFileName": "node_modules/micromark-util-sanitize-uri",
+      "versionInfo": "2.0.1"
+    },
+    {
+      "SPDXID": "SPDXRef-Package-micromark-util-subtokenize-2.1.0",
+      "checksums": [
+        {
+          "algorithm": "SHA512",
+          "checksumValue": "5d02eee79da249cb6f9c47205f0ebe4b1ef919f9403cd103d6ac7b78127ec327416f62826d165ef8dc2f20410c33cdee9a5d7ed96497a4101ca7d2140a009858"
+        }
+      ],
+      "downloadLocation": "https://registry.npmjs.org/micromark-util-subtokenize/-/micromark-util-subtokenize-2.1.0.tgz",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceLocator": "pkg:npm/micromark-util-subtokenize@2.1.0",
+          "referenceType": "purl"
+        }
+      ],
+      "filesAnalyzed": false,
+      "homepage": "NOASSERTION",
+      "licenseDeclared": "MIT",
+      "name": "micromark-util-subtokenize",
+      "packageFileName": "node_modules/micromark-util-subtokenize",
+      "versionInfo": "2.1.0"
+    },
+    {
+      "SPDXID": "SPDXRef-Package-micromark-util-symbol-2.0.1",
+      "checksums": [
+        {
+          "algorithm": "SHA512",
+          "checksumValue": "bece6df00a5ab9df4ddbc9200ab45474479de1427ec1636f89c1cb3f109af4436562e018df5334113cb9cb5bc0df762834f0c54e08446e787a79f684f21e31d1"
+        }
+      ],
+      "downloadLocation": "https://registry.npmjs.org/micromark-util-symbol/-/micromark-util-symbol-2.0.1.tgz",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceLocator": "pkg:npm/micromark-util-symbol@2.0.1",
+          "referenceType": "purl"
+        }
+      ],
+      "filesAnalyzed": false,
+      "homepage": "NOASSERTION",
+      "licenseDeclared": "MIT",
+      "name": "micromark-util-symbol",
+      "packageFileName": "node_modules/micromark-util-symbol",
+      "versionInfo": "2.0.1"
+    },
+    {
+      "SPDXID": "SPDXRef-Package-micromark-util-types-2.0.2",
+      "checksums": [
+        {
+          "algorithm": "SHA512",
+          "checksumValue": "630d04092a49a15885d6a4d4e030ba370b42e1a586b75124cda401f0a3cfc82451f33f5359e5741db1051933be658d70076db39b19c9aa13f24e93950a97874c"
+        }
+      ],
+      "downloadLocation": "https://registry.npmjs.org/micromark-util-types/-/micromark-util-types-2.0.2.tgz",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceLocator": "pkg:npm/micromark-util-types@2.0.2",
+          "referenceType": "purl"
+        }
+      ],
+      "filesAnalyzed": false,
+      "homepage": "NOASSERTION",
+      "licenseDeclared": "MIT",
+      "name": "micromark-util-types",
+      "packageFileName": "node_modules/micromark-util-types",
+      "versionInfo": "2.0.2"
+    },
+    {
+      "SPDXID": "SPDXRef-Package-micromatch-4.0.8",
+      "checksums": [
+        {
+          "algorithm": "SHA512",
+          "checksumValue": "3d7c1f06162ed210423f0f039f413e58361beda7f77522d558a8b71c6bfce08745e13c85a02d32b3115dd06a31c3b9d2bf84ff3f3109431b18b0488508aa3604"
+        }
+      ],
+      "downloadLocation": "https://registry.npmjs.org/micromatch/-/micromatch-4.0.8.tgz",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceLocator": "pkg:npm/micromatch@4.0.8",
+          "referenceType": "purl"
+        }
+      ],
+      "filesAnalyzed": false,
+      "homepage": "NOASSERTION",
+      "licenseDeclared": "MIT",
+      "name": "micromatch",
+      "packageFileName": "node_modules/micromatch",
+      "versionInfo": "4.0.8"
+    },
+    {
+      "SPDXID": "SPDXRef-Package-ms-2.1.3",
+      "checksums": [
+        {
+          "algorithm": "SHA512",
+          "checksumValue": "e85973b9b4cb646dc9d9afcd542025784863ceae68c601f268253dc985ef70bb2fa1568726afece715c8ebf5d73fab73ed1f7100eb479d23bfb57b45dd645394"
+        }
+      ],
+      "downloadLocation": "https://registry.npmjs.org/ms/-/ms-2.1.3.tgz",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceLocator": "pkg:npm/ms@2.1.3",
+          "referenceType": "purl"
+        }
+      ],
+      "filesAnalyzed": false,
+      "homepage": "NOASSERTION",
+      "licenseDeclared": "MIT",
+      "name": "ms",
+      "packageFileName": "node_modules/ms",
+      "versionInfo": "2.1.3"
+    },
+    {
+      "SPDXID": "SPDXRef-Package-n3-2.1.1",
+      "checksums": [
+        {
+          "algorithm": "SHA512",
+          "checksumValue": "92a83c7abb3a2dcfae0261de4bec9c7776fc982e31f30afc57c162ebec3b978857e9bd0a6796d3d394dfe3da8cda6ba3c1aa994f7fb4f33720b5781fc62bdb55"
+        }
+      ],
+      "downloadLocation": "https://registry.npmjs.org/n3/-/n3-2.1.1.tgz",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceLocator": "pkg:npm/n3@2.1.1",
+          "referenceType": "purl"
+        }
+      ],
+      "filesAnalyzed": false,
+      "homepage": "NOASSERTION",
+      "licenseDeclared": "MIT",
+      "name": "n3",
+      "packageFileName": "node_modules/n3",
+      "versionInfo": "2.1.1"
+    },
+    {
+      "SPDXID": "SPDXRef-Package-parse-entities-4.0.2",
+      "checksums": [
+        {
+          "algorithm": "SHA512",
+          "checksumValue": "186d804185a82e02fcefb81020a7913c63b5c45f7e786d6e8c86f9b284b980fbcb435cb6a3c14bf74c3641635d7fd237eb5329a7bef6e9cfa58f7534a8ad6e1b"
+        }
+      ],
+      "downloadLocation": "https://registry.npmjs.org/parse-entities/-/parse-entities-4.0.2.tgz",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceLocator": "pkg:npm/parse-entities@4.0.2",
+          "referenceType": "purl"
+        }
+      ],
+      "filesAnalyzed": false,
+      "homepage": "NOASSERTION",
+      "licenseDeclared": "MIT",
+      "name": "parse-entities",
+      "packageFileName": "node_modules/parse-entities",
+      "versionInfo": "4.0.2"
+    },
+    {
+      "SPDXID": "SPDXRef-Package-parse5-8.0.1",
+      "checksums": [
+        {
+          "algorithm": "SHA512",
+          "checksumValue": "cf57bf1cc1bdd286d219e89d9658b7863edc6e8728bb4ff06b91da72f237012c77e0f79c36335079a1cda395886695a87cdf64824a95d6ae58bd77b71741683f"
+        }
+      ],
+      "downloadLocation": "https://registry.npmjs.org/parse5/-/parse5-8.0.1.tgz",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceLocator": "pkg:npm/parse5@8.0.1",
+          "referenceType": "purl"
+        }
+      ],
+      "filesAnalyzed": false,
+      "homepage": "NOASSERTION",
+      "licenseDeclared": "MIT",
+      "name": "parse5",
+      "packageFileName": "node_modules/parse5",
+      "versionInfo": "8.0.1"
+    },
+    {
+      "SPDXID": "SPDXRef-Package-entities-8.0.0",
+      "checksums": [
+        {
+          "algorithm": "SHA512",
+          "checksumValue": "cf07f325e710fd47a3eadbac32ac00a94ffa28bd97681d95676260e7825ee9a84d046347e8493a8378e33421747c6f4459028664d75d3635391756509ffb019c"
+        }
+      ],
+      "downloadLocation": "https://registry.npmjs.org/entities/-/entities-8.0.0.tgz",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceLocator": "pkg:npm/entities@8.0.0",
+          "referenceType": "purl"
+        }
+      ],
+      "filesAnalyzed": false,
+      "homepage": "NOASSERTION",
+      "licenseDeclared": "BSD-2-Clause",
+      "name": "entities",
+      "packageFileName": "node_modules/parse5/node_modules/entities",
+      "versionInfo": "8.0.0"
+    },
+    {
+      "SPDXID": "SPDXRef-Package-picomatch-2.3.2",
+      "checksums": [
+        {
+          "algorithm": "SHA512",
+          "checksumValue": "57bfaf404274e99f9ce6d4b27bc4be9c751f239d71a172178c743df5c42d294910aaa3b590efca08951f657b81e3b87f60194385a8761f785d5065e7f227b4a0"
+        }
+      ],
+      "downloadLocation": "https://registry.npmjs.org/picomatch/-/picomatch-2.3.2.tgz",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceLocator": "pkg:npm/picomatch@2.3.2",
+          "referenceType": "purl"
+        }
+      ],
+      "filesAnalyzed": false,
+      "homepage": "NOASSERTION",
+      "licenseDeclared": "MIT",
+      "name": "picomatch",
+      "packageFileName": "node_modules/picomatch",
+      "versionInfo": "2.3.2"
+    },
+    {
+      "SPDXID": "SPDXRef-Package-process-0.11.10",
+      "checksums": [
+        {
+          "algorithm": "SHA512",
+          "checksumValue": "71d19e7ff76b585a32743d49b0ccee15ff35d349d997e193fb269c7366c471e7797fd463938cfe5ad1544c1bbd3e13a2f63fe37e604fbb498c118e3021d005f0"
+        }
+      ],
+      "downloadLocation": "https://registry.npmjs.org/process/-/process-0.11.10.tgz",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceLocator": "pkg:npm/process@0.11.10",
+          "referenceType": "purl"
+        }
+      ],
+      "filesAnalyzed": false,
+      "homepage": "NOASSERTION",
+      "licenseDeclared": "MIT",
+      "name": "process",
+      "packageFileName": "node_modules/process",
+      "versionInfo": "0.11.10"
+    },
+    {
+      "SPDXID": "SPDXRef-Package-prsc-4.0.0",
+      "checksums": [
+        {
+          "algorithm": "SHA512",
+          "checksumValue": "3a65d0dafefa4655cdc7f82abfbfa807a8f22a7b9d27faec31f00855ec616c31715c024fa1628cc49919536a2196ee268828924021be868adfd83578fe435cd5"
+        }
+      ],
+      "downloadLocation": "https://registry.npmjs.org/prsc/-/prsc-4.0.0.tgz",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceLocator": "pkg:npm/prsc@4.0.0",
+          "referenceType": "purl"
+        }
+      ],
+      "filesAnalyzed": false,
+      "homepage": "NOASSERTION",
+      "licenseDeclared": "MIT",
+      "name": "prsc",
+      "packageFileName": "node_modules/prsc",
+      "versionInfo": "4.0.0"
+    },
+    {
+      "SPDXID": "SPDXRef-Package-punycode.js-2.3.1",
+      "checksums": [
+        {
+          "algorithm": "SHA512",
+          "checksumValue": "bb11481d4d189476210d0b55e11f49e9ae7648bc76f010a34fee227a1ec819b83054958efa49b8df5738c9195111402c026b7fb8c8d05324073443dfd0cdfd08"
+        }
+      ],
+      "downloadLocation": "https://registry.npmjs.org/punycode.js/-/punycode.js-2.3.1.tgz",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceLocator": "pkg:npm/punycode.js@2.3.1",
+          "referenceType": "purl"
+        }
+      ],
+      "filesAnalyzed": false,
+      "homepage": "NOASSERTION",
+      "licenseDeclared": "MIT",
+      "name": "punycode.js",
+      "packageFileName": "node_modules/punycode.js",
+      "versionInfo": "2.3.1"
+    },
+    {
+      "SPDXID": "SPDXRef-Package-queue-microtask-1.2.3",
+      "checksums": [
+        {
+          "algorithm": "SHA512",
+          "checksumValue": "36e68d49ae9f94a4f925a498433268934e09cd32f5080e9a1a1bf9adf2d6dcf82a03e3360a1a59427002f21f22e19164052f17e51aa40c11c0eebe217a3dcaf4"
+        }
+      ],
+      "downloadLocation": "https://registry.npmjs.org/queue-microtask/-/queue-microtask-1.2.3.tgz",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceLocator": "pkg:npm/queue-microtask@1.2.3",
+          "referenceType": "purl"
+        }
+      ],
+      "filesAnalyzed": false,
+      "homepage": "NOASSERTION",
+      "licenseDeclared": "MIT",
+      "name": "queue-microtask",
+      "packageFileName": "node_modules/queue-microtask",
+      "versionInfo": "1.2.3"
+    },
+    {
+      "SPDXID": "SPDXRef-Package-rdf-canonize-5.0.0",
+      "checksums": [
+        {
+          "algorithm": "SHA512",
+          "checksumValue": "83c394ae0317011f72b3f66e2557c1af4e6c3cfa0c03b9c7215b3c544be0f50c0ce56e06476a921441078ecc8717579694169ff04bf8d1636340543e9c94cedf"
+        }
+      ],
+      "downloadLocation": "https://registry.npmjs.org/rdf-canonize/-/rdf-canonize-5.0.0.tgz",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceLocator": "pkg:npm/rdf-canonize@5.0.0",
+          "referenceType": "purl"
+        }
+      ],
+      "filesAnalyzed": false,
+      "homepage": "NOASSERTION",
+      "licenseDeclared": "BSD-3-Clause",
+      "name": "rdf-canonize",
+      "packageFileName": "node_modules/rdf-canonize",
+      "versionInfo": "5.0.0"
+    },
+    {
+      "SPDXID": "SPDXRef-Package-rdf-data-factory-2.0.2",
+      "checksums": [
+        {
+          "algorithm": "SHA512",
+          "checksumValue": "5b33e8607c10616bc83fd93eec804b6356f89c80e2b7300ae26037ed6ba6005fc28efbbf28eb58247f483d99d44d63527792b6fa9ab8beb704f56642e2c44786"
+        }
+      ],
+      "downloadLocation": "https://registry.npmjs.org/rdf-data-factory/-/rdf-data-factory-2.0.2.tgz",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceLocator": "pkg:npm/rdf-data-factory@2.0.2",
+          "referenceType": "purl"
+        }
+      ],
+      "filesAnalyzed": false,
+      "homepage": "NOASSERTION",
+      "licenseDeclared": "MIT",
+      "name": "rdf-data-factory",
+      "packageFileName": "node_modules/rdf-data-factory",
+      "versionInfo": "2.0.2"
+    },
+    {
+      "SPDXID": "SPDXRef-Package-rdf-dataset-ext-1.1.0",
+      "checksums": [
+        {
+          "algorithm": "SHA512",
+          "checksumValue": "087f3945f44a37d69295b8eef13eda33c86009258c06c8767a1fed1b1514b5630dfb06b18ba8850edf3faf83c012629a100f3682e8a6649e0849b989dabbd642"
+        }
+      ],
+      "downloadLocation": "https://registry.npmjs.org/rdf-dataset-ext/-/rdf-dataset-ext-1.1.0.tgz",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceLocator": "pkg:npm/rdf-dataset-ext@1.1.0",
+          "referenceType": "purl"
+        }
+      ],
+      "filesAnalyzed": false,
+      "homepage": "NOASSERTION",
+      "licenseDeclared": "MIT",
+      "name": "rdf-dataset-ext",
+      "packageFileName": "node_modules/rdf-dataset-ext",
+      "versionInfo": "1.1.0"
+    },
+    {
+      "SPDXID": "SPDXRef-Package-rdf-canonize-3.4.0",
+      "checksums": [
+        {
+          "algorithm": "SHA512",
+          "checksumValue": "7d47968eb90e3b4b75ae0ec1d9f7720d3be7823fbd4655322fddaf39d881edcd053e0b9656c9e220c8c4b471fe99e2c13bdaf3914954cc1557816ae323c3fd2c"
+        }
+      ],
+      "downloadLocation": "https://registry.npmjs.org/rdf-canonize/-/rdf-canonize-3.4.0.tgz",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceLocator": "pkg:npm/rdf-canonize@3.4.0",
+          "referenceType": "purl"
+        }
+      ],
+      "filesAnalyzed": false,
+      "homepage": "NOASSERTION",
+      "licenseDeclared": "BSD-3-Clause",
+      "name": "rdf-canonize",
+      "packageFileName": "node_modules/rdf-dataset-ext/node_modules/rdf-canonize",
+      "versionInfo": "3.4.0"
+    },
+    {
+      "SPDXID": "SPDXRef-Package-rdf-literal-2.0.0",
+      "checksums": [
+        {
+          "algorithm": "SHA512",
+          "checksumValue": "8e543e87b12f9d79a772693c3b339847c4f780d7dde20d0b4176df94790491a9dc89cf1d8744ddb7946246af2f5059dd8c878d1edd5159e0394c08faae0aed9e"
+        }
+      ],
+      "downloadLocation": "https://registry.npmjs.org/rdf-literal/-/rdf-literal-2.0.0.tgz",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceLocator": "pkg:npm/rdf-literal@2.0.0",
+          "referenceType": "purl"
+        }
+      ],
+      "filesAnalyzed": false,
+      "homepage": "NOASSERTION",
+      "licenseDeclared": "MIT",
+      "name": "rdf-literal",
+      "packageFileName": "node_modules/rdf-literal",
+      "versionInfo": "2.0.0"
+    },
+    {
+      "SPDXID": "SPDXRef-Package-rdf-validate-datatype-0.2.2",
+      "checksums": [
+        {
+          "algorithm": "SHA512",
+          "checksumValue": "987f6a2fc8b45816d9e87242036e8107a57e595d8cada2af8ad7b3dd257441e801595438c183b8f4281f141ce801883ab659e115797d324ace010d3b5f637514"
+        }
+      ],
+      "downloadLocation": "https://registry.npmjs.org/rdf-validate-datatype/-/rdf-validate-datatype-0.2.2.tgz",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceLocator": "pkg:npm/rdf-validate-datatype@0.2.2",
+          "referenceType": "purl"
+        }
+      ],
+      "filesAnalyzed": false,
+      "homepage": "NOASSERTION",
+      "licenseDeclared": "MIT",
+      "name": "rdf-validate-datatype",
+      "packageFileName": "node_modules/rdf-validate-datatype",
+      "versionInfo": "0.2.2"
+    },
+    {
+      "SPDXID": "SPDXRef-Package-rdf-validate-shacl-0.6.5",
+      "checksums": [
+        {
+          "algorithm": "SHA512",
+          "checksumValue": "af02226e8a528b10c4f1e700f71d1cee84d5c5d316c4688987b877b89f964b687896ada7c770d954eeeb26fc1ae646690eaf501053e8c9920d014c9f69aa0de1"
+        }
+      ],
+      "downloadLocation": "https://registry.npmjs.org/rdf-validate-shacl/-/rdf-validate-shacl-0.6.5.tgz",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceLocator": "pkg:npm/rdf-validate-shacl@0.6.5",
+          "referenceType": "purl"
+        }
+      ],
+      "filesAnalyzed": false,
+      "homepage": "NOASSERTION",
+      "licenseDeclared": "MIT",
+      "name": "rdf-validate-shacl",
+      "packageFileName": "node_modules/rdf-validate-shacl",
+      "versionInfo": "0.6.5"
+    },
+    {
+      "SPDXID": "SPDXRef-Package-rdfxml-streaming-parser-3.2.0",
+      "checksums": [
+        {
+          "algorithm": "SHA512",
+          "checksumValue": "4a04062b41246d77748d0d4f664edd1297c3c5fe026697b390ee9c4ee1967ac6bdb7075669a5b97a532834171b313fb6b4e642d446198ecd09697c741e789f71"
+        }
+      ],
+      "downloadLocation": "https://registry.npmjs.org/rdfxml-streaming-parser/-/rdfxml-streaming-parser-3.2.0.tgz",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceLocator": "pkg:npm/rdfxml-streaming-parser@3.2.0",
+          "referenceType": "purl"
+        }
+      ],
+      "filesAnalyzed": false,
+      "homepage": "NOASSERTION",
+      "licenseDeclared": "MIT",
+      "name": "rdfxml-streaming-parser",
+      "packageFileName": "node_modules/rdfxml-streaming-parser",
+      "versionInfo": "3.2.0"
+    },
+    {
+      "SPDXID": "SPDXRef-Package-readable-stream-4.7.0",
+      "checksums": [
+        {
+          "algorithm": "SHA512",
+          "checksumValue": "a0818699ca532f03e06bc067ebf67be5255a1f5cf9754badda26d2c80315866520816a660e7d9d6a90749fb7fc9f0692891b5ea40b1f2727d720ee4309500e0e"
+        }
+      ],
+      "downloadLocation": "https://registry.npmjs.org/readable-stream/-/readable-stream-4.7.0.tgz",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceLocator": "pkg:npm/readable-stream@4.7.0",
+          "referenceType": "purl"
+        }
+      ],
+      "filesAnalyzed": false,
+      "homepage": "NOASSERTION",
+      "licenseDeclared": "MIT",
+      "name": "readable-stream",
+      "packageFileName": "node_modules/readable-stream",
+      "versionInfo": "4.7.0"
+    },
+    {
+      "SPDXID": "SPDXRef-Package-relative-to-absolute-iri-1.0.8",
+      "checksums": [
+        {
+          "algorithm": "SHA512",
+          "checksumValue": "5354e686b8429972a40cbf6623c8016c5e5337a4ca72ebf6f24e7e1f780c0808e8cf44f2c8700808795a18366c4c4052bb66371e10ca73c7ba5fd9f7dea788a8"
+        }
+      ],
+      "downloadLocation": "https://registry.npmjs.org/relative-to-absolute-iri/-/relative-to-absolute-iri-1.0.8.tgz",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceLocator": "pkg:npm/relative-to-absolute-iri@1.0.8",
+          "referenceType": "purl"
+        }
+      ],
+      "filesAnalyzed": false,
+      "homepage": "NOASSERTION",
+      "licenseDeclared": "MIT",
+      "name": "relative-to-absolute-iri",
+      "packageFileName": "node_modules/relative-to-absolute-iri",
+      "versionInfo": "1.0.8"
+    },
+    {
+      "SPDXID": "SPDXRef-Package-require-from-string-2.0.2",
+      "checksums": [
+        {
+          "algorithm": "SHA512",
+          "checksumValue": "5dfd2759ee91b1ece214cbbe029f5b8a251b9a996ae92f7fa7eef0ed85cffc904786b5030d48706bebc0372b9bbaa7d9593bde53ffc36151ac0c6ed128bfef13"
+        }
+      ],
+      "downloadLocation": "https://registry.npmjs.org/require-from-string/-/require-from-string-2.0.2.tgz",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceLocator": "pkg:npm/require-from-string@2.0.2",
+          "referenceType": "purl"
+        }
+      ],
+      "filesAnalyzed": false,
+      "homepage": "NOASSERTION",
+      "licenseDeclared": "MIT",
+      "name": "require-from-string",
+      "packageFileName": "node_modules/require-from-string",
+      "versionInfo": "2.0.2"
+    },
+    {
+      "SPDXID": "SPDXRef-Package-reusify-1.1.0",
+      "checksums": [
+        {
+          "algorithm": "SHA512",
+          "checksumValue": "83a4147dfd38a19a47b34786e69f37ac52e11de574d2e83f61ff6764ce9f2de52b3e0b814e44d039da40596b29321e794d97d54033da37735025f6d5440c5d23"
+        }
+      ],
+      "downloadLocation": "https://registry.npmjs.org/reusify/-/reusify-1.1.0.tgz",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceLocator": "pkg:npm/reusify@1.1.0",
+          "referenceType": "purl"
+        }
+      ],
+      "filesAnalyzed": false,
+      "homepage": "NOASSERTION",
+      "licenseDeclared": "MIT",
+      "name": "reusify",
+      "packageFileName": "node_modules/reusify",
+      "versionInfo": "1.1.0"
+    },
+    {
+      "SPDXID": "SPDXRef-Package-run-parallel-1.2.0",
+      "checksums": [
+        {
+          "algorithm": "SHA512",
+          "checksumValue": "e65e15c9947ce8b67f943c594d1ea3a8bf00144d92d0814b30fdba01b8ec2d5003c4776107f734194b07fb2dfd51f0a2dddcf3f0e950b8f9a768938ca031d004"
+        }
+      ],
+      "downloadLocation": "https://registry.npmjs.org/run-parallel/-/run-parallel-1.2.0.tgz",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceLocator": "pkg:npm/run-parallel@1.2.0",
+          "referenceType": "purl"
+        }
+      ],
+      "filesAnalyzed": false,
+      "homepage": "NOASSERTION",
+      "licenseDeclared": "MIT",
+      "name": "run-parallel",
+      "packageFileName": "node_modules/run-parallel",
+      "versionInfo": "1.2.0"
+    },
+    {
+      "SPDXID": "SPDXRef-Package-safe-buffer-5.2.1",
+      "checksums": [
+        {
+          "algorithm": "SHA512",
+          "checksumValue": "ae9dd2a34eca71d9a629b1af81a37141226bedb1954959394bd12ad45fa9a5b468ef4f9879a0f1930e4377c34f37e183e9b8e7626d95b8fb825e6a6e62f9825d"
+        }
+      ],
+      "downloadLocation": "https://registry.npmjs.org/safe-buffer/-/safe-buffer-5.2.1.tgz",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceLocator": "pkg:npm/safe-buffer@5.2.1",
+          "referenceType": "purl"
+        }
+      ],
+      "filesAnalyzed": false,
+      "homepage": "NOASSERTION",
+      "licenseDeclared": "MIT",
+      "name": "safe-buffer",
+      "packageFileName": "node_modules/safe-buffer",
+      "versionInfo": "5.2.1"
+    },
+    {
+      "SPDXID": "SPDXRef-Package-saxes-6.0.0",
+      "checksums": [
+        {
+          "algorithm": "SHA512",
+          "checksumValue": "c4083b48e9c486b9b9cc8de9b8e38acb2d4e31c32520965834963bc4b0704b37b452384f2e759f8f6185d84a53d239b368928858a1cbb1a4926a37f7e5b7189c"
+        }
+      ],
+      "downloadLocation": "https://registry.npmjs.org/saxes/-/saxes-6.0.0.tgz",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceLocator": "pkg:npm/saxes@6.0.0",
+          "referenceType": "purl"
+        }
+      ],
+      "filesAnalyzed": false,
+      "homepage": "NOASSERTION",
+      "licenseDeclared": "ISC",
+      "name": "saxes",
+      "packageFileName": "node_modules/saxes",
+      "versionInfo": "6.0.0"
+    },
+    {
+      "SPDXID": "SPDXRef-Package-setimmediate-1.0.5",
+      "checksums": [
+        {
+          "algorithm": "SHA512",
+          "checksumValue": "3004c9759a7cb0ba8397febc2df4266cff3328f2d0355e81219a0882bb1c14343e46cbcafc1c5e0d03a0cb128aa21d32ffc87706a5459c2a90fe077eade8885c"
+        }
+      ],
+      "downloadLocation": "https://registry.npmjs.org/setimmediate/-/setimmediate-1.0.5.tgz",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceLocator": "pkg:npm/setimmediate@1.0.5",
+          "referenceType": "purl"
+        }
+      ],
+      "filesAnalyzed": false,
+      "homepage": "NOASSERTION",
+      "licenseDeclared": "MIT",
+      "name": "setimmediate",
+      "packageFileName": "node_modules/setimmediate",
+      "versionInfo": "1.0.5"
+    },
+    {
+      "SPDXID": "SPDXRef-Package-slash-5.1.0",
+      "checksums": [
+        {
+          "algorithm": "SHA512",
+          "checksumValue": "640ea84774ffa44caeab032000a4f4fe102ff28017724cdb926474524528b10f8c7384711a8264466c07807b9f69e9e5c80804d4cc60a5d72b7fbe72e977270e"
+        }
+      ],
+      "downloadLocation": "https://registry.npmjs.org/slash/-/slash-5.1.0.tgz",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceLocator": "pkg:npm/slash@5.1.0",
+          "referenceType": "purl"
+        }
+      ],
+      "filesAnalyzed": false,
+      "homepage": "NOASSERTION",
+      "licenseDeclared": "MIT",
+      "name": "slash",
+      "packageFileName": "node_modules/slash",
+      "versionInfo": "5.1.0"
+    },
+    {
+      "SPDXID": "SPDXRef-Package-slimdom-3.0.1",
+      "checksums": [
+        {
+          "algorithm": "SHA512",
+          "checksumValue": "db4425f9098bad93a89d830b4ac489cf6d11c22a73a8027ae0390ded4895d103ff7a7cb257e32940953b51c6f737d17874a0cedba16c4ec3f94162b831baa7d4"
+        }
+      ],
+      "downloadLocation": "https://registry.npmjs.org/slimdom/-/slimdom-3.0.1.tgz",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceLocator": "pkg:npm/slimdom@3.0.1",
+          "referenceType": "purl"
+        }
+      ],
+      "filesAnalyzed": false,
+      "homepage": "NOASSERTION",
+      "licenseDeclared": "MIT",
+      "name": "slimdom",
+      "packageFileName": "node_modules/slimdom",
+      "versionInfo": "3.0.1"
+    },
+    {
+      "SPDXID": "SPDXRef-Package-slimdom-sax-parser-1.5.3",
+      "checksums": [
+        {
+          "algorithm": "SHA512",
+          "checksumValue": "878eda4806acd65f2d15ec356d8fc07ff215c8ecb88dc1f38fe328254fdc7fefd94aa2ab01ef13b293256c155a29ce85b127df26a8522519afc9e3a47ad2384e"
+        }
+      ],
+      "downloadLocation": "https://registry.npmjs.org/slimdom-sax-parser/-/slimdom-sax-parser-1.5.3.tgz",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceLocator": "pkg:npm/slimdom-sax-parser@1.5.3",
+          "referenceType": "purl"
+        }
+      ],
+      "filesAnalyzed": false,
+      "homepage": "NOASSERTION",
+      "licenseDeclared": "MIT",
+      "name": "slimdom-sax-parser",
+      "packageFileName": "node_modules/slimdom-sax-parser",
+      "versionInfo": "1.5.3"
+    },
+    {
+      "SPDXID": "SPDXRef-Package-smol-toml-1.7.0",
+      "checksums": [
+        {
+          "algorithm": "SHA512",
+          "checksumValue": "6aa56f5a8c8edb52f6de66fe76b9784663176dfe8dec57478c0853440f5904bedaa560607d60b5e8a8eb01223ed69f4602ba258f23078fa7caebb8b45224cdbd"
+        }
+      ],
+      "downloadLocation": "https://registry.npmjs.org/smol-toml/-/smol-toml-1.7.0.tgz",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceLocator": "pkg:npm/smol-toml@1.7.0",
+          "referenceType": "purl"
+        }
+      ],
+      "filesAnalyzed": false,
+      "homepage": "NOASSERTION",
+      "licenseDeclared": "BSD-3-Clause",
+      "name": "smol-toml",
+      "packageFileName": "node_modules/smol-toml",
+      "versionInfo": "1.7.0"
+    },
+    {
+      "SPDXID": "SPDXRef-Package-string_decoder-1.3.0",
+      "checksums": [
+        {
+          "algorithm": "SHA512",
+          "checksumValue": "864457f14d568c915df0bb03276c90ff0596c5aa2912c0015355df90cf00fa3d3ef392401a9a6dd7a72bd56860e8a21b6f8a2453a32a97a04e8febaea7fc0a78"
+        }
+      ],
+      "downloadLocation": "https://registry.npmjs.org/string_decoder/-/string_decoder-1.3.0.tgz",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceLocator": "pkg:npm/string_decoder@1.3.0",
+          "referenceType": "purl"
+        }
+      ],
+      "filesAnalyzed": false,
+      "homepage": "NOASSERTION",
+      "licenseDeclared": "MIT",
+      "name": "string_decoder",
+      "packageFileName": "node_modules/string_decoder",
+      "versionInfo": "1.3.0"
+    },
+    {
+      "SPDXID": "SPDXRef-Package-string-width-8.2.1",
+      "checksums": [
+        {
+          "algorithm": "SHA512",
+          "checksumValue": "20868fd20de2cbd0b2cb5f30dccf5871a0ee76e8c40151cab776b7409835facaffa17f7a4db68652e6c6d212720a30814e1147fad169708ca8507527d6881a2c"
+        }
+      ],
+      "downloadLocation": "https://registry.npmjs.org/string-width/-/string-width-8.2.1.tgz",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceLocator": "pkg:npm/string-width@8.2.1",
+          "referenceType": "purl"
+        }
+      ],
+      "filesAnalyzed": false,
+      "homepage": "NOASSERTION",
+      "licenseDeclared": "MIT",
+      "name": "string-width",
+      "packageFileName": "node_modules/string-width",
+      "versionInfo": "8.2.1"
+    },
+    {
+      "SPDXID": "SPDXRef-Package-strip-ansi-7.2.0",
+      "checksums": [
+        {
+          "algorithm": "SHA512",
+          "checksumValue": "c833cc363a785b27d80641e78c844b7dc6b58ba28cc860adb1582829eff3d7eeafba481a10d76018166df9998a3dce206afbc46793a01df1ddadace180dc86ef"
+        }
+      ],
+      "downloadLocation": "https://registry.npmjs.org/strip-ansi/-/strip-ansi-7.2.0.tgz",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceLocator": "pkg:npm/strip-ansi@7.2.0",
+          "referenceType": "purl"
+        }
+      ],
+      "filesAnalyzed": false,
+      "homepage": "NOASSERTION",
+      "licenseDeclared": "MIT",
+      "name": "strip-ansi",
+      "packageFileName": "node_modules/strip-ansi",
+      "versionInfo": "7.2.0"
+    },
+    {
+      "SPDXID": "SPDXRef-Package-to-regex-range-5.0.1",
+      "checksums": [
+        {
+          "algorithm": "SHA512",
+          "checksumValue": "eb93fb8b3e97e7212bd5cc1c82f4316db230ed493780ecb974876d678ac3bde2ea86b7493fe2e2fc7c7ab722b43446fed860b29de08c2621aaac00c248d93cb1"
+        }
+      ],
+      "downloadLocation": "https://registry.npmjs.org/to-regex-range/-/to-regex-range-5.0.1.tgz",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceLocator": "pkg:npm/to-regex-range@5.0.1",
+          "referenceType": "purl"
+        }
+      ],
+      "filesAnalyzed": false,
+      "homepage": "NOASSERTION",
+      "licenseDeclared": "MIT",
+      "name": "to-regex-range",
+      "packageFileName": "node_modules/to-regex-range",
+      "versionInfo": "5.0.1"
+    },
+    {
+      "SPDXID": "SPDXRef-Package-uc.micro-2.1.0",
+      "checksums": [
+        {
+          "algorithm": "SHA512",
+          "checksumValue": "0110c99a986676f524e86970ef2f434366c590a047c101cb8b696c687e8f3e6cff29af6c14e06c065ba8ce10e5b569a7bfdbbf705e91b7cef39d14cf57eca9fc"
+        }
+      ],
+      "downloadLocation": "https://registry.npmjs.org/uc.micro/-/uc.micro-2.1.0.tgz",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceLocator": "pkg:npm/uc.micro@2.1.0",
+          "referenceType": "purl"
+        }
+      ],
+      "filesAnalyzed": false,
+      "homepage": "NOASSERTION",
+      "licenseDeclared": "MIT",
+      "name": "uc.micro",
+      "packageFileName": "node_modules/uc.micro",
+      "versionInfo": "2.1.0"
+    },
+    {
+      "SPDXID": "SPDXRef-Package-undici-6.27.0",
+      "checksums": [
+        {
+          "algorithm": "SHA512",
+          "checksumValue": "6267d5dd89c40f35d10b9959da35ad5961ca1949b5cc8b7c0217ac475b5e9ecf874cdbfe61994dfdda7a1bbdbb2cebcc27cc633fd05eed8d9276bf7a2c39bea6"
+        }
+      ],
+      "downloadLocation": "https://registry.npmjs.org/undici/-/undici-6.27.0.tgz",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceLocator": "pkg:npm/undici@6.27.0",
+          "referenceType": "purl"
+        }
+      ],
+      "filesAnalyzed": false,
+      "homepage": "NOASSERTION",
+      "licenseDeclared": "MIT",
+      "name": "undici",
+      "packageFileName": "node_modules/undici",
+      "versionInfo": "6.27.0"
+    },
+    {
+      "SPDXID": "SPDXRef-Package-undici-types-8.3.0",
+      "checksums": [
+        {
+          "algorithm": "SHA512",
+          "checksumValue": "8f7ef949c57ad1da26f9890f1487d32dc3a23f190dfdbb87cf91a86e32e18b116e00d68db370bd9781a6ad6a9e8e05d627b05b25c158a53114912d467bc6e965"
+        }
+      ],
+      "downloadLocation": "https://registry.npmjs.org/undici-types/-/undici-types-8.3.0.tgz",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceLocator": "pkg:npm/undici-types@8.3.0",
+          "referenceType": "purl"
+        }
+      ],
+      "filesAnalyzed": false,
+      "homepage": "NOASSERTION",
+      "licenseDeclared": "MIT",
+      "name": "undici-types",
+      "packageFileName": "node_modules/undici-types",
+      "versionInfo": "8.3.0"
+    },
+    {
+      "SPDXID": "SPDXRef-Package-unicorn-magic-0.4.0",
+      "checksums": [
+        {
+          "algorithm": "SHA512",
+          "checksumValue": "c07e7dd15f55360607f60de51fdc168d3ad4a0ab232c5eac18b8e1478b07d4b5a92e608e1f465fecfba484303c0624bb2877b8a0f3647131ea6248fb48e1943b"
+        }
+      ],
+      "downloadLocation": "https://registry.npmjs.org/unicorn-magic/-/unicorn-magic-0.4.0.tgz",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceLocator": "pkg:npm/unicorn-magic@0.4.0",
+          "referenceType": "purl"
+        }
+      ],
+      "filesAnalyzed": false,
+      "homepage": "NOASSERTION",
+      "licenseDeclared": "MIT",
+      "name": "unicorn-magic",
+      "packageFileName": "node_modules/unicorn-magic",
+      "versionInfo": "0.4.0"
+    },
+    {
+      "SPDXID": "SPDXRef-Package-validate-iri-1.0.1",
+      "checksums": [
+        {
+          "algorithm": "SHA512",
+          "checksumValue": "80b5e2ef7e750a8c95550c3c5c4e6c82961ac1129ab7113b923ff1982c573994b590c76d72a0b420b22a2ee5445670144122ff7af3861b7790fbc5606dd9ecb4"
+        }
+      ],
+      "downloadLocation": "https://registry.npmjs.org/validate-iri/-/validate-iri-1.0.1.tgz",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceLocator": "pkg:npm/validate-iri@1.0.1",
+          "referenceType": "purl"
+        }
+      ],
+      "filesAnalyzed": false,
+      "homepage": "NOASSERTION",
+      "licenseDeclared": "MIT",
+      "name": "validate-iri",
+      "packageFileName": "node_modules/validate-iri",
+      "versionInfo": "1.0.1"
+    },
+    {
+      "SPDXID": "SPDXRef-Package-whynot-5.0.0",
+      "checksums": [
+        {
+          "algorithm": "SHA512",
+          "checksumValue": "70619f0cf618aa81e8316a9755cdc6f8def8bb5161161ac16bea4e3bdd3a6fd92d45cfc9154770ae84e47cfaa32b3ca808b55c2abeb2cba6d821c593ee34e0d8"
+        }
+      ],
+      "downloadLocation": "https://registry.npmjs.org/whynot/-/whynot-5.0.0.tgz",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceLocator": "pkg:npm/whynot@5.0.0",
+          "referenceType": "purl"
+        }
+      ],
+      "filesAnalyzed": false,
+      "homepage": "NOASSERTION",
+      "licenseDeclared": "MIT",
+      "name": "whynot",
+      "packageFileName": "node_modules/whynot",
+      "versionInfo": "5.0.0"
+    },
+    {
+      "SPDXID": "SPDXRef-Package-xmlchars-2.2.0",
+      "checksums": [
+        {
+          "algorithm": "SHA512",
+          "checksumValue": "2599c328af01d11083c3ce0535d0c022964af89b89c3eb3b2f3f2792c23b488b94dd45c926c954b61b22fae5815183b03c5c16ed6ecf44b45f50aa718ed8c50b"
+        }
+      ],
+      "downloadLocation": "https://registry.npmjs.org/xmlchars/-/xmlchars-2.2.0.tgz",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceLocator": "pkg:npm/xmlchars@2.2.0",
+          "referenceType": "purl"
+        }
+      ],
+      "filesAnalyzed": false,
+      "homepage": "NOASSERTION",
+      "licenseDeclared": "MIT",
+      "name": "xmlchars",
+      "packageFileName": "node_modules/xmlchars",
+      "versionInfo": "2.2.0"
+    },
+    {
+      "SPDXID": "SPDXRef-Package-xmllint-wasm-5.2.0",
+      "checksums": [
+        {
+          "algorithm": "SHA512",
+          "checksumValue": "19532e47756253c47bb1a91c566ff818294cb4257ca7bc608d766573a1a6bcfa489c8cf8578d659919e349de2e2a15647f93198fdef011990f33844c021a23b9"
+        }
+      ],
+      "downloadLocation": "https://registry.npmjs.org/xmllint-wasm/-/xmllint-wasm-5.2.0.tgz",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceLocator": "pkg:npm/xmllint-wasm@5.2.0",
+          "referenceType": "purl"
+        }
+      ],
+      "filesAnalyzed": false,
+      "homepage": "NOASSERTION",
+      "licenseDeclared": "MIT",
+      "name": "xmllint-wasm",
+      "packageFileName": "node_modules/xmllint-wasm",
+      "versionInfo": "5.2.0"
+    },
+    {
+      "SPDXID": "SPDXRef-Package-xspattern-3.1.0",
+      "checksums": [
+        {
+          "algorithm": "SHA512",
+          "checksumValue": "af1b4e5fc391262cd1aacc08759ef61b7b612ab1ddd10f93bf2502301c9ce557630f3d6792e64a7cf5ccdf119dac68b47f0132f830c937b0eab40674e917b86c"
+        }
+      ],
+      "downloadLocation": "https://registry.npmjs.org/xspattern/-/xspattern-3.1.0.tgz",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceLocator": "pkg:npm/xspattern@3.1.0",
+          "referenceType": "purl"
+        }
+      ],
+      "filesAnalyzed": false,
+      "homepage": "NOASSERTION",
+      "licenseDeclared": "MIT",
+      "name": "xspattern",
+      "packageFileName": "node_modules/xspattern",
+      "versionInfo": "3.1.0"
+    },
+    {
+      "SPDXID": "SPDXRef-Package-yallist-4.0.0",
+      "checksums": [
+        {
+          "algorithm": "SHA512",
+          "checksumValue": "df074689d672ab93c1d3ce172c44b94e9392440df08d7025216321ba6da445cbffe354a7d9e990d1dc9c416e2e6572de8f02af83a12cbdb76554bf8560472dec"
+        }
+      ],
+      "downloadLocation": "https://registry.npmjs.org/yallist/-/yallist-4.0.0.tgz",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceLocator": "pkg:npm/yallist@4.0.0",
+          "referenceType": "purl"
+        }
+      ],
+      "filesAnalyzed": false,
+      "homepage": "NOASSERTION",
+      "licenseDeclared": "ISC",
+      "name": "yallist",
+      "packageFileName": "node_modules/yallist",
+      "versionInfo": "4.0.0"
+    }
+  ],
+  "relationships": [
+    {
+      "relatedSpdxElement": "SPDXRef-Package-molit-dataspace-platform-bridge-0.1.0",
+      "relationshipType": "DESCRIBES",
+      "spdxElementId": "SPDXRef-DOCUMENT"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-molit-dataspace-platform-bridge-0.1.0",
+      "relationshipType": "DEPENDENCY_OF",
+      "spdxElementId": "SPDXRef-Package-ajv-8.20.0"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-molit-dataspace-platform-bridge-0.1.0",
+      "relationshipType": "DEPENDENCY_OF",
+      "spdxElementId": "SPDXRef-Package-ajv-formats-3.0.1"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-molit-dataspace-platform-bridge-0.1.0",
+      "relationshipType": "DEPENDENCY_OF",
+      "spdxElementId": "SPDXRef-Package-canonicalize-2.1.0"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-molit-dataspace-platform-bridge-0.1.0",
+      "relationshipType": "DEPENDENCY_OF",
+      "spdxElementId": "SPDXRef-Package-jsonld-9.0.0"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-molit-dataspace-platform-bridge-0.1.0",
+      "relationshipType": "DEPENDENCY_OF",
+      "spdxElementId": "SPDXRef-Package-n3-2.1.1"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-molit-dataspace-platform-bridge-0.1.0",
+      "relationshipType": "DEPENDENCY_OF",
+      "spdxElementId": "SPDXRef-Package-rdf-canonize-5.0.0"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-molit-dataspace-platform-bridge-0.1.0",
+      "relationshipType": "DEPENDENCY_OF",
+      "spdxElementId": "SPDXRef-Package-rdf-validate-shacl-0.6.5"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-molit-dataspace-platform-bridge-0.1.0",
+      "relationshipType": "DEPENDENCY_OF",
+      "spdxElementId": "SPDXRef-Package-rdfxml-streaming-parser-3.2.0"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-molit-dataspace-platform-bridge-0.1.0",
+      "relationshipType": "DEV_DEPENDENCY_OF",
+      "spdxElementId": "SPDXRef-Package-entities-4.5.0"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-molit-dataspace-platform-bridge-0.1.0",
+      "relationshipType": "DEV_DEPENDENCY_OF",
+      "spdxElementId": "SPDXRef-Package-fontoxpath-3.34.0"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-molit-dataspace-platform-bridge-0.1.0",
+      "relationshipType": "DEV_DEPENDENCY_OF",
+      "spdxElementId": "SPDXRef-Package-markdown-it-14.2.0"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-molit-dataspace-platform-bridge-0.1.0",
+      "relationshipType": "DEV_DEPENDENCY_OF",
+      "spdxElementId": "SPDXRef-Package-markdownlint-cli2-0.23.0"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-molit-dataspace-platform-bridge-0.1.0",
+      "relationshipType": "DEV_DEPENDENCY_OF",
+      "spdxElementId": "SPDXRef-Package-parse5-8.0.1"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-molit-dataspace-platform-bridge-0.1.0",
+      "relationshipType": "DEV_DEPENDENCY_OF",
+      "spdxElementId": "SPDXRef-Package-saxes-6.0.0"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-molit-dataspace-platform-bridge-0.1.0",
+      "relationshipType": "DEV_DEPENDENCY_OF",
+      "spdxElementId": "SPDXRef-Package-slimdom-sax-parser-1.5.3"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-molit-dataspace-platform-bridge-0.1.0",
+      "relationshipType": "DEV_DEPENDENCY_OF",
+      "spdxElementId": "SPDXRef-Package-xmllint-wasm-5.2.0"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-digitalbazaar.http-client-4.3.0",
+      "relationshipType": "DEPENDENCY_OF",
+      "spdxElementId": "SPDXRef-Package-ky-1.14.3"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-digitalbazaar.http-client-4.3.0",
+      "relationshipType": "DEPENDENCY_OF",
+      "spdxElementId": "SPDXRef-Package-undici-6.27.0"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-nodelib.fs.scandir-2.1.5",
+      "relationshipType": "DEPENDENCY_OF",
+      "spdxElementId": "SPDXRef-Package-nodelib.fs.stat-2.0.5"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-nodelib.fs.scandir-2.1.5",
+      "relationshipType": "DEPENDENCY_OF",
+      "spdxElementId": "SPDXRef-Package-run-parallel-1.2.0"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-nodelib.fs.walk-1.2.8",
+      "relationshipType": "DEPENDENCY_OF",
+      "spdxElementId": "SPDXRef-Package-nodelib.fs.scandir-2.1.5"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-nodelib.fs.walk-1.2.8",
+      "relationshipType": "DEPENDENCY_OF",
+      "spdxElementId": "SPDXRef-Package-fastq-1.20.1"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-rdfjs.namespace-2.0.1",
+      "relationshipType": "DEPENDENCY_OF",
+      "spdxElementId": "SPDXRef-Package-rdfjs.data-model-2.1.2"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-rdfjs.term-map-2.0.2",
+      "relationshipType": "DEPENDENCY_OF",
+      "spdxElementId": "SPDXRef-Package-rdfjs.to-ntriples-3.0.1"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-rdfjs.term-set-2.0.3",
+      "relationshipType": "DEPENDENCY_OF",
+      "spdxElementId": "SPDXRef-Package-rdfjs.to-ntriples-3.0.1"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-rdfjs.types-2.0.1",
+      "relationshipType": "DEPENDENCY_OF",
+      "spdxElementId": "SPDXRef-Package-types.node-26.1.1"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-rubensworks.saxes-6.0.1",
+      "relationshipType": "DEPENDENCY_OF",
+      "spdxElementId": "SPDXRef-Package-xmlchars-2.2.0"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-tpluscode.rdf-ns-builders-5.0.0",
+      "relationshipType": "DEPENDENCY_OF",
+      "spdxElementId": "SPDXRef-Package-rdfjs.data-model-2.1.2"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-tpluscode.rdf-ns-builders-5.0.0",
+      "relationshipType": "DEPENDENCY_OF",
+      "spdxElementId": "SPDXRef-Package-rdfjs.namespace-2.0.1"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-tpluscode.rdf-ns-builders-5.0.0",
+      "relationshipType": "DEPENDENCY_OF",
+      "spdxElementId": "SPDXRef-Package-rdfjs.types-2.0.1"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-tpluscode.rdf-ns-builders-5.0.0",
+      "relationshipType": "DEPENDENCY_OF",
+      "spdxElementId": "SPDXRef-Package-types.rdfjs__namespace-2.0.10"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-tpluscode.rdf-ns-builders-5.0.0",
+      "relationshipType": "DEPENDENCY_OF",
+      "spdxElementId": "SPDXRef-Package-zazuko.prefixes-2.6.1"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-types.debug-4.1.13",
+      "relationshipType": "DEPENDENCY_OF",
+      "spdxElementId": "SPDXRef-Package-types.ms-2.1.0"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-types.node-26.1.1",
+      "relationshipType": "DEPENDENCY_OF",
+      "spdxElementId": "SPDXRef-Package-undici-types-8.3.0"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-types.rdfjs__namespace-2.0.10",
+      "relationshipType": "DEPENDENCY_OF",
+      "spdxElementId": "SPDXRef-Package-rdfjs.types-2.0.1"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-types.readable-stream-4.0.24",
+      "relationshipType": "DEPENDENCY_OF",
+      "spdxElementId": "SPDXRef-Package-types.node-26.1.1"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-vocabulary.sh-1.1.6",
+      "relationshipType": "PREREQUISITE_FOR",
+      "spdxElementId": "SPDXRef-Package-rdfjs.types-2.0.1"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-abort-controller-3.0.0",
+      "relationshipType": "DEPENDENCY_OF",
+      "spdxElementId": "SPDXRef-Package-event-target-shim-5.0.1"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-ajv-8.20.0",
+      "relationshipType": "DEPENDENCY_OF",
+      "spdxElementId": "SPDXRef-Package-fast-deep-equal-3.1.3"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-ajv-8.20.0",
+      "relationshipType": "DEPENDENCY_OF",
+      "spdxElementId": "SPDXRef-Package-fast-uri-3.1.3"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-ajv-8.20.0",
+      "relationshipType": "DEPENDENCY_OF",
+      "spdxElementId": "SPDXRef-Package-json-schema-traverse-1.0.0"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-ajv-8.20.0",
+      "relationshipType": "DEPENDENCY_OF",
+      "spdxElementId": "SPDXRef-Package-require-from-string-2.0.2"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-ajv-formats-3.0.1",
+      "relationshipType": "DEPENDENCY_OF",
+      "spdxElementId": "SPDXRef-Package-ajv-8.20.0"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-braces-3.0.3",
+      "relationshipType": "DEPENDENCY_OF",
+      "spdxElementId": "SPDXRef-Package-fill-range-7.1.1"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-buffer-6.0.3",
+      "relationshipType": "DEPENDENCY_OF",
+      "spdxElementId": "SPDXRef-Package-base64-js-1.5.1"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-buffer-6.0.3",
+      "relationshipType": "DEPENDENCY_OF",
+      "spdxElementId": "SPDXRef-Package-ieee754-1.2.1"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-clownface-2.0.3",
+      "relationshipType": "DEPENDENCY_OF",
+      "spdxElementId": "SPDXRef-Package-rdfjs.data-model-2.1.2"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-clownface-2.0.3",
+      "relationshipType": "DEPENDENCY_OF",
+      "spdxElementId": "SPDXRef-Package-rdfjs.environment-1.0.0"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-clownface-2.0.3",
+      "relationshipType": "DEPENDENCY_OF",
+      "spdxElementId": "SPDXRef-Package-rdfjs.namespace-2.0.1"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-debug-4.4.3",
+      "relationshipType": "DEPENDENCY_OF",
+      "spdxElementId": "SPDXRef-Package-ms-2.1.3"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-decode-named-character-reference-1.3.0",
+      "relationshipType": "DEPENDENCY_OF",
+      "spdxElementId": "SPDXRef-Package-character-entities-2.0.2"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-devlop-1.1.0",
+      "relationshipType": "DEPENDENCY_OF",
+      "spdxElementId": "SPDXRef-Package-dequal-2.0.3"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-fast-glob-3.3.3",
+      "relationshipType": "DEPENDENCY_OF",
+      "spdxElementId": "SPDXRef-Package-nodelib.fs.stat-2.0.5"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-fast-glob-3.3.3",
+      "relationshipType": "DEPENDENCY_OF",
+      "spdxElementId": "SPDXRef-Package-nodelib.fs.walk-1.2.8"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-fast-glob-3.3.3",
+      "relationshipType": "DEPENDENCY_OF",
+      "spdxElementId": "SPDXRef-Package-glob-parent-5.1.2"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-fast-glob-3.3.3",
+      "relationshipType": "DEPENDENCY_OF",
+      "spdxElementId": "SPDXRef-Package-merge2-1.4.1"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-fast-glob-3.3.3",
+      "relationshipType": "DEPENDENCY_OF",
+      "spdxElementId": "SPDXRef-Package-micromatch-4.0.8"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-fastq-1.20.1",
+      "relationshipType": "DEPENDENCY_OF",
+      "spdxElementId": "SPDXRef-Package-reusify-1.1.0"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-fill-range-7.1.1",
+      "relationshipType": "DEPENDENCY_OF",
+      "spdxElementId": "SPDXRef-Package-to-regex-range-5.0.1"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-fontoxpath-3.34.0",
+      "relationshipType": "DEPENDENCY_OF",
+      "spdxElementId": "SPDXRef-Package-prsc-4.0.0"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-fontoxpath-3.34.0",
+      "relationshipType": "DEPENDENCY_OF",
+      "spdxElementId": "SPDXRef-Package-xspattern-3.1.0"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-glob-parent-5.1.2",
+      "relationshipType": "DEPENDENCY_OF",
+      "spdxElementId": "SPDXRef-Package-is-glob-4.0.3"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-globby-16.2.0",
+      "relationshipType": "DEPENDENCY_OF",
+      "spdxElementId": "SPDXRef-Package-sindresorhus.merge-streams-4.0.0"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-globby-16.2.0",
+      "relationshipType": "DEPENDENCY_OF",
+      "spdxElementId": "SPDXRef-Package-fast-glob-3.3.3"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-globby-16.2.0",
+      "relationshipType": "DEPENDENCY_OF",
+      "spdxElementId": "SPDXRef-Package-ignore-7.0.6"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-globby-16.2.0",
+      "relationshipType": "DEPENDENCY_OF",
+      "spdxElementId": "SPDXRef-Package-is-path-inside-4.0.0"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-globby-16.2.0",
+      "relationshipType": "DEPENDENCY_OF",
+      "spdxElementId": "SPDXRef-Package-slash-5.1.0"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-globby-16.2.0",
+      "relationshipType": "DEPENDENCY_OF",
+      "spdxElementId": "SPDXRef-Package-unicorn-magic-0.4.0"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-is-alphanumerical-2.0.1",
+      "relationshipType": "DEPENDENCY_OF",
+      "spdxElementId": "SPDXRef-Package-is-alphabetical-2.0.1"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-is-alphanumerical-2.0.1",
+      "relationshipType": "DEPENDENCY_OF",
+      "spdxElementId": "SPDXRef-Package-is-decimal-2.0.1"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-is-glob-4.0.3",
+      "relationshipType": "DEPENDENCY_OF",
+      "spdxElementId": "SPDXRef-Package-is-extglob-2.1.1"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-js-yaml-5.2.0",
+      "relationshipType": "DEPENDENCY_OF",
+      "spdxElementId": "SPDXRef-Package-argparse-2.0.1"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-jsonld-9.0.0",
+      "relationshipType": "DEPENDENCY_OF",
+      "spdxElementId": "SPDXRef-Package-digitalbazaar.http-client-4.3.0"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-jsonld-9.0.0",
+      "relationshipType": "DEPENDENCY_OF",
+      "spdxElementId": "SPDXRef-Package-canonicalize-2.1.0"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-jsonld-9.0.0",
+      "relationshipType": "DEPENDENCY_OF",
+      "spdxElementId": "SPDXRef-Package-lru-cache-6.0.0"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-jsonld-9.0.0",
+      "relationshipType": "DEPENDENCY_OF",
+      "spdxElementId": "SPDXRef-Package-rdf-canonize-5.0.0"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-katex-0.16.47",
+      "relationshipType": "DEPENDENCY_OF",
+      "spdxElementId": "SPDXRef-Package-commander-8.3.0"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-linkify-it-5.0.2",
+      "relationshipType": "DEPENDENCY_OF",
+      "spdxElementId": "SPDXRef-Package-uc.micro-2.1.0"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-lru-cache-6.0.0",
+      "relationshipType": "DEPENDENCY_OF",
+      "spdxElementId": "SPDXRef-Package-yallist-4.0.0"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-markdown-it-14.2.0",
+      "relationshipType": "DEPENDENCY_OF",
+      "spdxElementId": "SPDXRef-Package-argparse-2.0.1"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-markdown-it-14.2.0",
+      "relationshipType": "DEPENDENCY_OF",
+      "spdxElementId": "SPDXRef-Package-entities-4.5.0"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-markdown-it-14.2.0",
+      "relationshipType": "DEPENDENCY_OF",
+      "spdxElementId": "SPDXRef-Package-linkify-it-5.0.2"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-markdown-it-14.2.0",
+      "relationshipType": "DEPENDENCY_OF",
+      "spdxElementId": "SPDXRef-Package-mdurl-2.0.0"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-markdown-it-14.2.0",
+      "relationshipType": "DEPENDENCY_OF",
+      "spdxElementId": "SPDXRef-Package-punycode.js-2.3.1"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-markdown-it-14.2.0",
+      "relationshipType": "DEPENDENCY_OF",
+      "spdxElementId": "SPDXRef-Package-uc.micro-2.1.0"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-markdownlint-0.41.0",
+      "relationshipType": "DEPENDENCY_OF",
+      "spdxElementId": "SPDXRef-Package-micromark-4.0.2"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-markdownlint-0.41.0",
+      "relationshipType": "DEPENDENCY_OF",
+      "spdxElementId": "SPDXRef-Package-micromark-core-commonmark-2.0.3"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-markdownlint-0.41.0",
+      "relationshipType": "DEPENDENCY_OF",
+      "spdxElementId": "SPDXRef-Package-micromark-extension-directive-4.0.0"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-markdownlint-0.41.0",
+      "relationshipType": "DEPENDENCY_OF",
+      "spdxElementId": "SPDXRef-Package-micromark-extension-gfm-autolink-literal-2.1.0"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-markdownlint-0.41.0",
+      "relationshipType": "DEPENDENCY_OF",
+      "spdxElementId": "SPDXRef-Package-micromark-extension-gfm-footnote-2.1.0"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-markdownlint-0.41.0",
+      "relationshipType": "DEPENDENCY_OF",
+      "spdxElementId": "SPDXRef-Package-micromark-extension-gfm-table-2.1.1"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-markdownlint-0.41.0",
+      "relationshipType": "DEPENDENCY_OF",
+      "spdxElementId": "SPDXRef-Package-micromark-extension-math-3.1.0"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-markdownlint-0.41.0",
+      "relationshipType": "DEPENDENCY_OF",
+      "spdxElementId": "SPDXRef-Package-micromark-util-types-2.0.2"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-markdownlint-0.41.0",
+      "relationshipType": "DEPENDENCY_OF",
+      "spdxElementId": "SPDXRef-Package-string-width-8.2.1"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-markdownlint-cli2-0.23.0",
+      "relationshipType": "DEPENDENCY_OF",
+      "spdxElementId": "SPDXRef-Package-globby-16.2.0"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-markdownlint-cli2-0.23.0",
+      "relationshipType": "DEPENDENCY_OF",
+      "spdxElementId": "SPDXRef-Package-js-yaml-5.2.0"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-markdownlint-cli2-0.23.0",
+      "relationshipType": "DEPENDENCY_OF",
+      "spdxElementId": "SPDXRef-Package-jsonc-parser-3.3.1"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-markdownlint-cli2-0.23.0",
+      "relationshipType": "DEPENDENCY_OF",
+      "spdxElementId": "SPDXRef-Package-jsonpointer-5.0.1"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-markdownlint-cli2-0.23.0",
+      "relationshipType": "DEPENDENCY_OF",
+      "spdxElementId": "SPDXRef-Package-markdown-it-14.2.0"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-markdownlint-cli2-0.23.0",
+      "relationshipType": "DEPENDENCY_OF",
+      "spdxElementId": "SPDXRef-Package-markdownlint-0.41.0"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-markdownlint-cli2-0.23.0",
+      "relationshipType": "DEPENDENCY_OF",
+      "spdxElementId": "SPDXRef-Package-markdownlint-cli2-formatter-default-0.0.6"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-markdownlint-cli2-0.23.0",
+      "relationshipType": "DEPENDENCY_OF",
+      "spdxElementId": "SPDXRef-Package-micromatch-4.0.8"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-markdownlint-cli2-0.23.0",
+      "relationshipType": "DEPENDENCY_OF",
+      "spdxElementId": "SPDXRef-Package-smol-toml-1.7.0"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-markdownlint-cli2-formatter-default-0.0.6",
+      "relationshipType": "PREREQUISITE_FOR",
+      "spdxElementId": "SPDXRef-Package-markdownlint-cli2-0.23.0"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-micromark-4.0.2",
+      "relationshipType": "DEPENDENCY_OF",
+      "spdxElementId": "SPDXRef-Package-types.debug-4.1.13"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-micromark-4.0.2",
+      "relationshipType": "DEPENDENCY_OF",
+      "spdxElementId": "SPDXRef-Package-debug-4.4.3"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-micromark-4.0.2",
+      "relationshipType": "DEPENDENCY_OF",
+      "spdxElementId": "SPDXRef-Package-decode-named-character-reference-1.3.0"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-micromark-4.0.2",
+      "relationshipType": "DEPENDENCY_OF",
+      "spdxElementId": "SPDXRef-Package-devlop-1.1.0"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-micromark-4.0.2",
+      "relationshipType": "DEPENDENCY_OF",
+      "spdxElementId": "SPDXRef-Package-micromark-core-commonmark-2.0.3"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-micromark-4.0.2",
+      "relationshipType": "DEPENDENCY_OF",
+      "spdxElementId": "SPDXRef-Package-micromark-factory-space-2.0.1"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-micromark-4.0.2",
+      "relationshipType": "DEPENDENCY_OF",
+      "spdxElementId": "SPDXRef-Package-micromark-util-character-2.1.1"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-micromark-4.0.2",
+      "relationshipType": "DEPENDENCY_OF",
+      "spdxElementId": "SPDXRef-Package-micromark-util-chunked-2.0.1"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-micromark-4.0.2",
+      "relationshipType": "DEPENDENCY_OF",
+      "spdxElementId": "SPDXRef-Package-micromark-util-combine-extensions-2.0.1"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-micromark-4.0.2",
+      "relationshipType": "DEPENDENCY_OF",
+      "spdxElementId": "SPDXRef-Package-micromark-util-decode-numeric-character-reference-2.0.2"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-micromark-4.0.2",
+      "relationshipType": "DEPENDENCY_OF",
+      "spdxElementId": "SPDXRef-Package-micromark-util-encode-2.0.1"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-micromark-4.0.2",
+      "relationshipType": "DEPENDENCY_OF",
+      "spdxElementId": "SPDXRef-Package-micromark-util-normalize-identifier-2.0.1"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-micromark-4.0.2",
+      "relationshipType": "DEPENDENCY_OF",
+      "spdxElementId": "SPDXRef-Package-micromark-util-resolve-all-2.0.1"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-micromark-4.0.2",
+      "relationshipType": "DEPENDENCY_OF",
+      "spdxElementId": "SPDXRef-Package-micromark-util-sanitize-uri-2.0.1"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-micromark-4.0.2",
+      "relationshipType": "DEPENDENCY_OF",
+      "spdxElementId": "SPDXRef-Package-micromark-util-subtokenize-2.1.0"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-micromark-4.0.2",
+      "relationshipType": "DEPENDENCY_OF",
+      "spdxElementId": "SPDXRef-Package-micromark-util-symbol-2.0.1"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-micromark-4.0.2",
+      "relationshipType": "DEPENDENCY_OF",
+      "spdxElementId": "SPDXRef-Package-micromark-util-types-2.0.2"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-micromark-core-commonmark-2.0.3",
+      "relationshipType": "DEPENDENCY_OF",
+      "spdxElementId": "SPDXRef-Package-decode-named-character-reference-1.3.0"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-micromark-core-commonmark-2.0.3",
+      "relationshipType": "DEPENDENCY_OF",
+      "spdxElementId": "SPDXRef-Package-devlop-1.1.0"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-micromark-core-commonmark-2.0.3",
+      "relationshipType": "DEPENDENCY_OF",
+      "spdxElementId": "SPDXRef-Package-micromark-factory-destination-2.0.1"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-micromark-core-commonmark-2.0.3",
+      "relationshipType": "DEPENDENCY_OF",
+      "spdxElementId": "SPDXRef-Package-micromark-factory-label-2.0.1"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-micromark-core-commonmark-2.0.3",
+      "relationshipType": "DEPENDENCY_OF",
+      "spdxElementId": "SPDXRef-Package-micromark-factory-space-2.0.1"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-micromark-core-commonmark-2.0.3",
+      "relationshipType": "DEPENDENCY_OF",
+      "spdxElementId": "SPDXRef-Package-micromark-factory-title-2.0.1"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-micromark-core-commonmark-2.0.3",
+      "relationshipType": "DEPENDENCY_OF",
+      "spdxElementId": "SPDXRef-Package-micromark-factory-whitespace-2.0.1"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-micromark-core-commonmark-2.0.3",
+      "relationshipType": "DEPENDENCY_OF",
+      "spdxElementId": "SPDXRef-Package-micromark-util-character-2.1.1"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-micromark-core-commonmark-2.0.3",
+      "relationshipType": "DEPENDENCY_OF",
+      "spdxElementId": "SPDXRef-Package-micromark-util-chunked-2.0.1"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-micromark-core-commonmark-2.0.3",
+      "relationshipType": "DEPENDENCY_OF",
+      "spdxElementId": "SPDXRef-Package-micromark-util-classify-character-2.0.1"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-micromark-core-commonmark-2.0.3",
+      "relationshipType": "DEPENDENCY_OF",
+      "spdxElementId": "SPDXRef-Package-micromark-util-html-tag-name-2.0.1"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-micromark-core-commonmark-2.0.3",
+      "relationshipType": "DEPENDENCY_OF",
+      "spdxElementId": "SPDXRef-Package-micromark-util-normalize-identifier-2.0.1"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-micromark-core-commonmark-2.0.3",
+      "relationshipType": "DEPENDENCY_OF",
+      "spdxElementId": "SPDXRef-Package-micromark-util-resolve-all-2.0.1"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-micromark-core-commonmark-2.0.3",
+      "relationshipType": "DEPENDENCY_OF",
+      "spdxElementId": "SPDXRef-Package-micromark-util-subtokenize-2.1.0"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-micromark-core-commonmark-2.0.3",
+      "relationshipType": "DEPENDENCY_OF",
+      "spdxElementId": "SPDXRef-Package-micromark-util-symbol-2.0.1"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-micromark-core-commonmark-2.0.3",
+      "relationshipType": "DEPENDENCY_OF",
+      "spdxElementId": "SPDXRef-Package-micromark-util-types-2.0.2"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-micromark-extension-directive-4.0.0",
+      "relationshipType": "DEPENDENCY_OF",
+      "spdxElementId": "SPDXRef-Package-devlop-1.1.0"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-micromark-extension-directive-4.0.0",
+      "relationshipType": "DEPENDENCY_OF",
+      "spdxElementId": "SPDXRef-Package-micromark-factory-space-2.0.1"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-micromark-extension-directive-4.0.0",
+      "relationshipType": "DEPENDENCY_OF",
+      "spdxElementId": "SPDXRef-Package-micromark-factory-whitespace-2.0.1"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-micromark-extension-directive-4.0.0",
+      "relationshipType": "DEPENDENCY_OF",
+      "spdxElementId": "SPDXRef-Package-micromark-util-character-2.1.1"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-micromark-extension-directive-4.0.0",
+      "relationshipType": "DEPENDENCY_OF",
+      "spdxElementId": "SPDXRef-Package-micromark-util-symbol-2.0.1"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-micromark-extension-directive-4.0.0",
+      "relationshipType": "DEPENDENCY_OF",
+      "spdxElementId": "SPDXRef-Package-micromark-util-types-2.0.2"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-micromark-extension-directive-4.0.0",
+      "relationshipType": "DEPENDENCY_OF",
+      "spdxElementId": "SPDXRef-Package-parse-entities-4.0.2"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-micromark-extension-gfm-autolink-literal-2.1.0",
+      "relationshipType": "DEPENDENCY_OF",
+      "spdxElementId": "SPDXRef-Package-micromark-util-character-2.1.1"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-micromark-extension-gfm-autolink-literal-2.1.0",
+      "relationshipType": "DEPENDENCY_OF",
+      "spdxElementId": "SPDXRef-Package-micromark-util-sanitize-uri-2.0.1"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-micromark-extension-gfm-autolink-literal-2.1.0",
+      "relationshipType": "DEPENDENCY_OF",
+      "spdxElementId": "SPDXRef-Package-micromark-util-symbol-2.0.1"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-micromark-extension-gfm-autolink-literal-2.1.0",
+      "relationshipType": "DEPENDENCY_OF",
+      "spdxElementId": "SPDXRef-Package-micromark-util-types-2.0.2"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-micromark-extension-gfm-footnote-2.1.0",
+      "relationshipType": "DEPENDENCY_OF",
+      "spdxElementId": "SPDXRef-Package-devlop-1.1.0"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-micromark-extension-gfm-footnote-2.1.0",
+      "relationshipType": "DEPENDENCY_OF",
+      "spdxElementId": "SPDXRef-Package-micromark-core-commonmark-2.0.3"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-micromark-extension-gfm-footnote-2.1.0",
+      "relationshipType": "DEPENDENCY_OF",
+      "spdxElementId": "SPDXRef-Package-micromark-factory-space-2.0.1"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-micromark-extension-gfm-footnote-2.1.0",
+      "relationshipType": "DEPENDENCY_OF",
+      "spdxElementId": "SPDXRef-Package-micromark-util-character-2.1.1"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-micromark-extension-gfm-footnote-2.1.0",
+      "relationshipType": "DEPENDENCY_OF",
+      "spdxElementId": "SPDXRef-Package-micromark-util-normalize-identifier-2.0.1"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-micromark-extension-gfm-footnote-2.1.0",
+      "relationshipType": "DEPENDENCY_OF",
+      "spdxElementId": "SPDXRef-Package-micromark-util-sanitize-uri-2.0.1"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-micromark-extension-gfm-footnote-2.1.0",
+      "relationshipType": "DEPENDENCY_OF",
+      "spdxElementId": "SPDXRef-Package-micromark-util-symbol-2.0.1"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-micromark-extension-gfm-footnote-2.1.0",
+      "relationshipType": "DEPENDENCY_OF",
+      "spdxElementId": "SPDXRef-Package-micromark-util-types-2.0.2"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-micromark-extension-gfm-table-2.1.1",
+      "relationshipType": "DEPENDENCY_OF",
+      "spdxElementId": "SPDXRef-Package-devlop-1.1.0"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-micromark-extension-gfm-table-2.1.1",
+      "relationshipType": "DEPENDENCY_OF",
+      "spdxElementId": "SPDXRef-Package-micromark-factory-space-2.0.1"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-micromark-extension-gfm-table-2.1.1",
+      "relationshipType": "DEPENDENCY_OF",
+      "spdxElementId": "SPDXRef-Package-micromark-util-character-2.1.1"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-micromark-extension-gfm-table-2.1.1",
+      "relationshipType": "DEPENDENCY_OF",
+      "spdxElementId": "SPDXRef-Package-micromark-util-symbol-2.0.1"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-micromark-extension-gfm-table-2.1.1",
+      "relationshipType": "DEPENDENCY_OF",
+      "spdxElementId": "SPDXRef-Package-micromark-util-types-2.0.2"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-micromark-extension-math-3.1.0",
+      "relationshipType": "DEPENDENCY_OF",
+      "spdxElementId": "SPDXRef-Package-types.katex-0.16.8"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-micromark-extension-math-3.1.0",
+      "relationshipType": "DEPENDENCY_OF",
+      "spdxElementId": "SPDXRef-Package-devlop-1.1.0"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-micromark-extension-math-3.1.0",
+      "relationshipType": "DEPENDENCY_OF",
+      "spdxElementId": "SPDXRef-Package-katex-0.16.47"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-micromark-extension-math-3.1.0",
+      "relationshipType": "DEPENDENCY_OF",
+      "spdxElementId": "SPDXRef-Package-micromark-factory-space-2.0.1"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-micromark-extension-math-3.1.0",
+      "relationshipType": "DEPENDENCY_OF",
+      "spdxElementId": "SPDXRef-Package-micromark-util-character-2.1.1"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-micromark-extension-math-3.1.0",
+      "relationshipType": "DEPENDENCY_OF",
+      "spdxElementId": "SPDXRef-Package-micromark-util-symbol-2.0.1"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-micromark-extension-math-3.1.0",
+      "relationshipType": "DEPENDENCY_OF",
+      "spdxElementId": "SPDXRef-Package-micromark-util-types-2.0.2"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-micromark-factory-destination-2.0.1",
+      "relationshipType": "DEPENDENCY_OF",
+      "spdxElementId": "SPDXRef-Package-micromark-util-character-2.1.1"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-micromark-factory-destination-2.0.1",
+      "relationshipType": "DEPENDENCY_OF",
+      "spdxElementId": "SPDXRef-Package-micromark-util-symbol-2.0.1"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-micromark-factory-destination-2.0.1",
+      "relationshipType": "DEPENDENCY_OF",
+      "spdxElementId": "SPDXRef-Package-micromark-util-types-2.0.2"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-micromark-factory-label-2.0.1",
+      "relationshipType": "DEPENDENCY_OF",
+      "spdxElementId": "SPDXRef-Package-devlop-1.1.0"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-micromark-factory-label-2.0.1",
+      "relationshipType": "DEPENDENCY_OF",
+      "spdxElementId": "SPDXRef-Package-micromark-util-character-2.1.1"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-micromark-factory-label-2.0.1",
+      "relationshipType": "DEPENDENCY_OF",
+      "spdxElementId": "SPDXRef-Package-micromark-util-symbol-2.0.1"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-micromark-factory-label-2.0.1",
+      "relationshipType": "DEPENDENCY_OF",
+      "spdxElementId": "SPDXRef-Package-micromark-util-types-2.0.2"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-micromark-factory-space-2.0.1",
+      "relationshipType": "DEPENDENCY_OF",
+      "spdxElementId": "SPDXRef-Package-micromark-util-character-2.1.1"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-micromark-factory-space-2.0.1",
+      "relationshipType": "DEPENDENCY_OF",
+      "spdxElementId": "SPDXRef-Package-micromark-util-types-2.0.2"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-micromark-factory-title-2.0.1",
+      "relationshipType": "DEPENDENCY_OF",
+      "spdxElementId": "SPDXRef-Package-micromark-factory-space-2.0.1"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-micromark-factory-title-2.0.1",
+      "relationshipType": "DEPENDENCY_OF",
+      "spdxElementId": "SPDXRef-Package-micromark-util-character-2.1.1"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-micromark-factory-title-2.0.1",
+      "relationshipType": "DEPENDENCY_OF",
+      "spdxElementId": "SPDXRef-Package-micromark-util-symbol-2.0.1"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-micromark-factory-title-2.0.1",
+      "relationshipType": "DEPENDENCY_OF",
+      "spdxElementId": "SPDXRef-Package-micromark-util-types-2.0.2"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-micromark-factory-whitespace-2.0.1",
+      "relationshipType": "DEPENDENCY_OF",
+      "spdxElementId": "SPDXRef-Package-micromark-factory-space-2.0.1"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-micromark-factory-whitespace-2.0.1",
+      "relationshipType": "DEPENDENCY_OF",
+      "spdxElementId": "SPDXRef-Package-micromark-util-character-2.1.1"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-micromark-factory-whitespace-2.0.1",
+      "relationshipType": "DEPENDENCY_OF",
+      "spdxElementId": "SPDXRef-Package-micromark-util-symbol-2.0.1"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-micromark-factory-whitespace-2.0.1",
+      "relationshipType": "DEPENDENCY_OF",
+      "spdxElementId": "SPDXRef-Package-micromark-util-types-2.0.2"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-micromark-util-character-2.1.1",
+      "relationshipType": "DEPENDENCY_OF",
+      "spdxElementId": "SPDXRef-Package-micromark-util-symbol-2.0.1"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-micromark-util-character-2.1.1",
+      "relationshipType": "DEPENDENCY_OF",
+      "spdxElementId": "SPDXRef-Package-micromark-util-types-2.0.2"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-micromark-util-chunked-2.0.1",
+      "relationshipType": "DEPENDENCY_OF",
+      "spdxElementId": "SPDXRef-Package-micromark-util-symbol-2.0.1"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-micromark-util-classify-character-2.0.1",
+      "relationshipType": "DEPENDENCY_OF",
+      "spdxElementId": "SPDXRef-Package-micromark-util-character-2.1.1"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-micromark-util-classify-character-2.0.1",
+      "relationshipType": "DEPENDENCY_OF",
+      "spdxElementId": "SPDXRef-Package-micromark-util-symbol-2.0.1"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-micromark-util-classify-character-2.0.1",
+      "relationshipType": "DEPENDENCY_OF",
+      "spdxElementId": "SPDXRef-Package-micromark-util-types-2.0.2"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-micromark-util-combine-extensions-2.0.1",
+      "relationshipType": "DEPENDENCY_OF",
+      "spdxElementId": "SPDXRef-Package-micromark-util-chunked-2.0.1"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-micromark-util-combine-extensions-2.0.1",
+      "relationshipType": "DEPENDENCY_OF",
+      "spdxElementId": "SPDXRef-Package-micromark-util-types-2.0.2"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-micromark-util-decode-numeric-character-reference-2.0.2",
+      "relationshipType": "DEPENDENCY_OF",
+      "spdxElementId": "SPDXRef-Package-micromark-util-symbol-2.0.1"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-micromark-util-normalize-identifier-2.0.1",
+      "relationshipType": "DEPENDENCY_OF",
+      "spdxElementId": "SPDXRef-Package-micromark-util-symbol-2.0.1"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-micromark-util-resolve-all-2.0.1",
+      "relationshipType": "DEPENDENCY_OF",
+      "spdxElementId": "SPDXRef-Package-micromark-util-types-2.0.2"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-micromark-util-sanitize-uri-2.0.1",
+      "relationshipType": "DEPENDENCY_OF",
+      "spdxElementId": "SPDXRef-Package-micromark-util-character-2.1.1"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-micromark-util-sanitize-uri-2.0.1",
+      "relationshipType": "DEPENDENCY_OF",
+      "spdxElementId": "SPDXRef-Package-micromark-util-encode-2.0.1"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-micromark-util-sanitize-uri-2.0.1",
+      "relationshipType": "DEPENDENCY_OF",
+      "spdxElementId": "SPDXRef-Package-micromark-util-symbol-2.0.1"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-micromark-util-subtokenize-2.1.0",
+      "relationshipType": "DEPENDENCY_OF",
+      "spdxElementId": "SPDXRef-Package-devlop-1.1.0"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-micromark-util-subtokenize-2.1.0",
+      "relationshipType": "DEPENDENCY_OF",
+      "spdxElementId": "SPDXRef-Package-micromark-util-chunked-2.0.1"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-micromark-util-subtokenize-2.1.0",
+      "relationshipType": "DEPENDENCY_OF",
+      "spdxElementId": "SPDXRef-Package-micromark-util-symbol-2.0.1"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-micromark-util-subtokenize-2.1.0",
+      "relationshipType": "DEPENDENCY_OF",
+      "spdxElementId": "SPDXRef-Package-micromark-util-types-2.0.2"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-micromatch-4.0.8",
+      "relationshipType": "DEPENDENCY_OF",
+      "spdxElementId": "SPDXRef-Package-braces-3.0.3"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-micromatch-4.0.8",
+      "relationshipType": "DEPENDENCY_OF",
+      "spdxElementId": "SPDXRef-Package-picomatch-2.3.2"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-n3-2.1.1",
+      "relationshipType": "DEPENDENCY_OF",
+      "spdxElementId": "SPDXRef-Package-buffer-6.0.3"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-n3-2.1.1",
+      "relationshipType": "DEPENDENCY_OF",
+      "spdxElementId": "SPDXRef-Package-readable-stream-4.7.0"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-parse-entities-4.0.2",
+      "relationshipType": "DEPENDENCY_OF",
+      "spdxElementId": "SPDXRef-Package-types.unist-2.0.11"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-parse-entities-4.0.2",
+      "relationshipType": "DEPENDENCY_OF",
+      "spdxElementId": "SPDXRef-Package-character-entities-legacy-3.0.0"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-parse-entities-4.0.2",
+      "relationshipType": "DEPENDENCY_OF",
+      "spdxElementId": "SPDXRef-Package-character-reference-invalid-2.0.1"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-parse-entities-4.0.2",
+      "relationshipType": "DEPENDENCY_OF",
+      "spdxElementId": "SPDXRef-Package-decode-named-character-reference-1.3.0"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-parse-entities-4.0.2",
+      "relationshipType": "DEPENDENCY_OF",
+      "spdxElementId": "SPDXRef-Package-is-alphanumerical-2.0.1"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-parse-entities-4.0.2",
+      "relationshipType": "DEPENDENCY_OF",
+      "spdxElementId": "SPDXRef-Package-is-decimal-2.0.1"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-parse-entities-4.0.2",
+      "relationshipType": "DEPENDENCY_OF",
+      "spdxElementId": "SPDXRef-Package-is-hexadecimal-2.0.1"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-parse5-8.0.1",
+      "relationshipType": "DEPENDENCY_OF",
+      "spdxElementId": "SPDXRef-Package-entities-8.0.0"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-rdf-canonize-5.0.0",
+      "relationshipType": "DEPENDENCY_OF",
+      "spdxElementId": "SPDXRef-Package-setimmediate-1.0.5"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-rdf-data-factory-2.0.2",
+      "relationshipType": "DEPENDENCY_OF",
+      "spdxElementId": "SPDXRef-Package-rdfjs.types-2.0.1"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-rdf-dataset-ext-1.1.0",
+      "relationshipType": "DEPENDENCY_OF",
+      "spdxElementId": "SPDXRef-Package-rdf-canonize-3.4.0"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-rdf-dataset-ext-1.1.0",
+      "relationshipType": "DEPENDENCY_OF",
+      "spdxElementId": "SPDXRef-Package-readable-stream-4.7.0"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-rdf-canonize-3.4.0",
+      "relationshipType": "DEPENDENCY_OF",
+      "spdxElementId": "SPDXRef-Package-setimmediate-1.0.5"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-rdf-literal-2.0.0",
+      "relationshipType": "DEPENDENCY_OF",
+      "spdxElementId": "SPDXRef-Package-rdf-data-factory-2.0.2"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-rdf-validate-datatype-0.2.2",
+      "relationshipType": "DEPENDENCY_OF",
+      "spdxElementId": "SPDXRef-Package-rdfjs.term-map-2.0.2"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-rdf-validate-datatype-0.2.2",
+      "relationshipType": "DEPENDENCY_OF",
+      "spdxElementId": "SPDXRef-Package-tpluscode.rdf-ns-builders-5.0.0"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-rdf-validate-shacl-0.6.5",
+      "relationshipType": "DEPENDENCY_OF",
+      "spdxElementId": "SPDXRef-Package-rdfjs.data-model-2.1.2"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-rdf-validate-shacl-0.6.5",
+      "relationshipType": "DEPENDENCY_OF",
+      "spdxElementId": "SPDXRef-Package-rdfjs.dataset-2.0.3"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-rdf-validate-shacl-0.6.5",
+      "relationshipType": "DEPENDENCY_OF",
+      "spdxElementId": "SPDXRef-Package-rdfjs.environment-1.0.0"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-rdf-validate-shacl-0.6.5",
+      "relationshipType": "DEPENDENCY_OF",
+      "spdxElementId": "SPDXRef-Package-rdfjs.namespace-2.0.1"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-rdf-validate-shacl-0.6.5",
+      "relationshipType": "DEPENDENCY_OF",
+      "spdxElementId": "SPDXRef-Package-rdfjs.term-set-2.0.3"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-rdf-validate-shacl-0.6.5",
+      "relationshipType": "DEPENDENCY_OF",
+      "spdxElementId": "SPDXRef-Package-rdfjs.types-2.0.1"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-rdf-validate-shacl-0.6.5",
+      "relationshipType": "DEPENDENCY_OF",
+      "spdxElementId": "SPDXRef-Package-vocabulary.sh-1.1.6"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-rdf-validate-shacl-0.6.5",
+      "relationshipType": "DEPENDENCY_OF",
+      "spdxElementId": "SPDXRef-Package-clownface-2.0.3"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-rdf-validate-shacl-0.6.5",
+      "relationshipType": "DEPENDENCY_OF",
+      "spdxElementId": "SPDXRef-Package-debug-4.4.3"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-rdf-validate-shacl-0.6.5",
+      "relationshipType": "DEPENDENCY_OF",
+      "spdxElementId": "SPDXRef-Package-rdf-dataset-ext-1.1.0"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-rdf-validate-shacl-0.6.5",
+      "relationshipType": "DEPENDENCY_OF",
+      "spdxElementId": "SPDXRef-Package-rdf-literal-2.0.0"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-rdf-validate-shacl-0.6.5",
+      "relationshipType": "DEPENDENCY_OF",
+      "spdxElementId": "SPDXRef-Package-rdf-validate-datatype-0.2.2"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-rdfxml-streaming-parser-3.2.0",
+      "relationshipType": "DEPENDENCY_OF",
+      "spdxElementId": "SPDXRef-Package-rubensworks.saxes-6.0.1"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-rdfxml-streaming-parser-3.2.0",
+      "relationshipType": "DEPENDENCY_OF",
+      "spdxElementId": "SPDXRef-Package-types.readable-stream-4.0.24"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-rdfxml-streaming-parser-3.2.0",
+      "relationshipType": "DEPENDENCY_OF",
+      "spdxElementId": "SPDXRef-Package-buffer-6.0.3"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-rdfxml-streaming-parser-3.2.0",
+      "relationshipType": "DEPENDENCY_OF",
+      "spdxElementId": "SPDXRef-Package-rdf-data-factory-2.0.2"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-rdfxml-streaming-parser-3.2.0",
+      "relationshipType": "DEPENDENCY_OF",
+      "spdxElementId": "SPDXRef-Package-readable-stream-4.7.0"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-rdfxml-streaming-parser-3.2.0",
+      "relationshipType": "DEPENDENCY_OF",
+      "spdxElementId": "SPDXRef-Package-relative-to-absolute-iri-1.0.8"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-rdfxml-streaming-parser-3.2.0",
+      "relationshipType": "DEPENDENCY_OF",
+      "spdxElementId": "SPDXRef-Package-validate-iri-1.0.1"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-readable-stream-4.7.0",
+      "relationshipType": "DEPENDENCY_OF",
+      "spdxElementId": "SPDXRef-Package-abort-controller-3.0.0"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-readable-stream-4.7.0",
+      "relationshipType": "DEPENDENCY_OF",
+      "spdxElementId": "SPDXRef-Package-buffer-6.0.3"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-readable-stream-4.7.0",
+      "relationshipType": "DEPENDENCY_OF",
+      "spdxElementId": "SPDXRef-Package-events-3.3.0"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-readable-stream-4.7.0",
+      "relationshipType": "DEPENDENCY_OF",
+      "spdxElementId": "SPDXRef-Package-process-0.11.10"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-readable-stream-4.7.0",
+      "relationshipType": "DEPENDENCY_OF",
+      "spdxElementId": "SPDXRef-Package-string_decoder-1.3.0"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-run-parallel-1.2.0",
+      "relationshipType": "DEPENDENCY_OF",
+      "spdxElementId": "SPDXRef-Package-queue-microtask-1.2.3"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-saxes-6.0.0",
+      "relationshipType": "DEPENDENCY_OF",
+      "spdxElementId": "SPDXRef-Package-xmlchars-2.2.0"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-slimdom-sax-parser-1.5.3",
+      "relationshipType": "DEPENDENCY_OF",
+      "spdxElementId": "SPDXRef-Package-saxes-6.0.0"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-slimdom-sax-parser-1.5.3",
+      "relationshipType": "DEPENDENCY_OF",
+      "spdxElementId": "SPDXRef-Package-slimdom-3.0.1"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-string_decoder-1.3.0",
+      "relationshipType": "DEPENDENCY_OF",
+      "spdxElementId": "SPDXRef-Package-safe-buffer-5.2.1"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-string-width-8.2.1",
+      "relationshipType": "DEPENDENCY_OF",
+      "spdxElementId": "SPDXRef-Package-get-east-asian-width-1.6.0"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-string-width-8.2.1",
+      "relationshipType": "DEPENDENCY_OF",
+      "spdxElementId": "SPDXRef-Package-strip-ansi-7.2.0"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-strip-ansi-7.2.0",
+      "relationshipType": "DEPENDENCY_OF",
+      "spdxElementId": "SPDXRef-Package-ansi-regex-6.2.2"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-to-regex-range-5.0.1",
+      "relationshipType": "DEPENDENCY_OF",
+      "spdxElementId": "SPDXRef-Package-is-number-7.0.0"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-xmllint-wasm-5.2.0",
+      "relationshipType": "PREREQUISITE_FOR",
+      "spdxElementId": "SPDXRef-Package-types.node-26.1.1"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-xspattern-3.1.0",
+      "relationshipType": "DEPENDENCY_OF",
+      "spdxElementId": "SPDXRef-Package-whynot-5.0.0"
+    }
+  ],
+  "spdxVersion": "SPDX-2.3"
+}

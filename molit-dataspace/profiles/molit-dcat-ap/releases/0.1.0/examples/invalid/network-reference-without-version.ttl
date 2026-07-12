@@ -1,0 +1,37 @@
+@prefix dcat: <http://www.w3.org/ns/dcat#> .
+@prefix dct: <http://purl.org/dc/terms/> .
+@prefix ex: <https://data.molit.go.kr/id/example-invalid/> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+@prefix geodcatap: <http://data.europa.eu/930/> .
+@prefix mobilitydcatap: <https://w3id.org/mobilitydcat-ap#> .
+@prefix molit: <https://data.molit.go.kr/def/molit-dcat-ap#> .
+@prefix quality: <https://data.molit.go.kr/id/concept/quality-status/> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+ex:dataset
+    a dcat:Dataset, dcat:Resource, molit:NetworkDataset ;
+    dct:identifier "invalid-network-version" ;
+    dct:title "망 버전 누락 예시"@ko ;
+    dct:description "교통망 참조에는 식별자가 있지만 버전이 없다."@ko ;
+    dct:publisher ex:publisher ;
+    dct:modified "2026-07-12"^^xsd:date ;
+    dct:accessRights <http://publications.europa.eu/resource/authority/access-right/PUBLIC> ;
+    dct:spatial ex:location ;
+    geodcatap:referenceSystem <http://www.opengis.net/def/crs/OGC/1.3/CRS84> ;
+    dcat:theme <http://publications.europa.eu/resource/authority/data-theme/TRAN>,
+        <https://data.molit.go.kr/id/concept/domain/road> ;
+    mobilitydcatap:transportMode <https://w3id.org/mobilitydcat-ap/transport-mode/car> ;
+    molit:networkReference ex:network-ref ;
+    molit:qualityStatus quality:not-assessed ;
+    molit:spatialDisclosureLevel <https://data.molit.go.kr/id/concept/spatial-disclosure-level/withheld> .
+
+ex:publisher a foaf:Agent ; foaf:name "시험 발행기관"@ko .
+ex:location a dct:Location .
+<http://www.opengis.net/def/crs/OGC/1.3/CRS84> a dct:Standard, skos:Concept .
+
+ex:network-ref
+    a molit:NetworkReference ;
+    molit:networkAuthority ex:publisher ;
+    molit:networkIdentifier "TEST-NETWORK" ;
+    molit:networkElementType <https://data.molit.go.kr/id/concept/network-element-type/link> .

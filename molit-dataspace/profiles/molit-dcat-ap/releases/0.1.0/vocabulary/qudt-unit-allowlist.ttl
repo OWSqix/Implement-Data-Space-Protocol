@@ -1,0 +1,35 @@
+@prefix qudt: <http://qudt.org/schema/qudt/> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+
+# QUDT retains authority over these IRIs. The additional skos:Concept type is
+# the DCAT-AP/GeoDCAT-AP range alignment required for sdmx:unitMeasure.
+
+<http://qudt.org/vocab/unit/PERCENT>
+    a qudt:Unit,
+        skos:Concept ;
+    skos:prefLabel "percent"@en .
+
+<http://qudt.org/vocab/unit/M>
+    a qudt:Unit,
+        skos:Concept ;
+    skos:prefLabel "metre"@en .
+
+<http://qudt.org/vocab/unit/SEC>
+    a qudt:Unit,
+        skos:Concept ;
+    skos:prefLabel "second"@en .
+
+<http://qudt.org/vocab/unit/MIN>
+    a qudt:Unit,
+        skos:Concept ;
+    skos:prefLabel "minute"@en .
+
+<http://qudt.org/vocab/unit/HR>
+    a qudt:Unit,
+        skos:Concept ;
+    skos:prefLabel "hour"@en .
+
+<http://qudt.org/vocab/unit/DAY>
+    a qudt:Unit,
+        skos:Concept ;
+    skos:prefLabel "day"@en .

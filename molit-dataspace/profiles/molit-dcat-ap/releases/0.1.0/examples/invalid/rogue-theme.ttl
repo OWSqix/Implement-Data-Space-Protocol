@@ -1,0 +1,48 @@
+@prefix dcat: <http://www.w3.org/ns/dcat#> .
+@prefix dct: <http://purl.org/dc/terms/> .
+@prefix ex: <https://data.molit.go.kr/id/example-invalid/> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+@prefix molit: <https://data.molit.go.kr/def/molit-dcat-ap#> .
+@prefix quality: <https://data.molit.go.kr/id/concept/quality-status/> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+ex:catalog
+    a dcat:Catalog ;
+    dct:title "주제 통제어 오류 카탈로그"@ko ;
+    dct:description "허용되지 않은 주제를 포함한다."@ko ;
+    dct:publisher ex:publisher ;
+    dct:language <http://publications.europa.eu/resource/authority/language/KOR> ;
+    dct:conformsTo <https://data.molit.go.kr/profile/molit-dcat-ap/0.1.0> ;
+    dcat:dataset ex:dataset ;
+    dcat:record ex:record .
+
+ex:record
+    a dcat:CatalogRecord ;
+    dct:title "주제 통제어 오류 레코드"@ko ;
+    dct:modified "2026-07-12"^^xsd:date ;
+    dct:language <http://publications.europa.eu/resource/authority/language/KOR> ;
+    dct:conformsTo <https://data.molit.go.kr/profile/molit-dcat-ap/0.1.0> ;
+    foaf:primaryTopic ex:dataset .
+
+ex:dataset
+    a dcat:Dataset,
+        dcat:Resource ;
+    dct:identifier "rogue-theme" ;
+    dct:title "주제 통제어 오류 데이터셋"@ko ;
+    dct:description "자체 선언한 외부 주제는 허용 목록에 속하지 않는다."@ko ;
+    dct:publisher ex:publisher ;
+    dct:modified "2026-07-12"^^xsd:date ;
+    dct:accessRights <http://publications.europa.eu/resource/authority/access-right/PUBLIC> ;
+    dcat:theme <http://publications.europa.eu/resource/authority/data-theme/TRAN>,
+        <https://data.molit.go.kr/id/concept/domain/road>,
+        <https://w3id.org/molit-test/rogue-theme> ;
+    molit:qualityStatus quality:not-assessed .
+
+ex:publisher
+    a foaf:Agent ;
+    foaf:name "시험 발행기관"@ko .
+
+<https://w3id.org/molit-test/rogue-theme>
+    a skos:Concept ;
+    skos:prefLabel "rogue"@en .

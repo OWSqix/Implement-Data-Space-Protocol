@@ -1,0 +1,67 @@
+@prefix dct: <http://purl.org/dc/terms/> .
+@prefix disclosure: <https://data.molit.go.kr/id/concept/spatial-disclosure-level/> .
+@prefix molit-scheme: <https://data.molit.go.kr/scheme/> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+molit-scheme:spatial-disclosure-level
+    a skos:ConceptScheme ;
+    dct:issued "2026-07-12"^^xsd:date ;
+    dct:title "공간 공개 정밀도"@ko ;
+    skos:note "License for locally authored concepts is pending owner approval."@en ;
+    skos:prefLabel "공간 공개 정밀도"@ko,
+        "Spatial disclosure levels"@en ;
+    skos:hasTopConcept disclosure:exact,
+        disclosure:generalized,
+        disclosure:administrative-area,
+        disclosure:bounding-box,
+        disclosure:grid,
+        disclosure:withheld .
+
+disclosure:exact
+    a skos:Concept ;
+    skos:inScheme molit-scheme:spatial-disclosure-level ;
+    skos:prefLabel "원 정밀도"@ko, "Exact"@en ;
+    skos:definition "원천 데이터의 좌표 정밀도와 geometry를 일반화하지 않고 공개한 수준."@ko,
+        "A level at which source coordinate precision and geometry are disclosed without generalization."@en ;
+    skos:topConceptOf molit-scheme:spatial-disclosure-level .
+
+disclosure:generalized
+    a skos:Concept ;
+    skos:inScheme molit-scheme:spatial-disclosure-level ;
+    skos:prefLabel "일반화"@ko, "Generalized"@en ;
+    skos:definition "좌표 반올림, 단순화 또는 집계를 적용해 원천보다 정밀도를 낮춘 수준."@ko,
+        "A level with lower precision than the source after coordinate rounding, simplification or aggregation."@en ;
+    skos:topConceptOf molit-scheme:spatial-disclosure-level .
+
+disclosure:administrative-area
+    a skos:Concept ;
+    skos:inScheme molit-scheme:spatial-disclosure-level ;
+    skos:prefLabel "행정구역"@ko, "Administrative area"@en ;
+    skos:definition "개별 위치 대신 승인된 행정구역 코드 또는 경계까지만 공개한 수준."@ko,
+        "A level disclosing only an approved administrative-area code or boundary instead of an individual location."@en ;
+    skos:topConceptOf molit-scheme:spatial-disclosure-level .
+
+disclosure:bounding-box
+    a skos:Concept ;
+    skos:inScheme molit-scheme:spatial-disclosure-level ;
+    skos:prefLabel "경계 상자"@ko, "Bounding box"@en ;
+    skos:definition "원 geometry 대신 그 범위를 포함하는 최소 또는 승인된 경계 상자만 공개한 수준."@ko,
+        "A level disclosing only a minimum or approved bounding box containing the source geometry."@en ;
+    skos:topConceptOf molit-scheme:spatial-disclosure-level .
+
+disclosure:grid
+    a skos:Concept ;
+    skos:inScheme molit-scheme:spatial-disclosure-level ;
+    skos:prefLabel "격자"@ko, "Grid"@en ;
+    skos:definition "개별 위치를 승인된 격자 셀 또는 셀 단위 집계값으로 바꿔 공개한 수준."@ko,
+        "A level replacing individual locations with approved grid cells or cell-level aggregates."@en ;
+    skos:topConceptOf molit-scheme:spatial-disclosure-level .
+
+disclosure:withheld
+    a skos:Concept ;
+    skos:inScheme molit-scheme:spatial-disclosure-level ;
+    skos:prefLabel "비공개"@ko, "Withheld"@en ;
+    skos:definition "공개 graph에 위치, 경계 상자, 중심점 또는 geometry를 제공하지 않는 수준."@ko,
+        "A level at which no location, bounding box, centroid or geometry is supplied in the public graph."@en ;
+    skos:topConceptOf molit-scheme:spatial-disclosure-level .

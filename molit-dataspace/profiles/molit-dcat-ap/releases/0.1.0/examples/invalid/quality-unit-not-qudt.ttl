@@ -1,0 +1,32 @@
+@prefix dcat: <http://www.w3.org/ns/dcat#> .
+@prefix dct: <http://purl.org/dc/terms/> .
+@prefix dqv: <http://www.w3.org/ns/dqv#> .
+@prefix ex: <https://data.molit.go.kr/id/example-invalid/> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+@prefix metric: <https://data.molit.go.kr/id/metric/> .
+@prefix molit: <https://data.molit.go.kr/def/molit-dcat-ap#> .
+@prefix quality: <https://data.molit.go.kr/id/concept/quality-status/> .
+@prefix sdmx-attribute: <http://purl.org/linked-data/sdmx/2009/attribute#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+ex:dataset
+    a dcat:Dataset, dcat:Resource ;
+    dct:identifier "invalid-quality-unit" ;
+    dct:title "품질 단위 오류 예시"@ko ;
+    dct:description "품질 측정값이 QUDT 단위 IRI를 사용하지 않았다."@ko ;
+    dct:publisher ex:publisher ;
+    dct:modified "2026-07-12"^^xsd:date ;
+    dct:accessRights <http://publications.europa.eu/resource/authority/access-right/PUBLIC> ;
+    dcat:theme <http://publications.europa.eu/resource/authority/data-theme/TRAN>,
+        <https://data.molit.go.kr/id/concept/domain/road> ;
+    dqv:hasQualityMeasurement ex:measurement ;
+    molit:qualityStatus quality:assessed .
+
+ex:measurement
+    a dqv:QualityMeasurement ;
+    dqv:computedOn ex:dataset ;
+    dqv:isMeasurementOf metric:completeness ;
+    dqv:value "99.0"^^xsd:decimal ;
+    sdmx-attribute:unitMeasure <https://w3id.org/molit-test/unit/percent> .
+
+ex:publisher a foaf:Agent ; foaf:name "시험 발행기관"@ko .

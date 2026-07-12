@@ -1,0 +1,1286 @@
+{
+  "schemaVersion": "molit.iso19115-1-tech-gate/1",
+  "package": {
+    "standard": "ISO 19115-1",
+    "version": "1.3.0",
+    "status": "current",
+    "officialListing": "https://schemas.isotc211.org/19115/-1/",
+    "officialRepository": "https://github.com/ISO-TC211/schemas",
+    "repositoryCommitObserved": "973b2d578265657246404a1889c544c8d8374c9b",
+    "repositoryCommitObservedAt": "2026-07-12T12:54:44.213Z",
+    "endpointBytesBoundToRepositoryCommit": false
+  },
+  "license": {
+    "copyrightHolder": "ISO/TC 211",
+    "repositoryLicenseDetected": null,
+    "redistributionPermission": "not-established",
+    "committedOfficialBytes": false,
+    "privateCacheRequiresInstitutionAuthorization": true,
+    "officialRepositoryNotice": "https://github.com/ISO-TC211/schemas#copyright-and-license",
+    "isoCopyrightPolicy": "https://www.iso.org/copyright.html"
+  },
+  "gateStatus": "blocked-pending-permission-or-approved-private-cache",
+  "capturePolicy": {
+    "networkAllowedOnlyDuringExplicitCapture": true,
+    "offlineVerificationRequired": true,
+    "dtdEntitiesXIncludeRejected": true,
+    "artifactMaxBytes": 1048576,
+    "totalMaxBytes": 16777216
+  },
+  "negativeMutations": {
+    "xsd": "rename the MD_Metadata root element while preserving well-formed XML",
+    "schematron": "change the metadata creation date type to publication while retaining XSD validity"
+  },
+  "artifacts": [
+    {
+      "role": "xsd-dependency",
+      "url": "https://schemas.isotc211.org/19103/-/gco/1.2.0/baseTypes.xsd",
+      "responseUrl": "https://schemas.isotc211.org/19103/-/gco/1.2.0/baseTypes.xsd",
+      "mediaType": "application/xml",
+      "bytes": 41579,
+      "sha256": "00b6639412cc1f6f6b42909f4cacea3097b6c62ad60bf6fa11a02d239ff4bc34",
+      "retrievedAt": "2026-07-12T12:54:52.718Z",
+      "cachePath": "artifacts/00b6639412cc1f6f-baseTypes.xsd"
+    },
+    {
+      "role": "xsd-dependency",
+      "url": "https://schemas.isotc211.org/19103/-/gco/1.2.0/gco.xsd",
+      "responseUrl": "https://schemas.isotc211.org/19103/-/gco/1.2.0/gco.xsd",
+      "mediaType": "application/xml",
+      "bytes": 1535,
+      "sha256": "fba426973e1dfea14209799a89bd62a47835aaf7dbd5864e5a0b352e945479a3",
+      "retrievedAt": "2026-07-12T12:54:50.488Z",
+      "cachePath": "artifacts/fba426973e1dfea1-gco.xsd"
+    },
+    {
+      "role": "xsd-dependency",
+      "url": "https://schemas.isotc211.org/19103/-/gcx/1.2.0/extendedTypes.xsd",
+      "responseUrl": "https://schemas.isotc211.org/19103/-/gcx/1.2.0/extendedTypes.xsd",
+      "mediaType": "application/xml",
+      "bytes": 7968,
+      "sha256": "da6a10ec273bff5ac3e5c79393faa724b2eba2ebe56fe2ea4ceeefa31a7c833f",
+      "retrievedAt": "2026-07-12T12:54:55.859Z",
+      "cachePath": "artifacts/da6a10ec273bff5a-extendedTypes.xsd"
+    },
+    {
+      "role": "xsd-dependency",
+      "url": "https://schemas.isotc211.org/19103/-/gcx/1.2.0/gcx.xsd",
+      "responseUrl": "https://schemas.isotc211.org/19103/-/gcx/1.2.0/gcx.xsd",
+      "mediaType": "application/xml",
+      "bytes": 709,
+      "sha256": "40e52d79be55d886d4152ae0d55630f9a8fde4e66702c75a0a1fd721388de573",
+      "retrievedAt": "2026-07-12T12:54:52.701Z",
+      "cachePath": "artifacts/40e52d79be55d886-gcx.xsd"
+    },
+    {
+      "role": "xsd-dependency",
+      "url": "https://schemas.isotc211.org/19110/-/fcc/2.2.0/abstract.xsd",
+      "responseUrl": "https://schemas.isotc211.org/19110/-/fcc/2.2.0/abstract.xsd",
+      "mediaType": "application/xml",
+      "bytes": 2062,
+      "sha256": "58b3cb1a9f757f16b2d5bf43730bb9f41dc6c5b85606cb8601a1947e9cd34b0c",
+      "retrievedAt": "2026-07-12T12:54:52.243Z",
+      "cachePath": "artifacts/58b3cb1a9f757f16-abstract.xsd"
+    },
+    {
+      "role": "xsd-dependency",
+      "url": "https://schemas.isotc211.org/19110/-/fcc/2.2.0/fcc.xsd",
+      "responseUrl": "https://schemas.isotc211.org/19110/-/fcc/2.2.0/fcc.xsd",
+      "mediaType": "application/xml",
+      "bytes": 457,
+      "sha256": "b5bd2233bb313f393d734ef0bde796929661e434d3afb13f6a836a582b0b750b",
+      "retrievedAt": "2026-07-12T12:54:48.830Z",
+      "cachePath": "artifacts/b5bd2233bb313f39-fcc.xsd"
+    },
+    {
+      "role": "xsd-dependency",
+      "url": "https://schemas.isotc211.org/19111/-/rbc/3.1.0/rbc.xsd",
+      "responseUrl": "https://schemas.isotc211.org/19111/-/rbc/3.1.0/rbc.xsd",
+      "mediaType": "application/xml",
+      "bytes": 709,
+      "sha256": "cd29c7110a462625054084f23340e3baa3b32f560427974f30c95c6f1201b141",
+      "retrievedAt": "2026-07-12T12:54:50.688Z",
+      "cachePath": "artifacts/cd29c7110a462625-rbc.xsd"
+    },
+    {
+      "role": "xsd-dependency",
+      "url": "https://schemas.isotc211.org/19111/-/rbc/3.1.0/rbcStubs.xsd",
+      "responseUrl": "https://schemas.isotc211.org/19111/-/rbc/3.1.0/rbcStubs.xsd",
+      "mediaType": "application/xml",
+      "bytes": 8534,
+      "sha256": "8a44ed5a9f8e90a681eab6af465356c494c82a7ded21872d9dacca820cb32148",
+      "retrievedAt": "2026-07-12T12:54:52.928Z",
+      "cachePath": "artifacts/8a44ed5a9f8e90a6-rbcStubs.xsd"
+    },
+    {
+      "role": "xsd-module",
+      "url": "https://schemas.isotc211.org/19115/-1/cit/1.3.0/cit.xsd",
+      "responseUrl": "https://schemas.isotc211.org/19115/-1/cit/1.3.0/cit.xsd",
+      "mediaType": "application/xml",
+      "bytes": 562,
+      "sha256": "3bfdecf7c4381391344bf492e2ab9cfd8d2692faeb235eed8b37ef233accaadb",
+      "retrievedAt": "2026-07-12T12:54:44.254Z",
+      "cachePath": "artifacts/3bfdecf7c4381391-cit.xsd"
+    },
+    {
+      "role": "xsd-dependency",
+      "url": "https://schemas.isotc211.org/19115/-1/cit/1.3.0/citation.xsd",
+      "responseUrl": "https://schemas.isotc211.org/19115/-1/cit/1.3.0/citation.xsd",
+      "mediaType": "application/xml",
+      "bytes": 28410,
+      "sha256": "5f7636fc6a508a83a7dc28f6124ce96c29f95ae17b1077b69b2efc8cf26523c3",
+      "retrievedAt": "2026-07-12T12:54:47.383Z",
+      "cachePath": "artifacts/5f7636fc6a508a83-citation.xsd"
+    },
+    {
+      "role": "xsd-dependency",
+      "url": "https://schemas.isotc211.org/19115/-1/gex/1.3.0/extent.xsd",
+      "responseUrl": "https://schemas.isotc211.org/19115/-1/gex/1.3.0/extent.xsd",
+      "mediaType": "application/xml",
+      "bytes": 15029,
+      "sha256": "7501e2b433c4e62b1c18aee9008b8874d362ced147795a3e32ebe707c840b7a9",
+      "retrievedAt": "2026-07-12T12:54:47.598Z",
+      "cachePath": "artifacts/7501e2b433c4e62b-extent.xsd"
+    },
+    {
+      "role": "xsd-module",
+      "url": "https://schemas.isotc211.org/19115/-1/gex/1.3.0/gex.xsd",
+      "responseUrl": "https://schemas.isotc211.org/19115/-1/gex/1.3.0/gex.xsd",
+      "mediaType": "application/xml",
+      "bytes": 823,
+      "sha256": "97cca55a3eb2ca7a2a901d6af59e9217068503dd240b3100e4ce10f203879ac5",
+      "retrievedAt": "2026-07-12T12:54:44.461Z",
+      "cachePath": "artifacts/97cca55a3eb2ca7a-gex.xsd"
+    },
+    {
+      "role": "xsd-module",
+      "url": "https://schemas.isotc211.org/19115/-1/lan/1.3.0/lan.xsd",
+      "responseUrl": "https://schemas.isotc211.org/19115/-1/lan/1.3.0/lan.xsd",
+      "mediaType": "application/xml",
+      "bytes": 745,
+      "sha256": "5b0149b75f790e62533a9d2194f3fe236ba8cdb536c9c33735cc5a615f34a160",
+      "retrievedAt": "2026-07-12T12:54:44.470Z",
+      "cachePath": "artifacts/5b0149b75f790e62-lan.xsd"
+    },
+    {
+      "role": "xsd-dependency",
+      "url": "https://schemas.isotc211.org/19115/-1/lan/1.3.0/language.xsd",
+      "responseUrl": "https://schemas.isotc211.org/19115/-1/lan/1.3.0/language.xsd",
+      "mediaType": "application/xml",
+      "bytes": 8115,
+      "sha256": "2cad07b01be4bdf10aafd2ca4200683edd877a326c1e32a3f00ce7841df7d3e5",
+      "retrievedAt": "2026-07-12T12:54:47.612Z",
+      "cachePath": "artifacts/2cad07b01be4bdf1-language.xsd"
+    },
+    {
+      "role": "xsd-dependency",
+      "url": "https://schemas.isotc211.org/19115/-1/mas/1.3.0/applicationSchema.xsd",
+      "responseUrl": "https://schemas.isotc211.org/19115/-1/mas/1.3.0/applicationSchema.xsd",
+      "mediaType": "application/xml",
+      "bytes": 3920,
+      "sha256": "6905d1226c125efc881d4637652eb1266d9f6bbfba6366da8be14375daf544cb",
+      "retrievedAt": "2026-07-12T12:54:47.810Z",
+      "cachePath": "artifacts/6905d1226c125efc-applicationSchema.xsd"
+    },
+    {
+      "role": "xsd-module",
+      "url": "https://schemas.isotc211.org/19115/-1/mas/1.3.0/mas.xsd",
+      "responseUrl": "https://schemas.isotc211.org/19115/-1/mas/1.3.0/mas.xsd",
+      "mediaType": "application/xml",
+      "bytes": 965,
+      "sha256": "a003e11971f8a9dd1e3a235f0396ca24ca38c4043175e6ebd7369878d9ac0d4c",
+      "retrievedAt": "2026-07-12T12:54:44.668Z",
+      "cachePath": "artifacts/a003e11971f8a9dd-mas.xsd"
+    },
+    {
+      "role": "xsd-dependency",
+      "url": "https://schemas.isotc211.org/19115/-1/mcc/1.3.0/AbstractCommonClasses.xsd",
+      "responseUrl": "https://schemas.isotc211.org/19115/-1/mcc/1.3.0/AbstractCommonClasses.xsd",
+      "mediaType": "application/xml",
+      "bytes": 15030,
+      "sha256": "f92725d46086b076946b458422b453cdedbc0c8c1dc54cf94676addfd9422fef",
+      "retrievedAt": "2026-07-12T12:54:52.039Z",
+      "cachePath": "artifacts/f92725d46086b076-AbstractCommonClasses.xsd"
+    },
+    {
+      "role": "xsd-dependency",
+      "url": "https://schemas.isotc211.org/19115/-1/mcc/1.3.0/commonClasses.xsd",
+      "responseUrl": "https://schemas.isotc211.org/19115/-1/mcc/1.3.0/commonClasses.xsd",
+      "mediaType": "application/xml",
+      "bytes": 12559,
+      "sha256": "c908cbb80111b6196008707835189ee98cff166a437f35588314f4bec154570b",
+      "retrievedAt": "2026-07-12T12:54:47.819Z",
+      "cachePath": "artifacts/c908cbb80111b619-commonClasses.xsd"
+    },
+    {
+      "role": "xsd-module",
+      "url": "https://schemas.isotc211.org/19115/-1/mcc/1.3.0/mcc.xsd",
+      "responseUrl": "https://schemas.isotc211.org/19115/-1/mcc/1.3.0/mcc.xsd",
+      "mediaType": "application/xml",
+      "bytes": 752,
+      "sha256": "49649f0bc175a0ba650b6da9c2588ea170893b5a8b16670bcbae03612af6ed8f",
+      "retrievedAt": "2026-07-12T12:54:44.676Z",
+      "cachePath": "artifacts/49649f0bc175a0ba-mcc.xsd"
+    },
+    {
+      "role": "xsd-dependency",
+      "url": "https://schemas.isotc211.org/19115/-1/mco/1.3.0/constraints.xsd",
+      "responseUrl": "https://schemas.isotc211.org/19115/-1/mco/1.3.0/constraints.xsd",
+      "mediaType": "application/xml",
+      "bytes": 11553,
+      "sha256": "4fbe62c6f3f147c79a98d7935532a10eb3a43060444c397a28e7f16734f861e3",
+      "retrievedAt": "2026-07-12T12:54:48.017Z",
+      "cachePath": "artifacts/4fbe62c6f3f147c7-constraints.xsd"
+    },
+    {
+      "role": "xsd-module",
+      "url": "https://schemas.isotc211.org/19115/-1/mco/1.3.0/mco.xsd",
+      "responseUrl": "https://schemas.isotc211.org/19115/-1/mco/1.3.0/mco.xsd",
+      "mediaType": "application/xml",
+      "bytes": 795,
+      "sha256": "948500b3af4a648b3780582b3c162e3b29d1bd3631184a6427c43c748a7cbe17",
+      "retrievedAt": "2026-07-12T12:54:44.884Z",
+      "cachePath": "artifacts/948500b3af4a648b-mco.xsd"
+    },
+    {
+      "role": "xsd-module",
+      "url": "https://schemas.isotc211.org/19115/-1/mda/1.3.0/mda.xsd",
+      "responseUrl": "https://schemas.isotc211.org/19115/-1/mda/1.3.0/mda.xsd",
+      "mediaType": "application/xml",
+      "bytes": 794,
+      "sha256": "f1a93aa8f440ce5412be2573a20fcb7bf047d7206820aa15c8fafd50b46b17bd",
+      "retrievedAt": "2026-07-12T12:54:44.894Z",
+      "cachePath": "artifacts/f1a93aa8f440ce54-mda.xsd"
+    },
+    {
+      "role": "xsd-dependency",
+      "url": "https://schemas.isotc211.org/19115/-1/mda/1.3.0/metadataApplication.xsd",
+      "responseUrl": "https://schemas.isotc211.org/19115/-1/mda/1.3.0/metadataApplication.xsd",
+      "mediaType": "application/xml",
+      "bytes": 8931,
+      "sha256": "c0fe7953d2686237ead50ec4e7be0c474b782e92496619b50c087bc328b48406",
+      "retrievedAt": "2026-07-12T12:54:48.027Z",
+      "cachePath": "artifacts/c0fe7953d2686237-metadataApplication.xsd"
+    },
+    {
+      "role": "valid-example",
+      "url": "https://schemas.isotc211.org/19115/-1/mdb/1.3.0/examples/D.1Minimal.xml",
+      "responseUrl": "https://schemas.isotc211.org/19115/-1/mdb/1.3.0/examples/D.1Minimal.xml",
+      "mediaType": "application/xml",
+      "bytes": 8150,
+      "sha256": "bc411da0e0492e458801bd409dee1c176cdf96f5449ce2b13ce48a8fcca9e48e",
+      "retrievedAt": "2026-07-12T12:54:47.375Z",
+      "cachePath": "artifacts/bc411da0e0492e45-D.1Minimal.xml"
+    },
+    {
+      "role": "xsd-entrypoint",
+      "url": "https://schemas.isotc211.org/19115/-1/mdb/1.3.0/mdb.xsd",
+      "responseUrl": "https://schemas.isotc211.org/19115/-1/mdb/1.3.0/mdb.xsd",
+      "mediaType": "application/xml",
+      "bytes": 450,
+      "sha256": "caf7583192c099a4dfb4f378326612be0fddb5e6e8ce64ff120a334264a2a5cf",
+      "retrievedAt": "2026-07-12T12:54:45.093Z",
+      "cachePath": "artifacts/caf7583192c099a4-mdb.xsd"
+    },
+    {
+      "role": "schematron",
+      "url": "https://schemas.isotc211.org/19115/-1/mdb/1.3.0/metadata-minimal.sch",
+      "responseUrl": "https://schemas.isotc211.org/19115/-1/mdb/1.3.0/metadata-minimal.sch",
+      "mediaType": "application/octet-stream",
+      "bytes": 31450,
+      "sha256": "0fb225a8acb9db6c1b6717f22ffa15781a9560ea44e424c43c5f7614fb345b27",
+      "retrievedAt": "2026-07-12T12:54:47.178Z",
+      "cachePath": "artifacts/0fb225a8acb9db6c-metadata-minimal.sch"
+    },
+    {
+      "role": "xsd-dependency",
+      "url": "https://schemas.isotc211.org/19115/-1/mdb/1.3.0/metadataBase.xsd",
+      "responseUrl": "https://schemas.isotc211.org/19115/-1/mdb/1.3.0/metadataBase.xsd",
+      "mediaType": "application/xml",
+      "bytes": 10000,
+      "sha256": "8f168f05370893c5d11f71f98a8c82466b4715e872e48602b6554784b1e36024",
+      "retrievedAt": "2026-07-12T12:54:48.037Z",
+      "cachePath": "artifacts/8f168f05370893c5-metadataBase.xsd"
+    },
+    {
+      "role": "xsd-dependency",
+      "url": "https://schemas.isotc211.org/19115/-1/mex/1.3.0/metadataExtension.xsd",
+      "responseUrl": "https://schemas.isotc211.org/19115/-1/mex/1.3.0/metadataExtension.xsd",
+      "mediaType": "application/xml",
+      "bytes": 9080,
+      "sha256": "769f1dab035154ea162f9e49263161c9aee752fcc28f87550e052e0c7e63c999",
+      "retrievedAt": "2026-07-12T12:54:48.235Z",
+      "cachePath": "artifacts/769f1dab035154ea-metadataExtension.xsd"
+    },
+    {
+      "role": "xsd-module",
+      "url": "https://schemas.isotc211.org/19115/-1/mex/1.3.0/mex.xsd",
+      "responseUrl": "https://schemas.isotc211.org/19115/-1/mex/1.3.0/mex.xsd",
+      "mediaType": "application/xml",
+      "bytes": 799,
+      "sha256": "fc598bea5037854a5799053f01e5740b7a85eee2775163b28c0a71246cb7e1ce",
+      "retrievedAt": "2026-07-12T12:54:45.294Z",
+      "cachePath": "artifacts/fc598bea5037854a-mex.xsd"
+    },
+    {
+      "role": "xsd-dependency",
+      "url": "https://schemas.isotc211.org/19115/-1/mmi/1.3.0/maintenance.xsd",
+      "responseUrl": "https://schemas.isotc211.org/19115/-1/mmi/1.3.0/maintenance.xsd",
+      "mediaType": "application/xml",
+      "bytes": 4980,
+      "sha256": "658245718a44cf9f67253e76fbdaacb9ff2eacb806c8da2fb0396d6b5ae649c8",
+      "retrievedAt": "2026-07-12T12:54:48.434Z",
+      "cachePath": "artifacts/658245718a44cf9f-maintenance.xsd"
+    },
+    {
+      "role": "xsd-module",
+      "url": "https://schemas.isotc211.org/19115/-1/mmi/1.3.0/mmi.xsd",
+      "responseUrl": "https://schemas.isotc211.org/19115/-1/mmi/1.3.0/mmi.xsd",
+      "mediaType": "application/xml",
+      "bytes": 808,
+      "sha256": "58dcad61ab2007014a3946cf31d63e8d58503e66b610412935d82a52d1bc748c",
+      "retrievedAt": "2026-07-12T12:54:45.499Z",
+      "cachePath": "artifacts/58dcad61ab200701-mmi.xsd"
+    },
+    {
+      "role": "xsd-module",
+      "url": "https://schemas.isotc211.org/19115/-1/mpc/1.3.0/mpc.xsd",
+      "responseUrl": "https://schemas.isotc211.org/19115/-1/mpc/1.3.0/mpc.xsd",
+      "mediaType": "application/xml",
+      "bytes": 863,
+      "sha256": "13dabbe9062516ad8617e2c91c6dfb004f310d676a78b8a83ef7c252d801a9ed",
+      "retrievedAt": "2026-07-12T12:54:45.700Z",
+      "cachePath": "artifacts/13dabbe9062516ad-mpc.xsd"
+    },
+    {
+      "role": "xsd-dependency",
+      "url": "https://schemas.isotc211.org/19115/-1/mpc/1.3.0/portrayalCatalogue.xsd",
+      "responseUrl": "https://schemas.isotc211.org/19115/-1/mpc/1.3.0/portrayalCatalogue.xsd",
+      "mediaType": "application/xml",
+      "bytes": 2273,
+      "sha256": "ceb0e967daf0d3faf9c305cb991acf56d7f432e808a3733498e841da91ef2176",
+      "retrievedAt": "2026-07-12T12:54:48.631Z",
+      "cachePath": "artifacts/ceb0e967daf0d3fa-portrayalCatalogue.xsd"
+    },
+    {
+      "role": "xsd-dependency",
+      "url": "https://schemas.isotc211.org/19115/-1/mrc/1.3.0/content.xsd",
+      "responseUrl": "https://schemas.isotc211.org/19115/-1/mrc/1.3.0/content.xsd",
+      "mediaType": "application/xml",
+      "bytes": 25162,
+      "sha256": "9c160f7d07020fbc4793119697bb16e15ca31504ea5930da24e89549deaf78a1",
+      "retrievedAt": "2026-07-12T12:54:49.028Z",
+      "cachePath": "artifacts/9c160f7d07020fbc-content.xsd"
+    },
+    {
+      "role": "xsd-module",
+      "url": "https://schemas.isotc211.org/19115/-1/mrc/1.3.0/mrc.xsd",
+      "responseUrl": "https://schemas.isotc211.org/19115/-1/mrc/1.3.0/mrc.xsd",
+      "mediaType": "application/xml",
+      "bytes": 1337,
+      "sha256": "8ca73107ad4f4d8e5b73b43fcd5e85ae183481bbd6832348bce936ce00e80510",
+      "retrievedAt": "2026-07-12T12:54:45.902Z",
+      "cachePath": "artifacts/8ca73107ad4f4d8e-mrc.xsd"
+    },
+    {
+      "role": "xsd-dependency",
+      "url": "https://schemas.isotc211.org/19115/-1/mrd/1.3.0/distribution.xsd",
+      "responseUrl": "https://schemas.isotc211.org/19115/-1/mrd/1.3.0/distribution.xsd",
+      "mediaType": "application/xml",
+      "bytes": 15617,
+      "sha256": "20a6e429231bfe00bfbb707f435808e68abeeb714fd56cda9d4c96700c917adb",
+      "retrievedAt": "2026-07-12T12:54:49.433Z",
+      "cachePath": "artifacts/20a6e429231bfe00-distribution.xsd"
+    },
+    {
+      "role": "xsd-module",
+      "url": "https://schemas.isotc211.org/19115/-1/mrd/1.3.0/mrd.xsd",
+      "responseUrl": "https://schemas.isotc211.org/19115/-1/mrd/1.3.0/mrd.xsd",
+      "mediaType": "application/xml",
+      "bytes": 690,
+      "sha256": "a29105bd5efd1070285e41c23487349946bc993248e9aa74b136c40d88a6cff5",
+      "retrievedAt": "2026-07-12T12:54:46.110Z",
+      "cachePath": "artifacts/a29105bd5efd1070-mrd.xsd"
+    },
+    {
+      "role": "xsd-dependency",
+      "url": "https://schemas.isotc211.org/19115/-1/mri/1.3.0/identification.xsd",
+      "responseUrl": "https://schemas.isotc211.org/19115/-1/mri/1.3.0/identification.xsd",
+      "mediaType": "application/xml",
+      "bytes": 32168,
+      "sha256": "88a40517c9e4e021fa5eb3c518cd7dca3bc5980f30da6c3b0b9b51d60a0ed520",
+      "retrievedAt": "2026-07-12T12:54:49.639Z",
+      "cachePath": "artifacts/88a40517c9e4e021-identification.xsd"
+    },
+    {
+      "role": "xsd-module",
+      "url": "https://schemas.isotc211.org/19115/-1/mri/1.3.0/mri.xsd",
+      "responseUrl": "https://schemas.isotc211.org/19115/-1/mri/1.3.0/mri.xsd",
+      "mediaType": "application/xml",
+      "bytes": 1016,
+      "sha256": "a5845aa29c0d4cd5f2cb509eb1c7153bf1f622660c47c5f143f1448c58248f11",
+      "retrievedAt": "2026-07-12T12:54:46.310Z",
+      "cachePath": "artifacts/a5845aa29c0d4cd5-mri.xsd"
+    },
+    {
+      "role": "xsd-dependency",
+      "url": "https://schemas.isotc211.org/19115/-1/mrl/1.3.0/lineage.xsd",
+      "responseUrl": "https://schemas.isotc211.org/19115/-1/mrl/1.3.0/lineage.xsd",
+      "mediaType": "application/xml",
+      "bytes": 9031,
+      "sha256": "860f04b5ec2eba066c74363a504f93b9f71e25c14b6c7c02d949b0bbfab7d6a1",
+      "retrievedAt": "2026-07-12T12:54:49.843Z",
+      "cachePath": "artifacts/860f04b5ec2eba06-lineage.xsd"
+    },
+    {
+      "role": "xsd-module",
+      "url": "https://schemas.isotc211.org/19115/-1/mrl/1.3.0/mrl.xsd",
+      "responseUrl": "https://schemas.isotc211.org/19115/-1/mrl/1.3.0/mrl.xsd",
+      "mediaType": "application/xml",
+      "bytes": 875,
+      "sha256": "f3609196f2a4c8a27a5811ab278586272f078698757d5168b77dac79be95caad",
+      "retrievedAt": "2026-07-12T12:54:46.505Z",
+      "cachePath": "artifacts/f3609196f2a4c8a2-mrl.xsd"
+    },
+    {
+      "role": "xsd-module",
+      "url": "https://schemas.isotc211.org/19115/-1/mrs/1.3.0/mrs.xsd",
+      "responseUrl": "https://schemas.isotc211.org/19115/-1/mrs/1.3.0/mrs.xsd",
+      "mediaType": "application/xml",
+      "bytes": 836,
+      "sha256": "14dd8f4c799779513596b607b0bae675e425343dd260095b88ea41dc23e646f8",
+      "retrievedAt": "2026-07-12T12:54:46.709Z",
+      "cachePath": "artifacts/14dd8f4c79977951-mrs.xsd"
+    },
+    {
+      "role": "xsd-dependency",
+      "url": "https://schemas.isotc211.org/19115/-1/mrs/1.3.0/referenceSystem.xsd",
+      "responseUrl": "https://schemas.isotc211.org/19115/-1/mrs/1.3.0/referenceSystem.xsd",
+      "mediaType": "application/xml",
+      "bytes": 4404,
+      "sha256": "bb0e5bd15558ded57692d2b45f199eff77199357289eee282ae77d6208f95d32",
+      "retrievedAt": "2026-07-12T12:54:50.254Z",
+      "cachePath": "artifacts/bb0e5bd15558ded5-referenceSystem.xsd"
+    },
+    {
+      "role": "xsd-module",
+      "url": "https://schemas.isotc211.org/19115/-1/msr/1.3.0/msr.xsd",
+      "responseUrl": "https://schemas.isotc211.org/19115/-1/msr/1.3.0/msr.xsd",
+      "mediaType": "application/xml",
+      "bytes": 1143,
+      "sha256": "6dd3375c5c3e37ce049449d45c91d3fe606b1e34a7312de1dac7e3485a5d8948",
+      "retrievedAt": "2026-07-12T12:54:46.718Z",
+      "cachePath": "artifacts/6dd3375c5c3e37ce-msr.xsd"
+    },
+    {
+      "role": "xsd-dependency",
+      "url": "https://schemas.isotc211.org/19115/-1/msr/1.3.0/spatialRepresentation.xsd",
+      "responseUrl": "https://schemas.isotc211.org/19115/-1/msr/1.3.0/spatialRepresentation.xsd",
+      "mediaType": "application/xml",
+      "bytes": 21946,
+      "sha256": "f77e797df1f9bfe6087c50d7ce1d19724fd8d45b7283e1f91c22ca8e6ce72ec5",
+      "retrievedAt": "2026-07-12T12:54:50.271Z",
+      "cachePath": "artifacts/f77e797df1f9bfe6-spatialRepresentation.xsd"
+    },
+    {
+      "role": "xsd-dependency",
+      "url": "https://schemas.isotc211.org/19115/-1/srv/1.3.0/serviceInformation.xsd",
+      "responseUrl": "https://schemas.isotc211.org/19115/-1/srv/1.3.0/serviceInformation.xsd",
+      "mediaType": "application/xml",
+      "bytes": 17274,
+      "sha256": "10f40ba53992c830f796cb6346227519e180c2666ce5b24c2b992a9fbdbcf70d",
+      "retrievedAt": "2026-07-12T12:54:50.478Z",
+      "cachePath": "artifacts/10f40ba53992c830-serviceInformation.xsd"
+    },
+    {
+      "role": "xsd-module",
+      "url": "https://schemas.isotc211.org/19115/-1/srv/1.3.0/srv.xsd",
+      "responseUrl": "https://schemas.isotc211.org/19115/-1/srv/1.3.0/srv.xsd",
+      "mediaType": "application/xml",
+      "bytes": 781,
+      "sha256": "1cd71a42b17784af41d2fe75ee825d727154dbecd839d5f05e293caf9e391732",
+      "retrievedAt": "2026-07-12T12:54:46.980Z",
+      "cachePath": "artifacts/1cd71a42b17784af-srv.xsd"
+    },
+    {
+      "role": "xsd-dependency",
+      "url": "https://schemas.isotc211.org/19115/-2/mac/2.2.0/acquisitionInformationImagery.xsd",
+      "responseUrl": "https://schemas.isotc211.org/19115/-2/mac/2.2.0/acquisitionInformationImagery.xsd",
+      "mediaType": "application/xml",
+      "bytes": 57667,
+      "sha256": "e5b8237a1d551a1fcdb2b98221f4478abd6c2bd66fcf1142718a08e91312b9fc",
+      "retrievedAt": "2026-07-12T12:54:55.654Z",
+      "cachePath": "artifacts/e5b8237a1d551a1f-acquisitionInformationImagery.xsd"
+    },
+    {
+      "role": "xsd-dependency",
+      "url": "https://schemas.isotc211.org/19115/-2/mac/2.2.0/mac.xsd",
+      "responseUrl": "https://schemas.isotc211.org/19115/-2/mac/2.2.0/mac.xsd",
+      "mediaType": "application/xml",
+      "bytes": 495,
+      "sha256": "87f759c65a5a71ec51ea90d5af4e7097949f6b4db3aa1acaf9e1cc24326f3419",
+      "retrievedAt": "2026-07-12T12:54:52.499Z",
+      "cachePath": "artifacts/87f759c65a5a71ec-mac.xsd"
+    },
+    {
+      "role": "xsd-dependency",
+      "url": "https://schemas.isotc211.org/19115/-2/mrc/2.2.0/contentInformationImagery.xsd",
+      "responseUrl": "https://schemas.isotc211.org/19115/-2/mrc/2.2.0/contentInformationImagery.xsd",
+      "mediaType": "application/xml",
+      "bytes": 10540,
+      "sha256": "e542bb9758f493bf21da6eb357a9f7570fc788cf1675fc5c1ab63bfb97f26b6c",
+      "retrievedAt": "2026-07-12T12:54:49.234Z",
+      "cachePath": "artifacts/e542bb9758f493bf-contentInformationImagery.xsd"
+    },
+    {
+      "role": "xsd-dependency",
+      "url": "https://schemas.isotc211.org/19115/-2/mrl/2.2.0/lineageImagery.xsd",
+      "responseUrl": "https://schemas.isotc211.org/19115/-2/mrl/2.2.0/lineageImagery.xsd",
+      "mediaType": "application/xml",
+      "bytes": 21805,
+      "sha256": "584e37c73d94009d5309af3eec58c4a1ec26c5c52fb1d780cb2288333a19888e",
+      "retrievedAt": "2026-07-12T12:54:50.048Z",
+      "cachePath": "artifacts/584e37c73d94009d-lineageImagery.xsd"
+    },
+    {
+      "role": "xsd-dependency",
+      "url": "https://schemas.isotc211.org/19115/-2/msr/2.2.0/spatialRepresentationImagery.xsd",
+      "responseUrl": "https://schemas.isotc211.org/19115/-2/msr/2.2.0/spatialRepresentationImagery.xsd",
+      "mediaType": "application/xml",
+      "bytes": 8025,
+      "sha256": "2561fc299a06bb1331c0589d300d869a1fdf92891f645828612785fb6e1961fd",
+      "retrievedAt": "2026-07-12T12:54:50.283Z",
+      "cachePath": "artifacts/2561fc299a06bb13-spatialRepresentationImagery.xsd"
+    },
+    {
+      "role": "xsd-dependency",
+      "url": "https://schemas.isotc211.org/19136/-1/gmw/1.1.0/gmlWrapperTypes.xsd",
+      "responseUrl": "https://schemas.isotc211.org/19136/-1/gmw/1.1.0/gmlWrapperTypes.xsd",
+      "mediaType": "application/xml",
+      "bytes": 7477,
+      "sha256": "3d05fe266d2e3a26493fa64e03da5119d52fd4d160836895445c0ab7c8c03d68",
+      "retrievedAt": "2026-07-12T12:54:55.250Z",
+      "cachePath": "artifacts/3d05fe266d2e3a26-gmlWrapperTypes.xsd"
+    },
+    {
+      "role": "xsd-dependency",
+      "url": "https://schemas.isotc211.org/19136/-1/gmw/1.1.0/gmw.xsd",
+      "responseUrl": "https://schemas.isotc211.org/19136/-1/gmw/1.1.0/gmw.xsd",
+      "mediaType": "application/xml",
+      "bytes": 1819,
+      "sha256": "e51c838f465836f2aff55c6ba466035077085c352cd89796f25f372a8aec2cd4",
+      "retrievedAt": "2026-07-12T12:54:52.031Z",
+      "cachePath": "artifacts/e51c838f465836f2-gmw.xsd"
+    },
+    {
+      "role": "xsd-dependency",
+      "url": "https://schemas.isotc211.org/19139/-/cat/1.2.0/cat.xsd",
+      "responseUrl": "https://schemas.isotc211.org/19139/-/cat/1.2.0/cat.xsd",
+      "mediaType": "application/xml",
+      "bytes": 1042,
+      "sha256": "cd2345022707766dcd73d2842567ea0a759efd80d5b6bc97267bccbb0929889c",
+      "retrievedAt": "2026-07-12T12:54:55.453Z",
+      "cachePath": "artifacts/cd2345022707766d-cat.xsd"
+    },
+    {
+      "role": "xsd-dependency",
+      "url": "https://schemas.isotc211.org/19139/-/cat/1.2.0/catalogues.xsd",
+      "responseUrl": "https://schemas.isotc211.org/19139/-/cat/1.2.0/catalogues.xsd",
+      "mediaType": "application/xml",
+      "bytes": 4024,
+      "sha256": "fad487775368a9fa5e5bed78e29854df491caf2374a1b8e8a302d7edf7010784",
+      "retrievedAt": "2026-07-12T12:55:00.186Z",
+      "cachePath": "artifacts/fad487775368a9fa-catalogues.xsd"
+    },
+    {
+      "role": "xsd-dependency",
+      "url": "https://schemas.isotc211.org/19139/-/cat/1.2.0/codelistItem.xsd",
+      "responseUrl": "https://schemas.isotc211.org/19139/-/cat/1.2.0/codelistItem.xsd",
+      "mediaType": "application/xml",
+      "bytes": 2921,
+      "sha256": "5f31401d3cfd2a4b2cfff4ff4075965db56e8cd758c8c3d3873520ac4465e82d",
+      "retrievedAt": "2026-07-12T12:55:00.386Z",
+      "cachePath": "artifacts/5f31401d3cfd2a4b-codelistItem.xsd"
+    },
+    {
+      "role": "xsd-dependency",
+      "url": "https://schemas.isotc211.org/19139/-/cat/1.2.0/crsItem.xsd",
+      "responseUrl": "https://schemas.isotc211.org/19139/-/cat/1.2.0/crsItem.xsd",
+      "mediaType": "application/xml",
+      "bytes": 9620,
+      "sha256": "b68eb3341d5124a067dcd83cc536b149e777a0fd0505716064d76892d7b48e01",
+      "retrievedAt": "2026-07-12T12:55:00.584Z",
+      "cachePath": "artifacts/b68eb3341d5124a0-crsItem.xsd"
+    },
+    {
+      "role": "xsd-dependency",
+      "url": "https://schemas.isotc211.org/19139/-/cat/1.2.0/uomItem.xsd",
+      "responseUrl": "https://schemas.isotc211.org/19139/-/cat/1.2.0/uomItem.xsd",
+      "mediaType": "application/xml",
+      "bytes": 2399,
+      "sha256": "c931d803059454c7c49ef804372274047d00eb3bc51b8b8d17ef6c7e5b68a148",
+      "retrievedAt": "2026-07-12T12:55:00.785Z",
+      "cachePath": "artifacts/c931d803059454c7-uomItem.xsd"
+    },
+    {
+      "role": "xsd-dependency",
+      "url": "https://schemas.isotc211.org/19157/-/dqc/1.2.0/abstract.xsd",
+      "responseUrl": "https://schemas.isotc211.org/19157/-/dqc/1.2.0/abstract.xsd",
+      "mediaType": "application/xml",
+      "bytes": 1934,
+      "sha256": "d2035a02603cf94dfdbf6e37e2e86e9a716a54cefaf96e5df5bccd73e3562da1",
+      "retrievedAt": "2026-07-12T12:54:52.710Z",
+      "cachePath": "artifacts/d2035a02603cf94d-abstract.xsd"
+    },
+    {
+      "role": "xsd-dependency",
+      "url": "https://schemas.isotc211.org/19157/-/dqc/1.2.0/dqc.xsd",
+      "responseUrl": "https://schemas.isotc211.org/19157/-/dqc/1.2.0/dqc.xsd",
+      "mediaType": "application/xml",
+      "bytes": 1022,
+      "sha256": "bdf1eb422ec769d3a7465e7ab1c638e57e025844988b34c98c47b77d55624f0b",
+      "retrievedAt": "2026-07-12T12:54:50.263Z",
+      "cachePath": "artifacts/bdf1eb422ec769d3-dqc.xsd"
+    },
+    {
+      "role": "xsd-dependency",
+      "url": "https://schemas.opengis.net/gml/3.2.1/basicTypes.xsd",
+      "responseUrl": "https://schemas.opengis.net/gml/3.2.1/basicTypes.xsd",
+      "mediaType": "application/xml",
+      "bytes": 14905,
+      "sha256": "2e37d858bd5be1307892add40826632e4e16d5c44b032ba668c510f09588da5c",
+      "retrievedAt": "2026-07-12T12:54:56.787Z",
+      "cachePath": "artifacts/2e37d858bd5be130-basicTypes.xsd"
+    },
+    {
+      "role": "xsd-dependency",
+      "url": "https://schemas.opengis.net/gml/3.2.1/coordinateOperations.xsd",
+      "responseUrl": "https://schemas.opengis.net/gml/3.2.1/coordinateOperations.xsd",
+      "mediaType": "application/xml",
+      "bytes": 33344,
+      "sha256": "d9a96671453711b98301d8f796ba1bb47990b7ab4ea83e8a1803c27110bbc434",
+      "retrievedAt": "2026-07-12T12:54:59.384Z",
+      "cachePath": "artifacts/d9a96671453711b9-coordinateOperations.xsd"
+    },
+    {
+      "role": "xsd-dependency",
+      "url": "https://schemas.opengis.net/gml/3.2.1/coordinateReferenceSystems.xsd",
+      "responseUrl": "https://schemas.opengis.net/gml/3.2.1/coordinateReferenceSystems.xsd",
+      "mediaType": "application/xml",
+      "bytes": 18420,
+      "sha256": "0b38a6d9a82b698307215be446cfbec18682f1edcdbdf531d0e9fadb88e3017e",
+      "retrievedAt": "2026-07-12T12:54:54.369Z",
+      "cachePath": "artifacts/0b38a6d9a82b6983-coordinateReferenceSystems.xsd"
+    },
+    {
+      "role": "xsd-dependency",
+      "url": "https://schemas.opengis.net/gml/3.2.1/coordinateSystems.xsd",
+      "responseUrl": "https://schemas.opengis.net/gml/3.2.1/coordinateSystems.xsd",
+      "mediaType": "application/xml",
+      "bytes": 18701,
+      "sha256": "50658a9b0cd0e8887dab3a54d0e66ea9d74e7737ac15b87fb3a88f6d578c884b",
+      "retrievedAt": "2026-07-12T12:54:58.804Z",
+      "cachePath": "artifacts/50658a9b0cd0e888-coordinateSystems.xsd"
+    },
+    {
+      "role": "xsd-dependency",
+      "url": "https://schemas.opengis.net/gml/3.2.1/coverage.xsd",
+      "responseUrl": "https://schemas.opengis.net/gml/3.2.1/coverage.xsd",
+      "mediaType": "application/xml",
+      "bytes": 20827,
+      "sha256": "8861ca287202f3da462b3d78c71065dc78b3d24ac37304297601bd6599e8362f",
+      "retrievedAt": "2026-07-12T12:54:54.081Z",
+      "cachePath": "artifacts/8861ca287202f3da-coverage.xsd"
+    },
+    {
+      "role": "xsd-dependency",
+      "url": "https://schemas.opengis.net/gml/3.2.1/datums.xsd",
+      "responseUrl": "https://schemas.opengis.net/gml/3.2.1/datums.xsd",
+      "mediaType": "application/xml",
+      "bytes": 15923,
+      "sha256": "a5ac13d8015f8d9c0947e5ad614c482a0f2c632d168f87c631d953273bdeb30d",
+      "retrievedAt": "2026-07-12T12:54:59.094Z",
+      "cachePath": "artifacts/a5ac13d8015f8d9c-datums.xsd"
+    },
+    {
+      "role": "xsd-dependency",
+      "url": "https://schemas.opengis.net/gml/3.2.1/deprecatedTypes.xsd",
+      "responseUrl": "https://schemas.opengis.net/gml/3.2.1/deprecatedTypes.xsd",
+      "mediaType": "application/xml",
+      "bytes": 34674,
+      "sha256": "cd02f14a1f83be529cb5d7ba8ce6a4089ebf26dcb3e287e4b81488cb6bf6dd5b",
+      "retrievedAt": "2026-07-12T12:54:55.234Z",
+      "cachePath": "artifacts/cd02f14a1f83be52-deprecatedTypes.xsd"
+    },
+    {
+      "role": "xsd-dependency",
+      "url": "https://schemas.opengis.net/gml/3.2.1/dictionary.xsd",
+      "responseUrl": "https://schemas.opengis.net/gml/3.2.1/dictionary.xsd",
+      "mediaType": "application/xml",
+      "bytes": 7137,
+      "sha256": "fb5f633e6b441ed19bd17433e28efedfb7a335bdbde04b4e5383582a763beae5",
+      "retrievedAt": "2026-07-12T12:54:59.963Z",
+      "cachePath": "artifacts/fb5f633e6b441ed1-dictionary.xsd"
+    },
+    {
+      "role": "xsd-dependency",
+      "url": "https://schemas.opengis.net/gml/3.2.1/direction.xsd",
+      "responseUrl": "https://schemas.opengis.net/gml/3.2.1/direction.xsd",
+      "mediaType": "application/xml",
+      "bytes": 4161,
+      "sha256": "fed7bb5e0fcc13b78add0bdb4b603a278452b70617a207ee084d2427daa17011",
+      "retrievedAt": "2026-07-12T12:54:57.366Z",
+      "cachePath": "artifacts/fed7bb5e0fcc13b7-direction.xsd"
+    },
+    {
+      "role": "xsd-dependency",
+      "url": "https://schemas.opengis.net/gml/3.2.1/dynamicFeature.xsd",
+      "responseUrl": "https://schemas.opengis.net/gml/3.2.1/dynamicFeature.xsd",
+      "mediaType": "application/xml",
+      "bytes": 6807,
+      "sha256": "457e07361d175c8c344d20fbed203f051b07dc13f7c637576247872fcf294c43",
+      "retrievedAt": "2026-07-12T12:54:53.504Z",
+      "cachePath": "artifacts/457e07361d175c8c-dynamicFeature.xsd"
+    },
+    {
+      "role": "xsd-dependency",
+      "url": "https://schemas.opengis.net/gml/3.2.1/feature.xsd",
+      "responseUrl": "https://schemas.opengis.net/gml/3.2.1/feature.xsd",
+      "mediaType": "application/xml",
+      "bytes": 5584,
+      "sha256": "aa8434aa6b38fe00ab9dd1a1e84c9288b4828484c783c04c8caf4ea5650ecb07",
+      "retrievedAt": "2026-07-12T12:54:57.078Z",
+      "cachePath": "artifacts/aa8434aa6b38fe00-feature.xsd"
+    },
+    {
+      "role": "xsd-dependency",
+      "url": "https://schemas.opengis.net/gml/3.2.1/geometryAggregates.xsd",
+      "responseUrl": "https://schemas.opengis.net/gml/3.2.1/geometryAggregates.xsd",
+      "mediaType": "application/xml",
+      "bytes": 11523,
+      "sha256": "d1cb25b4e923d06c44d6930ced39848ea0e938e197f95a8794e73692d0ff425b",
+      "retrievedAt": "2026-07-12T12:54:58.516Z",
+      "cachePath": "artifacts/d1cb25b4e923d06c-geometryAggregates.xsd"
+    },
+    {
+      "role": "xsd-dependency",
+      "url": "https://schemas.opengis.net/gml/3.2.1/geometryBasic0d1d.xsd",
+      "responseUrl": "https://schemas.opengis.net/gml/3.2.1/geometryBasic0d1d.xsd",
+      "mediaType": "application/xml",
+      "bytes": 18929,
+      "sha256": "b1f9e4c1714546cd1df6f03f459926c3714f6b4346bba58de7950eddedcc7d6c",
+      "retrievedAt": "2026-07-12T12:55:02.548Z",
+      "cachePath": "artifacts/b1f9e4c1714546cd-geometryBasic0d1d.xsd"
+    },
+    {
+      "role": "xsd-dependency",
+      "url": "https://schemas.opengis.net/gml/3.2.1/geometryBasic2d.xsd",
+      "responseUrl": "https://schemas.opengis.net/gml/3.2.1/geometryBasic2d.xsd",
+      "mediaType": "application/xml",
+      "bytes": 6625,
+      "sha256": "2fc0914ecd7ca02d41ec090d8202e754d67e40890d8846382e7e25446bf4b181",
+      "retrievedAt": "2026-07-12T12:55:04.291Z",
+      "cachePath": "artifacts/2fc0914ecd7ca02d-geometryBasic2d.xsd"
+    },
+    {
+      "role": "xsd-dependency",
+      "url": "https://schemas.opengis.net/gml/3.2.1/geometryComplexes.xsd",
+      "responseUrl": "https://schemas.opengis.net/gml/3.2.1/geometryComplexes.xsd",
+      "mediaType": "application/xml",
+      "bytes": 5824,
+      "sha256": "26e936aa53efe6e56bbcadd5528967c2b9ac2b08b869252703c757e7ffb9711c",
+      "retrievedAt": "2026-07-12T12:54:57.653Z",
+      "cachePath": "artifacts/26e936aa53efe6e5-geometryComplexes.xsd"
+    },
+    {
+      "role": "xsd-dependency",
+      "url": "https://schemas.opengis.net/gml/3.2.1/geometryPrimitives.xsd",
+      "responseUrl": "https://schemas.opengis.net/gml/3.2.1/geometryPrimitives.xsd",
+      "mediaType": "application/xml",
+      "bytes": 42649,
+      "sha256": "ddde612ddaa13fe8313ac5e0d70090d52459c83777e394b3d3917a205469b2af",
+      "retrievedAt": "2026-07-12T12:55:02.849Z",
+      "cachePath": "artifacts/ddde612ddaa13fe8-geometryPrimitives.xsd"
+    },
+    {
+      "role": "xsd-dependency",
+      "url": "https://schemas.opengis.net/gml/3.2.1/gml.xsd",
+      "responseUrl": "https://schemas.opengis.net/gml/3.2.1/gml.xsd",
+      "mediaType": "application/xml",
+      "bytes": 1076,
+      "sha256": "eb1e652fdc10fa70352c3fc554cd3bfacc5a863e964a4e64c76f25c762b80a3f",
+      "retrievedAt": "2026-07-12T12:54:52.023Z",
+      "cachePath": "artifacts/eb1e652fdc10fa70-gml.xsd"
+    },
+    {
+      "role": "xsd-dependency",
+      "url": "https://schemas.opengis.net/gml/3.2.1/gmlBase.xsd",
+      "responseUrl": "https://schemas.opengis.net/gml/3.2.1/gmlBase.xsd",
+      "mediaType": "application/xml",
+      "bytes": 12756,
+      "sha256": "36825875b089ee8f69f42103d31ce52f6eb9489d2f40e11516495f7c152cc79d",
+      "retrievedAt": "2026-07-12T12:54:53.217Z",
+      "cachePath": "artifacts/36825875b089ee8f-gmlBase.xsd"
+    },
+    {
+      "role": "xsd-dependency",
+      "url": "https://schemas.opengis.net/gml/3.2.1/grids.xsd",
+      "responseUrl": "https://schemas.opengis.net/gml/3.2.1/grids.xsd",
+      "mediaType": "application/xml",
+      "bytes": 4132,
+      "sha256": "c317678414da9a28e0be87bb1544b875875746bc219aa0b7f6c31f32efd0c5f0",
+      "retrievedAt": "2026-07-12T12:54:58.229Z",
+      "cachePath": "artifacts/c317678414da9a28-grids.xsd"
+    },
+    {
+      "role": "xsd-dependency",
+      "url": "https://schemas.opengis.net/gml/3.2.1/measures.xsd",
+      "responseUrl": "https://schemas.opengis.net/gml/3.2.1/measures.xsd",
+      "mediaType": "application/xml",
+      "bytes": 3104,
+      "sha256": "3faae40533a200b6999278678ef43c90a508fd7f8ded474f50475b4c3f19f152",
+      "retrievedAt": "2026-07-12T12:55:03.430Z",
+      "cachePath": "artifacts/3faae40533a200b6-measures.xsd"
+    },
+    {
+      "role": "xsd-dependency",
+      "url": "https://schemas.opengis.net/gml/3.2.1/observation.xsd",
+      "responseUrl": "https://schemas.opengis.net/gml/3.2.1/observation.xsd",
+      "mediaType": "application/xml",
+      "bytes": 5530,
+      "sha256": "514b7489b2aeaf58303e24c0180cba92654f2201e87a6aa7c2fe8e1c73ceff99",
+      "retrievedAt": "2026-07-12T12:54:54.659Z",
+      "cachePath": "artifacts/514b7489b2aeaf58-observation.xsd"
+    },
+    {
+      "role": "xsd-dependency",
+      "url": "https://schemas.opengis.net/gml/3.2.1/referenceSystems.xsd",
+      "responseUrl": "https://schemas.opengis.net/gml/3.2.1/referenceSystems.xsd",
+      "mediaType": "application/xml",
+      "bytes": 4680,
+      "sha256": "5bbeb1210ead8b6fba6516c4a5b9e80c1b811b48ec9f3293bbaaa5346aeec0e8",
+      "retrievedAt": "2026-07-12T12:55:03.144Z",
+      "cachePath": "artifacts/5bbeb1210ead8b6f-referenceSystems.xsd"
+    },
+    {
+      "role": "xsd-dependency",
+      "url": "https://schemas.opengis.net/gml/3.2.1/temporal.xsd",
+      "responseUrl": "https://schemas.opengis.net/gml/3.2.1/temporal.xsd",
+      "mediaType": "application/xml",
+      "bytes": 15598,
+      "sha256": "e6336faf79732dd8cc79b4f18595a4ccf93ab9d7c55e9f6517b79f4f44572fdd",
+      "retrievedAt": "2026-07-12T12:54:51.734Z",
+      "cachePath": "artifacts/e6336faf79732dd8-temporal.xsd"
+    },
+    {
+      "role": "xsd-dependency",
+      "url": "https://schemas.opengis.net/gml/3.2.1/temporalReferenceSystems.xsd",
+      "responseUrl": "https://schemas.opengis.net/gml/3.2.1/temporalReferenceSystems.xsd",
+      "mediaType": "application/xml",
+      "bytes": 12679,
+      "sha256": "f7671997af4fbd098ff53db1f025df3d1a678f707560a9bca83ca54d4ef61e7c",
+      "retrievedAt": "2026-07-12T12:54:54.946Z",
+      "cachePath": "artifacts/f7671997af4fbd09-temporalReferenceSystems.xsd"
+    },
+    {
+      "role": "xsd-dependency",
+      "url": "https://schemas.opengis.net/gml/3.2.1/temporalTopology.xsd",
+      "responseUrl": "https://schemas.opengis.net/gml/3.2.1/temporalTopology.xsd",
+      "mediaType": "application/xml",
+      "bytes": 7795,
+      "sha256": "ee8fd1e816cb41746c16443e47a0206f71ab77a621d49778dc565a9d6eff4352",
+      "retrievedAt": "2026-07-12T12:54:59.677Z",
+      "cachePath": "artifacts/ee8fd1e816cb4174-temporalTopology.xsd"
+    },
+    {
+      "role": "xsd-dependency",
+      "url": "https://schemas.opengis.net/gml/3.2.1/topology.xsd",
+      "responseUrl": "https://schemas.opengis.net/gml/3.2.1/topology.xsd",
+      "mediaType": "application/xml",
+      "bytes": 22790,
+      "sha256": "aa4e2db656a1dfad2fe50c23cccf5ab0f3bba5894087dca75e7bd25faf31ba12",
+      "retrievedAt": "2026-07-12T12:54:53.792Z",
+      "cachePath": "artifacts/aa4e2db656a1dfad-topology.xsd"
+    },
+    {
+      "role": "xsd-dependency",
+      "url": "https://schemas.opengis.net/gml/3.2.1/units.xsd",
+      "responseUrl": "https://schemas.opengis.net/gml/3.2.1/units.xsd",
+      "mediaType": "application/xml",
+      "bytes": 12283,
+      "sha256": "b3e2b8f364b9b844dccc0d8314f9c6c952db5155bccfe7316a1742a63dcc29fe",
+      "retrievedAt": "2026-07-12T12:55:04.580Z",
+      "cachePath": "artifacts/b3e2b8f364b9b844-units.xsd"
+    },
+    {
+      "role": "xsd-dependency",
+      "url": "https://schemas.opengis.net/gml/3.2.1/valueObjects.xsd",
+      "responseUrl": "https://schemas.opengis.net/gml/3.2.1/valueObjects.xsd",
+      "mediaType": "application/xml",
+      "bytes": 11438,
+      "sha256": "ddf0c234b66363f596492f59b92e307d2d7d864a122c28abc32bcdf87ce7485e",
+      "retrievedAt": "2026-07-12T12:54:57.940Z",
+      "cachePath": "artifacts/ddf0c234b66363f5-valueObjects.xsd"
+    },
+    {
+      "role": "xsd-dependency",
+      "url": "https://schemas.opengis.net/iso/19139/20070417/gco/basicTypes.xsd",
+      "responseUrl": "https://schemas.opengis.net/iso/19139/20070417/gco/basicTypes.xsd",
+      "mediaType": "application/xml",
+      "bytes": 22050,
+      "sha256": "5ac7545eedc0ebea9ee2788197ffc54eb32797cfde015239f33400f8527ff7f4",
+      "retrievedAt": "2026-07-12T12:55:05.735Z",
+      "cachePath": "artifacts/5ac7545eedc0ebea-basicTypes.xsd"
+    },
+    {
+      "role": "xsd-dependency",
+      "url": "https://schemas.opengis.net/iso/19139/20070417/gco/gco.xsd",
+      "responseUrl": "https://schemas.opengis.net/iso/19139/20070417/gco/gco.xsd",
+      "mediaType": "application/xml",
+      "bytes": 1159,
+      "sha256": "bc3ea300204f6b99e696976aeb32207d604295f8e4c1d397cf5bb7b9e59bdabf",
+      "retrievedAt": "2026-07-12T12:55:05.161Z",
+      "cachePath": "artifacts/bc3ea300204f6b99-gco.xsd"
+    },
+    {
+      "role": "xsd-dependency",
+      "url": "https://schemas.opengis.net/iso/19139/20070417/gco/gcoBase.xsd",
+      "responseUrl": "https://schemas.opengis.net/iso/19139/20070417/gco/gcoBase.xsd",
+      "mediaType": "application/xml",
+      "bytes": 4087,
+      "sha256": "bc6ef613238a37d0cfcdcbb43df751de7c81ebe46e67b185bae477f530b3f9ab",
+      "retrievedAt": "2026-07-12T12:55:08.054Z",
+      "cachePath": "artifacts/bc6ef613238a37d0-gcoBase.xsd"
+    },
+    {
+      "role": "xsd-dependency",
+      "url": "https://schemas.opengis.net/iso/19139/20070417/gmd/applicationSchema.xsd",
+      "responseUrl": "https://schemas.opengis.net/iso/19139/20070417/gmd/applicationSchema.xsd",
+      "mediaType": "application/xml",
+      "bytes": 3188,
+      "sha256": "bd5b9f294f42dbe0d78e7f760fae008fb061c8a23d6c45b34bef0bf1427b1ed5",
+      "retrievedAt": "2026-07-12T12:55:06.896Z",
+      "cachePath": "artifacts/bd5b9f294f42dbe0-applicationSchema.xsd"
+    },
+    {
+      "role": "xsd-dependency",
+      "url": "https://schemas.opengis.net/iso/19139/20070417/gmd/citation.xsd",
+      "responseUrl": "https://schemas.opengis.net/iso/19139/20070417/gmd/citation.xsd",
+      "mediaType": "application/xml",
+      "bytes": 15521,
+      "sha256": "dfdef7355c21e8780cb3d50b28dd6d4c556ef83a1082c3059fffe41e357ba97d",
+      "retrievedAt": "2026-07-12T12:55:08.631Z",
+      "cachePath": "artifacts/dfdef7355c21e878-citation.xsd"
+    },
+    {
+      "role": "xsd-dependency",
+      "url": "https://schemas.opengis.net/iso/19139/20070417/gmd/constraints.xsd",
+      "responseUrl": "https://schemas.opengis.net/iso/19139/20070417/gmd/constraints.xsd",
+      "mediaType": "application/xml",
+      "bytes": 6555,
+      "sha256": "b1f9c2971bbd1bf641f23a82ec87c0728bc19446b86ad490b5d3e917b096193e",
+      "retrievedAt": "2026-07-12T12:55:09.782Z",
+      "cachePath": "artifacts/b1f9c2971bbd1bf6-constraints.xsd"
+    },
+    {
+      "role": "xsd-dependency",
+      "url": "https://schemas.opengis.net/iso/19139/20070417/gmd/content.xsd",
+      "responseUrl": "https://schemas.opengis.net/iso/19139/20070417/gmd/content.xsd",
+      "mediaType": "application/xml",
+      "bytes": 11423,
+      "sha256": "e2c31ad9e56c6682f137b200db430b11ea89ee667379615c6498c4267c129eda",
+      "retrievedAt": "2026-07-12T12:55:06.606Z",
+      "cachePath": "artifacts/e2c31ad9e56c6682-content.xsd"
+    },
+    {
+      "role": "xsd-dependency",
+      "url": "https://schemas.opengis.net/iso/19139/20070417/gmd/dataQuality.xsd",
+      "responseUrl": "https://schemas.opengis.net/iso/19139/20070417/gmd/dataQuality.xsd",
+      "mediaType": "application/xml",
+      "bytes": 30936,
+      "sha256": "a1c97293e7966bf67ad4635894a5479c3e3f7044ad6253d3e87b74b3c34739cb",
+      "retrievedAt": "2026-07-12T12:55:07.470Z",
+      "cachePath": "artifacts/a1c97293e7966bf6-dataQuality.xsd"
+    },
+    {
+      "role": "xsd-dependency",
+      "url": "https://schemas.opengis.net/iso/19139/20070417/gmd/distribution.xsd",
+      "responseUrl": "https://schemas.opengis.net/iso/19139/20070417/gmd/distribution.xsd",
+      "mediaType": "application/xml",
+      "bytes": 11736,
+      "sha256": "1759a0d820644e07ed442b8385a87585cf62c68a7a257dcff109fb469109bb28",
+      "retrievedAt": "2026-07-12T12:55:10.070Z",
+      "cachePath": "artifacts/1759a0d820644e07-distribution.xsd"
+    },
+    {
+      "role": "xsd-dependency",
+      "url": "https://schemas.opengis.net/iso/19139/20070417/gmd/extent.xsd",
+      "responseUrl": "https://schemas.opengis.net/iso/19139/20070417/gmd/extent.xsd",
+      "mediaType": "application/xml",
+      "bytes": 11372,
+      "sha256": "a1e35e7730774fd7c4229699ade5cd29a8449997452d6a017f8a797f2a0a8c41",
+      "retrievedAt": "2026-07-12T12:55:10.646Z",
+      "cachePath": "artifacts/a1e35e7730774fd7-extent.xsd"
+    },
+    {
+      "role": "xsd-dependency",
+      "url": "https://schemas.opengis.net/iso/19139/20070417/gmd/freeText.xsd",
+      "responseUrl": "https://schemas.opengis.net/iso/19139/20070417/gmd/freeText.xsd",
+      "mediaType": "application/xml",
+      "bytes": 7160,
+      "sha256": "79fcacb8fe5d0000fce05bef5e6430c61af9c151edf50542de4f4d90f4d1d306",
+      "retrievedAt": "2026-07-12T12:55:07.764Z",
+      "cachePath": "artifacts/79fcacb8fe5d0000-freeText.xsd"
+    },
+    {
+      "role": "xsd-dependency",
+      "url": "https://schemas.opengis.net/iso/19139/20070417/gmd/gmd.xsd",
+      "responseUrl": "https://schemas.opengis.net/iso/19139/20070417/gmd/gmd.xsd",
+      "mediaType": "application/xml",
+      "bytes": 1170,
+      "sha256": "62c01b7ac3a6d283a2ea4ac72891bc1b912ff43016367b8df30ec7a8dfa583b1",
+      "retrievedAt": "2026-07-12T12:55:03.717Z",
+      "cachePath": "artifacts/62c01b7ac3a6d283-gmd.xsd"
+    },
+    {
+      "role": "xsd-dependency",
+      "url": "https://schemas.opengis.net/iso/19139/20070417/gmd/identification.xsd",
+      "responseUrl": "https://schemas.opengis.net/iso/19139/20070417/gmd/identification.xsd",
+      "mediaType": "application/xml",
+      "bytes": 19751,
+      "sha256": "a9cbc54f0774b804a7e49e0713502d49ed051e2ad43d138b7ba840b7868ea937",
+      "retrievedAt": "2026-07-12T12:55:08.920Z",
+      "cachePath": "artifacts/a9cbc54f0774b804-identification.xsd"
+    },
+    {
+      "role": "xsd-dependency",
+      "url": "https://schemas.opengis.net/iso/19139/20070417/gmd/maintenance.xsd",
+      "responseUrl": "https://schemas.opengis.net/iso/19139/20070417/gmd/maintenance.xsd",
+      "mediaType": "application/xml",
+      "bytes": 6026,
+      "sha256": "49e16597d6ce1bf039db46ac6d4c0069b2c6297bfc8da3fdb28a4d2e717766f9",
+      "retrievedAt": "2026-07-12T12:55:10.358Z",
+      "cachePath": "artifacts/49e16597d6ce1bf0-maintenance.xsd"
+    },
+    {
+      "role": "xsd-dependency",
+      "url": "https://schemas.opengis.net/iso/19139/20070417/gmd/metadataApplication.xsd",
+      "responseUrl": "https://schemas.opengis.net/iso/19139/20070417/gmd/metadataApplication.xsd",
+      "mediaType": "application/xml",
+      "bytes": 9332,
+      "sha256": "215e4f0e39b73c98c30e2c799b3c47448b420b481bed91087f983faf42074b6c",
+      "retrievedAt": "2026-07-12T12:55:04.870Z",
+      "cachePath": "artifacts/215e4f0e39b73c98-metadataApplication.xsd"
+    },
+    {
+      "role": "xsd-dependency",
+      "url": "https://schemas.opengis.net/iso/19139/20070417/gmd/metadataEntity.xsd",
+      "responseUrl": "https://schemas.opengis.net/iso/19139/20070417/gmd/metadataEntity.xsd",
+      "mediaType": "application/xml",
+      "bytes": 5877,
+      "sha256": "e780e56e534c58140df94625293f535827b966a662b01014802288c349f31a3a",
+      "retrievedAt": "2026-07-12T12:55:05.447Z",
+      "cachePath": "artifacts/e780e56e534c5814-metadataEntity.xsd"
+    },
+    {
+      "role": "xsd-dependency",
+      "url": "https://schemas.opengis.net/iso/19139/20070417/gmd/metadataExtension.xsd",
+      "responseUrl": "https://schemas.opengis.net/iso/19139/20070417/gmd/metadataExtension.xsd",
+      "mediaType": "application/xml",
+      "bytes": 6429,
+      "sha256": "2a59d200fbd0cf1229f908fa5ddfee71c7b2be273d6f2d9402e386390e2d1012",
+      "retrievedAt": "2026-07-12T12:55:06.319Z",
+      "cachePath": "artifacts/2a59d200fbd0cf12-metadataExtension.xsd"
+    },
+    {
+      "role": "xsd-dependency",
+      "url": "https://schemas.opengis.net/iso/19139/20070417/gmd/portrayalCatalogue.xsd",
+      "responseUrl": "https://schemas.opengis.net/iso/19139/20070417/gmd/portrayalCatalogue.xsd",
+      "mediaType": "application/xml",
+      "bytes": 2664,
+      "sha256": "e8b1086c78ef4474be9091839d3fa9aee3d9481c465fe5aa4372e2e2d3c2090a",
+      "retrievedAt": "2026-07-12T12:55:07.182Z",
+      "cachePath": "artifacts/e8b1086c78ef4474-portrayalCatalogue.xsd"
+    },
+    {
+      "role": "xsd-dependency",
+      "url": "https://schemas.opengis.net/iso/19139/20070417/gmd/referenceSystem.xsd",
+      "responseUrl": "https://schemas.opengis.net/iso/19139/20070417/gmd/referenceSystem.xsd",
+      "mediaType": "application/xml",
+      "bytes": 5723,
+      "sha256": "320bf5301f0fc40fc028a5428133ee66ed2b5b99ea5b74544ebf0642a1083f06",
+      "retrievedAt": "2026-07-12T12:55:09.495Z",
+      "cachePath": "artifacts/320bf5301f0fc40f-referenceSystem.xsd"
+    },
+    {
+      "role": "xsd-dependency",
+      "url": "https://schemas.opengis.net/iso/19139/20070417/gmd/spatialRepresentation.xsd",
+      "responseUrl": "https://schemas.opengis.net/iso/19139/20070417/gmd/spatialRepresentation.xsd",
+      "mediaType": "application/xml",
+      "bytes": 13926,
+      "sha256": "3e4d2886b7816e1bc67fa23d82201e473162c5110aa6e6bd34478ad606c0b73c",
+      "retrievedAt": "2026-07-12T12:55:06.029Z",
+      "cachePath": "artifacts/3e4d2886b7816e1b-spatialRepresentation.xsd"
+    },
+    {
+      "role": "xsd-dependency",
+      "url": "https://schemas.opengis.net/iso/19139/20070417/gsr/gsr.xsd",
+      "responseUrl": "https://schemas.opengis.net/iso/19139/20070417/gsr/gsr.xsd",
+      "mediaType": "application/xml",
+      "bytes": 1180,
+      "sha256": "5066cfe4d0488b89cf7a15a990cd2e05f3dcdbb11c95df1ec73a1e714101161d",
+      "retrievedAt": "2026-07-12T12:55:11.219Z",
+      "cachePath": "artifacts/5066cfe4d0488b89-gsr.xsd"
+    },
+    {
+      "role": "xsd-dependency",
+      "url": "https://schemas.opengis.net/iso/19139/20070417/gsr/spatialReferencing.xsd",
+      "responseUrl": "https://schemas.opengis.net/iso/19139/20070417/gsr/spatialReferencing.xsd",
+      "mediaType": "application/xml",
+      "bytes": 2166,
+      "sha256": "19dcdbf1fcc296598dd5def55338bdf604e2ddd62358f7a3a9caa62bd7a6833b",
+      "retrievedAt": "2026-07-12T12:55:11.792Z",
+      "cachePath": "artifacts/19dcdbf1fcc29659-spatialReferencing.xsd"
+    },
+    {
+      "role": "xsd-dependency",
+      "url": "https://schemas.opengis.net/iso/19139/20070417/gss/geometry.xsd",
+      "responseUrl": "https://schemas.opengis.net/iso/19139/20070417/gss/geometry.xsd",
+      "mediaType": "application/xml",
+      "bytes": 2700,
+      "sha256": "fabf3df4d5d7098944494e4932426e4bfd7d56d73ac535edfcf5ef67292ad767",
+      "retrievedAt": "2026-07-12T12:55:09.209Z",
+      "cachePath": "artifacts/fabf3df4d5d70989-geometry.xsd"
+    },
+    {
+      "role": "xsd-dependency",
+      "url": "https://schemas.opengis.net/iso/19139/20070417/gss/gss.xsd",
+      "responseUrl": "https://schemas.opengis.net/iso/19139/20070417/gss/gss.xsd",
+      "mediaType": "application/xml",
+      "bytes": 1166,
+      "sha256": "1cb5492d7cb110ced0d46e8bc858dc3b340e1350b0b16f99772318c7df4d3906",
+      "retrievedAt": "2026-07-12T12:55:08.342Z",
+      "cachePath": "artifacts/1cb5492d7cb110ce-gss.xsd"
+    },
+    {
+      "role": "xsd-dependency",
+      "url": "https://schemas.opengis.net/iso/19139/20070417/gts/gts.xsd",
+      "responseUrl": "https://schemas.opengis.net/iso/19139/20070417/gts/gts.xsd",
+      "mediaType": "application/xml",
+      "bytes": 1173,
+      "sha256": "bef7c0ed6e63cd2be4b54defe994125783491a4a750c675cd28ca01382c9b273",
+      "retrievedAt": "2026-07-12T12:55:10.933Z",
+      "cachePath": "artifacts/bef7c0ed6e63cd2b-gts.xsd"
+    },
+    {
+      "role": "xsd-dependency",
+      "url": "https://schemas.opengis.net/iso/19139/20070417/gts/temporalObjects.xsd",
+      "responseUrl": "https://schemas.opengis.net/iso/19139/20070417/gts/temporalObjects.xsd",
+      "mediaType": "application/xml",
+      "bytes": 2787,
+      "sha256": "22d2c593d31cd6c91e245bebd44240bd89046cc45c8e7f3a79b22442d9ee2595",
+      "retrievedAt": "2026-07-12T12:55:11.504Z",
+      "cachePath": "artifacts/22d2c593d31cd6c9-temporalObjects.xsd"
+    },
+    {
+      "role": "xsd-dependency",
+      "url": "https://schemas.opengis.net/sweCommon/2.0/advanced_encodings.xsd",
+      "responseUrl": "https://schemas.opengis.net/sweCommon/2.0/advanced_encodings.xsd",
+      "mediaType": "application/xml",
+      "bytes": 9509,
+      "sha256": "e43e4389db77745bf1cc3f77b34848ae6d80a4eaa858495f4d010be93906d76d",
+      "retrievedAt": "2026-07-12T12:55:01.684Z",
+      "cachePath": "artifacts/e43e4389db77745b-advanced_encodings.xsd"
+    },
+    {
+      "role": "xsd-dependency",
+      "url": "https://schemas.opengis.net/sweCommon/2.0/basic_types.xsd",
+      "responseUrl": "https://schemas.opengis.net/sweCommon/2.0/basic_types.xsd",
+      "mediaType": "application/xml",
+      "bytes": 6497,
+      "sha256": "464159ff9c1ab62b256820101235d6a617c05247293ce24d4875a47c3345f4d6",
+      "retrievedAt": "2026-07-12T12:55:02.259Z",
+      "cachePath": "artifacts/464159ff9c1ab62b-basic_types.xsd"
+    },
+    {
+      "role": "xsd-dependency",
+      "url": "https://schemas.opengis.net/sweCommon/2.0/block_components.xsd",
+      "responseUrl": "https://schemas.opengis.net/sweCommon/2.0/block_components.xsd",
+      "mediaType": "application/xml",
+      "bytes": 8431,
+      "sha256": "3266f7122339a0e841cdad7670d2ff2a58b10deaee2519ba290791b227c01d88",
+      "retrievedAt": "2026-07-12T12:55:01.395Z",
+      "cachePath": "artifacts/3266f7122339a0e8-block_components.xsd"
+    },
+    {
+      "role": "xsd-dependency",
+      "url": "https://schemas.opengis.net/sweCommon/2.0/choice_components.xsd",
+      "responseUrl": "https://schemas.opengis.net/sweCommon/2.0/choice_components.xsd",
+      "mediaType": "application/xml",
+      "bytes": 2913,
+      "sha256": "60ad376c212dce189709cd03c54f0cfa812c35dcbec639c779c5037807e791cd",
+      "retrievedAt": "2026-07-12T12:55:01.972Z",
+      "cachePath": "artifacts/60ad376c212dce18-choice_components.xsd"
+    },
+    {
+      "role": "xsd-dependency",
+      "url": "https://schemas.opengis.net/sweCommon/2.0/record_components.xsd",
+      "responseUrl": "https://schemas.opengis.net/sweCommon/2.0/record_components.xsd",
+      "mediaType": "application/xml",
+      "bytes": 5012,
+      "sha256": "d91c2ec20a83694031b45a8e59b90277f18e39a06a238fd4e50ac9c2b95e68f9",
+      "retrievedAt": "2026-07-12T12:55:01.107Z",
+      "cachePath": "artifacts/d91c2ec20a836940-record_components.xsd"
+    },
+    {
+      "role": "xsd-dependency",
+      "url": "https://schemas.opengis.net/sweCommon/2.0/simple_components.xsd",
+      "responseUrl": "https://schemas.opengis.net/sweCommon/2.0/simple_components.xsd",
+      "mediaType": "application/xml",
+      "bytes": 28076,
+      "sha256": "b525c555562d52c21ae8cf44f6b63a7bb57ed29104c4cc961d6e3e50f2d981be",
+      "retrievedAt": "2026-07-12T12:54:56.493Z",
+      "cachePath": "artifacts/b525c555562d52c2-simple_components.xsd"
+    },
+    {
+      "role": "xsd-dependency",
+      "url": "https://schemas.opengis.net/sweCommon/2.0/simple_encodings.xsd",
+      "responseUrl": "https://schemas.opengis.net/sweCommon/2.0/simple_encodings.xsd",
+      "mediaType": "application/xml",
+      "bytes": 4698,
+      "sha256": "e16a622be67ffd98df4aaa3b7e5eaf4afc115c616640cebc19e2480a0ee49142",
+      "retrievedAt": "2026-07-12T12:55:04.003Z",
+      "cachePath": "artifacts/e16a622be67ffd98-simple_encodings.xsd"
+    },
+    {
+      "role": "xsd-dependency",
+      "url": "https://schemas.opengis.net/sweCommon/2.0/swe.xsd",
+      "responseUrl": "https://schemas.opengis.net/sweCommon/2.0/swe.xsd",
+      "mediaType": "application/xml",
+      "bytes": 897,
+      "sha256": "3430bc58124d9a349b90bbc85a5499609837b82842a567d4cbc515dedef491e7",
+      "retrievedAt": "2026-07-12T12:54:56.207Z",
+      "cachePath": "artifacts/3430bc58124d9a34-swe.xsd"
+    },
+    {
+      "role": "xsd-dependency",
+      "url": "https://www.w3.org/1999/xlink.xsd",
+      "responseUrl": "https://www.w3.org/1999/xlink.xsd",
+      "mediaType": "application/xml; charset=utf-8",
+      "bytes": 8322,
+      "sha256": "c3dbbaa28b884377ecd4a6c49d1f12566d8227cb0dce8ced10c0f66f8fa266e3",
+      "retrievedAt": "2026-07-12T12:54:55.918Z",
+      "cachePath": "artifacts/c3dbbaa28b884377-xlink.xsd"
+    },
+    {
+      "role": "xsd-dependency",
+      "url": "https://www.w3.org/2001/xml.xsd",
+      "responseUrl": "https://www.w3.org/2001/xml.xsd",
+      "mediaType": "application/xml",
+      "bytes": 8836,
+      "sha256": "61960fb3131e38022caad5360e2f33a3382578ab3c80cd58bd74320ede61b20c",
+      "retrievedAt": "2026-07-12T12:55:00.819Z",
+      "cachePath": "artifacts/61960fb3131e3802-xml.xsd"
+    }
+  ]
+}

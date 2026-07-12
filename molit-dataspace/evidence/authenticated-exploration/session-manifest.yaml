@@ -1,0 +1,51 @@
+schema_version: "1.0"
+evidence_id: "AUTH-EXP-20260711"
+observed_date: "2026-07-11"
+timezone: "Asia/Seoul"
+target:
+  service: "국토교통 데이터 통합 채널"
+  origin: "https://data.molit.go.kr"
+session:
+  account_alias: "authenticated-member"
+  login_performed_by: "user"
+  authenticated_ui_indicator: "logout control present"
+  mode: "read-only"
+tooling:
+  browser: "normal Chrome"
+  connection: "Chrome DevTools Protocol"
+  automation: "Playwright"
+  automation_version: "1.61.1"
+coverage:
+  page_count: 12
+  all_pages_http_status: 200
+  pages_with_logout_indicator_recorded: 11
+  open_api_definitions_reviewed: 3
+  representative_public_dataset_details_reviewed: 1
+  network_scope: "endpoint method and route structure observed during normal UI navigation"
+  public_endpoint_probe: "DNS and no-key HTTP/HTTPS reachability only"
+authentication_observation:
+  session_cookie_present: true
+  csrf_present: true
+  values_collected: false
+open_api_account_state:
+  documented_key_limit_per_account: 1
+  current_key_count_observed: 0
+  current_log_count_observed: 0
+excluded_actions:
+  - "API application"
+  - "API key issuance, reissuance, or revocation"
+  - "analysis task registration"
+  - "POST mutation"
+  - "data create, update, delete, upload, download, or share"
+  - "authorization bypass or identifier manipulation"
+excluded_artifacts:
+  - "account values and personal information"
+  - "cookie, CSRF token, API key, and secret values"
+  - "raw JSON requests and responses"
+  - "HAR and Playwright trace"
+  - "raw screenshots and DOM snapshots"
+limitations:
+  - "No guest or alternate-role comparison was performed."
+  - "The documented openapi.molit.go.kr host did not produce a usable A record from the investigation environment; an operator-supported HTTPS host was not verified."
+  - "HTTP 200 on /pubstorge/openapi does not establish feature or data access."
+  - "Observed internal SPA endpoints are not classified as supported public integration APIs."

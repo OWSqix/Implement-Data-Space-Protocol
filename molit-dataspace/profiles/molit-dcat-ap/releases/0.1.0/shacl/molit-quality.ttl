@@ -1,0 +1,161 @@
+@prefix dcat: <http://www.w3.org/ns/dcat#> .
+@prefix dct: <http://purl.org/dc/terms/> .
+@prefix dqv: <http://www.w3.org/ns/dqv#> .
+@prefix metric: <https://data.molit.go.kr/id/metric/> .
+@prefix molit: <https://data.molit.go.kr/def/molit-dcat-ap#> .
+@prefix quality: <https://data.molit.go.kr/id/concept/quality-status/> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix sdmx-attribute: <http://purl.org/linked-data/sdmx/2009/attribute#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<https://data.molit.go.kr/shape/molit-dcat-ap/0.1.0#DatasetQualityStatusShape>
+    a sh:NodeShape ;
+    sh:targetClass dcat:Dataset ;
+    molit:requirementId "MOLIT-QUAL-001" ;
+    molit:controlOwner "data-quality" ;
+    sh:property [
+        sh:path molit:qualityStatus ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:nodeKind sh:IRI ;
+        sh:in (
+            quality:not-assessed
+            quality:assessed
+            quality:warning
+            quality:failed
+            quality:stale
+        ) ;
+        sh:message "데이터셋에는 품질 평가 상태 IRI가 하나 있어야 한다."@ko
+    ] .
+
+<https://data.molit.go.kr/shape/molit-dcat-ap/0.1.0#ObservationDatasetShape>
+    a sh:NodeShape ;
+    sh:targetClass molit:ObservationDataset ;
+    molit:requirementId "MOLIT-OBS-001" ;
+    molit:controlOwner "observation-data-governance" ;
+    sh:property [
+        sh:path rdf:type ;
+        sh:hasValue dcat:Dataset ;
+        sh:message "확장 유형과 함께 dcat:Dataset 유형을 명시해야 한다."@ko
+    ], [
+        sh:path dct:temporal ;
+        sh:minCount 1 ;
+        sh:class dct:PeriodOfTime ;
+        sh:message "관측 데이터셋에는 관측 기간이 있어야 한다."@ko
+    ], [
+        sh:path dcat:temporalResolution ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:datatype xsd:duration ;
+        sh:message "관측 간격은 ISO 8601 xsd:duration 값 하나여야 한다."@ko
+    ], [
+        sh:path dqv:hasQualityMeasurement ;
+        sh:minCount 1 ;
+        sh:class dqv:QualityMeasurement ;
+        sh:message "관측 데이터셋에는 품질 측정값이 하나 이상 있어야 한다."@ko
+    ] .
+
+<https://data.molit.go.kr/shape/molit-dcat-ap/0.1.0#QualityMeasurementShape>
+    a sh:NodeShape ;
+    sh:targetClass dqv:QualityMeasurement ;
+    molit:requirementId "MOLIT-QUAL-MEASURE-001" ;
+    molit:controlOwner "data-quality" ;
+    sh:property [
+        sh:path dqv:computedOn ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:class dcat:Dataset ;
+        sh:message "품질 측정값은 측정 대상 데이터셋 하나를 가리켜야 한다."@ko
+    ], [
+        sh:path dqv:isMeasurementOf ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:nodeKind sh:IRI ;
+        sh:in (
+            metric:completeness
+            metric:positional-accuracy
+            metric:temporal-accuracy
+            metric:logical-consistency
+            metric:timeliness
+        ) ;
+        sh:message "품질 측정항목은 승인된 품질 metric IRI여야 한다."@ko
+    ], [
+        sh:path dqv:value ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:or (
+            [ sh:datatype xsd:decimal ]
+            [ sh:datatype xsd:double ]
+            [ sh:datatype xsd:integer ]
+        ) ;
+        sh:message "품질 측정값은 숫자 하나여야 한다."@ko
+    ], [
+        sh:path sdmx-attribute:unitMeasure ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:nodeKind sh:IRI ;
+        sh:in (
+            <http://qudt.org/vocab/unit/PERCENT>
+            <http://qudt.org/vocab/unit/M>
+            <http://qudt.org/vocab/unit/SEC>
+            <http://qudt.org/vocab/unit/MIN>
+            <http://qudt.org/vocab/unit/HR>
+            <http://qudt.org/vocab/unit/DAY>
+        ) ;
+        sh:message "측정 단위는 QUDT Unit IRI를 사용해야 한다."@ko
+    ] .
+
+<https://data.molit.go.kr/shape/molit-dcat-ap/0.1.0#QualityMetricSemanticsShape>
+    a sh:NodeShape ;
+    sh:targetClass dqv:QualityMeasurement ;
+    molit:requirementId "MOLIT-QUAL-MEASURE-002" ;
+    molit:controlOwner "data-quality" ;
+    sh:or (
+        [
+            sh:property [ sh:path dqv:isMeasurementOf ; sh:hasValue metric:completeness ] ;
+            sh:property [ sh:path dqv:value ; sh:minInclusive 0 ; sh:maxInclusive 100 ] ;
+            sh:property [
+                sh:path sdmx-attribute:unitMeasure ;
+                sh:hasValue <http://qudt.org/vocab/unit/PERCENT>
+            ]
+        ]
+        [
+            sh:property [ sh:path dqv:isMeasurementOf ; sh:hasValue metric:logical-consistency ] ;
+            sh:property [ sh:path dqv:value ; sh:minInclusive 0 ; sh:maxInclusive 100 ] ;
+            sh:property [
+                sh:path sdmx-attribute:unitMeasure ;
+                sh:hasValue <http://qudt.org/vocab/unit/PERCENT>
+            ]
+        ]
+        [
+            sh:property [ sh:path dqv:isMeasurementOf ; sh:hasValue metric:positional-accuracy ] ;
+            sh:property [ sh:path dqv:value ; sh:minInclusive 0 ] ;
+            sh:property [
+                sh:path sdmx-attribute:unitMeasure ;
+                sh:hasValue <http://qudt.org/vocab/unit/M>
+            ]
+        ]
+        [
+            sh:property [ sh:path dqv:isMeasurementOf ; sh:hasValue metric:temporal-accuracy ] ;
+            sh:property [ sh:path dqv:value ; sh:minInclusive 0 ] ;
+            sh:property [
+                sh:path sdmx-attribute:unitMeasure ;
+                sh:hasValue <http://qudt.org/vocab/unit/SEC>
+            ]
+        ]
+        [
+            sh:property [ sh:path dqv:isMeasurementOf ; sh:hasValue metric:timeliness ] ;
+            sh:property [ sh:path dqv:value ; sh:minInclusive 0 ] ;
+            sh:property [
+                sh:path sdmx-attribute:unitMeasure ;
+                sh:in (
+                    <http://qudt.org/vocab/unit/SEC>
+                    <http://qudt.org/vocab/unit/MIN>
+                    <http://qudt.org/vocab/unit/HR>
+                    <http://qudt.org/vocab/unit/DAY>
+                )
+            ]
+        ]
+    ) ;
+    sh:message "품질 측정값은 측정항목별 허용 단위와 값 범위를 따라야 한다."@ko .

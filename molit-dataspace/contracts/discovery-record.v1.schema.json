@@ -1,0 +1,111 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://molit-dataspace.example.invalid/schemas/discovery-record.v1.schema.json",
+  "title": "Synthetic public discovery record v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "automaticDispatchAllowed",
+    "schemaVersion",
+    "syntheticOnly",
+    "id",
+    "source",
+    "recordType",
+    "title",
+    "description",
+    "publisher",
+    "landingPage",
+    "issuedAt",
+    "modifiedAt",
+    "keywords",
+    "themes",
+    "catalogVisibility",
+    "offeringState",
+    "decisionReasons",
+    "evidenceIds"
+  ],
+  "properties": {
+    "automaticDispatchAllowed": { "const": false },
+    "schemaVersion": { "const": "molit.discovery-record/1" },
+    "syntheticOnly": { "const": true },
+    "id": { "type": "string", "pattern": "^urn:" },
+    "source": { "$ref": "#/$defs/source" },
+    "recordType": {
+      "enum": ["dataset", "organization", "system", "use-case", "post"]
+    },
+    "title": { "$ref": "#/$defs/text" },
+    "description": { "$ref": "#/$defs/text" },
+    "publisher": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "name"],
+      "properties": {
+        "id": { "type": "string", "minLength": 1, "maxLength": 8192 },
+        "name": { "$ref": "#/$defs/text" }
+      }
+    },
+    "landingPage": { "type": "string", "format": "uri" },
+    "issuedAt": { "type": "string", "format": "date-time" },
+    "modifiedAt": { "type": "string", "format": "date-time" },
+    "keywords": { "$ref": "#/$defs/textArray" },
+    "themes": { "$ref": "#/$defs/textArray" },
+    "catalogVisibility": { "const": "public" },
+    "accessRights": {
+      "enum": ["open", "registered", "restricted", "secure", "excluded", "unknown"]
+    },
+    "platformRecordRole": {
+      "enum": ["hosted", "brokered", "index-only", "unknown"]
+    },
+    "offeringState": {
+      "enum": ["APPROVED", "CATALOG_ONLY", "PENDING_EVIDENCE"]
+    },
+    "decisionReasons": {
+      "type": "array",
+      "maxItems": 512,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["code", "field", "message"],
+        "properties": {
+          "code": { "$ref": "#/$defs/text" },
+          "field": { "$ref": "#/$defs/text" },
+          "message": { "$ref": "#/$defs/text" }
+        }
+      }
+    },
+    "evidenceIds": {
+      "type": "array",
+      "maxItems": 400,
+      "uniqueItems": true,
+      "items": { "$ref": "#/$defs/text" }
+    }
+  },
+  "$defs": {
+    "text": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 8192
+    },
+    "identifier": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 256,
+      "pattern": "^[^\\s?#@]+$"
+    },
+    "source": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["systemId", "recordId"],
+      "properties": {
+        "systemId": { "$ref": "#/$defs/identifier" },
+        "recordId": { "$ref": "#/$defs/identifier" }
+      }
+    },
+    "textArray": {
+      "type": "array",
+      "maxItems": 200,
+      "uniqueItems": true,
+      "items": { "$ref": "#/$defs/text" }
+    }
+  }
+}

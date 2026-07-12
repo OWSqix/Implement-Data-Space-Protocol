@@ -1,0 +1,385 @@
+{
+  "schemaVersion": "molit.profile-artifact-lock/1",
+  "profileVersion": "0.1.0",
+  "generatedAt": "2026-07-12",
+  "networkFetchAtRuntime": false,
+  "artifacts": [
+    {
+      "license": "PENDING-OWNER-APPROVAL",
+      "origin": "generated-local",
+      "version": "0.1.0",
+      "path": "bundles/core.ttl",
+      "sha256": "35a2ec1e9c955466c87006a6817bf93c963503fc36dc5e5c94cf1e4382ce5f73"
+    },
+    {
+      "license": "PENDING-OWNER-APPROVAL",
+      "origin": "generated-local",
+      "version": "0.1.0",
+      "path": "bundles/geo.ttl",
+      "sha256": "4c3808b9de95851475cc442501da6662322324e8609ea6f3a2c63d0f593d4add"
+    },
+    {
+      "license": "PENDING-OWNER-APPROVAL",
+      "origin": "generated-local",
+      "version": "0.1.0",
+      "path": "bundles/support.ttl",
+      "sha256": "ace2d4de2a18f72a025ce93bc6f4d148646803585c0d907401fb9f4aa0f1bc8d"
+    },
+    {
+      "license": "PENDING-OWNER-APPROVAL",
+      "origin": "local",
+      "version": "0.1.0",
+      "path": "context/molit-dcat-ap.context.jsonld",
+      "sha256": "6aa2a5adab38759e843343732ae825b1c16885ae42e12dddd132f199deec6f9f"
+    },
+    {
+      "license": "PENDING-OWNER-APPROVAL",
+      "origin": "local",
+      "version": "0.1.0",
+      "path": "examples/invalid/literal-access-rights.ttl",
+      "sha256": "c7a74456ff51924bc230c228dcd68611621feda83224a85d51812a5e840c120b"
+    },
+    {
+      "license": "PENDING-OWNER-APPROVAL",
+      "origin": "local",
+      "version": "0.1.0",
+      "path": "examples/invalid/missing-korean-title.ttl",
+      "sha256": "e07e0d588a9facab33a1bc84da3da3fbd865848c7938a3d454944512c633c225"
+    },
+    {
+      "license": "PENDING-OWNER-APPROVAL",
+      "origin": "local",
+      "version": "0.1.0",
+      "path": "examples/invalid/network-reference-without-version.ttl",
+      "sha256": "20515212b19464caedd6905cc9f3ef7add67e3ee0e2415e96df5ac518fa471bb"
+    },
+    {
+      "license": "PENDING-OWNER-APPROVAL",
+      "origin": "local",
+      "version": "0.1.0",
+      "path": "examples/invalid/private-binding-leak.ttl",
+      "sha256": "fcaa8a1819bc143eb9ea5c8d6e14508fc31d689014793c84ba5b3648beacee48"
+    },
+    {
+      "license": "PENDING-OWNER-APPROVAL",
+      "origin": "local",
+      "version": "0.1.0",
+      "path": "examples/invalid/quality-unit-not-qudt.ttl",
+      "sha256": "66137546cb5bb8446a83abc69d48b1081042e5793b9fc0649c3ad0e4a0078aff"
+    },
+    {
+      "license": "PENDING-OWNER-APPROVAL",
+      "origin": "local",
+      "version": "0.1.0",
+      "path": "examples/invalid/relative-iri.ttl",
+      "sha256": "e6af2536cbf7c371499cf75890d62547f0e0e01784a9140bccc97b4e7d7f202b"
+    },
+    {
+      "license": "PENDING-OWNER-APPROVAL",
+      "origin": "local",
+      "version": "0.1.0",
+      "path": "examples/invalid/rogue-theme.ttl",
+      "sha256": "42e674f770a6dc63b522ca6030b0d601bcf21c0312b9f63ccf265c6dcec48a3c"
+    },
+    {
+      "license": "PENDING-OWNER-APPROVAL",
+      "origin": "local",
+      "version": "0.1.0",
+      "path": "examples/invalid/spoofed-controlled-concept.ttl",
+      "sha256": "327101878c7c574e1029c4dbaac7cf757cf3b21252133faca972b180969713f7"
+    },
+    {
+      "license": "PENDING-OWNER-APPROVAL",
+      "origin": "local",
+      "version": "0.1.0",
+      "path": "examples/invalid/unapproved-frequency.ttl",
+      "sha256": "24c44907d3b53b2796af759c3e568d5ba4f4b84b122f46e4ce29d42b33ba65f7"
+    },
+    {
+      "license": "PENDING-OWNER-APPROVAL",
+      "origin": "local",
+      "version": "0.1.0",
+      "path": "examples/invalid/unapproved-geometry-crs.ttl",
+      "sha256": "55ddce1b00ec2939b65048e7c2666933f7e225ebdc04dfc3f4a9a08216d594d6"
+    },
+    {
+      "license": "PENDING-OWNER-APPROVAL",
+      "origin": "local",
+      "version": "0.1.0",
+      "path": "examples/invalid/unapproved-iana-media-type.ttl",
+      "sha256": "3c4c4720bc99fa589f422ea392014d80024d39c4f9e1a754aa79b362b476b2ca"
+    },
+    {
+      "license": "PENDING-OWNER-APPROVAL",
+      "origin": "local",
+      "version": "0.1.0",
+      "path": "examples/invalid/withheld-spatial-geometry.ttl",
+      "sha256": "c6ce924aed7e635ffef819fa724986a089d9c30f0e80d0425e923b73d7eeef76"
+    },
+    {
+      "license": "PENDING-OWNER-APPROVAL",
+      "origin": "local",
+      "version": "0.1.0",
+      "path": "examples/invalid/wkt-without-crs.ttl",
+      "sha256": "b55f59c5b8bde013c7add31bac52bf736181d3d9ce12ab6a74a8a4285f601f49"
+    },
+    {
+      "license": "PENDING-OWNER-APPROVAL",
+      "origin": "local",
+      "version": "0.1.0",
+      "path": "examples/valid/road-network-catalog.ttl",
+      "sha256": "a0c180cb9035f656d8bb166c06b8713b95ebd0ee35a2598854cc97e3ecd87e92"
+    },
+    {
+      "license": "PENDING-OWNER-APPROVAL",
+      "origin": "local",
+      "version": "0.1.0",
+      "path": "examples/valid/traffic-observation-catalog.ttl",
+      "sha256": "36952b5325dd0633c78033ecf68b56495143e46e62c0e0f17f42ec85e19a5965"
+    },
+    {
+      "license": "PENDING-OWNER-APPROVAL",
+      "origin": "local",
+      "version": "0.1.0",
+      "path": "manifest.json",
+      "sha256": "77dc454540da6e32db3e0724f620a3ca0afe1017e3193eae09c346fcc687486e"
+    },
+    {
+      "license": "PENDING-OWNER-APPROVAL",
+      "origin": "local",
+      "version": "0.1.0",
+      "path": "mappings/platform-field-crosswalk.csv",
+      "sha256": "280019efd6c9c8804b119c0cc1a7a5c63811ffce9602c5ee7483652ffa4c054c"
+    },
+    {
+      "license": "PENDING-OWNER-APPROVAL",
+      "origin": "local",
+      "version": "0.1.0",
+      "path": "ontology/molit-dcat-ap.ttl",
+      "sha256": "50dbc27b0c77d51b4f17f853b91f1fdaee31e1f6d207ac11d8e039f151895238"
+    },
+    {
+      "license": "PENDING-OWNER-APPROVAL",
+      "origin": "local",
+      "version": "0.1.0",
+      "path": "policy/public-value-policy.json",
+      "sha256": "94913b3ed0368f64b1fd7665c5806ba1c878c0eda182b1b4bb2d58511ee6e7ee"
+    },
+    {
+      "license": "PENDING-OWNER-APPROVAL",
+      "origin": "local",
+      "version": "0.1.0",
+      "path": "profile-description.ttl",
+      "sha256": "1f0f840c006982eea10bc1535f7b87f507c98d407a67ffcbef472968189af18a"
+    },
+    {
+      "license": "CC-BY-4.0",
+      "origin": "local-compatibility-closure",
+      "source": "https://semiceu.github.io/DCAT-AP/releases/3.0.1/shacl/ranges.ttl",
+      "upstream": "DCAT-AP",
+      "version": "3.0.1",
+      "path": "shacl/compatibility/dcat-ap-3.0.1-closure.ttl",
+      "sha256": "7e30f5e98a4995c0b7f17eaadaaff78bdd26dc97918973ea01bd7b3b3e4f25c5"
+    },
+    {
+      "license": "PENDING-OWNER-APPROVAL",
+      "origin": "local",
+      "version": "0.1.0",
+      "path": "shacl/molit-controlled-vocabularies.ttl",
+      "sha256": "4d228eac68140dc0034d634e349284570b70df8770dd345ae9374b70a94b2564"
+    },
+    {
+      "license": "PENDING-OWNER-APPROVAL",
+      "origin": "local",
+      "version": "0.1.0",
+      "path": "shacl/molit-core-profile.ttl",
+      "sha256": "1ff8aa530fa3310d9c9ef3bf70695e7798b51428cced0f8d02f0224e4cbd8559"
+    },
+    {
+      "license": "PENDING-OWNER-APPROVAL",
+      "origin": "local",
+      "version": "0.1.0",
+      "path": "shacl/molit-core.ttl",
+      "sha256": "5af584b6dc2b30c02d758f1012017fae094e23a4f13d7c1215ae6cdf70b100d8"
+    },
+    {
+      "license": "PENDING-OWNER-APPROVAL",
+      "origin": "local",
+      "version": "0.1.0",
+      "path": "shacl/molit-geo-profile.ttl",
+      "sha256": "9c5fa886a82b1dc25ed2354054a05afed2e5b9e72f5c22cd6d301bf821abd38b"
+    },
+    {
+      "license": "PENDING-OWNER-APPROVAL",
+      "origin": "local",
+      "version": "0.1.0",
+      "path": "shacl/molit-network.ttl",
+      "sha256": "b91eddd15804715e5be49a427f9b1ee1e53369c31f5ab1c262579d359f785d37"
+    },
+    {
+      "license": "PENDING-OWNER-APPROVAL",
+      "origin": "local",
+      "version": "0.1.0",
+      "path": "shacl/molit-quality.ttl",
+      "sha256": "2e020be4e7b3ece29aac0aae6684d432b84ba0bbe100451169c4f3331072eda8"
+    },
+    {
+      "license": "PENDING-OWNER-APPROVAL",
+      "origin": "local",
+      "version": "0.1.0",
+      "path": "shacl/molit-recommended.ttl",
+      "sha256": "4381cdcfb1784a3118018097798aaeea498a53e4d42021d42a480cb7fa0a92b2"
+    },
+    {
+      "license": "PENDING-OWNER-APPROVAL",
+      "origin": "local",
+      "version": "0.1.0",
+      "path": "shacl/molit-spatial.ttl",
+      "sha256": "e18e91bbd8a5a6efd070bd5110ad59c1c219bc8374dd0d69a8d2aed6d87a56fd"
+    },
+    {
+      "path": "shacl/upstream/dcat-ap-3.0.1/dcat-ap-SHACL.ttl",
+      "sha256": "990d3e42721de6a4be8cc338a7171559f195e62dea89c0b56531356b78cc026f",
+      "source": "https://semiceu.github.io/DCAT-AP/releases/3.0.1/shacl/dcat-ap-SHACL.ttl",
+      "upstream": "DCAT-AP",
+      "version": "3.0.1",
+      "license": "CC-BY-4.0"
+    },
+    {
+      "path": "shacl/upstream/dcat-ap-3.0.1/deprecateduris.ttl",
+      "sha256": "30a20a51a487c40ab7ae04f5905f02ef28238ec5cb390e37053334d835021948",
+      "source": "https://semiceu.github.io/DCAT-AP/releases/3.0.1/html/shacl/deprecateduris.ttl",
+      "upstream": "DCAT-AP",
+      "version": "3.0.1",
+      "license": "CC-BY-4.0"
+    },
+    {
+      "path": "shacl/upstream/dcat-ap-3.0.1/mdr-vocabularies.shape.ttl",
+      "sha256": "2362f83971766a15cc20b2b54420022dc10547dd2c483da02080847c61b4b45a",
+      "source": "https://semiceu.github.io/DCAT-AP/releases/3.0.1/html/shacl/mdr-vocabularies.shape.ttl",
+      "upstream": "DCAT-AP",
+      "version": "3.0.1",
+      "license": "CC-BY-4.0"
+    },
+    {
+      "path": "shacl/upstream/dcat-ap-3.0.1/ranges.ttl",
+      "sha256": "a6eed0fae8d0f5ca977fe2098ca12081ac60b0efe1ddce802d5c08e49505ebcc",
+      "source": "https://semiceu.github.io/DCAT-AP/releases/3.0.1/shacl/ranges.ttl",
+      "upstream": "DCAT-AP",
+      "version": "3.0.1",
+      "license": "CC-BY-4.0"
+    },
+    {
+      "path": "shacl/upstream/dcat-ap-3.0.1/shapes_recommended.ttl",
+      "sha256": "9afbf23f1f56d10d6839259684934137e20506a9aedce0249b619bbc593b9abd",
+      "source": "https://semiceu.github.io/DCAT-AP/releases/3.0.1/html/shacl/shapes_recommended.ttl",
+      "upstream": "DCAT-AP",
+      "version": "3.0.1",
+      "license": "CC-BY-4.0"
+    },
+    {
+      "path": "shacl/upstream/geodcat-ap-3.1.0/geodcat-ap-SHACL.ttl",
+      "sha256": "53f72ec0bd77f0dfdcbeac6718586986be3d3628791618d61db0de7444eb4bb0",
+      "source": "https://semiceu.github.io/GeoDCAT-AP/releases/3.1.0/shacl/geodcat-ap-SHACL.ttl",
+      "upstream": "GeoDCAT-AP",
+      "version": "3.1.0",
+      "license": "CC-BY-4.0"
+    },
+    {
+      "license": "W3C-20150513",
+      "origin": "upstream",
+      "source": "https://raw.githubusercontent.com/w3c/data-shapes/d4da3e48bb52c51d81667c054a65981cdaa1bd0b/shacl/shacl-shacl.ttl",
+      "upstream": "W3C SHACL-SHACL",
+      "version": "d4da3e48bb52c51d81667c054a65981cdaa1bd0b",
+      "path": "shacl/upstream/w3c-shacl-2017/shacl-shacl.ttl",
+      "sha256": "c97f1928d134b0798b21737f7a0967d8d8503fc84569e92ee1c31871a2362931"
+    },
+    {
+      "license": "PENDING-OWNER-APPROVAL",
+      "origin": "local",
+      "version": "0.1.0",
+      "path": "vocabulary/adms-status-1.0-compat.ttl",
+      "sha256": "5e40be073f4d5343dff428ebfe41ef07a03c884699a9043e4a595e54e3deb889"
+    },
+    {
+      "license": "PENDING-OWNER-APPROVAL",
+      "origin": "local",
+      "version": "0.1.0",
+      "path": "vocabulary/approved-role-mailboxes.ttl",
+      "sha256": "9590fb403426272136fd73a34b4517454b424be39e1e0c8243fe6e3a92a9b52f"
+    },
+    {
+      "license": "PENDING-OWNER-APPROVAL",
+      "origin": "local",
+      "version": "0.1.0",
+      "path": "vocabulary/eu-authority-allowlist.ttl",
+      "sha256": "09a518ec219c553010f565613e1ea765d5af92418c30287e52b0bee5ff06ab2c"
+    },
+    {
+      "license": "PENDING-OWNER-APPROVAL",
+      "origin": "local",
+      "version": "0.1.0",
+      "path": "vocabulary/iana-media-type-allowlist.ttl",
+      "sha256": "08bd9c7326fc2ae1a8733752b72ab93826ac565f2764e350eb9757ee9fc82b3d"
+    },
+    {
+      "path": "vocabulary/mobilitydcat-transport-mode-1.0.0.ttl",
+      "sha256": "ea8dbfdec3ba2991c3d817aeeb92b975e7479efb1643359cc46d45a73d2f9c4c",
+      "source": "https://mobilitydcat-ap.github.io/controlled-vocabularies/transport-mode/1.0.0/transport-mode.ttl",
+      "upstream": "mobilityDCAT-AP Transport Mode",
+      "version": "1.0.0",
+      "license": "CC-BY-4.0"
+    },
+    {
+      "license": "PENDING-OWNER-APPROVAL",
+      "origin": "local",
+      "version": "0.1.0",
+      "path": "vocabulary/molit-domain.ttl",
+      "sha256": "afc094a7c3d20f96b1d13f6392545c8e9e40930ce2d2688b203931a5e64cb512"
+    },
+    {
+      "license": "PENDING-OWNER-APPROVAL",
+      "origin": "local",
+      "version": "0.1.0",
+      "path": "vocabulary/network-element-type.ttl",
+      "sha256": "5d05eecf7b1082d0302c9c7d2499fb3edca98d39c633647cdbb896e6e685e259"
+    },
+    {
+      "license": "PENDING-OWNER-APPROVAL",
+      "origin": "local",
+      "version": "0.1.0",
+      "path": "vocabulary/ogc-crs-allowlist.ttl",
+      "sha256": "e6db409a354c0d54b33f7db8326ceebc1cd364eb397a47044ae1168915f9147b"
+    },
+    {
+      "license": "PENDING-OWNER-APPROVAL",
+      "origin": "local",
+      "version": "0.1.0",
+      "path": "vocabulary/quality.ttl",
+      "sha256": "626bf7902d2e638174106b6ac10d0cd531c029751ff470a107840488dbb468eb"
+    },
+    {
+      "license": "PENDING-OWNER-APPROVAL",
+      "origin": "local",
+      "version": "0.1.0",
+      "path": "vocabulary/qudt-unit-allowlist.ttl",
+      "sha256": "38706fd151f8995c10977bc4acfe71b788bee98ef679ef5e972ad3a939fcbc62"
+    },
+    {
+      "license": "PENDING-OWNER-APPROVAL",
+      "origin": "local",
+      "version": "0.1.0",
+      "path": "vocabulary/spatial-disclosure-level.ttl",
+      "sha256": "530526a661d4216fcb9b508879d874ea429ae0456be21a0301a270550608754a"
+    },
+    {
+      "source": "https://raw.githubusercontent.com/opengeospatial/ogc-geosparql/1.1.0-ghpages/geosparql11/geo.ttl",
+      "sourceCommit": "cd53678be2e9775066d63791c84c3fa010fc29ff",
+      "upstream": "OGC GeoSPARQL",
+      "version": "1.1.0",
+      "license": "Apache-2.0",
+      "path": "vocabulary/upstream/geosparql-1.1/geo.ttl",
+      "sha256": "25e319e0c30c6cf026a5cb1a693ac74a17e7cebc3dcad520b731f77c49719867"
+    }
+  ]
+}

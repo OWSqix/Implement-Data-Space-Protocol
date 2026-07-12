@@ -1,0 +1,222 @@
+{
+  "crs": [
+    {
+      "axisOrder": [
+        "east",
+        "north"
+      ],
+      "axisSource": {
+        "artifactId": "OGC-CRS84",
+        "kind": "embedded-gml",
+        "sha256": "f44995453dae1d219ef4eb9633f5fa1ad26ce02adace8aab5cbc2a15a0c77727"
+      },
+      "axes": [
+        {
+          "abbreviation": "Lon",
+          "direction": "east",
+          "identifier": "https://www.opengis.net/def/axis/EPSG/9.8.15/220",
+          "uom": "https://www.opengis.net/def/uom/EPSG/9.8.15/9122"
+        },
+        {
+          "abbreviation": "Lat",
+          "direction": "north",
+          "identifier": "https://www.opengis.net/def/axis/EPSG/9.8.15/221",
+          "uom": "https://www.opengis.net/def/uom/EPSG/9.8.15/9122"
+        }
+      ],
+      "id": "OGC-CRS84",
+      "iri": "http://www.opengis.net/def/crs/OGC/1.3/CRS84"
+    },
+    {
+      "axisOrder": [
+        "north",
+        "east"
+      ],
+      "axisSource": {
+        "artifactId": "EPSG-CS-6422",
+        "code": 6422,
+        "kind": "epsg-coordinate-system",
+        "sha256": "47ee124159a444ac3b16e892c72f300af5efdabe0620ebdc41f3e216a20ec60a"
+      },
+      "axes": [
+        {
+          "abbreviation": "Lat",
+          "direction": "north",
+          "name": "Geodetic latitude",
+          "unitCode": 9122
+        },
+        {
+          "abbreviation": "Lon",
+          "direction": "east",
+          "name": "Geodetic longitude",
+          "unitCode": 9122
+        }
+      ],
+      "id": "EPSG-4737",
+      "iri": "http://www.opengis.net/def/crs/EPSG/0/4737"
+    },
+    {
+      "axisOrder": [
+        "north",
+        "east"
+      ],
+      "axisSource": {
+        "artifactId": "EPSG-CS-4530",
+        "code": 4530,
+        "kind": "epsg-coordinate-system",
+        "sha256": "04203517fe717ec70c307cce9d86ef07af7e137f3cf3f05699482a0b9a725e77"
+      },
+      "axes": [
+        {
+          "abbreviation": "X",
+          "direction": "north",
+          "name": "Northing",
+          "unitCode": 9001
+        },
+        {
+          "abbreviation": "Y",
+          "direction": "east",
+          "name": "Easting",
+          "unitCode": 9001
+        }
+      ],
+      "id": "EPSG-5179",
+      "iri": "http://www.opengis.net/def/crs/EPSG/0/5179"
+    },
+    {
+      "axisOrder": [
+        "north",
+        "east"
+      ],
+      "axisSource": {
+        "artifactId": "EPSG-CS-4530",
+        "code": 4530,
+        "kind": "epsg-coordinate-system",
+        "sha256": "04203517fe717ec70c307cce9d86ef07af7e137f3cf3f05699482a0b9a725e77"
+      },
+      "axes": [
+        {
+          "abbreviation": "X",
+          "direction": "north",
+          "name": "Northing",
+          "unitCode": 9001
+        },
+        {
+          "abbreviation": "Y",
+          "direction": "east",
+          "name": "Easting",
+          "unitCode": 9001
+        }
+      ],
+      "id": "EPSG-5185",
+      "iri": "http://www.opengis.net/def/crs/EPSG/0/5185"
+    },
+    {
+      "axisOrder": [
+        "north",
+        "east"
+      ],
+      "axisSource": {
+        "artifactId": "EPSG-CS-4530",
+        "code": 4530,
+        "kind": "epsg-coordinate-system",
+        "sha256": "04203517fe717ec70c307cce9d86ef07af7e137f3cf3f05699482a0b9a725e77"
+      },
+      "axes": [
+        {
+          "abbreviation": "X",
+          "direction": "north",
+          "name": "Northing",
+          "unitCode": 9001
+        },
+        {
+          "abbreviation": "Y",
+          "direction": "east",
+          "name": "Easting",
+          "unitCode": 9001
+        }
+      ],
+      "id": "EPSG-5186",
+      "iri": "http://www.opengis.net/def/crs/EPSG/0/5186"
+    },
+    {
+      "axisOrder": [
+        "north",
+        "east"
+      ],
+      "axisSource": {
+        "artifactId": "EPSG-CS-4530",
+        "code": 4530,
+        "kind": "epsg-coordinate-system",
+        "sha256": "04203517fe717ec70c307cce9d86ef07af7e137f3cf3f05699482a0b9a725e77"
+      },
+      "axes": [
+        {
+          "abbreviation": "X",
+          "direction": "north",
+          "name": "Northing",
+          "unitCode": 9001
+        },
+        {
+          "abbreviation": "Y",
+          "direction": "east",
+          "name": "Easting",
+          "unitCode": 9001
+        }
+      ],
+      "id": "EPSG-5187",
+      "iri": "http://www.opengis.net/def/crs/EPSG/0/5187"
+    },
+    {
+      "axisOrder": [
+        "north",
+        "east"
+      ],
+      "axisSource": {
+        "artifactId": "EPSG-CS-4530",
+        "code": 4530,
+        "kind": "epsg-coordinate-system",
+        "sha256": "04203517fe717ec70c307cce9d86ef07af7e137f3cf3f05699482a0b9a725e77"
+      },
+      "axes": [
+        {
+          "abbreviation": "X",
+          "direction": "north",
+          "name": "Northing",
+          "unitCode": 9001
+        },
+        {
+          "abbreviation": "Y",
+          "direction": "east",
+          "name": "Easting",
+          "unitCode": 9001
+        }
+      ],
+      "id": "EPSG-5188",
+      "iri": "http://www.opengis.net/def/crs/EPSG/0/5188"
+    }
+  ],
+  "generatedFrom": {
+    "manifest": "standards/vendor/ogc-crs/2026-07-12/manifest.json",
+    "manifestSha256": "199cd9978222d0749d76350a955678a41299ba231db38498a4f2586c5fbb8755"
+  },
+  "schemaVersion": "molit.crs-axis-order-policy/1",
+  "verificationScope": {
+    "coordinateTransformationAccuracy": "not-evaluated",
+    "coordinateTupleOrder": "authority-snapshot-derived",
+    "tupleRoundTrip": {
+      "coordinateTransformation": "not-performed",
+      "dimensions": [
+        2
+      ],
+      "geometryTypes": [
+        "Point"
+      ],
+      "serializations": [
+        "GeoSPARQL-WKT",
+        "GML-3.2"
+      ],
+      "status": "lexical-serialization-only"
+    }
+  }
+}

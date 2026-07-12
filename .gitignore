@@ -1,5 +1,18 @@
 .omx/
+.omc/
 
 docs/*
 !docs/reference/
 !docs/reference/**
+
+# Tooling state that must not pollute the tracked reference tree.
+docs/reference/.omc/
+
+# Cloned upstream reference repositories — local-only working copies.
+# Kept with their own .git so they can be updated via `git pull`; never
+# committed to this repo (re-ignored after the docs/reference un-ignore above).
+docs/reference/eclipse-edc/
+docs/reference/dataspace-protocol/
+docs/reference/tck/
+docs/reference/eclipse-tractusx/
+docs/reference/gaia-x/

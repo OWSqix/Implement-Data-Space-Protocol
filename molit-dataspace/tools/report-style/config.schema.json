@@ -1,0 +1,156 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "MOLIT report style harness configuration",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "profile",
+    "roots",
+    "rules"
+  ],
+  "properties": {
+    "$schema": {
+      "type": "string"
+    },
+    "schemaVersion": {
+      "const": 1
+    },
+    "profile": {
+      "type": "string",
+      "minLength": 1
+    },
+    "roots": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "minItems": 1
+    },
+    "ignore": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "failOn": {
+      "enum": [
+        "error",
+        "warning",
+        "info",
+        "none"
+      ]
+    },
+    "maxWarnings": {
+      "type": [
+        "integer",
+        "null"
+      ],
+      "minimum": 0
+    },
+    "rules": {
+      "$ref": "#/$defs/ruleMap"
+    },
+    "allowedHeadingSchemes": {
+      "type": "array",
+      "items": {
+        "enum": [
+          "decimal",
+          "finding",
+          "korean-alpha",
+          "parenthesized"
+        ]
+      }
+    },
+    "knownAcronyms": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "terminology": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "string"
+      }
+    },
+    "overrides": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "files",
+          "rules"
+        ],
+        "properties": {
+          "files": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1
+            },
+            "minItems": 1
+          },
+          "rules": {
+            "$ref": "#/$defs/ruleMap"
+          }
+        }
+      }
+    }
+  },
+  "$defs": {
+    "severity": {
+      "enum": [
+        "off",
+        "error",
+        "warning",
+        "info"
+      ]
+    },
+    "ruleOptions": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "maxVisibleChars": {
+          "type": "integer",
+          "minimum": 40
+        },
+        "evidenceWindowLines": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 20
+        }
+      }
+    },
+    "ruleValue": {
+      "oneOf": [
+        {
+          "$ref": "#/$defs/severity"
+        },
+        {
+          "type": "array",
+          "prefixItems": [
+            {
+              "$ref": "#/$defs/severity"
+            },
+            {
+              "$ref": "#/$defs/ruleOptions"
+            }
+          ],
+          "minItems": 1,
+          "maxItems": 2
+        }
+      ]
+    },
+    "ruleMap": {
+      "type": "object",
+      "additionalProperties": {
+        "$ref": "#/$defs/ruleValue"
+      }
+    }
+  }
+}

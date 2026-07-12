@@ -1,0 +1,34 @@
+@prefix dcat: <http://www.w3.org/ns/dcat#> .
+@prefix dct: <http://purl.org/dc/terms/> .
+@prefix ex: <https://data.molit.go.kr/id/example-invalid/> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+@prefix geodcatap: <http://data.europa.eu/930/> .
+@prefix geo: <http://www.opengis.net/ont/geosparql#> .
+@prefix molit: <https://data.molit.go.kr/def/molit-dcat-ap#> .
+@prefix quality: <https://data.molit.go.kr/id/concept/quality-status/> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+ex:dataset
+    a dcat:Dataset,
+        dcat:Resource,
+        molit:SpatialDataset ;
+    dct:identifier "wkt-without-crs" ;
+    dct:title "WKT CRS 누락 오류"@ko ;
+    dct:description "WKT literal 선두에 CRS IRI가 없다."@ko ;
+    dct:publisher ex:publisher ;
+    dct:modified "2026-07-12"^^xsd:date ;
+    dct:accessRights <http://publications.europa.eu/resource/authority/access-right/PUBLIC> ;
+    dct:spatial ex:location ;
+    geodcatap:referenceSystem <http://www.opengis.net/def/crs/OGC/1.3/CRS84> ;
+    dcat:theme <http://publications.europa.eu/resource/authority/data-theme/TRAN>,
+        <https://data.molit.go.kr/id/concept/domain/road> ;
+    molit:qualityStatus quality:not-assessed ;
+    molit:spatialDisclosureLevel <https://data.molit.go.kr/id/concept/spatial-disclosure-level/generalized> .
+
+ex:publisher
+    a foaf:Agent ;
+    foaf:name "시험 발행기관"@ko .
+
+ex:location
+    a dct:Location ;
+    dcat:bbox "POLYGON((126 37,127 37,127 38,126 38,126 37))"^^geo:wktLiteral .
