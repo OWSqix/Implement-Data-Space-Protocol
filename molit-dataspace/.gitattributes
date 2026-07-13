@@ -12,3 +12,11 @@ profiles/molit-dcat-ap/releases/** text eol=lf -ident -filter -working-tree-enco
 **/*.jpg -text
 **/*.jpeg -text
 **/*.pdf -text
+
+# Content-addressed evidence keeps its original bytes on every checkout.
+# Digest registers hash the fetched bytes, so eol normalization on checkout
+# breaks clean-clone verification (BS-CHECKOUT-NORMALIZATION).
+standards/vendor/** -text
+standards/mappings/** -text
+tests/namespace/fixtures/** -text
+fixtures/interoperability/** -text

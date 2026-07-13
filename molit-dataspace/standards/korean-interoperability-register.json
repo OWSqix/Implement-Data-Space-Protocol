@@ -1881,6 +1881,33 @@
       "affectedModules": [
         "core"
       ]
+    },
+    {
+      "id": "BS-CHECKOUT-NORMALIZATION",
+      "severity": "P0",
+      "finding": "git eol 정규화(text=auto eol=lf)가 clean checkout에서 CRLF 원본 증거 byte를 LF로 재작성해 digest 검증이 실패했다. 원본 byte가 남은 작업 트리에서만 검증이 통과해 clean clone 재현성이 깨졌다.",
+      "status": "fixed",
+      "evidence": [
+        {
+          "kind": "repository-file",
+          "path": "tests/contract/checkout-normalization.test.mjs"
+        },
+        {
+          "kind": "control-id",
+          "value": "ST-CHECKOUT-NORM-001",
+          "status": "implemented"
+        },
+        {
+          "kind": "note",
+          "value": "gitattributes pins standards vendor and mappings plus namespace fixtures and interoperability fixtures as -text so every checkout preserves recorded evidence bytes"
+        }
+      ],
+      "releaseGateRequired": true,
+      "currentlyBlocksRelease": false,
+      "blockingScope": "standard-core",
+      "affectedModules": [
+        "release-infrastructure"
+      ]
     }
   ]
 }

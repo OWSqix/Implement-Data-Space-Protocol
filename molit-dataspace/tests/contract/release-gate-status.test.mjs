@@ -19,7 +19,7 @@ test("RELEASE-GATE-001: unresolved machine-register decisions block release", as
   assert.ok(report.blockers.some(({ id }) => id === "ISO19115-OFFICIAL-BYTES"));
   assert.deepEqual(report.inputEvidence, {
     "standards/korean-interoperability-register.json":
-      "1ad2fe10f34148dce1611d2c9cdf74eb755d1640e1c4f1f2238e079f47e2ae4c",
+      "6b560e70e2e7d78d40823b8e503ff9c4d4ffa8b491f4ca2a535ff328a22b008c",
     "standards/provider-authority-registry.json":
       "e91563ef137b756e5f3c14820293eda141d25a78d6e2e951d53514301bc71684",
     "standards/iso19115-1-tech-gate/manifest.json":
@@ -27,7 +27,7 @@ test("RELEASE-GATE-001: unresolved machine-register decisions block release", as
   });
   assert.equal(
     createHash("sha256").update(JSON.stringify(report)).digest("hex"),
-    "14c06a2f766d957bd29ee9757d7998f1f794cb5f09af6fe34de83bf85f804514",
+    "21011ec624ac25a2d2ef2990989062cbd7e0325c5b750ec69fb09afafbd388c4",
   );
 });
 
@@ -42,7 +42,7 @@ test("RELEASE-GATE-002: the command uses exit 2 for a valid blocked decision", (
   assert.equal(result.status, 2, result.stderr);
   assert.equal(
     createHash("sha256").update(result.stdout, "utf8").digest("hex"),
-    "114ca11dfe1f02dbe898a1be9cd9c097cf8c1ba7a1e0f864be97916b68c485b7",
+    "53d441519bc87dfcda8368e519bbf2e9e793fd0e83e1c055d8c01cb060dd7253",
   );
   const report = JSON.parse(result.stdout);
   assert.equal(report.releaseEligible, false);
