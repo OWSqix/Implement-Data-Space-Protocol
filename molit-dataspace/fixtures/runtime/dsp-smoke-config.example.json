@@ -1,0 +1,12 @@
+{
+  "baseUrl": "https://provider-connector.example.go.kr",
+  "catalogPath": "/catalog/request",
+  "contractPath": "/negotiations/request",
+  "contractStatusPath": "/negotiations",
+  "transferPath": "/transfers/request",
+  "transferStatusPath": "/transfers",
+  "statusPollLimit": 20,
+  "statusPollIntervalMs": 1000,
+  "pollingAgreementIdExtension": true,
+  "auth": { "type": "bearer", "env": "MOLIT_DSP_TOKEN" }
+}

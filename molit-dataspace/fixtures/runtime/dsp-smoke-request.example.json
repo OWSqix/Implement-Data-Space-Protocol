@@ -1,0 +1,9 @@
+{
+  "operationId": "operator-approved-smoke-001",
+  "datasetId": "urn:example:dataset",
+  "approvedOfferId": "urn:example:offer",
+  "approvedOfferDigest": "replace-with-sha256-stable-json-digest",
+  "consumerPid": "urn:example:consumer-process",
+  "callbackAddress": "https://consumer-connector.example.go.kr/callback",
+  "format": "HttpData-PULL"
+}

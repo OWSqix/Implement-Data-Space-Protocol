@@ -1,9 +1,9 @@
 # 국토교통 기존 플랫폼의 데이터 스페이스 연계 연구
 
 작성일: 2026-07-11  
-작성 기준: 2026-07-12  
+작성 기준: 2026-07-13
 상태: Active  
-단계: Implementation / Discovery Bridge S1 + Metadata Profile 0.1.0
+단계: MOLIT DCAT-AP 1.0.0-rc.1 Candidate / Provider 연계 런타임 구현
 
 ## 1. 연구 질문
 
@@ -19,7 +19,11 @@ Mobilithek은 조건에 맞는 hosted·brokered 데이터의 구독과 전달을
 
 이 저장소는 국토교통부의 공식 사업 또는 운영 시스템이 아니다. 특정 Connector 제품, 배포 환경, 운영기관도 아직 채택하지 않았다.
 
-현재 코드는 `synthetic-test-only` approval과 `.invalid` URL만 허용한다. 모든 outbox command는 `automaticDispatchAllowed=false`이며 실제 플랫폼·Catalog·Connector에 보내면 안 된다.
+기존 `src/discovery/` 구현은 `synthetic-test-only` approval과 `.invalid` URL만 허용한다. 이 경로의 outbox command는 `automaticDispatchAllowed=false`이며 실제 플랫폼·Catalog·Connector에 보내면 안 된다.
+
+운영 연계용 코드는 별도 경로에 두었다. `src/bridge-runtime/`은 검증된 RDF와 분리 승인 원장을 거쳐 Provider Connector 관리 API에 게시한다.
+
+`src/transfer-runtime/`은 Connector가 승인한 pull 전송을 플랫폼의 token·signed URL·snapshot·export job과 연결한다. 기관 API, Connector 관리 계약, 자격증명과 배포 증거가 없으므로 현재 저장소만으로 live 운영이 끝난 것은 아니다.
 
 문서는 [작성 규칙](docs/writing-style.md)과 [기획보고서 문체 프로파일](docs/report-writing-style-profile.md)에 따라 작성한다. 보고서의 위계와 압축된 문어체는 유지하고 근거 없는 강조, 반복 요약, 상투적 대비와 기술적 단정은 제거한다.
 
@@ -45,7 +49,10 @@ Mobilithek은 조건에 맞는 hosted·brokered 데이터의 구독과 전달을
 | 분석센터 Open API | 회원 화면의 정의와 신청 절차 확인 | 지원 hostname·DNS·HTTPS, server-to-server 범위, SLA |
 | DSP | Catalog·계약·전송 제어의 기준 | 실제 transfer profile과 Connector 제품 선택 |
 | Provider 모델 | 역할을 데이터셋별 증거로 결정 | 계약·재제공·credential 위임 문서 |
-| Metadata profile | DCAT-AP 3.0.1 기반 0.1.0 Working Draft, Core·Geo SHACL과 고정 preflight 구현 | 운영 URI, 실제 레코드 mapping과 기관 승인 |
+| Metadata profile | DCAT-AP 3.0.1 기반 1.0.0-rc.1 Candidate, 모듈별 SHACL·요구사항 원장·고정 증거 구현 | Recommendation 차단항목과 기관 승인 |
+| Profile·ontology namespace | `/def`·`/profile` 서버, content negotiation, artifact lock·원격 attestation 구현 | DNS·공인 TLS·운영 승인과 어휘 namespace |
+| Provider 게시 Bridge | 원천 poll, staged RDF Gate, 분리 승인, durable queue, 관리 API 게시 구현 | 기관별 crosswalk·Connector 관리 API·멱등 계약 |
+| 전송 provisioning | 승인 상태 재조회, private binding, pull DataAddress 발급·철회 journal 구현 | Connector webhook inbox, push·suspend·complete adapter, 실제 Data Plane 시험 |
 | PoC | 공개 데이터로 lifecycle을 먼저 검증 | 실제 플랫폼 후보와 sandbox 승인 |
 
 ## 4. 문서 읽는 순서
@@ -80,7 +87,11 @@ Mobilithek은 조건에 맞는 hosted·brokered 데이터의 구독과 전달을
 26. [release 차단 Gate 현황](docs/03-plan/release-gate-status.md)
 27. [위험 대장](docs/03-plan/risk-register.md)
 28. [Discovery Bridge 구현](docs/04-implementation/discovery-bridge.md)
-29. [결정 기록](docs/adr/README.md)
+29. [MOLIT DCAT-AP 1.0.0-rc.1 구현 해설](docs/04-implementation/molit-dcat-ap-implementation-guide.md)
+30. [Provider 게시 Bridge 운영 구현](docs/04-implementation/production-bridge-runtime.md)
+31. [공급자 전송 provisioning Worker](docs/04-implementation/provider-transfer-worker.md)
+32. [Profile·ontology namespace 배포](docs/04-implementation/stable-namespace-operations.md)
+33. [결정 기록](docs/adr/README.md)
 
 조사의 근거는 다음 파일에서 추적한다.
 
@@ -97,6 +108,9 @@ molit-dataspace/
   contracts/           metadata batch·Connector 등록 후보·SHACL report schema
   fixtures/discovery/  운영 데이터가 아닌 합성 계약시험 자료
   src/discovery/       분류·Gate·증분 동기화·상태·outbox
+  src/bridge-runtime/  운영 플랫폼 poll·RDF Gate·Connector 게시 queue
+  src/transfer-runtime/ Connector 승인 전송과 플랫폼 자원 provisioning
+  src/publication/     Profile·ontology namespace HTTP 서버와 attestation
   src/profile/         RDF loading·artifact lock·SHACL validation
   src/cli.mjs          baseline·delta 실행 명령
   tests/               단위·통합 시험
@@ -114,11 +128,13 @@ molit-dataspace/
 ```
 
 - **(착수)** 2026-07-11 개발 착수 지시에 따라 `src/`와 `tests/` 추가
-- **(현재 구현)** 합성 fixture를 처리하는 Connector 중립 Discovery Bridge
-- **(현재 구현)** DCAT-AP 3.0.1 기반 국토교통 응용 프로파일 0.1.0과 로컬 검증 CLI
-- **(미연결)** 운영 플랫폼 API, DSP Connector, Data Plane과 entitlement
-- **(미연결)** Bridge v1 candidate와 응용 프로파일 RDF projection
-- **(후속 승인)** 제품 Spike와 ADR 승인 뒤 `deploy/` 추가 및 EDC·CaaS 채택
+- **(격리 유지)** 합성 fixture만 처리하는 Discovery Bridge S1
+- **(현재 구현)** DCAT-AP 3.0.1 기반 국토교통 응용 프로파일 1.0.0-rc.1 Candidate와 검증 CLI
+- **(현재 구현)** staged RDF Gate와 분리 승인을 적용한 Provider 게시 Bridge
+- **(현재 구현)** Connector 승인 pull 전송의 platform provisioning·revoke Worker
+- **(현재 구현)** Profile·ontology namespace 서버와 배포·원격 attestation 도구
+- **(미연결)** 기관별 원천 crosswalk, 운영 Connector 관리 API, push·suspend·complete Data Plane
+- **(후속 승인)** DNS·TLS·namespace·어휘·Connector 제품·기관 운영 배포
 
 상위 저장소의 `docs/blog/code/dsp-python`은 DSP version endpoint 학습용 scaffold이며 운영 Connector나 이 프로젝트의 구현체로 보지 않는다.
 
@@ -147,7 +163,23 @@ Windows에서는 상위 directory의 접근제어목록을 상속하므로 별�
 
 세부 계약과 판정 규칙은 [Discovery Bridge 구현](docs/04-implementation/discovery-bridge.md)에 정리한다.
 
-### 5.2 검증
+### 5.2 운영 연계 런타임
+
+다음 명령은 소스 실행 진입점이다. 예제 도메인과 `.local` 경로를 기관 설정으로 교체하고, 환경 변수에 자격증명을 주입한 뒤 사용한다.
+
+```powershell
+npm run namespace:serve
+npm run bridge:runtime:dry-run
+npm run bridge:runtime:once
+npm run transfer:worker -- `
+  --config fixtures/transfer-runtime/config.example.json `
+  --bindings fixtures/transfer-runtime/bindings.example.json `
+  --event fixtures/transfer-runtime/start-event.example.json
+```
+
+`bridge:runtime`은 Provider 게시용이다. DSP Consumer 참조 시험과 Provider 전송 provisioning은 서로 다른 프로세스다. 설정·승인 원장·상태 복구와 Connector별 완료조건은 [Provider 게시 Bridge 운영 구현](docs/04-implementation/production-bridge-runtime.md)과 [공급자 전송 provisioning Worker](docs/04-implementation/provider-transfer-worker.md)를 따른다.
+
+### 5.3 검증
 
 Node.js 24 이상과 Python 3.12를 사용한다. 독립 SHACL lane의 Python 패키지는 전이 의존성을 포함한 wheel hash로 고정했다.
 

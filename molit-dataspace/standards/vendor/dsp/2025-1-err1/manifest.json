@@ -1,0 +1,234 @@
+{
+  "schemaVersion": "molit.vendor-snapshot/1",
+  "upstream": "https://github.com/eclipse-dataspace-protocol-base/DataspaceProtocol",
+  "tag": "2025-1-err1",
+  "commit": "6d458834cab8011a18d65a7b56a9a1fac9b516e0",
+  "license": "Apache-2.0",
+  "retrievedAt": "2026-07-13",
+  "files": [
+    {
+      "path": "LICENSE",
+      "sha256": "59899c6091b540582ed617e8eeaac4919dc985ccfc35459ee9752b699be5205b"
+    },
+    {
+      "path": "catalog/catalog-error-schema.json",
+      "sha256": "9bdc6052beb804c5c50d3695eaa8cfff3033f882ac886af093efdba3ff9105d6"
+    },
+    {
+      "path": "catalog/catalog-request-message-schema.json",
+      "sha256": "9756cb409e94b98d0a36188fcdd27f73043ee2c9014b7021848c70d3518e6264"
+    },
+    {
+      "path": "catalog/catalog-schema.json",
+      "sha256": "153c3a6868b93078b140a0a56df7b788dd4f03b665c63de5485fed8acb9a944c"
+    },
+    {
+      "path": "catalog/dataset-request-message-schema.json",
+      "sha256": "1772ccefe327176c7360b7942b0605ad8e513393d0504b86c18d66e8d25b6506"
+    },
+    {
+      "path": "catalog/dataset-schema.json",
+      "sha256": "bdb9e0bb915eda867c2c477c78b2bf215bc53b95e715725cb330dbd280dcd4e3"
+    },
+    {
+      "path": "catalog/example/catalog-error.json",
+      "sha256": "04aa6fdc60e0edb046696e6fcddad0f4da7e9e3cd92998b6cf0543359d77afb0"
+    },
+    {
+      "path": "catalog/example/catalog-request-message.json",
+      "sha256": "57f74a602516d7ee8a3f0455a1503bd1ff0f4656d52226c512efe92e2bd76a63"
+    },
+    {
+      "path": "catalog/example/catalog.json",
+      "sha256": "9fa1119c32d033bb977a03efcee6077e17c51e472b9d622b5e85d55d57a9a85e"
+    },
+    {
+      "path": "catalog/example/dataset-request-message.json",
+      "sha256": "5d7d15acf59b47c78c42517d9e6ea87645c204261eb99333a9da8c0bcb02305b"
+    },
+    {
+      "path": "catalog/example/dataset.json",
+      "sha256": "7495ca740654caa384a479ee36a62130ac714f657f554aad1cafaf445d9940c9"
+    },
+    {
+      "path": "catalog/example/nested-catalog.json",
+      "sha256": "ae7e55d2c5eb6470fecebec33bee1de8a7be26a4179ffde8b4de0903b619e643"
+    },
+    {
+      "path": "common/context-schema.json",
+      "sha256": "e28b6f2a2b2b8461bfd429b1be2fd18d11b81f4343a0c88211a79767a773e367"
+    },
+    {
+      "path": "common/did-service-schema.json",
+      "sha256": "bec4ca6d620365c33ac14e3d9a38d9aa61f0fab290477f132a9134641039fc48"
+    },
+    {
+      "path": "common/example/catalogservice-did-service.json",
+      "sha256": "c398d3fb02a95dd24a4ee85343609184b03abd2541b0a100aa5765bc58c46686"
+    },
+    {
+      "path": "common/example/dataservice-did-service.json",
+      "sha256": "d311d6e623f9704fa617371a62846039d03a10e94ec18fbe3e817b6a14c77990"
+    },
+    {
+      "path": "common/example/protocol-version.json",
+      "sha256": "89a2fa27902b8e112f65be6c425be32daad133b4c202b35f65662118a961dbb7"
+    },
+    {
+      "path": "common/protocol-version-schema.json",
+      "sha256": "6ce68dafe5e5d99884f296b9c037ce7495ba59da10d29ae559b0ee1b1e1e2ef3"
+    },
+    {
+      "path": "context/dspace.jsonld",
+      "sha256": "4c09141559c51331c8cb6946c93040d799c39f269afde5d76d79076b9645e1ea"
+    },
+    {
+      "path": "context/odrl.jsonld",
+      "sha256": "65b96c89a93830c6d8c1b7bba93f4ce64411fe9bb942b445a6d27862511bbb9d"
+    },
+    {
+      "path": "negotiation/contract-agreement-message-schema.json",
+      "sha256": "169fb03e5d17620c14a84885b0b93c51eb7810c5bcdc0cad871b29e59b889644"
+    },
+    {
+      "path": "negotiation/contract-agreement-verification-message-schema.json",
+      "sha256": "f67715857aa8aa9d93aa53aee74c52c59de9295e3a664d6613331da5d2226498"
+    },
+    {
+      "path": "negotiation/contract-negotiation-error-schema.json",
+      "sha256": "4d9a0fa685dc5150d342085a8aef1f211a32994856f99fb6fcf8c15ceecf16e7"
+    },
+    {
+      "path": "negotiation/contract-negotiation-event-message-schema.json",
+      "sha256": "3a38c3b0176a4fbbcc3b62f01745bb5e4206c67846e5e70952d99dd24ffe21fb"
+    },
+    {
+      "path": "negotiation/contract-negotiation-schema.json",
+      "sha256": "7df60324fffbd2aec94e2818562c25fecd91fcbb559e4fae270b0abfb951e2ee"
+    },
+    {
+      "path": "negotiation/contract-negotiation-termination-message-schema.json",
+      "sha256": "f2d28b424efabe948004ea748b8d0c6d3a3e5eca9bf3433ce0608516f4410f83"
+    },
+    {
+      "path": "negotiation/contract-offer-message-schema.json",
+      "sha256": "97e9073daaeedae23c82f347e9cac02d689640fb5842b577978e66775eace6f6"
+    },
+    {
+      "path": "negotiation/contract-request-message-schema.json",
+      "sha256": "6e9c733793b3a5e0812713d9798312a2d8f471940b1581f01223d0682db6d006"
+    },
+    {
+      "path": "negotiation/contract-schema.json",
+      "sha256": "2eef5cef3f1a9ae600ddff622d59191224307a8f175abca6bc9ce581538481cb"
+    },
+    {
+      "path": "negotiation/example/contract-agreement-message-full.json",
+      "sha256": "d29f4ede00f0c224c744c5f9dc065d801b7313e77f162a51575c089a98279b18"
+    },
+    {
+      "path": "negotiation/example/contract-agreement-message.json",
+      "sha256": "6599d70d8642f0f629924d3745280c5c6a447ecbea39a48a85670cd062cdeead"
+    },
+    {
+      "path": "negotiation/example/contract-agreement-verification-message.json",
+      "sha256": "7e7e210efc3ea817153a6e6c09f0cb6c8914bb911574960c0f5c9057eafb547a"
+    },
+    {
+      "path": "negotiation/example/contract-negotiation-error.json",
+      "sha256": "c8d24b47783adeffcb1882e2b750a8f4d5e55388c6bbb7ab4783168208dd7d10"
+    },
+    {
+      "path": "negotiation/example/contract-negotiation-event-message.json",
+      "sha256": "7e505d31cb6683c6a1c85a11349b37810aff2d602d666dccbe7c71653e103279"
+    },
+    {
+      "path": "negotiation/example/contract-negotiation-termination-message.json",
+      "sha256": "9c9d07b46ad98db1f65666d8b528093f8d44a9f1d752bebf4715391db61c0f5c"
+    },
+    {
+      "path": "negotiation/example/contract-negotiation.json",
+      "sha256": "f2cdc7a0e348696aaeb49303bd01f836840e250ad8b5c233a1476e91fa56f672"
+    },
+    {
+      "path": "negotiation/example/contract-offer-message.json",
+      "sha256": "966ef7431b23035c5fb0ca5f323831c9b69ba6b4a030c57209336d97c5d2e118"
+    },
+    {
+      "path": "negotiation/example/contract-offer-message_initial.json",
+      "sha256": "6b04f18d4c31614f93a7950b09d73b7e3172be8bff5e3e19cbfa6d81bc836774"
+    },
+    {
+      "path": "negotiation/example/contract-request-message.json",
+      "sha256": "578dd51efda4fa629b2cfc61a427fe4af4d6ed88a0d05e9618a14794215fde00"
+    },
+    {
+      "path": "negotiation/example/contract-request-message_initial.json",
+      "sha256": "0b3e5fee0bd70a7dc9a4f9a33897b510d10435b990f635b911bd53b1fc2e7cb5"
+    },
+    {
+      "path": "transfer/data-address-schema.json",
+      "sha256": "61d880686d2a8d187cdddf26caa509a133481bbbe56cba7e53eaf9c139b2421d"
+    },
+    {
+      "path": "transfer/example/transfer-completion-message.json",
+      "sha256": "f56aa946312d22db500081fb740f628ac395ad06ffa3e65ff1bf885b61b546b3"
+    },
+    {
+      "path": "transfer/example/transfer-error.json",
+      "sha256": "9a435cd32f4b8d5919a1673f69e7eefe4b99393847d6d4e865f5750950f7218d"
+    },
+    {
+      "path": "transfer/example/transfer-process.json",
+      "sha256": "d24dd55f8316d192d4815583eb98670f21b7fda341d5a2640f2b0ba717c2af62"
+    },
+    {
+      "path": "transfer/example/transfer-request-message.json",
+      "sha256": "5fcbd24a7cec7b072bb6306394d4c2d3c08f7f523b6b980d6483bfdcabea0944"
+    },
+    {
+      "path": "transfer/example/transfer-start-message.json",
+      "sha256": "8579b9a9f3af1fd41eaffa6f2e48fca7f6c3326a77e6ab2eb6669ec824d00877"
+    },
+    {
+      "path": "transfer/example/transfer-suspension-message.json",
+      "sha256": "3ff45abaff0c412cdc346f91c836b7b122055e27ddd13ed13bf380a625a3fa8a"
+    },
+    {
+      "path": "transfer/example/transfer-termination-message.json",
+      "sha256": "c87410353b4fd36e6feec71e7ea6afcfc628df4e35a299c43880f8f1e6290f9b"
+    },
+    {
+      "path": "transfer/transfer-completion-message-schema.json",
+      "sha256": "c32976f0c329c07ba7b9ab97234c6966480f2ae53d33d74ed1d706abd3c14d6d"
+    },
+    {
+      "path": "transfer/transfer-error-schema.json",
+      "sha256": "b7c56ed613f17fe41acd8b19a9f0b7eedf8905e7a64bd7da12374aa970c0017a"
+    },
+    {
+      "path": "transfer/transfer-process-schema.json",
+      "sha256": "a0f0beadb4de7b35607d961793d76bf4b419a8faddbba2dc689feecae8c63f22"
+    },
+    {
+      "path": "transfer/transfer-request-message-schema.json",
+      "sha256": "98fb38480b9ed2ab9dacc6e235d6d1043c389b0af522928f2479841941723959"
+    },
+    {
+      "path": "transfer/transfer-schema.json",
+      "sha256": "b570b6459cc7e6182c3267dac82886a59cd4e8e06f7d738f966171fd41175069"
+    },
+    {
+      "path": "transfer/transfer-start-message-schema.json",
+      "sha256": "f9baf629b232cbb998629a8d403b86b4996da3e4dac34418f98fbbe3720dbc36"
+    },
+    {
+      "path": "transfer/transfer-suspension-message-schema.json",
+      "sha256": "4a3192674fe4de840d69a534b89dc9baaadbc1ab05d719c2424e49cf3331c959"
+    },
+    {
+      "path": "transfer/transfer-termination-message-schema.json",
+      "sha256": "da6eac4482cb603313d820d7c53969f596e5ec1bdb6a5377c0932ba12eb07ec8"
+    }
+  ]
+}

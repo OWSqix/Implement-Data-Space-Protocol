@@ -1,0 +1,85 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://data.molit.go.kr/schema/bridge-runtime-config.v1.json",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["statePath", "approvalRegistryPath", "metadataRoot", "provider", "mapping", "management"],
+  "properties": {
+    "statePath": { "type": "string", "minLength": 1 },
+    "approvalRegistryPath": { "type": "string", "minLength": 1 },
+    "metadataRoot": { "type": "string", "minLength": 1 },
+    "pollIntervalMs": { "type": "integer", "minimum": 1000, "maximum": 86400000 },
+    "fixtureMode": { "type": "boolean" },
+    "privateOrigins": { "type": "array", "maxItems": 20, "uniqueItems": true, "items": { "type": "string", "format": "uri" } },
+    "mapping": {
+      "type": "object", "additionalProperties": false,
+      "required": ["approvalIdPath", "metadataPath", "offeringPath", "profileName", "profileVersion"],
+      "properties": {
+        "approvalIdPath": { "type": "string", "minLength": 1 },
+        "metadataPath": { "type": "string", "minLength": 1 },
+        "profileName": { "type": "string", "minLength": 1 },
+        "profileVersion": { "type": "string", "minLength": 1 },
+        "maxMetadataBytes": { "type": "integer", "minimum": 1024, "maximum": 33554432 },
+        "offeringPath": { "type": "string", "minLength": 1 }
+      }
+    },
+    "provider": { "$ref": "#/$defs/provider" },
+    "management": { "$ref": "#/$defs/management" },
+    "http": {
+      "type": "object", "additionalProperties": false,
+      "properties": {
+        "timeoutMs": { "type": "integer", "minimum": 100, "maximum": 120000 },
+        "maxResponseBytes": { "type": "integer", "minimum": 1024, "maximum": 33554432 },
+        "retries": { "type": "integer", "minimum": 0, "maximum": 10 },
+        "baseDelayMs": { "type": "integer", "minimum": 1, "maximum": 60000 },
+        "maxDelayMs": { "type": "integer", "minimum": 1, "maximum": 300000 },
+        "circuitFailureThreshold": { "type": "integer", "minimum": 1, "maximum": 100 },
+        "circuitOpenMs": { "type": "integer", "minimum": 1000, "maximum": 3600000 }
+      }
+    },
+    "queue": {
+      "type": "object", "additionalProperties": false,
+      "properties": {
+        "claimLimit": { "const": 1 },
+        "leaseMs": { "type": "integer", "minimum": 10000, "maximum": 3600000 },
+        "leaseHeartbeatMs": { "type": "integer", "minimum": 1000, "maximum": 1200000 },
+        "maxAttempts": { "type": "integer", "minimum": 1, "maximum": 100 },
+        "retryBaseMs": { "type": "integer", "minimum": 1, "maximum": 300000 },
+        "retryMaxMs": { "type": "integer", "minimum": 1, "maximum": 86400000 }
+      }
+    }
+  },
+  "$defs": {
+    "auth": {
+      "type": "object", "additionalProperties": false, "required": ["type", "env"],
+      "properties": {
+        "type": { "enum": ["bearer", "api-key"] },
+        "env": { "type": "string", "pattern": "^[A-Z][A-Z0-9_]*$" },
+        "header": { "type": "string", "pattern": "^[A-Za-z0-9-]+$" }
+      }
+    },
+    "provider": {
+      "type": "object", "additionalProperties": false, "required": ["id", "baseUrl", "path", "auth"],
+      "properties": {
+        "id": { "type": "string", "minLength": 1, "maxLength": 256 },
+        "baseUrl": { "type": "string", "format": "uri" },
+        "path": { "type": "string", "minLength": 1 },
+        "itemsPath": { "type": "string", "minLength": 1 },
+        "nextCursorPath": { "type": "string", "minLength": 1 },
+        "idPath": { "type": "string", "minLength": 1 },
+        "versionPath": { "type": "string", "minLength": 1 },
+        "cursorParameter": { "type": "string", "minLength": 1, "maxLength": 128 },
+        "initialCursor": { "type": ["string", "null"], "maxLength": 2048 },
+        "maxPageBytes": { "type": "integer", "minimum": 1024, "maximum": 33554432 },
+        "maxItemsPerPage": { "type": "integer", "minimum": 1, "maximum": 10000 },
+        "maxItemsPerPoll": { "type": "integer", "minimum": 1, "maximum": 100000 },
+        "maxPages": { "type": "integer", "minimum": 1, "maximum": 10000 },
+        "auth": { "$ref": "#/$defs/auth" }
+      }
+    },
+    "management": {
+      "type": "object", "additionalProperties": false, "required": ["baseUrl", "publicationPath", "supportsIdempotencyKey", "auth"],
+      "properties": { "baseUrl": { "type": "string", "format": "uri" }, "publicationPath": { "type": "string" }, "supportsIdempotencyKey": { "const": true }, "auth": { "$ref": "#/$defs/auth" } }
+    }
+  }
+}

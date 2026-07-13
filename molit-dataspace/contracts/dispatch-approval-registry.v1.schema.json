@@ -1,0 +1,28 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://data.molit.go.kr/schema/dispatch-approval-registry.v1.json",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "entries"],
+  "properties": {
+    "schemaVersion": { "const": "molit.dispatch-approval-registry/1" },
+    "entries": {
+      "type": "array", "maxItems": 100000,
+      "items": {
+        "type": "object", "additionalProperties": false,
+        "required": ["approvalId", "sourceSystemId", "sourceRecordId", "resourceVersion", "payloadDigest", "validFrom", "validUntil", "status", "approvedBy"],
+        "properties": {
+          "approvalId": { "type": "string", "minLength": 1, "maxLength": 256 },
+          "sourceSystemId": { "type": "string", "minLength": 1, "maxLength": 256 },
+          "sourceRecordId": { "type": "string", "minLength": 1, "maxLength": 512 },
+          "resourceVersion": { "anyOf": [{ "type": "string" }, { "type": "number" }] },
+          "payloadDigest": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+          "validFrom": { "type": "string", "format": "date-time" },
+          "validUntil": { "type": "string", "format": "date-time" },
+          "status": { "enum": ["approved", "revoked"] },
+          "approvedBy": { "type": "string", "minLength": 1, "maxLength": 512 }
+        }
+      }
+    }
+  }
+}

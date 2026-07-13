@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://data.molit.go.kr/schema/provider-transfer-event.v1.json",
+  "title": "Connector-authorized bounded START/TERMINATE pull lifecycle event",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "eventId", "action", "providerPid", "consumerPid", "agreementId", "datasetId", "format"],
+  "properties": {
+    "schemaVersion": { "const": "molit.provider-transfer-event/1" },
+    "eventId": { "$ref": "#/$defs/id" },
+    "action": { "enum": ["START", "TERMINATE"] },
+    "providerPid": { "$ref": "#/$defs/id" },
+    "consumerPid": { "$ref": "#/$defs/id" },
+    "agreementId": { "$ref": "#/$defs/id" },
+    "datasetId": { "$ref": "#/$defs/id" },
+    "format": { "$ref": "#/$defs/id" }
+  },
+  "$defs": {
+    "id": { "type": "string", "minLength": 1, "maxLength": 512, "pattern": "^[^\\u0000-\\u001f\\u007f]+$" }
+  }
+}

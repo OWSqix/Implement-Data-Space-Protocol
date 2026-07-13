@@ -1,0 +1,70 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://data.molit.go.kr/schema/provider-transfer-runtime-config.v1.json",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "environment", "journalPath", "network", "connector", "provisioners"],
+  "properties": {
+    "schemaVersion": { "const": "molit.provider-transfer-runtime-config/1" },
+    "environment": { "enum": ["production", "development", "test"] },
+    "journalPath": { "type": "string", "minLength": 1 },
+    "network": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["allowedOrigins", "privateOrigins", "allowHttp", "allowPrivate", "timeoutMs", "maxResponseBytes", "retries"],
+      "properties": {
+        "allowedOrigins": { "type": "array", "uniqueItems": true, "items": { "type": "string", "format": "uri" } },
+        "privateOrigins": { "type": "array", "uniqueItems": true, "items": { "type": "string", "format": "uri" } },
+        "allowHttp": { "type": "boolean" },
+        "allowPrivate": { "type": "boolean" },
+        "timeoutMs": { "type": "integer", "minimum": 100, "maximum": 120000 },
+        "maxResponseBytes": { "type": "integer", "minimum": 1024, "maximum": 16777216 },
+        "retries": { "type": "integer", "minimum": 0, "maximum": 8 }
+      }
+    },
+    "connector": { "$ref": "#/$defs/connector" },
+    "provisioners": {
+      "type": "object",
+      "minProperties": 1,
+      "additionalProperties": { "$ref": "#/$defs/provisioner" }
+    }
+  },
+  "$defs": {
+    "auth": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["type", "env"],
+      "properties": {
+        "type": { "enum": ["bearer", "api-key"] },
+        "env": { "type": "string", "pattern": "^[A-Z_][A-Z0-9_]*$" },
+        "header": { "type": "string", "pattern": "^[A-Za-z0-9-]+$" }
+      }
+    },
+    "connector": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["baseUrl", "statusPath", "startAckPath", "terminationAckPath", "supportsIdempotencyKey"],
+      "properties": {
+        "baseUrl": { "type": "string", "format": "uri" },
+        "statusPath": { "type": "string", "pattern": "\\{providerPid\\}" },
+        "startAckPath": { "type": "string", "pattern": "\\{providerPid\\}" },
+        "terminationAckPath": { "type": "string", "pattern": "\\{providerPid\\}" },
+        "supportsIdempotencyKey": { "const": true },
+        "auth": { "$ref": "#/$defs/auth" }
+      }
+    },
+    "provisioner": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["baseUrl", "provisionPath", "revokePath", "supportsIdempotencyKey", "idempotentRevoke"],
+      "properties": {
+        "baseUrl": { "type": "string", "format": "uri" },
+        "provisionPath": { "type": "string", "minLength": 1 },
+        "revokePath": { "type": "string", "minLength": 1 },
+        "supportsIdempotencyKey": { "const": true },
+        "idempotentRevoke": { "const": true },
+        "auth": { "$ref": "#/$defs/auth" }
+      }
+    }
+  }
+}

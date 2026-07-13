@@ -1,0 +1,31 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://data.molit.go.kr/schema/transfer-binding-registry.v1.json",
+  "title": "Private dataset-to-provisioner binding registry",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "bindings"],
+  "properties": {
+    "schemaVersion": { "const": "molit.transfer-binding-registry/1" },
+    "bindings": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["datasetId", "format", "transferMode", "provisionerId", "resourceRef", "enabled"],
+        "properties": {
+          "datasetId": { "$ref": "#/$defs/id" },
+          "format": { "$ref": "#/$defs/id" },
+          "transferMode": { "const": "PULL" },
+          "provisionerId": { "$ref": "#/$defs/id" },
+          "resourceRef": { "type": "object", "minProperties": 1, "maxProperties": 32, "additionalProperties": { "anyOf": [{ "type": "string", "maxLength": 4096 }, { "type": "number" }, { "type": "boolean" }] } },
+          "enabled": { "type": "boolean" }
+        }
+      }
+    }
+  },
+  "$defs": {
+    "id": { "type": "string", "minLength": 1, "maxLength": 512, "pattern": "^[^\\u0000-\\u001f\\u007f]+$" }
+  }
+}

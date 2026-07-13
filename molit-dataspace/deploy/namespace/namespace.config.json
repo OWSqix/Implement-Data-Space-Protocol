@@ -1,0 +1,15 @@
+{
+  "allowedHosts": ["data.molit.go.kr"],
+  "contractFile": "publication/content-negotiation.json",
+  "gracefulShutdownMs": 10000,
+  "headerTimeoutMs": 10000,
+  "keepAliveTimeoutMs": 5000,
+  "listenHost": "0.0.0.0",
+  "maxArtifactBytes": 33554432,
+  "maxSnapshotBytes": 134217728,
+  "maxUrlLength": 4096,
+  "port": 8080,
+  "publicOrigin": "https://data.molit.go.kr",
+  "releaseRoot": "/app/profiles/molit-dcat-ap/releases/1.0.0-rc.1",
+  "requestTimeoutMs": 30000
+}

@@ -1,0 +1,13 @@
+**
+!package.json
+!package-lock.json
+!src/
+!src/profile/
+!src/profile/content-negotiation.mjs
+!src/publication/
+!src/publication/**
+!profiles/
+!profiles/molit-dcat-ap/
+!profiles/molit-dcat-ap/releases/
+!profiles/molit-dcat-ap/releases/1.0.0-rc.1/
+!profiles/molit-dcat-ap/releases/1.0.0-rc.1/**

@@ -1,0 +1,10 @@
+{
+  "schemaVersion": "molit.provider-transfer-event/1",
+  "eventId": "evt-start-provider-001",
+  "action": "START",
+  "providerPid": "provider-001",
+  "consumerPid": "consumer-001",
+  "agreementId": "agreement-001",
+  "datasetId": "urn:molit:dataset:road-speed-hourly",
+  "format": "HttpData-PULL"
+}

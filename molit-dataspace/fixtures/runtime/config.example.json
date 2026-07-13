@@ -1,0 +1,51 @@
+{
+  "statePath": ".local/runtime-state.json",
+  "approvalRegistryPath": ".local/runtime-approvals.json",
+  "metadataRoot": ".local/metadata",
+  "pollIntervalMs": 60000,
+  "provider": {
+    "id": "molit-platform-01",
+    "baseUrl": "https://platform.example.go.kr",
+    "path": "/api/metadata",
+    "itemsPath": "items",
+    "nextCursorPath": "nextCursor",
+    "idPath": "id",
+    "versionPath": "version",
+    "cursorParameter": "cursor",
+    "maxPageBytes": 4194304,
+    "maxItemsPerPage": 1000,
+    "maxItemsPerPoll": 10000,
+    "maxPages": 100,
+    "auth": { "type": "bearer", "env": "MOLIT_PROVIDER_TOKEN" }
+  },
+  "mapping": {
+    "approvalIdPath": "dispatch.approvalId",
+    "metadataPath": "metadata.file",
+    "profileName": "dataspace-offering",
+    "profileVersion": "1.0.0-rc.1",
+    "maxMetadataBytes": 16777216,
+    "offeringPath": "publication.offering"
+  },
+  "management": {
+    "baseUrl": "https://connector-management.example.go.kr",
+    "publicationPath": "/management/assets",
+    "supportsIdempotencyKey": true,
+    "auth": { "type": "bearer", "env": "MOLIT_MANAGEMENT_TOKEN" }
+  },
+  "http": {
+    "timeoutMs": 15000,
+    "maxResponseBytes": 4194304,
+    "retries": 3,
+    "baseDelayMs": 200,
+    "maxDelayMs": 10000,
+    "circuitFailureThreshold": 5,
+    "circuitOpenMs": 30000
+  },
+  "queue": {
+    "claimLimit": 1,
+    "leaseMs": 60000,
+    "maxAttempts": 8,
+    "retryBaseMs": 1000,
+    "retryMaxMs": 300000
+  }
+}

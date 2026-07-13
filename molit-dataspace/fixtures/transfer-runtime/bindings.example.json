@@ -1,0 +1,16 @@
+{
+  "schemaVersion": "molit.transfer-binding-registry/1",
+  "bindings": [
+    {
+      "datasetId": "urn:molit:dataset:road-speed-hourly",
+      "format": "HttpData-PULL",
+      "transferMode": "PULL",
+      "provisionerId": "road-data-export",
+      "resourceRef": {
+        "catalogObject": "ROAD_SPEED_HOURLY",
+        "snapshotPolicy": "agreement-time"
+      },
+      "enabled": true
+    }
+  ]
+}

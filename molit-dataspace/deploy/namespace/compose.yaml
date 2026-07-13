@@ -1,0 +1,24 @@
+services:
+  molit-namespace:
+    build:
+      context: ../..
+      dockerfile: deploy/namespace/Dockerfile
+    image: molit-namespace:1.0.0-rc.1
+    environment:
+      MOLIT_NAMESPACE_ALLOWED_HOSTS: data.molit.go.kr
+      MOLIT_NAMESPACE_LISTEN_HOST: 0.0.0.0
+      MOLIT_NAMESPACE_PORT: "8080"
+      MOLIT_NAMESPACE_PUBLIC_ORIGIN: https://data.molit.go.kr
+      MOLIT_NAMESPACE_RELEASE_ROOT: /app/profiles/molit-dcat-ap/releases/1.0.0-rc.1
+    init: true
+    ports:
+      - "127.0.0.1:8080:8080"
+    read_only: true
+    restart: unless-stopped
+    security_opt:
+      - no-new-privileges:true
+    cap_drop:
+      - ALL
+    tmpfs:
+      - /tmp:rw,noexec,nosuid,size=16m
+    pids_limit: 128
