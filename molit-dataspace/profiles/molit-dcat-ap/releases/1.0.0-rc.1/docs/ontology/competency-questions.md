@@ -152,6 +152,19 @@ WHERE {
 
 `superseded` 판은 신규 조인의 기본값이 아니지만 과거 데이터 재현을 위해 tombstone과 checksum을 유지한다.
 
+### 4.4 CQ-NET-04: 판본이 다루는 망 요소 유형은 무엇인가
+
+```sparql
+PREFIX molit: <https://data.molit.go.kr/def/molit-dcat-ap#>
+SELECT ?reference ?elementType
+WHERE {
+  ?reference a molit:NetworkReference ;
+             molit:networkElementType ?elementType .
+}
+```
+
+표준 노드링크 판본은 이 Query에서 `node`와 `link`를 반환한다. 판본 IRI만 같고 요소 유형이 다른 데이터를 같은 조인 규칙으로 처리하지 않는다.
+
 ## 5. 제공 메타데이터와 운영 자격
 
 ### 5.1 CQ-OFF-01: metadata 적합과 운영 자격을 구분할 수 있는가
@@ -234,6 +247,21 @@ WHERE {
 
 기대 결과는 0건이다. 결과가 있으면 다른 Dataset의 측정값을 재사용한 관계 오류다.
 
+### 6.4 CQ-QUAL-04: Dataset 품질상태의 범주형 근거는 무엇인가
+
+```sparql
+PREFIX dqv: <http://www.w3.org/ns/dqv#>
+PREFIX molit: <https://data.molit.go.kr/def/molit-dcat-ap#>
+SELECT ?dataset ?qualityStatus ?measurement ?resultConcept
+WHERE {
+  ?dataset molit:qualityStatus ?qualityStatus ;
+           dqv:hasQualityMeasurement ?measurement .
+  ?measurement molit:qualityResultConcept ?resultConcept .
+}
+```
+
+`qualityStatus`는 연결된 측정값과 함께 조회한다. 범주형 결과의 `dqv:value` 문자열과 통제 개념 IRI는 `qualityResultConcept`로 분리해 보존한다.
+
 ## 7. 후보 국내 registry
 
 ### 7.1 CQ-GOV-01: 후보 IRI가 권위식별자로 유통되지 않는가
@@ -250,7 +278,88 @@ WHERE {
 
 이 Query의 결과는 검토목록이다. 기관, 행정구역, 법령, 공공누리와 network edition 후보 IRI를 운영 Dataset의 권위값으로 승인하지 않는다.
 
-## 8. RC.1 통과 기준
+### 7.2 CQ-GOV-02: SHACL 통제의 책임·요구사항·조치 annotation은 어떤 범위를 갖는가
+
+```sparql
+PREFIX molit: <https://data.molit.go.kr/def/molit-dcat-ap#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+SELECT ?annotation ?domain ?range
+WHERE {
+  VALUES ?annotation {
+    molit:controlOwner
+    molit:requirementId
+    molit:remediation
+  }
+  ?annotation a owl:AnnotationProperty ;
+              rdfs:domain ?domain ;
+              rdfs:range ?range .
+}
+```
+
+세 annotation은 SHACL Shape를 대상으로 하고 문자열 값을 갖는다. 검증 대상 Dataset의 업무 속성으로 해석하지 않는다.
+
+## 8. 로컬 ontology term
+
+### 8.1 CQ-ONTO-TERM-01: 모든 로컬 term의 발행 상태를 조회할 수 있는가
+
+```sparql
+PREFIX adms: <http://www.w3.org/ns/adms#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+SELECT ?term ?kind ?definedBy ?status ?version
+WHERE {
+  VALUES ?kind {
+    owl:Class
+    owl:ObjectProperty
+    owl:DatatypeProperty
+    owl:AnnotationProperty
+  }
+  ?term a ?kind ;
+    rdfs:isDefinedBy ?definedBy ;
+    adms:status ?status ;
+    owl:versionInfo ?version .
+  FILTER (STRSTARTS(STR(?term), "https://data.molit.go.kr/def/molit-dcat-ap#"))
+}
+```
+
+기대 결과는 로컬 Class, ObjectProperty, DatatypeProperty, AnnotationProperty 40개다. `ontology/term-governance.json`의 모든 term은 `competencyQuestionIds`에 이 Query를 포함한다. Query 결과에 term이 빠지거나 등록하지 않은 term이 추가되면 ontology governance Gate가 실패한다.
+
+### 8.2 CQ-GEO-01: 공간 Dataset은 공개 위치와 공개수준을 함께 밝히는가
+
+```sparql
+PREFIX dct: <http://purl.org/dc/terms/>
+PREFIX molit: <https://data.molit.go.kr/def/molit-dcat-ap#>
+SELECT ?dataset ?disclosure ?spatial
+WHERE {
+  ?dataset a molit:SpatialDataset ;
+           molit:spatialDisclosureLevel ?disclosure ;
+           dct:spatial ?spatial .
+}
+```
+
+공간 Dataset은 공개한 위치 자원과 공개수준을 한 결과행에서 반환한다. `exact`는 프로파일 수준에서 추가로 일반화하지 않았다는 뜻이며 비공개 원천 위치와의 동일성을 주장하지 않는다.
+
+### 8.3 CQ-TRANSFER-01: 폐기한 전송 유형을 어떤 DCAT 자원으로 이관하는가
+
+```sparql
+PREFIX dct: <http://purl.org/dc/terms/>
+PREFIX molit: <https://data.molit.go.kr/def/molit-dcat-ap#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+SELECT ?legacyType ?replacement
+WHERE {
+  VALUES ?legacyType {
+    molit:TransferableDataset
+    molit:TransferDistribution
+  }
+  ?legacyType owl:deprecated true ;
+              dct:isReplacedBy ?replacement .
+}
+```
+
+`TransferableDataset`과 `TransferDistribution`은 신규 graph에서 사용하지 않는다. DCAT Dataset·Distribution과 별도 `DataspaceOfferingMetadata`로 이관해 카탈로그 설명과 운영 제공자격을 분리한다.
+
+## 9. RC.1 통과 기준
 
 | 항목 | RC.1 판정 |
 | --- | --- |
@@ -259,11 +368,13 @@ WHERE {
 | 관계 불변식 | CQ-QUAL-03의 불일치 결과가 정확히 0건이어야 함 |
 | 온톨로지 일관성 | OWL-RL closure에 `owl:Nothing` instance, disjoint·equivalence 충돌, 잘못된 domain·range 사용이 없어야 함 |
 | 후보 registry | `/candidate/` IRI에 `term-status:candidate`가 있어야 함 |
+| 로컬 term inventory | CQ-ONTO-TERM-01이 로컬 OWL term 40개의 종류·정의원·상태·판을 반환해야 함 |
+| 로컬 term 의미 | 40개 term마다 inventory 이외 semantic CQ가 하나 이상 있고 Query 본문이 해당 term을 직접 사용해야 함 |
 | 운영 자격 | RDF만으로 `operationally-qualified`를 부여하지 않으며 외부 registry 판정이 필요함 |
 
 KS·TTA 원문 조항, 기관 fixture와 권위 registry가 확보되지 않은 항목은 competency question을 통과해도 국내 표준 적합으로 표시하지 않는다.
 
-### 8.1 기계시험
+### 9.1 기계시험
 
 정본은 다음 두 종류다.
 

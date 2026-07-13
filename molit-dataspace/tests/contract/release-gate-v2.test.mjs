@@ -269,4 +269,12 @@ test("RELEASE-GATE-V2-008: RC matrix evidence is bound to the current artifact l
     Buffer.from(JSON.stringify(renamedEngines), "utf8"),
     { artifactLockSha256: lockSha256 },
   ), false);
+
+  const falsifiedStaticCoverage = JSON.parse(evidence.toString("utf8"));
+  falsifiedStaticCoverage.requirementCoverage.bundleCoverage.pairs[0].shapeFileSha256
+    = "0".repeat(64);
+  assert.equal(await validateRcMatrixEvidence(
+    Buffer.from(JSON.stringify(falsifiedStaticCoverage), "utf8"),
+    { artifactLockSha256: lockSha256 },
+  ), false);
 });

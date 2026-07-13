@@ -20,7 +20,7 @@ const RELEASE_ROOT = path.join(
   "1.0.0-rc.1",
 );
 
-test("RC ontology semantics are pinned to six modules, thirteen exact CQs and OWL-RL", {
+test("RC ontology semantics are pinned to six modules, nineteen exact CQs and OWL-RL", {
   timeout: 180_000,
 }, async () => {
   const report = await verifyOntologySemantics({ releaseRoot: RELEASE_ROOT });
@@ -31,9 +31,15 @@ test("RC ontology semantics are pinned to six modules, thirteen exact CQs and OW
   assert.equal(report.documentation.passed, true);
   assert.equal(report.modules.length, 6);
   assert.ok(report.modules.every(({ passed }) => passed));
-  assert.equal(report.queries.length, 13);
+  assert.equal(report.queries.length, 19);
   assert.ok(report.queries.every(({ passed }) => passed));
   const resultCounts = new Map(report.queries.map(({ id, rowCount }) => [id, rowCount]));
+  assert.equal(resultCounts.get("CQ-GEO-01"), 1, "spatial disclosure is exercised by a concrete dataset");
+  assert.equal(resultCounts.get("CQ-GOV-02"), 3, "all three governance annotations retain their schema");
+  assert.equal(resultCounts.get("CQ-NET-04"), 2, "node and link element kinds are both exercised");
+  assert.equal(resultCounts.get("CQ-ONTO-TERM-01"), 40, "every local OWL term is queryable");
+  assert.equal(resultCounts.get("CQ-QUAL-04"), 1, "quality status and result concept are joined");
+  assert.equal(resultCounts.get("CQ-TRANSFER-01"), 4, "both deprecated transfer classes expose both replacements");
   assert.equal(resultCounts.get("CQ-NET-03"), 0, "fixture-specific empty supersession result");
   assert.equal(resultCounts.get("CQ-OFF-02"), 0, "candidate offering has no qualification evidence");
   assert.equal(resultCounts.get("CQ-QUAL-03"), 0, "quality target mismatch invariant");

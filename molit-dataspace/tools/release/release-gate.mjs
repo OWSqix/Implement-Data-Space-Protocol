@@ -4,17 +4,21 @@ import path from "node:path";
 import process from "node:process";
 import { fileURLToPath } from "node:url";
 import { readCheckedFile } from "../registries/safe-local-file.mjs";
+import {
+  koreanInteroperabilityRegisterRelative,
+  reviewedKoreanInteroperabilitySha256,
+} from "./reviewed-inputs.mjs";
 
 const root = path.resolve(fileURLToPath(new URL("../../", import.meta.url)));
 const decoder = new TextDecoder("utf-8", { fatal: true });
 const inputs = Object.freeze({
   authority: "standards/provider-authority-registry.json",
-  interoperability: "standards/korean-interoperability-register.json",
+  interoperability: koreanInteroperabilityRegisterRelative,
   iso19115: "standards/iso19115-1-tech-gate/manifest.json",
 });
 const reviewedInputSha256 = new Map([
   [inputs.authority, "e91563ef137b756e5f3c14820293eda141d25a78d6e2e951d53514301bc71684"],
-  [inputs.interoperability, "44091fdd9cd4c482dc4efc6a2ef07ea7abc05b59bd25c7ea2e389feac70ccb41"],
+  [inputs.interoperability, reviewedKoreanInteroperabilitySha256],
   [inputs.iso19115, "ea78a62b2084deaa9e7182bb2d625c6f830f46356d46c9fcccd4ab7158e5616d"],
 ]);
 
@@ -131,20 +135,55 @@ async function legacyMain() {
   process.exitCode = report.releaseEligible ? 0 : 2;
 }
 
-function selectedVersion(argv) {
-  if (argv.length !== 2 || argv[0] !== "--version" || !argv[1]) {
-    const error = new Error(
-      "release-gate accepts either no arguments or --version <semantic-version>",
-    );
-    error.code = "INVALID_ARGUMENTS";
-    throw error;
+function invalidArguments(message) {
+  const error = new Error(message);
+  error.code = "INVALID_ARGUMENTS";
+  return error;
+}
+
+export function parseReleaseGateArguments(argv) {
+  let target = "recommendation";
+  let targetSeen = false;
+  let version;
+
+  for (let index = 0; index < argv.length; index += 1) {
+    const argument = argv[index];
+    if (argument === "--version") {
+      if (version !== undefined || !argv[index + 1] || argv[index + 1].startsWith("--")) {
+        throw invalidArguments("--version requires one value and may be provided only once");
+      }
+      version = argv[index + 1];
+      index += 1;
+      continue;
+    }
+
+    if (argument === "--target" || argument.startsWith("--target=")) {
+      if (targetSeen) throw invalidArguments("--target may be provided only once");
+      targetSeen = true;
+      const value = argument === "--target" ? argv[index + 1] : argument.slice("--target=".length);
+      if (argument === "--target") index += 1;
+      if (value !== "candidate" && value !== "recommendation") {
+        throw invalidArguments("--target must be candidate or recommendation");
+      }
+      target = value;
+      continue;
+    }
+
+    throw invalidArguments(`unknown release-gate argument: ${argument}`);
   }
-  return argv[1];
+
+  if (!version) {
+    throw invalidArguments("release-gate requires --version <semantic-version>");
+  }
+  return { target, version };
 }
 
 async function v2Main(argv) {
-  const version = selectedVersion(argv);
+  const { target, version } = parseReleaseGateArguments(argv);
   if (version === "0.1.0") {
+    if (target !== "recommendation") {
+      throw invalidArguments("--target candidate is available only for release gate v2");
+    }
     await legacyMain();
     return;
   }
@@ -156,7 +195,7 @@ async function v2Main(argv) {
   try {
     const report = await evaluateReleaseGateV2(version);
     process.stdout.write(`${JSON.stringify(report, null, 2)}\n`);
-    process.exitCode = releaseGateV2ExitCode(report);
+    process.exitCode = releaseGateV2ExitCode(report, target);
   } catch (error) {
     const report = invalidV2Report(version, error);
     process.stdout.write(`${JSON.stringify(report, null, 2)}\n`);
@@ -188,7 +227,8 @@ if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.me
     try {
       await v2Main(argv);
     } catch (error) {
-      const version = argv[0] === "--version" ? argv[1] : null;
+      const versionIndex = argv.indexOf("--version");
+      const version = versionIndex >= 0 ? argv[versionIndex + 1] : null;
       const { invalidV2Report } = await import("./release-gate-v2.mjs");
       process.stdout.write(`${JSON.stringify(invalidV2Report(version, error), null, 2)}\n`);
       process.exitCode = 1;

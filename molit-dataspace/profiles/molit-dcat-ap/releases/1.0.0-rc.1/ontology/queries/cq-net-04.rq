@@ -1,0 +1,6 @@
+PREFIX molit: <https://data.molit.go.kr/def/molit-dcat-ap#>
+SELECT ?reference ?elementType
+WHERE {
+  ?reference a molit:NetworkReference ;
+             molit:networkElementType ?elementType .
+}

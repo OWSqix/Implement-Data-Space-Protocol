@@ -53,6 +53,34 @@
   },
   "queries": [
     {
+      "id": "CQ-GEO-01",
+      "documentationSection": "CQ-GEO-01",
+      "queryFile": "ontology/queries/cq-geo-01.rq",
+      "datasetId": "geo-valid",
+      "resultForm": "select",
+      "expectedVariables": [
+        "dataset",
+        "disclosure",
+        "spatial"
+      ],
+      "expectedRows": [
+        {
+          "dataset": {
+            "type": "uri",
+            "value": "https://data.molit.go.kr/id/example/road-network"
+          },
+          "disclosure": {
+            "type": "uri",
+            "value": "https://data.molit.go.kr/id/concept/spatial-disclosure-level/exact"
+          },
+          "spatial": {
+            "type": "uri",
+            "value": "https://data.molit.go.kr/id/example/republic-of-korea"
+          }
+        }
+      ]
+    },
+    {
       "id": "CQ-GOV-01",
       "documentationSection": "CQ-GOV-01",
       "queryFile": "ontology/queries/cq-gov-01.rq",
@@ -167,6 +195,62 @@
       ]
     },
     {
+      "id": "CQ-GOV-02",
+      "documentationSection": "CQ-GOV-02",
+      "queryFile": "ontology/queries/cq-gov-02.rq",
+      "datasetId": "core-valid",
+      "resultForm": "select",
+      "expectedVariables": [
+        "annotation",
+        "domain",
+        "range"
+      ],
+      "expectedRows": [
+        {
+          "annotation": {
+            "type": "uri",
+            "value": "https://data.molit.go.kr/def/molit-dcat-ap#controlOwner"
+          },
+          "domain": {
+            "type": "uri",
+            "value": "http://www.w3.org/ns/shacl#Shape"
+          },
+          "range": {
+            "type": "uri",
+            "value": "http://www.w3.org/2001/XMLSchema#string"
+          }
+        },
+        {
+          "annotation": {
+            "type": "uri",
+            "value": "https://data.molit.go.kr/def/molit-dcat-ap#remediation"
+          },
+          "domain": {
+            "type": "uri",
+            "value": "http://www.w3.org/ns/shacl#Shape"
+          },
+          "range": {
+            "type": "uri",
+            "value": "http://www.w3.org/2001/XMLSchema#string"
+          }
+        },
+        {
+          "annotation": {
+            "type": "uri",
+            "value": "https://data.molit.go.kr/def/molit-dcat-ap#requirementId"
+          },
+          "domain": {
+            "type": "uri",
+            "value": "http://www.w3.org/ns/shacl#Shape"
+          },
+          "range": {
+            "type": "uri",
+            "value": "http://www.w3.org/2001/XMLSchema#string"
+          }
+        }
+      ]
+    },
+    {
       "id": "CQ-NET-01",
       "documentationSection": "CQ-NET-01",
       "queryFile": "ontology/queries/cq-net-01.rq",
@@ -248,6 +332,39 @@
       ],
       "expectedRows": [],
       "zeroResultMeaning": "The current network fixture has no superseded edition; zero rows are expected for this fixture and are not a universal invariant."
+    },
+    {
+      "id": "CQ-NET-04",
+      "documentationSection": "CQ-NET-04",
+      "queryFile": "ontology/queries/cq-net-04.rq",
+      "datasetId": "network-valid",
+      "resultForm": "select",
+      "expectedVariables": [
+        "reference",
+        "elementType"
+      ],
+      "expectedRows": [
+        {
+          "reference": {
+            "type": "uri",
+            "value": "https://data.molit.go.kr/id/example/standard-node-link-2026-07-01"
+          },
+          "elementType": {
+            "type": "uri",
+            "value": "https://data.molit.go.kr/id/concept/network-element-type/link"
+          }
+        },
+        {
+          "reference": {
+            "type": "uri",
+            "value": "https://data.molit.go.kr/id/example/standard-node-link-2026-07-01"
+          },
+          "elementType": {
+            "type": "uri",
+            "value": "https://data.molit.go.kr/id/concept/network-element-type/node"
+          }
+        }
+      ]
     },
     {
       "id": "CQ-OBS-01",
@@ -420,6 +537,902 @@
       "zeroResultMeaning": "The candidate offering fixture is metadata-conformant, not operationally-qualified, so no qualification evidence row is expected."
     },
     {
+      "id": "CQ-ONTO-TERM-01",
+      "documentationSection": "CQ-ONTO-TERM-01",
+      "queryFile": "ontology/queries/cq-onto-term-01.rq",
+      "datasetId": "core-valid",
+      "resultForm": "select",
+      "expectedVariables": [
+        "term",
+        "kind",
+        "definedBy",
+        "status",
+        "version"
+      ],
+      "expectedRows": [
+        {
+          "term": {
+            "type": "uri",
+            "value": "https://data.molit.go.kr/def/molit-dcat-ap#aggregationPeriod"
+          },
+          "kind": {
+            "type": "uri",
+            "value": "http://www.w3.org/2002/07/owl#DatatypeProperty"
+          },
+          "definedBy": {
+            "type": "uri",
+            "value": "https://data.molit.go.kr/def/molit-dcat-ap"
+          },
+          "status": {
+            "type": "uri",
+            "value": "https://data.molit.go.kr/id/concept/term-status/candidate"
+          },
+          "version": {
+            "type": "literal",
+            "value": "1.0.0-rc.1"
+          }
+        },
+        {
+          "term": {
+            "type": "uri",
+            "value": "https://data.molit.go.kr/def/molit-dcat-ap#controlOwner"
+          },
+          "kind": {
+            "type": "uri",
+            "value": "http://www.w3.org/2002/07/owl#AnnotationProperty"
+          },
+          "definedBy": {
+            "type": "uri",
+            "value": "https://data.molit.go.kr/def/molit-dcat-ap"
+          },
+          "status": {
+            "type": "uri",
+            "value": "https://data.molit.go.kr/id/concept/term-status/candidate"
+          },
+          "version": {
+            "type": "literal",
+            "value": "1.0.0-rc.1"
+          }
+        },
+        {
+          "term": {
+            "type": "uri",
+            "value": "https://data.molit.go.kr/def/molit-dcat-ap#DataspaceOfferingMetadata"
+          },
+          "kind": {
+            "type": "uri",
+            "value": "http://www.w3.org/2002/07/owl#Class"
+          },
+          "definedBy": {
+            "type": "uri",
+            "value": "https://data.molit.go.kr/def/molit-dcat-ap"
+          },
+          "status": {
+            "type": "uri",
+            "value": "https://data.molit.go.kr/id/concept/term-status/candidate"
+          },
+          "version": {
+            "type": "literal",
+            "value": "1.0.0-rc.1"
+          }
+        },
+        {
+          "term": {
+            "type": "uri",
+            "value": "https://data.molit.go.kr/def/molit-dcat-ap#describesOfferingDataset"
+          },
+          "kind": {
+            "type": "uri",
+            "value": "http://www.w3.org/2002/07/owl#ObjectProperty"
+          },
+          "definedBy": {
+            "type": "uri",
+            "value": "https://data.molit.go.kr/def/molit-dcat-ap"
+          },
+          "status": {
+            "type": "uri",
+            "value": "https://data.molit.go.kr/id/concept/term-status/candidate"
+          },
+          "version": {
+            "type": "literal",
+            "value": "1.0.0-rc.1"
+          }
+        },
+        {
+          "term": {
+            "type": "uri",
+            "value": "https://data.molit.go.kr/def/molit-dcat-ap#mappedQualityMetric"
+          },
+          "kind": {
+            "type": "uri",
+            "value": "http://www.w3.org/2002/07/owl#ObjectProperty"
+          },
+          "definedBy": {
+            "type": "uri",
+            "value": "https://data.molit.go.kr/def/molit-dcat-ap"
+          },
+          "status": {
+            "type": "uri",
+            "value": "https://data.molit.go.kr/id/concept/term-status/candidate"
+          },
+          "version": {
+            "type": "literal",
+            "value": "1.0.0-rc.1"
+          }
+        },
+        {
+          "term": {
+            "type": "uri",
+            "value": "https://data.molit.go.kr/def/molit-dcat-ap#missingValuePolicy"
+          },
+          "kind": {
+            "type": "uri",
+            "value": "http://www.w3.org/2002/07/owl#ObjectProperty"
+          },
+          "definedBy": {
+            "type": "uri",
+            "value": "https://data.molit.go.kr/def/molit-dcat-ap"
+          },
+          "status": {
+            "type": "uri",
+            "value": "https://data.molit.go.kr/id/concept/term-status/candidate"
+          },
+          "version": {
+            "type": "literal",
+            "value": "1.0.0-rc.1"
+          }
+        },
+        {
+          "term": {
+            "type": "uri",
+            "value": "https://data.molit.go.kr/def/molit-dcat-ap#networkAuthority"
+          },
+          "kind": {
+            "type": "uri",
+            "value": "http://www.w3.org/2002/07/owl#ObjectProperty"
+          },
+          "definedBy": {
+            "type": "uri",
+            "value": "https://data.molit.go.kr/def/molit-dcat-ap"
+          },
+          "status": {
+            "type": "uri",
+            "value": "https://data.molit.go.kr/id/concept/term-status/candidate"
+          },
+          "version": {
+            "type": "literal",
+            "value": "1.0.0-rc.1"
+          }
+        },
+        {
+          "term": {
+            "type": "uri",
+            "value": "https://data.molit.go.kr/def/molit-dcat-ap#NetworkDataset"
+          },
+          "kind": {
+            "type": "uri",
+            "value": "http://www.w3.org/2002/07/owl#Class"
+          },
+          "definedBy": {
+            "type": "uri",
+            "value": "https://data.molit.go.kr/def/molit-dcat-ap"
+          },
+          "status": {
+            "type": "uri",
+            "value": "https://data.molit.go.kr/id/concept/term-status/candidate"
+          },
+          "version": {
+            "type": "literal",
+            "value": "1.0.0-rc.1"
+          }
+        },
+        {
+          "term": {
+            "type": "uri",
+            "value": "https://data.molit.go.kr/def/molit-dcat-ap#networkElementType"
+          },
+          "kind": {
+            "type": "uri",
+            "value": "http://www.w3.org/2002/07/owl#ObjectProperty"
+          },
+          "definedBy": {
+            "type": "uri",
+            "value": "https://data.molit.go.kr/def/molit-dcat-ap"
+          },
+          "status": {
+            "type": "uri",
+            "value": "https://data.molit.go.kr/id/concept/term-status/candidate"
+          },
+          "version": {
+            "type": "literal",
+            "value": "1.0.0-rc.1"
+          }
+        },
+        {
+          "term": {
+            "type": "uri",
+            "value": "https://data.molit.go.kr/def/molit-dcat-ap#networkIdentifier"
+          },
+          "kind": {
+            "type": "uri",
+            "value": "http://www.w3.org/2002/07/owl#DatatypeProperty"
+          },
+          "definedBy": {
+            "type": "uri",
+            "value": "https://data.molit.go.kr/def/molit-dcat-ap"
+          },
+          "status": {
+            "type": "uri",
+            "value": "https://data.molit.go.kr/id/concept/term-status/candidate"
+          },
+          "version": {
+            "type": "literal",
+            "value": "1.0.0-rc.1"
+          }
+        },
+        {
+          "term": {
+            "type": "uri",
+            "value": "https://data.molit.go.kr/def/molit-dcat-ap#networkLifecycleStatus"
+          },
+          "kind": {
+            "type": "uri",
+            "value": "http://www.w3.org/2002/07/owl#ObjectProperty"
+          },
+          "definedBy": {
+            "type": "uri",
+            "value": "https://data.molit.go.kr/def/molit-dcat-ap"
+          },
+          "status": {
+            "type": "uri",
+            "value": "https://data.molit.go.kr/id/concept/term-status/candidate"
+          },
+          "version": {
+            "type": "literal",
+            "value": "1.0.0-rc.1"
+          }
+        },
+        {
+          "term": {
+            "type": "uri",
+            "value": "https://data.molit.go.kr/def/molit-dcat-ap#networkReference"
+          },
+          "kind": {
+            "type": "uri",
+            "value": "http://www.w3.org/2002/07/owl#ObjectProperty"
+          },
+          "definedBy": {
+            "type": "uri",
+            "value": "https://data.molit.go.kr/def/molit-dcat-ap"
+          },
+          "status": {
+            "type": "uri",
+            "value": "https://data.molit.go.kr/id/concept/term-status/candidate"
+          },
+          "version": {
+            "type": "literal",
+            "value": "1.0.0-rc.1"
+          }
+        },
+        {
+          "term": {
+            "type": "uri",
+            "value": "https://data.molit.go.kr/def/molit-dcat-ap#NetworkReference"
+          },
+          "kind": {
+            "type": "uri",
+            "value": "http://www.w3.org/2002/07/owl#Class"
+          },
+          "definedBy": {
+            "type": "uri",
+            "value": "https://data.molit.go.kr/def/molit-dcat-ap"
+          },
+          "status": {
+            "type": "uri",
+            "value": "https://data.molit.go.kr/id/concept/term-status/candidate"
+          },
+          "version": {
+            "type": "literal",
+            "value": "1.0.0-rc.1"
+          }
+        },
+        {
+          "term": {
+            "type": "uri",
+            "value": "https://data.molit.go.kr/def/molit-dcat-ap#networkSnapshotChecksum"
+          },
+          "kind": {
+            "type": "uri",
+            "value": "http://www.w3.org/2002/07/owl#DatatypeProperty"
+          },
+          "definedBy": {
+            "type": "uri",
+            "value": "https://data.molit.go.kr/def/molit-dcat-ap"
+          },
+          "status": {
+            "type": "uri",
+            "value": "https://data.molit.go.kr/id/concept/term-status/candidate"
+          },
+          "version": {
+            "type": "literal",
+            "value": "1.0.0-rc.1"
+          }
+        },
+        {
+          "term": {
+            "type": "uri",
+            "value": "https://data.molit.go.kr/def/molit-dcat-ap#networkValidFrom"
+          },
+          "kind": {
+            "type": "uri",
+            "value": "http://www.w3.org/2002/07/owl#DatatypeProperty"
+          },
+          "definedBy": {
+            "type": "uri",
+            "value": "https://data.molit.go.kr/def/molit-dcat-ap"
+          },
+          "status": {
+            "type": "uri",
+            "value": "https://data.molit.go.kr/id/concept/term-status/candidate"
+          },
+          "version": {
+            "type": "literal",
+            "value": "1.0.0-rc.1"
+          }
+        },
+        {
+          "term": {
+            "type": "uri",
+            "value": "https://data.molit.go.kr/def/molit-dcat-ap#networkValidUntil"
+          },
+          "kind": {
+            "type": "uri",
+            "value": "http://www.w3.org/2002/07/owl#DatatypeProperty"
+          },
+          "definedBy": {
+            "type": "uri",
+            "value": "https://data.molit.go.kr/def/molit-dcat-ap"
+          },
+          "status": {
+            "type": "uri",
+            "value": "https://data.molit.go.kr/id/concept/term-status/candidate"
+          },
+          "version": {
+            "type": "literal",
+            "value": "1.0.0-rc.1"
+          }
+        },
+        {
+          "term": {
+            "type": "uri",
+            "value": "https://data.molit.go.kr/def/molit-dcat-ap#networkVersion"
+          },
+          "kind": {
+            "type": "uri",
+            "value": "http://www.w3.org/2002/07/owl#DatatypeProperty"
+          },
+          "definedBy": {
+            "type": "uri",
+            "value": "https://data.molit.go.kr/def/molit-dcat-ap"
+          },
+          "status": {
+            "type": "uri",
+            "value": "https://data.molit.go.kr/id/concept/term-status/candidate"
+          },
+          "version": {
+            "type": "literal",
+            "value": "1.0.0-rc.1"
+          }
+        },
+        {
+          "term": {
+            "type": "uri",
+            "value": "https://data.molit.go.kr/def/molit-dcat-ap#observationAggregation"
+          },
+          "kind": {
+            "type": "uri",
+            "value": "http://www.w3.org/2002/07/owl#ObjectProperty"
+          },
+          "definedBy": {
+            "type": "uri",
+            "value": "https://data.molit.go.kr/def/molit-dcat-ap"
+          },
+          "status": {
+            "type": "uri",
+            "value": "https://data.molit.go.kr/id/concept/term-status/candidate"
+          },
+          "version": {
+            "type": "literal",
+            "value": "1.0.0-rc.1"
+          }
+        },
+        {
+          "term": {
+            "type": "uri",
+            "value": "https://data.molit.go.kr/def/molit-dcat-ap#ObservationDataset"
+          },
+          "kind": {
+            "type": "uri",
+            "value": "http://www.w3.org/2002/07/owl#Class"
+          },
+          "definedBy": {
+            "type": "uri",
+            "value": "https://data.molit.go.kr/def/molit-dcat-ap"
+          },
+          "status": {
+            "type": "uri",
+            "value": "https://data.molit.go.kr/id/concept/term-status/candidate"
+          },
+          "version": {
+            "type": "literal",
+            "value": "1.0.0-rc.1"
+          }
+        },
+        {
+          "term": {
+            "type": "uri",
+            "value": "https://data.molit.go.kr/def/molit-dcat-ap#observationSubjectType"
+          },
+          "kind": {
+            "type": "uri",
+            "value": "http://www.w3.org/2002/07/owl#ObjectProperty"
+          },
+          "definedBy": {
+            "type": "uri",
+            "value": "https://data.molit.go.kr/def/molit-dcat-ap"
+          },
+          "status": {
+            "type": "uri",
+            "value": "https://data.molit.go.kr/id/concept/term-status/candidate"
+          },
+          "version": {
+            "type": "literal",
+            "value": "1.0.0-rc.1"
+          }
+        },
+        {
+          "term": {
+            "type": "uri",
+            "value": "https://data.molit.go.kr/def/molit-dcat-ap#observationUnit"
+          },
+          "kind": {
+            "type": "uri",
+            "value": "http://www.w3.org/2002/07/owl#ObjectProperty"
+          },
+          "definedBy": {
+            "type": "uri",
+            "value": "https://data.molit.go.kr/def/molit-dcat-ap"
+          },
+          "status": {
+            "type": "uri",
+            "value": "https://data.molit.go.kr/id/concept/term-status/candidate"
+          },
+          "version": {
+            "type": "literal",
+            "value": "1.0.0-rc.1"
+          }
+        },
+        {
+          "term": {
+            "type": "uri",
+            "value": "https://data.molit.go.kr/def/molit-dcat-ap#observedProperty"
+          },
+          "kind": {
+            "type": "uri",
+            "value": "http://www.w3.org/2002/07/owl#ObjectProperty"
+          },
+          "definedBy": {
+            "type": "uri",
+            "value": "https://data.molit.go.kr/def/molit-dcat-ap"
+          },
+          "status": {
+            "type": "uri",
+            "value": "https://data.molit.go.kr/id/concept/term-status/candidate"
+          },
+          "version": {
+            "type": "literal",
+            "value": "1.0.0-rc.1"
+          }
+        },
+        {
+          "term": {
+            "type": "uri",
+            "value": "https://data.molit.go.kr/def/molit-dcat-ap#offeringReadinessStatus"
+          },
+          "kind": {
+            "type": "uri",
+            "value": "http://www.w3.org/2002/07/owl#ObjectProperty"
+          },
+          "definedBy": {
+            "type": "uri",
+            "value": "https://data.molit.go.kr/def/molit-dcat-ap"
+          },
+          "status": {
+            "type": "uri",
+            "value": "https://data.molit.go.kr/id/concept/term-status/candidate"
+          },
+          "version": {
+            "type": "literal",
+            "value": "1.0.0-rc.1"
+          }
+        },
+        {
+          "term": {
+            "type": "uri",
+            "value": "https://data.molit.go.kr/def/molit-dcat-ap#qualificationEvidence"
+          },
+          "kind": {
+            "type": "uri",
+            "value": "http://www.w3.org/2002/07/owl#ObjectProperty"
+          },
+          "definedBy": {
+            "type": "uri",
+            "value": "https://data.molit.go.kr/def/molit-dcat-ap"
+          },
+          "status": {
+            "type": "uri",
+            "value": "https://data.molit.go.kr/id/concept/term-status/candidate"
+          },
+          "version": {
+            "type": "literal",
+            "value": "1.0.0-rc.1"
+          }
+        },
+        {
+          "term": {
+            "type": "uri",
+            "value": "https://data.molit.go.kr/def/molit-dcat-ap#qualityEvaluationMethod"
+          },
+          "kind": {
+            "type": "uri",
+            "value": "http://www.w3.org/2002/07/owl#ObjectProperty"
+          },
+          "definedBy": {
+            "type": "uri",
+            "value": "https://data.molit.go.kr/def/molit-dcat-ap"
+          },
+          "status": {
+            "type": "uri",
+            "value": "https://data.molit.go.kr/id/concept/term-status/candidate"
+          },
+          "version": {
+            "type": "literal",
+            "value": "1.0.0-rc.1"
+          }
+        },
+        {
+          "term": {
+            "type": "uri",
+            "value": "https://data.molit.go.kr/def/molit-dcat-ap#qualityEvaluationScope"
+          },
+          "kind": {
+            "type": "uri",
+            "value": "http://www.w3.org/2002/07/owl#DatatypeProperty"
+          },
+          "definedBy": {
+            "type": "uri",
+            "value": "https://data.molit.go.kr/def/molit-dcat-ap"
+          },
+          "status": {
+            "type": "uri",
+            "value": "https://data.molit.go.kr/id/concept/term-status/candidate"
+          },
+          "version": {
+            "type": "literal",
+            "value": "1.0.0-rc.1"
+          }
+        },
+        {
+          "term": {
+            "type": "uri",
+            "value": "https://data.molit.go.kr/def/molit-dcat-ap#qualityLossDisposition"
+          },
+          "kind": {
+            "type": "uri",
+            "value": "http://www.w3.org/2002/07/owl#ObjectProperty"
+          },
+          "definedBy": {
+            "type": "uri",
+            "value": "https://data.molit.go.kr/def/molit-dcat-ap"
+          },
+          "status": {
+            "type": "uri",
+            "value": "https://data.molit.go.kr/id/concept/term-status/candidate"
+          },
+          "version": {
+            "type": "literal",
+            "value": "1.0.0-rc.1"
+          }
+        },
+        {
+          "term": {
+            "type": "uri",
+            "value": "https://data.molit.go.kr/def/molit-dcat-ap#qualityLossNote"
+          },
+          "kind": {
+            "type": "uri",
+            "value": "http://www.w3.org/2002/07/owl#DatatypeProperty"
+          },
+          "definedBy": {
+            "type": "uri",
+            "value": "https://data.molit.go.kr/def/molit-dcat-ap"
+          },
+          "status": {
+            "type": "uri",
+            "value": "https://data.molit.go.kr/id/concept/term-status/candidate"
+          },
+          "version": {
+            "type": "literal",
+            "value": "1.0.0-rc.1"
+          }
+        },
+        {
+          "term": {
+            "type": "uri",
+            "value": "https://data.molit.go.kr/def/molit-dcat-ap#qualityMappingStatement"
+          },
+          "kind": {
+            "type": "uri",
+            "value": "http://www.w3.org/2002/07/owl#ObjectProperty"
+          },
+          "definedBy": {
+            "type": "uri",
+            "value": "https://data.molit.go.kr/def/molit-dcat-ap"
+          },
+          "status": {
+            "type": "uri",
+            "value": "https://data.molit.go.kr/id/concept/term-status/candidate"
+          },
+          "version": {
+            "type": "literal",
+            "value": "1.0.0-rc.1"
+          }
+        },
+        {
+          "term": {
+            "type": "uri",
+            "value": "https://data.molit.go.kr/def/molit-dcat-ap#QualityMappingStatement"
+          },
+          "kind": {
+            "type": "uri",
+            "value": "http://www.w3.org/2002/07/owl#Class"
+          },
+          "definedBy": {
+            "type": "uri",
+            "value": "https://data.molit.go.kr/def/molit-dcat-ap"
+          },
+          "status": {
+            "type": "uri",
+            "value": "https://data.molit.go.kr/id/concept/term-status/candidate"
+          },
+          "version": {
+            "type": "literal",
+            "value": "1.0.0-rc.1"
+          }
+        },
+        {
+          "term": {
+            "type": "uri",
+            "value": "https://data.molit.go.kr/def/molit-dcat-ap#qualityResultConcept"
+          },
+          "kind": {
+            "type": "uri",
+            "value": "http://www.w3.org/2002/07/owl#ObjectProperty"
+          },
+          "definedBy": {
+            "type": "uri",
+            "value": "https://data.molit.go.kr/def/molit-dcat-ap"
+          },
+          "status": {
+            "type": "uri",
+            "value": "https://data.molit.go.kr/id/concept/term-status/candidate"
+          },
+          "version": {
+            "type": "literal",
+            "value": "1.0.0-rc.1"
+          }
+        },
+        {
+          "term": {
+            "type": "uri",
+            "value": "https://data.molit.go.kr/def/molit-dcat-ap#qualityResultKind"
+          },
+          "kind": {
+            "type": "uri",
+            "value": "http://www.w3.org/2002/07/owl#ObjectProperty"
+          },
+          "definedBy": {
+            "type": "uri",
+            "value": "https://data.molit.go.kr/def/molit-dcat-ap"
+          },
+          "status": {
+            "type": "uri",
+            "value": "https://data.molit.go.kr/id/concept/term-status/candidate"
+          },
+          "version": {
+            "type": "literal",
+            "value": "1.0.0-rc.1"
+          }
+        },
+        {
+          "term": {
+            "type": "uri",
+            "value": "https://data.molit.go.kr/def/molit-dcat-ap#qualityStatus"
+          },
+          "kind": {
+            "type": "uri",
+            "value": "http://www.w3.org/2002/07/owl#ObjectProperty"
+          },
+          "definedBy": {
+            "type": "uri",
+            "value": "https://data.molit.go.kr/def/molit-dcat-ap"
+          },
+          "status": {
+            "type": "uri",
+            "value": "https://data.molit.go.kr/id/concept/term-status/candidate"
+          },
+          "version": {
+            "type": "literal",
+            "value": "1.0.0-rc.1"
+          }
+        },
+        {
+          "term": {
+            "type": "uri",
+            "value": "https://data.molit.go.kr/def/molit-dcat-ap#remediation"
+          },
+          "kind": {
+            "type": "uri",
+            "value": "http://www.w3.org/2002/07/owl#AnnotationProperty"
+          },
+          "definedBy": {
+            "type": "uri",
+            "value": "https://data.molit.go.kr/def/molit-dcat-ap"
+          },
+          "status": {
+            "type": "uri",
+            "value": "https://data.molit.go.kr/id/concept/term-status/candidate"
+          },
+          "version": {
+            "type": "literal",
+            "value": "1.0.0-rc.1"
+          }
+        },
+        {
+          "term": {
+            "type": "uri",
+            "value": "https://data.molit.go.kr/def/molit-dcat-ap#requirementId"
+          },
+          "kind": {
+            "type": "uri",
+            "value": "http://www.w3.org/2002/07/owl#AnnotationProperty"
+          },
+          "definedBy": {
+            "type": "uri",
+            "value": "https://data.molit.go.kr/def/molit-dcat-ap"
+          },
+          "status": {
+            "type": "uri",
+            "value": "https://data.molit.go.kr/id/concept/term-status/candidate"
+          },
+          "version": {
+            "type": "literal",
+            "value": "1.0.0-rc.1"
+          }
+        },
+        {
+          "term": {
+            "type": "uri",
+            "value": "https://data.molit.go.kr/def/molit-dcat-ap#sourceQualityElement"
+          },
+          "kind": {
+            "type": "uri",
+            "value": "http://www.w3.org/2002/07/owl#ObjectProperty"
+          },
+          "definedBy": {
+            "type": "uri",
+            "value": "https://data.molit.go.kr/def/molit-dcat-ap"
+          },
+          "status": {
+            "type": "uri",
+            "value": "https://data.molit.go.kr/id/concept/term-status/candidate"
+          },
+          "version": {
+            "type": "literal",
+            "value": "1.0.0-rc.1"
+          }
+        },
+        {
+          "term": {
+            "type": "uri",
+            "value": "https://data.molit.go.kr/def/molit-dcat-ap#SpatialDataset"
+          },
+          "kind": {
+            "type": "uri",
+            "value": "http://www.w3.org/2002/07/owl#Class"
+          },
+          "definedBy": {
+            "type": "uri",
+            "value": "https://data.molit.go.kr/def/molit-dcat-ap"
+          },
+          "status": {
+            "type": "uri",
+            "value": "https://data.molit.go.kr/id/concept/term-status/candidate"
+          },
+          "version": {
+            "type": "literal",
+            "value": "1.0.0-rc.1"
+          }
+        },
+        {
+          "term": {
+            "type": "uri",
+            "value": "https://data.molit.go.kr/def/molit-dcat-ap#spatialDisclosureLevel"
+          },
+          "kind": {
+            "type": "uri",
+            "value": "http://www.w3.org/2002/07/owl#ObjectProperty"
+          },
+          "definedBy": {
+            "type": "uri",
+            "value": "https://data.molit.go.kr/def/molit-dcat-ap"
+          },
+          "status": {
+            "type": "uri",
+            "value": "https://data.molit.go.kr/id/concept/term-status/candidate"
+          },
+          "version": {
+            "type": "literal",
+            "value": "1.0.0-rc.1"
+          }
+        },
+        {
+          "term": {
+            "type": "uri",
+            "value": "https://data.molit.go.kr/def/molit-dcat-ap#TransferableDataset"
+          },
+          "kind": {
+            "type": "uri",
+            "value": "http://www.w3.org/2002/07/owl#Class"
+          },
+          "definedBy": {
+            "type": "uri",
+            "value": "https://data.molit.go.kr/def/molit-dcat-ap"
+          },
+          "status": {
+            "type": "uri",
+            "value": "https://data.molit.go.kr/id/concept/term-status/deprecated"
+          },
+          "version": {
+            "type": "literal",
+            "value": "1.0.0-rc.1"
+          }
+        },
+        {
+          "term": {
+            "type": "uri",
+            "value": "https://data.molit.go.kr/def/molit-dcat-ap#TransferDistribution"
+          },
+          "kind": {
+            "type": "uri",
+            "value": "http://www.w3.org/2002/07/owl#Class"
+          },
+          "definedBy": {
+            "type": "uri",
+            "value": "https://data.molit.go.kr/def/molit-dcat-ap"
+          },
+          "status": {
+            "type": "uri",
+            "value": "https://data.molit.go.kr/id/concept/term-status/deprecated"
+          },
+          "version": {
+            "type": "literal",
+            "value": "1.0.0-rc.1"
+          }
+        }
+      ]
+    },
+    {
       "id": "CQ-QUAL-01",
       "documentationSection": "CQ-QUAL-01",
       "queryFile": "ontology/queries/cq-qual-01.rq",
@@ -563,6 +1576,92 @@
       ],
       "expectedRows": [],
       "zeroResultMeaning": "Invariant: a valid fixture must return zero Dataset/measurement computedOn mismatches."
+    },
+    {
+      "id": "CQ-QUAL-04",
+      "documentationSection": "CQ-QUAL-04",
+      "queryFile": "ontology/queries/cq-qual-04.rq",
+      "datasetId": "quality-valid",
+      "resultForm": "select",
+      "expectedVariables": [
+        "dataset",
+        "qualityStatus",
+        "measurement",
+        "resultConcept"
+      ],
+      "expectedRows": [
+        {
+          "dataset": {
+            "type": "uri",
+            "value": "https://data.molit.go.kr/id/example/traffic-observation"
+          },
+          "qualityStatus": {
+            "type": "uri",
+            "value": "https://data.molit.go.kr/id/concept/quality-status/assessed"
+          },
+          "measurement": {
+            "type": "uri",
+            "value": "https://data.molit.go.kr/id/example/traffic-timeliness-status"
+          },
+          "resultConcept": {
+            "type": "uri",
+            "value": "https://data.molit.go.kr/id/concept/quality-result-category/current"
+          }
+        }
+      ]
+    },
+    {
+      "id": "CQ-TRANSFER-01",
+      "documentationSection": "CQ-TRANSFER-01",
+      "queryFile": "ontology/queries/cq-transfer-01.rq",
+      "datasetId": "core-valid",
+      "resultForm": "select",
+      "expectedVariables": [
+        "legacyType",
+        "replacement"
+      ],
+      "expectedRows": [
+        {
+          "legacyType": {
+            "type": "uri",
+            "value": "https://data.molit.go.kr/def/molit-dcat-ap#TransferableDataset"
+          },
+          "replacement": {
+            "type": "uri",
+            "value": "http://www.w3.org/ns/dcat#Dataset"
+          }
+        },
+        {
+          "legacyType": {
+            "type": "uri",
+            "value": "https://data.molit.go.kr/def/molit-dcat-ap#TransferableDataset"
+          },
+          "replacement": {
+            "type": "uri",
+            "value": "https://data.molit.go.kr/def/molit-dcat-ap#DataspaceOfferingMetadata"
+          }
+        },
+        {
+          "legacyType": {
+            "type": "uri",
+            "value": "https://data.molit.go.kr/def/molit-dcat-ap#TransferDistribution"
+          },
+          "replacement": {
+            "type": "uri",
+            "value": "http://www.w3.org/ns/dcat#Distribution"
+          }
+        },
+        {
+          "legacyType": {
+            "type": "uri",
+            "value": "https://data.molit.go.kr/def/molit-dcat-ap#TransferDistribution"
+          },
+          "replacement": {
+            "type": "uri",
+            "value": "https://data.molit.go.kr/def/molit-dcat-ap#DataspaceOfferingMetadata"
+          }
+        }
+      ]
     }
   ],
   "owlConsistency": {

@@ -31,6 +31,7 @@ const TERM_KINDS = Object.freeze([
   "DatatypeProperty",
   "AnnotationProperty",
 ]);
+const TERM_COVERAGE_CQ_ID = "CQ-ONTO-TERM-01";
 
 function sorted(values) {
   return [...values].sort((left, right) => left.localeCompare(right));
@@ -40,6 +41,18 @@ function equalValues(left, right) {
   const a = sorted(left);
   const b = sorted(right);
   return a.length === b.length && a.every((item, index) => item === b[index]);
+}
+
+function escapeRegExp(value) {
+  return value.replace(/[.*+?^${}()|[\]\\]/gu, "\\$&");
+}
+
+function queryReferencesTerm(queryText, term) {
+  if (queryText.includes(`<${term.iri}>`)) return true;
+  const localPrefix = /\bPREFIX\s+molit:\s*<https:\/\/data[.]molit[.]go[.]kr\/def\/molit-dcat-ap#>/iu;
+  return localPrefix.test(queryText)
+    && new RegExp(`\\bmolit:${escapeRegExp(term.localName)}(?![A-Za-z0-9])`, "u")
+      .test(queryText);
 }
 
 function finding(code, term, message) {
@@ -117,12 +130,20 @@ export async function verifyOntologyTermGovernance({
   const selectedRegisterPath = registerPath
     ?? path.join(releaseRoot, "ontology", "term-governance.json");
   const schemaPath = path.join(PROJECT_ROOT, "contracts", "ontology-term-governance.v1.schema.json");
-  const [registerSource, schema, requirementRegistry, caseRegistry] = await Promise.all([
+  const [
+    registerSource,
+    schema,
+    requirementRegistry,
+    caseRegistry,
+    competencyRegistry,
+  ] = await Promise.all([
     readFile(selectedRegisterPath, "utf8"),
     readFile(schemaPath, "utf8").then(JSON.parse),
     readFile(path.join(releaseRoot, "requirements", "profile-requirements.json"), "utf8")
       .then(JSON.parse),
     readFile(path.join(releaseRoot, "requirements", "conformance-cases.json"), "utf8")
+      .then(JSON.parse),
+    readFile(path.join(releaseRoot, "ontology", "competency-registry.json"), "utf8")
       .then(JSON.parse),
   ]);
   const register = JSON.parse(registerSource);
@@ -173,6 +194,53 @@ export async function verifyOntologyTermGovernance({
   if (registeredOrder.some((iri, index) => iri !== sorted(registeredOrder)[index])) {
     findings.push(finding("TERM_ORDER", null, "terms must be sorted by IRI"));
   }
+  const competencyQueries = Array.isArray(competencyRegistry?.queries)
+    ? competencyRegistry.queries
+    : [];
+  const knownCompetencyQuestionIds = new Set(competencyQueries.map(({ id }) => id));
+  const competencyQueryTexts = new Map();
+  for (const query of competencyQueries) {
+    try {
+      const queryPath = await resolveReleaseRegularFile(
+        releaseRoot,
+        query.queryFile,
+        `competency query ${query.id}`,
+      );
+      competencyQueryTexts.set(query.id, await readFile(queryPath, "utf8"));
+    } catch (error) {
+      findings.push(finding(
+        "TERM_COMPETENCY_QUERY_UNREADABLE",
+        null,
+        `${query.id}: ${error.message}`,
+      ));
+    }
+  }
+  const termCoverageQuery = competencyQueries.find(({ id }) => id === TERM_COVERAGE_CQ_ID);
+  if (!termCoverageQuery) {
+    findings.push(finding(
+      "TERM_COMPETENCY_QUERY_MISSING",
+      null,
+      `${TERM_COVERAGE_CQ_ID} is missing from the competency registry`,
+    ));
+  } else {
+    const expectedTermRows = Array.isArray(termCoverageQuery.expectedRows)
+      ? termCoverageQuery.expectedRows
+      : [];
+    const expectedTermIris = expectedTermRows.map((row) => (
+      row?.term?.type === "uri" ? row.term.value : null
+    ));
+    if (!Array.isArray(termCoverageQuery.expectedVariables)
+      || !termCoverageQuery.expectedVariables.includes("term")
+      || expectedTermIris.some((iri) => typeof iri !== "string")
+      || new Set(expectedTermIris).size !== expectedTermRows.length
+      || !equalValues(expectedTermIris, [...actualByIri.keys()])) {
+      findings.push(finding(
+        "TERM_COMPETENCY_QUERY_COVERAGE",
+        null,
+        `${TERM_COVERAGE_CQ_ID} expected rows must enumerate every and only local OWL term`,
+      ));
+    }
+  }
   const requirementById = new Map(requirementRegistry.requirements.map((item) => (
     [item.requirementId, item]
   )));
@@ -211,6 +279,57 @@ export async function verifyOntologyTermGovernance({
     const subject = namedNode(term.iri);
     const actual = actualByIri.get(term.iri);
     if (!actual) continue;
+    const competencyQuestionIds = Array.isArray(term.competencyQuestionIds)
+      ? term.competencyQuestionIds
+      : [];
+    if (!competencyQuestionIds.includes(TERM_COVERAGE_CQ_ID)) {
+      findings.push(finding(
+        "TERM_COMPETENCY_COVERAGE",
+        term.iri,
+        `term must be covered by ${TERM_COVERAGE_CQ_ID}`,
+      ));
+    }
+    for (const competencyQuestionId of competencyQuestionIds) {
+      if (!knownCompetencyQuestionIds.has(competencyQuestionId)) {
+        findings.push(finding(
+          "TERM_COMPETENCY_UNKNOWN",
+          term.iri,
+          `${competencyQuestionId} is not registered`,
+        ));
+      }
+    }
+    const semanticCompetencyQuestionIds = competencyQuestionIds.filter((id) => (
+      id !== TERM_COVERAGE_CQ_ID
+    ));
+    if (semanticCompetencyQuestionIds.length === 0) {
+      findings.push(finding(
+        "TERM_SEMANTIC_COMPETENCY_MISSING",
+        term.iri,
+        "term must have at least one semantic competency question in addition to the inventory query",
+      ));
+    }
+    for (const competencyQuestionId of semanticCompetencyQuestionIds) {
+      const query = competencyQueries.find(({ id }) => id === competencyQuestionId);
+      const queryText = competencyQueryTexts.get(competencyQuestionId);
+      if (!query || queryText === undefined) continue;
+      if (!queryReferencesTerm(queryText, term)) {
+        findings.push(finding(
+          "TERM_SEMANTIC_QUERY_REFERENCE",
+          term.iri,
+          `${competencyQuestionId} does not reference the governed term`,
+        ));
+      }
+      const hasExpectedEvidence = Array.isArray(query.expectedRows)
+        && (query.expectedRows.length > 0
+          || (typeof query.zeroResultMeaning === "string" && query.zeroResultMeaning.length > 0));
+      if (!hasExpectedEvidence) {
+        findings.push(finding(
+          "TERM_SEMANTIC_QUERY_EVIDENCE",
+          term.iri,
+          `${competencyQuestionId} has no expected result evidence`,
+        ));
+      }
+    }
     if (term.termKind !== actual.term) {
       findings.push(finding(
         "TERM_KIND_DRIFT",

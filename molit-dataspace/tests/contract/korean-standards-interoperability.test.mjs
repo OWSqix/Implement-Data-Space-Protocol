@@ -20,7 +20,6 @@ const [
   sourceRegisterText,
   crsVocabularyText,
   claimMatrixText,
-  crsSnapshotManifest,
 ] = await Promise.all([
   readFile(path.join(root, "contracts/korean-interoperability-register.v1.schema.json"), "utf8")
     .then(JSON.parse),
@@ -29,14 +28,19 @@ const [
   readFile(path.join(root, "evidence/source-register.yaml"), "utf8"),
   readFile(path.join(
     root,
-    "profiles/molit-dcat-ap/releases/0.1.0/vocabulary/ogc-crs-allowlist.ttl",
+    "profiles/molit-dcat-ap/releases/1.0.0-rc.1/vocabulary/ogc-crs-allowlist.ttl",
   ), "utf8"),
   readFile(path.join(root, "evidence/claim-evidence-matrix.md"), "utf8"),
-  readFile(
-    path.join(root, "standards/vendor/ogc-crs/2026-07-12/manifest.json"),
-    "utf8",
-  ).then(JSON.parse),
 ]);
+const currentCrsSnapshotPaths = [...new Set(
+  register.referenceSystems.map(({ snapshotManifest }) => snapshotManifest),
+)];
+assert.equal(currentCrsSnapshotPaths.length, 1, "one current CRS snapshot is required");
+const currentCrsSnapshotPath = currentCrsSnapshotPaths[0];
+const crsSnapshotManifest = JSON.parse(await readFile(
+  path.join(root, ...currentCrsSnapshotPath.split("/")),
+  "utf8",
+));
 const ajv = new Ajv2020({ allErrors: true, strict: true });
 addFormats(ajv);
 const validateRegister = ajv.compile(schema);
@@ -53,9 +57,9 @@ const REVIEWED_CRS_ALLOWLIST_SHA256 =
 const REVIEWED_BLINDSPOT_POLICY_SHA256 =
   "e93cf963ceee1d5d90d81588474353b2d45c92d9652fa9c2eedefd2b5ad9ade3";
 const REVIEWED_BLINDSPOT_RECORDS_SHA256 =
-  "f8924a8c5bdda990859528cd1b607bd6ab0122a97eba3d13b149bfbb0ed529f0";
+  "2a6a73f51b57ea146395f5e85ff22e9b68bcf7aed45496c78058609b8d5990e4";
 const REVIEWED_NONBLOCKING_DECISIONS_SHA256 =
-  "1cffbdc03ad424aedc0de6ab0a9a85d13c59dee9e99b443901cac8ce73c190fd";
+  "c4fc53153eb44952a30965f75620257e82206b1a3087c9753c3fcaa29e15714d";
 
 function sortedById(values) {
   return [...values].sort((left, right) => (
@@ -584,7 +588,11 @@ test("CT-KR-CRS-001: every source-reference CRS has official evidence and RDF su
     null,
   ).map((term) => term.value).sort();
   const registered = register.referenceSystems.map((item) => item.iri).sort();
-  assert.deepEqual(registered, supported);
+  assert.ok(registered.every((iri) => supported.includes(iri)));
+  assert.deepEqual(supported.filter((iri) => !registered.includes(iri)), [
+    "http://www.opengis.net/def/crs/EPSG/0/3857",
+    "http://www.opengis.net/def/crs/EPSG/0/4326",
+  ]);
   assert.ok(register.referenceSystems.every((item) => item.profileUses.includes("source-reference")));
   assert.ok(register.referenceSystems.every((item) => item.sourceIds.every((id) => id.startsWith("SRC-CRS-"))));
   assert.ok(register.referenceSystems.every((item) => (
@@ -592,7 +600,7 @@ test("CT-KR-CRS-001: every source-reference CRS has official evidence and RDF su
   )));
   assert.ok(register.referenceSystems.every((item) => item.contentAddressed === true));
   assert.ok(register.referenceSystems.every((item) => (
-    item.snapshotManifest === "standards/vendor/ogc-crs/2026-07-12/manifest.json"
+    item.snapshotManifest === currentCrsSnapshotPath
       && /^[a-f0-9]{64}$/u.test(item.snapshotSha256)
   )));
   const snapshotsByIri = new Map(crsSnapshotManifest.artifacts.map((item) => (

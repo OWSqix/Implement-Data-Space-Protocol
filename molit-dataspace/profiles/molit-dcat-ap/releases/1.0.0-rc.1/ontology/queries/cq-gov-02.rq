@@ -1,0 +1,14 @@
+PREFIX molit: <https://data.molit.go.kr/def/molit-dcat-ap#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+SELECT ?annotation ?domain ?range
+WHERE {
+  VALUES ?annotation {
+    molit:controlOwner
+    molit:requirementId
+    molit:remediation
+  }
+  ?annotation a owl:AnnotationProperty ;
+              rdfs:domain ?domain ;
+              rdfs:range ?range .
+}

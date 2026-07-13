@@ -1,0 +1,17 @@
+PREFIX adms: <http://www.w3.org/ns/adms#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+SELECT ?term ?kind ?definedBy ?status ?version
+WHERE {
+  VALUES ?kind {
+    owl:Class
+    owl:ObjectProperty
+    owl:DatatypeProperty
+    owl:AnnotationProperty
+  }
+  ?term a ?kind ;
+    rdfs:isDefinedBy ?definedBy ;
+    adms:status ?status ;
+    owl:versionInfo ?version .
+  FILTER (STRSTARTS(STR(?term), "https://data.molit.go.kr/def/molit-dcat-ap#"))
+}

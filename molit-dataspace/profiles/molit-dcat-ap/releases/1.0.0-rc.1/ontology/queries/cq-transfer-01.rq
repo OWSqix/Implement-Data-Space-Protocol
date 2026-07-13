@@ -1,0 +1,12 @@
+PREFIX dct: <http://purl.org/dc/terms/>
+PREFIX molit: <https://data.molit.go.kr/def/molit-dcat-ap#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+SELECT ?legacyType ?replacement
+WHERE {
+  VALUES ?legacyType {
+    molit:TransferableDataset
+    molit:TransferDistribution
+  }
+  ?legacyType owl:deprecated true ;
+              dct:isReplacedBy ?replacement .
+}

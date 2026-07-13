@@ -5,6 +5,10 @@ import process from "node:process";
 import { promisify } from "node:util";
 import { fileURLToPath } from "node:url";
 import { readCheckedFile } from "../registries/safe-local-file.mjs";
+import {
+  koreanInteroperabilityRegisterRelative,
+  reviewedKoreanInteroperabilitySha256,
+} from "./reviewed-inputs.mjs";
 
 const root = path.resolve(fileURLToPath(new URL("../../", import.meta.url)));
 const decoder = new TextDecoder("utf-8", { fatal: true });
@@ -158,10 +162,15 @@ async function v2Validators() {
         import("ajv/dist/2020.js"),
         import("ajv-formats"),
       ]);
-      const [acceptanceBytes, reportBytes] = await Promise.all([
+      const [acceptanceBytes, interoperabilityBytes, reportBytes] = await Promise.all([
         readCheckedFile(
           root,
           path.join(root, "contracts", "profile-release-acceptance.v1.schema.json"),
+          1024 * 1024,
+        ),
+        readCheckedFile(
+          root,
+          path.join(root, "contracts", "korean-interoperability-register.v1.schema.json"),
           1024 * 1024,
         ),
         readCheckedFile(
@@ -174,6 +183,10 @@ async function v2Validators() {
       addFormats(ajv);
       return {
         acceptance: ajv.compile(parseJson(acceptanceBytes, "release acceptance schema")),
+        interoperability: ajv.compile(parseJson(
+          interoperabilityBytes,
+          "Korean interoperability schema",
+        )),
         report: ajv.compile(parseJson(reportBytes, "release gate v2 schema")),
       };
     })();
@@ -276,6 +289,56 @@ export async function assertReleaseAcceptanceRegister(register, profileVersion) 
     }
   }
   return register;
+}
+
+export async function assertKoreanInteroperabilityRegister(
+  register,
+  profileVersion,
+  registerBytes,
+) {
+  const { interoperability } = await v2Validators();
+  const ids = Array.isArray(register?.blindspots)
+    ? register.blindspots.map((item) => item?.id)
+    : [];
+  const actualSha256 = registerBytes instanceof Uint8Array ? digest(registerBytes) : null;
+  if (actualSha256 !== reviewedKoreanInteroperabilitySha256
+    || !interoperability(register)
+    || register.profileVersion !== profileVersion
+    || new Set(ids).size !== ids.length) {
+    throw failure(
+      "INVALID_KOREAN_INTEROPERABILITY_REGISTER",
+      "Korean interoperability register identity or structure is invalid",
+      {
+        errors: validatorErrors(interoperability),
+        actualSha256,
+        expectedSha256: reviewedKoreanInteroperabilitySha256,
+        profileVersion,
+      },
+    );
+  }
+  return register;
+}
+
+export function interoperabilityReleaseBlockers(register) {
+  return register.blindspots.flatMap((item) => {
+    if (!item.releaseGateRequired
+      || item.status === "fixed"
+      || item.status === "not-applicable"
+      || item.blockingScope === "bridge-runtime") return [];
+
+    const blocksCandidate = item.status !== "blocked-external-evidence";
+    return [{
+      id: item.id,
+      scope: blocksCandidate ? "profile-core" : "institutional",
+      source: "korean-interoperability-register",
+      status: item.status,
+      severity: item.severity,
+      blocksCandidate,
+      blocksRecommendation: true,
+      blockingScope: item.blockingScope,
+      affectedModules: item.affectedModules,
+    }];
+  });
 }
 
 function scopeDefaultBlocking(scope) {
@@ -659,13 +722,22 @@ export async function validateRcMatrixEvidence(bytes, runtime) {
     const report = parseJson(bytes, "RC SHACL matrix evidence");
     const [
       { deriveFullMatrixDefinitions },
+      {
+        executableRequirementProfiles,
+        materializedRequirementProfileCoverage,
+        runtimeRequirementCoverage,
+      },
       { loadProfileRelease, resolveReleaseArtifact },
+      { loadRdfBytes },
       nodeBytes,
       pythonBytes,
+      coverageBytes,
       toolchainBytes,
     ] = await Promise.all([
       import("../profile/run-rc-shacl-matrix.mjs"),
+      import("../profile/rc-requirement-profile-coverage.mjs"),
       import("../../src/profile/registry.mjs"),
+      import("../../src/profile/rdf-loader.mjs"),
       readCheckedFile(
         root,
         path.join(root, "tools", "profile", "run-rc-shacl-matrix.mjs"),
@@ -674,6 +746,11 @@ export async function validateRcMatrixEvidence(bytes, runtime) {
       readCheckedFile(
         root,
         path.join(root, "tools", "profile", "rc_shacl_matrix.py"),
+        2 * 1024 * 1024,
+      ),
+      readCheckedFile(
+        root,
+        path.join(root, "tools", "profile", "rc-requirement-profile-coverage.mjs"),
         2 * 1024 * 1024,
       ),
       readCheckedFile(
@@ -699,18 +776,59 @@ export async function validateRcMatrixEvidence(bytes, runtime) {
     const caseRegistry = parseJson(caseRegistryBytes, "conformance case registry");
     const definitions = deriveFullMatrixDefinitions(release, registry, caseRegistry);
     const cases = Array.isArray(report.cases) ? report.cases : [];
-    const caseByFixtureId = new Map(cases.map((item) => [item?.fixtureId, item]));
-    const artifactDigestCache = new Map();
-    const artifactDigest = async (relative) => {
-      if (!artifactDigestCache.has(relative)) {
-        artifactDigestCache.set(relative, readCheckedFile(
+    const caseById = new Map(cases.map((item) => [item?.id, item]));
+    const uniqueFixtures = new Set(definitions.map(({ fixtureId }) => fixtureId)).size;
+    const applicableRequirementProfilePairs = registry.requirements.reduce((sum, requirement) => (
+      sum + executableRequirementProfiles(release, requirement).length
+    ), 0);
+    const artifactBytesCache = new Map();
+    const artifactBytes = async (relative) => {
+      if (!artifactBytesCache.has(relative)) {
+        artifactBytesCache.set(relative, readCheckedFile(
           release.releaseRoot,
           resolveReleaseArtifact(release, relative),
           32 * 1024 * 1024,
-        ).then(digest));
+        ));
       }
-      return artifactDigestCache.get(relative);
+      return artifactBytesCache.get(relative);
     };
+    const artifactDigest = async (relative) => {
+      return digest(await artifactBytes(relative));
+    };
+    const runtimeCoverage = runtimeRequirementCoverage(release, registry, definitions);
+    const materializedProfiles = new Map();
+    for (const profileName of [...new Set(registry.requirements.flatMap((requirement) => (
+      executableRequirementProfiles(release, requirement)
+    )))].sort()) {
+      const bundleRelative = release.manifest.publishedBundles[profileName];
+      const bundleBytes = await artifactBytes(bundleRelative);
+      const loaded = await loadRdfBytes(bundleBytes, bundleRelative, {
+        maxInputBytes: 16 * 1024 * 1024,
+        maxInputQuads: 200_000,
+        maxLiteralLength: 100_000,
+        maxValidationResults: 10_000,
+        maxValuesPerSubjectPredicate: 10_000,
+      }, { format: "text/turtle" });
+      materializedProfiles.set(profileName, {
+        bundleBytes,
+        bundleRelative,
+        shapeStore: loaded.store,
+      });
+    }
+    const sourceShapeDigests = new Map();
+    for (const shapeFile of [...new Set(registry.requirements.map((item) => item.shapeFile))]
+      .sort()) {
+      sourceShapeDigests.set(shapeFile, await artifactDigest(shapeFile));
+    }
+    const bundleCoverage = materializedRequirementProfileCoverage({
+      materializedProfiles,
+      registry,
+      release,
+      sourceShapeDigests,
+    });
+    const bundleCoverageMatches = JSON.stringify(
+      report.requirementCoverage?.bundleCoverage,
+    ) === JSON.stringify(bundleCoverage);
     const decisionsMatch = cases.length > 0 && cases.every((item) => {
       const expected = item?.decision === "conforms";
       const engines = item?.engines && Object.values(item.engines);
@@ -741,9 +859,9 @@ export async function validateRcMatrixEvidence(bytes, runtime) {
       shapeImports: "localImportMap artifacts materialized into the temporary shape graph; owl:imports removed before every engine executes",
     });
     const definitionsMatch = cases.length === definitions.length
-      && caseByFixtureId.size === definitions.length
+      && caseById.size === definitions.length
       && (await Promise.all(definitions.map(async (definition) => {
-        const item = caseByFixtureId.get(definition.fixtureId);
+        const item = caseById.get(definition.id);
         const bundleRelative = release.manifest.publishedBundles[definition.profile];
         if (!item || typeof bundleRelative !== "string") return false;
         const [inputSha256, bundleSha256] = await Promise.all([
@@ -770,8 +888,22 @@ export async function validateRcMatrixEvidence(bytes, runtime) {
       && report.artifactLock?.sha256 === runtime.artifactLockSha256
       && report.requirementCoverage?.caseRegistrySha256 === digest(caseRegistryBytes)
       && report.requirementCoverage?.requirementRegistrySha256 === digest(registryBytes)
-      && report.requirementCoverage?.deduplicatedFixtures === definitions.length
+      && report.requirementCoverage?.deduplicatedFixtures === uniqueFixtures
+      && report.requirementCoverage?.fixtureProfileExecutions === definitions.length
+      && report.requirementCoverage?.positiveRequirements === runtimeCoverage.executableRequirements
+      && report.requirementCoverage?.negativeRequirements === runtimeCoverage.executableRequirements
+      && report.requirementCoverage?.requirementProfileExecutions
+        === runtimeCoverage.requirementProfileExecutions
+      && report.requirementCoverage?.applicableRequirementProfilePairs
+        === applicableRequirementProfilePairs
+      && report.requirementCoverage?.bundleCoverage?.applicableRequirementProfilePairs
+        === applicableRequirementProfilePairs
+      && Array.isArray(report.requirementCoverage?.bundleCoverage?.pairs)
+      && report.requirementCoverage.bundleCoverage.pairs.length
+        === applicableRequirementProfilePairs
+      && bundleCoverageMatches
       && report.requirementCoverage?.requirements === registry.requirements.length
+      && report.implementation?.coverageSha256 === digest(coverageBytes)
       && report.implementation?.nodeSha256 === digest(nodeBytes)
       && report.implementation?.pythonSha256 === digest(pythonBytes)
       && report.toolchainManifestSha256 === digest(toolchainBytes)
@@ -962,8 +1094,28 @@ export async function evaluateReleaseGateV2(version, {
   const register = parseJson(registerBytes, "release acceptance register");
   await assertReleaseAcceptanceRegister(register, release.version);
 
+  const interoperabilityPath = path.join(
+    root,
+    ...koreanInteroperabilityRegisterRelative.split("/"),
+  );
+  const interoperabilityBytes = await readCheckedFile(
+    root,
+    interoperabilityPath,
+    8 * 1024 * 1024,
+  );
+  const interoperabilityRegister = parseJson(
+    interoperabilityBytes,
+    "Korean interoperability register",
+  );
+  await assertKoreanInteroperabilityRegister(
+    interoperabilityRegister,
+    release.version,
+    interoperabilityBytes,
+  );
+
   const inputEvidence = {
     [portableRootPath(registerPath)]: digest(registerBytes),
+    [koreanInteroperabilityRegisterRelative]: digest(interoperabilityBytes),
   };
   const [lock, git, requirementTraceability] = await Promise.all([
     checkArtifactLock(release),
@@ -1038,9 +1190,9 @@ export async function evaluateReleaseGateV2(version, {
       ? "fixed"
       : "open";
   }
-  const extraBlockers = terminalRuntime.artifactLock.status === "passed" || hasRegisterLockItem
-    ? []
-    : [{
+  const artifactLockBlockers = (
+    terminalRuntime.artifactLock.status === "passed" || hasRegisterLockItem
+  ) ? [] : [{
       id: "RA-LOCK",
       scope: "profile-core",
       source: "artifact-lock",
@@ -1050,7 +1202,10 @@ export async function evaluateReleaseGateV2(version, {
       blocksRecommendation: true,
     }];
   const eligibility = calculateReleaseEligibility(register, {
-    extraBlockers,
+    extraBlockers: [
+      ...interoperabilityReleaseBlockers(interoperabilityRegister),
+      ...artifactLockBlockers,
+    ],
     fixedEvidenceFailures: finalFixedEvidence.invalidItems,
     statusOverrides,
   });
@@ -1069,6 +1224,13 @@ export async function evaluateReleaseGateV2(version, {
         itemCount: register.items.length,
         path: registerRelative,
         sha256: digest(registerBytes),
+        status: "passed",
+      },
+      interoperabilityRegister: {
+        errorCode: null,
+        itemCount: interoperabilityRegister.blindspots.length,
+        path: koreanInteroperabilityRegisterRelative,
+        sha256: digest(interoperabilityBytes),
         status: "passed",
       },
       artifactLock: terminalRuntime.artifactLock,
@@ -1105,6 +1267,7 @@ export function invalidV2Report(version, error) {
     }],
     checks: {
       acceptanceRegister: { status: "not-run" },
+      interoperabilityRegister: { status: "not-run" },
       artifactLock: { status: "not-run" },
       fixedEvidence: { status: "not-run" },
       git: { status: "not-run" },
@@ -1115,6 +1278,14 @@ export function invalidV2Report(version, error) {
   });
 }
 
-export function releaseGateV2ExitCode(report) {
-  return report.recommendationEligible ? 0 : 2;
+export function releaseGateV2ExitCode(report, target = "recommendation") {
+  if (target !== "candidate" && target !== "recommendation") {
+    throw failure(
+      "INVALID_ARGUMENTS",
+      "release gate target must be candidate or recommendation",
+    );
+  }
+  return (target === "candidate" ? report.candidateEligible : report.recommendationEligible)
+    ? 0
+    : 2;
 }

@@ -15,6 +15,10 @@
       "localName": "aggregationPeriod",
       "termKind": "DatatypeProperty",
       "useCase": "Record the duration of the time window used to compute one aggregate observation value.",
+      "competencyQuestionIds": [
+        "CQ-ONTO-TERM-01",
+        "CQ-OBS-02"
+      ],
       "reuseDecision": "local-extension-required",
       "reuseReason": "dcat:temporalResolution describes dataset resolution and cannot be assumed to equal the source aggregation window.",
       "domain": {
@@ -61,6 +65,10 @@
       "localName": "controlOwner",
       "termKind": "AnnotationProperty",
       "useCase": "Identify the role accountable for the meaning and change control of a local SHACL constraint.",
+      "competencyQuestionIds": [
+        "CQ-ONTO-TERM-01",
+        "CQ-GOV-02"
+      ],
       "reuseDecision": "local-governance-annotation-required",
       "reuseReason": "SHACL defines constraint execution and messages but no annotation for the accountable governance role.",
       "domain": {
@@ -115,6 +123,10 @@
       "localName": "DataspaceOfferingMetadata",
       "termKind": "Class",
       "useCase": "Publish discovery metadata about a dataset that may later become a dataspace offering without asserting that a DSP Offer or Agreement exists.",
+      "competencyQuestionIds": [
+        "CQ-ONTO-TERM-01",
+        "CQ-OFF-01"
+      ],
       "reuseDecision": "local-extension-required",
       "reuseReason": "DCAT Resource describes catalogue resources, while DSP Offer is an operational protocol object. Neither carries the deliberately non-operational readiness and qualification-evidence boundary required here.",
       "domain": {
@@ -157,6 +169,10 @@
       "localName": "describesOfferingDataset",
       "termKind": "ObjectProperty",
       "useCase": "Link a non-operational offering-metadata record to the dataset it describes for discovery.",
+      "competencyQuestionIds": [
+        "CQ-ONTO-TERM-01",
+        "CQ-OFF-01"
+      ],
       "reuseDecision": "local-extension-required",
       "reuseReason": "dcat:dataset is a catalogue membership relation and DSP relations concern operational offers; neither states this one-to-one discovery projection without changing its meaning.",
       "domain": {
@@ -203,6 +219,10 @@
       "localName": "mappedQualityMetric",
       "termKind": "ObjectProperty",
       "useCase": "Name the DQV metric selected as the target of one reviewed source-quality mapping.",
+      "competencyQuestionIds": [
+        "CQ-ONTO-TERM-01",
+        "CQ-QUAL-02"
+      ],
       "reuseDecision": "local-extension-required",
       "reuseReason": "dqv:isMeasurementOf links a measurement to a metric, not a mapping statement to the metric chosen during semantic transformation.",
       "domain": {
@@ -249,6 +269,10 @@
       "localName": "missingValuePolicy",
       "termKind": "ObjectProperty",
       "useCase": "State whether absent observations are preserved, coded, excluded from aggregation or imputed.",
+      "competencyQuestionIds": [
+        "CQ-ONTO-TERM-01",
+        "CQ-OBS-03"
+      ],
       "reuseDecision": "local-extension-required",
       "reuseReason": "No DCAT or SOSA catalogue-level property records the transformation policy for missing values on an ObservationDataset.",
       "domain": {
@@ -295,6 +319,10 @@
       "localName": "networkAuthority",
       "termKind": "ObjectProperty",
       "useCase": "Name the agent that governs the uniqueness scope of a network identifier and edition.",
+      "competencyQuestionIds": [
+        "CQ-ONTO-TERM-01",
+        "CQ-NET-01"
+      ],
       "reuseDecision": "local-extension-required",
       "reuseReason": "dct:publisher describes publication responsibility and cannot safely be reused as the issuing authority for network identifier resolution.",
       "domain": {
@@ -341,6 +369,10 @@
       "localName": "NetworkDataset",
       "termKind": "Class",
       "useCase": "Identify catalogue datasets whose records depend on a versioned road, rail, stop, node or link network.",
+      "competencyQuestionIds": [
+        "CQ-ONTO-TERM-01",
+        "CQ-NET-01"
+      ],
       "reuseDecision": "local-extension-required",
       "reuseReason": "DCAT Dataset and the spatial profiles do not distinguish datasets whose identifiers must be resolved against one governed network edition.",
       "domain": {
@@ -383,6 +415,10 @@
       "localName": "networkElementType",
       "termKind": "ObjectProperty",
       "useCase": "List the node, link, section, stop or facility types covered by a network reference.",
+      "competencyQuestionIds": [
+        "CQ-ONTO-TERM-01",
+        "CQ-NET-04"
+      ],
       "reuseDecision": "local-extension-required",
       "reuseReason": "dct:type on the reference would not distinguish the type of referenced network elements from the type of the reference resource itself.",
       "domain": {
@@ -429,6 +465,10 @@
       "localName": "networkIdentifier",
       "termKind": "DatatypeProperty",
       "useCase": "Record the authority-scoped identifier of a transport network or network identifier system.",
+      "competencyQuestionIds": [
+        "CQ-ONTO-TERM-01",
+        "CQ-NET-01"
+      ],
       "reuseDecision": "local-extension-required",
       "reuseReason": "dct:identifier identifies the NetworkReference resource itself and cannot separately identify the governed network within its issuing authority.",
       "domain": {
@@ -475,6 +515,10 @@
       "localName": "networkLifecycleStatus",
       "termKind": "ObjectProperty",
       "useCase": "Distinguish candidate, current, superseded and withdrawn network editions during identifier resolution.",
+      "competencyQuestionIds": [
+        "CQ-ONTO-TERM-01",
+        "CQ-NET-02"
+      ],
       "reuseDecision": "local-extension-required",
       "reuseReason": "Generic ADMS status values do not encode the local network-edition lifecycle used by the join and publication controls.",
       "domain": {
@@ -521,6 +565,10 @@
       "localName": "networkReference",
       "termKind": "ObjectProperty",
       "useCase": "Connect a NetworkDataset to the authority-and-edition record used to interpret its network identifiers.",
+      "competencyQuestionIds": [
+        "CQ-ONTO-TERM-01",
+        "CQ-NET-01"
+      ],
       "reuseDecision": "local-extension-required",
       "reuseReason": "dct:references is too weak to require the NetworkReference identity tuple and would not activate the local integrity constraints.",
       "domain": {
@@ -567,6 +615,10 @@
       "localName": "NetworkReference",
       "termKind": "Class",
       "useCase": "Resolve network element identifiers against one authority, network identifier, edition, validity interval, checksum and lifecycle record.",
+      "competencyQuestionIds": [
+        "CQ-ONTO-TERM-01",
+        "CQ-NET-02"
+      ],
       "reuseDecision": "local-extension-required",
       "reuseReason": "No reused DCAT, PROV or GeoDCAT-AP class packages the authority and edition identity needed to prevent cross-edition joins.",
       "domain": {
@@ -609,6 +661,10 @@
       "localName": "networkSnapshotChecksum",
       "termKind": "DatatypeProperty",
       "useCase": "Bind a network edition to the SHA-256 digest of its fixed distribution or approved manifest.",
+      "competencyQuestionIds": [
+        "CQ-ONTO-TERM-01",
+        "CQ-NET-02"
+      ],
       "reuseDecision": "local-extension-required",
       "reuseReason": "SPDX checksum objects describe files, while this property binds the edition identity tuple directly to the selected snapshot digest under a fixed algorithm policy.",
       "domain": {
@@ -655,6 +711,10 @@
       "localName": "networkValidFrom",
       "termKind": "DatatypeProperty",
       "useCase": "Record the first date on which a network edition may be used for identifier resolution and joins.",
+      "competencyQuestionIds": [
+        "CQ-ONTO-TERM-01",
+        "CQ-NET-02"
+      ],
       "reuseDecision": "local-extension-required",
       "reuseReason": "dct:valid does not separate the start and end values needed for SHACL Core cardinality and ordering checks on a NetworkReference.",
       "domain": {
@@ -701,6 +761,10 @@
       "localName": "networkValidUntil",
       "termKind": "DatatypeProperty",
       "useCase": "Record the last date on which a network edition is interpreted as current, while allowing an open-ended current edition.",
+      "competencyQuestionIds": [
+        "CQ-ONTO-TERM-01",
+        "CQ-NET-02"
+      ],
       "reuseDecision": "local-extension-required",
       "reuseReason": "dct:valid does not expose the optional end date as a separately constrained value for network-edition resolution.",
       "domain": {
@@ -757,6 +821,10 @@
       "localName": "networkVersion",
       "termKind": "DatatypeProperty",
       "useCase": "Record the authority-issued edition or snapshot identifier of the governed network state.",
+      "competencyQuestionIds": [
+        "CQ-ONTO-TERM-01",
+        "CQ-NET-01"
+      ],
       "reuseDecision": "local-extension-required",
       "reuseReason": "owl:versionInfo and dct:hasVersion concern resource versions generally and would blur the network edition inside the authority-scoped identity tuple.",
       "domain": {
@@ -803,6 +871,10 @@
       "localName": "observationAggregation",
       "termKind": "ObjectProperty",
       "useCase": "Declare whether source observations are instantaneous, summed, averaged, minimum, maximum or median values.",
+      "competencyQuestionIds": [
+        "CQ-ONTO-TERM-01",
+        "CQ-OBS-02"
+      ],
       "reuseDecision": "local-extension-required",
       "reuseReason": "SOSA and DCAT do not provide a dataset-level controlled property for the aggregation operator used in a published observation series.",
       "domain": {
@@ -849,6 +921,10 @@
       "localName": "ObservationDataset",
       "termKind": "Class",
       "useCase": "Describe dataset-level traffic observations with subject, observed property, aggregation window, missing-value handling and value unit.",
+      "competencyQuestionIds": [
+        "CQ-ONTO-TERM-01",
+        "CQ-OBS-01"
+      ],
       "reuseDecision": "local-extension-required",
       "reuseReason": "SOSA Observation and ObservationCollection represent observations, not a catalogue Dataset summary. Declaring equivalence would change the level of description.",
       "domain": {
@@ -891,6 +967,10 @@
       "localName": "observationSubjectType",
       "termKind": "ObjectProperty",
       "useCase": "Declare whether observation values concern a site, section, network element, facility, vehicle population or area.",
+      "competencyQuestionIds": [
+        "CQ-ONTO-TERM-01",
+        "CQ-OBS-01"
+      ],
       "reuseDecision": "local-extension-required",
       "reuseReason": "SOSA feature-of-interest links individual observations to subjects; it does not provide this catalogue-level subject-type summary.",
       "domain": {
@@ -937,6 +1017,10 @@
       "localName": "observationUnit",
       "termKind": "ObjectProperty",
       "useCase": "Name the QUDT unit needed to interpret values in an observation dataset independently of quality-measurement units.",
+      "competencyQuestionIds": [
+        "CQ-ONTO-TERM-01",
+        "CQ-OBS-01"
+      ],
       "reuseDecision": "local-extension-required",
       "reuseReason": "QUDT defines Unit resources but not a DCAT Dataset property for the unit of the observation payload represented by the dataset.",
       "domain": {
@@ -983,6 +1067,10 @@
       "localName": "observedProperty",
       "termKind": "ObjectProperty",
       "useCase": "Name the phenomenon or characteristic represented by values in an observation dataset.",
+      "competencyQuestionIds": [
+        "CQ-ONTO-TERM-01",
+        "CQ-OBS-01"
+      ],
       "reuseDecision": "local-extension-required",
       "reuseReason": "sosa:observedProperty applies to SOSA observations. Reusing it directly on dcat:Dataset would imply a modelling level that this catalogue profile does not claim.",
       "domain": {
@@ -1029,6 +1117,10 @@
       "localName": "offeringReadinessStatus",
       "termKind": "ObjectProperty",
       "useCase": "Track description, external qualification, suspension or withdrawal of a candidate offering without claiming operational readiness.",
+      "competencyQuestionIds": [
+        "CQ-ONTO-TERM-01",
+        "CQ-OFF-01"
+      ],
       "reuseDecision": "local-extension-required",
       "reuseReason": "DSP has operational offer states and ADMS has general asset states; neither expresses this deliberately non-operational catalogue review workflow.",
       "domain": {
@@ -1075,6 +1167,10 @@
       "localName": "qualificationEvidence",
       "termKind": "ObjectProperty",
       "useCase": "Reference evidence used outside the public graph to review authority, delegation, validity or connector readiness.",
+      "competencyQuestionIds": [
+        "CQ-ONTO-TERM-01",
+        "CQ-OFF-02"
+      ],
       "reuseDecision": "local-extension-required",
       "reuseReason": "PROV can type the evidence entity but does not supply a catalogue relation whose presence is explicitly non-conclusive for operational qualification.",
       "domain": {
@@ -1121,6 +1217,10 @@
       "localName": "qualityEvaluationMethod",
       "termKind": "ObjectProperty",
       "useCase": "Classify the method used to produce a quality measurement while leaving algorithm details in a versioned method document.",
+      "competencyQuestionIds": [
+        "CQ-ONTO-TERM-01",
+        "CQ-QUAL-01"
+      ],
       "reuseDecision": "local-extension-required",
       "reuseReason": "DQV does not define a controlled evaluation-method relation for QualityMeasurement, and prov:wasGeneratedBy would identify an activity rather than the reviewed method class.",
       "domain": {
@@ -1167,6 +1267,10 @@
       "localName": "qualityEvaluationScope",
       "termKind": "DatatypeProperty",
       "useCase": "Describe the evaluated population, sample, attributes or period so a measurement is not mistaken for a whole-dataset result.",
+      "competencyQuestionIds": [
+        "CQ-ONTO-TERM-01",
+        "CQ-QUAL-01"
+      ],
       "reuseDecision": "local-extension-required",
       "reuseReason": "DQV computedOn identifies the dataset but has no field for the actual subset or sampling scope evaluated by a measurement.",
       "domain": {
@@ -1213,6 +1317,10 @@
       "localName": "qualityLossDisposition",
       "termKind": "ObjectProperty",
       "useCase": "State whether a source-to-DQV mapping is lossless, reversibly lossy, irreversibly lossy, unmapped or withheld.",
+      "competencyQuestionIds": [
+        "CQ-ONTO-TERM-01",
+        "CQ-QUAL-02"
+      ],
       "reuseDecision": "local-extension-required",
       "reuseReason": "DQV has no property for transformation loss or publication exclusion on a source-quality mapping statement.",
       "domain": {
@@ -1259,6 +1367,10 @@
       "localName": "qualityLossNote",
       "termKind": "DatatypeProperty",
       "useCase": "Explain source semantics not preserved by a non-lossless, unmapped or unpublished quality mapping and any reverse conditions.",
+      "competencyQuestionIds": [
+        "CQ-ONTO-TERM-01",
+        "CQ-QUAL-02"
+      ],
       "reuseDecision": "local-extension-required",
       "reuseReason": "SKOS notes and SHACL messages do not belong to the mapping instance and cannot carry the reviewed loss explanation needed by the ledger.",
       "domain": {
@@ -1315,6 +1427,10 @@
       "localName": "qualityMappingStatement",
       "termKind": "ObjectProperty",
       "useCase": "Connect each DQV measurement to the source-element mapping and loss ledger that explains its projection.",
+      "competencyQuestionIds": [
+        "CQ-ONTO-TERM-01",
+        "CQ-QUAL-02"
+      ],
       "reuseDecision": "local-extension-required",
       "reuseReason": "dqv:isMeasurementOf identifies only the target metric and cannot retain source-element identity or mapping loss.",
       "domain": {
@@ -1361,6 +1477,10 @@
       "localName": "QualityMappingStatement",
       "termKind": "Class",
       "useCase": "Record how a source quality element maps to DQV, including loss disposition and the information needed for reverse review.",
+      "competencyQuestionIds": [
+        "CQ-ONTO-TERM-01",
+        "CQ-QUAL-02"
+      ],
       "reuseDecision": "local-extension-required",
       "reuseReason": "DQV supplies metrics and measurements but has no statement type for source-element mapping loss, non-publication or reverse-mapping notes.",
       "domain": {
@@ -1403,6 +1523,10 @@
       "localName": "qualityResultConcept",
       "termKind": "ObjectProperty",
       "useCase": "Link a categorical DQV measurement to the controlled concept represented by its literal code.",
+      "competencyQuestionIds": [
+        "CQ-ONTO-TERM-01",
+        "CQ-QUAL-04"
+      ],
       "reuseDecision": "local-extension-required",
       "reuseReason": "DQV defines dqv:value as a datatype property and has no property that links a categorical measurement value to a SKOS concept.",
       "domain": {
@@ -1449,6 +1573,10 @@
       "localName": "qualityResultKind",
       "termKind": "ObjectProperty",
       "useCase": "Discriminate quantitative, boolean, categorical and descriptive DQV values so datatype and unit rules can be enforced.",
+      "competencyQuestionIds": [
+        "CQ-ONTO-TERM-01",
+        "CQ-QUAL-01"
+      ],
       "reuseDecision": "local-extension-required",
       "reuseReason": "DQV permits a value but does not provide a result-kind discriminator that closes datatype and unit semantics for this profile.",
       "domain": {
@@ -1495,6 +1623,10 @@
       "localName": "qualityStatus",
       "termKind": "ObjectProperty",
       "useCase": "Distinguish unassessed, assessed, warning, failed and stale dataset quality states without treating missing measurements as a pass.",
+      "competencyQuestionIds": [
+        "CQ-ONTO-TERM-01",
+        "CQ-QUAL-04"
+      ],
       "reuseDecision": "local-extension-required",
       "reuseReason": "DQV measurements describe results but do not provide a dataset-level assessment workflow status with the required non-pass semantics.",
       "domain": {
@@ -1541,6 +1673,10 @@
       "localName": "remediation",
       "termKind": "AnnotationProperty",
       "useCase": "Attach operational correction guidance to a governed constraint independently of its diagnostic message.",
+      "competencyQuestionIds": [
+        "CQ-ONTO-TERM-01",
+        "CQ-GOV-02"
+      ],
       "reuseDecision": "local-governance-annotation-required",
       "reuseReason": "sh:message explains a validation result but does not provide a stable, separately governed remediation annotation.",
       "domain": {
@@ -1595,6 +1731,10 @@
       "localName": "requirementId",
       "termKind": "AnnotationProperty",
       "useCase": "Link one SHACL constraint to its requirement register row and conformance fixtures with a stable identifier.",
+      "competencyQuestionIds": [
+        "CQ-ONTO-TERM-01",
+        "CQ-GOV-02"
+      ],
       "reuseDecision": "local-governance-annotation-required",
       "reuseReason": "SHACL blank-node identity and source locations are not stable cross-artifact identifiers, and no standard SHACL predicate provides this traceability key.",
       "domain": {
@@ -1649,6 +1789,10 @@
       "localName": "sourceQualityElement",
       "termKind": "ObjectProperty",
       "useCase": "Identify the source-standard or source-system quality element used as input to a DQV mapping.",
+      "competencyQuestionIds": [
+        "CQ-ONTO-TERM-01",
+        "CQ-QUAL-02"
+      ],
       "reuseDecision": "local-extension-required",
       "reuseReason": "DQV identifies target metrics and measurements but does not identify the source semantic element preserved in a crosswalk.",
       "domain": {
@@ -1695,6 +1839,10 @@
       "localName": "SpatialDataset",
       "termKind": "Class",
       "useCase": "Activate the local CRS, spatial disclosure and geometry publication controls for a catalogue dataset.",
+      "competencyQuestionIds": [
+        "CQ-ONTO-TERM-01",
+        "CQ-GEO-01"
+      ],
       "reuseDecision": "local-extension-required",
       "reuseReason": "DCAT Dataset is intentionally broad, and GeoDCAT-AP does not provide a class that marks the exact local shape package and disclosure policy.",
       "domain": {
@@ -1737,6 +1885,10 @@
       "localName": "spatialDisclosureLevel",
       "termKind": "ObjectProperty",
       "useCase": "Declare how precisely a spatial extent is exposed in the public catalogue without replacing access rights or security classification.",
+      "competencyQuestionIds": [
+        "CQ-ONTO-TERM-01",
+        "CQ-GEO-01"
+      ],
       "reuseDecision": "local-extension-required",
       "reuseReason": "DCAT access rights govern access and GeoDCAT-AP geometry properties carry geometry; neither records the deliberate generalisation level of the public extent.",
       "domain": {
@@ -1783,6 +1935,10 @@
       "localName": "TransferableDataset",
       "termKind": "Class",
       "useCase": "Read and migrate 0.1.0 graphs that used a dataset type to suggest transfer-oriented metadata.",
+      "competencyQuestionIds": [
+        "CQ-ONTO-TERM-01",
+        "CQ-TRANSFER-01"
+      ],
       "reuseDecision": "deprecated-compatibility-only",
       "reuseReason": "This term is retained only for compatibility. New graphs use dcat:Dataset plus molit:DataspaceOfferingMetadata so catalogue description is not confused with transfer eligibility.",
       "domain": {
@@ -1836,6 +1992,10 @@
       "localName": "TransferDistribution",
       "termKind": "Class",
       "useCase": "Read and migrate 0.1.0 graphs that used a distribution type to suggest a transfer representation.",
+      "competencyQuestionIds": [
+        "CQ-ONTO-TERM-01",
+        "CQ-TRANSFER-01"
+      ],
       "reuseDecision": "deprecated-compatibility-only",
       "reuseReason": "This term is retained only for compatibility. New graphs use dcat:Distribution and separate offering metadata so a distribution does not assert operational access.",
       "domain": {

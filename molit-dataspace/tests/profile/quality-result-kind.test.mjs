@@ -68,3 +68,31 @@ for (const resultKind of ["quantitative", "boolean", "categorical", "descriptive
     assert.ok(report.results.some(({ sourceShape }) => sourceShape?.value === shapeIri));
   });
 }
+
+for (const metric of [
+  "logical-consistency",
+  "positional-accuracy",
+  "temporal-accuracy",
+  "timeliness",
+]) {
+  const fixtureName = `quantitative-${metric}`;
+  test(`POS-QUALITY-METRIC-${metric.toUpperCase()}: the metric-specific QUDT unit conforms`, async () => {
+    const report = await validateFixture("valid", fixtureName);
+    assert.equal(report.conforms, true, JSON.stringify(report.results, null, 2));
+  });
+
+  test(`NEG-QUALITY-METRIC-${metric.toUpperCase()}: a unit from another metric branch violates`, async () => {
+    const report = await validateFixture("invalid", fixtureName);
+    assert.equal(report.conforms, false);
+    assert.equal(report.results.length, 1, JSON.stringify(report.results, null, 2));
+    assert.equal(
+      report.results[0].sourceShape?.value,
+      "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#QualityMetricSemanticsShape",
+    );
+    assert.equal(
+      report.results[0].sourceConstraintComponent?.value,
+      "http://www.w3.org/ns/shacl#XoneConstraintComponent",
+    );
+    assert.equal(report.results[0].path, null);
+  });
+}

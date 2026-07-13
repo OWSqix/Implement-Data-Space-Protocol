@@ -69,8 +69,8 @@
     },
     "queries": {
       "type": "array",
-      "minItems": 13,
-      "maxItems": 13,
+      "minItems": 19,
+      "maxItems": 19,
       "items": { "$ref": "#/$defs/query" }
     },
     "owlConsistency": {
@@ -155,11 +155,11 @@
       "properties": {
         "id": {
           "type": "string",
-          "pattern": "^CQ-(?:OBS|NET|OFF|QUAL|GOV)-[0-9]{2}$"
+          "pattern": "^CQ-(?:(?:GEO|OBS|NET|OFF|QUAL|GOV|TRANSFER)-[0-9]{2}|ONTO-TERM-[0-9]{2})$"
         },
         "documentationSection": {
           "type": "string",
-          "pattern": "^CQ-(?:OBS|NET|OFF|QUAL|GOV)-[0-9]{2}$"
+          "pattern": "^CQ-(?:(?:GEO|OBS|NET|OFF|QUAL|GOV|TRANSFER)-[0-9]{2}|ONTO-TERM-[0-9]{2})$"
         },
         "queryFile": { "$ref": "#/$defs/queryPath" },
         "datasetId": {

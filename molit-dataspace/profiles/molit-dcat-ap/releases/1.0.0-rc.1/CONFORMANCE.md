@@ -179,7 +179,7 @@ Blank node shape는 원문 quad를 보존한 결정적 skolem copy임을 검증�
 
 원문에 실제 constraint component가 없는 폐기 URI 행은 upstream 적합성으로 세지 않는다. 로컬 publication-policy wrapper로 운용했음을 기록한다.
 
-Ontology 의미시험은 `npm run profile:ontology:verify`로 실행한다. 이 명령은 여섯 module 양성 fixture의 Catalog ASK, 열세 competency query의 정확한 binding과 OWL-RL closure를 검사한다. SHACL 적합성시험을 대신하지 않으며 두 Gate를 모두 통과해야 한다.
+Ontology 의미시험은 `npm run profile:ontology:verify`로 실행한다. 이 명령은 여섯 module 양성 fixture의 Catalog ASK, 열아홉 competency query의 정확한 binding과 OWL-RL closure를 검사한다. SHACL 적합성시험을 대신하지 않으며 두 Gate를 모두 통과해야 한다.
 
 ## 7. Module별 최소 주장
 

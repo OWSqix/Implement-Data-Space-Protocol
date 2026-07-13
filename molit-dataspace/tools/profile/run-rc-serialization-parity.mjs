@@ -19,6 +19,12 @@ import {
   atomicWriteChecked,
   readCheckedFile,
 } from "../registries/safe-local-file.mjs";
+import {
+  declaredFixtureProfiles,
+  executableRequirementProfiles,
+  materializedRequirementProfileCoverage,
+  runtimeRequirementCoverage,
+} from "./rc-requirement-profile-coverage.mjs";
 import { verifyRequirementTraceability } from "./verify-requirement-traceability.mjs";
 
 const { blankNode, literal, namedNode, quad } = DataFactory;
@@ -26,6 +32,7 @@ const root = path.resolve(fileURLToPath(new URL("../../", import.meta.url)));
 const version = "1.0.0-rc.1";
 const serializationScript = fileURLToPath(import.meta.url);
 const pythonScript = fileURLToPath(new URL("./rc_serialization_parity.py", import.meta.url));
+const coverageScript = fileURLToPath(new URL("./rc-requirement-profile-coverage.mjs", import.meta.url));
 const candidatePath = path.join(root, ".local/molit-rc-serialization-parity.candidate.json");
 const evidencePath = path.join(root, "evidence/validators/molit-rc-serialization-parity.v1.json");
 const javaHome = path.join(root, ".local/toolchains/install/jdk-21.0.11+10-jre");
@@ -363,31 +370,28 @@ export function deriveRequirementLinkedSerializationDefinitions(
       references.set(fixtureId, reference);
     }
   }
-  return [...references].sort(([left], [right]) => left.localeCompare(right)).map(([
-    fixtureId,
-    reference,
-  ]) => {
-    const commonProfiles = reference.fixture.conformanceClass.filter((profileName) => (
-      isExecutableProfile(release, profileName)
-        && reference.requirements.every((requirement) => (
-          requirement.conformanceClass.includes(profileName)
-        ))
-    )).sort();
-    assert(commonProfiles.length > 0, `serialization fixture has no common profile: ${fixtureId}`);
-    const profile = commonProfiles[0];
-    profileBundlePath(release, profile);
-    return {
-      expectedConforms: reference.fixture.expectedOutcome === "conforms",
-      expectedSha256: reference.fixture.sha256,
-      fixtureId,
-      id: `FULL-${fixtureId}`,
-      input: reference.fixture.path,
-      profile,
-      requirementIds: [...new Set(reference.requirements.map((item) => (
-        item.requirementId
-      )))].sort(),
-    };
-  });
+  const definitions = [];
+  for (const [fixtureId, reference] of [...references]
+    .sort(([left], [right]) => left.localeCompare(right))) {
+    for (const { profile, requirementIds } of declaredFixtureProfiles(
+      release,
+      reference.fixture,
+      reference.requirements,
+    )) {
+      profileBundlePath(release, profile);
+      definitions.push({
+        expectedConforms: reference.fixture.expectedOutcome === "conforms",
+        expectedSha256: reference.fixture.sha256,
+        fixtureId,
+        id: `FULL-${fixtureId}-${profile.toUpperCase()}`,
+        input: reference.fixture.path,
+        profile,
+        requirementIds,
+      });
+    }
+  }
+  runtimeRequirementCoverage(release, registry, definitions);
+  return definitions;
 }
 
 async function nodeDecision(validator, data, support, scope) {
@@ -441,7 +445,12 @@ async function materializeProfileBundle(release, profileName) {
       imports.push({ iri, path: importRelative, sha256: sha256(importBytes) });
     }
   }
-  return { imports, store };
+  return {
+    bundleBytes: bytes,
+    bundleRelative: relative,
+    imports,
+    shapeStore: store,
+  };
 }
 
 function validateWorkerOutput(value, definitions) {
@@ -493,12 +502,28 @@ async function buildFullRequirementLinkedParity({
 
   const supportStore = support.store;
   const validators = new Map();
+  const materializedProfiles = new Map();
   const profileImports = {};
-  for (const profileName of [...new Set(definitions.map((item) => item.profile))]) {
+  const coverageProfiles = registry.requirements.flatMap((requirement) => (
+    executableRequirementProfiles(release, requirement)
+  ));
+  for (const profileName of [...new Set(coverageProfiles)].sort()) {
     const materialized = await materializeProfileBundle(release, profileName);
-    validators.set(profileName, new SHACLValidator(materialized.store));
+    materializedProfiles.set(profileName, materialized);
+    validators.set(profileName, new SHACLValidator(materialized.shapeStore));
     profileImports[profileName] = materialized.imports;
   }
+  const sourceShapeDigests = new Map();
+  for (const shapeFile of [...new Set(registry.requirements.map(({ shapeFile }) => shapeFile))]
+    .sort()) {
+    sourceShapeDigests.set(shapeFile, sha256(await releaseBytes(release, shapeFile)));
+  }
+  const bundleCoverage = materializedRequirementProfileCoverage({
+    materializedProfiles,
+    registry,
+    release,
+    sourceShapeDigests,
+  });
 
   const cases = [];
   for (let index = 0; index < definitions.length; index += 1) {
@@ -586,6 +611,7 @@ async function buildFullRequirementLinkedParity({
     });
   }
   const linkedRequirementIds = new Set(definitions.flatMap((item) => item.requirementIds));
+  const runtimeCoverage = runtimeRequirementCoverage(release, registry, definitions);
   const executableRequirements = registry.requirements.filter((requirement) => (
     requirement.conformanceClass.some((profileName) => (
       isExecutableProfile(release, profileName)
@@ -601,6 +627,8 @@ async function buildFullRequirementLinkedParity({
   const perProfile = Object.fromEntries(profileNames.map((profileName) => {
     const profileDefinitions = definitions.filter((item) => item.profile === profileName);
     const profileCoverage = {
+      applicableRequirementCount:
+        bundleCoverage.perProfile[profileName].applicableRequirements,
       fixtureCount: profileDefinitions.length,
       formatConversionCount: profileDefinitions.length * formats.length,
       negativeFixtures: profileDefinitions.filter((item) => !item.expectedConforms).length,
@@ -622,8 +650,11 @@ async function buildFullRequirementLinkedParity({
   return {
     cases,
     coverage: {
+      applicableRequirementProfilePairs: bundleCoverage.applicableRequirementProfilePairs,
+      bundleCoverage,
       caseRegistrySha256: sha256(caseRegistryBytes),
       fixtureCount: definitions.length,
+      fixtureProfileExecutions: runtimeCoverage.fixtureProfileExecutions,
       formats: formats.map((item) => item.name),
       linkedRequirements: linkedRequirementIds.size,
       profileCount: profileNames.length,
@@ -631,21 +662,27 @@ async function buildFullRequirementLinkedParity({
       perProfile,
       profileImports,
       negativeFixtures: definitions.filter((item) => !item.expectedConforms).length,
+      negativeRequirements: runtimeCoverage.negativeRequirements,
       positiveFixtures: definitions.filter((item) => item.expectedConforms).length,
+      positiveRequirements: runtimeCoverage.positiveRequirements,
       requirementRegistrySha256: sha256(registryBytes),
       executableRequirements,
       excludedDiagnosticRequirements: registry.requirements.length - executableRequirements,
       registryRequirements: registry.requirements.length,
+      requirementProfileExecutions: runtimeCoverage.requirementProfileExecutions,
       traceabilityReportSha256: sha256(encode(traceability)),
+      uniqueFixtures: runtimeCoverage.uniqueFixtures,
     },
     worker: worker.engine,
   };
 }
 
 export async function buildRcSerializationParityCandidate() {
-  const [implementationBytes, pythonImplementationBytes] = await Promise.all([
+  const [implementationBytes, pythonImplementationBytes, coverageImplementationBytes]
+    = await Promise.all([
     readCheckedFile(root, serializationScript, 4 * 1024 * 1024),
     readCheckedFile(root, pythonScript, 4 * 1024 * 1024),
+    readCheckedFile(root, coverageScript, 4 * 1024 * 1024),
   ]);
   const toolchain = parseJson(run(process.execPath, [
     "tools/dependencies/jena-toolchain.mjs",
@@ -820,9 +857,14 @@ export async function buildRcSerializationParityCandidate() {
     1024 * 1024,
   ), "rdf-validate-shacl package metadata");
   assert(nodePackage.version === "0.6.5", "rdf-validate-shacl version differs from the reviewed baseline");
-  const [currentImplementation, currentPythonImplementation] = await Promise.all([
+  const [
+    currentImplementation,
+    currentPythonImplementation,
+    currentCoverageImplementation,
+  ] = await Promise.all([
     readCheckedFile(root, serializationScript, 4 * 1024 * 1024),
     readCheckedFile(root, pythonScript, 4 * 1024 * 1024),
+    readCheckedFile(root, coverageScript, 4 * 1024 * 1024),
   ]);
   assert(
     sha256(currentImplementation) === sha256(implementationBytes),
@@ -831,6 +873,10 @@ export async function buildRcSerializationParityCandidate() {
   assert(
     sha256(currentPythonImplementation) === sha256(pythonImplementationBytes),
     "serialization worker implementation changed during execution",
+  );
+  assert(
+    sha256(currentCoverageImplementation) === sha256(coverageImplementationBytes),
+    "requirement profile coverage implementation changed during execution",
   );
   const executableRequirementCount = registry.requirements.filter((requirement) => (
     requirement.conformanceClass.some((profileName) => (
@@ -858,6 +904,7 @@ export async function buildRcSerializationParityCandidate() {
     },
     gatePassed: true,
     implementation: {
+      coverageSha256: sha256(coverageImplementationBytes),
       nodeSha256: sha256(implementationBytes),
       pythonSha256: sha256(pythonImplementationBytes),
     },
@@ -877,7 +924,7 @@ export async function buildRcSerializationParityCandidate() {
     },
     releaseEvidenceEligible,
     schemaVersion: "molit.rc-serialization-parity/1",
-    scope: "Jena representative smoke plus five-format canonical graph and Node decision parity for every requirement-linked fixture in all seven non-diagnostic profiles, including publication-policy",
+    scope: "Jena representative smoke plus five-format canonical graph and Node decision parity for every approved requirement fixture in every declared non-diagnostic profile; every applicable profile bundle statically proves inclusion of the same locked requirement source shape, including publication-policy",
     toolchainManifestSha256: toolchain.manifestSha256,
   };
 }

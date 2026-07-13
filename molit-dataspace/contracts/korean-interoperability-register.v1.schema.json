@@ -525,6 +525,8 @@
         "finding",
         "status",
         "evidence",
+        "blockingScope",
+        "affectedModules",
         "releaseGateRequired",
         "currentlyBlocksRelease"
       ],
@@ -552,6 +554,27 @@
             "$ref": "#/$defs/blindspotEvidence"
           }
         },
+        "blockingScope": {
+          "enum": ["standard-core", "module-conditional", "bridge-runtime"]
+        },
+        "affectedModules": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "enum": [
+              "release-infrastructure",
+              "core",
+              "geo",
+              "network",
+              "observation",
+              "quality",
+              "dataspace-offering",
+              "publication-policy",
+              "bridge-runtime"
+            ]
+          }
+        },
         "releaseGateRequired": {
           "type": "boolean"
         },
@@ -560,6 +583,29 @@
         }
       },
       "allOf": [
+        {
+          "if": {
+            "properties": {
+              "blockingScope": { "const": "bridge-runtime" }
+            },
+            "required": ["blockingScope"]
+          },
+          "then": {
+            "properties": {
+              "affectedModules": { "const": ["bridge-runtime"] }
+            }
+          },
+          "else": {
+            "properties": {
+              "affectedModules": {
+                "not": {
+                  "type": "array",
+                  "contains": { "const": "bridge-runtime" }
+                }
+              }
+            }
+          }
+        },
         {
           "if": {
             "properties": {

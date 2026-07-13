@@ -1,0 +1,34 @@
+@prefix dcat: <http://www.w3.org/ns/dcat#> .
+@prefix dqv: <http://www.w3.org/ns/dqv#> .
+@prefix ex: <urn:molit:quality-metric:logical-consistency:invalid:> .
+@prefix metric: <https://data.molit.go.kr/id/metric/> .
+@prefix molit: <https://data.molit.go.kr/def/molit-dcat-ap#> .
+@prefix qloss: <https://data.molit.go.kr/id/concept/quality-loss-disposition/> .
+@prefix qmethod: <https://data.molit.go.kr/id/concept/quality-evaluation-method/> .
+@prefix qresult: <https://data.molit.go.kr/id/concept/quality-result-kind/> .
+@prefix quality: <https://data.molit.go.kr/id/concept/quality-status/> .
+@prefix sdmx-attribute: <http://purl.org/linked-data/sdmx/2009/attribute#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+ex:dataset a dcat:Dataset ;
+    dqv:hasQualityMeasurement ex:measurement ;
+    molit:qualityStatus quality:assessed .
+
+ex:measurement a dqv:QualityMeasurement ;
+    dqv:computedOn ex:dataset ;
+    dqv:isMeasurementOf metric:logical-consistency ;
+    dqv:value "99.2"^^xsd:decimal ;
+    molit:qualityEvaluationMethod qmethod:whole-population ;
+    molit:qualityEvaluationScope "all applicable records" ;
+    molit:qualityResultKind qresult:quantitative ;
+    molit:qualityMappingStatement ex:mapping ;
+    sdmx-attribute:unitMeasure <http://qudt.org/vocab/unit/M> .
+
+ex:mapping a molit:QualityMappingStatement ;
+    molit:sourceQualityElement ex:source-element ;
+    molit:mappedQualityMetric metric:logical-consistency ;
+    molit:qualityLossDisposition qloss:lossless .
+
+ex:source-element a skos:Concept .
+metric:logical-consistency a dqv:Metric .

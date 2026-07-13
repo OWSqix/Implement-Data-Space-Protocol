@@ -9,7 +9,7 @@
       "origin": "local",
       "version": "1.0.0-rc.1",
       "path": "CONFORMANCE.md",
-      "sha256": "3aee54148c0ab94cb188190dd6213a7cad2fabd15838add48955f0c4e08f027e"
+      "sha256": "621d318e1ed3a005297a5328e1a8024306202082c9195ef3465245ba47da21df"
     },
     {
       "license": "PENDING-OWNER-APPROVAL",
@@ -100,7 +100,7 @@
       "origin": "local",
       "version": "1.0.0-rc.1",
       "path": "docs/ontology/competency-questions.md",
-      "sha256": "80ece20a50f5684f61023d0097d9984ad070f8192d1582dbabaa160dde48fead"
+      "sha256": "3d9e45c520ef576cee7e00864a4e156171660066d2750e68be4fb6e0e2f3b0f7"
     },
     {
       "license": "PENDING-OWNER-APPROVAL",
@@ -1275,6 +1275,34 @@
       "license": "PENDING-OWNER-APPROVAL",
       "origin": "local",
       "version": "1.0.0-rc.1",
+      "path": "examples/unit/quality-result-kind/invalid/quantitative-logical-consistency.ttl",
+      "sha256": "624789b04d0dacc40dcb8448394b45fed5b2434ae05322df8297f4a89f3a635b"
+    },
+    {
+      "license": "PENDING-OWNER-APPROVAL",
+      "origin": "local",
+      "version": "1.0.0-rc.1",
+      "path": "examples/unit/quality-result-kind/invalid/quantitative-positional-accuracy.ttl",
+      "sha256": "dccaead78340beddc8a907ad04dba2b6620a1aedbbf95df27c8b852bc2203398"
+    },
+    {
+      "license": "PENDING-OWNER-APPROVAL",
+      "origin": "local",
+      "version": "1.0.0-rc.1",
+      "path": "examples/unit/quality-result-kind/invalid/quantitative-temporal-accuracy.ttl",
+      "sha256": "f0d9f4621a7b6dd0a3002f0f446edfe04fd67a11c1cf33654d64f45e0f203b90"
+    },
+    {
+      "license": "PENDING-OWNER-APPROVAL",
+      "origin": "local",
+      "version": "1.0.0-rc.1",
+      "path": "examples/unit/quality-result-kind/invalid/quantitative-timeliness.ttl",
+      "sha256": "9872585ea8295780df2999bc68a62e7308a2126999ebe3f31dfa1e5fcef8d2a2"
+    },
+    {
+      "license": "PENDING-OWNER-APPROVAL",
+      "origin": "local",
+      "version": "1.0.0-rc.1",
       "path": "examples/unit/quality-result-kind/invalid/quantitative.ttl",
       "sha256": "a37213e1c549b96acccdaffd5e54df8c2cd0469c058699c7a5a201f5ac12a068"
     },
@@ -1298,6 +1326,34 @@
       "version": "1.0.0-rc.1",
       "path": "examples/unit/quality-result-kind/valid/descriptive.ttl",
       "sha256": "007b4aa34c3a8a41a9dde8785fd9a0c21bdcb8097bbdc696b2000cd92c6c7f3f"
+    },
+    {
+      "license": "PENDING-OWNER-APPROVAL",
+      "origin": "local",
+      "version": "1.0.0-rc.1",
+      "path": "examples/unit/quality-result-kind/valid/quantitative-logical-consistency.ttl",
+      "sha256": "599b0aa8b723c1b945955eb122f0e32ec404104897698e9ee3328eaacca9ce10"
+    },
+    {
+      "license": "PENDING-OWNER-APPROVAL",
+      "origin": "local",
+      "version": "1.0.0-rc.1",
+      "path": "examples/unit/quality-result-kind/valid/quantitative-positional-accuracy.ttl",
+      "sha256": "63160a9925dea5030c3c8e0008807ac6e6df0b82b9062f3de6267327d9140eae"
+    },
+    {
+      "license": "PENDING-OWNER-APPROVAL",
+      "origin": "local",
+      "version": "1.0.0-rc.1",
+      "path": "examples/unit/quality-result-kind/valid/quantitative-temporal-accuracy.ttl",
+      "sha256": "8f17e5bc57b5fa91ed5d327413bb44e2ee3c35602d54f9fbf7425545bd48ab42"
+    },
+    {
+      "license": "PENDING-OWNER-APPROVAL",
+      "origin": "local",
+      "version": "1.0.0-rc.1",
+      "path": "examples/unit/quality-result-kind/valid/quantitative-timeliness.ttl",
+      "sha256": "fe87ee1714884b66266a5b98808e2a0bc8db36ca8a84d3cdef1f473559d4b09e"
     },
     {
       "license": "PENDING-OWNER-APPROVAL",
@@ -1388,14 +1444,14 @@
       "origin": "generated-local",
       "version": "1.0.0-rc.1",
       "path": "index.html",
-      "sha256": "709de2efa87a5278947619d8b3d572c0b879c9abee7cf6365cfdba4710fe2508"
+      "sha256": "703e18d9fdd3521c416b4140fc62beccb2229d547344e690f3d4eebac5e6ccd5"
     },
     {
       "license": "PENDING-OWNER-APPROVAL",
       "origin": "local",
       "version": "1.0.0-rc.1",
       "path": "index.md",
-      "sha256": "f7f2807c90fa636c7e4b8b94af742f5faa78121014c59b09d7f106776a98d1a2"
+      "sha256": "fa320a3546ad47416c5f697e886dbd806184bd061a8e8966f09dcedabc1f229b"
     },
     {
       "license": "PENDING-OWNER-APPROVAL",
@@ -1444,7 +1500,7 @@
       "origin": "local",
       "version": "1.0.0-rc.1",
       "path": "ontology/competency-registry.json",
-      "sha256": "9f133302802a46a9dcc5cdd45dc67f79141fe61e5fbe8b933aacdd6d595982ba"
+      "sha256": "82883267bc02ce2885ebdb7829278a50ae148cb5aa6b3829f32724117f0d0d88"
     },
     {
       "license": "PENDING-OWNER-APPROVAL",
@@ -1457,8 +1513,22 @@
       "license": "PENDING-OWNER-APPROVAL",
       "origin": "local",
       "version": "1.0.0-rc.1",
+      "path": "ontology/queries/cq-geo-01.rq",
+      "sha256": "c8170ee83b660e3b284622c4e5ce7631da63b3ca03ae9506a2226fc6cc97effc"
+    },
+    {
+      "license": "PENDING-OWNER-APPROVAL",
+      "origin": "local",
+      "version": "1.0.0-rc.1",
       "path": "ontology/queries/cq-gov-01.rq",
       "sha256": "a2e3294c5201a775b3d38af3d8eac8600f3ff2624cbf466668c5003fadef7dfe"
+    },
+    {
+      "license": "PENDING-OWNER-APPROVAL",
+      "origin": "local",
+      "version": "1.0.0-rc.1",
+      "path": "ontology/queries/cq-gov-02.rq",
+      "sha256": "63dcf66db06f9b0fcebf2e1766a90501a2247313d3d5c87806a0e0774d6d9d9e"
     },
     {
       "license": "PENDING-OWNER-APPROVAL",
@@ -1480,6 +1550,13 @@
       "version": "1.0.0-rc.1",
       "path": "ontology/queries/cq-net-03.rq",
       "sha256": "1b9821eed5aeb9dd3e6dd0f32256cd4a4145beda7f9e1a7121eb70985d2698c9"
+    },
+    {
+      "license": "PENDING-OWNER-APPROVAL",
+      "origin": "local",
+      "version": "1.0.0-rc.1",
+      "path": "ontology/queries/cq-net-04.rq",
+      "sha256": "76f25614951dd17b83692be64a496c69f74afc07e1efe8e1db32d238f65f76e8"
     },
     {
       "license": "PENDING-OWNER-APPROVAL",
@@ -1527,6 +1604,13 @@
       "license": "PENDING-OWNER-APPROVAL",
       "origin": "local",
       "version": "1.0.0-rc.1",
+      "path": "ontology/queries/cq-onto-term-01.rq",
+      "sha256": "5885f202b0b644814e60c6ebd873368076401f1395c2f0fadab6fee7c0806809"
+    },
+    {
+      "license": "PENDING-OWNER-APPROVAL",
+      "origin": "local",
+      "version": "1.0.0-rc.1",
       "path": "ontology/queries/cq-qual-01.rq",
       "sha256": "ae1cc22af60472e9fa9406a2566974baf00d46b20901b1909973fe58599ee00c"
     },
@@ -1548,6 +1632,20 @@
       "license": "PENDING-OWNER-APPROVAL",
       "origin": "local",
       "version": "1.0.0-rc.1",
+      "path": "ontology/queries/cq-qual-04.rq",
+      "sha256": "a04b93c2b51ffa581b0116a2daff5905e8a2a77cd4305cb78cfae98251b219c1"
+    },
+    {
+      "license": "PENDING-OWNER-APPROVAL",
+      "origin": "local",
+      "version": "1.0.0-rc.1",
+      "path": "ontology/queries/cq-transfer-01.rq",
+      "sha256": "d2d2e62e7bf802e3e2bd2e15b0b5293de803b05d0ec2ef2c10238930177dd069"
+    },
+    {
+      "license": "PENDING-OWNER-APPROVAL",
+      "origin": "local",
+      "version": "1.0.0-rc.1",
       "path": "ontology/queries/module-catalog-present.rq",
       "sha256": "988f2bf93ae48e0d4018f417d3b693a51fedd3e16b75bc7dde2b4119a6d94463"
     },
@@ -1556,7 +1654,7 @@
       "origin": "local",
       "version": "1.0.0-rc.1",
       "path": "ontology/term-governance.json",
-      "sha256": "c158b1a3ae914504bf728efa9522025c0578ed89755f3062feefb0a44580ae10"
+      "sha256": "9acf21ff6c645a6b5c888a5ec9a0ff48a9684b4fe3bcfce6f2f9abbe3de0275e"
     },
     {
       "license": "PENDING-OWNER-APPROVAL",

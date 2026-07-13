@@ -145,6 +145,7 @@
         "localName",
         "termKind",
         "useCase",
+        "competencyQuestionIds",
         "reuseDecision",
         "reuseReason",
         "domain",
@@ -172,6 +173,15 @@
           "enum": ["Class", "ObjectProperty", "DatatypeProperty", "AnnotationProperty"]
         },
         "useCase": { "type": "string", "minLength": 20, "maxLength": 800 },
+        "competencyQuestionIds": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "pattern": "^CQ-(?:(?:GEO|OBS|NET|OFF|QUAL|GOV|TRANSFER)-[0-9]{2}|ONTO-TERM-[0-9]{2})$"
+          }
+        },
         "reuseDecision": {
           "enum": [
             "local-extension-required",

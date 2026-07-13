@@ -1,7 +1,7 @@
 {
   "schemaVersion": "molit.korean-interoperability-register/1",
   "asOf": "2026-07-12",
-  "profileVersion": "0.1.0",
+  "profileVersion": "1.0.0-rc.1",
   "claimPolicy": {
     "institutionalConformanceAllowed": false,
     "publicClaim": "공개 스키마와 고정 공개 fixture를 대상으로 시험한 Working Draft",
@@ -1125,7 +1125,11 @@
         }
       ],
       "releaseGateRequired": true,
-      "currentlyBlocksRelease": false
+      "currentlyBlocksRelease": false,
+      "blockingScope": "standard-core",
+      "affectedModules": [
+        "release-infrastructure"
+      ]
     },
     {
       "id": "BS-XSD-LEXICAL",
@@ -1144,7 +1148,11 @@
         }
       ],
       "releaseGateRequired": true,
-      "currentlyBlocksRelease": false
+      "currentlyBlocksRelease": false,
+      "blockingScope": "standard-core",
+      "affectedModules": [
+        "core"
+      ]
     },
     {
       "id": "BS-SPATIAL-WITHHELD",
@@ -1162,7 +1170,11 @@
         }
       ],
       "releaseGateRequired": true,
-      "currentlyBlocksRelease": false
+      "currentlyBlocksRelease": false,
+      "blockingScope": "module-conditional",
+      "affectedModules": [
+        "geo"
+      ]
     },
     {
       "id": "BS-SHACL-ENGINE",
@@ -1185,7 +1197,11 @@
         }
       ],
       "releaseGateRequired": true,
-      "currentlyBlocksRelease": false
+      "currentlyBlocksRelease": false,
+      "blockingScope": "standard-core",
+      "affectedModules": [
+        "release-infrastructure"
+      ]
     },
     {
       "id": "BS-RDF-SERIALIZATION",
@@ -1213,7 +1229,11 @@
         }
       ],
       "releaseGateRequired": true,
-      "currentlyBlocksRelease": false
+      "currentlyBlocksRelease": false,
+      "blockingScope": "standard-core",
+      "affectedModules": [
+        "core"
+      ]
     },
     {
       "id": "BS-ISO19115-XML-TECH",
@@ -1239,7 +1259,11 @@
         }
       ],
       "releaseGateRequired": true,
-      "currentlyBlocksRelease": true
+      "currentlyBlocksRelease": true,
+      "blockingScope": "bridge-runtime",
+      "affectedModules": [
+        "bridge-runtime"
+      ]
     },
     {
       "id": "BS-ISO19115-KS-CLAUSE",
@@ -1261,7 +1285,12 @@
         }
       ],
       "releaseGateRequired": true,
-      "currentlyBlocksRelease": true
+      "currentlyBlocksRelease": true,
+      "blockingScope": "standard-core",
+      "affectedModules": [
+        "core",
+        "geo"
+      ]
     },
     {
       "id": "BS-TTA-CROSSWALK",
@@ -1279,7 +1308,12 @@
         }
       ],
       "releaseGateRequired": true,
-      "currentlyBlocksRelease": true
+      "currentlyBlocksRelease": true,
+      "blockingScope": "standard-core",
+      "affectedModules": [
+        "core",
+        "geo"
+      ]
     },
     {
       "id": "BS-DCAT-KR-VERSION",
@@ -1301,7 +1335,12 @@
         }
       ],
       "releaseGateRequired": true,
-      "currentlyBlocksRelease": true
+      "currentlyBlocksRelease": true,
+      "blockingScope": "standard-core",
+      "affectedModules": [
+        "core",
+        "geo"
+      ]
     },
     {
       "id": "BS-DB-CATALOG-CATEGORY",
@@ -1321,13 +1360,17 @@
         }
       ],
       "releaseGateRequired": true,
-      "currentlyBlocksRelease": true
+      "currentlyBlocksRelease": true,
+      "blockingScope": "bridge-runtime",
+      "affectedModules": [
+        "bridge-runtime"
+      ]
     },
     {
       "id": "BS-CRS-AXIS",
       "severity": "P0",
-      "finding": "문서가 모든 CRS 좌표를 경도·위도 순서로 설명했고 EPSG:5179 northing·easting을 구분하지 않았다.",
-      "status": "partially-tested",
+      "finding": "RC.1 verifies authority-axis handling and CRS round trips for the bounded geometry subset covering CRS84 and EPSG:4326, 3857, 5179, and 5186. Institution-corpus coverage remains separately tracked by BS-CRS-COVERAGE.",
+      "status": "fixed",
       "evidence": [
         {
           "kind": "repository-file",
@@ -1346,7 +1389,7 @@
         {
           "kind": "control-id",
           "value": "RT-SPATIAL-ACCURACY-001",
-          "status": "open"
+          "status": "implemented"
         },
         {
           "kind": "control-id",
@@ -1356,17 +1399,25 @@
         {
           "kind": "control-id",
           "value": "GEO-LIT-COVERAGE-001",
-          "status": "open"
+          "status": "implemented"
+        },
+        {
+          "kind": "repository-file",
+          "path": "tests/contract/crs-geometry-transformation.test.mjs"
         }
       ],
       "releaseGateRequired": true,
-      "currentlyBlocksRelease": true
+      "currentlyBlocksRelease": false,
+      "blockingScope": "module-conditional",
+      "affectedModules": [
+        "geo"
+      ]
     },
     {
       "id": "BS-QUALITY-LOSS",
       "severity": "P1",
-      "finding": "ISO 19157의 다양한 result·method·scope를 일부 숫자 metric으로 축약할 때 손실 분류와 reverse rule이 없다.",
-      "status": "open",
+      "finding": "The RC.1 quality module implements result-kind, method, scope, and source-to-DQV loss-ledger constraints. Lawfully obtained KS X ISO 19157 clauses and institution XML round-trip fixtures are still unavailable, so institutional interoperability remains unverified.",
+      "status": "blocked-external-evidence",
       "evidence": [
         {
           "kind": "control-id",
@@ -1377,10 +1428,22 @@
           "kind": "control-id",
           "value": "MAP-LOSS-001",
           "status": "open"
+        },
+        {
+          "kind": "repository-file",
+          "path": "profiles/molit-dcat-ap/releases/1.0.0-rc.1/shacl/molit-quality.ttl"
+        },
+        {
+          "kind": "note",
+          "value": "lawful KS X ISO 19157 clauses and institution XML round-trip fixtures required"
         }
       ],
       "releaseGateRequired": true,
-      "currentlyBlocksRelease": true
+      "currentlyBlocksRelease": true,
+      "blockingScope": "module-conditional",
+      "affectedModules": [
+        "quality"
+      ]
     },
     {
       "id": "BS-AUTHORITY-REGISTRY",
@@ -1406,7 +1469,11 @@
         }
       ],
       "releaseGateRequired": true,
-      "currentlyBlocksRelease": true
+      "currentlyBlocksRelease": true,
+      "blockingScope": "bridge-runtime",
+      "affectedModules": [
+        "bridge-runtime"
+      ]
     },
     {
       "id": "BS-LIVE-DRIFT",
@@ -1425,7 +1492,11 @@
         }
       ],
       "releaseGateRequired": false,
-      "currentlyBlocksRelease": false
+      "currentlyBlocksRelease": false,
+      "blockingScope": "bridge-runtime",
+      "affectedModules": [
+        "bridge-runtime"
+      ]
     },
     {
       "id": "BS-VALIDATOR-DEPENDENCIES",
@@ -1451,7 +1522,11 @@
         }
       ],
       "releaseGateRequired": true,
-      "currentlyBlocksRelease": false
+      "currentlyBlocksRelease": false,
+      "blockingScope": "standard-core",
+      "affectedModules": [
+        "release-infrastructure"
+      ]
     },
     {
       "id": "BS-CROSSWALK-INVENTORY",
@@ -1474,7 +1549,11 @@
         }
       ],
       "releaseGateRequired": true,
-      "currentlyBlocksRelease": false
+      "currentlyBlocksRelease": false,
+      "blockingScope": "bridge-runtime",
+      "affectedModules": [
+        "bridge-runtime"
+      ]
     },
     {
       "id": "BS-XSD-DATATYPE-COVERAGE",
@@ -1497,7 +1576,11 @@
         }
       ],
       "releaseGateRequired": true,
-      "currentlyBlocksRelease": false
+      "currentlyBlocksRelease": false,
+      "blockingScope": "standard-core",
+      "affectedModules": [
+        "core"
+      ]
     },
     {
       "id": "BS-NETWORK-REGISTRY-DRIFT",
@@ -1528,7 +1611,11 @@
         }
       ],
       "releaseGateRequired": true,
-      "currentlyBlocksRelease": false
+      "currentlyBlocksRelease": false,
+      "blockingScope": "module-conditional",
+      "affectedModules": [
+        "network"
+      ]
     },
     {
       "id": "BS-CRS-REGISTRY-EVIDENCE",
@@ -1551,13 +1638,17 @@
         }
       ],
       "releaseGateRequired": true,
-      "currentlyBlocksRelease": false
+      "currentlyBlocksRelease": false,
+      "blockingScope": "module-conditional",
+      "affectedModules": [
+        "geo"
+      ]
     },
     {
       "id": "BS-STANDARD-STATUS-EVIDENCE",
       "severity": "P1",
       "finding": "표준 lifecycle 정본과 source register가 같은 저장소의 가변 record이며 공식 status 응답 bytes·digest를 고정하지 않았다.",
-      "status": "open",
+      "status": "blocked-external-evidence",
       "evidence": [
         {
           "kind": "control-id",
@@ -1570,13 +1661,18 @@
         }
       ],
       "releaseGateRequired": true,
-      "currentlyBlocksRelease": true
+      "currentlyBlocksRelease": true,
+      "blockingScope": "standard-core",
+      "affectedModules": [
+        "core",
+        "geo"
+      ]
     },
     {
       "id": "BS-CLAIM-SEMANTIC-VARIANTS",
       "severity": "P1",
       "finding": "문자열 기반 게시 claim Gate는 등록하지 않은 동의어·우회 표현의 의미를 완전하게 판정할 수 없다.",
-      "status": "open",
+      "status": "blocked-external-evidence",
       "evidence": [
         {
           "kind": "control-id",
@@ -1589,7 +1685,11 @@
         }
       ],
       "releaseGateRequired": true,
-      "currentlyBlocksRelease": true
+      "currentlyBlocksRelease": true,
+      "blockingScope": "standard-core",
+      "affectedModules": [
+        "publication-policy"
+      ]
     },
     {
       "id": "BS-REAL-DATA-COVERAGE",
@@ -1616,17 +1716,21 @@
         }
       ],
       "releaseGateRequired": true,
-      "currentlyBlocksRelease": true
+      "currentlyBlocksRelease": true,
+      "blockingScope": "bridge-runtime",
+      "affectedModules": [
+        "bridge-runtime"
+      ]
     },
     {
       "id": "BS-CRS-COVERAGE",
       "severity": "P0",
-      "finding": "source-reference 7종과 geometry literal 2종은 고정했지만 실제 기관 corpus의 CRS 분포, 미승인 CRS 처리와 지원 geometry의 변환 정확도를 검증하지 않았다.",
-      "status": "open",
+      "finding": "RC.1 verifies the declared CRS set for the bounded geometry fixtures. Institution-corpus CRS distribution, unsupported-CRS handling, and approved transformation-error tolerances still lack authoritative fixtures.",
+      "status": "blocked-external-evidence",
       "evidence": [
         {
           "kind": "repository-file",
-          "path": "profiles/molit-dcat-ap/releases/0.1.0/mappings/domestic-standards-alignment.md"
+          "path": "profiles/molit-dcat-ap/releases/1.0.0-rc.1/mappings/domestic-standards-alignment.md"
         },
         {
           "kind": "source-id",
@@ -1648,10 +1752,22 @@
           "kind": "control-id",
           "value": "CRS-COVERAGE-001",
           "status": "open"
+        },
+        {
+          "kind": "repository-file",
+          "path": "tests/contract/crs-geometry-transformation.test.mjs"
+        },
+        {
+          "kind": "note",
+          "value": "institution CRS corpus and approved operational error tolerances required"
         }
       ],
       "releaseGateRequired": true,
-      "currentlyBlocksRelease": true
+      "currentlyBlocksRelease": true,
+      "blockingScope": "module-conditional",
+      "affectedModules": [
+        "geo"
+      ]
     },
     {
       "id": "BS-DOMESTIC-VOCABULARY",
@@ -1661,7 +1777,7 @@
       "evidence": [
         {
           "kind": "repository-file",
-          "path": "profiles/molit-dcat-ap/releases/0.1.0/mappings/domestic-standards-alignment.md"
+          "path": "profiles/molit-dcat-ap/releases/1.0.0-rc.1/mappings/domestic-standards-alignment.md"
         },
         {
           "kind": "source-id",
@@ -1686,17 +1802,25 @@
         }
       ],
       "releaseGateRequired": true,
-      "currentlyBlocksRelease": true
+      "currentlyBlocksRelease": true,
+      "blockingScope": "module-conditional",
+      "affectedModules": [
+        "core",
+        "network",
+        "observation",
+        "quality",
+        "dataspace-offering"
+      ]
     },
     {
       "id": "BS-TRANSPORT-UNIT-SEMANTICS",
       "severity": "P1",
-      "finding": "교통 관측속도의 property, 집계구간, 결측 의미와 단위 projection이 없으며 DQV 품질 단위 allowlist에 km per hour를 추가하는 것만으로는 해결되지 않는다.",
-      "status": "open",
+      "finding": "The RC.1 observation module defines speed, volume, travel-time, aggregation interval, missing-value meaning, and unit constraints. Institution-approved ITS payload-to-RDF crosswalk fixtures are still unavailable.",
+      "status": "blocked-external-evidence",
       "evidence": [
         {
           "kind": "repository-file",
-          "path": "profiles/molit-dcat-ap/releases/0.1.0/mappings/domestic-standards-alignment.md"
+          "path": "profiles/molit-dcat-ap/releases/1.0.0-rc.1/mappings/domestic-standards-alignment.md"
         },
         {
           "kind": "source-id",
@@ -1706,10 +1830,22 @@
           "kind": "control-id",
           "value": "TRANSPORT-UNIT-001",
           "status": "open"
+        },
+        {
+          "kind": "repository-file",
+          "path": "profiles/molit-dcat-ap/releases/1.0.0-rc.1/shacl/molit-observation.ttl"
+        },
+        {
+          "kind": "note",
+          "value": "institution-approved ITS payload crosswalk and fixtures required"
         }
       ],
       "releaseGateRequired": true,
-      "currentlyBlocksRelease": true
+      "currentlyBlocksRelease": true,
+      "blockingScope": "module-conditional",
+      "affectedModules": [
+        "observation"
+      ]
     },
     {
       "id": "BS-ONTOLOGY-MERGE",
@@ -1740,7 +1876,11 @@
         }
       ],
       "releaseGateRequired": true,
-      "currentlyBlocksRelease": false
+      "currentlyBlocksRelease": false,
+      "blockingScope": "standard-core",
+      "affectedModules": [
+        "core"
+      ]
     }
   ]
 }

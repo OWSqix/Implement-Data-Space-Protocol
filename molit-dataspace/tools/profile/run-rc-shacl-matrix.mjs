@@ -20,6 +20,12 @@ import {
   atomicWriteChecked,
   readCheckedFile,
 } from "../registries/safe-local-file.mjs";
+import {
+  declaredFixtureProfiles,
+  executableRequirementProfiles,
+  materializedRequirementProfileCoverage,
+  runtimeRequirementCoverage,
+} from "./rc-requirement-profile-coverage.mjs";
 
 const { blankNode, literal, namedNode, quad } = DataFactory;
 const root = path.resolve(fileURLToPath(new URL("../../", import.meta.url)));
@@ -31,6 +37,7 @@ const candidatePaths = Object.freeze({
 });
 const matrixScript = fileURLToPath(import.meta.url);
 const pythonScript = fileURLToPath(new URL("./rc_shacl_matrix.py", import.meta.url));
+const coverageScript = fileURLToPath(new URL("./rc-requirement-profile-coverage.mjs", import.meta.url));
 const javaHome = path.join(root, ".local/toolchains/install/jdk-21.0.11+10-jre");
 const jenaHome = path.join(root, ".local/toolchains/install/apache-jena-6.1.0");
 const maxBuffer = 32 * 1024 * 1024;
@@ -383,27 +390,25 @@ export function deriveFullMatrixDefinitions(release, registry, caseRegistry) {
 
   const definitions = [];
   for (const [fixtureId, reference] of [...references].sort(([left], [right]) => left.localeCompare(right))) {
-    const commonProfiles = reference.fixture.conformanceClass.filter((profileName) => (
-      release.manifest.profiles?.[profileName]?.kind !== "diagnostic"
-      && reference.requirements.every((requirement) => requirement.conformanceClass.includes(profileName))
-    )).sort();
-    assert(
-      commonProfiles.length > 0,
-      `deduplicated fixture has no conformance class common to every linked requirement: ${fixtureId}`,
-    );
-    const profile = commonProfiles[0];
-    assertProfileCanValidate(release, profile);
-    definitions.push({
-      expectedConforms: reference.fixture.expectedOutcome === "conforms",
-      expectedSha256: reference.fixture.sha256,
-      fixtureId,
-      id: `FULL-${fixtureId}`,
-      input: portablePath(reference.fixture.path, "fixture path"),
-      profile,
-      requirementIds: [...new Set(reference.requirements.map((item) => item.requirementId))].sort(),
-    });
+    for (const { profile, requirementIds } of declaredFixtureProfiles(
+      release,
+      reference.fixture,
+      reference.requirements,
+    )) {
+      assertProfileCanValidate(release, profile);
+      definitions.push({
+        expectedConforms: reference.fixture.expectedOutcome === "conforms",
+        expectedSha256: reference.fixture.sha256,
+        fixtureId,
+        id: `FULL-${fixtureId}-${profile.toUpperCase()}`,
+        input: portablePath(reference.fixture.path, "fixture path"),
+        profile,
+        requirementIds,
+      });
+    }
   }
   assert(definitions.length > 0, "approved requirement registry produced no full matrix cases");
+  runtimeRequirementCoverage(release, registry, definitions);
   return definitions;
 }
 
@@ -426,7 +431,7 @@ async function fullDefinitions(release, registryBytes, caseRegistryBytes) {
 
 function assertDefinitions(release, definitions) {
   const identifiers = new Set();
-  const fixtureIds = new Set();
+  const fixtureProfiles = new Set();
   for (const definition of definitions) {
     assert(/^[A-Z0-9][A-Z0-9._-]{0,119}$/u.test(definition.id), `invalid matrix case ID: ${definition.id}`);
     assert(!identifiers.has(definition.id), `duplicate matrix case ID: ${definition.id}`);
@@ -434,8 +439,9 @@ function assertDefinitions(release, definitions) {
     portablePath(definition.input, "matrix input");
     assertProfileCanValidate(release, definition.profile);
     if (definition.fixtureId !== null) {
-      assert(!fixtureIds.has(definition.fixtureId), `full matrix did not deduplicate fixture: ${definition.fixtureId}`);
-      fixtureIds.add(definition.fixtureId);
+      const fixtureProfile = `${definition.fixtureId}\0${definition.profile}`;
+      assert(!fixtureProfiles.has(fixtureProfile), `full matrix duplicated fixture/profile: ${definition.fixtureId}/${definition.profile}`);
+      fixtureProfiles.add(fixtureProfile);
     }
   }
 }
@@ -532,7 +538,7 @@ function validatePythonOutput(value, definitions) {
   return new Map(value.results.map((item) => [item.id, item]));
 }
 
-async function snapshotCases(release, definitions, artifactBytes, directory) {
+async function snapshotCases(release, definitions, artifactBytes, directory, registry) {
   const sources = new Map();
   const read = async (relativePath) => {
     if (!sources.has(relativePath)) {
@@ -548,7 +554,12 @@ async function snapshotCases(release, definitions, artifactBytes, directory) {
   await writeFile(path.join(directory, "support.ttl"), supportBytes, { flag: "wx" });
 
   const bundleSnapshots = new Map();
-  for (const profile of [...new Set(definitions.map((item) => item.profile))].sort()) {
+  const coverageProfiles = registry === null
+    ? definitions.map((item) => item.profile)
+    : registry.requirements.flatMap((requirement) => (
+      executableRequirementProfiles(release, requirement)
+    ));
+  for (const profile of [...new Set(coverageProfiles)].sort()) {
     const bundleRelative = assertProfileCanValidate(release, profile);
     const bundleBytes = await read(bundleRelative);
     const loaded = await loadRdfBytes(bundleBytes, bundleRelative, rdfLimits, { format: "text/turtle" });
@@ -605,7 +616,13 @@ async function snapshotCases(release, definitions, artifactBytes, directory) {
       inputSnapshot,
     });
   }
-  return { prepared, sources, supportBytes };
+  const sourceShapeDigests = new Map();
+  for (const shapeFile of [...new Set((registry?.requirements ?? []).map(({ shapeFile }) => (
+    shapeFile
+  )))].sort()) {
+    sourceShapeDigests.set(shapeFile, sha256(await read(shapeFile)));
+  }
+  return { bundleSnapshots, prepared, sourceShapeDigests, sources, supportBytes };
 }
 
 async function assertSourcesUnchanged(release, sources) {
@@ -619,13 +636,26 @@ async function assertSourcesUnchanged(release, sources) {
   }
 }
 
-async function executeMatrix(release, definitions, artifactBytes, directory) {
-  const { prepared, sources, supportBytes } = await snapshotCases(
+async function executeMatrix(release, definitions, artifactBytes, directory, registry) {
+  const {
+    bundleSnapshots,
+    prepared,
+    sourceShapeDigests,
+    sources,
+    supportBytes,
+  } = await snapshotCases(
     release,
     definitions,
     artifactBytes,
     directory,
+    registry,
   );
+  const materializedCoverage = registry === null ? null : materializedRequirementProfileCoverage({
+    materializedProfiles: bundleSnapshots,
+    registry,
+    release,
+    sourceShapeDigests,
+  });
   const pythonCases = prepared.map((definition) => ({
     bundle: definition.snapshotRelative,
     id: definition.id,
@@ -708,7 +738,7 @@ async function executeMatrix(release, definitions, artifactBytes, directory) {
     });
   }
   await assertSourcesUnchanged(release, sources);
-  return { cases: executed, pythonEngine: pythonOutput.engine };
+  return { cases: executed, materializedCoverage, pythonEngine: pythonOutput.engine };
 }
 
 export async function buildRcShaclMatrixCandidate({
@@ -716,9 +746,10 @@ export async function buildRcShaclMatrixCandidate({
   requireStableLock = false,
 } = {}) {
   assert(["full", "representative"].includes(mode), `unknown RC matrix mode: ${mode}`);
-  const [matrixScriptBytes, pythonScriptBytes] = await Promise.all([
+  const [matrixScriptBytes, pythonScriptBytes, coverageScriptBytes] = await Promise.all([
     readCheckedFile(root, matrixScript, 4 * 1024 * 1024),
     readCheckedFile(root, pythonScript, 4 * 1024 * 1024),
+    readCheckedFile(root, coverageScript, 4 * 1024 * 1024),
   ]);
   const toolchain = parseJson(run(process.execPath, [
     "tools/dependencies/jena-toolchain.mjs",
@@ -754,7 +785,13 @@ export async function buildRcShaclMatrixCandidate({
   const directory = await mkdtemp(path.join(tmpdir(), "molit-rc-matrix-"));
   let execution;
   try {
-    execution = await executeMatrix(release, definitions, lock.artifactBytes, directory);
+    execution = await executeMatrix(
+      release,
+      definitions,
+      lock.artifactBytes,
+      directory,
+      mode === "full" ? registry : null,
+    );
   } finally {
     await rm(directory, { force: true, recursive: true });
   }
@@ -771,15 +808,20 @@ export async function buildRcShaclMatrixCandidate({
     1024 * 1024,
   ), "rdf-validate-shacl package metadata");
   assert(packageMetadata.version === "0.6.5", "rdf-validate-shacl version differs from the reviewed baseline");
-  const [currentMatrixScript, currentPythonScript] = await Promise.all([
+  const [currentMatrixScript, currentPythonScript, currentCoverageScript] = await Promise.all([
     readCheckedFile(root, matrixScript, 4 * 1024 * 1024),
     readCheckedFile(root, pythonScript, 4 * 1024 * 1024),
+    readCheckedFile(root, coverageScript, 4 * 1024 * 1024),
   ]);
   assert(
     sha256(currentMatrixScript) === sha256(matrixScriptBytes)
-      && sha256(currentPythonScript) === sha256(pythonScriptBytes),
+      && sha256(currentPythonScript) === sha256(pythonScriptBytes)
+      && sha256(currentCoverageScript) === sha256(coverageScriptBytes),
     "matrix implementation changed during execution",
   );
+  const runtimeCoverage = mode === "full"
+    ? runtimeRequirementCoverage(release, registry, definitions)
+    : null;
   const releaseEvidenceEligible = mode === "full"
     && lock.report.status === "verified"
     && registry.registryStatus === "approved"
@@ -794,6 +836,7 @@ export async function buildRcShaclMatrixCandidate({
     },
     gatePassed: true,
     implementation: {
+      coverageSha256: sha256(coverageScriptBytes),
       nodeSha256: sha256(matrixScriptBytes),
       pythonSha256: sha256(pythonScriptBytes),
     },
@@ -813,8 +856,15 @@ export async function buildRcShaclMatrixCandidate({
     profileVersion: version,
     releaseEvidenceEligible,
     requirementCoverage: mode === "full" ? {
+      applicableRequirementProfilePairs:
+        execution.materializedCoverage.applicableRequirementProfilePairs,
+      bundleCoverage: execution.materializedCoverage,
       caseRegistrySha256: sha256(caseRegistryBytes),
-      deduplicatedFixtures: definitions.length,
+      deduplicatedFixtures: runtimeCoverage.uniqueFixtures,
+      fixtureProfileExecutions: runtimeCoverage.fixtureProfileExecutions,
+      negativeRequirements: runtimeCoverage.negativeRequirements,
+      positiveRequirements: runtimeCoverage.positiveRequirements,
+      requirementProfileExecutions: runtimeCoverage.requirementProfileExecutions,
       requirementRegistrySha256: sha256(registryBytes),
       requirements: registry.requirements.length,
       traceabilityReportSha256: sha256(encode(traceability)),
@@ -825,7 +875,7 @@ export async function buildRcShaclMatrixCandidate({
     },
     schemaVersion: "molit.rc-shacl-engine-matrix/1",
     scope: mode === "full"
-      ? "Approved SHACL requirement fixtures, deduplicated by fixture ID and executed in a declared conformance class; JavaScript preflight controls are listed separately"
+      ? "Approved SHACL requirement fixtures execute in every declared non-diagnostic conformance class; every applicable profile bundle statically proves inclusion of the same locked requirement source shape; JavaScript preflight controls are listed separately"
       : "One positive and one representative negative for each of the six RC conformance modules, plus the combined sector-and-service core graph; JavaScript preflight controls are listed separately",
     toolchainManifestSha256: toolchain.manifestSha256,
   };

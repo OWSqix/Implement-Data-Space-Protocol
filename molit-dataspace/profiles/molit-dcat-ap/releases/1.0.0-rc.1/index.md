@@ -31,9 +31,9 @@
 
 따라서 이 판을 `MOLIT Recommendation`, 기관 표준 또는 국내 표준 적합판으로 표시하지 않는다. 검증 명령의 exit code `0`은 선택한 후보 모듈의 기술 제약을 통과했다는 뜻이다.
 
-RC.1 발행 판정의 machine 정본은 이 release의 `release-acceptance.json`이다. 파일 누락, schema 오류 또는 열린 차단항목은 release 허용으로 해석하지 않는다.
+RC.1 Gate는 `release-acceptance.json`, 독립 검토 digest가 고정된 `standards/korean-interoperability-register.json`, `artifact-lock.json`, Gate 시작·종료 시점의 release 경로 Git 상태를 함께 읽는다. 입력이 누락되거나 schema·digest·Git 상태가 맞지 않으면 발행 허용으로 해석하지 않는다.
 
-`standards/korean-interoperability-register.json`은 reviewed digest가 고정된 0.1.0 legacy 기준선이다. RC.1의 현재 Gate를 판정하지 않으며, RC.1 crosswalk가 기준선의 표준 ID를 source inventory로 참조한다.
+Candidate 판정은 로컬 기술증거와 `standard-core`·`module-conditional` 결함을 확인한다. Recommendation 판정은 Candidate 조건에 외부 표준 원문과 기관 승인증거를 더한다. `bridge-runtime` 항목은 Profile 판정에 섞지 않고 connector 배포 Gate에서 별도로 닫는다.
 
 ## 3. 규범 기준과 참고 기준
 
@@ -393,7 +393,7 @@ npm run profile:publication:verify
 npm run profile:ontology:verify
 ```
 
-이 명령은 여섯 module fixture, 열세 competency query의 정확한 결과와 OWL-RL 일관성을 검사한다. 자세한 판정은 [competency question](docs/ontology/competency-questions.md)에 있다.
+이 명령은 여섯 module fixture, 열아홉 competency query의 정확한 결과와 OWL-RL 일관성을 검사한다. 자세한 판정은 [competency question](docs/ontology/competency-questions.md)에 있다.
 
 ### 10.4 통제어와 이관 차이 검증
 
@@ -449,7 +449,7 @@ node src/profile/cli.mjs publish-check `
   --profile observation
 ```
 
-Manifest v2의 `publish-check`는 선택한 conformance module과 `publication-policy`를 같은 입력에 순서대로 적용한다. 두 기술 Gate를 통과해도 release-acceptance 외부 Gate가 열려 있으면 `publicationAuthorized=false`와 exit code `2`를 반환한다.
+Manifest v2의 `publish-check`는 선택한 conformance module과 `publication-policy`를 같은 입력에 순서대로 적용한다. 두 기술 Gate를 통과해도 release acceptance와 Korean register의 발행조건이 열려 있으면 `publicationAuthorized=false`와 exit code `2`를 반환한다.
 
 ### 10.9 RDF 직렬화 동등성
 
@@ -511,9 +511,13 @@ Adapter는 다음 경계를 지킨다.
 
 DCAT-AP-KR 또는 원-윈도우와의 변환이 성공해도 RC.1 전체 국내 상호운용성을 입증하지 않는다. 해당 adapter의 mapping·fixture·운영승인은 별도 release로 관리한다.
 
-## 14. Release acceptance
+## 14. Release Gate
 
-RC.1의 현재 상태는 `release-acceptance.json`만이 판정한다. 아래 표는 외부 evidence 범위를 설명한 것으로 machine 상태를 대체하지 않는다.
+RC.1의 machine 판정은 release acceptance, Korean interoperability register의 reviewed bytes, artifact lock과 시작·종료 Git snapshot을 함께 사용한다.
+
+아래 표는 외부 evidence 범위를 설명한 것으로 machine 상태를 대체하지 않는다.
+
+`npm run release:status:rc:candidate`는 Candidate 조건을 판정한다. `npm run release:status:rc`는 기본 대상인 Recommendation을 판정한다. 기존 플랫폼 connector의 권한·mapping·실데이터 항목은 `bridge-runtime` 배포 Gate에서 별도로 확인한다.
 
 Candidate에서 발행판으로 전환하려면 최소한 다음 외부 Gate가 닫혀야 한다.
 

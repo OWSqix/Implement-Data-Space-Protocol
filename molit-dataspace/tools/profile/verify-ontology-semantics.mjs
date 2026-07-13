@@ -65,19 +65,25 @@ const EXPECTED_DATASETS = Object.freeze({
   quality: ["quality-valid", "examples/valid/quality-catalog.ttl"],
 });
 const EXPECTED_CQ_IDS = Object.freeze([
+  "CQ-GEO-01",
   "CQ-GOV-01",
+  "CQ-GOV-02",
   "CQ-NET-01",
   "CQ-NET-02",
   "CQ-NET-03",
+  "CQ-NET-04",
   "CQ-OBS-01",
   "CQ-OBS-02",
   "CQ-OBS-03",
   "CQ-OBS-04",
   "CQ-OFF-01",
   "CQ-OFF-02",
+  "CQ-ONTO-TERM-01",
   "CQ-QUAL-01",
   "CQ-QUAL-02",
   "CQ-QUAL-03",
+  "CQ-QUAL-04",
+  "CQ-TRANSFER-01",
 ]);
 const EXPECTED_ZERO_CQS = new Set(["CQ-NET-03", "CQ-OFF-02", "CQ-QUAL-03"]);
 const PROHIBITED_SPARQL = /(?<![?$])\b(?:SERVICE|LOAD|CLEAR|CREATE|DROP|INSERT|DELETE|MOVE|COPY|ADD|FROM|USING|WITH)\b/iu;
@@ -186,7 +192,7 @@ function assertOfflineQuery(queryText, expectedForm, label) {
 
 export function extractDocumentedQueries(markdown) {
   const headings = [];
-  const headingPattern = /^#{1,6}\s+[^\r\n]*\b(CQ-(?:OBS|NET|OFF|QUAL|GOV)-[0-9]{2})\b[^\r\n]*$/gmu;
+  const headingPattern = /^#{1,6}\s+[^\r\n]*\b(CQ-(?:(?:GEO|OBS|NET|OFF|QUAL|GOV|TRANSFER)-[0-9]{2}|ONTO-TERM-[0-9]{2}))\b[^\r\n]*$/gmu;
   for (const match of markdown.matchAll(headingPattern)) {
     headings.push({ id: match[1], start: match.index, bodyStart: match.index + match[0].length });
   }

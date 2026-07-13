@@ -50,21 +50,58 @@ test("GEO-LIT-COVERAGE-001: bounded WKT Point, LineString and single-ring Polygo
   }
 });
 
-test("RT-SPATIAL-ACCURACY-001: authority axis order and supported CRS round-trips are explicit", () => {
-  const crs84 = parseWktGeometry(`<${CRS84}> POINT(127 37)`);
-  const epsg4326 = transformGeometry(crs84, EPSG4326);
+test("RT-SPATIAL-ACCURACY-001: authority axis order and supported CRS round-trips cover every bounded geometry", () => {
+  const geometries = [
+    parseWktGeometry(`<${CRS84}> POINT(127 37)`),
+    parseWktGeometry(`<${CRS84}> LINESTRING(126.9 36.9,127 37,127.1 37.1)`),
+    // BBOX is not a separate RC.1 lexical branch; this case covers the supported Polygon branch.
+    parseWktGeometry(`<${CRS84}> POLYGON((126.9 36.9,127.1 36.9,127.1 37.1,126.9 37.1,126.9 36.9))`),
+  ];
+  const epsg4326 = transformGeometry(geometries[0], EPSG4326);
   assert.ok(Math.abs(epsg4326.coordinates[0] - 37) < 1e-12);
   assert.ok(Math.abs(epsg4326.coordinates[1] - 127) < 1e-12);
-  for (const target of [EPSG4326, EPSG3857, EPSG5179, EPSG5186]) {
-    const error = roundTripError(crs84, target);
-    assert.equal(error.unit, "degree");
-    assert.ok(error.maximum <= policy.acceptance.geographicRoundTripDegrees, target);
+
+  // Reviewed coordinate oracles pin authority order independently of round-trip symmetry.
+  // EPSG:5179 and 5186 declare northing before easting in the pinned OGC definitions.
+  const authorityOracles = new Map([
+    [EPSG3857, [14137575.330745745, 4439106.787250583]],
+    [EPSG5179, [1889174.1743467299, 955511.8092851528]],
+    [EPSG5186, [489012.9556910066, 200000]],
+  ]);
+  for (const [target, expected] of authorityOracles) {
+    const actual = transformGeometry(geometries[0], target).coordinates;
+    assert.ok(Math.abs(actual[0] - expected[0]) <= 1e-6, `${target} first axis`);
+    assert.ok(Math.abs(actual[1] - expected[1]) <= 1e-6, `${target} second axis`);
   }
-  for (const source of [EPSG5179, EPSG5186]) {
-    const projected = transformGeometry(crs84, source);
-    const error = roundTripError(projected, CRS84);
-    assert.equal(error.unit, "metre");
-    assert.ok(error.maximum <= policy.acceptance.projectedRoundTripMeters, source);
+
+  const line5179 = transformGeometry(geometries[1], EPSG5179).coordinates;
+  assert.ok(Math.abs(line5179[0][0] - 1878132.1763580295) <= 1e-6);
+  assert.ok(Math.abs(line5179[0][1] - 946544.2538264524) <= 1e-6);
+  assert.ok(Math.abs(line5179.at(-1)[0] - 1900225.6108978107) <= 1e-6);
+  assert.ok(Math.abs(line5179.at(-1)[1] - 964456.1562994244) <= 1e-6);
+  const polygon5186 = transformGeometry(geometries[2], EPSG5186).coordinates[0];
+  assert.ok(Math.abs(polygon5186[0][0] - 477919.9551528567) <= 1e-6);
+  assert.ok(Math.abs(polygon5186[0][1] - 191087.18844849133) <= 1e-6);
+  assert.ok(Math.abs(polygon5186[2][0] - 500115.4930741546) <= 1e-6);
+  assert.ok(Math.abs(polygon5186[2][1] - 208889.49811490113) <= 1e-6);
+  for (const geometry of geometries) {
+    for (const target of [EPSG4326, EPSG3857, EPSG5179, EPSG5186]) {
+      const error = roundTripError(geometry, target);
+      assert.equal(error.unit, "degree");
+      assert.ok(
+        error.maximum <= policy.acceptance.geographicRoundTripDegrees,
+        `${geometry.type} through ${target}: ${error.maximum}`,
+      );
+    }
+    for (const source of [EPSG5179, EPSG5186]) {
+      const projected = transformGeometry(geometry, source);
+      const error = roundTripError(projected, CRS84);
+      assert.equal(error.unit, "metre");
+      assert.ok(
+        error.maximum <= policy.acceptance.projectedRoundTripMeters,
+        `${geometry.type} from ${source}: ${error.maximum}`,
+      );
+    }
   }
 });
 

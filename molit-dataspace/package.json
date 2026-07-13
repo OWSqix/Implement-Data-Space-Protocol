@@ -56,6 +56,7 @@
     "dependencies:verify": "node tools/dependencies/node-install-evidence.mjs verify",
     "release:status": "node tools/release/release-gate.mjs",
     "release:status:rc": "node tools/release/release-gate.mjs --version 1.0.0-rc.1",
+    "release:status:rc:candidate": "node tools/release/release-gate.mjs --version 1.0.0-rc.1 --target=candidate",
     "release:eol:verify": "node tools/release/verify-release-eol-policy.mjs",
     "registry:verify:iana": "node tools/registries/generate-iana-network-policy.mjs",
     "registry:verify:crs": "node tools/registries/verify-crs-snapshots.mjs",
@@ -63,7 +64,8 @@
     "test": "npm run test:docs && npm run test:bridge && npm run test:profile",
     "verify": "npm run docs:style:strict && npm run docs:markdownlint && npm run registry:verify:iana && npm run registry:verify:crs && npm run profile:requirements:verify && npm run profile:requirements:upstream:verify && npm run profile:ontology:governance:verify && npm run profile:domestic-crosswalk:verify && npm run profile:network:verify && npm run profile:publication:verify && npm run profile:vocabulary:verify && npm run profile:semantic-diff:verify && npm test && npm run profile:ontology:verify && npm run profile:verify:independent",
     "verify:release:win32-x64": "npm run verify && npm run dependencies:verify && npm run toolchain:verify:jena && npm run profile:verify:jena && npm run profile:requirements:upstream:engines && npm run profile:rc:serialization-parity:verify && npm run profile:rc:verify && npm run profile:rc:shacl-matrix:verify",
-    "release:gate:win32-x64": "npm run verify:release:win32-x64 && npm run release:status:rc"
+    "release:gate:win32-x64": "npm run verify:release:win32-x64 && npm run release:status:rc",
+    "release:gate:win32-x64:candidate": "npm run verify:release:win32-x64 && npm run release:status:rc:candidate"
   },
   "engines": {
     "node": ">=24"

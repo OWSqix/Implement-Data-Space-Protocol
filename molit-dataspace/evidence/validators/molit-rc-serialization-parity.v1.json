@@ -1,6 +1,6 @@
 {
   "artifactLock": {
-    "sha256": "886bb8bc6fde440e08a11e6fccbc667a99b18646cb90edbd5dd048370455d097",
+    "sha256": "fa099f2a3d01452b3ddb0bf73d9b971ed04d6bd035f201e6665f5860c2662597",
     "status": "verified"
   },
   "baseline": {
@@ -12531,10 +12531,2900 @@
       }
     ],
     "coverage": {
+      "applicableRequirementProfilePairs": 316,
+      "bundleCoverage": {
+        "applicableRequirementProfilePairs": 316,
+        "pairs": [
+          {
+            "bundle": "bundles/core.ttl",
+            "bundleSha256": "f05e5b0acb007b15010d12e0819120d492ebbe3b13fca8e2f4dc7bce8cfb4d31",
+            "profile": "core",
+            "requirementId": "MOLIT-AGENT-001-P-NAME-001",
+            "shapeFile": "shacl/molit-core.ttl",
+            "shapeFileSha256": "4ce9e7bfef1b84f5e7bd5bc98e52cd771cb710c59d159ed39bde7afdb42f5e08",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#AgentShape"
+          },
+          {
+            "bundle": "bundles/core.ttl",
+            "bundleSha256": "f05e5b0acb007b15010d12e0819120d492ebbe3b13fca8e2f4dc7bce8cfb4d31",
+            "profile": "core",
+            "requirementId": "MOLIT-CAT-001-P-DATASET-001",
+            "shapeFile": "shacl/molit-core.ttl",
+            "shapeFileSha256": "4ce9e7bfef1b84f5e7bd5bc98e52cd771cb710c59d159ed39bde7afdb42f5e08",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#CatalogShape"
+          },
+          {
+            "bundle": "bundles/core.ttl",
+            "bundleSha256": "f05e5b0acb007b15010d12e0819120d492ebbe3b13fca8e2f4dc7bce8cfb4d31",
+            "profile": "core",
+            "requirementId": "MOLIT-CAT-001-P-DESCRIPTION-001",
+            "shapeFile": "shacl/molit-core.ttl",
+            "shapeFileSha256": "4ce9e7bfef1b84f5e7bd5bc98e52cd771cb710c59d159ed39bde7afdb42f5e08",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#CatalogShape"
+          },
+          {
+            "bundle": "bundles/core.ttl",
+            "bundleSha256": "f05e5b0acb007b15010d12e0819120d492ebbe3b13fca8e2f4dc7bce8cfb4d31",
+            "profile": "core",
+            "requirementId": "MOLIT-CAT-001-P-LANGUAGE-001",
+            "shapeFile": "shacl/molit-core.ttl",
+            "shapeFileSha256": "4ce9e7bfef1b84f5e7bd5bc98e52cd771cb710c59d159ed39bde7afdb42f5e08",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#CatalogShape"
+          },
+          {
+            "bundle": "bundles/core.ttl",
+            "bundleSha256": "f05e5b0acb007b15010d12e0819120d492ebbe3b13fca8e2f4dc7bce8cfb4d31",
+            "profile": "core",
+            "requirementId": "MOLIT-CAT-001-P-PUBLISHER-001",
+            "shapeFile": "shacl/molit-core.ttl",
+            "shapeFileSha256": "4ce9e7bfef1b84f5e7bd5bc98e52cd771cb710c59d159ed39bde7afdb42f5e08",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#CatalogShape"
+          },
+          {
+            "bundle": "bundles/core.ttl",
+            "bundleSha256": "f05e5b0acb007b15010d12e0819120d492ebbe3b13fca8e2f4dc7bce8cfb4d31",
+            "profile": "core",
+            "requirementId": "MOLIT-CAT-001-P-RECORD-001",
+            "shapeFile": "shacl/molit-core.ttl",
+            "shapeFileSha256": "4ce9e7bfef1b84f5e7bd5bc98e52cd771cb710c59d159ed39bde7afdb42f5e08",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#CatalogShape"
+          },
+          {
+            "bundle": "bundles/core.ttl",
+            "bundleSha256": "f05e5b0acb007b15010d12e0819120d492ebbe3b13fca8e2f4dc7bce8cfb4d31",
+            "profile": "core",
+            "requirementId": "MOLIT-CAT-001-P-TITLE-001",
+            "shapeFile": "shacl/molit-core.ttl",
+            "shapeFileSha256": "4ce9e7bfef1b84f5e7bd5bc98e52cd771cb710c59d159ed39bde7afdb42f5e08",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#CatalogShape"
+          },
+          {
+            "bundle": "bundles/core.ttl",
+            "bundleSha256": "f05e5b0acb007b15010d12e0819120d492ebbe3b13fca8e2f4dc7bce8cfb4d31",
+            "profile": "core",
+            "requirementId": "MOLIT-CAT-REL-001-P-PATH-DA00F2B2F6-001",
+            "shapeFile": "shacl/molit-core.ttl",
+            "shapeFileSha256": "4ce9e7bfef1b84f5e7bd5bc98e52cd771cb710c59d159ed39bde7afdb42f5e08",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#CatalogRecordDatasetCoherenceShape"
+          },
+          {
+            "bundle": "bundles/core.ttl",
+            "bundleSha256": "f05e5b0acb007b15010d12e0819120d492ebbe3b13fca8e2f4dc7bce8cfb4d31",
+            "profile": "core",
+            "requirementId": "MOLIT-CV-CHECKSUM-001-P-ALGORITHM-001",
+            "shapeFile": "shacl/molit-controlled-vocabularies.ttl",
+            "shapeFileSha256": "fc56ba6e27e632b2c3107baa58c81e8ae2fa7c671cffebd8e7bd54424cf430be",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#ChecksumAlgorithmVocabularyShape"
+          },
+          {
+            "bundle": "bundles/core.ttl",
+            "bundleSha256": "f05e5b0acb007b15010d12e0819120d492ebbe3b13fca8e2f4dc7bce8cfb4d31",
+            "profile": "core",
+            "requirementId": "MOLIT-CV-CHECKSUM-002",
+            "shapeFile": "shacl/molit-controlled-vocabularies.ttl",
+            "shapeFileSha256": "fc56ba6e27e632b2c3107baa58c81e8ae2fa7c671cffebd8e7bd54424cf430be",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#ChecksumValueLengthShape"
+          },
+          {
+            "bundle": "bundles/core.ttl",
+            "bundleSha256": "f05e5b0acb007b15010d12e0819120d492ebbe3b13fca8e2f4dc7bce8cfb4d31",
+            "profile": "core",
+            "requirementId": "MOLIT-CV-MEDIATYPE-001-P-COMPRESSFORMAT-001",
+            "shapeFile": "shacl/molit-controlled-vocabularies.ttl",
+            "shapeFileSha256": "fc56ba6e27e632b2c3107baa58c81e8ae2fa7c671cffebd8e7bd54424cf430be",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#IanaMediaTypeVocabularyShape"
+          },
+          {
+            "bundle": "bundles/core.ttl",
+            "bundleSha256": "f05e5b0acb007b15010d12e0819120d492ebbe3b13fca8e2f4dc7bce8cfb4d31",
+            "profile": "core",
+            "requirementId": "MOLIT-CV-MEDIATYPE-001-P-MEDIATYPE-001",
+            "shapeFile": "shacl/molit-controlled-vocabularies.ttl",
+            "shapeFileSha256": "fc56ba6e27e632b2c3107baa58c81e8ae2fa7c671cffebd8e7bd54424cf430be",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#IanaMediaTypeVocabularyShape"
+          },
+          {
+            "bundle": "bundles/core.ttl",
+            "bundleSha256": "f05e5b0acb007b15010d12e0819120d492ebbe3b13fca8e2f4dc7bce8cfb4d31",
+            "profile": "core",
+            "requirementId": "MOLIT-CV-MEDIATYPE-001-P-PACKAGEFORMAT-001",
+            "shapeFile": "shacl/molit-controlled-vocabularies.ttl",
+            "shapeFileSha256": "fc56ba6e27e632b2c3107baa58c81e8ae2fa7c671cffebd8e7bd54424cf430be",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#IanaMediaTypeVocabularyShape"
+          },
+          {
+            "bundle": "bundles/core.ttl",
+            "bundleSha256": "f05e5b0acb007b15010d12e0819120d492ebbe3b13fca8e2f4dc7bce8cfb4d31",
+            "profile": "core",
+            "requirementId": "MOLIT-CV-MEDIATYPE-001-P-TYPE-001",
+            "shapeFile": "shacl/molit-controlled-vocabularies.ttl",
+            "shapeFileSha256": "fc56ba6e27e632b2c3107baa58c81e8ae2fa7c671cffebd8e7bd54424cf430be",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#IanaMediaTypeVocabularyShape"
+          },
+          {
+            "bundle": "bundles/core.ttl",
+            "bundleSha256": "f05e5b0acb007b15010d12e0819120d492ebbe3b13fca8e2f4dc7bce8cfb4d31",
+            "profile": "core",
+            "requirementId": "MOLIT-DS-001-P-ACCESSRIGHTS-001",
+            "shapeFile": "shacl/molit-core.ttl",
+            "shapeFileSha256": "4ce9e7bfef1b84f5e7bd5bc98e52cd771cb710c59d159ed39bde7afdb42f5e08",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#DatasetShape"
+          },
+          {
+            "bundle": "bundles/core.ttl",
+            "bundleSha256": "f05e5b0acb007b15010d12e0819120d492ebbe3b13fca8e2f4dc7bce8cfb4d31",
+            "profile": "core",
+            "requirementId": "MOLIT-DS-001-P-DESCRIPTION-001",
+            "shapeFile": "shacl/molit-core.ttl",
+            "shapeFileSha256": "4ce9e7bfef1b84f5e7bd5bc98e52cd771cb710c59d159ed39bde7afdb42f5e08",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#DatasetShape"
+          },
+          {
+            "bundle": "bundles/core.ttl",
+            "bundleSha256": "f05e5b0acb007b15010d12e0819120d492ebbe3b13fca8e2f4dc7bce8cfb4d31",
+            "profile": "core",
+            "requirementId": "MOLIT-DS-001-P-IDENTIFIER-001",
+            "shapeFile": "shacl/molit-core.ttl",
+            "shapeFileSha256": "4ce9e7bfef1b84f5e7bd5bc98e52cd771cb710c59d159ed39bde7afdb42f5e08",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#DatasetShape"
+          },
+          {
+            "bundle": "bundles/core.ttl",
+            "bundleSha256": "f05e5b0acb007b15010d12e0819120d492ebbe3b13fca8e2f4dc7bce8cfb4d31",
+            "profile": "core",
+            "requirementId": "MOLIT-DS-001-P-ISSUED-001",
+            "shapeFile": "shacl/molit-core.ttl",
+            "shapeFileSha256": "4ce9e7bfef1b84f5e7bd5bc98e52cd771cb710c59d159ed39bde7afdb42f5e08",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#DatasetShape"
+          },
+          {
+            "bundle": "bundles/core.ttl",
+            "bundleSha256": "f05e5b0acb007b15010d12e0819120d492ebbe3b13fca8e2f4dc7bce8cfb4d31",
+            "profile": "core",
+            "requirementId": "MOLIT-DS-001-P-MODIFIED-001",
+            "shapeFile": "shacl/molit-core.ttl",
+            "shapeFileSha256": "4ce9e7bfef1b84f5e7bd5bc98e52cd771cb710c59d159ed39bde7afdb42f5e08",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#DatasetShape"
+          },
+          {
+            "bundle": "bundles/core.ttl",
+            "bundleSha256": "f05e5b0acb007b15010d12e0819120d492ebbe3b13fca8e2f4dc7bce8cfb4d31",
+            "profile": "core",
+            "requirementId": "MOLIT-DS-001-P-PATH-0E31B21B99-001",
+            "shapeFile": "shacl/molit-core.ttl",
+            "shapeFileSha256": "4ce9e7bfef1b84f5e7bd5bc98e52cd771cb710c59d159ed39bde7afdb42f5e08",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#DatasetShape"
+          },
+          {
+            "bundle": "bundles/core.ttl",
+            "bundleSha256": "f05e5b0acb007b15010d12e0819120d492ebbe3b13fca8e2f4dc7bce8cfb4d31",
+            "profile": "core",
+            "requirementId": "MOLIT-DS-001-P-PATH-30F94DAB87-001",
+            "shapeFile": "shacl/molit-core.ttl",
+            "shapeFileSha256": "4ce9e7bfef1b84f5e7bd5bc98e52cd771cb710c59d159ed39bde7afdb42f5e08",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#DatasetShape"
+          },
+          {
+            "bundle": "bundles/core.ttl",
+            "bundleSha256": "f05e5b0acb007b15010d12e0819120d492ebbe3b13fca8e2f4dc7bce8cfb4d31",
+            "profile": "core",
+            "requirementId": "MOLIT-DS-001-P-PUBLISHER-001",
+            "shapeFile": "shacl/molit-core.ttl",
+            "shapeFileSha256": "4ce9e7bfef1b84f5e7bd5bc98e52cd771cb710c59d159ed39bde7afdb42f5e08",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#DatasetShape"
+          },
+          {
+            "bundle": "bundles/core.ttl",
+            "bundleSha256": "f05e5b0acb007b15010d12e0819120d492ebbe3b13fca8e2f4dc7bce8cfb4d31",
+            "profile": "core",
+            "requirementId": "MOLIT-DS-001-P-THEME-001",
+            "shapeFile": "shacl/molit-core.ttl",
+            "shapeFileSha256": "4ce9e7bfef1b84f5e7bd5bc98e52cd771cb710c59d159ed39bde7afdb42f5e08",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#DatasetShape"
+          },
+          {
+            "bundle": "bundles/core.ttl",
+            "bundleSha256": "f05e5b0acb007b15010d12e0819120d492ebbe3b13fca8e2f4dc7bce8cfb4d31",
+            "profile": "core",
+            "requirementId": "MOLIT-DS-001-P-THEME-002",
+            "shapeFile": "shacl/molit-core.ttl",
+            "shapeFileSha256": "4ce9e7bfef1b84f5e7bd5bc98e52cd771cb710c59d159ed39bde7afdb42f5e08",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#DatasetShape"
+          },
+          {
+            "bundle": "bundles/core.ttl",
+            "bundleSha256": "f05e5b0acb007b15010d12e0819120d492ebbe3b13fca8e2f4dc7bce8cfb4d31",
+            "profile": "core",
+            "requirementId": "MOLIT-DS-001-P-TITLE-001",
+            "shapeFile": "shacl/molit-core.ttl",
+            "shapeFileSha256": "4ce9e7bfef1b84f5e7bd5bc98e52cd771cb710c59d159ed39bde7afdb42f5e08",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#DatasetShape"
+          },
+          {
+            "bundle": "bundles/core.ttl",
+            "bundleSha256": "f05e5b0acb007b15010d12e0819120d492ebbe3b13fca8e2f4dc7bce8cfb4d31",
+            "profile": "core",
+            "requirementId": "MOLIT-PROFILE-CORE-001-P-CONFORMSTO-001",
+            "shapeFile": "shacl/molit-core-profile.ttl",
+            "shapeFileSha256": "3bcdf5144bef23b7e36fb22f15028413d5bb1d4cef2391d4fd7177124a993518",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#CoreCatalogProfileShape"
+          },
+          {
+            "bundle": "bundles/core.ttl",
+            "bundleSha256": "f05e5b0acb007b15010d12e0819120d492ebbe3b13fca8e2f4dc7bce8cfb4d31",
+            "profile": "core",
+            "requirementId": "MOLIT-PROFILE-CORE-002-P-CONFORMSTO-001",
+            "shapeFile": "shacl/molit-core-profile.ttl",
+            "shapeFileSha256": "3bcdf5144bef23b7e36fb22f15028413d5bb1d4cef2391d4fd7177124a993518",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#CoreCatalogRecordProfileShape"
+          },
+          {
+            "bundle": "bundles/core.ttl",
+            "bundleSha256": "f05e5b0acb007b15010d12e0819120d492ebbe3b13fca8e2f4dc7bce8cfb4d31",
+            "profile": "core",
+            "requirementId": "MOLIT-PROFILE-SELECTION-GEOSPARQL-001",
+            "shapeFile": "shacl/molit-core-profile.ttl",
+            "shapeFileSha256": "3bcdf5144bef23b7e36fb22f15028413d5bb1d4cef2391d4fd7177124a993518",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#CoreRejectsGeoSparql11Shape"
+          },
+          {
+            "bundle": "bundles/core.ttl",
+            "bundleSha256": "f05e5b0acb007b15010d12e0819120d492ebbe3b13fca8e2f4dc7bce8cfb4d31",
+            "profile": "core",
+            "requirementId": "MOLIT-PROFILE-SELECTION-MARKER-001",
+            "shapeFile": "shacl/molit-core-profile.ttl",
+            "shapeFileSha256": "3bcdf5144bef23b7e36fb22f15028413d5bb1d4cef2391d4fd7177124a993518",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#CoreRejectsGeoProfileSubjectShape"
+          },
+          {
+            "bundle": "bundles/core.ttl",
+            "bundleSha256": "f05e5b0acb007b15010d12e0819120d492ebbe3b13fca8e2f4dc7bce8cfb4d31",
+            "profile": "core",
+            "requirementId": "MOLIT-REC-001-P-LANGUAGE-001",
+            "shapeFile": "shacl/molit-core.ttl",
+            "shapeFileSha256": "4ce9e7bfef1b84f5e7bd5bc98e52cd771cb710c59d159ed39bde7afdb42f5e08",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#CatalogRecordShape"
+          },
+          {
+            "bundle": "bundles/core.ttl",
+            "bundleSha256": "f05e5b0acb007b15010d12e0819120d492ebbe3b13fca8e2f4dc7bce8cfb4d31",
+            "profile": "core",
+            "requirementId": "MOLIT-REC-001-P-MODIFIED-001",
+            "shapeFile": "shacl/molit-core.ttl",
+            "shapeFileSha256": "4ce9e7bfef1b84f5e7bd5bc98e52cd771cb710c59d159ed39bde7afdb42f5e08",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#CatalogRecordShape"
+          },
+          {
+            "bundle": "bundles/core.ttl",
+            "bundleSha256": "f05e5b0acb007b15010d12e0819120d492ebbe3b13fca8e2f4dc7bce8cfb4d31",
+            "profile": "core",
+            "requirementId": "MOLIT-REC-001-P-PRIMARYTOPIC-001",
+            "shapeFile": "shacl/molit-core.ttl",
+            "shapeFileSha256": "4ce9e7bfef1b84f5e7bd5bc98e52cd771cb710c59d159ed39bde7afdb42f5e08",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#CatalogRecordShape"
+          },
+          {
+            "bundle": "bundles/core.ttl",
+            "bundleSha256": "f05e5b0acb007b15010d12e0819120d492ebbe3b13fca8e2f4dc7bce8cfb4d31",
+            "profile": "core",
+            "requirementId": "MOLIT-REC-001-P-TITLE-001",
+            "shapeFile": "shacl/molit-core.ttl",
+            "shapeFileSha256": "4ce9e7bfef1b84f5e7bd5bc98e52cd771cb710c59d159ed39bde7afdb42f5e08",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#CatalogRecordShape"
+          },
+          {
+            "bundle": "bundles/core.ttl",
+            "bundleSha256": "f05e5b0acb007b15010d12e0819120d492ebbe3b13fca8e2f4dc7bce8cfb4d31",
+            "profile": "core",
+            "requirementId": "MOLIT-SVC-001-P-ENDPOINTURL-001",
+            "shapeFile": "shacl/molit-core.ttl",
+            "shapeFileSha256": "4ce9e7bfef1b84f5e7bd5bc98e52cd771cb710c59d159ed39bde7afdb42f5e08",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#DataServiceShape"
+          },
+          {
+            "bundle": "bundles/core.ttl",
+            "bundleSha256": "f05e5b0acb007b15010d12e0819120d492ebbe3b13fca8e2f4dc7bce8cfb4d31",
+            "profile": "core",
+            "requirementId": "MOLIT-SVC-001-P-SERVESDATASET-001",
+            "shapeFile": "shacl/molit-core.ttl",
+            "shapeFileSha256": "4ce9e7bfef1b84f5e7bd5bc98e52cd771cb710c59d159ed39bde7afdb42f5e08",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#DataServiceShape"
+          },
+          {
+            "bundle": "bundles/core.ttl",
+            "bundleSha256": "f05e5b0acb007b15010d12e0819120d492ebbe3b13fca8e2f4dc7bce8cfb4d31",
+            "profile": "core",
+            "requirementId": "MOLIT-SVC-001-P-THEME-001",
+            "shapeFile": "shacl/molit-core.ttl",
+            "shapeFileSha256": "4ce9e7bfef1b84f5e7bd5bc98e52cd771cb710c59d159ed39bde7afdb42f5e08",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#DataServiceShape"
+          },
+          {
+            "bundle": "bundles/core.ttl",
+            "bundleSha256": "f05e5b0acb007b15010d12e0819120d492ebbe3b13fca8e2f4dc7bce8cfb4d31",
+            "profile": "core",
+            "requirementId": "MOLIT-SVC-001-P-TITLE-001",
+            "shapeFile": "shacl/molit-core.ttl",
+            "shapeFileSha256": "4ce9e7bfef1b84f5e7bd5bc98e52cd771cb710c59d159ed39bde7afdb42f5e08",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#DataServiceShape"
+          },
+          {
+            "bundle": "bundles/dataspace-offering.ttl",
+            "bundleSha256": "eb2c635e350870440dbac0029b2b77925b9513aee87793ac6f63fc380b744d7f",
+            "profile": "dataspace-offering",
+            "requirementId": "MOLIT-AGENT-001-P-NAME-001",
+            "shapeFile": "shacl/molit-core.ttl",
+            "shapeFileSha256": "4ce9e7bfef1b84f5e7bd5bc98e52cd771cb710c59d159ed39bde7afdb42f5e08",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#AgentShape"
+          },
+          {
+            "bundle": "bundles/dataspace-offering.ttl",
+            "bundleSha256": "eb2c635e350870440dbac0029b2b77925b9513aee87793ac6f63fc380b744d7f",
+            "profile": "dataspace-offering",
+            "requirementId": "MOLIT-CAT-001-P-DATASET-001",
+            "shapeFile": "shacl/molit-core.ttl",
+            "shapeFileSha256": "4ce9e7bfef1b84f5e7bd5bc98e52cd771cb710c59d159ed39bde7afdb42f5e08",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#CatalogShape"
+          },
+          {
+            "bundle": "bundles/dataspace-offering.ttl",
+            "bundleSha256": "eb2c635e350870440dbac0029b2b77925b9513aee87793ac6f63fc380b744d7f",
+            "profile": "dataspace-offering",
+            "requirementId": "MOLIT-CAT-001-P-DESCRIPTION-001",
+            "shapeFile": "shacl/molit-core.ttl",
+            "shapeFileSha256": "4ce9e7bfef1b84f5e7bd5bc98e52cd771cb710c59d159ed39bde7afdb42f5e08",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#CatalogShape"
+          },
+          {
+            "bundle": "bundles/dataspace-offering.ttl",
+            "bundleSha256": "eb2c635e350870440dbac0029b2b77925b9513aee87793ac6f63fc380b744d7f",
+            "profile": "dataspace-offering",
+            "requirementId": "MOLIT-CAT-001-P-LANGUAGE-001",
+            "shapeFile": "shacl/molit-core.ttl",
+            "shapeFileSha256": "4ce9e7bfef1b84f5e7bd5bc98e52cd771cb710c59d159ed39bde7afdb42f5e08",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#CatalogShape"
+          },
+          {
+            "bundle": "bundles/dataspace-offering.ttl",
+            "bundleSha256": "eb2c635e350870440dbac0029b2b77925b9513aee87793ac6f63fc380b744d7f",
+            "profile": "dataspace-offering",
+            "requirementId": "MOLIT-CAT-001-P-PUBLISHER-001",
+            "shapeFile": "shacl/molit-core.ttl",
+            "shapeFileSha256": "4ce9e7bfef1b84f5e7bd5bc98e52cd771cb710c59d159ed39bde7afdb42f5e08",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#CatalogShape"
+          },
+          {
+            "bundle": "bundles/dataspace-offering.ttl",
+            "bundleSha256": "eb2c635e350870440dbac0029b2b77925b9513aee87793ac6f63fc380b744d7f",
+            "profile": "dataspace-offering",
+            "requirementId": "MOLIT-CAT-001-P-RECORD-001",
+            "shapeFile": "shacl/molit-core.ttl",
+            "shapeFileSha256": "4ce9e7bfef1b84f5e7bd5bc98e52cd771cb710c59d159ed39bde7afdb42f5e08",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#CatalogShape"
+          },
+          {
+            "bundle": "bundles/dataspace-offering.ttl",
+            "bundleSha256": "eb2c635e350870440dbac0029b2b77925b9513aee87793ac6f63fc380b744d7f",
+            "profile": "dataspace-offering",
+            "requirementId": "MOLIT-CAT-001-P-TITLE-001",
+            "shapeFile": "shacl/molit-core.ttl",
+            "shapeFileSha256": "4ce9e7bfef1b84f5e7bd5bc98e52cd771cb710c59d159ed39bde7afdb42f5e08",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#CatalogShape"
+          },
+          {
+            "bundle": "bundles/dataspace-offering.ttl",
+            "bundleSha256": "eb2c635e350870440dbac0029b2b77925b9513aee87793ac6f63fc380b744d7f",
+            "profile": "dataspace-offering",
+            "requirementId": "MOLIT-CAT-REL-001-P-PATH-DA00F2B2F6-001",
+            "shapeFile": "shacl/molit-core.ttl",
+            "shapeFileSha256": "4ce9e7bfef1b84f5e7bd5bc98e52cd771cb710c59d159ed39bde7afdb42f5e08",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#CatalogRecordDatasetCoherenceShape"
+          },
+          {
+            "bundle": "bundles/dataspace-offering.ttl",
+            "bundleSha256": "eb2c635e350870440dbac0029b2b77925b9513aee87793ac6f63fc380b744d7f",
+            "profile": "dataspace-offering",
+            "requirementId": "MOLIT-CV-CHECKSUM-001-P-ALGORITHM-001",
+            "shapeFile": "shacl/molit-controlled-vocabularies.ttl",
+            "shapeFileSha256": "fc56ba6e27e632b2c3107baa58c81e8ae2fa7c671cffebd8e7bd54424cf430be",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#ChecksumAlgorithmVocabularyShape"
+          },
+          {
+            "bundle": "bundles/dataspace-offering.ttl",
+            "bundleSha256": "eb2c635e350870440dbac0029b2b77925b9513aee87793ac6f63fc380b744d7f",
+            "profile": "dataspace-offering",
+            "requirementId": "MOLIT-CV-CHECKSUM-002",
+            "shapeFile": "shacl/molit-controlled-vocabularies.ttl",
+            "shapeFileSha256": "fc56ba6e27e632b2c3107baa58c81e8ae2fa7c671cffebd8e7bd54424cf430be",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#ChecksumValueLengthShape"
+          },
+          {
+            "bundle": "bundles/dataspace-offering.ttl",
+            "bundleSha256": "eb2c635e350870440dbac0029b2b77925b9513aee87793ac6f63fc380b744d7f",
+            "profile": "dataspace-offering",
+            "requirementId": "MOLIT-CV-MEDIATYPE-001-P-COMPRESSFORMAT-001",
+            "shapeFile": "shacl/molit-controlled-vocabularies.ttl",
+            "shapeFileSha256": "fc56ba6e27e632b2c3107baa58c81e8ae2fa7c671cffebd8e7bd54424cf430be",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#IanaMediaTypeVocabularyShape"
+          },
+          {
+            "bundle": "bundles/dataspace-offering.ttl",
+            "bundleSha256": "eb2c635e350870440dbac0029b2b77925b9513aee87793ac6f63fc380b744d7f",
+            "profile": "dataspace-offering",
+            "requirementId": "MOLIT-CV-MEDIATYPE-001-P-MEDIATYPE-001",
+            "shapeFile": "shacl/molit-controlled-vocabularies.ttl",
+            "shapeFileSha256": "fc56ba6e27e632b2c3107baa58c81e8ae2fa7c671cffebd8e7bd54424cf430be",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#IanaMediaTypeVocabularyShape"
+          },
+          {
+            "bundle": "bundles/dataspace-offering.ttl",
+            "bundleSha256": "eb2c635e350870440dbac0029b2b77925b9513aee87793ac6f63fc380b744d7f",
+            "profile": "dataspace-offering",
+            "requirementId": "MOLIT-CV-MEDIATYPE-001-P-PACKAGEFORMAT-001",
+            "shapeFile": "shacl/molit-controlled-vocabularies.ttl",
+            "shapeFileSha256": "fc56ba6e27e632b2c3107baa58c81e8ae2fa7c671cffebd8e7bd54424cf430be",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#IanaMediaTypeVocabularyShape"
+          },
+          {
+            "bundle": "bundles/dataspace-offering.ttl",
+            "bundleSha256": "eb2c635e350870440dbac0029b2b77925b9513aee87793ac6f63fc380b744d7f",
+            "profile": "dataspace-offering",
+            "requirementId": "MOLIT-CV-MEDIATYPE-001-P-TYPE-001",
+            "shapeFile": "shacl/molit-controlled-vocabularies.ttl",
+            "shapeFileSha256": "fc56ba6e27e632b2c3107baa58c81e8ae2fa7c671cffebd8e7bd54424cf430be",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#IanaMediaTypeVocabularyShape"
+          },
+          {
+            "bundle": "bundles/dataspace-offering.ttl",
+            "bundleSha256": "eb2c635e350870440dbac0029b2b77925b9513aee87793ac6f63fc380b744d7f",
+            "profile": "dataspace-offering",
+            "requirementId": "MOLIT-DS-001-P-ACCESSRIGHTS-001",
+            "shapeFile": "shacl/molit-core.ttl",
+            "shapeFileSha256": "4ce9e7bfef1b84f5e7bd5bc98e52cd771cb710c59d159ed39bde7afdb42f5e08",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#DatasetShape"
+          },
+          {
+            "bundle": "bundles/dataspace-offering.ttl",
+            "bundleSha256": "eb2c635e350870440dbac0029b2b77925b9513aee87793ac6f63fc380b744d7f",
+            "profile": "dataspace-offering",
+            "requirementId": "MOLIT-DS-001-P-DESCRIPTION-001",
+            "shapeFile": "shacl/molit-core.ttl",
+            "shapeFileSha256": "4ce9e7bfef1b84f5e7bd5bc98e52cd771cb710c59d159ed39bde7afdb42f5e08",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#DatasetShape"
+          },
+          {
+            "bundle": "bundles/dataspace-offering.ttl",
+            "bundleSha256": "eb2c635e350870440dbac0029b2b77925b9513aee87793ac6f63fc380b744d7f",
+            "profile": "dataspace-offering",
+            "requirementId": "MOLIT-DS-001-P-IDENTIFIER-001",
+            "shapeFile": "shacl/molit-core.ttl",
+            "shapeFileSha256": "4ce9e7bfef1b84f5e7bd5bc98e52cd771cb710c59d159ed39bde7afdb42f5e08",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#DatasetShape"
+          },
+          {
+            "bundle": "bundles/dataspace-offering.ttl",
+            "bundleSha256": "eb2c635e350870440dbac0029b2b77925b9513aee87793ac6f63fc380b744d7f",
+            "profile": "dataspace-offering",
+            "requirementId": "MOLIT-DS-001-P-ISSUED-001",
+            "shapeFile": "shacl/molit-core.ttl",
+            "shapeFileSha256": "4ce9e7bfef1b84f5e7bd5bc98e52cd771cb710c59d159ed39bde7afdb42f5e08",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#DatasetShape"
+          },
+          {
+            "bundle": "bundles/dataspace-offering.ttl",
+            "bundleSha256": "eb2c635e350870440dbac0029b2b77925b9513aee87793ac6f63fc380b744d7f",
+            "profile": "dataspace-offering",
+            "requirementId": "MOLIT-DS-001-P-MODIFIED-001",
+            "shapeFile": "shacl/molit-core.ttl",
+            "shapeFileSha256": "4ce9e7bfef1b84f5e7bd5bc98e52cd771cb710c59d159ed39bde7afdb42f5e08",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#DatasetShape"
+          },
+          {
+            "bundle": "bundles/dataspace-offering.ttl",
+            "bundleSha256": "eb2c635e350870440dbac0029b2b77925b9513aee87793ac6f63fc380b744d7f",
+            "profile": "dataspace-offering",
+            "requirementId": "MOLIT-DS-001-P-PATH-0E31B21B99-001",
+            "shapeFile": "shacl/molit-core.ttl",
+            "shapeFileSha256": "4ce9e7bfef1b84f5e7bd5bc98e52cd771cb710c59d159ed39bde7afdb42f5e08",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#DatasetShape"
+          },
+          {
+            "bundle": "bundles/dataspace-offering.ttl",
+            "bundleSha256": "eb2c635e350870440dbac0029b2b77925b9513aee87793ac6f63fc380b744d7f",
+            "profile": "dataspace-offering",
+            "requirementId": "MOLIT-DS-001-P-PATH-30F94DAB87-001",
+            "shapeFile": "shacl/molit-core.ttl",
+            "shapeFileSha256": "4ce9e7bfef1b84f5e7bd5bc98e52cd771cb710c59d159ed39bde7afdb42f5e08",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#DatasetShape"
+          },
+          {
+            "bundle": "bundles/dataspace-offering.ttl",
+            "bundleSha256": "eb2c635e350870440dbac0029b2b77925b9513aee87793ac6f63fc380b744d7f",
+            "profile": "dataspace-offering",
+            "requirementId": "MOLIT-DS-001-P-PUBLISHER-001",
+            "shapeFile": "shacl/molit-core.ttl",
+            "shapeFileSha256": "4ce9e7bfef1b84f5e7bd5bc98e52cd771cb710c59d159ed39bde7afdb42f5e08",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#DatasetShape"
+          },
+          {
+            "bundle": "bundles/dataspace-offering.ttl",
+            "bundleSha256": "eb2c635e350870440dbac0029b2b77925b9513aee87793ac6f63fc380b744d7f",
+            "profile": "dataspace-offering",
+            "requirementId": "MOLIT-DS-001-P-THEME-001",
+            "shapeFile": "shacl/molit-core.ttl",
+            "shapeFileSha256": "4ce9e7bfef1b84f5e7bd5bc98e52cd771cb710c59d159ed39bde7afdb42f5e08",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#DatasetShape"
+          },
+          {
+            "bundle": "bundles/dataspace-offering.ttl",
+            "bundleSha256": "eb2c635e350870440dbac0029b2b77925b9513aee87793ac6f63fc380b744d7f",
+            "profile": "dataspace-offering",
+            "requirementId": "MOLIT-DS-001-P-THEME-002",
+            "shapeFile": "shacl/molit-core.ttl",
+            "shapeFileSha256": "4ce9e7bfef1b84f5e7bd5bc98e52cd771cb710c59d159ed39bde7afdb42f5e08",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#DatasetShape"
+          },
+          {
+            "bundle": "bundles/dataspace-offering.ttl",
+            "bundleSha256": "eb2c635e350870440dbac0029b2b77925b9513aee87793ac6f63fc380b744d7f",
+            "profile": "dataspace-offering",
+            "requirementId": "MOLIT-DS-001-P-TITLE-001",
+            "shapeFile": "shacl/molit-core.ttl",
+            "shapeFileSha256": "4ce9e7bfef1b84f5e7bd5bc98e52cd771cb710c59d159ed39bde7afdb42f5e08",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#DatasetShape"
+          },
+          {
+            "bundle": "bundles/dataspace-offering.ttl",
+            "bundleSha256": "eb2c635e350870440dbac0029b2b77925b9513aee87793ac6f63fc380b744d7f",
+            "profile": "dataspace-offering",
+            "requirementId": "MOLIT-OFFER-001-P-DESCRIBESOFFERINGDATASET-001",
+            "shapeFile": "shacl/molit-offering.ttl",
+            "shapeFileSha256": "ea79f1124396d057755a3c015b4b9f88d45d9b73c221b7c444c37af866d9c421",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#DataspaceOfferingMetadataShape"
+          },
+          {
+            "bundle": "bundles/dataspace-offering.ttl",
+            "bundleSha256": "eb2c635e350870440dbac0029b2b77925b9513aee87793ac6f63fc380b744d7f",
+            "profile": "dataspace-offering",
+            "requirementId": "MOLIT-OFFER-001-P-IDENTIFIER-001",
+            "shapeFile": "shacl/molit-offering.ttl",
+            "shapeFileSha256": "ea79f1124396d057755a3c015b4b9f88d45d9b73c221b7c444c37af866d9c421",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#DataspaceOfferingMetadataShape"
+          },
+          {
+            "bundle": "bundles/dataspace-offering.ttl",
+            "bundleSha256": "eb2c635e350870440dbac0029b2b77925b9513aee87793ac6f63fc380b744d7f",
+            "profile": "dataspace-offering",
+            "requirementId": "MOLIT-OFFER-001-P-MODIFIED-001",
+            "shapeFile": "shacl/molit-offering.ttl",
+            "shapeFileSha256": "ea79f1124396d057755a3c015b4b9f88d45d9b73c221b7c444c37af866d9c421",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#DataspaceOfferingMetadataShape"
+          },
+          {
+            "bundle": "bundles/dataspace-offering.ttl",
+            "bundleSha256": "eb2c635e350870440dbac0029b2b77925b9513aee87793ac6f63fc380b744d7f",
+            "profile": "dataspace-offering",
+            "requirementId": "MOLIT-OFFER-001-P-OFFERINGREADINESSSTATUS-001",
+            "shapeFile": "shacl/molit-offering.ttl",
+            "shapeFileSha256": "ea79f1124396d057755a3c015b4b9f88d45d9b73c221b7c444c37af866d9c421",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#DataspaceOfferingMetadataShape"
+          },
+          {
+            "bundle": "bundles/dataspace-offering.ttl",
+            "bundleSha256": "eb2c635e350870440dbac0029b2b77925b9513aee87793ac6f63fc380b744d7f",
+            "profile": "dataspace-offering",
+            "requirementId": "MOLIT-OFFER-001-P-TITLE-001",
+            "shapeFile": "shacl/molit-offering.ttl",
+            "shapeFileSha256": "ea79f1124396d057755a3c015b4b9f88d45d9b73c221b7c444c37af866d9c421",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#DataspaceOfferingMetadataShape"
+          },
+          {
+            "bundle": "bundles/dataspace-offering.ttl",
+            "bundleSha256": "eb2c635e350870440dbac0029b2b77925b9513aee87793ac6f63fc380b744d7f",
+            "profile": "dataspace-offering",
+            "requirementId": "MOLIT-OFFER-LINK-001-P-DESCRIBESOFFERINGDATASET-001",
+            "shapeFile": "shacl/molit-offering.ttl",
+            "shapeFileSha256": "ea79f1124396d057755a3c015b4b9f88d45d9b73c221b7c444c37af866d9c421",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#OfferingDatasetBacklinkShape"
+          },
+          {
+            "bundle": "bundles/dataspace-offering.ttl",
+            "bundleSha256": "eb2c635e350870440dbac0029b2b77925b9513aee87793ac6f63fc380b744d7f",
+            "profile": "dataspace-offering",
+            "requirementId": "MOLIT-PROFILE-OFFER-001-P-CONFORMSTO-001",
+            "shapeFile": "shacl/molit-dataspace-offering-profile.ttl",
+            "shapeFileSha256": "7707e725987dfedc6e5a46733804e2a4f61130bc6397a875a907e1fce6a4b915",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#DataspaceOfferingCatalogProfileShape"
+          },
+          {
+            "bundle": "bundles/dataspace-offering.ttl",
+            "bundleSha256": "eb2c635e350870440dbac0029b2b77925b9513aee87793ac6f63fc380b744d7f",
+            "profile": "dataspace-offering",
+            "requirementId": "MOLIT-PROFILE-OFFER-002-P-CONFORMSTO-001",
+            "shapeFile": "shacl/molit-dataspace-offering-profile.ttl",
+            "shapeFileSha256": "7707e725987dfedc6e5a46733804e2a4f61130bc6397a875a907e1fce6a4b915",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#DataspaceOfferingCatalogRecordProfileShape"
+          },
+          {
+            "bundle": "bundles/dataspace-offering.ttl",
+            "bundleSha256": "eb2c635e350870440dbac0029b2b77925b9513aee87793ac6f63fc380b744d7f",
+            "profile": "dataspace-offering",
+            "requirementId": "MOLIT-REC-001-P-LANGUAGE-001",
+            "shapeFile": "shacl/molit-core.ttl",
+            "shapeFileSha256": "4ce9e7bfef1b84f5e7bd5bc98e52cd771cb710c59d159ed39bde7afdb42f5e08",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#CatalogRecordShape"
+          },
+          {
+            "bundle": "bundles/dataspace-offering.ttl",
+            "bundleSha256": "eb2c635e350870440dbac0029b2b77925b9513aee87793ac6f63fc380b744d7f",
+            "profile": "dataspace-offering",
+            "requirementId": "MOLIT-REC-001-P-MODIFIED-001",
+            "shapeFile": "shacl/molit-core.ttl",
+            "shapeFileSha256": "4ce9e7bfef1b84f5e7bd5bc98e52cd771cb710c59d159ed39bde7afdb42f5e08",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#CatalogRecordShape"
+          },
+          {
+            "bundle": "bundles/dataspace-offering.ttl",
+            "bundleSha256": "eb2c635e350870440dbac0029b2b77925b9513aee87793ac6f63fc380b744d7f",
+            "profile": "dataspace-offering",
+            "requirementId": "MOLIT-REC-001-P-PRIMARYTOPIC-001",
+            "shapeFile": "shacl/molit-core.ttl",
+            "shapeFileSha256": "4ce9e7bfef1b84f5e7bd5bc98e52cd771cb710c59d159ed39bde7afdb42f5e08",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#CatalogRecordShape"
+          },
+          {
+            "bundle": "bundles/dataspace-offering.ttl",
+            "bundleSha256": "eb2c635e350870440dbac0029b2b77925b9513aee87793ac6f63fc380b744d7f",
+            "profile": "dataspace-offering",
+            "requirementId": "MOLIT-REC-001-P-TITLE-001",
+            "shapeFile": "shacl/molit-core.ttl",
+            "shapeFileSha256": "4ce9e7bfef1b84f5e7bd5bc98e52cd771cb710c59d159ed39bde7afdb42f5e08",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#CatalogRecordShape"
+          },
+          {
+            "bundle": "bundles/dataspace-offering.ttl",
+            "bundleSha256": "eb2c635e350870440dbac0029b2b77925b9513aee87793ac6f63fc380b744d7f",
+            "profile": "dataspace-offering",
+            "requirementId": "MOLIT-SVC-001-P-ENDPOINTURL-001",
+            "shapeFile": "shacl/molit-core.ttl",
+            "shapeFileSha256": "4ce9e7bfef1b84f5e7bd5bc98e52cd771cb710c59d159ed39bde7afdb42f5e08",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#DataServiceShape"
+          },
+          {
+            "bundle": "bundles/dataspace-offering.ttl",
+            "bundleSha256": "eb2c635e350870440dbac0029b2b77925b9513aee87793ac6f63fc380b744d7f",
+            "profile": "dataspace-offering",
+            "requirementId": "MOLIT-SVC-001-P-SERVESDATASET-001",
+            "shapeFile": "shacl/molit-core.ttl",
+            "shapeFileSha256": "4ce9e7bfef1b84f5e7bd5bc98e52cd771cb710c59d159ed39bde7afdb42f5e08",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#DataServiceShape"
+          },
+          {
+            "bundle": "bundles/dataspace-offering.ttl",
+            "bundleSha256": "eb2c635e350870440dbac0029b2b77925b9513aee87793ac6f63fc380b744d7f",
+            "profile": "dataspace-offering",
+            "requirementId": "MOLIT-SVC-001-P-THEME-001",
+            "shapeFile": "shacl/molit-core.ttl",
+            "shapeFileSha256": "4ce9e7bfef1b84f5e7bd5bc98e52cd771cb710c59d159ed39bde7afdb42f5e08",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#DataServiceShape"
+          },
+          {
+            "bundle": "bundles/dataspace-offering.ttl",
+            "bundleSha256": "eb2c635e350870440dbac0029b2b77925b9513aee87793ac6f63fc380b744d7f",
+            "profile": "dataspace-offering",
+            "requirementId": "MOLIT-SVC-001-P-TITLE-001",
+            "shapeFile": "shacl/molit-core.ttl",
+            "shapeFileSha256": "4ce9e7bfef1b84f5e7bd5bc98e52cd771cb710c59d159ed39bde7afdb42f5e08",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#DataServiceShape"
+          },
+          {
+            "bundle": "bundles/geo.ttl",
+            "bundleSha256": "0e4df46b14ca8298b8ccc5f953cb9b364ef885419a1aafceee6160b63a76a65f",
+            "profile": "geo",
+            "requirementId": "MOLIT-AGENT-001-P-NAME-001",
+            "shapeFile": "shacl/molit-core.ttl",
+            "shapeFileSha256": "4ce9e7bfef1b84f5e7bd5bc98e52cd771cb710c59d159ed39bde7afdb42f5e08",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#AgentShape"
+          },
+          {
+            "bundle": "bundles/geo.ttl",
+            "bundleSha256": "0e4df46b14ca8298b8ccc5f953cb9b364ef885419a1aafceee6160b63a76a65f",
+            "profile": "geo",
+            "requirementId": "MOLIT-CAT-001-P-DATASET-001",
+            "shapeFile": "shacl/molit-core.ttl",
+            "shapeFileSha256": "4ce9e7bfef1b84f5e7bd5bc98e52cd771cb710c59d159ed39bde7afdb42f5e08",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#CatalogShape"
+          },
+          {
+            "bundle": "bundles/geo.ttl",
+            "bundleSha256": "0e4df46b14ca8298b8ccc5f953cb9b364ef885419a1aafceee6160b63a76a65f",
+            "profile": "geo",
+            "requirementId": "MOLIT-CAT-001-P-DESCRIPTION-001",
+            "shapeFile": "shacl/molit-core.ttl",
+            "shapeFileSha256": "4ce9e7bfef1b84f5e7bd5bc98e52cd771cb710c59d159ed39bde7afdb42f5e08",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#CatalogShape"
+          },
+          {
+            "bundle": "bundles/geo.ttl",
+            "bundleSha256": "0e4df46b14ca8298b8ccc5f953cb9b364ef885419a1aafceee6160b63a76a65f",
+            "profile": "geo",
+            "requirementId": "MOLIT-CAT-001-P-LANGUAGE-001",
+            "shapeFile": "shacl/molit-core.ttl",
+            "shapeFileSha256": "4ce9e7bfef1b84f5e7bd5bc98e52cd771cb710c59d159ed39bde7afdb42f5e08",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#CatalogShape"
+          },
+          {
+            "bundle": "bundles/geo.ttl",
+            "bundleSha256": "0e4df46b14ca8298b8ccc5f953cb9b364ef885419a1aafceee6160b63a76a65f",
+            "profile": "geo",
+            "requirementId": "MOLIT-CAT-001-P-PUBLISHER-001",
+            "shapeFile": "shacl/molit-core.ttl",
+            "shapeFileSha256": "4ce9e7bfef1b84f5e7bd5bc98e52cd771cb710c59d159ed39bde7afdb42f5e08",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#CatalogShape"
+          },
+          {
+            "bundle": "bundles/geo.ttl",
+            "bundleSha256": "0e4df46b14ca8298b8ccc5f953cb9b364ef885419a1aafceee6160b63a76a65f",
+            "profile": "geo",
+            "requirementId": "MOLIT-CAT-001-P-RECORD-001",
+            "shapeFile": "shacl/molit-core.ttl",
+            "shapeFileSha256": "4ce9e7bfef1b84f5e7bd5bc98e52cd771cb710c59d159ed39bde7afdb42f5e08",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#CatalogShape"
+          },
+          {
+            "bundle": "bundles/geo.ttl",
+            "bundleSha256": "0e4df46b14ca8298b8ccc5f953cb9b364ef885419a1aafceee6160b63a76a65f",
+            "profile": "geo",
+            "requirementId": "MOLIT-CAT-001-P-TITLE-001",
+            "shapeFile": "shacl/molit-core.ttl",
+            "shapeFileSha256": "4ce9e7bfef1b84f5e7bd5bc98e52cd771cb710c59d159ed39bde7afdb42f5e08",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#CatalogShape"
+          },
+          {
+            "bundle": "bundles/geo.ttl",
+            "bundleSha256": "0e4df46b14ca8298b8ccc5f953cb9b364ef885419a1aafceee6160b63a76a65f",
+            "profile": "geo",
+            "requirementId": "MOLIT-CAT-REL-001-P-PATH-DA00F2B2F6-001",
+            "shapeFile": "shacl/molit-core.ttl",
+            "shapeFileSha256": "4ce9e7bfef1b84f5e7bd5bc98e52cd771cb710c59d159ed39bde7afdb42f5e08",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#CatalogRecordDatasetCoherenceShape"
+          },
+          {
+            "bundle": "bundles/geo.ttl",
+            "bundleSha256": "0e4df46b14ca8298b8ccc5f953cb9b364ef885419a1aafceee6160b63a76a65f",
+            "profile": "geo",
+            "requirementId": "MOLIT-CV-CHECKSUM-001-P-ALGORITHM-001",
+            "shapeFile": "shacl/molit-controlled-vocabularies.ttl",
+            "shapeFileSha256": "fc56ba6e27e632b2c3107baa58c81e8ae2fa7c671cffebd8e7bd54424cf430be",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#ChecksumAlgorithmVocabularyShape"
+          },
+          {
+            "bundle": "bundles/geo.ttl",
+            "bundleSha256": "0e4df46b14ca8298b8ccc5f953cb9b364ef885419a1aafceee6160b63a76a65f",
+            "profile": "geo",
+            "requirementId": "MOLIT-CV-CHECKSUM-002",
+            "shapeFile": "shacl/molit-controlled-vocabularies.ttl",
+            "shapeFileSha256": "fc56ba6e27e632b2c3107baa58c81e8ae2fa7c671cffebd8e7bd54424cf430be",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#ChecksumValueLengthShape"
+          },
+          {
+            "bundle": "bundles/geo.ttl",
+            "bundleSha256": "0e4df46b14ca8298b8ccc5f953cb9b364ef885419a1aafceee6160b63a76a65f",
+            "profile": "geo",
+            "requirementId": "MOLIT-CV-MEDIATYPE-001-P-COMPRESSFORMAT-001",
+            "shapeFile": "shacl/molit-controlled-vocabularies.ttl",
+            "shapeFileSha256": "fc56ba6e27e632b2c3107baa58c81e8ae2fa7c671cffebd8e7bd54424cf430be",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#IanaMediaTypeVocabularyShape"
+          },
+          {
+            "bundle": "bundles/geo.ttl",
+            "bundleSha256": "0e4df46b14ca8298b8ccc5f953cb9b364ef885419a1aafceee6160b63a76a65f",
+            "profile": "geo",
+            "requirementId": "MOLIT-CV-MEDIATYPE-001-P-MEDIATYPE-001",
+            "shapeFile": "shacl/molit-controlled-vocabularies.ttl",
+            "shapeFileSha256": "fc56ba6e27e632b2c3107baa58c81e8ae2fa7c671cffebd8e7bd54424cf430be",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#IanaMediaTypeVocabularyShape"
+          },
+          {
+            "bundle": "bundles/geo.ttl",
+            "bundleSha256": "0e4df46b14ca8298b8ccc5f953cb9b364ef885419a1aafceee6160b63a76a65f",
+            "profile": "geo",
+            "requirementId": "MOLIT-CV-MEDIATYPE-001-P-PACKAGEFORMAT-001",
+            "shapeFile": "shacl/molit-controlled-vocabularies.ttl",
+            "shapeFileSha256": "fc56ba6e27e632b2c3107baa58c81e8ae2fa7c671cffebd8e7bd54424cf430be",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#IanaMediaTypeVocabularyShape"
+          },
+          {
+            "bundle": "bundles/geo.ttl",
+            "bundleSha256": "0e4df46b14ca8298b8ccc5f953cb9b364ef885419a1aafceee6160b63a76a65f",
+            "profile": "geo",
+            "requirementId": "MOLIT-CV-MEDIATYPE-001-P-TYPE-001",
+            "shapeFile": "shacl/molit-controlled-vocabularies.ttl",
+            "shapeFileSha256": "fc56ba6e27e632b2c3107baa58c81e8ae2fa7c671cffebd8e7bd54424cf430be",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#IanaMediaTypeVocabularyShape"
+          },
+          {
+            "bundle": "bundles/geo.ttl",
+            "bundleSha256": "0e4df46b14ca8298b8ccc5f953cb9b364ef885419a1aafceee6160b63a76a65f",
+            "profile": "geo",
+            "requirementId": "MOLIT-DS-001-P-ACCESSRIGHTS-001",
+            "shapeFile": "shacl/molit-core.ttl",
+            "shapeFileSha256": "4ce9e7bfef1b84f5e7bd5bc98e52cd771cb710c59d159ed39bde7afdb42f5e08",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#DatasetShape"
+          },
+          {
+            "bundle": "bundles/geo.ttl",
+            "bundleSha256": "0e4df46b14ca8298b8ccc5f953cb9b364ef885419a1aafceee6160b63a76a65f",
+            "profile": "geo",
+            "requirementId": "MOLIT-DS-001-P-DESCRIPTION-001",
+            "shapeFile": "shacl/molit-core.ttl",
+            "shapeFileSha256": "4ce9e7bfef1b84f5e7bd5bc98e52cd771cb710c59d159ed39bde7afdb42f5e08",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#DatasetShape"
+          },
+          {
+            "bundle": "bundles/geo.ttl",
+            "bundleSha256": "0e4df46b14ca8298b8ccc5f953cb9b364ef885419a1aafceee6160b63a76a65f",
+            "profile": "geo",
+            "requirementId": "MOLIT-DS-001-P-IDENTIFIER-001",
+            "shapeFile": "shacl/molit-core.ttl",
+            "shapeFileSha256": "4ce9e7bfef1b84f5e7bd5bc98e52cd771cb710c59d159ed39bde7afdb42f5e08",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#DatasetShape"
+          },
+          {
+            "bundle": "bundles/geo.ttl",
+            "bundleSha256": "0e4df46b14ca8298b8ccc5f953cb9b364ef885419a1aafceee6160b63a76a65f",
+            "profile": "geo",
+            "requirementId": "MOLIT-DS-001-P-ISSUED-001",
+            "shapeFile": "shacl/molit-core.ttl",
+            "shapeFileSha256": "4ce9e7bfef1b84f5e7bd5bc98e52cd771cb710c59d159ed39bde7afdb42f5e08",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#DatasetShape"
+          },
+          {
+            "bundle": "bundles/geo.ttl",
+            "bundleSha256": "0e4df46b14ca8298b8ccc5f953cb9b364ef885419a1aafceee6160b63a76a65f",
+            "profile": "geo",
+            "requirementId": "MOLIT-DS-001-P-MODIFIED-001",
+            "shapeFile": "shacl/molit-core.ttl",
+            "shapeFileSha256": "4ce9e7bfef1b84f5e7bd5bc98e52cd771cb710c59d159ed39bde7afdb42f5e08",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#DatasetShape"
+          },
+          {
+            "bundle": "bundles/geo.ttl",
+            "bundleSha256": "0e4df46b14ca8298b8ccc5f953cb9b364ef885419a1aafceee6160b63a76a65f",
+            "profile": "geo",
+            "requirementId": "MOLIT-DS-001-P-PATH-0E31B21B99-001",
+            "shapeFile": "shacl/molit-core.ttl",
+            "shapeFileSha256": "4ce9e7bfef1b84f5e7bd5bc98e52cd771cb710c59d159ed39bde7afdb42f5e08",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#DatasetShape"
+          },
+          {
+            "bundle": "bundles/geo.ttl",
+            "bundleSha256": "0e4df46b14ca8298b8ccc5f953cb9b364ef885419a1aafceee6160b63a76a65f",
+            "profile": "geo",
+            "requirementId": "MOLIT-DS-001-P-PATH-30F94DAB87-001",
+            "shapeFile": "shacl/molit-core.ttl",
+            "shapeFileSha256": "4ce9e7bfef1b84f5e7bd5bc98e52cd771cb710c59d159ed39bde7afdb42f5e08",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#DatasetShape"
+          },
+          {
+            "bundle": "bundles/geo.ttl",
+            "bundleSha256": "0e4df46b14ca8298b8ccc5f953cb9b364ef885419a1aafceee6160b63a76a65f",
+            "profile": "geo",
+            "requirementId": "MOLIT-DS-001-P-PUBLISHER-001",
+            "shapeFile": "shacl/molit-core.ttl",
+            "shapeFileSha256": "4ce9e7bfef1b84f5e7bd5bc98e52cd771cb710c59d159ed39bde7afdb42f5e08",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#DatasetShape"
+          },
+          {
+            "bundle": "bundles/geo.ttl",
+            "bundleSha256": "0e4df46b14ca8298b8ccc5f953cb9b364ef885419a1aafceee6160b63a76a65f",
+            "profile": "geo",
+            "requirementId": "MOLIT-DS-001-P-THEME-001",
+            "shapeFile": "shacl/molit-core.ttl",
+            "shapeFileSha256": "4ce9e7bfef1b84f5e7bd5bc98e52cd771cb710c59d159ed39bde7afdb42f5e08",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#DatasetShape"
+          },
+          {
+            "bundle": "bundles/geo.ttl",
+            "bundleSha256": "0e4df46b14ca8298b8ccc5f953cb9b364ef885419a1aafceee6160b63a76a65f",
+            "profile": "geo",
+            "requirementId": "MOLIT-DS-001-P-THEME-002",
+            "shapeFile": "shacl/molit-core.ttl",
+            "shapeFileSha256": "4ce9e7bfef1b84f5e7bd5bc98e52cd771cb710c59d159ed39bde7afdb42f5e08",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#DatasetShape"
+          },
+          {
+            "bundle": "bundles/geo.ttl",
+            "bundleSha256": "0e4df46b14ca8298b8ccc5f953cb9b364ef885419a1aafceee6160b63a76a65f",
+            "profile": "geo",
+            "requirementId": "MOLIT-DS-001-P-TITLE-001",
+            "shapeFile": "shacl/molit-core.ttl",
+            "shapeFileSha256": "4ce9e7bfef1b84f5e7bd5bc98e52cd771cb710c59d159ed39bde7afdb42f5e08",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#DatasetShape"
+          },
+          {
+            "bundle": "bundles/geo.ttl",
+            "bundleSha256": "0e4df46b14ca8298b8ccc5f953cb9b364ef885419a1aafceee6160b63a76a65f",
+            "profile": "geo",
+            "requirementId": "MOLIT-GEO-001",
+            "shapeFile": "shacl/molit-spatial.ttl",
+            "shapeFileSha256": "528ff74e210deaacdd5cb8da16be100eb2dd92a4fe3b6be71b0dcab92182967a",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#SpatialDatasetShape"
+          },
+          {
+            "bundle": "bundles/geo.ttl",
+            "bundleSha256": "0e4df46b14ca8298b8ccc5f953cb9b364ef885419a1aafceee6160b63a76a65f",
+            "profile": "geo",
+            "requirementId": "MOLIT-GEO-001-P-REFERENCESYSTEM-001",
+            "shapeFile": "shacl/molit-spatial.ttl",
+            "shapeFileSha256": "528ff74e210deaacdd5cb8da16be100eb2dd92a4fe3b6be71b0dcab92182967a",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#SpatialDatasetShape"
+          },
+          {
+            "bundle": "bundles/geo.ttl",
+            "bundleSha256": "0e4df46b14ca8298b8ccc5f953cb9b364ef885419a1aafceee6160b63a76a65f",
+            "profile": "geo",
+            "requirementId": "MOLIT-GEO-001-P-SPATIALDISCLOSURELEVEL-001",
+            "shapeFile": "shacl/molit-spatial.ttl",
+            "shapeFileSha256": "528ff74e210deaacdd5cb8da16be100eb2dd92a4fe3b6be71b0dcab92182967a",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#SpatialDatasetShape"
+          },
+          {
+            "bundle": "bundles/geo.ttl",
+            "bundleSha256": "0e4df46b14ca8298b8ccc5f953cb9b364ef885419a1aafceee6160b63a76a65f",
+            "profile": "geo",
+            "requirementId": "MOLIT-GEO-001-P-SPATIALRESOLUTIONINMETERS-001",
+            "shapeFile": "shacl/molit-spatial.ttl",
+            "shapeFileSha256": "528ff74e210deaacdd5cb8da16be100eb2dd92a4fe3b6be71b0dcab92182967a",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#SpatialDatasetShape"
+          },
+          {
+            "bundle": "bundles/geo.ttl",
+            "bundleSha256": "0e4df46b14ca8298b8ccc5f953cb9b364ef885419a1aafceee6160b63a76a65f",
+            "profile": "geo",
+            "requirementId": "MOLIT-GEO-001-P-TYPE-001",
+            "shapeFile": "shacl/molit-spatial.ttl",
+            "shapeFileSha256": "528ff74e210deaacdd5cb8da16be100eb2dd92a4fe3b6be71b0dcab92182967a",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#SpatialDatasetShape"
+          },
+          {
+            "bundle": "bundles/geo.ttl",
+            "bundleSha256": "0e4df46b14ca8298b8ccc5f953cb9b364ef885419a1aafceee6160b63a76a65f",
+            "profile": "geo",
+            "requirementId": "MOLIT-GEO-DISCLOSURE-001",
+            "shapeFile": "shacl/molit-spatial.ttl",
+            "shapeFileSha256": "528ff74e210deaacdd5cb8da16be100eb2dd92a4fe3b6be71b0dcab92182967a",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#SpatialDisclosureSafetyShape"
+          },
+          {
+            "bundle": "bundles/geo.ttl",
+            "bundleSha256": "0e4df46b14ca8298b8ccc5f953cb9b364ef885419a1aafceee6160b63a76a65f",
+            "profile": "geo",
+            "requirementId": "MOLIT-GEO-DISCLOSURE-001-P-SPATIALDISCLOSURELEVEL-001",
+            "shapeFile": "shacl/molit-spatial.ttl",
+            "shapeFileSha256": "528ff74e210deaacdd5cb8da16be100eb2dd92a4fe3b6be71b0dcab92182967a",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#SpatialDisclosureSafetyShape"
+          },
+          {
+            "bundle": "bundles/geo.ttl",
+            "bundleSha256": "0e4df46b14ca8298b8ccc5f953cb9b364ef885419a1aafceee6160b63a76a65f",
+            "profile": "geo",
+            "requirementId": "MOLIT-GEO-DISCLOSURE-002",
+            "shapeFile": "shacl/molit-spatial.ttl",
+            "shapeFileSha256": "528ff74e210deaacdd5cb8da16be100eb2dd92a4fe3b6be71b0dcab92182967a",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#SpatialDisclosureSubjectTypeShape"
+          },
+          {
+            "bundle": "bundles/geo.ttl",
+            "bundleSha256": "0e4df46b14ca8298b8ccc5f953cb9b364ef885419a1aafceee6160b63a76a65f",
+            "profile": "geo",
+            "requirementId": "MOLIT-GEO-ENCODING-001",
+            "shapeFile": "shacl/molit-spatial.ttl",
+            "shapeFileSha256": "528ff74e210deaacdd5cb8da16be100eb2dd92a4fe3b6be71b0dcab92182967a",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#WktGeometryCrsShape"
+          },
+          {
+            "bundle": "bundles/geo.ttl",
+            "bundleSha256": "0e4df46b14ca8298b8ccc5f953cb9b364ef885419a1aafceee6160b63a76a65f",
+            "profile": "geo",
+            "requirementId": "MOLIT-GEO-ENCODING-002",
+            "shapeFile": "shacl/molit-spatial.ttl",
+            "shapeFileSha256": "528ff74e210deaacdd5cb8da16be100eb2dd92a4fe3b6be71b0dcab92182967a",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#GmlGeometryCrsShape"
+          },
+          {
+            "bundle": "bundles/geo.ttl",
+            "bundleSha256": "0e4df46b14ca8298b8ccc5f953cb9b364ef885419a1aafceee6160b63a76a65f",
+            "profile": "geo",
+            "requirementId": "MOLIT-GEO-ENCODING-003",
+            "shapeFile": "shacl/molit-spatial.ttl",
+            "shapeFileSha256": "528ff74e210deaacdd5cb8da16be100eb2dd92a4fe3b6be71b0dcab92182967a",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#BoundingGeometryCrsShape"
+          },
+          {
+            "bundle": "bundles/geo.ttl",
+            "bundleSha256": "0e4df46b14ca8298b8ccc5f953cb9b364ef885419a1aafceee6160b63a76a65f",
+            "profile": "geo",
+            "requirementId": "MOLIT-GEO-ENCODING-004",
+            "shapeFile": "shacl/molit-spatial.ttl",
+            "shapeFileSha256": "528ff74e210deaacdd5cb8da16be100eb2dd92a4fe3b6be71b0dcab92182967a",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#LocationGeometryEncodingShape"
+          },
+          {
+            "bundle": "bundles/geo.ttl",
+            "bundleSha256": "0e4df46b14ca8298b8ccc5f953cb9b364ef885419a1aafceee6160b63a76a65f",
+            "profile": "geo",
+            "requirementId": "MOLIT-GEO-ENCODING-005-P-ASDGGS-001",
+            "shapeFile": "shacl/molit-spatial.ttl",
+            "shapeFileSha256": "528ff74e210deaacdd5cb8da16be100eb2dd92a4fe3b6be71b0dcab92182967a",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#UnsupportedGeometrySerializationShape"
+          },
+          {
+            "bundle": "bundles/geo.ttl",
+            "bundleSha256": "0e4df46b14ca8298b8ccc5f953cb9b364ef885419a1aafceee6160b63a76a65f",
+            "profile": "geo",
+            "requirementId": "MOLIT-GEO-ENCODING-005-P-ASGEOJSON-001",
+            "shapeFile": "shacl/molit-spatial.ttl",
+            "shapeFileSha256": "528ff74e210deaacdd5cb8da16be100eb2dd92a4fe3b6be71b0dcab92182967a",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#UnsupportedGeometrySerializationShape"
+          },
+          {
+            "bundle": "bundles/geo.ttl",
+            "bundleSha256": "0e4df46b14ca8298b8ccc5f953cb9b364ef885419a1aafceee6160b63a76a65f",
+            "profile": "geo",
+            "requirementId": "MOLIT-GEO-ENCODING-005-P-ASKML-001",
+            "shapeFile": "shacl/molit-spatial.ttl",
+            "shapeFileSha256": "528ff74e210deaacdd5cb8da16be100eb2dd92a4fe3b6be71b0dcab92182967a",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#UnsupportedGeometrySerializationShape"
+          },
+          {
+            "bundle": "bundles/geo.ttl",
+            "bundleSha256": "0e4df46b14ca8298b8ccc5f953cb9b364ef885419a1aafceee6160b63a76a65f",
+            "profile": "geo",
+            "requirementId": "MOLIT-GEO-ENCODING-005-P-HASSERIALIZATION-001",
+            "shapeFile": "shacl/molit-spatial.ttl",
+            "shapeFileSha256": "528ff74e210deaacdd5cb8da16be100eb2dd92a4fe3b6be71b0dcab92182967a",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#UnsupportedGeometrySerializationShape"
+          },
+          {
+            "bundle": "bundles/geo.ttl",
+            "bundleSha256": "0e4df46b14ca8298b8ccc5f953cb9b364ef885419a1aafceee6160b63a76a65f",
+            "profile": "geo",
+            "requirementId": "MOLIT-GEO-LINK-001-P-PATH-BFC98936CC-001",
+            "shapeFile": "shacl/molit-spatial.ttl",
+            "shapeFileSha256": "528ff74e210deaacdd5cb8da16be100eb2dd92a4fe3b6be71b0dcab92182967a",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#LocationGeometryLinkShape"
+          },
+          {
+            "bundle": "bundles/geo.ttl",
+            "bundleSha256": "0e4df46b14ca8298b8ccc5f953cb9b364ef885419a1aafceee6160b63a76a65f",
+            "profile": "geo",
+            "requirementId": "MOLIT-GEO-LINK-002-P-PATH-D6567CFAEC-001",
+            "shapeFile": "shacl/molit-spatial.ttl",
+            "shapeFileSha256": "528ff74e210deaacdd5cb8da16be100eb2dd92a4fe3b6be71b0dcab92182967a",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#GeometryLiteralLinkShape"
+          },
+          {
+            "bundle": "bundles/geo.ttl",
+            "bundleSha256": "0e4df46b14ca8298b8ccc5f953cb9b364ef885419a1aafceee6160b63a76a65f",
+            "profile": "geo",
+            "requirementId": "MOLIT-GEO-PROFILE-001-P-CONFORMSTO-001",
+            "shapeFile": "shacl/molit-geo-profile.ttl",
+            "shapeFileSha256": "57b2e76ed5ce61fa2d56bf2b750f5cbb4b0557b5cafa8584f8b7c317aba344e0",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#GeoCatalogProfileShape"
+          },
+          {
+            "bundle": "bundles/geo.ttl",
+            "bundleSha256": "0e4df46b14ca8298b8ccc5f953cb9b364ef885419a1aafceee6160b63a76a65f",
+            "profile": "geo",
+            "requirementId": "MOLIT-GEO-PROFILE-002-P-CONFORMSTO-001",
+            "shapeFile": "shacl/molit-geo-profile.ttl",
+            "shapeFileSha256": "57b2e76ed5ce61fa2d56bf2b750f5cbb4b0557b5cafa8584f8b7c317aba344e0",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#GeoCatalogRecordProfileShape"
+          },
+          {
+            "bundle": "bundles/geo.ttl",
+            "bundleSha256": "0e4df46b14ca8298b8ccc5f953cb9b364ef885419a1aafceee6160b63a76a65f",
+            "profile": "geo",
+            "requirementId": "MOLIT-GEO-TYPE-001",
+            "shapeFile": "shacl/molit-spatial.ttl",
+            "shapeFileSha256": "528ff74e210deaacdd5cb8da16be100eb2dd92a4fe3b6be71b0dcab92182967a",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#WktGeometryTypeShape"
+          },
+          {
+            "bundle": "bundles/geo.ttl",
+            "bundleSha256": "0e4df46b14ca8298b8ccc5f953cb9b364ef885419a1aafceee6160b63a76a65f",
+            "profile": "geo",
+            "requirementId": "MOLIT-GEO-TYPE-002",
+            "shapeFile": "shacl/molit-spatial.ttl",
+            "shapeFileSha256": "528ff74e210deaacdd5cb8da16be100eb2dd92a4fe3b6be71b0dcab92182967a",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#GmlGeometryTypeShape"
+          },
+          {
+            "bundle": "bundles/geo.ttl",
+            "bundleSha256": "0e4df46b14ca8298b8ccc5f953cb9b364ef885419a1aafceee6160b63a76a65f",
+            "profile": "geo",
+            "requirementId": "MOLIT-GEO-TYPE-003",
+            "shapeFile": "shacl/molit-spatial.ttl",
+            "shapeFileSha256": "528ff74e210deaacdd5cb8da16be100eb2dd92a4fe3b6be71b0dcab92182967a",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#BoundingBoxGeometryTypeShape"
+          },
+          {
+            "bundle": "bundles/geo.ttl",
+            "bundleSha256": "0e4df46b14ca8298b8ccc5f953cb9b364ef885419a1aafceee6160b63a76a65f",
+            "profile": "geo",
+            "requirementId": "MOLIT-GEO-TYPE-004",
+            "shapeFile": "shacl/molit-spatial.ttl",
+            "shapeFileSha256": "528ff74e210deaacdd5cb8da16be100eb2dd92a4fe3b6be71b0dcab92182967a",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#CentroidGeometryTypeShape"
+          },
+          {
+            "bundle": "bundles/geo.ttl",
+            "bundleSha256": "0e4df46b14ca8298b8ccc5f953cb9b364ef885419a1aafceee6160b63a76a65f",
+            "profile": "geo",
+            "requirementId": "MOLIT-REC-001-P-LANGUAGE-001",
+            "shapeFile": "shacl/molit-core.ttl",
+            "shapeFileSha256": "4ce9e7bfef1b84f5e7bd5bc98e52cd771cb710c59d159ed39bde7afdb42f5e08",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#CatalogRecordShape"
+          },
+          {
+            "bundle": "bundles/geo.ttl",
+            "bundleSha256": "0e4df46b14ca8298b8ccc5f953cb9b364ef885419a1aafceee6160b63a76a65f",
+            "profile": "geo",
+            "requirementId": "MOLIT-REC-001-P-MODIFIED-001",
+            "shapeFile": "shacl/molit-core.ttl",
+            "shapeFileSha256": "4ce9e7bfef1b84f5e7bd5bc98e52cd771cb710c59d159ed39bde7afdb42f5e08",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#CatalogRecordShape"
+          },
+          {
+            "bundle": "bundles/geo.ttl",
+            "bundleSha256": "0e4df46b14ca8298b8ccc5f953cb9b364ef885419a1aafceee6160b63a76a65f",
+            "profile": "geo",
+            "requirementId": "MOLIT-REC-001-P-PRIMARYTOPIC-001",
+            "shapeFile": "shacl/molit-core.ttl",
+            "shapeFileSha256": "4ce9e7bfef1b84f5e7bd5bc98e52cd771cb710c59d159ed39bde7afdb42f5e08",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#CatalogRecordShape"
+          },
+          {
+            "bundle": "bundles/geo.ttl",
+            "bundleSha256": "0e4df46b14ca8298b8ccc5f953cb9b364ef885419a1aafceee6160b63a76a65f",
+            "profile": "geo",
+            "requirementId": "MOLIT-REC-001-P-TITLE-001",
+            "shapeFile": "shacl/molit-core.ttl",
+            "shapeFileSha256": "4ce9e7bfef1b84f5e7bd5bc98e52cd771cb710c59d159ed39bde7afdb42f5e08",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#CatalogRecordShape"
+          },
+          {
+            "bundle": "bundles/geo.ttl",
+            "bundleSha256": "0e4df46b14ca8298b8ccc5f953cb9b364ef885419a1aafceee6160b63a76a65f",
+            "profile": "geo",
+            "requirementId": "MOLIT-SVC-001-P-ENDPOINTURL-001",
+            "shapeFile": "shacl/molit-core.ttl",
+            "shapeFileSha256": "4ce9e7bfef1b84f5e7bd5bc98e52cd771cb710c59d159ed39bde7afdb42f5e08",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#DataServiceShape"
+          },
+          {
+            "bundle": "bundles/geo.ttl",
+            "bundleSha256": "0e4df46b14ca8298b8ccc5f953cb9b364ef885419a1aafceee6160b63a76a65f",
+            "profile": "geo",
+            "requirementId": "MOLIT-SVC-001-P-SERVESDATASET-001",
+            "shapeFile": "shacl/molit-core.ttl",
+            "shapeFileSha256": "4ce9e7bfef1b84f5e7bd5bc98e52cd771cb710c59d159ed39bde7afdb42f5e08",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#DataServiceShape"
+          },
+          {
+            "bundle": "bundles/geo.ttl",
+            "bundleSha256": "0e4df46b14ca8298b8ccc5f953cb9b364ef885419a1aafceee6160b63a76a65f",
+            "profile": "geo",
+            "requirementId": "MOLIT-SVC-001-P-THEME-001",
+            "shapeFile": "shacl/molit-core.ttl",
+            "shapeFileSha256": "4ce9e7bfef1b84f5e7bd5bc98e52cd771cb710c59d159ed39bde7afdb42f5e08",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#DataServiceShape"
+          },
+          {
+            "bundle": "bundles/geo.ttl",
+            "bundleSha256": "0e4df46b14ca8298b8ccc5f953cb9b364ef885419a1aafceee6160b63a76a65f",
+            "profile": "geo",
+            "requirementId": "MOLIT-SVC-001-P-TITLE-001",
+            "shapeFile": "shacl/molit-core.ttl",
+            "shapeFileSha256": "4ce9e7bfef1b84f5e7bd5bc98e52cd771cb710c59d159ed39bde7afdb42f5e08",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#DataServiceShape"
+          },
+          {
+            "bundle": "bundles/network.ttl",
+            "bundleSha256": "c51e36e3f8b644260174e243399e1c2f7bce935a7652a659a7a6db3b1b7ca195",
+            "profile": "network",
+            "requirementId": "MOLIT-AGENT-001-P-NAME-001",
+            "shapeFile": "shacl/molit-core.ttl",
+            "shapeFileSha256": "4ce9e7bfef1b84f5e7bd5bc98e52cd771cb710c59d159ed39bde7afdb42f5e08",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#AgentShape"
+          },
+          {
+            "bundle": "bundles/network.ttl",
+            "bundleSha256": "c51e36e3f8b644260174e243399e1c2f7bce935a7652a659a7a6db3b1b7ca195",
+            "profile": "network",
+            "requirementId": "MOLIT-CAT-001-P-DATASET-001",
+            "shapeFile": "shacl/molit-core.ttl",
+            "shapeFileSha256": "4ce9e7bfef1b84f5e7bd5bc98e52cd771cb710c59d159ed39bde7afdb42f5e08",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#CatalogShape"
+          },
+          {
+            "bundle": "bundles/network.ttl",
+            "bundleSha256": "c51e36e3f8b644260174e243399e1c2f7bce935a7652a659a7a6db3b1b7ca195",
+            "profile": "network",
+            "requirementId": "MOLIT-CAT-001-P-DESCRIPTION-001",
+            "shapeFile": "shacl/molit-core.ttl",
+            "shapeFileSha256": "4ce9e7bfef1b84f5e7bd5bc98e52cd771cb710c59d159ed39bde7afdb42f5e08",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#CatalogShape"
+          },
+          {
+            "bundle": "bundles/network.ttl",
+            "bundleSha256": "c51e36e3f8b644260174e243399e1c2f7bce935a7652a659a7a6db3b1b7ca195",
+            "profile": "network",
+            "requirementId": "MOLIT-CAT-001-P-LANGUAGE-001",
+            "shapeFile": "shacl/molit-core.ttl",
+            "shapeFileSha256": "4ce9e7bfef1b84f5e7bd5bc98e52cd771cb710c59d159ed39bde7afdb42f5e08",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#CatalogShape"
+          },
+          {
+            "bundle": "bundles/network.ttl",
+            "bundleSha256": "c51e36e3f8b644260174e243399e1c2f7bce935a7652a659a7a6db3b1b7ca195",
+            "profile": "network",
+            "requirementId": "MOLIT-CAT-001-P-PUBLISHER-001",
+            "shapeFile": "shacl/molit-core.ttl",
+            "shapeFileSha256": "4ce9e7bfef1b84f5e7bd5bc98e52cd771cb710c59d159ed39bde7afdb42f5e08",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#CatalogShape"
+          },
+          {
+            "bundle": "bundles/network.ttl",
+            "bundleSha256": "c51e36e3f8b644260174e243399e1c2f7bce935a7652a659a7a6db3b1b7ca195",
+            "profile": "network",
+            "requirementId": "MOLIT-CAT-001-P-RECORD-001",
+            "shapeFile": "shacl/molit-core.ttl",
+            "shapeFileSha256": "4ce9e7bfef1b84f5e7bd5bc98e52cd771cb710c59d159ed39bde7afdb42f5e08",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#CatalogShape"
+          },
+          {
+            "bundle": "bundles/network.ttl",
+            "bundleSha256": "c51e36e3f8b644260174e243399e1c2f7bce935a7652a659a7a6db3b1b7ca195",
+            "profile": "network",
+            "requirementId": "MOLIT-CAT-001-P-TITLE-001",
+            "shapeFile": "shacl/molit-core.ttl",
+            "shapeFileSha256": "4ce9e7bfef1b84f5e7bd5bc98e52cd771cb710c59d159ed39bde7afdb42f5e08",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#CatalogShape"
+          },
+          {
+            "bundle": "bundles/network.ttl",
+            "bundleSha256": "c51e36e3f8b644260174e243399e1c2f7bce935a7652a659a7a6db3b1b7ca195",
+            "profile": "network",
+            "requirementId": "MOLIT-CAT-REL-001-P-PATH-DA00F2B2F6-001",
+            "shapeFile": "shacl/molit-core.ttl",
+            "shapeFileSha256": "4ce9e7bfef1b84f5e7bd5bc98e52cd771cb710c59d159ed39bde7afdb42f5e08",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#CatalogRecordDatasetCoherenceShape"
+          },
+          {
+            "bundle": "bundles/network.ttl",
+            "bundleSha256": "c51e36e3f8b644260174e243399e1c2f7bce935a7652a659a7a6db3b1b7ca195",
+            "profile": "network",
+            "requirementId": "MOLIT-CV-CHECKSUM-001-P-ALGORITHM-001",
+            "shapeFile": "shacl/molit-controlled-vocabularies.ttl",
+            "shapeFileSha256": "fc56ba6e27e632b2c3107baa58c81e8ae2fa7c671cffebd8e7bd54424cf430be",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#ChecksumAlgorithmVocabularyShape"
+          },
+          {
+            "bundle": "bundles/network.ttl",
+            "bundleSha256": "c51e36e3f8b644260174e243399e1c2f7bce935a7652a659a7a6db3b1b7ca195",
+            "profile": "network",
+            "requirementId": "MOLIT-CV-CHECKSUM-002",
+            "shapeFile": "shacl/molit-controlled-vocabularies.ttl",
+            "shapeFileSha256": "fc56ba6e27e632b2c3107baa58c81e8ae2fa7c671cffebd8e7bd54424cf430be",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#ChecksumValueLengthShape"
+          },
+          {
+            "bundle": "bundles/network.ttl",
+            "bundleSha256": "c51e36e3f8b644260174e243399e1c2f7bce935a7652a659a7a6db3b1b7ca195",
+            "profile": "network",
+            "requirementId": "MOLIT-CV-MEDIATYPE-001-P-COMPRESSFORMAT-001",
+            "shapeFile": "shacl/molit-controlled-vocabularies.ttl",
+            "shapeFileSha256": "fc56ba6e27e632b2c3107baa58c81e8ae2fa7c671cffebd8e7bd54424cf430be",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#IanaMediaTypeVocabularyShape"
+          },
+          {
+            "bundle": "bundles/network.ttl",
+            "bundleSha256": "c51e36e3f8b644260174e243399e1c2f7bce935a7652a659a7a6db3b1b7ca195",
+            "profile": "network",
+            "requirementId": "MOLIT-CV-MEDIATYPE-001-P-MEDIATYPE-001",
+            "shapeFile": "shacl/molit-controlled-vocabularies.ttl",
+            "shapeFileSha256": "fc56ba6e27e632b2c3107baa58c81e8ae2fa7c671cffebd8e7bd54424cf430be",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#IanaMediaTypeVocabularyShape"
+          },
+          {
+            "bundle": "bundles/network.ttl",
+            "bundleSha256": "c51e36e3f8b644260174e243399e1c2f7bce935a7652a659a7a6db3b1b7ca195",
+            "profile": "network",
+            "requirementId": "MOLIT-CV-MEDIATYPE-001-P-PACKAGEFORMAT-001",
+            "shapeFile": "shacl/molit-controlled-vocabularies.ttl",
+            "shapeFileSha256": "fc56ba6e27e632b2c3107baa58c81e8ae2fa7c671cffebd8e7bd54424cf430be",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#IanaMediaTypeVocabularyShape"
+          },
+          {
+            "bundle": "bundles/network.ttl",
+            "bundleSha256": "c51e36e3f8b644260174e243399e1c2f7bce935a7652a659a7a6db3b1b7ca195",
+            "profile": "network",
+            "requirementId": "MOLIT-CV-MEDIATYPE-001-P-TYPE-001",
+            "shapeFile": "shacl/molit-controlled-vocabularies.ttl",
+            "shapeFileSha256": "fc56ba6e27e632b2c3107baa58c81e8ae2fa7c671cffebd8e7bd54424cf430be",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#IanaMediaTypeVocabularyShape"
+          },
+          {
+            "bundle": "bundles/network.ttl",
+            "bundleSha256": "c51e36e3f8b644260174e243399e1c2f7bce935a7652a659a7a6db3b1b7ca195",
+            "profile": "network",
+            "requirementId": "MOLIT-DS-001-P-ACCESSRIGHTS-001",
+            "shapeFile": "shacl/molit-core.ttl",
+            "shapeFileSha256": "4ce9e7bfef1b84f5e7bd5bc98e52cd771cb710c59d159ed39bde7afdb42f5e08",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#DatasetShape"
+          },
+          {
+            "bundle": "bundles/network.ttl",
+            "bundleSha256": "c51e36e3f8b644260174e243399e1c2f7bce935a7652a659a7a6db3b1b7ca195",
+            "profile": "network",
+            "requirementId": "MOLIT-DS-001-P-DESCRIPTION-001",
+            "shapeFile": "shacl/molit-core.ttl",
+            "shapeFileSha256": "4ce9e7bfef1b84f5e7bd5bc98e52cd771cb710c59d159ed39bde7afdb42f5e08",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#DatasetShape"
+          },
+          {
+            "bundle": "bundles/network.ttl",
+            "bundleSha256": "c51e36e3f8b644260174e243399e1c2f7bce935a7652a659a7a6db3b1b7ca195",
+            "profile": "network",
+            "requirementId": "MOLIT-DS-001-P-IDENTIFIER-001",
+            "shapeFile": "shacl/molit-core.ttl",
+            "shapeFileSha256": "4ce9e7bfef1b84f5e7bd5bc98e52cd771cb710c59d159ed39bde7afdb42f5e08",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#DatasetShape"
+          },
+          {
+            "bundle": "bundles/network.ttl",
+            "bundleSha256": "c51e36e3f8b644260174e243399e1c2f7bce935a7652a659a7a6db3b1b7ca195",
+            "profile": "network",
+            "requirementId": "MOLIT-DS-001-P-ISSUED-001",
+            "shapeFile": "shacl/molit-core.ttl",
+            "shapeFileSha256": "4ce9e7bfef1b84f5e7bd5bc98e52cd771cb710c59d159ed39bde7afdb42f5e08",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#DatasetShape"
+          },
+          {
+            "bundle": "bundles/network.ttl",
+            "bundleSha256": "c51e36e3f8b644260174e243399e1c2f7bce935a7652a659a7a6db3b1b7ca195",
+            "profile": "network",
+            "requirementId": "MOLIT-DS-001-P-MODIFIED-001",
+            "shapeFile": "shacl/molit-core.ttl",
+            "shapeFileSha256": "4ce9e7bfef1b84f5e7bd5bc98e52cd771cb710c59d159ed39bde7afdb42f5e08",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#DatasetShape"
+          },
+          {
+            "bundle": "bundles/network.ttl",
+            "bundleSha256": "c51e36e3f8b644260174e243399e1c2f7bce935a7652a659a7a6db3b1b7ca195",
+            "profile": "network",
+            "requirementId": "MOLIT-DS-001-P-PATH-0E31B21B99-001",
+            "shapeFile": "shacl/molit-core.ttl",
+            "shapeFileSha256": "4ce9e7bfef1b84f5e7bd5bc98e52cd771cb710c59d159ed39bde7afdb42f5e08",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#DatasetShape"
+          },
+          {
+            "bundle": "bundles/network.ttl",
+            "bundleSha256": "c51e36e3f8b644260174e243399e1c2f7bce935a7652a659a7a6db3b1b7ca195",
+            "profile": "network",
+            "requirementId": "MOLIT-DS-001-P-PATH-30F94DAB87-001",
+            "shapeFile": "shacl/molit-core.ttl",
+            "shapeFileSha256": "4ce9e7bfef1b84f5e7bd5bc98e52cd771cb710c59d159ed39bde7afdb42f5e08",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#DatasetShape"
+          },
+          {
+            "bundle": "bundles/network.ttl",
+            "bundleSha256": "c51e36e3f8b644260174e243399e1c2f7bce935a7652a659a7a6db3b1b7ca195",
+            "profile": "network",
+            "requirementId": "MOLIT-DS-001-P-PUBLISHER-001",
+            "shapeFile": "shacl/molit-core.ttl",
+            "shapeFileSha256": "4ce9e7bfef1b84f5e7bd5bc98e52cd771cb710c59d159ed39bde7afdb42f5e08",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#DatasetShape"
+          },
+          {
+            "bundle": "bundles/network.ttl",
+            "bundleSha256": "c51e36e3f8b644260174e243399e1c2f7bce935a7652a659a7a6db3b1b7ca195",
+            "profile": "network",
+            "requirementId": "MOLIT-DS-001-P-THEME-001",
+            "shapeFile": "shacl/molit-core.ttl",
+            "shapeFileSha256": "4ce9e7bfef1b84f5e7bd5bc98e52cd771cb710c59d159ed39bde7afdb42f5e08",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#DatasetShape"
+          },
+          {
+            "bundle": "bundles/network.ttl",
+            "bundleSha256": "c51e36e3f8b644260174e243399e1c2f7bce935a7652a659a7a6db3b1b7ca195",
+            "profile": "network",
+            "requirementId": "MOLIT-DS-001-P-THEME-002",
+            "shapeFile": "shacl/molit-core.ttl",
+            "shapeFileSha256": "4ce9e7bfef1b84f5e7bd5bc98e52cd771cb710c59d159ed39bde7afdb42f5e08",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#DatasetShape"
+          },
+          {
+            "bundle": "bundles/network.ttl",
+            "bundleSha256": "c51e36e3f8b644260174e243399e1c2f7bce935a7652a659a7a6db3b1b7ca195",
+            "profile": "network",
+            "requirementId": "MOLIT-DS-001-P-TITLE-001",
+            "shapeFile": "shacl/molit-core.ttl",
+            "shapeFileSha256": "4ce9e7bfef1b84f5e7bd5bc98e52cd771cb710c59d159ed39bde7afdb42f5e08",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#DatasetShape"
+          },
+          {
+            "bundle": "bundles/network.ttl",
+            "bundleSha256": "c51e36e3f8b644260174e243399e1c2f7bce935a7652a659a7a6db3b1b7ca195",
+            "profile": "network",
+            "requirementId": "MOLIT-GEO-001",
+            "shapeFile": "shacl/molit-spatial.ttl",
+            "shapeFileSha256": "528ff74e210deaacdd5cb8da16be100eb2dd92a4fe3b6be71b0dcab92182967a",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#SpatialDatasetShape"
+          },
+          {
+            "bundle": "bundles/network.ttl",
+            "bundleSha256": "c51e36e3f8b644260174e243399e1c2f7bce935a7652a659a7a6db3b1b7ca195",
+            "profile": "network",
+            "requirementId": "MOLIT-GEO-001-P-REFERENCESYSTEM-001",
+            "shapeFile": "shacl/molit-spatial.ttl",
+            "shapeFileSha256": "528ff74e210deaacdd5cb8da16be100eb2dd92a4fe3b6be71b0dcab92182967a",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#SpatialDatasetShape"
+          },
+          {
+            "bundle": "bundles/network.ttl",
+            "bundleSha256": "c51e36e3f8b644260174e243399e1c2f7bce935a7652a659a7a6db3b1b7ca195",
+            "profile": "network",
+            "requirementId": "MOLIT-GEO-001-P-SPATIALDISCLOSURELEVEL-001",
+            "shapeFile": "shacl/molit-spatial.ttl",
+            "shapeFileSha256": "528ff74e210deaacdd5cb8da16be100eb2dd92a4fe3b6be71b0dcab92182967a",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#SpatialDatasetShape"
+          },
+          {
+            "bundle": "bundles/network.ttl",
+            "bundleSha256": "c51e36e3f8b644260174e243399e1c2f7bce935a7652a659a7a6db3b1b7ca195",
+            "profile": "network",
+            "requirementId": "MOLIT-GEO-001-P-SPATIALRESOLUTIONINMETERS-001",
+            "shapeFile": "shacl/molit-spatial.ttl",
+            "shapeFileSha256": "528ff74e210deaacdd5cb8da16be100eb2dd92a4fe3b6be71b0dcab92182967a",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#SpatialDatasetShape"
+          },
+          {
+            "bundle": "bundles/network.ttl",
+            "bundleSha256": "c51e36e3f8b644260174e243399e1c2f7bce935a7652a659a7a6db3b1b7ca195",
+            "profile": "network",
+            "requirementId": "MOLIT-GEO-001-P-TYPE-001",
+            "shapeFile": "shacl/molit-spatial.ttl",
+            "shapeFileSha256": "528ff74e210deaacdd5cb8da16be100eb2dd92a4fe3b6be71b0dcab92182967a",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#SpatialDatasetShape"
+          },
+          {
+            "bundle": "bundles/network.ttl",
+            "bundleSha256": "c51e36e3f8b644260174e243399e1c2f7bce935a7652a659a7a6db3b1b7ca195",
+            "profile": "network",
+            "requirementId": "MOLIT-GEO-DISCLOSURE-001",
+            "shapeFile": "shacl/molit-spatial.ttl",
+            "shapeFileSha256": "528ff74e210deaacdd5cb8da16be100eb2dd92a4fe3b6be71b0dcab92182967a",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#SpatialDisclosureSafetyShape"
+          },
+          {
+            "bundle": "bundles/network.ttl",
+            "bundleSha256": "c51e36e3f8b644260174e243399e1c2f7bce935a7652a659a7a6db3b1b7ca195",
+            "profile": "network",
+            "requirementId": "MOLIT-GEO-DISCLOSURE-001-P-SPATIALDISCLOSURELEVEL-001",
+            "shapeFile": "shacl/molit-spatial.ttl",
+            "shapeFileSha256": "528ff74e210deaacdd5cb8da16be100eb2dd92a4fe3b6be71b0dcab92182967a",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#SpatialDisclosureSafetyShape"
+          },
+          {
+            "bundle": "bundles/network.ttl",
+            "bundleSha256": "c51e36e3f8b644260174e243399e1c2f7bce935a7652a659a7a6db3b1b7ca195",
+            "profile": "network",
+            "requirementId": "MOLIT-GEO-DISCLOSURE-002",
+            "shapeFile": "shacl/molit-spatial.ttl",
+            "shapeFileSha256": "528ff74e210deaacdd5cb8da16be100eb2dd92a4fe3b6be71b0dcab92182967a",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#SpatialDisclosureSubjectTypeShape"
+          },
+          {
+            "bundle": "bundles/network.ttl",
+            "bundleSha256": "c51e36e3f8b644260174e243399e1c2f7bce935a7652a659a7a6db3b1b7ca195",
+            "profile": "network",
+            "requirementId": "MOLIT-GEO-ENCODING-001",
+            "shapeFile": "shacl/molit-spatial.ttl",
+            "shapeFileSha256": "528ff74e210deaacdd5cb8da16be100eb2dd92a4fe3b6be71b0dcab92182967a",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#WktGeometryCrsShape"
+          },
+          {
+            "bundle": "bundles/network.ttl",
+            "bundleSha256": "c51e36e3f8b644260174e243399e1c2f7bce935a7652a659a7a6db3b1b7ca195",
+            "profile": "network",
+            "requirementId": "MOLIT-GEO-ENCODING-002",
+            "shapeFile": "shacl/molit-spatial.ttl",
+            "shapeFileSha256": "528ff74e210deaacdd5cb8da16be100eb2dd92a4fe3b6be71b0dcab92182967a",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#GmlGeometryCrsShape"
+          },
+          {
+            "bundle": "bundles/network.ttl",
+            "bundleSha256": "c51e36e3f8b644260174e243399e1c2f7bce935a7652a659a7a6db3b1b7ca195",
+            "profile": "network",
+            "requirementId": "MOLIT-GEO-ENCODING-003",
+            "shapeFile": "shacl/molit-spatial.ttl",
+            "shapeFileSha256": "528ff74e210deaacdd5cb8da16be100eb2dd92a4fe3b6be71b0dcab92182967a",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#BoundingGeometryCrsShape"
+          },
+          {
+            "bundle": "bundles/network.ttl",
+            "bundleSha256": "c51e36e3f8b644260174e243399e1c2f7bce935a7652a659a7a6db3b1b7ca195",
+            "profile": "network",
+            "requirementId": "MOLIT-GEO-ENCODING-004",
+            "shapeFile": "shacl/molit-spatial.ttl",
+            "shapeFileSha256": "528ff74e210deaacdd5cb8da16be100eb2dd92a4fe3b6be71b0dcab92182967a",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#LocationGeometryEncodingShape"
+          },
+          {
+            "bundle": "bundles/network.ttl",
+            "bundleSha256": "c51e36e3f8b644260174e243399e1c2f7bce935a7652a659a7a6db3b1b7ca195",
+            "profile": "network",
+            "requirementId": "MOLIT-GEO-ENCODING-005-P-ASDGGS-001",
+            "shapeFile": "shacl/molit-spatial.ttl",
+            "shapeFileSha256": "528ff74e210deaacdd5cb8da16be100eb2dd92a4fe3b6be71b0dcab92182967a",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#UnsupportedGeometrySerializationShape"
+          },
+          {
+            "bundle": "bundles/network.ttl",
+            "bundleSha256": "c51e36e3f8b644260174e243399e1c2f7bce935a7652a659a7a6db3b1b7ca195",
+            "profile": "network",
+            "requirementId": "MOLIT-GEO-ENCODING-005-P-ASGEOJSON-001",
+            "shapeFile": "shacl/molit-spatial.ttl",
+            "shapeFileSha256": "528ff74e210deaacdd5cb8da16be100eb2dd92a4fe3b6be71b0dcab92182967a",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#UnsupportedGeometrySerializationShape"
+          },
+          {
+            "bundle": "bundles/network.ttl",
+            "bundleSha256": "c51e36e3f8b644260174e243399e1c2f7bce935a7652a659a7a6db3b1b7ca195",
+            "profile": "network",
+            "requirementId": "MOLIT-GEO-ENCODING-005-P-ASKML-001",
+            "shapeFile": "shacl/molit-spatial.ttl",
+            "shapeFileSha256": "528ff74e210deaacdd5cb8da16be100eb2dd92a4fe3b6be71b0dcab92182967a",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#UnsupportedGeometrySerializationShape"
+          },
+          {
+            "bundle": "bundles/network.ttl",
+            "bundleSha256": "c51e36e3f8b644260174e243399e1c2f7bce935a7652a659a7a6db3b1b7ca195",
+            "profile": "network",
+            "requirementId": "MOLIT-GEO-ENCODING-005-P-HASSERIALIZATION-001",
+            "shapeFile": "shacl/molit-spatial.ttl",
+            "shapeFileSha256": "528ff74e210deaacdd5cb8da16be100eb2dd92a4fe3b6be71b0dcab92182967a",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#UnsupportedGeometrySerializationShape"
+          },
+          {
+            "bundle": "bundles/network.ttl",
+            "bundleSha256": "c51e36e3f8b644260174e243399e1c2f7bce935a7652a659a7a6db3b1b7ca195",
+            "profile": "network",
+            "requirementId": "MOLIT-GEO-LINK-001-P-PATH-BFC98936CC-001",
+            "shapeFile": "shacl/molit-spatial.ttl",
+            "shapeFileSha256": "528ff74e210deaacdd5cb8da16be100eb2dd92a4fe3b6be71b0dcab92182967a",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#LocationGeometryLinkShape"
+          },
+          {
+            "bundle": "bundles/network.ttl",
+            "bundleSha256": "c51e36e3f8b644260174e243399e1c2f7bce935a7652a659a7a6db3b1b7ca195",
+            "profile": "network",
+            "requirementId": "MOLIT-GEO-LINK-002-P-PATH-D6567CFAEC-001",
+            "shapeFile": "shacl/molit-spatial.ttl",
+            "shapeFileSha256": "528ff74e210deaacdd5cb8da16be100eb2dd92a4fe3b6be71b0dcab92182967a",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#GeometryLiteralLinkShape"
+          },
+          {
+            "bundle": "bundles/network.ttl",
+            "bundleSha256": "c51e36e3f8b644260174e243399e1c2f7bce935a7652a659a7a6db3b1b7ca195",
+            "profile": "network",
+            "requirementId": "MOLIT-GEO-TYPE-001",
+            "shapeFile": "shacl/molit-spatial.ttl",
+            "shapeFileSha256": "528ff74e210deaacdd5cb8da16be100eb2dd92a4fe3b6be71b0dcab92182967a",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#WktGeometryTypeShape"
+          },
+          {
+            "bundle": "bundles/network.ttl",
+            "bundleSha256": "c51e36e3f8b644260174e243399e1c2f7bce935a7652a659a7a6db3b1b7ca195",
+            "profile": "network",
+            "requirementId": "MOLIT-GEO-TYPE-002",
+            "shapeFile": "shacl/molit-spatial.ttl",
+            "shapeFileSha256": "528ff74e210deaacdd5cb8da16be100eb2dd92a4fe3b6be71b0dcab92182967a",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#GmlGeometryTypeShape"
+          },
+          {
+            "bundle": "bundles/network.ttl",
+            "bundleSha256": "c51e36e3f8b644260174e243399e1c2f7bce935a7652a659a7a6db3b1b7ca195",
+            "profile": "network",
+            "requirementId": "MOLIT-GEO-TYPE-003",
+            "shapeFile": "shacl/molit-spatial.ttl",
+            "shapeFileSha256": "528ff74e210deaacdd5cb8da16be100eb2dd92a4fe3b6be71b0dcab92182967a",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#BoundingBoxGeometryTypeShape"
+          },
+          {
+            "bundle": "bundles/network.ttl",
+            "bundleSha256": "c51e36e3f8b644260174e243399e1c2f7bce935a7652a659a7a6db3b1b7ca195",
+            "profile": "network",
+            "requirementId": "MOLIT-GEO-TYPE-004",
+            "shapeFile": "shacl/molit-spatial.ttl",
+            "shapeFileSha256": "528ff74e210deaacdd5cb8da16be100eb2dd92a4fe3b6be71b0dcab92182967a",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#CentroidGeometryTypeShape"
+          },
+          {
+            "bundle": "bundles/network.ttl",
+            "bundleSha256": "c51e36e3f8b644260174e243399e1c2f7bce935a7652a659a7a6db3b1b7ca195",
+            "profile": "network",
+            "requirementId": "MOLIT-NET-001-P-NETWORKREFERENCE-001",
+            "shapeFile": "shacl/molit-network.ttl",
+            "shapeFileSha256": "7e60a52bf056b149615a9bb084b11dc0b3094a25e3081579c84ecd96016ff971",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#NetworkDatasetShape"
+          },
+          {
+            "bundle": "bundles/network.ttl",
+            "bundleSha256": "c51e36e3f8b644260174e243399e1c2f7bce935a7652a659a7a6db3b1b7ca195",
+            "profile": "network",
+            "requirementId": "MOLIT-NET-001-P-TRANSPORTMODE-001",
+            "shapeFile": "shacl/molit-network.ttl",
+            "shapeFileSha256": "7e60a52bf056b149615a9bb084b11dc0b3094a25e3081579c84ecd96016ff971",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#NetworkDatasetShape"
+          },
+          {
+            "bundle": "bundles/network.ttl",
+            "bundleSha256": "c51e36e3f8b644260174e243399e1c2f7bce935a7652a659a7a6db3b1b7ca195",
+            "profile": "network",
+            "requirementId": "MOLIT-NET-001-P-TYPE-001",
+            "shapeFile": "shacl/molit-network.ttl",
+            "shapeFileSha256": "7e60a52bf056b149615a9bb084b11dc0b3094a25e3081579c84ecd96016ff971",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#NetworkDatasetShape"
+          },
+          {
+            "bundle": "bundles/network.ttl",
+            "bundleSha256": "c51e36e3f8b644260174e243399e1c2f7bce935a7652a659a7a6db3b1b7ca195",
+            "profile": "network",
+            "requirementId": "MOLIT-NET-002-P-TYPE-001",
+            "shapeFile": "shacl/molit-network.ttl",
+            "shapeFileSha256": "7e60a52bf056b149615a9bb084b11dc0b3094a25e3081579c84ecd96016ff971",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#NetworkReferenceUseShape"
+          },
+          {
+            "bundle": "bundles/network.ttl",
+            "bundleSha256": "c51e36e3f8b644260174e243399e1c2f7bce935a7652a659a7a6db3b1b7ca195",
+            "profile": "network",
+            "requirementId": "MOLIT-NET-REF-001-P-NETWORKAUTHORITY-001",
+            "shapeFile": "shacl/molit-network.ttl",
+            "shapeFileSha256": "7e60a52bf056b149615a9bb084b11dc0b3094a25e3081579c84ecd96016ff971",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#NetworkReferenceShape"
+          },
+          {
+            "bundle": "bundles/network.ttl",
+            "bundleSha256": "c51e36e3f8b644260174e243399e1c2f7bce935a7652a659a7a6db3b1b7ca195",
+            "profile": "network",
+            "requirementId": "MOLIT-NET-REF-001-P-NETWORKELEMENTTYPE-001",
+            "shapeFile": "shacl/molit-network.ttl",
+            "shapeFileSha256": "7e60a52bf056b149615a9bb084b11dc0b3094a25e3081579c84ecd96016ff971",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#NetworkReferenceShape"
+          },
+          {
+            "bundle": "bundles/network.ttl",
+            "bundleSha256": "c51e36e3f8b644260174e243399e1c2f7bce935a7652a659a7a6db3b1b7ca195",
+            "profile": "network",
+            "requirementId": "MOLIT-NET-REF-001-P-NETWORKIDENTIFIER-001",
+            "shapeFile": "shacl/molit-network.ttl",
+            "shapeFileSha256": "7e60a52bf056b149615a9bb084b11dc0b3094a25e3081579c84ecd96016ff971",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#NetworkReferenceShape"
+          },
+          {
+            "bundle": "bundles/network.ttl",
+            "bundleSha256": "c51e36e3f8b644260174e243399e1c2f7bce935a7652a659a7a6db3b1b7ca195",
+            "profile": "network",
+            "requirementId": "MOLIT-NET-REF-001-P-NETWORKVERSION-001",
+            "shapeFile": "shacl/molit-network.ttl",
+            "shapeFileSha256": "7e60a52bf056b149615a9bb084b11dc0b3094a25e3081579c84ecd96016ff971",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#NetworkReferenceShape"
+          },
+          {
+            "bundle": "bundles/network.ttl",
+            "bundleSha256": "c51e36e3f8b644260174e243399e1c2f7bce935a7652a659a7a6db3b1b7ca195",
+            "profile": "network",
+            "requirementId": "MOLIT-NET-REF-IRI-001",
+            "shapeFile": "shacl/molit-network.ttl",
+            "shapeFileSha256": "7e60a52bf056b149615a9bb084b11dc0b3094a25e3081579c84ecd96016ff971",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#NetworkReferenceIriShape"
+          },
+          {
+            "bundle": "bundles/network.ttl",
+            "bundleSha256": "c51e36e3f8b644260174e243399e1c2f7bce935a7652a659a7a6db3b1b7ca195",
+            "profile": "network",
+            "requirementId": "MOLIT-NET-REPLACEMENT-001",
+            "shapeFile": "shacl/molit-network.ttl",
+            "shapeFileSha256": "7e60a52bf056b149615a9bb084b11dc0b3094a25e3081579c84ecd96016ff971",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#NetworkReplacementShape"
+          },
+          {
+            "bundle": "bundles/network.ttl",
+            "bundleSha256": "c51e36e3f8b644260174e243399e1c2f7bce935a7652a659a7a6db3b1b7ca195",
+            "profile": "network",
+            "requirementId": "MOLIT-NET-SAMEAS-001-P-INCOMING-001",
+            "shapeFile": "shacl/molit-network.ttl",
+            "shapeFileSha256": "7e60a52bf056b149615a9bb084b11dc0b3094a25e3081579c84ecd96016ff971",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#NetworkReferenceIdentitySeparationShape"
+          },
+          {
+            "bundle": "bundles/network.ttl",
+            "bundleSha256": "c51e36e3f8b644260174e243399e1c2f7bce935a7652a659a7a6db3b1b7ca195",
+            "profile": "network",
+            "requirementId": "MOLIT-NET-SAMEAS-001-P-OUTGOING-001",
+            "shapeFile": "shacl/molit-network.ttl",
+            "shapeFileSha256": "7e60a52bf056b149615a9bb084b11dc0b3094a25e3081579c84ecd96016ff971",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#NetworkReferenceIdentitySeparationShape"
+          },
+          {
+            "bundle": "bundles/network.ttl",
+            "bundleSha256": "c51e36e3f8b644260174e243399e1c2f7bce935a7652a659a7a6db3b1b7ca195",
+            "profile": "network",
+            "requirementId": "MOLIT-NET-SNAPSHOT-001-P-NETWORKIDENTIFIER-001",
+            "shapeFile": "shacl/molit-network.ttl",
+            "shapeFileSha256": "7e60a52bf056b149615a9bb084b11dc0b3094a25e3081579c84ecd96016ff971",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#NetworkSnapshotIdentityShape"
+          },
+          {
+            "bundle": "bundles/network.ttl",
+            "bundleSha256": "c51e36e3f8b644260174e243399e1c2f7bce935a7652a659a7a6db3b1b7ca195",
+            "profile": "network",
+            "requirementId": "MOLIT-NET-SNAPSHOT-001-P-NETWORKLIFECYCLESTATUS-001",
+            "shapeFile": "shacl/molit-network.ttl",
+            "shapeFileSha256": "7e60a52bf056b149615a9bb084b11dc0b3094a25e3081579c84ecd96016ff971",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#NetworkSnapshotIdentityShape"
+          },
+          {
+            "bundle": "bundles/network.ttl",
+            "bundleSha256": "c51e36e3f8b644260174e243399e1c2f7bce935a7652a659a7a6db3b1b7ca195",
+            "profile": "network",
+            "requirementId": "MOLIT-NET-SNAPSHOT-001-P-NETWORKSNAPSHOTCHECKSUM-001",
+            "shapeFile": "shacl/molit-network.ttl",
+            "shapeFileSha256": "7e60a52bf056b149615a9bb084b11dc0b3094a25e3081579c84ecd96016ff971",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#NetworkSnapshotIdentityShape"
+          },
+          {
+            "bundle": "bundles/network.ttl",
+            "bundleSha256": "c51e36e3f8b644260174e243399e1c2f7bce935a7652a659a7a6db3b1b7ca195",
+            "profile": "network",
+            "requirementId": "MOLIT-NET-SNAPSHOT-001-P-NETWORKVALIDFROM-001",
+            "shapeFile": "shacl/molit-network.ttl",
+            "shapeFileSha256": "7e60a52bf056b149615a9bb084b11dc0b3094a25e3081579c84ecd96016ff971",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#NetworkSnapshotIdentityShape"
+          },
+          {
+            "bundle": "bundles/network.ttl",
+            "bundleSha256": "c51e36e3f8b644260174e243399e1c2f7bce935a7652a659a7a6db3b1b7ca195",
+            "profile": "network",
+            "requirementId": "MOLIT-NET-SNAPSHOT-001-P-NETWORKVALIDUNTIL-001",
+            "shapeFile": "shacl/molit-network.ttl",
+            "shapeFileSha256": "7e60a52bf056b149615a9bb084b11dc0b3094a25e3081579c84ecd96016ff971",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#NetworkSnapshotIdentityShape"
+          },
+          {
+            "bundle": "bundles/network.ttl",
+            "bundleSha256": "c51e36e3f8b644260174e243399e1c2f7bce935a7652a659a7a6db3b1b7ca195",
+            "profile": "network",
+            "requirementId": "MOLIT-NET-SNAPSHOT-001-P-NETWORKVERSION-001",
+            "shapeFile": "shacl/molit-network.ttl",
+            "shapeFileSha256": "7e60a52bf056b149615a9bb084b11dc0b3094a25e3081579c84ecd96016ff971",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#NetworkSnapshotIdentityShape"
+          },
+          {
+            "bundle": "bundles/network.ttl",
+            "bundleSha256": "c51e36e3f8b644260174e243399e1c2f7bce935a7652a659a7a6db3b1b7ca195",
+            "profile": "network",
+            "requirementId": "MOLIT-NET-VALIDITY-001-P-NETWORKVALIDFROM-001",
+            "shapeFile": "shacl/molit-network.ttl",
+            "shapeFileSha256": "7e60a52bf056b149615a9bb084b11dc0b3094a25e3081579c84ecd96016ff971",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#NetworkSnapshotValidityShape"
+          },
+          {
+            "bundle": "bundles/network.ttl",
+            "bundleSha256": "c51e36e3f8b644260174e243399e1c2f7bce935a7652a659a7a6db3b1b7ca195",
+            "profile": "network",
+            "requirementId": "MOLIT-PROFILE-NET-001-P-CONFORMSTO-001",
+            "shapeFile": "shacl/molit-network-profile.ttl",
+            "shapeFileSha256": "111e43eadb43a5fc0479a1b31aa0f3dea9d9daa057c26a5cbd1088af0c2aff9c",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#NetworkCatalogProfileShape"
+          },
+          {
+            "bundle": "bundles/network.ttl",
+            "bundleSha256": "c51e36e3f8b644260174e243399e1c2f7bce935a7652a659a7a6db3b1b7ca195",
+            "profile": "network",
+            "requirementId": "MOLIT-PROFILE-NET-002-P-CONFORMSTO-001",
+            "shapeFile": "shacl/molit-network-profile.ttl",
+            "shapeFileSha256": "111e43eadb43a5fc0479a1b31aa0f3dea9d9daa057c26a5cbd1088af0c2aff9c",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#NetworkCatalogRecordProfileShape"
+          },
+          {
+            "bundle": "bundles/network.ttl",
+            "bundleSha256": "c51e36e3f8b644260174e243399e1c2f7bce935a7652a659a7a6db3b1b7ca195",
+            "profile": "network",
+            "requirementId": "MOLIT-REC-001-P-LANGUAGE-001",
+            "shapeFile": "shacl/molit-core.ttl",
+            "shapeFileSha256": "4ce9e7bfef1b84f5e7bd5bc98e52cd771cb710c59d159ed39bde7afdb42f5e08",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#CatalogRecordShape"
+          },
+          {
+            "bundle": "bundles/network.ttl",
+            "bundleSha256": "c51e36e3f8b644260174e243399e1c2f7bce935a7652a659a7a6db3b1b7ca195",
+            "profile": "network",
+            "requirementId": "MOLIT-REC-001-P-MODIFIED-001",
+            "shapeFile": "shacl/molit-core.ttl",
+            "shapeFileSha256": "4ce9e7bfef1b84f5e7bd5bc98e52cd771cb710c59d159ed39bde7afdb42f5e08",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#CatalogRecordShape"
+          },
+          {
+            "bundle": "bundles/network.ttl",
+            "bundleSha256": "c51e36e3f8b644260174e243399e1c2f7bce935a7652a659a7a6db3b1b7ca195",
+            "profile": "network",
+            "requirementId": "MOLIT-REC-001-P-PRIMARYTOPIC-001",
+            "shapeFile": "shacl/molit-core.ttl",
+            "shapeFileSha256": "4ce9e7bfef1b84f5e7bd5bc98e52cd771cb710c59d159ed39bde7afdb42f5e08",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#CatalogRecordShape"
+          },
+          {
+            "bundle": "bundles/network.ttl",
+            "bundleSha256": "c51e36e3f8b644260174e243399e1c2f7bce935a7652a659a7a6db3b1b7ca195",
+            "profile": "network",
+            "requirementId": "MOLIT-REC-001-P-TITLE-001",
+            "shapeFile": "shacl/molit-core.ttl",
+            "shapeFileSha256": "4ce9e7bfef1b84f5e7bd5bc98e52cd771cb710c59d159ed39bde7afdb42f5e08",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#CatalogRecordShape"
+          },
+          {
+            "bundle": "bundles/network.ttl",
+            "bundleSha256": "c51e36e3f8b644260174e243399e1c2f7bce935a7652a659a7a6db3b1b7ca195",
+            "profile": "network",
+            "requirementId": "MOLIT-SVC-001-P-ENDPOINTURL-001",
+            "shapeFile": "shacl/molit-core.ttl",
+            "shapeFileSha256": "4ce9e7bfef1b84f5e7bd5bc98e52cd771cb710c59d159ed39bde7afdb42f5e08",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#DataServiceShape"
+          },
+          {
+            "bundle": "bundles/network.ttl",
+            "bundleSha256": "c51e36e3f8b644260174e243399e1c2f7bce935a7652a659a7a6db3b1b7ca195",
+            "profile": "network",
+            "requirementId": "MOLIT-SVC-001-P-SERVESDATASET-001",
+            "shapeFile": "shacl/molit-core.ttl",
+            "shapeFileSha256": "4ce9e7bfef1b84f5e7bd5bc98e52cd771cb710c59d159ed39bde7afdb42f5e08",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#DataServiceShape"
+          },
+          {
+            "bundle": "bundles/network.ttl",
+            "bundleSha256": "c51e36e3f8b644260174e243399e1c2f7bce935a7652a659a7a6db3b1b7ca195",
+            "profile": "network",
+            "requirementId": "MOLIT-SVC-001-P-THEME-001",
+            "shapeFile": "shacl/molit-core.ttl",
+            "shapeFileSha256": "4ce9e7bfef1b84f5e7bd5bc98e52cd771cb710c59d159ed39bde7afdb42f5e08",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#DataServiceShape"
+          },
+          {
+            "bundle": "bundles/network.ttl",
+            "bundleSha256": "c51e36e3f8b644260174e243399e1c2f7bce935a7652a659a7a6db3b1b7ca195",
+            "profile": "network",
+            "requirementId": "MOLIT-SVC-001-P-TITLE-001",
+            "shapeFile": "shacl/molit-core.ttl",
+            "shapeFileSha256": "4ce9e7bfef1b84f5e7bd5bc98e52cd771cb710c59d159ed39bde7afdb42f5e08",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#DataServiceShape"
+          },
+          {
+            "bundle": "bundles/observation.ttl",
+            "bundleSha256": "ec9cca3f6f2e6d610f8c13214edc218f40f26409aed8c8862b1085f6acfdd99c",
+            "profile": "observation",
+            "requirementId": "MOLIT-AGENT-001-P-NAME-001",
+            "shapeFile": "shacl/molit-core.ttl",
+            "shapeFileSha256": "4ce9e7bfef1b84f5e7bd5bc98e52cd771cb710c59d159ed39bde7afdb42f5e08",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#AgentShape"
+          },
+          {
+            "bundle": "bundles/observation.ttl",
+            "bundleSha256": "ec9cca3f6f2e6d610f8c13214edc218f40f26409aed8c8862b1085f6acfdd99c",
+            "profile": "observation",
+            "requirementId": "MOLIT-CAT-001-P-DATASET-001",
+            "shapeFile": "shacl/molit-core.ttl",
+            "shapeFileSha256": "4ce9e7bfef1b84f5e7bd5bc98e52cd771cb710c59d159ed39bde7afdb42f5e08",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#CatalogShape"
+          },
+          {
+            "bundle": "bundles/observation.ttl",
+            "bundleSha256": "ec9cca3f6f2e6d610f8c13214edc218f40f26409aed8c8862b1085f6acfdd99c",
+            "profile": "observation",
+            "requirementId": "MOLIT-CAT-001-P-DESCRIPTION-001",
+            "shapeFile": "shacl/molit-core.ttl",
+            "shapeFileSha256": "4ce9e7bfef1b84f5e7bd5bc98e52cd771cb710c59d159ed39bde7afdb42f5e08",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#CatalogShape"
+          },
+          {
+            "bundle": "bundles/observation.ttl",
+            "bundleSha256": "ec9cca3f6f2e6d610f8c13214edc218f40f26409aed8c8862b1085f6acfdd99c",
+            "profile": "observation",
+            "requirementId": "MOLIT-CAT-001-P-LANGUAGE-001",
+            "shapeFile": "shacl/molit-core.ttl",
+            "shapeFileSha256": "4ce9e7bfef1b84f5e7bd5bc98e52cd771cb710c59d159ed39bde7afdb42f5e08",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#CatalogShape"
+          },
+          {
+            "bundle": "bundles/observation.ttl",
+            "bundleSha256": "ec9cca3f6f2e6d610f8c13214edc218f40f26409aed8c8862b1085f6acfdd99c",
+            "profile": "observation",
+            "requirementId": "MOLIT-CAT-001-P-PUBLISHER-001",
+            "shapeFile": "shacl/molit-core.ttl",
+            "shapeFileSha256": "4ce9e7bfef1b84f5e7bd5bc98e52cd771cb710c59d159ed39bde7afdb42f5e08",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#CatalogShape"
+          },
+          {
+            "bundle": "bundles/observation.ttl",
+            "bundleSha256": "ec9cca3f6f2e6d610f8c13214edc218f40f26409aed8c8862b1085f6acfdd99c",
+            "profile": "observation",
+            "requirementId": "MOLIT-CAT-001-P-RECORD-001",
+            "shapeFile": "shacl/molit-core.ttl",
+            "shapeFileSha256": "4ce9e7bfef1b84f5e7bd5bc98e52cd771cb710c59d159ed39bde7afdb42f5e08",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#CatalogShape"
+          },
+          {
+            "bundle": "bundles/observation.ttl",
+            "bundleSha256": "ec9cca3f6f2e6d610f8c13214edc218f40f26409aed8c8862b1085f6acfdd99c",
+            "profile": "observation",
+            "requirementId": "MOLIT-CAT-001-P-TITLE-001",
+            "shapeFile": "shacl/molit-core.ttl",
+            "shapeFileSha256": "4ce9e7bfef1b84f5e7bd5bc98e52cd771cb710c59d159ed39bde7afdb42f5e08",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#CatalogShape"
+          },
+          {
+            "bundle": "bundles/observation.ttl",
+            "bundleSha256": "ec9cca3f6f2e6d610f8c13214edc218f40f26409aed8c8862b1085f6acfdd99c",
+            "profile": "observation",
+            "requirementId": "MOLIT-CAT-REL-001-P-PATH-DA00F2B2F6-001",
+            "shapeFile": "shacl/molit-core.ttl",
+            "shapeFileSha256": "4ce9e7bfef1b84f5e7bd5bc98e52cd771cb710c59d159ed39bde7afdb42f5e08",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#CatalogRecordDatasetCoherenceShape"
+          },
+          {
+            "bundle": "bundles/observation.ttl",
+            "bundleSha256": "ec9cca3f6f2e6d610f8c13214edc218f40f26409aed8c8862b1085f6acfdd99c",
+            "profile": "observation",
+            "requirementId": "MOLIT-CV-CHECKSUM-001-P-ALGORITHM-001",
+            "shapeFile": "shacl/molit-controlled-vocabularies.ttl",
+            "shapeFileSha256": "fc56ba6e27e632b2c3107baa58c81e8ae2fa7c671cffebd8e7bd54424cf430be",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#ChecksumAlgorithmVocabularyShape"
+          },
+          {
+            "bundle": "bundles/observation.ttl",
+            "bundleSha256": "ec9cca3f6f2e6d610f8c13214edc218f40f26409aed8c8862b1085f6acfdd99c",
+            "profile": "observation",
+            "requirementId": "MOLIT-CV-CHECKSUM-002",
+            "shapeFile": "shacl/molit-controlled-vocabularies.ttl",
+            "shapeFileSha256": "fc56ba6e27e632b2c3107baa58c81e8ae2fa7c671cffebd8e7bd54424cf430be",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#ChecksumValueLengthShape"
+          },
+          {
+            "bundle": "bundles/observation.ttl",
+            "bundleSha256": "ec9cca3f6f2e6d610f8c13214edc218f40f26409aed8c8862b1085f6acfdd99c",
+            "profile": "observation",
+            "requirementId": "MOLIT-CV-MEDIATYPE-001-P-COMPRESSFORMAT-001",
+            "shapeFile": "shacl/molit-controlled-vocabularies.ttl",
+            "shapeFileSha256": "fc56ba6e27e632b2c3107baa58c81e8ae2fa7c671cffebd8e7bd54424cf430be",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#IanaMediaTypeVocabularyShape"
+          },
+          {
+            "bundle": "bundles/observation.ttl",
+            "bundleSha256": "ec9cca3f6f2e6d610f8c13214edc218f40f26409aed8c8862b1085f6acfdd99c",
+            "profile": "observation",
+            "requirementId": "MOLIT-CV-MEDIATYPE-001-P-MEDIATYPE-001",
+            "shapeFile": "shacl/molit-controlled-vocabularies.ttl",
+            "shapeFileSha256": "fc56ba6e27e632b2c3107baa58c81e8ae2fa7c671cffebd8e7bd54424cf430be",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#IanaMediaTypeVocabularyShape"
+          },
+          {
+            "bundle": "bundles/observation.ttl",
+            "bundleSha256": "ec9cca3f6f2e6d610f8c13214edc218f40f26409aed8c8862b1085f6acfdd99c",
+            "profile": "observation",
+            "requirementId": "MOLIT-CV-MEDIATYPE-001-P-PACKAGEFORMAT-001",
+            "shapeFile": "shacl/molit-controlled-vocabularies.ttl",
+            "shapeFileSha256": "fc56ba6e27e632b2c3107baa58c81e8ae2fa7c671cffebd8e7bd54424cf430be",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#IanaMediaTypeVocabularyShape"
+          },
+          {
+            "bundle": "bundles/observation.ttl",
+            "bundleSha256": "ec9cca3f6f2e6d610f8c13214edc218f40f26409aed8c8862b1085f6acfdd99c",
+            "profile": "observation",
+            "requirementId": "MOLIT-CV-MEDIATYPE-001-P-TYPE-001",
+            "shapeFile": "shacl/molit-controlled-vocabularies.ttl",
+            "shapeFileSha256": "fc56ba6e27e632b2c3107baa58c81e8ae2fa7c671cffebd8e7bd54424cf430be",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#IanaMediaTypeVocabularyShape"
+          },
+          {
+            "bundle": "bundles/observation.ttl",
+            "bundleSha256": "ec9cca3f6f2e6d610f8c13214edc218f40f26409aed8c8862b1085f6acfdd99c",
+            "profile": "observation",
+            "requirementId": "MOLIT-DS-001-P-ACCESSRIGHTS-001",
+            "shapeFile": "shacl/molit-core.ttl",
+            "shapeFileSha256": "4ce9e7bfef1b84f5e7bd5bc98e52cd771cb710c59d159ed39bde7afdb42f5e08",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#DatasetShape"
+          },
+          {
+            "bundle": "bundles/observation.ttl",
+            "bundleSha256": "ec9cca3f6f2e6d610f8c13214edc218f40f26409aed8c8862b1085f6acfdd99c",
+            "profile": "observation",
+            "requirementId": "MOLIT-DS-001-P-DESCRIPTION-001",
+            "shapeFile": "shacl/molit-core.ttl",
+            "shapeFileSha256": "4ce9e7bfef1b84f5e7bd5bc98e52cd771cb710c59d159ed39bde7afdb42f5e08",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#DatasetShape"
+          },
+          {
+            "bundle": "bundles/observation.ttl",
+            "bundleSha256": "ec9cca3f6f2e6d610f8c13214edc218f40f26409aed8c8862b1085f6acfdd99c",
+            "profile": "observation",
+            "requirementId": "MOLIT-DS-001-P-IDENTIFIER-001",
+            "shapeFile": "shacl/molit-core.ttl",
+            "shapeFileSha256": "4ce9e7bfef1b84f5e7bd5bc98e52cd771cb710c59d159ed39bde7afdb42f5e08",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#DatasetShape"
+          },
+          {
+            "bundle": "bundles/observation.ttl",
+            "bundleSha256": "ec9cca3f6f2e6d610f8c13214edc218f40f26409aed8c8862b1085f6acfdd99c",
+            "profile": "observation",
+            "requirementId": "MOLIT-DS-001-P-ISSUED-001",
+            "shapeFile": "shacl/molit-core.ttl",
+            "shapeFileSha256": "4ce9e7bfef1b84f5e7bd5bc98e52cd771cb710c59d159ed39bde7afdb42f5e08",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#DatasetShape"
+          },
+          {
+            "bundle": "bundles/observation.ttl",
+            "bundleSha256": "ec9cca3f6f2e6d610f8c13214edc218f40f26409aed8c8862b1085f6acfdd99c",
+            "profile": "observation",
+            "requirementId": "MOLIT-DS-001-P-MODIFIED-001",
+            "shapeFile": "shacl/molit-core.ttl",
+            "shapeFileSha256": "4ce9e7bfef1b84f5e7bd5bc98e52cd771cb710c59d159ed39bde7afdb42f5e08",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#DatasetShape"
+          },
+          {
+            "bundle": "bundles/observation.ttl",
+            "bundleSha256": "ec9cca3f6f2e6d610f8c13214edc218f40f26409aed8c8862b1085f6acfdd99c",
+            "profile": "observation",
+            "requirementId": "MOLIT-DS-001-P-PATH-0E31B21B99-001",
+            "shapeFile": "shacl/molit-core.ttl",
+            "shapeFileSha256": "4ce9e7bfef1b84f5e7bd5bc98e52cd771cb710c59d159ed39bde7afdb42f5e08",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#DatasetShape"
+          },
+          {
+            "bundle": "bundles/observation.ttl",
+            "bundleSha256": "ec9cca3f6f2e6d610f8c13214edc218f40f26409aed8c8862b1085f6acfdd99c",
+            "profile": "observation",
+            "requirementId": "MOLIT-DS-001-P-PATH-30F94DAB87-001",
+            "shapeFile": "shacl/molit-core.ttl",
+            "shapeFileSha256": "4ce9e7bfef1b84f5e7bd5bc98e52cd771cb710c59d159ed39bde7afdb42f5e08",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#DatasetShape"
+          },
+          {
+            "bundle": "bundles/observation.ttl",
+            "bundleSha256": "ec9cca3f6f2e6d610f8c13214edc218f40f26409aed8c8862b1085f6acfdd99c",
+            "profile": "observation",
+            "requirementId": "MOLIT-DS-001-P-PUBLISHER-001",
+            "shapeFile": "shacl/molit-core.ttl",
+            "shapeFileSha256": "4ce9e7bfef1b84f5e7bd5bc98e52cd771cb710c59d159ed39bde7afdb42f5e08",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#DatasetShape"
+          },
+          {
+            "bundle": "bundles/observation.ttl",
+            "bundleSha256": "ec9cca3f6f2e6d610f8c13214edc218f40f26409aed8c8862b1085f6acfdd99c",
+            "profile": "observation",
+            "requirementId": "MOLIT-DS-001-P-THEME-001",
+            "shapeFile": "shacl/molit-core.ttl",
+            "shapeFileSha256": "4ce9e7bfef1b84f5e7bd5bc98e52cd771cb710c59d159ed39bde7afdb42f5e08",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#DatasetShape"
+          },
+          {
+            "bundle": "bundles/observation.ttl",
+            "bundleSha256": "ec9cca3f6f2e6d610f8c13214edc218f40f26409aed8c8862b1085f6acfdd99c",
+            "profile": "observation",
+            "requirementId": "MOLIT-DS-001-P-THEME-002",
+            "shapeFile": "shacl/molit-core.ttl",
+            "shapeFileSha256": "4ce9e7bfef1b84f5e7bd5bc98e52cd771cb710c59d159ed39bde7afdb42f5e08",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#DatasetShape"
+          },
+          {
+            "bundle": "bundles/observation.ttl",
+            "bundleSha256": "ec9cca3f6f2e6d610f8c13214edc218f40f26409aed8c8862b1085f6acfdd99c",
+            "profile": "observation",
+            "requirementId": "MOLIT-DS-001-P-TITLE-001",
+            "shapeFile": "shacl/molit-core.ttl",
+            "shapeFileSha256": "4ce9e7bfef1b84f5e7bd5bc98e52cd771cb710c59d159ed39bde7afdb42f5e08",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#DatasetShape"
+          },
+          {
+            "bundle": "bundles/observation.ttl",
+            "bundleSha256": "ec9cca3f6f2e6d610f8c13214edc218f40f26409aed8c8862b1085f6acfdd99c",
+            "profile": "observation",
+            "requirementId": "MOLIT-OBS-001-P-AGGREGATIONPERIOD-001",
+            "shapeFile": "shacl/molit-observation.ttl",
+            "shapeFileSha256": "46508b70f15040d616806ae0135e8f7172512c60035560ec58f881704b7d787e",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#ObservationDatasetShape"
+          },
+          {
+            "bundle": "bundles/observation.ttl",
+            "bundleSha256": "ec9cca3f6f2e6d610f8c13214edc218f40f26409aed8c8862b1085f6acfdd99c",
+            "profile": "observation",
+            "requirementId": "MOLIT-OBS-001-P-MISSINGVALUEPOLICY-001",
+            "shapeFile": "shacl/molit-observation.ttl",
+            "shapeFileSha256": "46508b70f15040d616806ae0135e8f7172512c60035560ec58f881704b7d787e",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#ObservationDatasetShape"
+          },
+          {
+            "bundle": "bundles/observation.ttl",
+            "bundleSha256": "ec9cca3f6f2e6d610f8c13214edc218f40f26409aed8c8862b1085f6acfdd99c",
+            "profile": "observation",
+            "requirementId": "MOLIT-OBS-001-P-OBSERVATIONAGGREGATION-001",
+            "shapeFile": "shacl/molit-observation.ttl",
+            "shapeFileSha256": "46508b70f15040d616806ae0135e8f7172512c60035560ec58f881704b7d787e",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#ObservationDatasetShape"
+          },
+          {
+            "bundle": "bundles/observation.ttl",
+            "bundleSha256": "ec9cca3f6f2e6d610f8c13214edc218f40f26409aed8c8862b1085f6acfdd99c",
+            "profile": "observation",
+            "requirementId": "MOLIT-OBS-001-P-OBSERVATIONSUBJECTTYPE-001",
+            "shapeFile": "shacl/molit-observation.ttl",
+            "shapeFileSha256": "46508b70f15040d616806ae0135e8f7172512c60035560ec58f881704b7d787e",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#ObservationDatasetShape"
+          },
+          {
+            "bundle": "bundles/observation.ttl",
+            "bundleSha256": "ec9cca3f6f2e6d610f8c13214edc218f40f26409aed8c8862b1085f6acfdd99c",
+            "profile": "observation",
+            "requirementId": "MOLIT-OBS-001-P-OBSERVATIONUNIT-001",
+            "shapeFile": "shacl/molit-observation.ttl",
+            "shapeFileSha256": "46508b70f15040d616806ae0135e8f7172512c60035560ec58f881704b7d787e",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#ObservationDatasetShape"
+          },
+          {
+            "bundle": "bundles/observation.ttl",
+            "bundleSha256": "ec9cca3f6f2e6d610f8c13214edc218f40f26409aed8c8862b1085f6acfdd99c",
+            "profile": "observation",
+            "requirementId": "MOLIT-OBS-001-P-OBSERVEDPROPERTY-001",
+            "shapeFile": "shacl/molit-observation.ttl",
+            "shapeFileSha256": "46508b70f15040d616806ae0135e8f7172512c60035560ec58f881704b7d787e",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#ObservationDatasetShape"
+          },
+          {
+            "bundle": "bundles/observation.ttl",
+            "bundleSha256": "ec9cca3f6f2e6d610f8c13214edc218f40f26409aed8c8862b1085f6acfdd99c",
+            "profile": "observation",
+            "requirementId": "MOLIT-OBS-001-P-TEMPORAL-001",
+            "shapeFile": "shacl/molit-observation.ttl",
+            "shapeFileSha256": "46508b70f15040d616806ae0135e8f7172512c60035560ec58f881704b7d787e",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#ObservationDatasetShape"
+          },
+          {
+            "bundle": "bundles/observation.ttl",
+            "bundleSha256": "ec9cca3f6f2e6d610f8c13214edc218f40f26409aed8c8862b1085f6acfdd99c",
+            "profile": "observation",
+            "requirementId": "MOLIT-OBS-001-P-TEMPORALRESOLUTION-001",
+            "shapeFile": "shacl/molit-observation.ttl",
+            "shapeFileSha256": "46508b70f15040d616806ae0135e8f7172512c60035560ec58f881704b7d787e",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#ObservationDatasetShape"
+          },
+          {
+            "bundle": "bundles/observation.ttl",
+            "bundleSha256": "ec9cca3f6f2e6d610f8c13214edc218f40f26409aed8c8862b1085f6acfdd99c",
+            "profile": "observation",
+            "requirementId": "MOLIT-OBS-001-P-TYPE-001",
+            "shapeFile": "shacl/molit-observation.ttl",
+            "shapeFileSha256": "46508b70f15040d616806ae0135e8f7172512c60035560ec58f881704b7d787e",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#ObservationDatasetShape"
+          },
+          {
+            "bundle": "bundles/observation.ttl",
+            "bundleSha256": "ec9cca3f6f2e6d610f8c13214edc218f40f26409aed8c8862b1085f6acfdd99c",
+            "profile": "observation",
+            "requirementId": "MOLIT-OBS-UNIT-001",
+            "shapeFile": "shacl/molit-observation.ttl",
+            "shapeFileSha256": "46508b70f15040d616806ae0135e8f7172512c60035560ec58f881704b7d787e",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#ObservationUnitSemanticsShape"
+          },
+          {
+            "bundle": "bundles/observation.ttl",
+            "bundleSha256": "ec9cca3f6f2e6d610f8c13214edc218f40f26409aed8c8862b1085f6acfdd99c",
+            "profile": "observation",
+            "requirementId": "MOLIT-PROFILE-OBS-001-P-CONFORMSTO-001",
+            "shapeFile": "shacl/molit-observation-profile.ttl",
+            "shapeFileSha256": "2ace1defad5c190ed03a71dad2da4854bcda97d46c88fb1c54ed52cca7c7c597",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#ObservationCatalogProfileShape"
+          },
+          {
+            "bundle": "bundles/observation.ttl",
+            "bundleSha256": "ec9cca3f6f2e6d610f8c13214edc218f40f26409aed8c8862b1085f6acfdd99c",
+            "profile": "observation",
+            "requirementId": "MOLIT-PROFILE-OBS-002-P-CONFORMSTO-001",
+            "shapeFile": "shacl/molit-observation-profile.ttl",
+            "shapeFileSha256": "2ace1defad5c190ed03a71dad2da4854bcda97d46c88fb1c54ed52cca7c7c597",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#ObservationCatalogRecordProfileShape"
+          },
+          {
+            "bundle": "bundles/observation.ttl",
+            "bundleSha256": "ec9cca3f6f2e6d610f8c13214edc218f40f26409aed8c8862b1085f6acfdd99c",
+            "profile": "observation",
+            "requirementId": "MOLIT-REC-001-P-LANGUAGE-001",
+            "shapeFile": "shacl/molit-core.ttl",
+            "shapeFileSha256": "4ce9e7bfef1b84f5e7bd5bc98e52cd771cb710c59d159ed39bde7afdb42f5e08",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#CatalogRecordShape"
+          },
+          {
+            "bundle": "bundles/observation.ttl",
+            "bundleSha256": "ec9cca3f6f2e6d610f8c13214edc218f40f26409aed8c8862b1085f6acfdd99c",
+            "profile": "observation",
+            "requirementId": "MOLIT-REC-001-P-MODIFIED-001",
+            "shapeFile": "shacl/molit-core.ttl",
+            "shapeFileSha256": "4ce9e7bfef1b84f5e7bd5bc98e52cd771cb710c59d159ed39bde7afdb42f5e08",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#CatalogRecordShape"
+          },
+          {
+            "bundle": "bundles/observation.ttl",
+            "bundleSha256": "ec9cca3f6f2e6d610f8c13214edc218f40f26409aed8c8862b1085f6acfdd99c",
+            "profile": "observation",
+            "requirementId": "MOLIT-REC-001-P-PRIMARYTOPIC-001",
+            "shapeFile": "shacl/molit-core.ttl",
+            "shapeFileSha256": "4ce9e7bfef1b84f5e7bd5bc98e52cd771cb710c59d159ed39bde7afdb42f5e08",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#CatalogRecordShape"
+          },
+          {
+            "bundle": "bundles/observation.ttl",
+            "bundleSha256": "ec9cca3f6f2e6d610f8c13214edc218f40f26409aed8c8862b1085f6acfdd99c",
+            "profile": "observation",
+            "requirementId": "MOLIT-REC-001-P-TITLE-001",
+            "shapeFile": "shacl/molit-core.ttl",
+            "shapeFileSha256": "4ce9e7bfef1b84f5e7bd5bc98e52cd771cb710c59d159ed39bde7afdb42f5e08",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#CatalogRecordShape"
+          },
+          {
+            "bundle": "bundles/observation.ttl",
+            "bundleSha256": "ec9cca3f6f2e6d610f8c13214edc218f40f26409aed8c8862b1085f6acfdd99c",
+            "profile": "observation",
+            "requirementId": "MOLIT-SVC-001-P-ENDPOINTURL-001",
+            "shapeFile": "shacl/molit-core.ttl",
+            "shapeFileSha256": "4ce9e7bfef1b84f5e7bd5bc98e52cd771cb710c59d159ed39bde7afdb42f5e08",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#DataServiceShape"
+          },
+          {
+            "bundle": "bundles/observation.ttl",
+            "bundleSha256": "ec9cca3f6f2e6d610f8c13214edc218f40f26409aed8c8862b1085f6acfdd99c",
+            "profile": "observation",
+            "requirementId": "MOLIT-SVC-001-P-SERVESDATASET-001",
+            "shapeFile": "shacl/molit-core.ttl",
+            "shapeFileSha256": "4ce9e7bfef1b84f5e7bd5bc98e52cd771cb710c59d159ed39bde7afdb42f5e08",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#DataServiceShape"
+          },
+          {
+            "bundle": "bundles/observation.ttl",
+            "bundleSha256": "ec9cca3f6f2e6d610f8c13214edc218f40f26409aed8c8862b1085f6acfdd99c",
+            "profile": "observation",
+            "requirementId": "MOLIT-SVC-001-P-THEME-001",
+            "shapeFile": "shacl/molit-core.ttl",
+            "shapeFileSha256": "4ce9e7bfef1b84f5e7bd5bc98e52cd771cb710c59d159ed39bde7afdb42f5e08",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#DataServiceShape"
+          },
+          {
+            "bundle": "bundles/observation.ttl",
+            "bundleSha256": "ec9cca3f6f2e6d610f8c13214edc218f40f26409aed8c8862b1085f6acfdd99c",
+            "profile": "observation",
+            "requirementId": "MOLIT-SVC-001-P-TITLE-001",
+            "shapeFile": "shacl/molit-core.ttl",
+            "shapeFileSha256": "4ce9e7bfef1b84f5e7bd5bc98e52cd771cb710c59d159ed39bde7afdb42f5e08",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#DataServiceShape"
+          },
+          {
+            "bundle": "bundles/publication-policy.ttl",
+            "bundleSha256": "c4c36a4ce9d18346fe686c032207dd7c28af56fb22715b980d70cab0dda46957",
+            "profile": "publication-policy",
+            "requirementId": "MOLIT-DEPRECATED-LOCAL-001",
+            "shapeFile": "shacl/molit-recommended.ttl",
+            "shapeFileSha256": "887cc487c860afa7db8c117e40199085f27bc199a78e68f03d53da6ed857979d",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#LocalDeprecatedTransferTypeShape"
+          },
+          {
+            "bundle": "bundles/publication-policy.ttl",
+            "bundleSha256": "c4c36a4ce9d18346fe686c032207dd7c28af56fb22715b980d70cab0dda46957",
+            "profile": "publication-policy",
+            "requirementId": "MOLIT-REC-DIST-001-P-CHECKSUM-001",
+            "shapeFile": "shacl/molit-recommended.ttl",
+            "shapeFileSha256": "887cc487c860afa7db8c117e40199085f27bc199a78e68f03d53da6ed857979d",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#DistributionChecksumRecommendation"
+          },
+          {
+            "bundle": "bundles/publication-policy.ttl",
+            "bundleSha256": "c4c36a4ce9d18346fe686c032207dd7c28af56fb22715b980d70cab0dda46957",
+            "profile": "publication-policy",
+            "requirementId": "MOLIT-REC-DS-001-P-CONTACTPOINT-001",
+            "shapeFile": "shacl/molit-recommended.ttl",
+            "shapeFileSha256": "887cc487c860afa7db8c117e40199085f27bc199a78e68f03d53da6ed857979d",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#DatasetContactRecommendation"
+          },
+          {
+            "bundle": "bundles/publication-policy.ttl",
+            "bundleSha256": "c4c36a4ce9d18346fe686c032207dd7c28af56fb22715b980d70cab0dda46957",
+            "profile": "publication-policy",
+            "requirementId": "MOLIT-REC-DS-001-P-PROVENANCE-001",
+            "shapeFile": "shacl/molit-recommended.ttl",
+            "shapeFileSha256": "887cc487c860afa7db8c117e40199085f27bc199a78e68f03d53da6ed857979d",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#DatasetContactRecommendation"
+          },
+          {
+            "bundle": "bundles/publication-policy.ttl",
+            "bundleSha256": "c4c36a4ce9d18346fe686c032207dd7c28af56fb22715b980d70cab0dda46957",
+            "profile": "publication-policy",
+            "requirementId": "MOLIT-REC-QUAL-001-P-QUALIFICATIONEVIDENCE-001",
+            "shapeFile": "shacl/molit-recommended.ttl",
+            "shapeFileSha256": "887cc487c860afa7db8c117e40199085f27bc199a78e68f03d53da6ed857979d",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#OfferingQualificationEvidenceRecommendation"
+          },
+          {
+            "bundle": "bundles/quality.ttl",
+            "bundleSha256": "5bfe46684e39676901bd748db4003188c645356fe0b66cc509ca8c20013eace6",
+            "profile": "quality",
+            "requirementId": "MOLIT-AGENT-001-P-NAME-001",
+            "shapeFile": "shacl/molit-core.ttl",
+            "shapeFileSha256": "4ce9e7bfef1b84f5e7bd5bc98e52cd771cb710c59d159ed39bde7afdb42f5e08",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#AgentShape"
+          },
+          {
+            "bundle": "bundles/quality.ttl",
+            "bundleSha256": "5bfe46684e39676901bd748db4003188c645356fe0b66cc509ca8c20013eace6",
+            "profile": "quality",
+            "requirementId": "MOLIT-CAT-001-P-DATASET-001",
+            "shapeFile": "shacl/molit-core.ttl",
+            "shapeFileSha256": "4ce9e7bfef1b84f5e7bd5bc98e52cd771cb710c59d159ed39bde7afdb42f5e08",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#CatalogShape"
+          },
+          {
+            "bundle": "bundles/quality.ttl",
+            "bundleSha256": "5bfe46684e39676901bd748db4003188c645356fe0b66cc509ca8c20013eace6",
+            "profile": "quality",
+            "requirementId": "MOLIT-CAT-001-P-DESCRIPTION-001",
+            "shapeFile": "shacl/molit-core.ttl",
+            "shapeFileSha256": "4ce9e7bfef1b84f5e7bd5bc98e52cd771cb710c59d159ed39bde7afdb42f5e08",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#CatalogShape"
+          },
+          {
+            "bundle": "bundles/quality.ttl",
+            "bundleSha256": "5bfe46684e39676901bd748db4003188c645356fe0b66cc509ca8c20013eace6",
+            "profile": "quality",
+            "requirementId": "MOLIT-CAT-001-P-LANGUAGE-001",
+            "shapeFile": "shacl/molit-core.ttl",
+            "shapeFileSha256": "4ce9e7bfef1b84f5e7bd5bc98e52cd771cb710c59d159ed39bde7afdb42f5e08",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#CatalogShape"
+          },
+          {
+            "bundle": "bundles/quality.ttl",
+            "bundleSha256": "5bfe46684e39676901bd748db4003188c645356fe0b66cc509ca8c20013eace6",
+            "profile": "quality",
+            "requirementId": "MOLIT-CAT-001-P-PUBLISHER-001",
+            "shapeFile": "shacl/molit-core.ttl",
+            "shapeFileSha256": "4ce9e7bfef1b84f5e7bd5bc98e52cd771cb710c59d159ed39bde7afdb42f5e08",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#CatalogShape"
+          },
+          {
+            "bundle": "bundles/quality.ttl",
+            "bundleSha256": "5bfe46684e39676901bd748db4003188c645356fe0b66cc509ca8c20013eace6",
+            "profile": "quality",
+            "requirementId": "MOLIT-CAT-001-P-RECORD-001",
+            "shapeFile": "shacl/molit-core.ttl",
+            "shapeFileSha256": "4ce9e7bfef1b84f5e7bd5bc98e52cd771cb710c59d159ed39bde7afdb42f5e08",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#CatalogShape"
+          },
+          {
+            "bundle": "bundles/quality.ttl",
+            "bundleSha256": "5bfe46684e39676901bd748db4003188c645356fe0b66cc509ca8c20013eace6",
+            "profile": "quality",
+            "requirementId": "MOLIT-CAT-001-P-TITLE-001",
+            "shapeFile": "shacl/molit-core.ttl",
+            "shapeFileSha256": "4ce9e7bfef1b84f5e7bd5bc98e52cd771cb710c59d159ed39bde7afdb42f5e08",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#CatalogShape"
+          },
+          {
+            "bundle": "bundles/quality.ttl",
+            "bundleSha256": "5bfe46684e39676901bd748db4003188c645356fe0b66cc509ca8c20013eace6",
+            "profile": "quality",
+            "requirementId": "MOLIT-CAT-REL-001-P-PATH-DA00F2B2F6-001",
+            "shapeFile": "shacl/molit-core.ttl",
+            "shapeFileSha256": "4ce9e7bfef1b84f5e7bd5bc98e52cd771cb710c59d159ed39bde7afdb42f5e08",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#CatalogRecordDatasetCoherenceShape"
+          },
+          {
+            "bundle": "bundles/quality.ttl",
+            "bundleSha256": "5bfe46684e39676901bd748db4003188c645356fe0b66cc509ca8c20013eace6",
+            "profile": "quality",
+            "requirementId": "MOLIT-CV-CHECKSUM-001-P-ALGORITHM-001",
+            "shapeFile": "shacl/molit-controlled-vocabularies.ttl",
+            "shapeFileSha256": "fc56ba6e27e632b2c3107baa58c81e8ae2fa7c671cffebd8e7bd54424cf430be",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#ChecksumAlgorithmVocabularyShape"
+          },
+          {
+            "bundle": "bundles/quality.ttl",
+            "bundleSha256": "5bfe46684e39676901bd748db4003188c645356fe0b66cc509ca8c20013eace6",
+            "profile": "quality",
+            "requirementId": "MOLIT-CV-CHECKSUM-002",
+            "shapeFile": "shacl/molit-controlled-vocabularies.ttl",
+            "shapeFileSha256": "fc56ba6e27e632b2c3107baa58c81e8ae2fa7c671cffebd8e7bd54424cf430be",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#ChecksumValueLengthShape"
+          },
+          {
+            "bundle": "bundles/quality.ttl",
+            "bundleSha256": "5bfe46684e39676901bd748db4003188c645356fe0b66cc509ca8c20013eace6",
+            "profile": "quality",
+            "requirementId": "MOLIT-CV-MEDIATYPE-001-P-COMPRESSFORMAT-001",
+            "shapeFile": "shacl/molit-controlled-vocabularies.ttl",
+            "shapeFileSha256": "fc56ba6e27e632b2c3107baa58c81e8ae2fa7c671cffebd8e7bd54424cf430be",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#IanaMediaTypeVocabularyShape"
+          },
+          {
+            "bundle": "bundles/quality.ttl",
+            "bundleSha256": "5bfe46684e39676901bd748db4003188c645356fe0b66cc509ca8c20013eace6",
+            "profile": "quality",
+            "requirementId": "MOLIT-CV-MEDIATYPE-001-P-MEDIATYPE-001",
+            "shapeFile": "shacl/molit-controlled-vocabularies.ttl",
+            "shapeFileSha256": "fc56ba6e27e632b2c3107baa58c81e8ae2fa7c671cffebd8e7bd54424cf430be",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#IanaMediaTypeVocabularyShape"
+          },
+          {
+            "bundle": "bundles/quality.ttl",
+            "bundleSha256": "5bfe46684e39676901bd748db4003188c645356fe0b66cc509ca8c20013eace6",
+            "profile": "quality",
+            "requirementId": "MOLIT-CV-MEDIATYPE-001-P-PACKAGEFORMAT-001",
+            "shapeFile": "shacl/molit-controlled-vocabularies.ttl",
+            "shapeFileSha256": "fc56ba6e27e632b2c3107baa58c81e8ae2fa7c671cffebd8e7bd54424cf430be",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#IanaMediaTypeVocabularyShape"
+          },
+          {
+            "bundle": "bundles/quality.ttl",
+            "bundleSha256": "5bfe46684e39676901bd748db4003188c645356fe0b66cc509ca8c20013eace6",
+            "profile": "quality",
+            "requirementId": "MOLIT-CV-MEDIATYPE-001-P-TYPE-001",
+            "shapeFile": "shacl/molit-controlled-vocabularies.ttl",
+            "shapeFileSha256": "fc56ba6e27e632b2c3107baa58c81e8ae2fa7c671cffebd8e7bd54424cf430be",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#IanaMediaTypeVocabularyShape"
+          },
+          {
+            "bundle": "bundles/quality.ttl",
+            "bundleSha256": "5bfe46684e39676901bd748db4003188c645356fe0b66cc509ca8c20013eace6",
+            "profile": "quality",
+            "requirementId": "MOLIT-DS-001-P-ACCESSRIGHTS-001",
+            "shapeFile": "shacl/molit-core.ttl",
+            "shapeFileSha256": "4ce9e7bfef1b84f5e7bd5bc98e52cd771cb710c59d159ed39bde7afdb42f5e08",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#DatasetShape"
+          },
+          {
+            "bundle": "bundles/quality.ttl",
+            "bundleSha256": "5bfe46684e39676901bd748db4003188c645356fe0b66cc509ca8c20013eace6",
+            "profile": "quality",
+            "requirementId": "MOLIT-DS-001-P-DESCRIPTION-001",
+            "shapeFile": "shacl/molit-core.ttl",
+            "shapeFileSha256": "4ce9e7bfef1b84f5e7bd5bc98e52cd771cb710c59d159ed39bde7afdb42f5e08",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#DatasetShape"
+          },
+          {
+            "bundle": "bundles/quality.ttl",
+            "bundleSha256": "5bfe46684e39676901bd748db4003188c645356fe0b66cc509ca8c20013eace6",
+            "profile": "quality",
+            "requirementId": "MOLIT-DS-001-P-IDENTIFIER-001",
+            "shapeFile": "shacl/molit-core.ttl",
+            "shapeFileSha256": "4ce9e7bfef1b84f5e7bd5bc98e52cd771cb710c59d159ed39bde7afdb42f5e08",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#DatasetShape"
+          },
+          {
+            "bundle": "bundles/quality.ttl",
+            "bundleSha256": "5bfe46684e39676901bd748db4003188c645356fe0b66cc509ca8c20013eace6",
+            "profile": "quality",
+            "requirementId": "MOLIT-DS-001-P-ISSUED-001",
+            "shapeFile": "shacl/molit-core.ttl",
+            "shapeFileSha256": "4ce9e7bfef1b84f5e7bd5bc98e52cd771cb710c59d159ed39bde7afdb42f5e08",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#DatasetShape"
+          },
+          {
+            "bundle": "bundles/quality.ttl",
+            "bundleSha256": "5bfe46684e39676901bd748db4003188c645356fe0b66cc509ca8c20013eace6",
+            "profile": "quality",
+            "requirementId": "MOLIT-DS-001-P-MODIFIED-001",
+            "shapeFile": "shacl/molit-core.ttl",
+            "shapeFileSha256": "4ce9e7bfef1b84f5e7bd5bc98e52cd771cb710c59d159ed39bde7afdb42f5e08",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#DatasetShape"
+          },
+          {
+            "bundle": "bundles/quality.ttl",
+            "bundleSha256": "5bfe46684e39676901bd748db4003188c645356fe0b66cc509ca8c20013eace6",
+            "profile": "quality",
+            "requirementId": "MOLIT-DS-001-P-PATH-0E31B21B99-001",
+            "shapeFile": "shacl/molit-core.ttl",
+            "shapeFileSha256": "4ce9e7bfef1b84f5e7bd5bc98e52cd771cb710c59d159ed39bde7afdb42f5e08",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#DatasetShape"
+          },
+          {
+            "bundle": "bundles/quality.ttl",
+            "bundleSha256": "5bfe46684e39676901bd748db4003188c645356fe0b66cc509ca8c20013eace6",
+            "profile": "quality",
+            "requirementId": "MOLIT-DS-001-P-PATH-30F94DAB87-001",
+            "shapeFile": "shacl/molit-core.ttl",
+            "shapeFileSha256": "4ce9e7bfef1b84f5e7bd5bc98e52cd771cb710c59d159ed39bde7afdb42f5e08",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#DatasetShape"
+          },
+          {
+            "bundle": "bundles/quality.ttl",
+            "bundleSha256": "5bfe46684e39676901bd748db4003188c645356fe0b66cc509ca8c20013eace6",
+            "profile": "quality",
+            "requirementId": "MOLIT-DS-001-P-PUBLISHER-001",
+            "shapeFile": "shacl/molit-core.ttl",
+            "shapeFileSha256": "4ce9e7bfef1b84f5e7bd5bc98e52cd771cb710c59d159ed39bde7afdb42f5e08",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#DatasetShape"
+          },
+          {
+            "bundle": "bundles/quality.ttl",
+            "bundleSha256": "5bfe46684e39676901bd748db4003188c645356fe0b66cc509ca8c20013eace6",
+            "profile": "quality",
+            "requirementId": "MOLIT-DS-001-P-THEME-001",
+            "shapeFile": "shacl/molit-core.ttl",
+            "shapeFileSha256": "4ce9e7bfef1b84f5e7bd5bc98e52cd771cb710c59d159ed39bde7afdb42f5e08",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#DatasetShape"
+          },
+          {
+            "bundle": "bundles/quality.ttl",
+            "bundleSha256": "5bfe46684e39676901bd748db4003188c645356fe0b66cc509ca8c20013eace6",
+            "profile": "quality",
+            "requirementId": "MOLIT-DS-001-P-THEME-002",
+            "shapeFile": "shacl/molit-core.ttl",
+            "shapeFileSha256": "4ce9e7bfef1b84f5e7bd5bc98e52cd771cb710c59d159ed39bde7afdb42f5e08",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#DatasetShape"
+          },
+          {
+            "bundle": "bundles/quality.ttl",
+            "bundleSha256": "5bfe46684e39676901bd748db4003188c645356fe0b66cc509ca8c20013eace6",
+            "profile": "quality",
+            "requirementId": "MOLIT-DS-001-P-TITLE-001",
+            "shapeFile": "shacl/molit-core.ttl",
+            "shapeFileSha256": "4ce9e7bfef1b84f5e7bd5bc98e52cd771cb710c59d159ed39bde7afdb42f5e08",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#DatasetShape"
+          },
+          {
+            "bundle": "bundles/quality.ttl",
+            "bundleSha256": "5bfe46684e39676901bd748db4003188c645356fe0b66cc509ca8c20013eace6",
+            "profile": "quality",
+            "requirementId": "MOLIT-PROFILE-QUAL-001-P-CONFORMSTO-001",
+            "shapeFile": "shacl/molit-quality-profile.ttl",
+            "shapeFileSha256": "9040206fc1d66aada9dca33f6c1bc729549490fd121d3c80fa2891ff511346c1",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#QualityCatalogProfileShape"
+          },
+          {
+            "bundle": "bundles/quality.ttl",
+            "bundleSha256": "5bfe46684e39676901bd748db4003188c645356fe0b66cc509ca8c20013eace6",
+            "profile": "quality",
+            "requirementId": "MOLIT-PROFILE-QUAL-002-P-CONFORMSTO-001",
+            "shapeFile": "shacl/molit-quality-profile.ttl",
+            "shapeFileSha256": "9040206fc1d66aada9dca33f6c1bc729549490fd121d3c80fa2891ff511346c1",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#QualityCatalogRecordProfileShape"
+          },
+          {
+            "bundle": "bundles/quality.ttl",
+            "bundleSha256": "5bfe46684e39676901bd748db4003188c645356fe0b66cc509ca8c20013eace6",
+            "profile": "quality",
+            "requirementId": "MOLIT-QUAL-001-P-QUALITYSTATUS-001",
+            "shapeFile": "shacl/molit-quality.ttl",
+            "shapeFileSha256": "c3e23f8896cc2b3ffcb5c3a1a4053849f80b9c698a7eb16277da7138c6c58502",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#DatasetQualityStatusShape"
+          },
+          {
+            "bundle": "bundles/quality.ttl",
+            "bundleSha256": "5bfe46684e39676901bd748db4003188c645356fe0b66cc509ca8c20013eace6",
+            "profile": "quality",
+            "requirementId": "MOLIT-QUAL-LINK-001-P-PATH-7CC75844D0-001",
+            "shapeFile": "shacl/molit-quality.ttl",
+            "shapeFileSha256": "c3e23f8896cc2b3ffcb5c3a1a4053849f80b9c698a7eb16277da7138c6c58502",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#QualityMeasurementDatasetCoherenceShape"
+          },
+          {
+            "bundle": "bundles/quality.ttl",
+            "bundleSha256": "5bfe46684e39676901bd748db4003188c645356fe0b66cc509ca8c20013eace6",
+            "profile": "quality",
+            "requirementId": "MOLIT-QUAL-MAP-001",
+            "shapeFile": "shacl/molit-quality.ttl",
+            "shapeFileSha256": "c3e23f8896cc2b3ffcb5c3a1a4053849f80b9c698a7eb16277da7138c6c58502",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#QualityMappingStatementShape"
+          },
+          {
+            "bundle": "bundles/quality.ttl",
+            "bundleSha256": "5bfe46684e39676901bd748db4003188c645356fe0b66cc509ca8c20013eace6",
+            "profile": "quality",
+            "requirementId": "MOLIT-QUAL-MAP-001-P-MAPPEDQUALITYMETRIC-001",
+            "shapeFile": "shacl/molit-quality.ttl",
+            "shapeFileSha256": "c3e23f8896cc2b3ffcb5c3a1a4053849f80b9c698a7eb16277da7138c6c58502",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#QualityMappingStatementShape"
+          },
+          {
+            "bundle": "bundles/quality.ttl",
+            "bundleSha256": "5bfe46684e39676901bd748db4003188c645356fe0b66cc509ca8c20013eace6",
+            "profile": "quality",
+            "requirementId": "MOLIT-QUAL-MAP-001-P-QUALITYLOSSDISPOSITION-001",
+            "shapeFile": "shacl/molit-quality.ttl",
+            "shapeFileSha256": "c3e23f8896cc2b3ffcb5c3a1a4053849f80b9c698a7eb16277da7138c6c58502",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#QualityMappingStatementShape"
+          },
+          {
+            "bundle": "bundles/quality.ttl",
+            "bundleSha256": "5bfe46684e39676901bd748db4003188c645356fe0b66cc509ca8c20013eace6",
+            "profile": "quality",
+            "requirementId": "MOLIT-QUAL-MAP-001-P-SOURCEQUALITYELEMENT-001",
+            "shapeFile": "shacl/molit-quality.ttl",
+            "shapeFileSha256": "c3e23f8896cc2b3ffcb5c3a1a4053849f80b9c698a7eb16277da7138c6c58502",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#QualityMappingStatementShape"
+          },
+          {
+            "bundle": "bundles/quality.ttl",
+            "bundleSha256": "5bfe46684e39676901bd748db4003188c645356fe0b66cc509ca8c20013eace6",
+            "profile": "quality",
+            "requirementId": "MOLIT-QUAL-MAP-LINK-001-P-DISPOSITION-001",
+            "shapeFile": "shacl/molit-quality.ttl",
+            "shapeFileSha256": "c3e23f8896cc2b3ffcb5c3a1a4053849f80b9c698a7eb16277da7138c6c58502",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#QualityMeasurementMappingCoherenceShape"
+          },
+          {
+            "bundle": "bundles/quality.ttl",
+            "bundleSha256": "5bfe46684e39676901bd748db4003188c645356fe0b66cc509ca8c20013eace6",
+            "profile": "quality",
+            "requirementId": "MOLIT-QUAL-MAP-LINK-001-P-METRIC-001",
+            "shapeFile": "shacl/molit-quality.ttl",
+            "shapeFileSha256": "c3e23f8896cc2b3ffcb5c3a1a4053849f80b9c698a7eb16277da7138c6c58502",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#QualityMeasurementMappingCoherenceShape"
+          },
+          {
+            "bundle": "bundles/quality.ttl",
+            "bundleSha256": "5bfe46684e39676901bd748db4003188c645356fe0b66cc509ca8c20013eace6",
+            "profile": "quality",
+            "requirementId": "MOLIT-QUAL-MEASURE-001",
+            "shapeFile": "shacl/molit-quality.ttl",
+            "shapeFileSha256": "c3e23f8896cc2b3ffcb5c3a1a4053849f80b9c698a7eb16277da7138c6c58502",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#QualityMeasurementShape"
+          },
+          {
+            "bundle": "bundles/quality.ttl",
+            "bundleSha256": "5bfe46684e39676901bd748db4003188c645356fe0b66cc509ca8c20013eace6",
+            "profile": "quality",
+            "requirementId": "MOLIT-QUAL-MEASURE-001-P-COMPUTEDON-001",
+            "shapeFile": "shacl/molit-quality.ttl",
+            "shapeFileSha256": "c3e23f8896cc2b3ffcb5c3a1a4053849f80b9c698a7eb16277da7138c6c58502",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#QualityMeasurementShape"
+          },
+          {
+            "bundle": "bundles/quality.ttl",
+            "bundleSha256": "5bfe46684e39676901bd748db4003188c645356fe0b66cc509ca8c20013eace6",
+            "profile": "quality",
+            "requirementId": "MOLIT-QUAL-MEASURE-001-P-ISMEASUREMENTOF-001",
+            "shapeFile": "shacl/molit-quality.ttl",
+            "shapeFileSha256": "c3e23f8896cc2b3ffcb5c3a1a4053849f80b9c698a7eb16277da7138c6c58502",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#QualityMeasurementShape"
+          },
+          {
+            "bundle": "bundles/quality.ttl",
+            "bundleSha256": "5bfe46684e39676901bd748db4003188c645356fe0b66cc509ca8c20013eace6",
+            "profile": "quality",
+            "requirementId": "MOLIT-QUAL-MEASURE-001-P-QUALITYRESULTCONCEPT-001",
+            "shapeFile": "shacl/molit-quality.ttl",
+            "shapeFileSha256": "c3e23f8896cc2b3ffcb5c3a1a4053849f80b9c698a7eb16277da7138c6c58502",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#QualityMeasurementShape"
+          },
+          {
+            "bundle": "bundles/quality.ttl",
+            "bundleSha256": "5bfe46684e39676901bd748db4003188c645356fe0b66cc509ca8c20013eace6",
+            "profile": "quality",
+            "requirementId": "MOLIT-QUAL-MEASURE-001-P-UNITMEASURE-001",
+            "shapeFile": "shacl/molit-quality.ttl",
+            "shapeFileSha256": "c3e23f8896cc2b3ffcb5c3a1a4053849f80b9c698a7eb16277da7138c6c58502",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#QualityMeasurementShape"
+          },
+          {
+            "bundle": "bundles/quality.ttl",
+            "bundleSha256": "5bfe46684e39676901bd748db4003188c645356fe0b66cc509ca8c20013eace6",
+            "profile": "quality",
+            "requirementId": "MOLIT-QUAL-MEASURE-001-P-VALUE-001",
+            "shapeFile": "shacl/molit-quality.ttl",
+            "shapeFileSha256": "c3e23f8896cc2b3ffcb5c3a1a4053849f80b9c698a7eb16277da7138c6c58502",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#QualityMeasurementShape"
+          },
+          {
+            "bundle": "bundles/quality.ttl",
+            "bundleSha256": "5bfe46684e39676901bd748db4003188c645356fe0b66cc509ca8c20013eace6",
+            "profile": "quality",
+            "requirementId": "MOLIT-QUAL-MEASURE-002",
+            "shapeFile": "shacl/molit-quality.ttl",
+            "shapeFileSha256": "c3e23f8896cc2b3ffcb5c3a1a4053849f80b9c698a7eb16277da7138c6c58502",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#QualityMetricSemanticsShape"
+          },
+          {
+            "bundle": "bundles/quality.ttl",
+            "bundleSha256": "5bfe46684e39676901bd748db4003188c645356fe0b66cc509ca8c20013eace6",
+            "profile": "quality",
+            "requirementId": "MOLIT-QUAL-PROV-001-P-QUALITYEVALUATIONMETHOD-001",
+            "shapeFile": "shacl/molit-quality.ttl",
+            "shapeFileSha256": "c3e23f8896cc2b3ffcb5c3a1a4053849f80b9c698a7eb16277da7138c6c58502",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#QualityEvaluationProvenanceShape"
+          },
+          {
+            "bundle": "bundles/quality.ttl",
+            "bundleSha256": "5bfe46684e39676901bd748db4003188c645356fe0b66cc509ca8c20013eace6",
+            "profile": "quality",
+            "requirementId": "MOLIT-QUAL-PROV-001-P-QUALITYEVALUATIONSCOPE-001",
+            "shapeFile": "shacl/molit-quality.ttl",
+            "shapeFileSha256": "c3e23f8896cc2b3ffcb5c3a1a4053849f80b9c698a7eb16277da7138c6c58502",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#QualityEvaluationProvenanceShape"
+          },
+          {
+            "bundle": "bundles/quality.ttl",
+            "bundleSha256": "5bfe46684e39676901bd748db4003188c645356fe0b66cc509ca8c20013eace6",
+            "profile": "quality",
+            "requirementId": "MOLIT-QUAL-PROV-001-P-QUALITYMAPPINGSTATEMENT-001",
+            "shapeFile": "shacl/molit-quality.ttl",
+            "shapeFileSha256": "c3e23f8896cc2b3ffcb5c3a1a4053849f80b9c698a7eb16277da7138c6c58502",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#QualityEvaluationProvenanceShape"
+          },
+          {
+            "bundle": "bundles/quality.ttl",
+            "bundleSha256": "5bfe46684e39676901bd748db4003188c645356fe0b66cc509ca8c20013eace6",
+            "profile": "quality",
+            "requirementId": "MOLIT-QUAL-PROV-001-P-QUALITYRESULTKIND-001",
+            "shapeFile": "shacl/molit-quality.ttl",
+            "shapeFileSha256": "c3e23f8896cc2b3ffcb5c3a1a4053849f80b9c698a7eb16277da7138c6c58502",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#QualityEvaluationProvenanceShape"
+          },
+          {
+            "bundle": "bundles/quality.ttl",
+            "bundleSha256": "5bfe46684e39676901bd748db4003188c645356fe0b66cc509ca8c20013eace6",
+            "profile": "quality",
+            "requirementId": "MOLIT-QUAL-STATUS-001",
+            "shapeFile": "shacl/molit-quality.ttl",
+            "shapeFileSha256": "c3e23f8896cc2b3ffcb5c3a1a4053849f80b9c698a7eb16277da7138c6c58502",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#DatasetQualityEvidenceShape"
+          },
+          {
+            "bundle": "bundles/quality.ttl",
+            "bundleSha256": "5bfe46684e39676901bd748db4003188c645356fe0b66cc509ca8c20013eace6",
+            "profile": "quality",
+            "requirementId": "MOLIT-REC-001-P-LANGUAGE-001",
+            "shapeFile": "shacl/molit-core.ttl",
+            "shapeFileSha256": "4ce9e7bfef1b84f5e7bd5bc98e52cd771cb710c59d159ed39bde7afdb42f5e08",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#CatalogRecordShape"
+          },
+          {
+            "bundle": "bundles/quality.ttl",
+            "bundleSha256": "5bfe46684e39676901bd748db4003188c645356fe0b66cc509ca8c20013eace6",
+            "profile": "quality",
+            "requirementId": "MOLIT-REC-001-P-MODIFIED-001",
+            "shapeFile": "shacl/molit-core.ttl",
+            "shapeFileSha256": "4ce9e7bfef1b84f5e7bd5bc98e52cd771cb710c59d159ed39bde7afdb42f5e08",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#CatalogRecordShape"
+          },
+          {
+            "bundle": "bundles/quality.ttl",
+            "bundleSha256": "5bfe46684e39676901bd748db4003188c645356fe0b66cc509ca8c20013eace6",
+            "profile": "quality",
+            "requirementId": "MOLIT-REC-001-P-PRIMARYTOPIC-001",
+            "shapeFile": "shacl/molit-core.ttl",
+            "shapeFileSha256": "4ce9e7bfef1b84f5e7bd5bc98e52cd771cb710c59d159ed39bde7afdb42f5e08",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#CatalogRecordShape"
+          },
+          {
+            "bundle": "bundles/quality.ttl",
+            "bundleSha256": "5bfe46684e39676901bd748db4003188c645356fe0b66cc509ca8c20013eace6",
+            "profile": "quality",
+            "requirementId": "MOLIT-REC-001-P-TITLE-001",
+            "shapeFile": "shacl/molit-core.ttl",
+            "shapeFileSha256": "4ce9e7bfef1b84f5e7bd5bc98e52cd771cb710c59d159ed39bde7afdb42f5e08",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#CatalogRecordShape"
+          },
+          {
+            "bundle": "bundles/quality.ttl",
+            "bundleSha256": "5bfe46684e39676901bd748db4003188c645356fe0b66cc509ca8c20013eace6",
+            "profile": "quality",
+            "requirementId": "MOLIT-SVC-001-P-ENDPOINTURL-001",
+            "shapeFile": "shacl/molit-core.ttl",
+            "shapeFileSha256": "4ce9e7bfef1b84f5e7bd5bc98e52cd771cb710c59d159ed39bde7afdb42f5e08",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#DataServiceShape"
+          },
+          {
+            "bundle": "bundles/quality.ttl",
+            "bundleSha256": "5bfe46684e39676901bd748db4003188c645356fe0b66cc509ca8c20013eace6",
+            "profile": "quality",
+            "requirementId": "MOLIT-SVC-001-P-SERVESDATASET-001",
+            "shapeFile": "shacl/molit-core.ttl",
+            "shapeFileSha256": "4ce9e7bfef1b84f5e7bd5bc98e52cd771cb710c59d159ed39bde7afdb42f5e08",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#DataServiceShape"
+          },
+          {
+            "bundle": "bundles/quality.ttl",
+            "bundleSha256": "5bfe46684e39676901bd748db4003188c645356fe0b66cc509ca8c20013eace6",
+            "profile": "quality",
+            "requirementId": "MOLIT-SVC-001-P-THEME-001",
+            "shapeFile": "shacl/molit-core.ttl",
+            "shapeFileSha256": "4ce9e7bfef1b84f5e7bd5bc98e52cd771cb710c59d159ed39bde7afdb42f5e08",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#DataServiceShape"
+          },
+          {
+            "bundle": "bundles/quality.ttl",
+            "bundleSha256": "5bfe46684e39676901bd748db4003188c645356fe0b66cc509ca8c20013eace6",
+            "profile": "quality",
+            "requirementId": "MOLIT-SVC-001-P-TITLE-001",
+            "shapeFile": "shacl/molit-core.ttl",
+            "shapeFileSha256": "4ce9e7bfef1b84f5e7bd5bc98e52cd771cb710c59d159ed39bde7afdb42f5e08",
+            "shapeId": "https://data.molit.go.kr/shape/molit-dcat-ap/1.0.0-rc.1#DataServiceShape"
+          }
+        ],
+        "pairsSha256": "c98f9ea0ca845ccf8168a22ff9cf1a93526e0e8e57ada5d3ed85cb359909c58e",
+        "perProfile": {
+          "core": {
+            "applicableRequirements": 37,
+            "bundle": "bundles/core.ttl",
+            "bundleSha256": "f05e5b0acb007b15010d12e0819120d492ebbe3b13fca8e2f4dc7bce8cfb4d31"
+          },
+          "dataspace-offering": {
+            "applicableRequirements": 41,
+            "bundle": "bundles/dataspace-offering.ttl",
+            "bundleSha256": "eb2c635e350870440dbac0029b2b77925b9513aee87793ac6f63fc380b744d7f"
+          },
+          "geo": {
+            "applicableRequirements": 57,
+            "bundle": "bundles/geo.ttl",
+            "bundleSha256": "0e4df46b14ca8298b8ccc5f953cb9b364ef885419a1aafceee6160b63a76a65f"
+          },
+          "network": {
+            "applicableRequirements": 76,
+            "bundle": "bundles/network.ttl",
+            "bundleSha256": "c51e36e3f8b644260174e243399e1c2f7bce935a7652a659a7a6db3b1b7ca195"
+          },
+          "observation": {
+            "applicableRequirements": 45,
+            "bundle": "bundles/observation.ttl",
+            "bundleSha256": "ec9cca3f6f2e6d610f8c13214edc218f40f26409aed8c8862b1085f6acfdd99c"
+          },
+          "publication-policy": {
+            "applicableRequirements": 5,
+            "bundle": "bundles/publication-policy.ttl",
+            "bundleSha256": "c4c36a4ce9d18346fe686c032207dd7c28af56fb22715b980d70cab0dda46957"
+          },
+          "quality": {
+            "applicableRequirements": 55,
+            "bundle": "bundles/quality.ttl",
+            "bundleSha256": "5bfe46684e39676901bd748db4003188c645356fe0b66cc509ca8c20013eace6"
+          }
+        },
+        "sourceShapeFiles": 14
+      },
       "caseRegistrySha256": "0080dd8fcedcc704e7890de0de44d7cc32fdb468727bf20a8dd7157d1fe9d0be",
       "excludedDiagnosticRequirements": 0,
       "executableRequirements": 129,
       "fixtureCount": 138,
+      "fixtureProfileExecutions": 138,
       "formats": [
         "turtle",
         "rdfxml",
@@ -12544,8 +15434,10 @@
       ],
       "linkedRequirements": 129,
       "negativeFixtures": 129,
+      "negativeRequirements": 129,
       "perProfile": {
         "core": {
+          "applicableRequirementCount": 37,
           "fixtureCount": 37,
           "formatConversionCount": 185,
           "negativeFixtures": 35,
@@ -12553,6 +15445,7 @@
           "requirementCount": 35
         },
         "dataspace-offering": {
+          "applicableRequirementCount": 41,
           "fixtureCount": 9,
           "formatConversionCount": 45,
           "negativeFixtures": 8,
@@ -12560,6 +15453,7 @@
           "requirementCount": 8
         },
         "geo": {
+          "applicableRequirementCount": 57,
           "fixtureCount": 27,
           "formatConversionCount": 135,
           "negativeFixtures": 26,
@@ -12567,6 +15461,7 @@
           "requirementCount": 26
         },
         "network": {
+          "applicableRequirementCount": 76,
           "fixtureCount": 22,
           "formatConversionCount": 110,
           "negativeFixtures": 21,
@@ -12574,6 +15469,7 @@
           "requirementCount": 21
         },
         "observation": {
+          "applicableRequirementCount": 45,
           "fixtureCount": 13,
           "formatConversionCount": 65,
           "negativeFixtures": 12,
@@ -12581,6 +15477,7 @@
           "requirementCount": 12
         },
         "publication-policy": {
+          "applicableRequirementCount": 5,
           "fixtureCount": 7,
           "formatConversionCount": 35,
           "negativeFixtures": 5,
@@ -12588,6 +15485,7 @@
           "requirementCount": 5
         },
         "quality": {
+          "applicableRequirementCount": 55,
           "fixtureCount": 23,
           "formatConversionCount": 115,
           "negativeFixtures": 22,
@@ -12596,6 +15494,7 @@
         }
       },
       "positiveFixtures": 9,
+      "positiveRequirements": 129,
       "profileCount": 7,
       "profileImports": {
         "core": [],
@@ -12622,8 +15521,10 @@
         "quality"
       ],
       "registryRequirements": 129,
+      "requirementProfileExecutions": 129,
       "requirementRegistrySha256": "a35dff40895c6b4151e4e98a41ff786d497e396a5ddc7b0dbb4eb911d2077915",
-      "traceabilityReportSha256": "e57f22658ef5b3d58830a2a397e7808e9d3faf18d783bd3cdb223ef55d60bc50"
+      "traceabilityReportSha256": "e57f22658ef5b3d58830a2a397e7808e9d3faf18d783bd3cdb223ef55d60bc50",
+      "uniqueFixtures": 138
     },
     "worker": {
       "name": "RDFLib",
@@ -12632,7 +15533,8 @@
   },
   "gatePassed": true,
   "implementation": {
-    "nodeSha256": "03cc7fd41a36de64fde12557de82238380cf1f02e0908920937e45d3f6d978b3",
+    "coverageSha256": "10bde7571a7da17925eba7d4d20d48b56cfec50b523ba4ff988300d9ecd0f258",
+    "nodeSha256": "8ab6668e6bbc9e581d1de61b1868a28ecd4574b93c20b7ad6fa9bf679dee92e2",
     "pythonSha256": "d90236313d2306cf9d4b355f9b9e1980f0ca5807dd5fb80578b83f5144c3a582"
   },
   "offlinePolicy": {
@@ -12660,6 +15562,6 @@
     "registryStatus": "approved"
   },
   "schemaVersion": "molit.rc-serialization-parity/1",
-  "scope": "Jena representative smoke plus five-format canonical graph and Node decision parity for every requirement-linked fixture in all seven non-diagnostic profiles, including publication-policy",
+  "scope": "Jena representative smoke plus five-format canonical graph and Node decision parity for every approved requirement fixture in every declared non-diagnostic profile; every applicable profile bundle statically proves inclusion of the same locked requirement source shape, including publication-policy",
   "toolchainManifestSha256": "c5b8193bbcfd5b88e88a2ee5748eb9b2049b23559f48bc7ec93ff87d9d4b2b51"
 }

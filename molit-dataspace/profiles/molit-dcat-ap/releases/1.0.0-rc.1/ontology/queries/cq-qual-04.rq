@@ -1,0 +1,8 @@
+PREFIX dqv: <http://www.w3.org/ns/dqv#>
+PREFIX molit: <https://data.molit.go.kr/def/molit-dcat-ap#>
+SELECT ?dataset ?qualityStatus ?measurement ?resultConcept
+WHERE {
+  ?dataset molit:qualityStatus ?qualityStatus ;
+           dqv:hasQualityMeasurement ?measurement .
+  ?measurement molit:qualityResultConcept ?resultConcept .
+}

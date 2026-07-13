@@ -92,3 +92,23 @@ test("ONTO-GOV-006: evidence cannot escape the release or resolve to a non-file"
   assert.ok(unreadable.some(({ message }) => message.includes("release-relative path")));
   assert.ok(unreadable.some(({ message }) => message.includes("regular file")));
 });
+
+test("ONTO-GOV-007: every term must retain the full-inventory competency question", async (t) => {
+  const report = await withMutatedRegister(t, (register) => {
+    register.terms[0].competencyQuestionIds = ["CQ-GOV-01"];
+  });
+  assert.equal(report.gatePassed, false);
+  assert.ok(report.findings.some(({ code }) => code === "TERM_COMPETENCY_COVERAGE"));
+});
+
+test("ONTO-GOV-008: semantic competency coverage cannot be empty or unrelated", async (t) => {
+  const report = await withMutatedRegister(t, (register) => {
+    const missing = register.terms.find(({ localName }) => localName === "networkElementType");
+    missing.competencyQuestionIds = ["CQ-ONTO-TERM-01"];
+    const unrelated = register.terms.find(({ localName }) => localName === "spatialDisclosureLevel");
+    unrelated.competencyQuestionIds = ["CQ-ONTO-TERM-01", "CQ-OBS-01"];
+  });
+  assert.equal(report.gatePassed, false);
+  assert.ok(report.findings.some(({ code }) => code === "TERM_SEMANTIC_COMPETENCY_MISSING"));
+  assert.ok(report.findings.some(({ code }) => code === "TERM_SEMANTIC_QUERY_REFERENCE"));
+});
