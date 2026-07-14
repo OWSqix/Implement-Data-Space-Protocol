@@ -1,0 +1,18 @@
+{
+  "schemaVersion": "molit.dsaas-participant/1",
+  "participantId": "road-data-provider",
+  "organizationId": "urn:molit:organization:road-data-provider",
+  "legalName": "도로 데이터 제공기관",
+  "caasTenantId": "road-data-provider",
+  "connectorParticipantId": "did:web:connectors.data.molit.go.kr:road-data-provider",
+  "connectorNamespace": "https://data.molit.go.kr/tenants/road-data-provider/",
+  "requestedRoles": [
+    "provider"
+  ],
+  "connectorPlanId": "edc-isolated",
+  "evidence": {
+    "uri": "urn:molit:evidence:membership:road-data-provider:1",
+    "sha256": "0000000000000000000000000000000000000000000000000000000000000000"
+  },
+  "desiredState": "ACTIVE"
+}

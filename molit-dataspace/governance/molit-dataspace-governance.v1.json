@@ -1,0 +1,46 @@
+{
+  "schemaVersion": "molit.dataspace-governance/1",
+  "id": "https://data.molit.go.kr/governance/molit-dataspace/0.1.0",
+  "version": "0.1.0",
+  "status": "candidate-not-institutionally-approved",
+  "protocol": {
+    "dataspaceProtocol": "2025-1",
+    "specification": "https://eclipse-dataspace-protocol-base.github.io/DataspaceProtocol/2025-1-err1/",
+    "productionIdentityMode": "dcp"
+  },
+  "metadataProfile": {
+    "iri": "https://data.molit.go.kr/profile/molit-dcat-ap/1.0.0-rc.1",
+    "version": "1.0.0-rc.1",
+    "status": "candidate"
+  },
+  "membership": {
+    "fourEyesApprovalRequired": true,
+    "evidenceDigestRequired": true,
+    "allowedRoles": [
+      "provider",
+      "consumer",
+      "service-provider"
+    ]
+  },
+  "connectorBaseline": {
+    "implementation": "Eclipse Dataspace Components",
+    "version": "0.18.0",
+    "sourceCommit": "911a22ba6b90688ffeb35bb92bf5cc040ffdf37f",
+    "managementApi": "v4",
+    "virtualManagementApi": "v5beta-not-approved-for-production"
+  },
+  "separationOfDuties": {
+    "dataspaceOperatorMayReadParticipantAssets": false,
+    "caasProvisionerMayManageConnectorInfrastructure": true,
+    "caasProvisionerMayReadParticipantAssets": false,
+    "caasProvisionerMayAccessParticipantData": false,
+    "connectorManagementApiIsNotDspEndpoint": true
+  },
+  "releaseBlockers": [
+    "operator-organization-approval",
+    "production-dns-and-tls",
+    "identity-trust-framework-approval",
+    "legal-membership-terms",
+    "production-edc-distribution-security-review"
+  ]
+}

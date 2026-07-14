@@ -10,6 +10,7 @@ import { BridgeRuntime } from "./worker.mjs";
 import { JsonPathDispatchProjector } from "./projector.mjs";
 import { validateRuntimeDocuments } from "./config-validator.mjs";
 import { MolitProfileGate } from "./profile-gate.mjs";
+import { EdcManagementV4PublicationClient } from "./edc-v4-management-client.mjs";
 
 function options(argv) {
   const result = {};
@@ -44,7 +45,9 @@ export async function buildRuntime(config, { env = process.env } = {}) {
       await validateRuntimeDocuments(config, current);
       return current;
     },
-    managementClient: new ConnectorManagementClient({ config: config.management, http, env }),
+    managementClient: config.management.adapter === "edc-v4"
+      ? new EdcManagementV4PublicationClient({ config: config.management, http, env })
+      : new ConnectorManagementClient({ config: config.management, http, env }),
     telemetry,
     queue: config.queue,
   });

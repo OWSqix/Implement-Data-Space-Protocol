@@ -1,0 +1,92 @@
+{
+  "schemaVersion": "molit.dsaas-runtime-config/1",
+  "environment": "production",
+  "listenHost": "127.0.0.1",
+  "port": 8888,
+  "publicOrigin": "https://dsaas.data.molit.go.kr",
+  "allowedHosts": [
+    "dsaas.data.molit.go.kr"
+  ],
+  "statePath": "../../.local/dsaas/state.json",
+  "serviceRegistryPath": "service-registry.example.json",
+  "serviceRegistrySha256": "e870ff554385dac39244caf01ac284762996209e6868a2fbfc4a85957fcd4107",
+  "serviceRegistryMaxAgeSeconds": 86400,
+  "approvalDecisionRegistryPath": "approval-decision-registry.example.json",
+  "approvalDecisionRegistrySha256": "d75d10c2b6f004a75a2d25b2dd8d9fe2ba159b34cedc7cad57b9441af5814ebf",
+  "approvalDecisionRegistryMaxAgeSeconds": 86400,
+  "approvedMetadataProfiles": [
+    {
+      "iri": "https://data.molit.go.kr/profile/molit-dcat-ap/1.0.0-rc.1",
+      "version": "1.0.0-rc.1",
+      "sha256": "0666b7c2ed74800264a9ac6c8292f819fc973a02057397faca3b3d5df3bacfe4"
+    }
+  ],
+  "approvedGovernanceBundles": [
+    {
+      "iri": "https://data.molit.go.kr/governance/molit-dataspace/0.1.0",
+      "version": "0.1.0",
+      "sha256": "bb223e8313e044f4d70c7406d8ea4bebc59929689ff39f60319a9bfab9004ed1"
+    }
+  ],
+  "connectorPlanIds": [
+    "edc-isolated"
+  ],
+  "allowedNamespaceOrigins": [
+    "https://data.molit.go.kr"
+  ],
+  "auth": {
+    "type": "oauth2-introspection",
+    "introspectionUrl": "https://identity.data.molit.go.kr/oauth2/introspect",
+    "clientIdEnv": "MOLIT_DSAAS_INTROSPECTION_CLIENT_ID",
+    "clientSecretEnv": "MOLIT_DSAAS_INTROSPECTION_CLIENT_SECRET",
+    "issuer": "https://identity.data.molit.go.kr/",
+    "audience": "molit-dsaas",
+    "clientIdClaim": "client_id",
+    "keyIdClaim": "jti",
+    "rolesClaim": "roles",
+    "dataspaceIdsClaim": "dataspace_ids"
+  },
+  "caas": {
+    "baseUrl": "https://caas.data.molit.go.kr/",
+    "ensurePath": "/v1/connectors/ensure",
+    "supportsIdempotencyKey": true,
+    "auth": {
+      "type": "bearer",
+      "env": "MOLIT_CAAS_DSAAS_CONTROLLER_TOKEN"
+    }
+  },
+  "reconcileScheduler": {
+    "intervalMs": 60000,
+    "maxDataspacesPerTick": 100,
+    "readinessMaxLagMs": 180000,
+    "caasRetryBaseMs": 60000,
+    "caasRetryMaxMs": 3600000
+  },
+  "network": {
+    "allowedOrigins": [
+      "https://caas.data.molit.go.kr",
+      "https://identity.data.molit.go.kr"
+    ],
+    "privateOrigins": [
+      "https://caas.data.molit.go.kr",
+      "https://identity.data.molit.go.kr"
+    ],
+    "allowHttp": false,
+    "allowPrivate": false,
+    "timeoutMs": 15000,
+    "maxResponseBytes": 1048576,
+    "retries": 2
+  },
+  "limits": {
+    "maxRequestBytes": 262144,
+    "maxStateBytes": 67108864,
+    "maxDataspaces": 100,
+    "maxParticipantsPerDataspace": 10000,
+    "maxIdempotencyRecords": 100000,
+    "maxReconcileSupersessions": 8,
+    "headerTimeoutMs": 15000,
+    "requestTimeoutMs": 30000,
+    "keepAliveTimeoutMs": 5000,
+    "gracefulShutdownMs": 30000
+  }
+}

@@ -1,0 +1,70 @@
+{
+  "schemaVersion": 1,
+  "verifiedAt": "2026-07-13",
+  "eclipseEdc": {
+    "repository": "https://github.com/eclipse-edc/Connector",
+    "tag": "v0.18.0",
+    "version": "0.18.0",
+    "commit": "911a22ba6b90688ffeb35bb92bf5cc040ffdf37f",
+    "commitTime": "2026-06-30T08:59:42Z",
+    "mavenRepository": "https://repo1.maven.org/maven2/org/eclipse/edc/",
+    "artifacts": [
+      "org.eclipse.edc:controlplane-base-bom:0.18.0",
+      "org.eclipse.edc:controlplane-feature-sql-bom:0.18.0",
+      "org.eclipse.edc:dataplane-base-bom:0.18.0",
+      "org.eclipse.edc:dataplane-feature-sql-bom:0.18.0",
+      "org.eclipse.edc:iam-mock:0.18.0",
+      "org.eclipse.edc:transfer-data-plane-signaling:0.18.0"
+    ],
+    "managementApi": "v4",
+    "dspVersion": "2025-1",
+    "javaClassMajor": 61,
+    "javaRuntime": 17
+  },
+  "eclipseEdcSamples": {
+    "repository": "https://github.com/eclipse-edc/Samples",
+    "commit": "56525807930103194895c4b16be268ea65546f77",
+    "notice": "Only the GET pull-proxy pattern is adapted into the smoke-only artifact. The production data-plane artifact contains no sample proxy or sample key.",
+    "sources": [
+      {
+        "path": "transfer/transfer-03-consumer-pull/provider-proxy-data-plane/src/main/java/org/eclipse/edc/sample/extension/proxy/CustomProxyDataPlaneExtension.java",
+        "sha256": "6f4bb246bf5a2920f3cc897c3be65af89d65f260141b8598f0b2ee0819ff7527"
+      },
+      {
+        "path": "transfer/transfer-03-consumer-pull/provider-proxy-data-plane/src/main/java/org/eclipse/edc/sample/extension/proxy/ProxyController.java",
+        "sha256": "ca5a00b4e8ebeb405fea29530aff70392eb9171f9ba5a5fc6ddfea1123300f3b"
+      },
+      {
+        "path": "transfer/transfer-00-prerequisites/connector/src/main/java/org/eclipse/edc/sample/runtime/SeedVaultExtension.java",
+        "sha256": "d52b2527d84191dcd13a2c79b97af5cd4f63e05a82527e68b9d4e3ff7b362aab",
+        "usage": "provenance only; not copied because it contains a sample private key"
+      }
+    ]
+  },
+  "gradleWrapper": {
+    "version": "9.5.1",
+    "distribution": "https://services.gradle.org/distributions/gradle-9.5.1-bin.zip",
+    "distributionSha256": "bafc141b619ad6350fd975fc903156dd5c151998cc8b058e8c1044ab5f7b031f",
+    "jarSha256": "497c8c2a7e5031f6aa847f88104aa80a93532ec32ee17bdb8d1d2f67a194a9c7",
+    "propertiesSha256": "735b1ffb51d53b1ffaaad7ecaf66b36014d758aedaa35ec354cb2b2717b8ee7c"
+  },
+  "containerImages": {
+    "docker/dockerfile:1.7": "sha256:a57df69d0ea827fb7266491f2813635de6f17269be881f696fbfdf2d83dda33e",
+    "eclipse-temurin:17-jdk-jammy": "sha256:723151f3fc88ca2060153ee08ab8dbbea7983d6ed6f2622fe440acf178737c94",
+    "eclipse-temurin:17-jre-jammy": "sha256:475d8e96b4b2bfe08999e5e854755c773af1581acdf959a4545d88f0696a2339",
+    "postgres:17.10-alpine3.24": "sha256:742f40ea20b9ff2ff31db5458d127452988a2164df9e17441e191f3b72252193",
+    "nginx:1.30.3-alpine3.23": "sha256:0d3b80406a13a767339fbe2f41406d6c7da727ab89cf8fae399e81f780f814d1",
+    "node:24.18.0-alpine3.24": "sha256:a0b9bf06e4e6193cf7a0f58816cc935ff8c2a908f81e6f1a95432d679c54fbfd"
+  },
+  "thirdPartyLicenses": [
+    {
+      "spdx": "Apache-2.0",
+      "path": "deploy/edc/licenses/Apache-2.0.txt",
+      "sha256": "59899c6091b540582ed617e8eeaac4919dc985ccfc35459ee9752b699be5205b",
+      "appliesTo": [
+        "Eclipse EDC Samples adaptations",
+        "Gradle wrapper"
+      ]
+    }
+  ]
+}

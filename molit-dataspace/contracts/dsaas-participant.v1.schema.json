@@ -1,0 +1,46 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://data.molit.go.kr/schema/dsaas-participant.v1.json",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "participantId",
+    "organizationId",
+    "legalName",
+    "caasTenantId",
+    "connectorParticipantId",
+    "connectorNamespace",
+    "requestedRoles",
+    "connectorPlanId",
+    "evidence",
+    "desiredState"
+  ],
+  "properties": {
+    "schemaVersion": { "const": "molit.dsaas-participant/1" },
+    "participantId": { "type": "string", "pattern": "^[a-z][a-z0-9-]{2,62}$" },
+    "organizationId": { "type": "string", "minLength": 3, "maxLength": 256 },
+    "legalName": { "type": "string", "minLength": 1, "maxLength": 200 },
+    "caasTenantId": { "type": "string", "pattern": "^[a-z][a-z0-9-]{2,62}$" },
+    "connectorParticipantId": { "type": "string", "minLength": 3, "maxLength": 1024 },
+    "connectorNamespace": { "type": "string", "format": "uri", "pattern": "^https://", "maxLength": 2048 },
+    "requestedRoles": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 3,
+      "uniqueItems": true,
+      "items": { "enum": ["provider", "consumer", "service-provider"] }
+    },
+    "connectorPlanId": { "type": "string", "pattern": "^[a-z][a-z0-9-]{2,62}$" },
+    "evidence": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["uri", "sha256"],
+      "properties": {
+        "uri": { "type": "string", "format": "uri" },
+        "sha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" }
+      }
+    },
+    "desiredState": { "enum": ["ACTIVE", "SUSPENDED"] }
+  }
+}

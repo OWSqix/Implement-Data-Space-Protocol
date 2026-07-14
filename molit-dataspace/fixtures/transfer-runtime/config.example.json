@@ -2,6 +2,10 @@
   "schemaVersion": "molit.provider-transfer-runtime-config/1",
   "environment": "production",
   "journalPath": "../../.local/provider-transfer-journal.json",
+  "journalIntegrity": {
+    "keyEnv": "MOLIT_TRANSFER_JOURNAL_HMAC_KEY",
+    "keyId": "molit-transfer-journal-2026-01"
+  },
   "network": {
     "allowedOrigins": [
       "https://connector.internal.example",

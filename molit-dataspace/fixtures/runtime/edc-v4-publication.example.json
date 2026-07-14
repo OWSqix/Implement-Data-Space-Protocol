@@ -1,0 +1,41 @@
+{
+  "schemaVersion": "molit.edc-v4-publication/1",
+  "asset": {
+    "id": "urn:molit:asset:road-traffic-speed-seoul-v1",
+    "properties": {
+      "name": "서울시 도로 구간별 통행속도",
+      "description": "표준 노드·링크 구간별 5분 집계 통행속도",
+      "contenttype": "application/json",
+      "metadataIri": "https://data.molit.go.kr/id/dataset/road-traffic-speed-seoul-v1"
+    },
+    "dataAddress": {
+      "type": "HttpData",
+      "baseUrl": "https://platform.example.go.kr/traffic/speed",
+      "method": "GET",
+      "contentType": "application/json",
+      "authKey": "authorization",
+      "secretName": "molit/platform/traffic-reader"
+    }
+  },
+  "accessPolicy": {
+    "id": "urn:molit:policy:member-access-v1",
+    "policy": {
+      "@type": "Set",
+      "permission": [
+        { "action": "use" }
+      ]
+    }
+  },
+  "contractPolicy": {
+    "id": "urn:molit:policy:traffic-use-v1",
+    "policy": {
+      "@type": "Set",
+      "permission": [
+        { "action": "use" }
+      ]
+    }
+  },
+  "contractDefinition": {
+    "id": "urn:molit:contract-definition:road-traffic-speed-seoul-v1"
+  }
+}

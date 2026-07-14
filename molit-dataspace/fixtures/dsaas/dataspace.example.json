@@ -1,0 +1,30 @@
+{
+  "schemaVersion": "molit.dsaas-dataspace/1",
+  "dataspaceId": "molit-production",
+  "name": "국토교통 데이터 스페이스",
+  "operatorOrganizationId": "urn:molit:organization:operator-pending",
+  "namespaceBase": "https://data.molit.go.kr/id/",
+  "metadataProfile": {
+    "iri": "https://data.molit.go.kr/profile/molit-dcat-ap/1.0.0-rc.1",
+    "version": "1.0.0-rc.1",
+    "sha256": "0666b7c2ed74800264a9ac6c8292f819fc973a02057397faca3b3d5df3bacfe4"
+  },
+  "governanceBundle": {
+    "iri": "https://data.molit.go.kr/governance/molit-dataspace/0.1.0",
+    "version": "0.1.0",
+    "sha256": "bb223e8313e044f4d70c7406d8ea4bebc59929689ff39f60319a9bfab9004ed1"
+  },
+  "protocolProfile": {
+    "dspVersion": "2025-1",
+    "specification": "https://eclipse-dataspace-protocol-base.github.io/DataspaceProtocol/2025-1-err1/",
+    "identityMode": "dcp"
+  },
+  "connectorPlanId": "edc-isolated",
+  "deploymentMode": "isolated",
+  "requiredServiceIds": [
+    "caas-primary",
+    "identity-primary",
+    "catalog-primary"
+  ],
+  "desiredState": "ACTIVE"
+}

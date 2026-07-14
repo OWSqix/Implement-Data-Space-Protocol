@@ -1,0 +1,5 @@
+runtime/.gradle/
+runtime/**/build/
+.env
+.env.*
+!.env.example

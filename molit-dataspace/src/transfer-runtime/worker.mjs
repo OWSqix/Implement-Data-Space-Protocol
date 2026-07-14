@@ -22,8 +22,13 @@ function addressDigest(dataAddress) {
 }
 
 export class ProviderTransferWorker {
-  constructor({ connector, provisioners, registry, journalPath, telemetry, now = () => new Date() }) {
-    Object.assign(this, { connector, provisioners, registry, journalPath, telemetry, now });
+  constructor({ connector, provisioners, registry, journalPath, journalIntegrityKey, journalIntegrityKeyId, telemetry, now = () => new Date() }) {
+    assertRuntime(typeof journalIntegrityKey === "string" && Buffer.byteLength(journalIntegrityKey, "utf8") >= 32, "TRANSFER_JOURNAL_INTEGRITY_KEY_INVALID", "provider transfer worker requires a journal HMAC key");
+    Object.assign(this, { connector, provisioners, registry, journalPath, journalIntegrityKey, journalIntegrityKeyId, telemetry, now });
+  }
+
+  #journalOptions() {
+    return { integrityKey: this.journalIntegrityKey, integrityKeyId: this.journalIntegrityKeyId };
   }
 
   async process(rawEvent, { signal } = {}) {
@@ -41,21 +46,25 @@ export class ProviderTransferWorker {
     assertRuntime(binding.transferMode === "PULL", "TRANSFER_MODE_UNSUPPORTED", "this worker provisions PULL transfers only");
     assertSafeResourceRef(binding.resourceRef);
     if (existing) assertRuntime(existing.bindingDigest === bindingDigest, "TRANSFER_BINDING_CHANGED", "immutable transfer binding differs from the authorization snapshot; operator reconciliation is required");
-    const provisioner = Object.hasOwn(this.provisioners, binding.provisionerId) ? this.provisioners[binding.provisionerId] : undefined;
-    assertRuntime(provisioner, "PROVISIONER_NOT_CONFIGURED", "binding refers to an unconfigured provisioner", { provisionerId: binding.provisionerId });
     const result = event.action === "START"
-      ? await this.#start(event, status, binding, bindingDigest, provisioner, signal)
-      : await this.#terminate(event, status, binding, bindingDigest, provisioner, signal);
+      ? await this.#start(event, status, binding, bindingDigest, signal)
+      : await this.#terminate(event, status, binding, bindingDigest, signal);
     this.telemetry?.add("molit_provider_transfer_events_total", 1, { action: event.action, result: result.phase });
     this.telemetry?.log("INFO", "provider transfer lifecycle event processed", { action: event.action, providerPid: event.providerPid, phase: result.phase });
     return result;
   }
 
   async #record(providerPid) {
-    return structuredClone((await loadTransferJournal(this.journalPath)).records[providerPid] ?? null);
+    return structuredClone((await loadTransferJournal(this.journalPath, this.#journalOptions())).records[providerPid] ?? null);
   }
 
-  async #start(event, status, binding, bindingDigest, provisioner, signal) {
+  #provisioner(binding) {
+    const provisioner = Object.hasOwn(this.provisioners, binding.provisionerId) ? this.provisioners[binding.provisionerId] : undefined;
+    assertRuntime(provisioner, "PROVISIONER_NOT_CONFIGURED", "binding refers to an unconfigured provisioner", { provisionerId: binding.provisionerId });
+    return provisioner;
+  }
+
+  async #start(event, status, binding, bindingDigest, signal) {
     let record = await this.#record(event.providerPid);
     if (record) assertSameIdentity(record, event);
     if (record) assertRuntime(record.provisionerId === binding.provisionerId, "TRANSFER_BINDING_CHANGED", "binding provisioner changed during an existing transfer; operator reconciliation is required");
@@ -75,14 +84,17 @@ export class ProviderTransferWorker {
           lastEventId: event.eventId,
           authorizedAt: this.now().toISOString(),
         };
-      });
+      }, this.#journalOptions());
       record = await this.#record(event.providerPid);
     }
 
     if (record.phase === "active" && status.state === "STARTED") return { providerPid: event.providerPid, phase: "active", replayed: true };
+    assertRuntime(status.state === "START_AUTHORIZED"
+      || (status.state === "STARTED" && ["provisioned", "active"].includes(record.phase)),
+    "TRANSFER_RECONCILIATION_REQUIRED", "authoritative STARTED requires local provision or active evidence before start recovery", { phase: record.phase, state: status.state });
     let provisionResult;
     if (["authorized", "provisioned", "active"].includes(record.phase)) {
-      const result = await provisioner.provision(event, binding, { signal });
+      const result = await this.#provisioner(binding).provision(event, binding, { signal });
       provisionResult = result;
       await withTransferJournal(this.journalPath, (journal) => {
         const current = journal.records[event.providerPid];
@@ -94,7 +106,7 @@ export class ProviderTransferWorker {
           dataAddressDigest: addressDigest(result.dataAddress),
           provisionedAt: this.now().toISOString(),
         });
-      });
+      }, this.#journalOptions());
       record = await this.#record(event.providerPid);
     }
     assertRuntime(["provisioned", "active"].includes(record.phase), "TRANSFER_STATE_VIOLATION", "start reconciliation found an invalid journal phase", { phase: record.phase });
@@ -107,38 +119,66 @@ export class ProviderTransferWorker {
         phase: "active",
         acknowledgedAt: this.now().toISOString(),
       });
-    });
+    }, this.#journalOptions());
     return { providerPid: event.providerPid, phase: "active", dataAddressDigest: record.dataAddressDigest };
   }
 
-  async #terminate(event, status, binding, bindingDigest, provisioner, signal) {
+  async #terminate(event, status, binding, bindingDigest, signal) {
     let record = await this.#record(event.providerPid);
     if (record) assertSameIdentity(record, event);
     if (record) assertRuntime(record.provisionerId === binding.provisionerId, "TRANSFER_BINDING_CHANGED", "binding provisioner changed during an existing transfer; operator reconciliation is required");
-    if (record?.phase === "terminated") return { providerPid: event.providerPid, phase: "terminated", replayed: true };
-    if (!record && status.state === "TERMINATED") throw new RuntimeError("TRANSFER_RECONCILIATION_REQUIRED", "connector reports TERMINATED but the local journal has no revocation evidence");
+    if (record?.phase === "terminated") {
+      if (status.state === "TERMINATED") return { providerPid: event.providerPid, phase: "terminated", replayed: true };
+      await this.connector.acknowledgeTermination(event, { signal });
+      const reconciled = verifyAuthoritativeIdentity(event, await this.connector.status(event.providerPid, { signal }));
+      assertRuntime(
+        reconciled.state === "TERMINATED",
+        "CONNECTOR_TERMINATION_RECONCILIATION_FAILED",
+        "termination acknowledgement did not converge the authoritative connector state to TERMINATED",
+        { state: reconciled.state },
+      );
+      return { providerPid: event.providerPid, phase: "terminated", replayed: true, reconciled: true };
+    }
+    if (record?.phase === "revoked" && status.state === "TERMINATED") {
+      await withTransferJournal(this.journalPath, (journal) => {
+        const current = journal.records[event.providerPid];
+        assertSameIdentity(current, event);
+        if (current.phase === "revoked") Object.assign(current, {
+          phase: "terminated",
+          terminatedAt: this.now().toISOString(),
+          terminationRecoveredFromStatus: true,
+        });
+      }, this.#journalOptions());
+      return { providerPid: event.providerPid, phase: "terminated", replayed: true, reconciled: true };
+    }
+    if (status.state === "TERMINATED") throw new RuntimeError("TRANSFER_RECONCILIATION_REQUIRED", "connector reports TERMINATED but the local journal has no completed revocation evidence");
+    assertRuntime(status.state === "TERMINATION_AUTHORIZED", "TRANSFER_RECONCILIATION_REQUIRED", "destructive revocation requires authoritative TERMINATION_AUTHORIZED state", { state: status.state });
     await withTransferJournal(this.journalPath, (journal) => {
       const current = journal.records[event.providerPid];
       if (current) {
         assertSameIdentity(current, event);
-        if (["authorized", "provisioned", "active"].includes(current.phase)) Object.assign(current, { phase: "terminating", terminationEventId: event.eventId, lastEventId: event.eventId, terminationAuthorizedAt: this.now().toISOString() });
+        if (["authorized", "provisioned", "active"].includes(current.phase)) Object.assign(current, { phase: "terminating", provisioningId: current.provisioningId ?? null, terminationEventId: event.eventId, lastEventId: event.eventId, terminationAuthorizedAt: this.now().toISOString() });
       } else {
-        journal.records[event.providerPid] = { ...identity(event), provisionerId: binding.provisionerId, bindingSnapshot: binding, bindingDigest, terminationEventId: event.eventId, lastEventId: event.eventId, phase: "terminating", terminationAuthorizedAt: this.now().toISOString(), recoveredWithoutStartJournal: true };
+        journal.records[event.providerPid] = { ...identity(event), provisionerId: binding.provisionerId, bindingSnapshot: binding, bindingDigest, provisioningId: null, terminationEventId: event.eventId, lastEventId: event.eventId, phase: "terminating", terminationAuthorizedAt: this.now().toISOString(), recoveredWithoutStartJournal: true };
       }
-    });
+    }, this.#journalOptions());
     record = await this.#record(event.providerPid);
     if (record.phase === "terminating") {
-      const revoked = await provisioner.revoke(event, binding, { signal });
+      const revoked = await this.#provisioner(binding).revoke(event, binding, {
+        signal,
+        provisioningId: record.provisioningId,
+      });
+      assertRuntime(/^[a-f0-9]{64}$/u.test(revoked.receiptDigest ?? ""), "PLATFORM_REVOKE_RECEIPT_INVALID", "provisioner did not return a canonical revoke receipt digest");
       await withTransferJournal(this.journalPath, (journal) => {
         const current = journal.records[event.providerPid];
-        if (current.phase === "terminating") Object.assign(current, { phase: "revoked", revokeIdempotencyKey: revoked.idempotencyKey, revokedAt: this.now().toISOString() });
-      });
+        if (current.phase === "terminating") Object.assign(current, { phase: "revoked", revokeIdempotencyKey: revoked.idempotencyKey, revokeReceiptDigest: revoked.receiptDigest, revokedAt: this.now().toISOString() });
+      }, this.#journalOptions());
     }
     await this.connector.acknowledgeTermination(event, { signal });
     await withTransferJournal(this.journalPath, (journal) => {
       const current = journal.records[event.providerPid];
       if (current.phase === "revoked") Object.assign(current, { phase: "terminated", terminatedAt: this.now().toISOString() });
-    });
+    }, this.#journalOptions());
     return { providerPid: event.providerPid, phase: "terminated" };
   }
 }

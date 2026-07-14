@@ -1,0 +1,63 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://data.molit.go.kr/schema/dsaas-dataspace.v1.json",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "dataspaceId",
+    "name",
+    "operatorOrganizationId",
+    "namespaceBase",
+    "metadataProfile",
+    "governanceBundle",
+    "protocolProfile",
+    "connectorPlanId",
+    "deploymentMode",
+    "requiredServiceIds",
+    "desiredState"
+  ],
+  "properties": {
+    "schemaVersion": { "const": "molit.dsaas-dataspace/1" },
+    "dataspaceId": { "type": "string", "pattern": "^[a-z][a-z0-9-]{2,62}$" },
+    "name": { "type": "string", "minLength": 1, "maxLength": 200 },
+    "operatorOrganizationId": { "type": "string", "minLength": 3, "maxLength": 256 },
+    "namespaceBase": { "type": "string", "format": "uri", "pattern": "^https://" },
+    "metadataProfile": { "$ref": "#/$defs/versionedArtifact" },
+    "governanceBundle": { "$ref": "#/$defs/versionedArtifact" },
+    "protocolProfile": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["dspVersion", "specification", "identityMode"],
+      "properties": {
+        "dspVersion": { "const": "2025-1" },
+        "specification": {
+          "const": "https://eclipse-dataspace-protocol-base.github.io/DataspaceProtocol/2025-1-err1/"
+        },
+        "identityMode": { "enum": ["dcp", "test-token"] }
+      }
+    },
+    "connectorPlanId": { "type": "string", "pattern": "^[a-z][a-z0-9-]{2,62}$" },
+    "deploymentMode": { "enum": ["isolated", "virtualized"] },
+    "requiredServiceIds": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 32,
+      "uniqueItems": true,
+      "items": { "type": "string", "pattern": "^[a-z][a-z0-9-]{2,62}$" }
+    },
+    "desiredState": { "enum": ["ACTIVE", "SUSPENDED"] }
+  },
+  "$defs": {
+    "versionedArtifact": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["iri", "version", "sha256"],
+      "properties": {
+        "iri": { "type": "string", "format": "uri", "pattern": "^https://" },
+        "version": { "type": "string", "minLength": 1, "maxLength": 64 },
+        "sha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" }
+      }
+    }
+  }
+}

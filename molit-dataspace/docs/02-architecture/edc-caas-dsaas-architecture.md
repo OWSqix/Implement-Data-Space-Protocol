@@ -1,0 +1,177 @@
+# EDC 기반 CaaS·DSaaS 구성 설계
+
+목적: 국토교통 데이터 스페이스의 Connector 실행 계층과 운영 제어 계층을 분리하고, 각 계층의 책임과 시험 범위를 고정한다.
+작성일: 2026-07-13
+상태: 구현 기준선 확정, 실운영 인프라와 기관 승인은 미확정
+
+## 1. 적용 기준선
+
+Connector 기준선은 Eclipse Dataspace Components 0.18.0이다. 소스 기준점은
+`eclipse-edc/Connector`의 `911a22ba6b90688ffeb35bb92bf5cc040ffdf37f` 커밋이다.
+해당 릴리스는 2026년 6월 30일에 공개됐다. 근거는 [EDC 0.18.0 릴리스](https://github.com/eclipse-edc/Connector/releases/tag/v0.18.0)이며, 확인일은 2026년 7월 13일이다.
+
+프로토콜 기준선은 Dataspace Protocol 2025-1이며, 로컬 검증 묶음은 Errata 1 snapshot에 고정한다. 격리형 EDC 관리 API는 v4를 사용한다. 가상화형의 `/v5beta/participants/{participantContextId}` 경로는 운영 기준선에 넣지 않는다.
+
+EDC는 완제품 Connector가 아니다. 필요한 모듈을 묶어 Control Plane과 Data Plane 배포판을 직접 만들어야 한다. 따라서 EDC 버전만 적은 배포 문서는 재현 가능한 배포 사양이 아니다. Gradle 의존성, EDC 소스 커밋, 컨테이너 기반 이미지, 설정 Schema를 함께 고정한다.
+
+## 2. 계층 분리
+
+국토교통 데이터 스페이스는 다음 다섯 계층으로 구성한다.
+
+| 계층 | 책임 | 맡지 않는 책임 |
+| --- | --- | --- |
+| EDC Connector | Catalog, 계약 협상, 전송 상태, Data Plane 제어 | 원천 플랫폼 메타데이터 변환 |
+| CaaS | Connector 인스턴스 배포·중지·상태 수렴 | DSP 계약 판단, 참가 승인 |
+| DSaaS | 데이터 스페이스 정의, 서비스 기준선, 참가 승인, CaaS 조정 | 참가자 데이터 열람, Data Plane 대행 |
+| Platform Bridge | 원천 메타데이터를 MOLIT DCAT-AP와 EDC Offering으로 변환 | DSP wire protocol 구현 |
+| Provider transfer worker | 승인된 전송에 필요한 원천 플랫폼 자원 발급·회수 | DSP endpoint, 데이터 바이트 프록시 |
+
+관리 API와 DSP endpoint는 같은 경로로 노출하지 않는다. Bridge, CaaS, DSaaS는 EDC 관리면의 클라이언트다. 외부 Connector가 호출하는 경로는 DSP endpoint다.
+
+## 3. 배포 단위
+
+### 3.1 격리형 Connector
+
+초기 운영은 참가자마다 Control Plane, Data Plane, 데이터베이스, Vault 경계를 분리한다. 한 참가자의 설정 오류와 저장소 장애가 다른 참가자에게 번지지 않는다. 인프라 비용은 늘지만 장애 범위와 감사 대상을 설명하기 쉽다.
+
+CaaS의 `isolated` plan은 이 배포 방식을 뜻한다. CaaS tenant와 데이터 스페이스 참가 신청은 같은 객체가 아니다. 다음 식별자를 각각 보관한다.
+
+- 법적 기관 식별자 `organizationId`
+- CaaS 내부 tenant 식별자 `caasTenantId`
+- DSP와 DCP에 사용하는 `connectorParticipantId`
+- 참가자별 Connector namespace `connectorNamespace`
+- 데이터 스페이스 내부 신청 식별자 `participantId`
+
+서로 의미가 다른 식별자를 한 필드에 넣지 않는다. DSaaS가 CaaS에 수렴을 요청할 때 다섯 값을 함께 보내고, CaaS는 사전 등록값과 정확히 비교한다.
+
+### 3.2 가상화형 Connector
+
+EDC Virtual-Connector는 `participantContextId`를 경계로 여러 참가자를 한 Control Plane에 수용하는 개발 경로다.
+
+2026년 7월 13일 현재 독립 안정 릴리스가 없고 0.18.0 snapshot 계열을 사용한다. 근거는 [공식 Virtual-Connector 저장소](https://github.com/eclipse-edc/Virtual-Connector)다.
+
+관리 API는 OAuth2 access token의 참가자 context와 역할을 확인한다. 데이터베이스 질의와 Vault 경로도 같은 context에 묶어야 한다.
+
+가상화형 배포는 기본값으로 채택하지 않는다. EDC Virtual-Connector의 보안 경계, participant context 필터, Vault 격리, 장애 복구, 부하 시험을 별도 통과한 뒤 `virtualized` plan을 연다. 현재 저장소의 기본 plan은 `isolated`다.
+
+## 4. CaaS 제어면
+
+CaaS는 사전 등록된 tenant의 desired state를 배포 상태로 수렴시킨다.
+
+```text
+NOT_PROVISIONED
+  -> PROVISIONING
+  -> PROVISIONED
+  -> DEPROVISIONING
+  -> NOT_PROVISIONED
+```
+
+DSaaS 상태는 다음과 같이 번역한다.
+
+| DSaaS 요청 | CaaS desired state | 실제 provisioner 수렴 응답 |
+| --- | --- | --- |
+| `ACTIVE` | `PROVISIONED` | `ACTIVE` |
+| `SUSPENDED` | `DEPROVISIONED` | `SUSPENDED` |
+
+위 마지막 열은 실제 배포 자원을 재관찰하는 provisioner 기준이다. 현재 `dry-run-manifest`는 배포 의도 파일만 확인하므로 `ACTIVE` 요청에도 `PROVISIONING`을 반환하고 내부 관찰 상태를 `INTENT_READY`로 둔다.
+
+`POST /v1/connectors/ensure`는 새 기관을 임의 등록하지 않는다. tenant onboarding이 먼저 끝나 있어야 한다. 요청의 plan, 기관 식별자, 참가자 식별자, namespace, 메타데이터 프로파일, 프로토콜 프로파일이 등록값과 다르면 배포하지 않는다.
+
+DSaaS는 CaaS 관리자 credential을 공유하지 않는다. 전용 controller identity는 `connectors/ensure`만 호출할 수 있고, CaaS 설정에 고정한 dataspace·tenant·Connector plan 범위를 벗어나면 `403`으로 차단한다.
+
+배포 Adapter는 인터페이스로 분리한다. 저장소에 포함된 manifest Adapter는 desired state를 배포 의도로 직렬화한다. Kubernetes나 클라우드 API를 직접 호출하는 Adapter는 별도 운영 패키지로 구현하고, 멱등 키와 fencing을 지원해야 한다.
+
+## 5. DSaaS 제어면
+
+DSaaS가 보관하는 대상은 데이터가 아니라 운영 의도와 승인 증거다.
+
+- 데이터 스페이스 ID와 운영기관
+- 적용할 MOLIT DCAT-AP 버전과 digest
+- 거버넌스 묶음 버전과 digest
+- DSP 버전과 신원 모델
+- 필요한 CaaS·Identity Hub·Catalog 서비스
+- 참가 신청, 승인자, 증거 digest
+- CaaS Connector 관측 상태
+- hash chain 감사 사건
+
+데이터 스페이스는 필요한 서비스가 모두 `READY`이고, 승인된 참가자의 Connector가 desired state에 도달했을 때만 `ACTIVE`가 된다.
+
+서비스 Registry가 비었거나 digest가 다르거나 필수 서비스가 `NOT_READY`·`STALE`이면 `BLOCKED`로 둔다. 활성 Connector에는 CaaS `SUSPENDED`를 요청한다.
+
+현재 runtime은 시작 시 config에 Registry digest를 고정한다.
+
+새 Registry snapshot과 승인된 config manifest를 함께 배포하고 process를 재시작해 새 digest 검증에 성공한 뒤에만 `ACTIVE`를 다시 요청한다. 서명 trust anchor를 이용한 무중단 Registry 갱신은 아직 지원하지 않는다.
+
+참가 신청자와 승인자는 달라야 한다. 승인 입력의 `evidenceSha256`은 신청 시 고정한 증거 digest와 같아야 한다. 관리자 권한만으로 증거 digest를 바꾸면서 승인할 수는 없다.
+
+## 6. Offering 게시와 전송
+
+Provider 측 흐름은 다음 순서다.
+
+```text
+원천 플랫폼
+  -> Platform Bridge 변환
+  -> MOLIT DCAT-AP SHACL Gate
+  -> 게시 권한 승인
+  -> EDC Asset·Policy·Contract Definition 등록
+  -> DSP Catalog
+  -> 계약 협상
+  -> 전송 요청
+  -> EDC Data Plane 또는 승인된 platform provisioner
+```
+
+MOLIT DCAT-AP 적합 판정은 Offering의 메타데이터 판정이다. 전송 권한, 계약 성립, Data Plane 가용성을 대신 입증하지 않는다. `dataspace-offering` 모듈을 통과한 RDF라도 EDC 계약과 전송 준비가 끝나지 않으면 제공 가능한 데이터로 표시하지 않는다.
+
+Provider transfer worker는 Connector가 이미 승인한 PULL 전송 사건을 받아 원천 플랫폼 token이나 signed URL을 발급하는 경계다.
+
+발급 결과인 DataAddress 원문은 journal에 저장하지 않는다. 이 worker를 EDC Data Plane이나 DSP endpoint로 부르지 않는다.
+
+## 7. 상호운용 시험 판정
+
+시험 결과는 세 단계로 나눈다.
+
+1. 동일 구현 시험: EDC 0.18.0 Provider와 Consumer 사이의 Catalog, 협상, PULL 전송을 확인한다.
+2. 규격 시험: DSP 공식 Schema와 TCK로 wire message와 상태 전이를 검사한다.
+3. 이기종 시험: 다른 EDC 배포판 또는 다른 DSP 구현과 Catalog, 협상, 전송을 확인한다.
+
+첫 단계만 통과한 상태를 이기종 상호운용 완료로 기록하지 않는다. 같은 EDC 배포판 두 개의 성공은 구성과 API 사용법을 검증하지만, 구현 간 차이를 찾지 못한다.
+
+Data Plane 시험도 제어면 성공과 분리한다. 계약 협상이 끝났더라도 EDR 발급, 토큰 검증, source 접근, 응답 크기 제한, 취소와 만료를 확인하지 못하면 전송 상호운용은 미검증이다.
+
+## 8. 신원과 권한
+
+로컬 smoke 시험은 격리된 시험망에서만 `test-token`을 허용한다. 운영 DSaaS는 `dcp`만 허용한다. Identity Hub, Issuer Service, DID, VC 발급 규칙을 데이터 스페이스 거버넌스에 고정해야 한다.
+
+DSaaS 관리 API는 OAuth2 introspection 결과의 다음 값을 확인한다.
+
+- `active=true`
+- issuer 정확 일치
+- audience 정확 일치
+- 만료 시각
+- subject
+- 역할
+- 접근 가능한 dataspace ID 목록
+
+CaaS 관리자 credential과 tenant credential은 분리한다. 저장소에는 환경 변수 이름만 남기고 값은 저장하지 않는다. 운영 배포에서는 Vault나 플랫폼 secret store가 환경 변수를 주입한다.
+
+## 9. 운영 전환 조건
+
+다음 조건이 끝나기 전에는 현재 구성을 운영 완료로 판정하지 않는다.
+
+1. 운영기관이 DNS, TLS, participant ID, DID method를 승인한다.
+2. EDC 배포판의 SBOM, 이미지 서명, 취약점 Gate를 운영 CI에 연결한다.
+3. PostgreSQL과 Vault 기반 영속 배포를 구성한다.
+4. CaaS와 DSaaS의 단일 파일 store를 트랜잭션 DB와 분산 fencing으로 교체한다.
+5. DCP 기반 두 참가자 시험과 외부 DSP 구현 시험을 수행한다.
+6. Data Plane source·sink의 SSRF, redirect, 크기, timeout, egress 정책을 검증한다.
+7. 백업 복구, key rotation, tenant 삭제, 계약·감사 보존기간을 시험한다.
+
+현재 구현은 운영 제어면의 상태 전이와 실패 차단 규칙을 실행한다. 기관별 인프라, 신원 발급, 외부 Connector와의 상호운용 증거는 아직 입력되지 않았다.
+
+## 10. 공식 근거
+
+- EDC 0.18.0: <https://github.com/eclipse-edc/Connector/releases/tag/v0.18.0>
+- EDC 소스 기준점: <https://github.com/eclipse-edc/Connector/tree/911a22ba6b90688ffeb35bb92bf5cc040ffdf37f>
+- EDC 개발자 설명서: <https://eclipse-edc.github.io/documentation/for-contributors/>
+- EDC Virtual-Connector: <https://github.com/eclipse-edc/Virtual-Connector>
+- Dataspace Protocol 2025-1 Errata 1: <https://eclipse-dataspace-protocol-base.github.io/DataspaceProtocol/2025-1-err1/>

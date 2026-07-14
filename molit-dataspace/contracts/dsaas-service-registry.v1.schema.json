@@ -1,0 +1,38 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://data.molit.go.kr/schema/dsaas-service-registry.v1.json",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "issuedAt", "validUntil", "services"],
+  "properties": {
+    "schemaVersion": { "const": "molit.dsaas-service-registry/1" },
+    "issuedAt": { "type": "string", "format": "date-time" },
+    "validUntil": { "type": "string", "format": "date-time" },
+    "services": {
+      "type": "array",
+      "maxItems": 256,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["serviceId", "serviceType", "status", "endpoint", "evidence"],
+        "properties": {
+          "serviceId": { "type": "string", "pattern": "^[a-z][a-z0-9-]{2,62}$" },
+          "serviceType": {
+            "enum": ["caas", "identity-hub", "issuer-service", "federated-catalog", "observability", "policy-registry"]
+          },
+          "status": { "enum": ["READY", "NOT_READY", "RETIRED"] },
+          "endpoint": { "type": "string", "format": "uri", "pattern": "^https://" },
+          "evidence": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["observedAt", "sha256"],
+            "properties": {
+              "observedAt": { "type": "string", "format": "date-time" },
+              "sha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" }
+            }
+          }
+        }
+      }
+    }
+  }
+}

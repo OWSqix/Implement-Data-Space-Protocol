@@ -1,0 +1,58 @@
+{
+  "schemaVersion": "molit.caas-config/1",
+  "environment": "development",
+  "listen": {
+    "host": "127.0.0.1",
+    "port": 8787
+  },
+  "statePath": "../../.local/caas/state.json",
+  "adminSecretRef": "env://MOLIT_CAAS_ADMIN_TOKEN",
+  "adminPrincipalId": "urn:molit:principal:caas-operator",
+  "adminClientId": "molit-caas-operator",
+  "adminKeyId": "caas-admin-2026-01",
+  "controller": {
+    "secretRef": "env://MOLIT_CAAS_DSAAS_CONTROLLER_TOKEN",
+    "principalId": "urn:molit:principal:dsaas-controller",
+    "clientId": "molit-dsaas-control-plane",
+    "keyId": "caas-dsaas-controller-2026-01",
+    "allowedDataspaceIds": ["molit-production"],
+    "allowedTenantIds": ["road-data-provider"],
+    "allowedConnectorPlanIds": ["edc-isolated"]
+  },
+  "identityPolicy": {
+    "participantIdTemplate": "did:web:connectors.data.molit.go.kr:{tenantId}",
+    "namespaceTemplate": "https://data.molit.go.kr/tenants/{tenantId}/",
+    "endpointTemplate": "https://connectors.data.molit.go.kr/{tenantId}/"
+  },
+  "limits": {
+    "maxRequestBytes": 65536,
+    "maxStateBytes": 67108864,
+    "maxAuditEvents": 100000,
+    "maxAuditResponseEvents": 1000,
+    "requestTimeoutMs": 15000
+  },
+  "connectorPlans": {
+    "edc-isolated": {
+      "adapterId": "edc-intent-v1",
+      "runtimeProfileRef": "urn:molit:caas:runtime-profile:edc-connector-v1",
+      "deploymentMode": "isolated",
+      "metadataProfile": {
+        "iri": "https://data.molit.go.kr/profile/molit-dcat-ap/1.0.0-rc.1",
+        "version": "1.0.0-rc.1",
+        "sha256": "0666b7c2ed74800264a9ac6c8292f819fc973a02057397faca3b3d5df3bacfe4"
+      },
+      "protocolProfile": {
+        "dspVersion": "2025-1",
+        "specification": "https://eclipse-dataspace-protocol-base.github.io/DataspaceProtocol/2025-1-err1/",
+        "identityMode": "dcp"
+      },
+      "requiredDeploymentSecretNames": ["vaultAccess", "databaseAccess"]
+    }
+  },
+  "provisioners": {
+    "edc-intent-v1": {
+      "type": "dry-run-manifest",
+      "manifestDirectory": "../../.local/caas/deployment-intents"
+    }
+  }
+}

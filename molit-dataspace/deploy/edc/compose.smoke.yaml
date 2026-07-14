@@ -1,0 +1,67 @@
+services:
+  keygen:
+    image: eclipse-temurin:17-jdk-jammy@sha256:723151f3fc88ca2060153ee08ab8dbbea7983d6ed6f2622fe440acf178737c94
+    user: "0:0"
+    entrypoint: ["/bin/sh", "-ec"]
+    command:
+      - |
+        umask 077
+        rm -f /out/keystore.p12 /out/public.pem /out/password
+        cat /proc/sys/kernel/random/uuid > /out/password
+        password="$$(cat /out/password)"
+        keytool -genkeypair -noprompt -alias smoke-key -keyalg RSA -keysize 2048 \
+          -validity 1 -dname "CN=molit-edc-smoke" -storetype PKCS12 \
+          -keystore /out/keystore.p12 -storepass "$$password" -keypass "$$password"
+        keytool -exportcert -rfc -alias smoke-key -keystore /out/keystore.p12 \
+          -storepass "$$password" > /out/public.pem
+        chmod 0444 /out/keystore.p12 /out/public.pem /out/password
+    volumes:
+      - edc-smoke-keys:/out
+    networks: [edc-internal]
+    security_opt:
+      - no-new-privileges:true
+
+  provider-data-plane:
+    build:
+      target: smoke-data-plane
+    environment:
+      EDC_FS_CONFIG: /etc/edc/provider-data-plane-smoke.properties
+    volumes:
+      - ./config/provider-data-plane-smoke.properties:/etc/edc/provider-data-plane-smoke.properties:ro
+      - edc-smoke-keys:/run/edc-keys:ro
+    depends_on:
+      keygen:
+        condition: service_completed_successfully
+
+  smoke:
+    image: node:24.18.0-alpine3.24@sha256:a0b9bf06e4e6193cf7a0f58816cc935ff8c2a908f81e6f1a95432d679c54fbfd
+    command: ["node", "/work/tools/edc/smoke.mjs"]
+    environment:
+      PROVIDER_MANAGEMENT_URL: http://provider-control-plane:8081/management
+      PROVIDER_PROTOCOL_ROOT: http://provider-control-plane:8082/protocol
+      PROVIDER_API_KEY: ${PROVIDER_API_KEY:?set PROVIDER_API_KEY}
+      CONSUMER_MANAGEMENT_URL: http://consumer-control-plane:8081/management
+      CONSUMER_API_KEY: ${CONSUMER_API_KEY:?set CONSUMER_API_KEY}
+      CALLBACK_URL: http://smoke:7070/hooks
+      EXPECTED_SHA256: 2f013648aa3071d46c9e29b2e938c5fb36336cc53f27d1f5e507da3683da41a7
+      EXPECTED_CONTENT_TYPE: application/json
+    volumes:
+      - ../../tools/edc:/work/tools/edc:ro
+    depends_on:
+      provider-control-plane:
+        condition: service_healthy
+      provider-data-plane:
+        condition: service_healthy
+      consumer-control-plane:
+        condition: service_healthy
+      provider-backend:
+        condition: service_healthy
+    networks: [edc-internal]
+    read_only: true
+    tmpfs:
+      - /tmp:size=16m,mode=1777
+    security_opt:
+      - no-new-privileges:true
+
+volumes:
+  edc-smoke-keys:

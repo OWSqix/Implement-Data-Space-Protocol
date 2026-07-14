@@ -1,0 +1,12 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://data.molit.go.kr/schema/caas-desired-state.v1.json",
+  "title": "CaaS connector instance desired state",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "desiredState"],
+  "properties": {
+    "schemaVersion": { "const": "molit.caas-desired-state/1" },
+    "desiredState": { "enum": ["PROVISIONED", "DEPROVISIONED"] }
+  }
+}

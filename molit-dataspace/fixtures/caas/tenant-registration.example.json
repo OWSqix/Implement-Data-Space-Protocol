@@ -1,0 +1,16 @@
+{
+  "schemaVersion": "molit.caas-tenant-registration/1",
+  "tenantId": "road-data-provider",
+  "organizationId": "urn:molit:organization:road-data-provider",
+  "displayName": "도로 데이터 제공기관 Connector",
+  "adapterId": "edc-intent-v1",
+  "runtimeProfileRef": "urn:molit:caas:runtime-profile:edc-connector-v1",
+  "apiAccessSecretRef": "env://MOLIT_CAAS_ROAD_DATA_PROVIDER_TOKEN",
+  "apiPrincipalId": "urn:molit:principal:road-data-provider-operator",
+  "apiClientId": "road-data-provider-control-client",
+  "apiKeyId": "road-data-provider-2026-01",
+  "deploymentSecretRefs": {
+    "vaultAccess": "vault://molit/caas/road-data-provider/edc-vault",
+    "databaseAccess": "vault://molit/caas/road-data-provider/source-db"
+  }
+}

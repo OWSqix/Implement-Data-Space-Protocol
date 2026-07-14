@@ -1,5 +1,5 @@
 import { randomUUID } from "node:crypto";
-import { mkdir, open, rename, unlink, readFile } from "node:fs/promises";
+import { mkdir, open, rename, unlink } from "node:fs/promises";
 import { dirname } from "node:path";
 import { hostname } from "node:os";
 import { assertRuntime } from "./errors.mjs";
@@ -80,23 +80,11 @@ export async function withRuntimeLock(path, operation) {
   await mkdir(dirname(path), { recursive: true });
   const lockPath = `${path}.lock`;
   let handle;
-  async function acquire(recovered = false) {
-    try {
-      const acquired = await open(lockPath, "wx", 0o600);
-      await acquired.writeFile(`${JSON.stringify({ pid: process.pid, host: hostname(), acquiredAt: new Date().toISOString() })}\n`);
-      await acquired.sync();
-      return acquired;
-    } catch (error) {
-      if (error?.code !== "EEXIST" || recovered) throw error;
-      let owner;
-      try { owner = JSON.parse(await readFile(lockPath, "utf8")); } catch { throw error; }
-      if (owner.host !== hostname() || !Number.isSafeInteger(owner.pid)) throw error;
-      let alive = true;
-      try { process.kill(owner.pid, 0); } catch (probe) { if (probe?.code === "ESRCH") alive = false; }
-      if (alive) throw error;
-      await unlink(lockPath);
-      return acquire(true);
-    }
+  async function acquire() {
+    const acquired = await open(lockPath, "wx", 0o600);
+    await acquired.writeFile(`${JSON.stringify({ pid: process.pid, host: hostname(), acquiredAt: new Date().toISOString(), recovery: "operator-only" })}\n`);
+    await acquired.sync();
+    return acquired;
   }
   try {
     handle = await acquire();

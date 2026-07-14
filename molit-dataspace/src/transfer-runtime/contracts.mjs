@@ -17,6 +17,7 @@ const validators = {
   event: await compile("provider-transfer-event.v1.schema.json"),
   registry: await compile("transfer-binding-registry.v1.schema.json"),
   result: await compile("provider-transfer-result.v1.schema.json"),
+  revokeResult: await compile("provider-transfer-revoke-result.v1.schema.json"),
 };
 
 export function validateContract(kind, value) {

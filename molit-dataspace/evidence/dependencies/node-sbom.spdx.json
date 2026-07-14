@@ -10,7 +10,7 @@
   "documentDescribes": [
     "SPDXRef-Package-molit-dataspace-platform-bridge-0.1.0"
   ],
-  "documentNamespace": "https://data.molit.go.kr/sbom/node/ee5e3fba868b4dc170a8286098c30ed0289bcc8c1bede4821d7785b93c67a12f",
+  "documentNamespace": "https://data.molit.go.kr/sbom/node/1b76ccb7051195a20051de3733896d7a9f226d59ab902049633bf1875067c2fa",
   "name": "molit-dataspace-platform-bridge@0.1.0",
   "packages": [
     {
@@ -3579,6 +3579,11 @@
       "relatedSpdxElement": "SPDXRef-Package-molit-dataspace-platform-bridge-0.1.0",
       "relationshipType": "DEPENDENCY_OF",
       "spdxElementId": "SPDXRef-Package-rdfxml-streaming-parser-3.2.0"
+    },
+    {
+      "relatedSpdxElement": "SPDXRef-Package-molit-dataspace-platform-bridge-0.1.0",
+      "relationshipType": "DEPENDENCY_OF",
+      "spdxElementId": "SPDXRef-Package-undici-6.27.0"
     },
     {
       "relatedSpdxElement": "SPDXRef-Package-molit-dataspace-platform-bridge-0.1.0",

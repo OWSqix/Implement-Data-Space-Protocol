@@ -1,0 +1,2 @@
+org.eclipse.edc.molit.smoke.EphemeralKeyStoreExtension
+org.eclipse.edc.molit.smoke.SmokePullProxyExtension

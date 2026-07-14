@@ -77,7 +77,7 @@ export class BridgeRuntime {
         const envelope = operationalEnvelope(item.payload.record, approvals, { sourceSystemId: item.payload.providerId, sourceRecordId: item.payload.sourceId, resourceVersion: item.payload.sourceVersion });
         if (heartbeatError) throw heartbeatError;
         const requestSignal = signal ? AbortSignal.any([signal, leaseController.signal]) : leaseController.signal;
-        const published = await this.managementClient.publishOffering(envelope.offering, item.id, { signal: requestSignal });
+        const published = await this.managementClient.publishOffering(envelope.offering, item.id, { signal: requestSignal, metadata: envelope.metadata });
         clearInterval(timer);
         await heartbeat;
         if (heartbeatError) throw heartbeatError;

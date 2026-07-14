@@ -37,7 +37,7 @@ npm run release:status
 | --- | --- | --- | --- |
 | `BS-SHACL-ENGINE` | Jena 결과 정규화 비교 없음 | Apache Jena 6.1.0과 production engine의 13개 Core·Geo 사례 비교 | focus·path·severity·constraint·shape·value 비교, message·blank label 제외 |
 | `BS-RDF-SERIALIZATION` | Turtle 전용 production loader | RDF/XML·JSON-LD·N-Triples·N-Quads ingest와 RDFC-1.0 digest | Jena parser와 5개 직렬화 비교, named graph 보존 |
-| `BS-VALIDATOR-DEPENDENCIES` | 실제 설치 module byte 미고정 | 격리 `npm ci`, 149개 package tree·SBOM, Jena·JRE archive와 설치 tree 고정 | win32-x64 release lane |
+| `BS-VALIDATOR-DEPENDENCIES` | 실제 설치 module byte 미고정 | 격리 `npm ci`, 152개 설치 package tree·153개 SPDX package SBOM, Jena·JRE archive와 설치 tree 고정 | win32-x64 release lane |
 | `BS-CROSSWALK-INVENTORY` | 수기 inventory와 mapping의 동시 누락 가능 | 안전 RDF/XML parser가 생성한 source path와 mapping 완전 대조 | 공공데이터포털 고정본 17개 path |
 | `BS-XSD-DATATYPE-COVERAGE` | 일부 datatype만 검사 | 승인 datatype 15개의 lexical·value 검사와 unknown XSD datatype 거부 | 공개 RDF preflight |
 | `BS-NETWORK-REGISTRY-DRIFT` | 수기 IANA 주소표 | official CSV 3종 snapshot과 생성 network policy | 고정본 검증 구현, scheduled refetch는 별도 운영과제 |

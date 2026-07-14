@@ -345,7 +345,7 @@ npm run profile:validate:example
 | Shape 무결성 | W3C SHACL-SHACL, artifact SHA-256, OGC GeoSPARQL 고정본과 routing term 대조, runtime remote import 금지 | 구현 |
 | 공개 projection | exact mailbox·DNS host registry, 전화 전면 금지, IP literal·private binding·credential·PII·개인 유형·민감 query·과대 literal 검사 | 구현 |
 | 판정 재현성 | artifact byte snapshot, profile bundle digest, validator source build digest와 report schema digest | 구현 |
-| release 의존성 | 격리 `npm ci`의 149개 package tree·SBOM, Jena 6.1.0·JRE 21 archive와 설치 tree digest | win32-x64 lane 구현 |
+| release 의존성 | 격리 `npm ci`의 152개 설치 package tree·153개 SPDX package SBOM, Jena 6.1.0·JRE 21 archive와 설치 tree digest | win32-x64 lane 구현 |
 | 공간정보 | 허용 CRS, geometry literal CRS, 공개 수준, withheld와 geometry 동시 게시 금지 | 구현 |
 | 실행 한도 | 입력 5 MiB·100,000 quad·subject-property 값 1,000개·보고서 500건 | 구현 |
 | 독립 SHACL engine | pySHACL 0.40.0 재검증과 Apache Jena 6.1.0의 Core·Geo 13개 사례 구조 정규화 비교 | win32-x64 lane 구현; message·blank label은 비교 제외 |

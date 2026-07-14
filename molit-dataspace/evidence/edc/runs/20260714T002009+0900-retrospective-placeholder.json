@@ -1,0 +1,84 @@
+{
+  "schemaVersion": "molit.edc-local-interoperability-run/1",
+  "recordingMode": "retrospective-placeholder",
+  "runId": "541a39c5-880c-4645-8e4a-2f49c4135cb1",
+  "status": "pending-rerun",
+  "startedAt": "2026-07-14T00:20:09+09:00",
+  "completedAt": "2026-07-14T00:20:09+09:00",
+  "command": "historical smoke invocation was not captured by the evidence recorder",
+  "sourceBinding": {
+    "algorithm": "sha-256",
+    "digest": "bceee882c7ea6527769f19edfc4a16a1563bfcb98bdfdb3c4bef9df0ed50d343",
+    "fileCount": 41,
+    "scope": "deploy/edc, tools/edc and tests/edc, excluding local build and Gradle cache directories"
+  },
+  "sourceStable": false,
+  "git": {
+    "captured": false,
+    "headAtStart": null,
+    "headAtEnd": null,
+    "scopedPaths": [
+      "deploy/edc",
+      "tools/edc",
+      "tests/edc",
+      ".gitattributes",
+      "package.json",
+      "package-lock.json",
+      "contracts/edc-local-interoperability-run.v1.schema.json"
+    ],
+    "statusAtStart": [],
+    "statusAtEnd": [],
+    "cleanAtStart": null,
+    "cleanAtEnd": null
+  },
+  "docker": {
+    "captured": false,
+    "server": {
+      "version": "25.0.3",
+      "operatingSystem": "Docker Desktop 4.28.0 (reported)",
+      "architecture": null
+    },
+    "composeVersion": null,
+    "images": []
+  },
+  "cleanStart": {
+    "attempted": null,
+    "status": "not-machine-recorded"
+  },
+  "cleanup": {
+    "attempted": null,
+    "status": "not-machine-recorded"
+  },
+  "execution": {
+    "exitCode": null,
+    "stdout": {
+      "captureMode": "reconstructed-from-prior-summary",
+      "encoding": "utf-8",
+      "sha256": "a9631998f6c89c760a4a7c505588ee4b7cf7092fd688a151445e7cb087edcfb7",
+      "byteLength": 437,
+      "text": "{\"ok\":true,\"managementApi\":\"v4\",\"dsp\":\"dataspace-protocol-http:2025-1\",\"assetId\":\"molit-edc-smoke-asset-541a39c5-880c-4645-8e4a-2f49c4135cb1\",\"agreementId\":\"cd1399bb-1793-490a-8458-fa4f640800f1\",\"transferId\":\"993c66c7-0360-4eec-8cad-3e9b33d5fba8\",\"startState\":\"STARTED\",\"finalState\":\"TERMINATED\",\"revokedStatus\":403,\"bytes\":96,\"contentType\":\"application/json\",\"sha256\":\"2f013648aa3071d46c9e29b2e938c5fb36336cc53f27d1f5e507da3683da41a7\"}\n"
+    },
+    "result": {
+      "ok": true,
+      "managementApi": "v4",
+      "dsp": "dataspace-protocol-http:2025-1",
+      "assetId": "molit-edc-smoke-asset-541a39c5-880c-4645-8e4a-2f49c4135cb1",
+      "agreementId": "cd1399bb-1793-490a-8458-fa4f640800f1",
+      "transferId": "993c66c7-0360-4eec-8cad-3e9b33d5fba8",
+      "startState": "STARTED",
+      "finalState": "TERMINATED",
+      "revokedStatus": 403,
+      "bytes": 96,
+      "contentType": "application/json",
+      "sha256": "2f013648aa3071d46c9e29b2e938c5fb36336cc53f27d1f5e507da3683da41a7"
+    },
+    "error": null
+  },
+  "limitations": [
+    "same Eclipse EDC Connector implementation on both participants",
+    "DSP official TCK and cross-implementation interoperability not executed",
+    "production DPS worker, identity, trust anchors and public delivery service not verified",
+    "Maven dependency verification, SBOM, image signature and license inventory not complete",
+    "this placeholder was reconstructed after the run and is not machine-bound execution evidence"
+  ]
+}

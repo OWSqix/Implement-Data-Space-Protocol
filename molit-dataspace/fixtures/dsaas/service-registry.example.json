@@ -1,0 +1,37 @@
+{
+  "schemaVersion": "molit.dsaas-service-registry/1",
+  "issuedAt": "2026-07-13T00:00:00Z",
+  "validUntil": "2026-07-14T00:00:00Z",
+  "services": [
+    {
+      "serviceId": "caas-primary",
+      "serviceType": "caas",
+      "status": "NOT_READY",
+      "endpoint": "https://caas.data.molit.go.kr/",
+      "evidence": {
+        "observedAt": "2026-07-13T00:00:00Z",
+        "sha256": "0000000000000000000000000000000000000000000000000000000000000000"
+      }
+    },
+    {
+      "serviceId": "identity-primary",
+      "serviceType": "identity-hub",
+      "status": "NOT_READY",
+      "endpoint": "https://identity.data.molit.go.kr/",
+      "evidence": {
+        "observedAt": "2026-07-13T00:00:00Z",
+        "sha256": "0000000000000000000000000000000000000000000000000000000000000000"
+      }
+    },
+    {
+      "serviceId": "catalog-primary",
+      "serviceType": "federated-catalog",
+      "status": "NOT_READY",
+      "endpoint": "https://catalog.data.molit.go.kr/",
+      "evidence": {
+        "observedAt": "2026-07-13T00:00:00Z",
+        "sha256": "0000000000000000000000000000000000000000000000000000000000000000"
+      }
+    }
+  ]
+}

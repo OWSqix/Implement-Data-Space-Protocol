@@ -1,0 +1,8 @@
+{
+  "schemaVersion": "molit.dsaas-approval-decision-registry/1",
+  "registryId": "urn:molit:dsaas:approval-registry:institutional-pending",
+  "status": "NOT_CONFIGURED",
+  "issuedAt": "2026-07-13T00:00:00Z",
+  "validUntil": "2026-07-14T00:00:00Z",
+  "decisions": []
+}

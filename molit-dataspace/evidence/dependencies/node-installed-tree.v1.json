@@ -12,7 +12,7 @@
   },
   "nodeVersion": "v24.16.0",
   "packageCount": 152,
-  "packageLockSha256": "ee5e3fba868b4dc170a8286098c30ed0289bcc8c1bede4821d7785b93c67a12f",
+  "packageLockSha256": "1b76ccb7051195a20051de3733896d7a9f226d59ab902049633bf1875067c2fa",
   "packages": [
     {
       "bytes": 20853,
@@ -1540,7 +1540,7 @@
     "format": "SPDX-2.3-json",
     "packageCount": 153,
     "path": "evidence/dependencies/node-sbom.spdx.json",
-    "sha256": "b0c58996e2112099960af9c53709fdcc3ebcfcf0b5100013bb3606a9c88c0d8d"
+    "sha256": "243412ea01c385da25ff1f51ba5cf122a472e7478fb00b03a996b4198d245f45"
   },
   "schemaVersion": "molit.node-installed-tree/1"
 }

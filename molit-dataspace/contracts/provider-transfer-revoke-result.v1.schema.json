@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://data.molit.go.kr/schema/provider-transfer-revoke-result.v1.json",
+  "title": "Provisioner revocation receipt",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["providerPid", "consumerPid", "agreementId", "datasetId", "format", "provisioningId", "provisioningKey", "resourceRefDigest", "requestDigest", "state"],
+  "properties": {
+    "providerPid": { "type": "string", "minLength": 1, "maxLength": 512 },
+    "consumerPid": { "type": "string", "minLength": 1, "maxLength": 512 },
+    "agreementId": { "type": "string", "minLength": 1, "maxLength": 512 },
+    "datasetId": { "type": "string", "minLength": 1, "maxLength": 512 },
+    "format": { "type": "string", "minLength": 1, "maxLength": 512 },
+    "provisioningId": {
+      "anyOf": [
+        { "type": "string", "minLength": 1, "maxLength": 512 },
+        { "type": "null" }
+      ]
+    },
+    "provisioningKey": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+    "resourceRefDigest": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+    "requestDigest": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+    "state": { "enum": ["REVOKED", "ABSENT", "INACTIVE"] }
+  }
+}

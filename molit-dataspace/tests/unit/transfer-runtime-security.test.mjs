@@ -11,6 +11,7 @@ function config() {
     schemaVersion: "molit.provider-transfer-runtime-config/1",
     environment: "production",
     journalPath: "journal.json",
+    journalIntegrity: { keyEnv: "TRANSFER_JOURNAL_HMAC_KEY", keyId: "test-transfer-key-1" },
     network: { allowedOrigins: ["https://connector.example", "https://platform.example"], privateOrigins: [], allowHttp: false, allowPrivate: false, timeoutMs: 1000, maxResponseBytes: 4096, retries: 0 },
     connector: { baseUrl: "https://connector.example/management/", statusPath: "transfers/{providerPid}", startAckPath: "transfers/{providerPid}/start", terminationAckPath: "transfers/{providerPid}/termination", supportsIdempotencyKey: true },
     provisioners: { p: { baseUrl: "https://platform.example/control/", provisionPath: "provision", revokePath: "revoke", supportsIdempotencyKey: true, idempotentRevoke: true } },

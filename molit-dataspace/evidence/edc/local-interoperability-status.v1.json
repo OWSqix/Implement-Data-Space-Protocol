@@ -1,0 +1,143 @@
+{
+  "schemaVersion": "molit.edc-local-interoperability-status/1",
+  "recordedAt": "2026-07-14T12:14:04+09:00",
+  "subject": "deploy/edc same-implementation local lifecycle topology",
+  "sourceBinding": {
+    "algorithm": "sha-256",
+    "digest": "cb2aaee15130f81723ee796a0f8f0d74f44c3e6aedf116562552cfd1249f4e08",
+    "fileCount": 48,
+    "scope": "deploy/edc, tools/edc, tests/edc, .gitattributes, package.json, package-lock.json, contracts/edc-local-interoperability-run.v1.schema.json; excluding build and .gradle directories"
+  },
+  "verdict": "production-readiness-blocked",
+  "verified": [
+    {
+      "check": "topology-static",
+      "command": "node tools/edc/verify-topology.mjs",
+      "result": "pass",
+      "detail": "26 topology files checked; current source binding and referenced raw evidence matched"
+    },
+    {
+      "check": "node-tests",
+      "command": "node --test tests/edc/*.test.mjs",
+      "result": "pass",
+      "detail": "28 passed, 0 failed"
+    },
+    {
+      "check": "gradle-jars",
+      "command": "npm run edc:build",
+      "result": "pass",
+      "detail": "all JavaCompile tasks used --release 17; 5 local classes passed the major=61 gate; production JAR smoke-class exclusion passed"
+    },
+    {
+      "check": "compose-model",
+      "command": "npm run edc:compose:verify",
+      "result": "pass",
+      "detail": "Compose merge and interpolation validated without starting containers"
+    },
+    {
+      "check": "docker-same-implementation-smoke",
+      "command": ".\\tools\\edc\\run-smoke.ps1 -RecordEvidence evidence/edc/runs/<run>.json",
+      "result": "pending-rerun",
+      "detail": "the prior pass is retained as a retrospective placeholder; the raw recorder has not executed Docker"
+    }
+  ],
+  "runEvidence": {
+    "path": "evidence/edc/runs/20260714T002009+0900-retrospective-placeholder.json",
+    "sha256": "32342067bdf32c93f89478a39fe7b8545ce221ef73a5b776930c1db0c73990df",
+    "status": "pending-rerun",
+    "result": {
+      "ok": true,
+      "managementApi": "v4",
+      "dsp": "dataspace-protocol-http:2025-1",
+      "assetId": "molit-edc-smoke-asset-541a39c5-880c-4645-8e4a-2f49c4135cb1",
+      "agreementId": "cd1399bb-1793-490a-8458-fa4f640800f1",
+      "transferId": "993c66c7-0360-4eec-8cad-3e9b33d5fba8",
+      "startState": "STARTED",
+      "finalState": "TERMINATED",
+      "revokedStatus": 403,
+      "bytes": 96,
+      "contentType": "application/json",
+      "sha256": "2f013648aa3071d46c9e29b2e938c5fb36336cc53f27d1f5e507da3683da41a7"
+    }
+  },
+  "runtimeExecution": {
+    "status": "pending-recorder-rerun",
+    "evidenceQuality": "retrospective-placeholder",
+    "sameImplementationScope": "two Eclipse EDC Connector 0.18.0 participants",
+    "result": {
+      "ok": true,
+      "managementApi": "v4",
+      "dsp": "dataspace-protocol-http:2025-1",
+      "assetId": "molit-edc-smoke-asset-541a39c5-880c-4645-8e4a-2f49c4135cb1",
+      "agreementId": "cd1399bb-1793-490a-8458-fa4f640800f1",
+      "transferId": "993c66c7-0360-4eec-8cad-3e9b33d5fba8",
+      "startState": "STARTED",
+      "finalState": "TERMINATED",
+      "revokedStatus": 403,
+      "bytes": 96,
+      "contentType": "application/json",
+      "sha256": "2f013648aa3071d46c9e29b2e938c5fb36336cc53f27d1f5e507da3683da41a7"
+    },
+    "notVerified": [
+      "recorder-bound rerun of the current source tree",
+      "DSP official TCK",
+      "cross-implementation DSP interoperability",
+      "production participant identity and trust anchors",
+      "production public data delivery service",
+      "database role isolation and production TLS",
+      "Bridge EDC v4 publication adapter against running containers",
+      "Maven dependency verification, Maven and container SBOM, image signature and complete license inventory"
+    ]
+  },
+  "productionBlockers": [
+    {
+      "id": "PROD-DPS-WORKER",
+      "status": "blocked",
+      "reason": "The local topology uses the deprecated legacy Data Plane compatibility path.",
+      "requiredArtifact": "independently deployed DPS worker with durable state, authenticated signaling and controlled egress"
+    },
+    {
+      "id": "PROD-IDENTITY-TRUST",
+      "status": "blocked",
+      "reason": "The local topology uses iam-mock and does not establish production participant identity.",
+      "requiredArtifact": "approved participant identity profile, trust anchors, issuance and rotation evidence"
+    },
+    {
+      "id": "PROD-PUBLIC-DELIVERY",
+      "status": "blocked",
+      "reason": "The GET proxy is a fixed smoke fixture and is not an Internet-facing delivery service.",
+      "requiredArtifact": "security-reviewed public delivery plane with authorization, limits, revocation and audit"
+    },
+    {
+      "id": "PROD-DATABASE-ISOLATION",
+      "status": "blocked",
+      "reason": "Four databases share one PostgreSQL superuser and credential.",
+      "requiredArtifact": "database-specific roles, credentials, least privilege and cross-access denial tests"
+    },
+    {
+      "id": "PROD-TLS-NETWORK",
+      "status": "blocked",
+      "reason": "The local Compose network uses internal HTTP and loopback management ports.",
+      "requiredArtifact": "approved TLS, certificate rotation, network policy and controlled ingress and egress"
+    },
+    {
+      "id": "PROD-SUPPLY-CHAIN",
+      "status": "blocked",
+      "reason": "Node install bytes and an SPDX SBOM are fixed, but Maven transitive verification, Maven and container SBOM, image signature and the complete dependency license inventory are absent.",
+      "requiredArtifact": "Maven dependency verification metadata, Maven and container SBOM, signed images and reviewed license inventory"
+    },
+    {
+      "id": "DSP-TCK-CROSS-IMPLEMENTATION",
+      "status": "blocked",
+      "reason": "Only two participants built from the same EDC implementation were exercised.",
+      "requiredArtifact": "version-pinned DSP TCK result and lifecycle exchange with another Connector implementation"
+    },
+    {
+      "id": "EDC-PUBLICATION-LIVE",
+      "status": "blocked",
+      "reason": "The publication adapter has isolated HTTP contract tests but no live EDC lifecycle run.",
+      "requiredArtifact": "live EDC asset, policy and contract-definition publication and reconciliation evidence"
+    }
+  ],
+  "releaseClaim": "The retrospective smoke result is not release evidence for the current source tree. Production readiness remains blocked."
+}

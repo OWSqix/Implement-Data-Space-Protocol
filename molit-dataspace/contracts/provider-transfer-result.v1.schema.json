@@ -4,8 +4,13 @@
   "title": "Provisioner result",
   "type": "object",
   "additionalProperties": false,
-  "required": ["provisioningId", "dataAddress"],
+  "required": ["providerPid", "agreementId", "provisioningKey", "resourceRefDigest", "requestDigest", "provisioningId", "dataAddress"],
   "properties": {
+    "providerPid": { "type": "string", "minLength": 1, "maxLength": 512 },
+    "agreementId": { "type": "string", "minLength": 1, "maxLength": 512 },
+    "provisioningKey": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+    "resourceRefDigest": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+    "requestDigest": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
     "provisioningId": { "type": "string", "minLength": 1, "maxLength": 512 },
     "dataAddress": {
       "type": "object",

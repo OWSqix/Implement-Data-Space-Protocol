@@ -262,7 +262,7 @@ PR CI는 live endpoint를 호출하지 않는다. scheduled drift job은 아직 
 | BS-SPATIAL-WITHHELD | 다른 GeoSPARQL property로 위치 공개 가능 | location·bbox·centroid·geometry·serialization 전 경로 차단 fixture |
 | BS-SHACL-ENGINE | production engine과 Apache Jena 결과의 구조 비교가 없었음 | Core·Geo 13개 사례의 focus·path·severity·constraint·shape·value 정규화 비교, Jena 6.1.0 win32-x64 lane |
 | BS-RDF-SERIALIZATION | Turtle 외 RDF 직렬화를 production loader가 받지 못했음 | RDF/XML·JSON-LD·N-Triples·N-Quads ingest, RDFC-1.0 digest, Jena parser 비교와 named graph 시험 |
-| BS-VALIDATOR-DEPENDENCIES | 실제 설치 module과 validator toolchain byte가 고정되지 않았음 | 격리 `npm ci`, 149개 package tree·SBOM, Jena·JRE archive와 설치 tree digest |
+| BS-VALIDATOR-DEPENDENCIES | 실제 설치 module과 validator toolchain byte가 고정되지 않았음 | 격리 `npm ci`, 152개 설치 package tree·153개 SPDX package SBOM, Jena·JRE archive와 설치 tree digest |
 | BS-CROSSWALK-INVENTORY | source inventory와 mapping 행의 동시 누락을 검출하지 못했음 | 안전 RDF/XML parser 생성 inventory와 17개 canonical path 완전 대조 |
 | BS-XSD-DATATYPE-COVERAGE | 미승인 XSD datatype을 preflight가 건너뛸 수 있었음 | 승인된 15개 datatype의 lexical·value 검사와 unknown XSD datatype 거부 |
 | BS-NETWORK-REGISTRY-DRIFT | 수기 IANA 주소표가 official bytes와 연결되지 않았음 | IANA CSV 3종 snapshot, digest 검증과 생성 network policy |
@@ -319,7 +319,7 @@ npm run release:status
 | independent SHACL | pySHACL의 정상·오류 기대판정 일치 |
 | Jena SHACL differential | 13개 Core·Geo 사례의 정규화 결과와 Jena 6.1.0 결과 일치 |
 | RDF parser differential | 5개 직렬화와 named graph N-Quads의 RDFC-1.0 digest 일치 |
-| dependency evidence | review lock과 격리 `npm ci`의 149개 package tree·SBOM 일치 |
+| dependency evidence | review lock과 격리 `npm ci`의 152개 설치 package tree·153개 SPDX package SBOM 일치 |
 | registry snapshots | IANA CSV와 OGC·EPSG 응답의 byte·digest·semantic field 일치 |
 | public portal golden-negative | digest 일치, 10개 관찰의 code·category 일치, Core SHACL 39건 |
 | source provenance | 34개 표준·행정규칙의 lifecycle field와 포털 snapshot 6개 provenance field가 source register와 일치 |

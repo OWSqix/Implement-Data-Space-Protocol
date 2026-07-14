@@ -3,7 +3,7 @@
 작성일: 2026-07-11  
 작성 기준: 2026-07-13
 상태: Active  
-단계: MOLIT DCAT-AP 1.0.0-rc.1 Candidate / Provider 연계 런타임 구현
+단계: MOLIT DCAT-AP 1.0.0-rc.1 Candidate / EDC 0.18.0 로컬 토폴로지 / CaaS·DSaaS 제어면 구현
 
 ## 1. 연구 질문
 
@@ -17,7 +17,7 @@ Mobilithek은 조건에 맞는 hosted·brokered 데이터의 구독과 전달을
 
 자세한 근거와 미확인 사항은 [MDS–Mobilithek 참조 사례](docs/01-research/mds-mobilithek-reference-case.md)에 정리한다.
 
-이 저장소는 국토교통부의 공식 사업 또는 운영 시스템이 아니다. 특정 Connector 제품, 배포 환경, 운영기관도 아직 채택하지 않았다.
+이 저장소는 국토교통부의 공식 사업 또는 운영 시스템이 아니다. 개발 기준선은 EDC 0.18.0으로 고정했지만, 운영기관의 제품 채택과 배포 승인은 아직 없다.
 
 기존 `src/discovery/` 구현은 `synthetic-test-only` approval과 `.invalid` URL만 허용한다. 이 경로의 outbox command는 `automaticDispatchAllowed=false`이며 실제 플랫폼·Catalog·Connector에 보내면 안 된다.
 
@@ -53,6 +53,9 @@ Mobilithek은 조건에 맞는 hosted·brokered 데이터의 구독과 전달을
 | Profile·ontology namespace | `/def`·`/profile` 서버, content negotiation, artifact lock·원격 attestation 구현 | DNS·공인 TLS·운영 승인과 어휘 namespace |
 | Provider 게시 Bridge | 원천 poll, staged RDF Gate, 분리 승인, durable queue, 관리 API 게시 구현 | 기관별 crosswalk·Connector 관리 API·멱등 계약 |
 | 전송 provisioning | 승인 상태 재조회, private binding, pull DataAddress 발급·철회 journal 구현 | Connector webhook inbox, push·suspend·complete adapter, 실제 Data Plane 시험 |
+| EDC 로컬 토폴로지 | EDC 0.18.0 Provider·Consumer의 Control Plane과 Data Plane 배포판 구성, 이전 clean-volume smoke 결과 보존 | 현재 source의 recorder 결합 재실행, 운영 DPS 전송 worker, 외부 DSP 구현 시험 |
+| CaaS | tenant·desired state·감사 원장과 dry-run 배포 의도 수렴 구현 | 실제 Compose·Kubernetes provisioner와 운영 인증·분산 store |
+| DSaaS | 데이터 스페이스 정의·참가 승인·서비스 Gate·CaaS 수렴 구현 | 기관 승인 시스템, 운영 Registry, 승인 갱신·철회 실증 |
 | PoC | 공개 데이터로 lifecycle을 먼저 검증 | 실제 플랫폼 후보와 sandbox 승인 |
 
 ## 4. 문서 읽는 순서
@@ -74,24 +77,29 @@ Mobilithek은 조건에 맞는 hosted·brokered 데이터의 구독과 전달을
 13. [갭 분석](docs/01-research/gap-analysis.md)
 14. [요구사항](docs/02-architecture/requirements.md)
 15. [목표 아키텍처](docs/02-architecture/target-architecture.md)
-16. [Platform-to-Dataspace Bridge](docs/02-architecture/platform-connector-bridge.md)
-17. [Offering 온보딩과 접근 수명주기](docs/02-architecture/offering-onboarding-lifecycle.md)
-18. [기존 플랫폼 인터페이스 계약](docs/02-architecture/platform-interface-contract.md)
-19. [메타데이터·정책 프로필](docs/02-architecture/metadata-and-policy-profile.md)
-20. [응용 프로파일 0.1.0 명세](profiles/molit-dcat-ap/releases/0.1.0/index.md)
-21. [전송 어댑터](docs/02-architecture/integration-adapters.md)
-22. [보안·신뢰·운영](docs/02-architecture/security-trust-and-operations.md)
-23. [PoC 후보 목록](docs/03-plan/poc-candidate-shortlist.md)
-24. [실증·로드맵](docs/03-plan/pilot-and-roadmap.md)
-25. [검증 계획](docs/03-plan/verification-plan.md)
-26. [release 차단 Gate 현황](docs/03-plan/release-gate-status.md)
-27. [위험 대장](docs/03-plan/risk-register.md)
-28. [Discovery Bridge 구현](docs/04-implementation/discovery-bridge.md)
-29. [MOLIT DCAT-AP 1.0.0-rc.1 구현 해설](docs/04-implementation/molit-dcat-ap-implementation-guide.md)
-30. [Provider 게시 Bridge 운영 구현](docs/04-implementation/production-bridge-runtime.md)
-31. [공급자 전송 provisioning Worker](docs/04-implementation/provider-transfer-worker.md)
-32. [Profile·ontology namespace 배포](docs/04-implementation/stable-namespace-operations.md)
-33. [결정 기록](docs/adr/README.md)
+16. [EDC 기반 CaaS·DSaaS 구성 설계](docs/02-architecture/edc-caas-dsaas-architecture.md)
+17. [Platform-to-Dataspace Bridge](docs/02-architecture/platform-connector-bridge.md)
+18. [Offering 온보딩과 접근 수명주기](docs/02-architecture/offering-onboarding-lifecycle.md)
+19. [기존 플랫폼 인터페이스 계약](docs/02-architecture/platform-interface-contract.md)
+20. [메타데이터·정책 프로필](docs/02-architecture/metadata-and-policy-profile.md)
+21. [응용 프로파일 0.1.0 명세](profiles/molit-dcat-ap/releases/0.1.0/index.md)
+22. [전송 어댑터](docs/02-architecture/integration-adapters.md)
+23. [보안·신뢰·운영](docs/02-architecture/security-trust-and-operations.md)
+24. [PoC 후보 목록](docs/03-plan/poc-candidate-shortlist.md)
+25. [실증·로드맵](docs/03-plan/pilot-and-roadmap.md)
+26. [검증 계획](docs/03-plan/verification-plan.md)
+27. [release 차단 Gate 현황](docs/03-plan/release-gate-status.md)
+28. [위험 대장](docs/03-plan/risk-register.md)
+29. [Discovery Bridge 구현](docs/04-implementation/discovery-bridge.md)
+30. [MOLIT DCAT-AP 1.0.0-rc.1 구현 해설](docs/04-implementation/molit-dcat-ap-implementation-guide.md)
+31. [Provider 게시 Bridge 운영 구현](docs/04-implementation/production-bridge-runtime.md)
+32. [공급자 전송 provisioning Worker](docs/04-implementation/provider-transfer-worker.md)
+33. [EDC 로컬 상호운용 토폴로지](docs/04-implementation/edc-local-interoperability.md)
+34. [EDC v4 게시 Adapter](docs/04-implementation/edc-v4-publication-adapter.md)
+35. [CaaS Connector 제어 평면](docs/04-implementation/caas-control-plane.md)
+36. [DSaaS 제어 평면](docs/04-implementation/dsaas-control-plane.md)
+37. [Profile·ontology namespace 배포](docs/04-implementation/stable-namespace-operations.md)
+38. [결정 기록](docs/adr/README.md)
 
 조사의 근거는 다음 파일에서 추적한다.
 
@@ -110,11 +118,15 @@ molit-dataspace/
   src/discovery/       분류·Gate·증분 동기화·상태·outbox
   src/bridge-runtime/  운영 플랫폼 poll·RDF Gate·Connector 게시 queue
   src/transfer-runtime/ Connector 승인 전송과 플랫폼 자원 provisioning
+  src/caas/            Connector tenant·desired state·provisioner 제어면
+  src/dsaas/           데이터 스페이스·membership·CaaS 조정 제어면
   src/publication/     Profile·ontology namespace HTTP 서버와 attestation
   src/profile/         RDF loading·artifact lock·SHACL validation
   src/cli.mjs          baseline·delta 실행 명령
   tests/               단위·통합 시험
   profiles/            DCAT-AP 기반 응용 프로파일·ontology·SHACL·vocabulary
+  deploy/edc/          EDC 0.18.0 Control Plane·Data Plane 로컬 토폴로지
+  governance/          후보 데이터 스페이스 거버넌스 묶음
   standards/           국내 표준 상태·증거 수준·blind spot machine register
   docs/
     01-research/       공식 사례·현행 역량·법·권리 조사
@@ -133,7 +145,9 @@ molit-dataspace/
 - **(현재 구현)** staged RDF Gate와 분리 승인을 적용한 Provider 게시 Bridge
 - **(현재 구현)** Connector 승인 pull 전송의 platform provisioning·revoke Worker
 - **(현재 구현)** Profile·ontology namespace 서버와 배포·원격 attestation 도구
-- **(미연결)** 기관별 원천 crosswalk, 운영 Connector 관리 API, push·suspend·complete Data Plane
+- **(현재 구현)** EDC v4 게시 Adapter와 동일 구현 간 로컬 상호운용 smoke
+- **(현재 구현)** CaaS·DSaaS 단일 호스트 제어면과 dry-run 배포 의도 수렴
+- **(미연결)** 기관별 원천 crosswalk, 실제 CaaS 배포 Adapter, 운영 DPS worker, push·suspend·complete Data Plane
 - **(후속 승인)** DNS·TLS·namespace·어휘·Connector 제품·기관 운영 배포
 
 상위 저장소의 `docs/blog/code/dsp-python`은 DSP version endpoint 학습용 scaffold이며 운영 Connector나 이 프로젝트의 구현체로 보지 않는다.
@@ -179,6 +193,18 @@ npm run transfer:worker -- `
 
 `bridge:runtime`은 Provider 게시용이다. DSP Consumer 참조 시험과 Provider 전송 provisioning은 서로 다른 프로세스다. 설정·승인 원장·상태 복구와 Connector별 완료조건은 [Provider 게시 Bridge 운영 구현](docs/04-implementation/production-bridge-runtime.md)과 [공급자 전송 provisioning Worker](docs/04-implementation/provider-transfer-worker.md)를 따른다.
 
+EDC 로컬 토폴로지와 두 제어면은 다음 명령으로 확인한다.
+
+```powershell
+./tools/edc/run-smoke.ps1
+npm run caas:serve
+npm run dsaas:serve
+npm run test:caas
+npm run test:dsaas
+```
+
+`run-smoke.ps1`은 동일한 EDC 0.18.0 구현 두 개 사이의 시험이다. 성공해도 외부 DSP 구현과의 이기종 상호운용을 입증하지 않는다. CaaS 예제는 Connector process를 배포하지 않는 `dry-run-manifest` Adapter다. DSaaS 예제 Registry는 운영 승인 증거가 아니므로 그대로 개통에 쓰지 않는다.
+
 ### 5.3 검증
 
 Node.js 24 이상과 Python 3.12를 사용한다. 독립 SHACL lane의 Python 패키지는 전이 의존성을 포함한 wheel hash로 고정했다.
@@ -211,6 +237,8 @@ npm run release:gate:win32-x64
 ```
 
 `verify:release:win32-x64`는 Node 설치 tree·SBOM과 Apache Jena 6.1.0·Temurin JRE 21 설치 증거를 검사한다. 이 명령의 성공은 기술 증거의 일치를 뜻하며 release 승인과 같지 않다.
+
+같은 release lane은 `edc:verify:runtime`도 실행한다. 이 Gate는 EDC 세 실행 JAR의 컴파일, Java 17 class, base Data Plane의 smoke class 부재와 Compose 모델을 검사한다. 실제 두 Connector의 Docker 전송 시험은 `tools/edc/run-smoke.ps1`에서 별도로 실행한다.
 
 Jena lane은 다음 경로에 사전 배치된 검토본을 사용한다.
 
@@ -254,7 +282,7 @@ ADR은 `Proposed`·`Accepted`·`Rejected`·`Superseded`·`Deprecated`를 사용�
 
 - 통합채널이 중앙 DSP Catalog Broker를 운영한다고 미리 정하지 않는다.
 - 원천기관마다 Connector를 설치한다고 미리 정하지 않는다.
-- EDC 또는 CaaS를 선결 채택하지 않는다.
+- EDC 0.18.0 개발 기준선을 운영기관의 최종 제품 채택이나 Virtual Connector 승인으로 확대 해석하지 않는다.
 - 통합채널의 모든 검색 record를 DSP Dataset으로 변환하지 않는다.
 - 인증 화면에서 보인 API key, cookie, 사이트 간 요청 위조(Cross-Site Request Forgery, CSRF) 방어값과 원시 응답을 저장하지 않는다.
 - 운영기관의 승인 없이 활용신청, API key 발급, 외부 문의 또는 데이터 변경을 수행하지 않는다.

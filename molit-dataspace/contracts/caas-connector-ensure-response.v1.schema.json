@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://data.molit.go.kr/schema/caas-connector-ensure-response.v1.json",
+  "title": "CaaS connector convergence response",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["connectorId", "dataspaceId", "participantId", "state"],
+  "properties": {
+    "connectorId": { "$ref": "#/$defs/id" },
+    "dataspaceId": { "$ref": "#/$defs/id" },
+    "participantId": { "$ref": "#/$defs/id" },
+    "state": { "enum": ["ACTIVE", "SUSPENDED", "PROVISIONING", "ERROR"] },
+    "endpoints": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["connectorBase"],
+      "properties": {
+        "connectorBase": { "type": "string", "format": "uri", "pattern": "^https://", "maxLength": 2048 }
+      }
+    }
+  },
+  "$defs": {
+    "id": { "type": "string", "minLength": 1, "maxLength": 1024, "pattern": "^[^\\u0000-\\u001f\\u007f]+$" }
+  }
+}

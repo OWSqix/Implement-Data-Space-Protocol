@@ -1,0 +1,184 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://data.molit.go.kr/dataspace/schema/edc-local-interoperability-run.v1.schema.json",
+  "title": "MOLIT EDC local interoperability run evidence",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "recordingMode",
+    "runId",
+    "status",
+    "startedAt",
+    "completedAt",
+    "command",
+    "sourceBinding",
+    "sourceStable",
+    "git",
+    "docker",
+    "cleanStart",
+    "cleanup",
+    "execution",
+    "limitations"
+  ],
+  "properties": {
+    "schemaVersion": { "const": "molit.edc-local-interoperability-run/1" },
+    "recordingMode": { "enum": ["recorder", "retrospective-placeholder"] },
+    "runId": { "type": "string", "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$" },
+    "status": { "enum": ["pass", "failed", "pending-rerun"] },
+    "startedAt": { "type": "string", "format": "date-time" },
+    "completedAt": { "type": "string", "format": "date-time" },
+    "command": { "type": "string", "minLength": 1, "maxLength": 1000 },
+    "sourceBinding": { "$ref": "#/$defs/sourceBinding" },
+    "sourceStable": { "type": "boolean" },
+    "git": { "$ref": "#/$defs/git" },
+    "docker": { "$ref": "#/$defs/docker" },
+    "cleanStart": { "$ref": "#/$defs/lifecycleStep" },
+    "cleanup": { "$ref": "#/$defs/lifecycleStep" },
+    "execution": { "$ref": "#/$defs/execution" },
+    "limitations": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": { "type": "string", "minLength": 1, "maxLength": 500 }
+    }
+  },
+  "allOf": [
+    {
+      "if": { "properties": { "recordingMode": { "const": "recorder" } }, "required": ["recordingMode"] },
+      "then": {
+        "properties": {
+          "sourceStable": { "const": true },
+          "git": { "type": "object", "properties": { "captured": { "const": true } } },
+          "docker": { "type": "object", "properties": { "captured": { "const": true } } },
+          "execution": { "type": "object", "properties": { "stdout": { "type": "object", "properties": { "captureMode": { "const": "runner-captured" } } } } }
+        }
+      }
+    },
+    {
+      "if": { "properties": { "recordingMode": { "const": "retrospective-placeholder" } }, "required": ["recordingMode"] },
+      "then": { "properties": { "status": { "const": "pending-rerun" }, "sourceStable": { "const": false } } }
+    },
+    {
+      "if": { "properties": { "status": { "const": "pass" } }, "required": ["status"] },
+      "then": {
+        "properties": {
+          "cleanStart": { "type": "object", "properties": { "status": { "const": "pass" }, "attempted": { "const": true } } },
+          "cleanup": { "type": "object", "properties": { "status": { "enum": ["pass", "kept"] }, "attempted": { "type": "boolean" } } },
+          "docker": { "type": "object", "properties": { "images": { "type": "array", "minItems": 4 } } },
+          "execution": { "type": "object", "properties": { "exitCode": { "const": 0 }, "result": { "$ref": "#/$defs/smokeResult" } } }
+        }
+      }
+    }
+  ],
+  "$defs": {
+    "sha256": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+    "sourceBinding": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["algorithm", "digest", "fileCount", "scope"],
+      "properties": {
+        "algorithm": { "const": "sha-256" },
+        "digest": { "$ref": "#/$defs/sha256" },
+        "fileCount": { "type": "integer", "minimum": 1 },
+        "scope": { "type": "string", "minLength": 1, "maxLength": 1000 }
+      }
+    },
+    "git": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["captured", "headAtStart", "headAtEnd", "scopedPaths", "statusAtStart", "statusAtEnd", "cleanAtStart", "cleanAtEnd"],
+      "properties": {
+        "captured": { "type": "boolean" },
+        "headAtStart": { "type": ["string", "null"], "pattern": "^[0-9a-f]{40}$" },
+        "headAtEnd": { "type": ["string", "null"], "pattern": "^[0-9a-f]{40}$" },
+        "scopedPaths": { "type": "array", "minItems": 1, "uniqueItems": true, "items": { "type": "string", "minLength": 1, "maxLength": 500 } },
+        "statusAtStart": { "type": "array", "items": { "type": "string", "minLength": 1, "maxLength": 2000 } },
+        "statusAtEnd": { "type": "array", "items": { "type": "string", "minLength": 1, "maxLength": 2000 } },
+        "cleanAtStart": { "type": ["boolean", "null"] },
+        "cleanAtEnd": { "type": ["boolean", "null"] }
+      }
+    },
+    "dockerServer": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["version", "operatingSystem", "architecture"],
+      "properties": {
+        "version": { "type": ["string", "null"], "maxLength": 200 },
+        "operatingSystem": { "type": ["string", "null"], "maxLength": 500 },
+        "architecture": { "type": ["string", "null"], "maxLength": 200 }
+      }
+    },
+    "dockerImage": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["service", "imageId"],
+      "properties": {
+        "service": { "enum": ["provider-control-plane", "provider-data-plane", "consumer-control-plane", "consumer-data-plane", "provider-backend", "smoke"] },
+        "imageId": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" }
+      }
+    },
+    "docker": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["captured", "server", "composeVersion", "images"],
+      "properties": {
+        "captured": { "type": "boolean" },
+        "server": { "$ref": "#/$defs/dockerServer" },
+        "composeVersion": { "type": ["string", "null"], "maxLength": 200 },
+        "images": { "type": "array", "uniqueItems": true, "items": { "$ref": "#/$defs/dockerImage" } }
+      }
+    },
+    "lifecycleStep": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["attempted", "status"],
+      "properties": {
+        "attempted": { "type": ["boolean", "null"] },
+        "status": { "enum": ["pass", "failed", "kept", "not-run", "not-machine-recorded"] }
+      }
+    },
+    "stdout": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["captureMode", "encoding", "sha256", "byteLength", "text"],
+      "properties": {
+        "captureMode": { "enum": ["runner-captured", "reconstructed-from-prior-summary"] },
+        "encoding": { "const": "utf-8" },
+        "sha256": { "$ref": "#/$defs/sha256" },
+        "byteLength": { "type": "integer", "minimum": 0, "maximum": 1048576 },
+        "text": { "type": "string", "maxLength": 1048576 }
+      }
+    },
+    "smokeResult": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["ok", "managementApi", "dsp", "assetId", "agreementId", "transferId", "startState", "finalState", "revokedStatus", "bytes", "contentType", "sha256"],
+      "properties": {
+        "ok": { "const": true },
+        "managementApi": { "const": "v4" },
+        "dsp": { "const": "dataspace-protocol-http:2025-1" },
+        "assetId": { "type": "string", "pattern": "^molit-edc-smoke-asset-[0-9a-f-]{36}$", "maxLength": 200 },
+        "agreementId": { "type": "string", "pattern": "^[0-9a-f-]{36}$" },
+        "transferId": { "type": "string", "pattern": "^[0-9a-f-]{36}$" },
+        "startState": { "const": "STARTED" },
+        "finalState": { "enum": ["TERMINATED", "DEPROVISIONED"] },
+        "revokedStatus": { "enum": [401, 403] },
+        "bytes": { "type": "integer", "minimum": 1, "maximum": 104857600 },
+        "contentType": { "type": "string", "minLength": 1, "maxLength": 200 },
+        "sha256": { "$ref": "#/$defs/sha256" }
+      }
+    },
+    "execution": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["exitCode", "stdout", "result", "error"],
+      "properties": {
+        "exitCode": { "type": ["integer", "null"], "minimum": 0, "maximum": 255 },
+        "stdout": { "$ref": "#/$defs/stdout" },
+        "result": { "oneOf": [{ "$ref": "#/$defs/smokeResult" }, { "type": "null" }] },
+        "error": { "type": ["string", "null"], "maxLength": 4000 }
+      }
+    }
+  }
+}

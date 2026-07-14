@@ -1,0 +1,5 @@
+{
+  "fixture": "molit-edc-http-pull",
+  "status": "available",
+  "source": "provider-backend"
+}

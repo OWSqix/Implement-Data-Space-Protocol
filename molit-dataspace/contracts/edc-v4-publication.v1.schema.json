@@ -1,0 +1,118 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://data.molit.go.kr/schema/edc-v4-publication.v1.json",
+  "title": "MOLIT Bridge to EDC Management API v4 publication intent",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "asset", "accessPolicy", "contractPolicy", "contractDefinition"],
+  "properties": {
+    "schemaVersion": { "const": "molit.edc-v4-publication/1" },
+    "asset": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "properties", "dataAddress"],
+      "properties": {
+        "id": { "$ref": "#/$defs/id" },
+        "properties": {
+          "type": "object",
+          "minProperties": 3,
+          "maxProperties": 32,
+          "required": ["name", "contenttype", "metadataIri"],
+          "propertyNames": {
+            "pattern": "^[A-Za-z][A-Za-z0-9._:-]{0,127}$",
+            "not": { "pattern": "(^|[-_.:])(authorization|authcode|authkey|cookie|credential|password|secret|secretname|token|api[-_.]?key)($|[-_.:])" }
+          },
+          "additionalProperties": {
+            "oneOf": [
+              { "$ref": "#/$defs/scalar" },
+              { "type": "array", "minItems": 1, "maxItems": 32, "items": { "$ref": "#/$defs/scalar" } }
+            ]
+          },
+          "properties": {
+            "name": { "type": "string", "minLength": 1, "maxLength": 2048 },
+            "contenttype": { "type": "string", "minLength": 1, "maxLength": 2048 },
+            "metadataIri": { "type": "string", "format": "uri", "pattern": "^https://" }
+          }
+        },
+        "dataAddress": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["type", "baseUrl"],
+          "dependentRequired": { "authKey": ["secretName"], "secretName": ["authKey"] },
+          "properties": {
+            "type": { "const": "HttpData" },
+            "baseUrl": { "type": "string", "format": "uri" },
+            "name": { "type": "string", "minLength": 1, "maxLength": 2048 },
+            "path": { "type": "string", "maxLength": 2048 },
+            "queryParams": { "type": "string", "maxLength": 2048 },
+            "method": { "enum": ["GET", "POST"] },
+            "contentType": { "type": "string", "minLength": 1, "maxLength": 2048 },
+            "nonChunkedTransfer": { "type": "boolean" },
+            "authKey": { "enum": ["api-key", "authorization", "ocp-apim-subscription-key", "x-api-key", "x-auth-token"] },
+            "secretName": { "type": "string", "maxLength": 240, "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]{0,63}(?:/[A-Za-z0-9][A-Za-z0-9._-]{0,63}){0,15}$" }
+          }
+        }
+      }
+    },
+    "accessPolicy": { "$ref": "#/$defs/policyDefinition" },
+    "contractPolicy": { "$ref": "#/$defs/policyDefinition" },
+    "contractDefinition": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id"],
+      "properties": { "id": { "$ref": "#/$defs/id" } }
+    }
+  },
+  "$defs": {
+    "id": { "type": "string", "minLength": 1, "maxLength": 512, "pattern": "^[^\\s\\u0000-\\u001f\\u007f].*[^\\s\\u0000-\\u001f\\u007f]$|^[^\\s\\u0000-\\u001f\\u007f]$" },
+    "scalar": {
+      "oneOf": [
+        { "type": "string", "minLength": 1, "maxLength": 2048 },
+        { "type": "number" },
+        { "type": "boolean" }
+      ]
+    },
+    "policyDefinition": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "policy"],
+      "properties": {
+        "id": { "$ref": "#/$defs/id" },
+        "policy": {
+          "type": "object",
+          "required": ["@type"],
+          "allOf": [{ "$ref": "#/$defs/untargetedPolicyObject" }],
+          "properties": {
+            "@type": { "const": "Set" },
+            "@id": false
+          }
+        }
+      }
+    },
+    "untargetedPolicyObject": {
+      "type": "object",
+      "propertyNames": {
+        "not": {
+          "anyOf": [
+            { "const": "@context" },
+            { "pattern": "(^|[:/#])target$" }
+          ]
+        }
+      },
+      "additionalProperties": { "$ref": "#/$defs/policyValue" }
+    },
+    "policyValue": {
+      "oneOf": [
+        { "type": "string" },
+        { "type": "number" },
+        { "type": "boolean" },
+        {
+          "type": "array",
+          "maxItems": 64,
+          "items": { "$ref": "#/$defs/policyValue" }
+        },
+        { "$ref": "#/$defs/untargetedPolicyObject" }
+      ]
+    }
+  }
+}

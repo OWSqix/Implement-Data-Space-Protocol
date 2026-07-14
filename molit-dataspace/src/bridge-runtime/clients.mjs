@@ -25,7 +25,7 @@ function idempotencyKey(root, operation) {
 async function postJson(http, url, value, headers, key, signal, { connectorIdempotency = false } = {}) {
   return http.json(url, {
     method: "POST",
-    headers: { "content-type": "application/json", accept: "application/json", ...(connectorIdempotency ? { "idempotency-key": key } : {}), ...headers },
+    headers: { ...headers, "content-type": "application/json", accept: "application/json", ...(connectorIdempotency ? { "idempotency-key": key } : {}) },
     body: jsonBody(value),
     signal,
     retryUnsafe: connectorIdempotency,

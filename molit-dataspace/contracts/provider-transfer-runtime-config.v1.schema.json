@@ -3,11 +3,20 @@
   "$id": "https://data.molit.go.kr/schema/provider-transfer-runtime-config.v1.json",
   "type": "object",
   "additionalProperties": false,
-  "required": ["schemaVersion", "environment", "journalPath", "network", "connector", "provisioners"],
+  "required": ["schemaVersion", "environment", "journalPath", "journalIntegrity", "network", "connector", "provisioners"],
   "properties": {
     "schemaVersion": { "const": "molit.provider-transfer-runtime-config/1" },
     "environment": { "enum": ["production", "development", "test"] },
     "journalPath": { "type": "string", "minLength": 1 },
+    "journalIntegrity": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["keyEnv", "keyId"],
+      "properties": {
+        "keyEnv": { "type": "string", "pattern": "^[A-Z_][A-Z0-9_]*$" },
+        "keyId": { "type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{2,127}$" }
+      }
+    },
     "network": {
       "type": "object",
       "additionalProperties": false,
@@ -37,8 +46,11 @@
       "properties": {
         "type": { "enum": ["bearer", "api-key"] },
         "env": { "type": "string", "pattern": "^[A-Z_][A-Z0-9_]*$" },
-        "header": { "type": "string", "pattern": "^[A-Za-z0-9-]+$" }
-      }
+        "header": { "enum": ["api-key", "ocp-apim-subscription-key", "x-api-key", "x-auth-token"] }
+      },
+      "allOf": [
+        { "if": { "properties": { "type": { "const": "bearer" } }, "required": ["type"] }, "then": { "properties": { "header": false } } }
+      ]
     },
     "connector": {
       "type": "object",

@@ -1,7 +1,7 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 import { ack, claim, emptyRuntimeState, enqueue, nack, recoverExpiredLeases, withRuntimeLock } from "../../src/bridge-runtime/durable-store.mjs";
-import { mkdtemp, readFile, rm, writeFile } from "node:fs/promises";
+import { mkdtemp, readFile, rm, unlink, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { hostname } from "node:os";
 import { join } from "node:path";
@@ -19,11 +19,13 @@ test("durable queue deduplicates, leases and acknowledges", () => {
   assert.equal(enqueue(state, { idempotencyKey: item.id, payload: {} }, now), false);
 });
 
-test("same-host lock from a dead process is recovered", async () => {
+test("stale runtime lock fails closed until an operator removes it", async () => {
   const directory = await mkdtemp(join(tmpdir(), "molit-lock-"));
   const path = join(directory, "state.json");
   await writeFile(`${path}.lock`, JSON.stringify({ pid: 99999999, host: hostname(), acquiredAt: "2026-01-01T00:00:00Z" }));
   try {
+    await assert.rejects(withRuntimeLock(path, (state) => { state.checkpoints.test = { unsafe: true }; }), /runtime state is locked/u);
+    await unlink(`${path}.lock`);
     await withRuntimeLock(path, (state) => { state.checkpoints.test = { ok: true }; });
     const state = JSON.parse(await readFile(path, "utf8"));
     assert.equal(state.checkpoints.test.ok, true);

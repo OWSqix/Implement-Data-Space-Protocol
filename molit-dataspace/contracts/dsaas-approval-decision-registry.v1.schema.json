@@ -1,0 +1,53 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://data.molit.go.kr/schema/dsaas-approval-decision-registry.v1.json",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "registryId",
+    "status",
+    "issuedAt",
+    "validUntil",
+    "decisions"
+  ],
+  "properties": {
+    "schemaVersion": { "const": "molit.dsaas-approval-decision-registry/1" },
+    "registryId": { "type": "string", "format": "uri" },
+    "status": { "enum": ["READY", "NOT_CONFIGURED"] },
+    "issuedAt": { "type": "string", "format": "date-time" },
+    "validUntil": { "type": "string", "format": "date-time" },
+    "decisions": {
+      "type": "array",
+      "maxItems": 100000,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "decisionId",
+          "status",
+          "dataspaceId",
+          "participantId",
+          "organizationId",
+          "evidenceSha256",
+          "authority",
+          "decidedAt",
+          "validUntil",
+          "provenanceSha256"
+        ],
+        "properties": {
+          "decisionId": { "type": "string", "pattern": "^[A-Za-z0-9._:-]{3,128}$" },
+          "status": { "enum": ["APPROVED", "REVOKED"] },
+          "dataspaceId": { "type": "string", "pattern": "^[a-z][a-z0-9-]{2,62}$" },
+          "participantId": { "type": "string", "pattern": "^[a-z][a-z0-9-]{2,62}$" },
+          "organizationId": { "type": "string", "minLength": 3, "maxLength": 256 },
+          "evidenceSha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+          "authority": { "type": "string", "minLength": 3, "maxLength": 256 },
+          "decidedAt": { "type": "string", "format": "date-time" },
+          "validUntil": { "type": "string", "format": "date-time" },
+          "provenanceSha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" }
+        }
+      }
+    }
+  }
+}

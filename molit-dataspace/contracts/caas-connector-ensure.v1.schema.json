@@ -1,0 +1,45 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://data.molit.go.kr/schema/caas-connector-ensure.v1.json",
+  "title": "DSaaS to CaaS connector convergence request",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "dataspaceId", "caasTenantId", "participantId", "organizationId", "connectorPlanId", "deploymentMode", "connectorNamespace", "metadataProfile", "protocolProfile", "desiredGeneration", "desiredState"],
+  "properties": {
+    "schemaVersion": { "const": "molit.dsaas-caas-request/1" },
+    "dataspaceId": { "$ref": "#/$defs/id" },
+    "caasTenantId": { "type": "string", "pattern": "^[a-z][a-z0-9-]{2,62}$" },
+    "participantId": { "$ref": "#/$defs/id" },
+    "organizationId": { "$ref": "#/$defs/id" },
+    "connectorPlanId": { "$ref": "#/$defs/id" },
+    "deploymentMode": { "enum": ["isolated", "virtualized"] },
+    "connectorNamespace": { "type": "string", "format": "uri", "pattern": "^https://", "maxLength": 2048 },
+    "metadataProfile": { "$ref": "#/$defs/versionedArtifact" },
+    "protocolProfile": { "$ref": "#/$defs/protocolProfile" },
+    "desiredGeneration": { "type": "integer", "minimum": 1, "maximum": 9007199254740991 },
+    "desiredState": { "enum": ["ACTIVE", "SUSPENDED"] }
+  },
+  "$defs": {
+    "id": { "type": "string", "minLength": 1, "maxLength": 1024, "pattern": "^[^\\u0000-\\u001f\\u007f]+$" },
+    "versionedArtifact": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["iri", "version", "sha256"],
+      "properties": {
+        "iri": { "type": "string", "format": "uri", "pattern": "^https://" },
+        "version": { "type": "string", "minLength": 1, "maxLength": 64 },
+        "sha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" }
+      }
+    },
+    "protocolProfile": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["dspVersion", "specification", "identityMode"],
+      "properties": {
+        "dspVersion": { "const": "2025-1" },
+        "specification": { "const": "https://eclipse-dataspace-protocol-base.github.io/DataspaceProtocol/2025-1-err1/" },
+        "identityMode": { "enum": ["dcp", "test-token"] }
+      }
+    }
+  }
+}

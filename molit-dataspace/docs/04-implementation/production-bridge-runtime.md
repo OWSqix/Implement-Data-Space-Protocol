@@ -137,15 +137,20 @@ Connector 관리 API는 전달된 `Idempotency-Key`를 영속적으로 보존하
 - URL userinfo 금지
 - redirect 금지
 - DNS 결과의 loopback·link-local·unspecified·multicast 차단
+- 고정한 IANA 특수목적 주소 Registry에서 전역 도달 불가로 분류한 CGNAT·benchmark·documentation 주소 차단
 - 응답 시간과 byte 제한
 - secret의 환경변수 주입
 - structured log의 authorization·token·key redaction
 
 내부 사설망 endpoint는 `privateOrigins`에 origin을 정확히 등록한다. 이 설정도 link-local이나 loopback을 허용하지 않는다. `fixtureMode`의 HTTP·loopback 허용은 `NODE_ENV=test`에서만 동작한다.
 
-DNS 확인과 Node `fetch`의 실제 연결 사이에는 TOCTOU 구간이 있다. 운영망은 DNS rebinding 방어를 애플리케이션 하나에 맡기지 않는다.
+HTTP client는 최초 호출과 각 retry에서 DNS를 다시 검사하고, 통과한 IP 목록을 해당 요청의 Undici dispatcher lookup에 고정한다.
 
-고정 egress proxy, DNS policy, 방화벽 allowlist를 함께 적용한다.
+Host와 TLS SNI는 원래 hostname을 유지한다. 검사 뒤 socket 연결이 다른 DNS 응답을 다시 사용하는 TOCTOU 경로는 허용하지 않는다.
+
+고정 egress proxy, DNS policy, 방화벽 allowlist는 별도 방어층으로 함께 적용한다. custom `fetchImpl`을 주입하려면 pinned dispatcher factory도 함께 제공해야 한다. 이 계약이 없으면 client 생성 단계에서 거부한다.
+
+하나의 timeout budget이 DNS 조회, socket 요청, 응답 읽기와 retry backoff 전체를 감싼다. 호출자가 취소하거나 timeout이 끝나면 대기도 중단한다. 각 dispatcher는 retry backoff에 들어가기 전에 닫는다.
 
 GET·HEAD·OPTIONS만 일반 retry 대상이다. Connector management POST는 제품이 Idempotency-Key를 지원한다고 선언한 경우에만 retry한다. DSP POST에는 표준이 정의하지 않은 Idempotency-Key를 붙이지 않으며 자동 retry도 하지 않는다.
 
