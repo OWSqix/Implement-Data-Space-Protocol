@@ -20,6 +20,12 @@ async function copyTopologyRoot(root) {
   await cp(new URL('../../.gitattributes', import.meta.url), path.join(root, '.gitattributes'));
 }
 
+async function referencedRunPath(root) {
+  const summaryPath = path.join(root, 'evidence', 'edc', 'local-interoperability-status.v1.json');
+  const summary = JSON.parse(await readFile(summaryPath, 'utf8'));
+  return path.join(root, ...summary.runEvidence.path.split('/'));
+}
+
 test('EDC topology keeps production and smoke artifacts separate', async () => {
   const result = await verifyTopology();
   assert.equal(result.ok, true, result.failures.join('\n'));
@@ -122,7 +128,7 @@ test('EDC topology rejects raw run evidence whose bytes no longer match the summ
   const root = await mkdtemp(path.join(tmpdir(), 'molit-edc-topology-run-digest-'));
   try {
     await copyTopologyRoot(root);
-    const target = path.join(root, 'evidence', 'edc', 'runs', '20260714T002009+0900-retrospective-placeholder.json');
+    const target = await referencedRunPath(root);
     await writeFile(target, `${await readFile(target, 'utf8')}\n`);
     const result = await verifyTopology(root);
     assert.equal(result.ok, false);
@@ -136,7 +142,7 @@ test('EDC topology rejects an extra field in strict raw run evidence', async () 
   const root = await mkdtemp(path.join(tmpdir(), 'molit-edc-topology-run-schema-'));
   try {
     await copyTopologyRoot(root);
-    const target = path.join(root, 'evidence', 'edc', 'runs', '20260714T002009+0900-retrospective-placeholder.json');
+    const target = await referencedRunPath(root);
     const evidence = JSON.parse(await readFile(target, 'utf8'));
     evidence.unexpected = true;
     await writeFile(target, `${JSON.stringify(evidence, null, 2)}\n`);
