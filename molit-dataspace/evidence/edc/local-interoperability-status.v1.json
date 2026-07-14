@@ -1,10 +1,10 @@
 {
   "schemaVersion": "molit.edc-local-interoperability-status/1",
-  "recordedAt": "2026-07-14T14:10:17+09:00",
+  "recordedAt": "2026-07-14T09:27:05.071Z",
   "subject": "deploy/edc same-implementation local lifecycle topology",
   "sourceBinding": {
     "algorithm": "sha-256",
-    "digest": "a926a4a8da1670569186ae5a4bcf27a0d810883ceedd5a3460e9fa0edb45f839",
+    "digest": "524fae74e92c718f513c6afa7ccd9e65f5f1fa23d649ea3b36177a1785bcd882",
     "fileCount": 48,
     "scope": "deploy/edc, tools/edc, tests/edc, .gitattributes, package.json, package-lock.json, contracts/edc-local-interoperability-run.v1.schema.json; excluding build and .gradle directories"
   },
@@ -38,20 +38,20 @@
       "check": "docker-same-implementation-smoke",
       "command": ".\\tools\\edc\\run-smoke.ps1 -RecordEvidence evidence/edc/runs/<run>.json",
       "result": "pass",
-      "detail": "clean-volume recorder run passed on commit 87b587039d08cc902a349aad90535a0b72ccf7e6; Git and source bindings stayed stable, five runtime image IDs were captured, and cleanup passed"
+      "detail": "clean-volume recorder run passed on commit 8a878949727d37e5d375915b3b6a043509c8c4c4; Git and source bindings stayed stable, five runtime image IDs were captured, and cleanup passed"
     }
   ],
   "runEvidence": {
-    "path": "evidence/edc/runs/20260714T140859+0900-implementation-87b5870.json",
-    "sha256": "ee2dd17cc2f786e59d103005f18cf3d59d0ba659aeabbee32c19d86b7093fffc",
+    "path": "evidence/edc/runs/20260714T182543+0900-implementation-8a87894.json",
+    "sha256": "497593d33aee4cf658e396cf49235315b991d405481371b54abbda8d0d2c321a",
     "status": "pass",
     "result": {
       "ok": true,
       "managementApi": "v4",
       "dsp": "dataspace-protocol-http:2025-1",
-      "assetId": "molit-edc-smoke-asset-dadab320-f13c-4505-a9d0-92d508a20a35",
-      "agreementId": "752e4733-49e1-4cf7-b110-653e22d69a6f",
-      "transferId": "89d2ca95-214f-47be-b856-906601b15ed5",
+      "assetId": "molit-edc-smoke-asset-70fd70a8-695e-4127-87db-e26a506c9164",
+      "agreementId": "45e51bfa-22fe-47f2-876d-bb7fd9807b18",
+      "transferId": "d7ddd22d-7460-4efc-8073-105838f99c62",
       "startState": "STARTED",
       "finalState": "TERMINATED",
       "revokedStatus": 403,
@@ -68,9 +68,9 @@
       "ok": true,
       "managementApi": "v4",
       "dsp": "dataspace-protocol-http:2025-1",
-      "assetId": "molit-edc-smoke-asset-dadab320-f13c-4505-a9d0-92d508a20a35",
-      "agreementId": "752e4733-49e1-4cf7-b110-653e22d69a6f",
-      "transferId": "89d2ca95-214f-47be-b856-906601b15ed5",
+      "assetId": "molit-edc-smoke-asset-70fd70a8-695e-4127-87db-e26a506c9164",
+      "agreementId": "45e51bfa-22fe-47f2-876d-bb7fd9807b18",
+      "transferId": "d7ddd22d-7460-4efc-8073-105838f99c62",
       "startState": "STARTED",
       "finalState": "TERMINATED",
       "revokedStatus": 403,
@@ -138,5 +138,5 @@
       "requiredArtifact": "live EDC asset, policy and contract-definition publication and reconciliation evidence"
     }
   ],
-  "releaseClaim": "The recorder-bound same-implementation local lifecycle passed on commit 87b587039d08cc902a349aad90535a0b72ccf7e6. This is not DSP TCK, cross-implementation, or production-readiness evidence."
+  "releaseClaim": "The recorder-bound same-implementation local lifecycle passed on commit 8a878949727d37e5d375915b3b6a043509c8c4c4. This is not DSP TCK, cross-implementation, or production-readiness evidence."
 }
