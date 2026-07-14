@@ -4,7 +4,7 @@
   "subject": "deploy/edc same-implementation local lifecycle topology",
   "sourceBinding": {
     "algorithm": "sha-256",
-    "digest": "cb2aaee15130f81723ee796a0f8f0d74f44c3e6aedf116562552cfd1249f4e08",
+    "digest": "ee90d47cf29457ac95a9ebfc35fb3f6aea866e4a32936eaaadf5b6b2b8d91a0d",
     "fileCount": 48,
     "scope": "deploy/edc, tools/edc, tests/edc, .gitattributes, package.json, package-lock.json, contracts/edc-local-interoperability-run.v1.schema.json; excluding build and .gradle directories"
   },
@@ -20,7 +20,7 @@
       "check": "node-tests",
       "command": "node --test tests/edc/*.test.mjs",
       "result": "pass",
-      "detail": "28 passed, 0 failed"
+      "detail": "29 passed, 0 failed"
     },
     {
       "check": "gradle-jars",

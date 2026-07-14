@@ -109,6 +109,15 @@ test('PowerShell smoke evidence records stdout as UTF-8 without a BOM', async ()
   assert.match(source, /WriteAllText\(\$stdoutFile, \$smokeText, \[Text\.UTF8Encoding\]::new\(\$false\)\)/u);
 });
 
+test('PowerShell smoke captures persistent container image IDs before cleanup', async () => {
+  const source = await readFile(new URL('../../tools/edc/run-smoke.ps1', import.meta.url), 'utf8');
+  assert.doesNotMatch(source, /\(& docker compose[^\r\n]+ps -q \$service\)\.Trim\(\)/u);
+  assert.match(source, /\$containerOutput = @\(& docker compose[^\r\n]+ps -q \$service\)/u);
+  assert.match(source, /\$imageOutput = @\(& docker inspect --format '\{\{\.Image\}\}' \$containerId\)/u);
+  assert.match(source, /\$imageLines\.Count -ne \$requiredImageServices\.Count/u);
+  assert.match(source, /finally \{\s+Remove-Item Env:EDC_POSTGRES_PASSWORD/su);
+});
+
 test('EDC topology rejects raw run evidence whose bytes no longer match the summary reference', async () => {
   const root = await mkdtemp(path.join(tmpdir(), 'molit-edc-topology-run-digest-'));
   try {

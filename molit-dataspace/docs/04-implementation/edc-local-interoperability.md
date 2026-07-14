@@ -238,7 +238,7 @@ EDC transfer callback
 Gradle :control-plane:shadowJar      PASS
 Gradle :data-plane:shadowJar         PASS
 Gradle :smoke-data-plane:shadowJar   PASS
-node --test tests/edc/*.test.mjs     PASS (28/28)
+node --test tests/edc/*.test.mjs     PASS (29/29)
 node tools/edc/verify-topology.mjs   PASS (26 files, source binding matched)
 docker compose ... config --quiet    PASS
 Docker recorder-bound smoke          PENDING RERUN

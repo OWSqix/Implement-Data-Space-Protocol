@@ -103,37 +103,76 @@ catch {
     if ($RecordEvidence) { [IO.File]::WriteAllText($errorFile, $_.Exception.Message, [Text.UTF8Encoding]::new($false)) }
 }
 finally {
-    if ($RecordEvidence) {
-        $imageLines = @()
-        foreach ($service in @('provider-control-plane', 'provider-data-plane', 'consumer-control-plane', 'consumer-data-plane', 'provider-backend', 'smoke')) {
-            $imageId = (& docker compose -f $compose -f $overlay images -q $service).Trim()
-            if ($LASTEXITCODE -eq 0 -and $imageId -match '^sha256:[0-9a-f]{64}$') {
-                $imageLines += "$service`t$imageId"
+    try {
+        if ($RecordEvidence) {
+            try {
+                $imageLines = @()
+                $requiredImageServices = @('provider-control-plane', 'provider-data-plane', 'consumer-control-plane', 'consumer-data-plane', 'provider-backend')
+                foreach ($service in $requiredImageServices) {
+                    $containerOutput = @(& docker compose -f $compose -f $overlay ps -q $service)
+                    $containerExitCode = $LASTEXITCODE
+                    $containerId = $(if ($containerOutput.Count -eq 1) { ([string]$containerOutput[0]).Trim() } else { '' })
+                    if ($containerExitCode -ne 0 -or $containerId -notmatch '^[0-9a-f]{64}$') {
+                        throw "Could not capture one running container for $service"
+                    }
+                    $imageOutput = @(& docker inspect --format '{{.Image}}' $containerId)
+                    $imageExitCode = $LASTEXITCODE
+                    $imageId = $(if ($imageOutput.Count -eq 1) { ([string]$imageOutput[0]).Trim() } else { '' })
+                    if ($imageExitCode -ne 0 -or $imageId -notmatch '^sha256:[0-9a-f]{64}$') {
+                        throw "Could not capture the full image ID for $service"
+                    }
+                    $imageLines += "$service`t$imageId"
+                }
+                if ($imageLines.Count -ne $requiredImageServices.Count) {
+                    throw 'EDC image evidence is incomplete'
+                }
+                [IO.File]::WriteAllText($imagesFile, ($imageLines -join "`n") + $(if ($imageLines.Count) { "`n" } else { '' }), [Text.UTF8Encoding]::new($false))
+            }
+            catch {
+                if (-not $runError) {
+                    $runError = $_
+                    $runExitCode = 1
+                    [IO.File]::WriteAllText($errorFile, $_.Exception.Message, [Text.UTF8Encoding]::new($false))
+                }
             }
         }
-        [IO.File]::WriteAllText($imagesFile, ($imageLines -join "`n") + $(if ($imageLines.Count) { "`n" } else { '' }), [Text.UTF8Encoding]::new($false))
-    }
-    if (-not $Keep) {
-        docker compose -f $compose -f $overlay down --volumes --remove-orphans
-        $cleanupStatus = $(if ($LASTEXITCODE -eq 0) { 'pass' } else { 'failed' })
-        if ($cleanupStatus -eq 'failed' -and -not $runError) {
-            $runError = [InvalidOperationException]::new('EDC cleanup failed')
-            $runExitCode = 1
+
+        if (-not $Keep) {
+            try {
+                docker compose -f $compose -f $overlay down --volumes --remove-orphans
+                $cleanupStatus = $(if ($LASTEXITCODE -eq 0) { 'pass' } else { 'failed' })
+            }
+            catch {
+                $cleanupStatus = 'failed'
+            }
+            if ($cleanupStatus -eq 'failed' -and -not $runError) {
+                $runError = [InvalidOperationException]::new('EDC cleanup failed')
+                $runExitCode = 1
+                if ($RecordEvidence) { [IO.File]::WriteAllText($errorFile, $runError.Message, [Text.UTF8Encoding]::new($false)) }
+            }
+        }
+        else {
+            $cleanupStatus = 'kept'
+        }
+
+        if ($RecordEvidence) {
+            try {
+                node $recorder complete --state $prepareFile --stdout $stdoutFile --images $imagesFile `
+                    --output $RecordEvidence --exit-code $runExitCode --clean-start $cleanStartStatus `
+                    --cleanup $cleanupStatus --error-file $errorFile
+                if ($LASTEXITCODE -ne 0 -and -not $runError) {
+                    $runError = [InvalidOperationException]::new("EDC evidence complete exited with $LASTEXITCODE")
+                }
+            }
+            catch {
+                if (-not $runError) { $runError = $_ }
+            }
         }
     }
-    else {
-        $cleanupStatus = 'kept'
+    finally {
+        Remove-Item Env:EDC_POSTGRES_PASSWORD, Env:PROVIDER_API_KEY, Env:CONSUMER_API_KEY -ErrorAction SilentlyContinue
+        if ($temporary) { Remove-Item -LiteralPath $temporary -Recurse -Force -ErrorAction SilentlyContinue }
     }
-    if ($RecordEvidence) {
-        node $recorder complete --state $prepareFile --stdout $stdoutFile --images $imagesFile `
-            --output $RecordEvidence --exit-code $runExitCode --clean-start $cleanStartStatus `
-            --cleanup $cleanupStatus --error-file $errorFile
-        if ($LASTEXITCODE -ne 0 -and -not $runError) {
-            $runError = [InvalidOperationException]::new("EDC evidence complete exited with $LASTEXITCODE")
-        }
-    }
-    Remove-Item Env:EDC_POSTGRES_PASSWORD, Env:PROVIDER_API_KEY, Env:CONSUMER_API_KEY -ErrorAction SilentlyContinue
-    if ($temporary) { Remove-Item -LiteralPath $temporary -Recurse -Force -ErrorAction SilentlyContinue }
 }
 
 if ($runError) { throw $runError }

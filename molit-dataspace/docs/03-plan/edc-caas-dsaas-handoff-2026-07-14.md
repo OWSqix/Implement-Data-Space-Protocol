@@ -74,7 +74,7 @@ Journal HMAC은 변조를 검출하지만 과거의 유효한 journal 전체를 
 | `npm run test:caas` | `23/23` 통과 | 권한·세대 fencing·idempotency |
 | `npm run test:runtime` | `21/21` 통과 | HTTP deadline·DNS pinning·abort |
 | `npm run test:transfer-runtime` | `29/29` 통과 | receipt·journal·복구 |
-| `npm run test:edc` | `28/28` 통과 | topology·runner·evidence schema |
+| `npm run test:edc` | `29/29` 통과 | topology·runner·evidence schema |
 | `npm run edc:verify:runtime` | 통과 | Gradle build·Java 17·JAR 분리·Compose |
 | `npm audit --omit=dev` | 취약점 `0`건 | npm production dependency |
 
