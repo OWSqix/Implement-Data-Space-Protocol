@@ -3,7 +3,7 @@ import assert from "node:assert/strict";
 import { mkdtemp, readFile, writeFile } from "node:fs/promises";
 import { join } from "node:path";
 import { tmpdir } from "node:os";
-import { appendAudit, idempotencyReplay, loadCaasState, recordIdempotency, withCaasState } from "../../src/caas/store.mjs";
+import { FileCaasStore, appendAudit, idempotencyReplay, loadCaasState, recordIdempotency, withCaasState } from "../../src/caas/store.mjs";
 import { digest } from "../../src/discovery/stable-json.mjs";
 
 test("state persists an audit hash chain and detects tampering", async () => {
@@ -71,4 +71,42 @@ test("non-empty state rejects a stripped audit log even with a recomputed bindin
   raw.integrity.bindingDigest = digest({ auditHead: null, snapshotDigest: raw.integrity.snapshotDigest });
   await writeFile(path, JSON.stringify(raw));
   await assert.rejects(loadCaasState(path), { code: "CAAS_STATE_SNAPSHOT_INVALID" });
+});
+
+test("an abort before the atomic replace leaves the committed state unchanged", async () => {
+  const directory = await mkdtemp(join(tmpdir(), "molit-caas-store-abort-"));
+  const path = join(directory, "state.json");
+  await withCaasState(path, (state) => {
+    const replay = idempotencyReplay(state, "tenant:road-operator", "request-1", { value: 1 });
+    recordIdempotency(state, replay, { status: "committed" });
+  });
+  const before = await readFile(path, "utf8");
+  const controller = new AbortController();
+  const reason = new Error("shutdown deadline expired");
+  await assert.rejects(withCaasState(path, (state) => {
+    const replay = idempotencyReplay(state, "tenant:road-operator", "request-2", { value: 2 });
+    recordIdempotency(state, replay, { status: "must-not-commit" });
+    controller.abort(reason);
+  }, { signal: controller.signal }), (error) => error === reason);
+  assert.equal(await readFile(path, "utf8"), before);
+  assert.equal(Object.keys((await loadCaasState(path)).requests).length, 1);
+});
+
+test("file store implements the runtime store interface with an explicit non-distributed lease", async () => {
+  const directory = await mkdtemp(join(tmpdir(), "molit-caas-file-store-interface-"));
+  const store = new FileCaasStore({ path: join(directory, "state.json"), maxBytes: 1_048_576, maxAuditEvents: 100 });
+  await store.initialize();
+  const lease = await store.withResourceLock("tenant:road-operator", (value) => ({
+    resourceId: value.resourceId,
+    holderId: value.holderId,
+    fencingToken: value.fencingToken,
+    acquiredAt: value.acquiredAt,
+  }));
+  assert.equal(lease.resourceId, "tenant:road-operator");
+  assert.match(lease.holderId, /^file:/u);
+  assert.equal(lease.fencingToken, null);
+  assert.equal(Number.isNaN(Date.parse(lease.acquiredAt)), false);
+  assert.deepEqual(await store.readiness(), { ready: true, status: "READY", failureCode: null });
+  await store.close();
+  assert.deepEqual(await store.readiness(), { ready: false, status: "CLOSED", failureCode: "CAAS_STATE_CLOSED" });
 });

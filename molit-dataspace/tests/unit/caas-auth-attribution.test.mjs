@@ -6,11 +6,11 @@ import { tmpdir } from "node:os";
 import { CaaSAuthorizer } from "../../src/caas/auth.mjs";
 import { DryRunManifestProvisioner } from "../../src/caas/provisioner.mjs";
 import { CaaSControlService } from "../../src/caas/service.mjs";
+import { FileCaasStore } from "../../src/caas/store.mjs";
 
 test("static bearer authentication maps secrets to stable non-secret audit actors", async () => {
   const directory = await mkdtemp(join(tmpdir(), "molit-caas-actor-"));
   const config = {
-    statePath: join(directory, "state.json"),
     adminSecretRef: "env://ADMIN_TOKEN",
     adminPrincipalId: "urn:test:principal:caas-admin",
     adminClientId: "test-caas-admin-client",
@@ -47,8 +47,9 @@ test("static bearer authentication maps secrets to stable non-secret audit actor
     TENANT_TOKEN: "tenant-token-at-least-16-characters",
   };
   const provisioner = new DryRunManifestProvisioner({ id: "dry", manifestDirectory: join(directory, "manifests") });
-  const service = new CaaSControlService({ config, provisioners: { dry: provisioner }, env });
-  const authorizer = new CaaSAuthorizer({ config, env });
+  const store = new FileCaasStore({ path: join(directory, "state.json"), maxBytes: config.limits.maxStateBytes, maxAuditEvents: config.limits.maxAuditEvents });
+  const service = new CaaSControlService({ config, provisioners: { dry: provisioner }, store, env });
+  const authorizer = new CaaSAuthorizer({ config, store, env });
   const admin = authorizer.admin(`Bearer ${env.ADMIN_TOKEN}`);
   assert.deepEqual(admin, {
     role: "admin",
@@ -88,6 +89,10 @@ test("static bearer authentication maps secrets to stable non-secret audit actor
     clientId: "test-road-operator-client",
     keyId: "test-road-operator-key-1",
   });
+  await assert.rejects(
+    authorizer.tenant(`Bearer ${env.TENANT_TOKEN}`, "rail-operator"),
+    { code: "CAAS_UNAUTHORIZED" },
+  );
   await service.setDesiredState("road-operator", {
     schemaVersion: "molit.caas-desired-state/1",
     desiredState: "PROVISIONED",

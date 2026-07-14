@@ -197,6 +197,21 @@ function caasErrorProjection(observations) {
     .sort((left, right) => left.participantId.localeCompare(right.participantId));
 }
 
+function observedServiceReadiness(record) {
+  const requiredServiceIds = record.spec.requiredServiceIds;
+  const observations = record.serviceObservations ?? [];
+  if (observations.length !== requiredServiceIds.length) return null;
+  const byId = new Map(observations.map((observation) => [observation.serviceId, observation]));
+  if (byId.size !== requiredServiceIds.length || requiredServiceIds.some((serviceId) => !byId.has(serviceId))) return null;
+  return requiredServiceIds.every((serviceId) => byId.get(serviceId).effectiveStatus === "READY");
+}
+
+function serviceGateAffectsCaasCommand(record) {
+  return record.spec.desiredState !== "SUSPENDED"
+    && Object.values(record.participants).some((participant) => participant.approvalState === "APPROVED"
+      && participant.spec.desiredState !== "SUSPENDED");
+}
+
 function nextCaasRetry(previous, errors, dataspaceId, desiredGeneration, at, baseMs, maxMs) {
   const errorFingerprint = digest({ desiredGeneration, errors });
   const repeated = previous?.desiredGeneration === desiredGeneration && previous.errorFingerprint === errorFingerprint;
@@ -296,7 +311,8 @@ export class DsaasControlPlane {
     return this.serviceRegistryProvider ? this.serviceRegistryProvider() : this.serviceRegistry;
   }
 
-  async readiness() {
+  async readiness({ signal } = {}) {
+    throwIfAborted(signal);
     const checks = {
       state: "NOT_READY",
       serviceRegistry: "NOT_READY",
@@ -305,22 +321,27 @@ export class DsaasControlPlane {
     };
     const failureCodes = [];
     try {
-      await this.store.read(() => null);
+      await this.store.read(() => null, { signal });
       checks.state = "READY";
     } catch (error) {
+      throwIfAborted(signal);
       failureCodes.push(safeErrorCode(error, "DSAAS_STATE_READINESS_FAILED"));
     }
     try {
       await this.#currentServiceRegistry();
+      throwIfAborted(signal);
       checks.serviceRegistry = "READY";
     } catch (error) {
+      throwIfAborted(signal);
       failureCodes.push(safeErrorCode(error, "DSAAS_SERVICE_REGISTRY_REFRESH_FAILED"));
     }
     try {
       const approvalDecisionRegistry = await this.#currentApprovalDecisionRegistry();
+      throwIfAborted(signal);
       assertRuntime(approvalDecisionRegistry?.status === "READY", "DSAAS_EXTERNAL_APPROVAL_GATE_BLOCKED", "external institutional approval registry is not ready");
       checks.approvalRegistry = "READY";
     } catch (error) {
+      throwIfAborted(signal);
       failureCodes.push(safeErrorCode(error, "DSAAS_APPROVAL_REGISTRY_REFRESH_FAILED"));
     }
     return Object.freeze({
@@ -461,18 +482,20 @@ export class DsaasControlPlane {
     }, { signal });
   }
 
-  async getDataspace(dataspaceId, actor) {
+  async getDataspace(dataspaceId, actor, { signal } = {}) {
+    throwIfAborted(signal);
     requireAuthorization(actor, dataspaceId, false);
-    return this.store.read((state) => resourceView(findDataspace(state, dataspaceId)));
+    return this.store.read((state) => resourceView(findDataspace(state, dataspaceId)), { signal });
   }
 
-  async getParticipant(dataspaceId, participantId, actor) {
+  async getParticipant(dataspaceId, participantId, actor, { signal } = {}) {
+    throwIfAborted(signal);
     requireAuthorization(actor, dataspaceId, false);
     return this.store.read((state) => {
       const participant = findDataspace(state, dataspaceId).participants[participantId];
       if (!participant) throw new RuntimeError("DSAAS_PARTICIPANT_NOT_FOUND", "participant does not exist", { participantId });
       return resourceView(participant);
-    });
+    }, { signal });
   }
 
   async setDesiredState(dataspaceId, desiredState, expectedRevision, actor, key, { signal } = {}) {
@@ -620,7 +643,11 @@ export class DsaasControlPlane {
     assertIdempotencyKey(key);
     const operation = scheduled ? "dataspace.reconcile.scheduled" : "dataspace.reconcile";
     const slot = scheduled ? null : idempotencySlot(actor, operation, key);
-    return this.store.withResourceLock(`dataspace:${dataspaceId}`, async () => {
+    const requestSignal = signal;
+    return this.store.withResourceLock(`dataspace:${dataspaceId}`, async (lease) => {
+      const signal = lease?.signal && requestSignal
+        ? AbortSignal.any([requestSignal, lease.signal])
+        : lease?.signal ?? requestSignal;
       throwIfAborted(signal);
       const requestDigest = digest({ dataspaceId });
       const replay = slot === null ? null : await this.store.read((state) => priorIdempotent(state, slot, requestDigest));
@@ -753,6 +780,7 @@ export class DsaasControlPlane {
               participant.revision += 1;
               participant.updatedAt = at;
             }
+            record.desiredGeneration += 1;
             record.observedState = "BLOCKED";
             record.reconcilePending = true;
             record.nextCheckAt = at;
@@ -767,7 +795,69 @@ export class DsaasControlPlane {
               action: operation,
               resource: `dataspace:${dataspaceId}`,
               outcome: "revocation-pending",
-              detailsDigest: digest({ approvalFailures, desiredGeneration: snapshot.desiredGeneration, services: services.services }),
+              detailsDigest: digest({ approvalFailures, desiredGeneration: record.desiredGeneration, services: services.services }),
+              at,
+            });
+            return { retry: false, snapshot: resourceView(record) };
+          }, { signal });
+          throwIfAborted(signal);
+          if (prepared.completed) return prepared.completed;
+          if (prepared.retry) {
+            supersessions += 1;
+            continue;
+          }
+          snapshot = prepared.snapshot;
+        }
+        const serviceProjectionChanged = snapshot.serviceRegistrySha256 !== (serviceRegistry?.actualSha256 ?? null)
+          || digest(snapshot.serviceObservations ?? []) !== digest(services.services);
+        const previousServiceReadiness = observedServiceReadiness(snapshot);
+        const serviceCommandTransitionRequired = serviceProjectionChanged
+          && previousServiceReadiness !== null
+          && previousServiceReadiness !== services.ready
+          && serviceGateAffectsCaasCommand(snapshot);
+        if (serviceCommandTransitionRequired) {
+          throwIfAborted(signal);
+          const prepared = await this.store.transact((state) => {
+            throwIfAborted(signal);
+            const prior = slot === null ? null : priorIdempotent(state, slot, requestDigest);
+            if (prior) return { completed: prior, retry: false };
+            const record = findDataspace(state, dataspaceId);
+            if (record.revision !== snapshot.revision || record.desiredGeneration !== snapshot.desiredGeneration) {
+              return {
+                actualGeneration: record.desiredGeneration,
+                expectedGeneration: snapshot.desiredGeneration,
+                retry: true,
+              };
+            }
+            const at = this.now();
+            const previousReadiness = observedServiceReadiness(record);
+            const commandChanged = previousReadiness !== null
+              && previousReadiness !== services.ready
+              && serviceGateAffectsCaasCommand(record);
+            if (commandChanged) {
+              record.desiredGeneration += 1;
+              record.caasRetry = null;
+              record.observedState = services.ready ? "RECONCILING" : "BLOCKED";
+            }
+            record.serviceObservations = services.services;
+            record.serviceRegistrySha256 = serviceRegistry?.actualSha256 ?? null;
+            record.reconcilePending = true;
+            record.nextCheckAt = at;
+            record.lastReconcileAt = at;
+            record.updatedAt = at;
+            record.revision += 1;
+            appendAudit(state, {
+              ...actorAudit,
+              action: operation,
+              resource: `dataspace:${dataspaceId}`,
+              outcome: commandChanged ? "service-gate-transition" : "service-projection-updated",
+              detailsDigest: digest({
+                commandChanged,
+                desiredGeneration: record.desiredGeneration,
+                previousReadiness,
+                serviceRegistrySha256: record.serviceRegistrySha256,
+                services: services.services,
+              }),
               at,
             });
             return { retry: false, snapshot: resourceView(record) };
@@ -998,7 +1088,7 @@ export class DsaasControlPlane {
         dataspaceId,
         supersessions,
       });
-    });
+    }, { signal: requestSignal });
   }
 }
 

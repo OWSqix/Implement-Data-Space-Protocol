@@ -8,6 +8,7 @@ import { DryRunManifestProvisioner } from "../../src/caas/provisioner.mjs";
 import { CaaSControlService } from "../../src/caas/service.mjs";
 import { CaaSAuthorizer } from "../../src/caas/auth.mjs";
 import { createCaaSHttpServer } from "../../src/caas/server.mjs";
+import { FileCaasStore } from "../../src/caas/store.mjs";
 
 function registration(tenantId, secretRef) {
   return {
@@ -42,7 +43,6 @@ async function call(origin, path, { method = "GET", token, key, value } = {}) {
 test("CaaS HTTP API enforces tenant boundaries and reconciles a connector intent", async (t) => {
   const directory = await mkdtemp(join(tmpdir(), "molit-caas-e2e-"));
   const config = {
-    statePath: join(directory, "state.json"),
     adminSecretRef: "env://ADMIN_TOKEN",
     adminPrincipalId: "urn:test:principal:caas-admin",
     adminClientId: "test-caas-admin-client",
@@ -63,8 +63,9 @@ test("CaaS HTTP API enforces tenant boundaries and reconciles a connector intent
   };
   const env = { ADMIN_TOKEN: "admin-token-000000", CONTROLLER_TOKEN: "controller-token-000000", ALPHA_TOKEN: "alpha-token-000000", BETA_TOKEN: "beta-token-0000000" };
   const provisioner = new DryRunManifestProvisioner({ id: "dry", manifestDirectory: join(directory, "manifests") });
-  const service = new CaaSControlService({ config, provisioners: { dry: provisioner }, env });
-  const authorizer = new CaaSAuthorizer({ config, env });
+  const store = new FileCaasStore({ path: join(directory, "state.json"), maxBytes: config.limits.maxStateBytes, maxAuditEvents: config.limits.maxAuditEvents });
+  const service = new CaaSControlService({ config, provisioners: { dry: provisioner }, store, env });
+  const authorizer = new CaaSAuthorizer({ config, store, env });
   const server = createCaaSHttpServer({ config, service, authorizer });
   server.listen(0, "127.0.0.1");
   await once(server, "listening");

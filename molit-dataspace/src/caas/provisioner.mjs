@@ -4,7 +4,16 @@ import { randomUUID } from "node:crypto";
 import { digest } from "../discovery/stable-json.mjs";
 import { CaaSError, assertCaas } from "./errors.mjs";
 
-async function writeAtomic(path, value) {
+function throwIfAborted(signal) {
+  if (!signal?.aborted) return;
+  if (signal.reason instanceof Error) throw signal.reason;
+  const error = new Error("CaaS provisioner operation was aborted");
+  error.name = "AbortError";
+  throw error;
+}
+
+async function writeAtomic(path, value, { signal } = {}) {
+  throwIfAborted(signal);
   const serialized = `${JSON.stringify(value, null, 2)}\n`;
   const temporary = `${path}.tmp-${process.pid}-${randomUUID()}`;
   let handle;
@@ -14,6 +23,7 @@ async function writeAtomic(path, value) {
     await handle.sync();
     await handle.close();
     handle = undefined;
+    throwIfAborted(signal);
     await rename(temporary, path);
   } finally {
     await handle?.close().catch(() => {});
@@ -30,29 +40,34 @@ export class DryRunManifestProvisioner {
     this.id = id;
     this.manifestDirectory = manifestDirectory;
     this.intentOnly = true;
+    this.fencingCapable = false;
   }
 
-  async readiness() {
+  async readiness({ signal } = {}) {
+    throwIfAborted(signal);
     await mkdir(this.manifestDirectory, { recursive: true });
     const probe = join(this.manifestDirectory, `.ready-${process.pid}-${randomUUID()}`);
     const handle = await open(probe, "wx", 0o600);
     await handle.close();
+    throwIfAborted(signal);
     await unlink(probe);
     return true;
   }
 
-  async provision(tenant, operationKey) {
-    return this.#writeIntent(tenant, operationKey, "PROVISIONED");
+  async provision(tenant, operationKey, { signal } = {}) {
+    return this.#writeIntent(tenant, operationKey, "PROVISIONED", { signal });
   }
 
-  async deprovision(tenant, operationKey) {
-    return this.#writeIntent(tenant, operationKey, "DEPROVISIONED");
+  async deprovision(tenant, operationKey, { signal } = {}) {
+    return this.#writeIntent(tenant, operationKey, "DEPROVISIONED", { signal });
   }
 
-  async observe(tenant) {
+  async observe(tenant, _operationKey, { signal } = {}) {
+    throwIfAborted(signal);
     const path = join(this.manifestDirectory, `${tenant.tenantId}.intent.json`);
     try {
       const value = JSON.parse(await readFile(path, "utf8"));
+      throwIfAborted(signal);
       assertCaas(value && typeof value === "object" && !Array.isArray(value), "CAAS_PROVISIONER_OBSERVATION_INVALID", "deployment intent observation is not an object");
       return {
         adapterResourceId: `dry-run:${tenant.tenantId}`,
@@ -66,7 +81,8 @@ export class DryRunManifestProvisioner {
     }
   }
 
-  async #writeIntent(tenant, operationKey, desiredState) {
+  async #writeIntent(tenant, operationKey, desiredState, { signal } = {}) {
+    throwIfAborted(signal);
     await mkdir(this.manifestDirectory, { recursive: true });
     const path = join(this.manifestDirectory, `${tenant.tenantId}.intent.json`);
     const intent = {
@@ -92,11 +108,12 @@ export class DryRunManifestProvisioner {
     const intentDigest = digest(intent);
     let existing;
     try { existing = JSON.parse(await readFile(path, "utf8")); } catch (error) { if (error?.code !== "ENOENT") throw error; }
+    throwIfAborted(signal);
     if (existing?.operationKey === operationKey) {
       assertCaas(digest(existing) === intentDigest, "CAAS_PROVISIONER_IDEMPOTENCY_CONFLICT", "same operation key produced a different deployment intent");
       return { adapterResourceId: `dry-run:${tenant.tenantId}`, intentDigest, converged: false };
     }
-    await writeAtomic(path, intent);
+    await writeAtomic(path, intent, { signal });
     return { adapterResourceId: `dry-run:${tenant.tenantId}`, intentDigest, converged: false };
   }
 }

@@ -5,6 +5,7 @@ import { join } from "node:path";
 import { tmpdir } from "node:os";
 import { DryRunManifestProvisioner } from "../../src/caas/provisioner.mjs";
 import { CaaSControlService } from "../../src/caas/service.mjs";
+import { FileCaasStore } from "../../src/caas/store.mjs";
 
 const ADMIN_ACTOR = {
   role: "admin",
@@ -22,7 +23,6 @@ const TENANT_ACTOR = {
 
 function setup(directory) {
   const config = {
-    statePath: join(directory, "state.json"),
     adminSecretRef: "env://ADMIN_TOKEN",
     adminPrincipalId: ADMIN_ACTOR.principalId,
     adminClientId: ADMIN_ACTOR.clientId,
@@ -33,7 +33,18 @@ function setup(directory) {
   };
   const dry = new DryRunManifestProvisioner({ id: "dry", manifestDirectory: join(directory, "manifests") });
   const env = { ADMIN_TOKEN: "admin-token-000000", TENANT_TOKEN: "tenant-token-00000" };
-  return { service: new CaaSControlService({ config, provisioners: { dry }, env }), dry };
+  const store = new FileCaasStore({ path: join(directory, "state.json"), maxBytes: config.limits.maxStateBytes, maxAuditEvents: config.limits.maxAuditEvents });
+  return { service: new CaaSControlService({ config, provisioners: { dry }, store, env }), dry, store };
+}
+
+function deferred() {
+  let resolve;
+  let reject;
+  const promise = new Promise((resolvePromise, rejectPromise) => {
+    resolve = resolvePromise;
+    reject = rejectPromise;
+  });
+  return { promise, reject, resolve };
 }
 
 const registration = {
@@ -90,6 +101,7 @@ test("reconcile retries the same adapter operation after a post-side-effect fail
   const { service, dry } = setup(directory);
   let injected = true;
   service.provisioners.dry = {
+    intentOnly: true,
     readiness: () => dry.readiness(),
     async provision(tenant, key) {
       const result = await dry.provision(tenant, key);
@@ -97,6 +109,7 @@ test("reconcile retries the same adapter operation after a post-side-effect fail
       return result;
     },
     deprovision: (tenant, key) => dry.deprovision(tenant, key),
+    observe: (tenant, key, options) => dry.observe(tenant, key, options),
   };
   await service.register(registration, "register-1", ADMIN_ACTOR);
   await service.setDesiredState("road-operator", { schemaVersion: "molit.caas-desired-state/1", desiredState: "PROVISIONED" }, "desired-1", ADMIN_ACTOR);
@@ -131,11 +144,23 @@ test("registration rejects client and key identifiers reused by another credenti
 test("only a provisioner that reports convergence can reach PROVISIONED", async () => {
   const directory = await mkdtemp(join(tmpdir(), "molit-caas-confirmed-"));
   const { service, dry } = setup(directory);
+  let lastResult;
   service.provisioners.dry = {
     intentOnly: false,
     readiness: () => dry.readiness(),
-    async provision(tenant, key) { return { ...await dry.provision(tenant, key), converged: true }; },
-    async deprovision(tenant, key) { return { ...await dry.deprovision(tenant, key), converged: true }; },
+    async provision(tenant, key) { lastResult = { ...await dry.provision(tenant, key), converged: true }; return lastResult; },
+    async deprovision(tenant, key) { lastResult = { ...await dry.deprovision(tenant, key), converged: true }; return lastResult; },
+    async observe(tenant, key) {
+      return {
+        adapterResourceId: lastResult.adapterResourceId,
+        intentDigest: lastResult.intentDigest,
+        operationKey: key,
+        generation: tenant.generation,
+        desiredState: tenant.desiredState,
+        exists: tenant.desiredState === "PROVISIONED",
+        converged: true,
+      };
+    },
   };
   await service.register(registration, "register-1", ADMIN_ACTOR);
   await service.setDesiredState("road-operator", { schemaVersion: "molit.caas-desired-state/1", desiredState: "PROVISIONED" }, "desired-1", ADMIN_ACTOR);
@@ -149,12 +174,14 @@ test("DSaaS ensure reports ERROR without freezing a transient failure in the ide
   const { service, dry } = setup(directory);
   let injected = true;
   service.provisioners.dry = {
+    intentOnly: true,
     readiness: () => dry.readiness(),
     async provision(tenant, key) {
       if (injected) { injected = false; throw new Error("transient provision failure"); }
       return dry.provision(tenant, key);
     },
     deprovision: (tenant, key) => dry.deprovision(tenant, key),
+    observe: (tenant, key, options) => dry.observe(tenant, key, options),
   };
   await service.register(registration, "register-1", ADMIN_ACTOR);
   const request = {
@@ -179,14 +206,27 @@ test("DSaaS ensure keeps completed keys immutable and re-observes with a new key
   const directory = await mkdtemp(join(tmpdir(), "molit-caas-ensure-observe-"));
   const { service, dry } = setup(directory);
   const operationKeys = [];
+  let lastResult;
   service.provisioners.dry = {
     intentOnly: false,
     readiness: () => dry.readiness(),
     async provision(tenant, key) {
       operationKeys.push(key);
-      return { ...await dry.provision(tenant, key), converged: operationKeys.length > 1 };
+      lastResult = { ...await dry.provision(tenant, key), converged: operationKeys.length > 1 };
+      return lastResult;
     },
-    async deprovision(tenant, key) { return { ...await dry.deprovision(tenant, key), converged: true }; },
+    async deprovision(tenant, key) { lastResult = { ...await dry.deprovision(tenant, key), converged: true }; return lastResult; },
+    async observe(tenant, key) {
+      return {
+        adapterResourceId: lastResult.adapterResourceId,
+        intentDigest: lastResult.intentDigest,
+        operationKey: key,
+        generation: tenant.generation,
+        desiredState: tenant.desiredState,
+        exists: tenant.desiredState === "PROVISIONED",
+        converged: operationKeys.length > 1,
+      };
+    },
   };
   await service.register(registration, "register-1", ADMIN_ACTOR);
   const request = {
@@ -245,9 +285,9 @@ test("state snapshot integrity detects direct tenant mutation", async () => {
   const directory = await mkdtemp(join(tmpdir(), "molit-caas-tenant-snapshot-"));
   const { service } = setup(directory);
   await service.register(registration, "register-1", ADMIN_ACTOR);
-  const raw = JSON.parse(await readFile(service.config.statePath, "utf8"));
+  const raw = JSON.parse(await readFile(service.store.path, "utf8"));
   raw.tenants[registration.tenantId].displayName = "Tampered operator";
-  await writeFile(service.config.statePath, JSON.stringify(raw));
+  await writeFile(service.store.path, JSON.stringify(raw));
   await assert.rejects(service.getTenant(registration.tenantId), { code: "CAAS_STATE_SNAPSHOT_INVALID" });
 });
 
@@ -274,5 +314,325 @@ test("unbounded adapter error codes are replaced before state and audit persiste
   });
   const failure = (await service.audit("road-operator")).events.find(({ action }) => action === "RECONCILE_FAILED");
   assert.equal(failure.errorCode, "CAAS_ADAPTER_FAILED");
-  assert.equal((await readFile(service.config.statePath, "utf8")).includes("LEAKED_SECRET"), false);
+  assert.equal((await readFile(service.store.path, "utf8")).includes("LEAKED_SECRET"), false);
+});
+
+test("operational convergence requires a generation-bound fresh observation and repairs drift", async () => {
+  const directory = await mkdtemp(join(tmpdir(), "molit-caas-operational-observation-"));
+  const { service, dry } = setup(directory);
+  let observationConverged = false;
+  let resourceExists = false;
+  let lastResult;
+  let provisionCalls = 0;
+  let provisionSignal;
+  let observationSignal;
+  let deprovisionSignal;
+  service.provisioners.dry = {
+    intentOnly: false,
+    readiness: (options) => dry.readiness(options),
+    async provision(tenant, key, options) {
+      provisionSignal = options.signal;
+      provisionCalls += 1;
+      lastResult = { ...await dry.provision(tenant, key, options), converged: true };
+      resourceExists = true;
+      return lastResult;
+    },
+    async deprovision(tenant, key, options) {
+      deprovisionSignal = options.signal;
+      lastResult = { ...await dry.deprovision(tenant, key, options), converged: true };
+      resourceExists = false;
+      return lastResult;
+    },
+    async observe(tenant, key, { signal }) {
+      observationSignal = signal;
+      return {
+        adapterResourceId: resourceExists ? lastResult?.adapterResourceId ?? `runtime:${tenant.tenantId}` : null,
+        intentDigest: lastResult?.intentDigest ?? tenant.lastIntentDigest ?? null,
+        operationKey: key,
+        generation: tenant.generation,
+        desiredState: tenant.desiredState,
+        exists: resourceExists,
+        converged: observationConverged,
+      };
+    },
+  };
+
+  await service.register(registration, "register-operational", ADMIN_ACTOR);
+  await service.setDesiredState("road-operator", { schemaVersion: "molit.caas-desired-state/1", desiredState: "PROVISIONED" }, "desired-operational", ADMIN_ACTOR);
+  const controller = new AbortController();
+  const pending = await service.reconcile("road-operator", "reconcile-operational-pending", ADMIN_ACTOR, { signal: controller.signal });
+  assert.equal(pending.observedState, "PROVISIONING", "adapter success alone cannot establish PROVISIONED");
+  assert.equal(provisionSignal, controller.signal);
+  assert.equal(observationSignal, controller.signal);
+
+  observationConverged = true;
+  assert.equal((await service.reconcile("road-operator", "reconcile-operational-confirmed", ADMIN_ACTOR)).observedState, "PROVISIONED");
+  const callsBeforeDrift = provisionCalls;
+  resourceExists = false;
+  assert.equal((await service.reconcile("road-operator", "reconcile-operational-drift", ADMIN_ACTOR)).observedState, "PROVISIONED");
+  assert.equal(provisionCalls, callsBeforeDrift + 1, "fresh observation detects deletion and invokes repair");
+  assert.ok((await service.audit("road-operator")).events.some(({ action }) => action === "RUNTIME_DRIFT_DETECTED"));
+
+  await service.setDesiredState("road-operator", { schemaVersion: "molit.caas-desired-state/1", desiredState: "DEPROVISIONED" }, "desired-operational-stop", ADMIN_ACTOR);
+  assert.equal((await service.reconcile("road-operator", "reconcile-operational-stop", ADMIN_ACTOR, { signal: controller.signal })).observedState, "NOT_PROVISIONED");
+  assert.equal(deprovisionSignal, controller.signal);
+});
+
+test("operational provisioners without observation fail readiness", async () => {
+  const directory = await mkdtemp(join(tmpdir(), "molit-caas-observation-required-"));
+  const { service, dry } = setup(directory);
+  service.provisioners.dry = {
+    intentOnly: false,
+    readiness: (options) => dry.readiness(options),
+    provision: (tenant, key, options) => dry.provision(tenant, key, options),
+    deprovision: (tenant, key, options) => dry.deprovision(tenant, key, options),
+  };
+  await assert.rejects(service.readiness(), { code: "CAAS_PROVISIONER_CONTRACT_INVALID" });
+});
+
+test("slow external observation does not hold the state transaction or block another tenant write", async () => {
+  const directory = await mkdtemp(join(tmpdir(), "molit-caas-observe-concurrency-"));
+  const { service, dry } = setup(directory);
+  service.env.SECOND_TENANT_TOKEN = "second-tenant-token-00000";
+  const observations = new Map();
+  const observeStarted = deferred();
+  const releaseObserve = deferred();
+  let pauseObservation = false;
+  service.provisioners.dry = {
+    intentOnly: false,
+    readiness: (options) => dry.readiness(options),
+    async provision(tenant, key, options) {
+      const result = { ...await dry.provision(tenant, key, options), converged: true };
+      observations.set(tenant.tenantId, result);
+      return result;
+    },
+    async deprovision(tenant, key, options) {
+      const result = { ...await dry.deprovision(tenant, key, options), converged: true };
+      observations.set(tenant.tenantId, result);
+      return result;
+    },
+    async observe(tenant, key) {
+      if (pauseObservation && tenant.tenantId === "road-operator") {
+        observeStarted.resolve();
+        await releaseObserve.promise;
+      }
+      const result = observations.get(tenant.tenantId);
+      return {
+        adapterResourceId: result.adapterResourceId,
+        intentDigest: result.intentDigest,
+        operationKey: key,
+        generation: tenant.generation,
+        desiredState: tenant.desiredState,
+        exists: tenant.desiredState === "PROVISIONED",
+        converged: true,
+      };
+    },
+  };
+  await service.register(registration, "register-primary", ADMIN_ACTOR);
+  await service.setDesiredState("road-operator", { schemaVersion: "molit.caas-desired-state/1", desiredState: "PROVISIONED" }, "desired-primary", TENANT_ACTOR);
+  await service.reconcile("road-operator", "reconcile-primary", TENANT_ACTOR);
+
+  pauseObservation = true;
+  const slowReconcile = service.reconcile("road-operator", "reobserve-primary", TENANT_ACTOR);
+  await observeStarted.promise;
+  const secondRegistration = {
+    ...registration,
+    tenantId: "rail-operator",
+    organizationId: "urn:organization:rail-operator",
+    displayName: "Rail operator",
+    apiAccessSecretRef: "env://SECOND_TENANT_TOKEN",
+    apiPrincipalId: "urn:test:principal:rail-operator",
+    apiClientId: "test-rail-operator-client",
+    apiKeyId: "test-rail-operator-key-1",
+  };
+  const secondWrite = service.register(secondRegistration, "register-secondary", ADMIN_ACTOR);
+  const outcome = await Promise.race([
+    secondWrite.then(() => "completed"),
+    new Promise((resolve) => setTimeout(() => resolve("blocked"), 250)),
+  ]);
+  releaseObserve.resolve();
+  await Promise.all([slowReconcile, secondWrite]);
+  assert.equal(outcome, "completed");
+});
+
+test("operational adapters receive the lease and must prove external fencing acceptance", async () => {
+  const directory = await mkdtemp(join(tmpdir(), "molit-caas-adapter-fencing-"));
+  const { service: base, dry, store: backing } = setup(directory);
+  let nextFencingToken = 38;
+  const store = {
+    supportsDistributedFencing: true,
+    read: backing.read.bind(backing),
+    transact: backing.transact.bind(backing),
+    readiness: backing.readiness.bind(backing),
+    close: backing.close.bind(backing),
+    withResourceLock: (resourceId, operation) => operation(Object.freeze({
+      resourceId,
+      holderId: "caas-instance-a",
+      fencingToken: String(++nextFencingToken),
+      acquiredAt: "2026-07-14T00:00:00.000Z",
+      signal: undefined,
+    })),
+  };
+  const received = [];
+  const target = { lastAppliedFencingToken: null };
+  let lastResult;
+  const operational = {
+    intentOnly: false,
+    fencingCapable: true,
+    readiness: (options) => dry.readiness(options),
+    async provision(tenant, key, options) {
+      received.push({ method: "provision", options });
+      lastResult = {
+        ...await dry.provision(tenant, key, options),
+        converged: true,
+        fencingAccepted: true,
+        fencingToken: options.fencingToken,
+      };
+      target.lastAppliedFencingToken = options.fencingToken;
+      return lastResult;
+    },
+    async deprovision(tenant, key, options) {
+      return this.provision(tenant, key, options);
+    },
+    async observe(tenant, key, options) {
+      received.push({ method: "observe", options });
+      return {
+        adapterResourceId: lastResult.adapterResourceId,
+        intentDigest: lastResult.intentDigest,
+        operationKey: key,
+        generation: tenant.generation,
+        desiredState: tenant.desiredState,
+        exists: tenant.desiredState === "PROVISIONED",
+        converged: true,
+        lastAppliedFencingToken: target.lastAppliedFencingToken,
+      };
+    },
+  };
+  base.config.environment = "production";
+  const service = new CaaSControlService({ config: base.config, provisioners: { dry: operational }, store, env: base.env });
+  await service.register(registration, "register-fenced", ADMIN_ACTOR);
+  await service.setDesiredState("road-operator", { schemaVersion: "molit.caas-desired-state/1", desiredState: "PROVISIONED" }, "desired-fenced", TENANT_ACTOR);
+  const result = await service.reconcile("road-operator", "reconcile-fenced", TENANT_ACTOR);
+
+  assert.equal(result.observedState, "PROVISIONED");
+  assert.equal((await backing.read((state) => state.tenants["road-operator"].lastAppliedFencingToken)), "41");
+  const observedAgain = await service.reconcile("road-operator", "reobserve-fenced", TENANT_ACTOR);
+  assert.equal(observedAgain.observedState, "PROVISIONED");
+  assert.equal((await backing.read((state) => state.tenants["road-operator"].lastAppliedFencingToken)), "41");
+  assert.deepEqual(received.map(({ method, options }) => ({
+    method,
+    fencingToken: options.fencingToken,
+    holderId: options.holderId,
+    acquiredAt: options.acquiredAt,
+    expectedLastAppliedFencingToken: options.expectedLastAppliedFencingToken,
+  })), [
+    { method: "provision", fencingToken: "41", holderId: "caas-instance-a", acquiredAt: "2026-07-14T00:00:00.000Z", expectedLastAppliedFencingToken: undefined },
+    { method: "observe", fencingToken: "41", holderId: "caas-instance-a", acquiredAt: "2026-07-14T00:00:00.000Z", expectedLastAppliedFencingToken: undefined },
+    { method: "observe", fencingToken: undefined, holderId: undefined, acquiredAt: undefined, expectedLastAppliedFencingToken: "41" },
+  ]);
+  const unfenced = new CaaSControlService({
+    config: base.config,
+    provisioners: { dry: { ...operational, fencingCapable: false } },
+    store,
+    env: base.env,
+  });
+  await assert.rejects(unfenced.readiness(), { code: "CAAS_PROVISIONER_FENCING_REQUIRED" });
+
+  const rejectedDirectory = await mkdtemp(join(tmpdir(), "molit-caas-adapter-fencing-rejected-"));
+  const { service: rejectedBase, dry: rejectedDry, store: rejectedBacking } = setup(rejectedDirectory);
+  const rejectedStore = {
+    ...store,
+    read: rejectedBacking.read.bind(rejectedBacking),
+    transact: rejectedBacking.transact.bind(rejectedBacking),
+    readiness: rejectedBacking.readiness.bind(rejectedBacking),
+    close: rejectedBacking.close.bind(rejectedBacking),
+  };
+  const rejectedAdapter = {
+    intentOnly: false,
+    fencingCapable: true,
+    readiness: (options) => rejectedDry.readiness(options),
+    async provision(tenant, key, options) {
+      return { ...await rejectedDry.provision(tenant, key, options), converged: true };
+    },
+    deprovision(tenant, key, options) { return this.provision(tenant, key, options); },
+    observe() { throw new Error("observe must not run without a fencing acceptance receipt"); },
+  };
+  const rejected = new CaaSControlService({ config: rejectedBase.config, provisioners: { dry: rejectedAdapter }, store: rejectedStore, env: rejectedBase.env });
+  await rejected.register(registration, "register-rejected-fence", ADMIN_ACTOR);
+  await rejected.setDesiredState("road-operator", { schemaVersion: "molit.caas-desired-state/1", desiredState: "PROVISIONED" }, "desired-rejected-fence", TENANT_ACTOR);
+  await assert.rejects(rejected.reconcile("road-operator", "reconcile-rejected-fence", TENANT_ACTOR), { code: "CAAS_ADAPTER_FENCING_NOT_ENFORCED" });
+});
+
+test("an aborted operational adapter result cannot commit a late success", async () => {
+  const directory = await mkdtemp(join(tmpdir(), "molit-caas-late-adapter-"));
+  const { service } = setup(directory);
+  const called = deferred();
+  const result = deferred();
+  let adapterSignal;
+  let observeCalls = 0;
+  service.provisioners.dry = {
+    intentOnly: false,
+    async readiness() { return true; },
+    async provision(_tenant, _key, { signal }) {
+      adapterSignal = signal;
+      called.resolve();
+      return result.promise;
+    },
+    async deprovision() { throw new Error("not used"); },
+    async observe() {
+      observeCalls += 1;
+      throw new Error("observation must not run after abort");
+    },
+  };
+  await service.register(registration, "register-abort", ADMIN_ACTOR);
+  await service.setDesiredState("road-operator", { schemaVersion: "molit.caas-desired-state/1", desiredState: "PROVISIONED" }, "desired-abort", ADMIN_ACTOR);
+  const controller = new AbortController();
+  const reconciliation = service.reconcile("road-operator", "reconcile-abort", ADMIN_ACTOR, { signal: controller.signal });
+  await called.promise;
+  const reason = new Error("shutdown deadline expired");
+  controller.abort(reason);
+  result.resolve({ adapterResourceId: "runtime:road-operator", intentDigest: "b".repeat(64), converged: true });
+  await assert.rejects(reconciliation, reason);
+  assert.equal(adapterSignal, controller.signal);
+  assert.equal(adapterSignal.aborted, true);
+  assert.equal(observeCalls, 0);
+  assert.equal((await service.getTenant("road-operator")).observedState, "PROVISIONING");
+  const actions = (await service.audit("road-operator")).events.map(({ action }) => action);
+  assert.equal(actions.includes("RECONCILE_COMPLETED"), false);
+  assert.equal(actions.includes("RECONCILE_FAILED"), false);
+});
+
+test("an unknown final commit outcome is not rewritten as an adapter failure", async () => {
+  const directory = await mkdtemp(join(tmpdir(), "molit-caas-commit-unknown-"));
+  const { service: base, dry, store: backing } = setup(directory);
+  let failAfterCommit = false;
+  const store = {
+    read: backing.read.bind(backing),
+    readiness: backing.readiness.bind(backing),
+    close: backing.close.bind(backing),
+    withResourceLock: backing.withResourceLock.bind(backing),
+    async transact(operation, options) {
+      const result = await backing.transact(operation, options);
+      if (failAfterCommit && result?.observedState === "INTENT_READY") {
+        failAfterCommit = false;
+        throw Object.assign(new Error("commit outcome is unknown"), { code: "CAAS_STATE_COMMIT_UNKNOWN" });
+      }
+      return result;
+    },
+  };
+  const service = new CaaSControlService({ config: base.config, provisioners: { dry }, store, env: base.env });
+  await service.register(registration, "register-commit-unknown", ADMIN_ACTOR);
+  await service.setDesiredState("road-operator", { schemaVersion: "molit.caas-desired-state/1", desiredState: "PROVISIONED" }, "desired-commit-unknown", ADMIN_ACTOR);
+  failAfterCommit = true;
+  await assert.rejects(
+    service.reconcile("road-operator", "reconcile-commit-unknown", ADMIN_ACTOR),
+    { code: "CAAS_STATE_COMMIT_UNKNOWN" },
+  );
+  const committed = await backing.read((state) => state.tenants["road-operator"]);
+  assert.equal(committed.observedState, "INTENT_READY");
+  const actions = (await service.audit("road-operator")).events.map(({ action }) => action);
+  assert.equal(actions.filter((action) => action === "RECONCILE_COMPLETED").length, 1);
+  assert.equal(actions.includes("RECONCILE_FAILED"), false);
+  const replay = await service.reconcile("road-operator", "reconcile-commit-unknown", ADMIN_ACTOR);
+  assert.equal(replay.observedState, "INTENT_READY");
 });

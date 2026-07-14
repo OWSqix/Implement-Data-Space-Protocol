@@ -4,6 +4,7 @@ import { tmpdir } from "node:os";
 import { join } from "node:path";
 import test from "node:test";
 
+import { RuntimeError } from "../../src/bridge-runtime/errors.mjs";
 import { digest } from "../../src/discovery/stable-json.mjs";
 import { DsaasControlPlane } from "../../src/dsaas/service.mjs";
 import { evaluateRequiredServices } from "../../src/dsaas/service-registry.mjs";
@@ -163,6 +164,23 @@ test("creation is fail-closed and idempotent", async (t) => {
   );
 });
 
+test("dataspace roles cannot cross tenant boundaries or elevate read access to write access", async (t) => {
+  const context = await fixture();
+  t.after(() => rm(context.directory, { recursive: true, force: true }));
+  await context.service.createDataspace(dataspace(), OPERATOR, "create-isolation-0001");
+  const scopedAuditor = actor("auditor-a", ["dsaas.auditor"], ["molit-test"]);
+  const foreignAdmin = actor("foreign-admin", ["dsaas.dataspace-admin"], ["another-space"]);
+  assert.equal((await context.service.getDataspace("molit-test", scopedAuditor)).spec.dataspaceId, "molit-test");
+  await assert.rejects(
+    context.service.getDataspace("molit-test", foreignAdmin),
+    { code: "DSAAS_FORBIDDEN" },
+  );
+  await assert.rejects(
+    context.service.setDesiredState("molit-test", "SUSPENDED", 1, scopedAuditor, "auditor-write-0001"),
+    { code: "DSAAS_FORBIDDEN" },
+  );
+});
+
 test("audit events bind the principal, OAuth client, credential key and used role", async (t) => {
   const context = await fixture();
   t.after(() => rm(context.directory, { recursive: true, force: true }));
@@ -311,6 +329,7 @@ test("service registry provider changes make a dataspace due before nextCheckAt"
   await scheduler.waitForIdle();
   const active = await context.service.getDataspace("molit-test", ADMIN_A);
   assert.equal(active.observedState, "ACTIVE");
+  assert.equal(active.desiredGeneration, 2);
   assert.ok(Date.parse(active.nextCheckAt) > Date.parse(context.service.now()));
 
   currentRegistry = { ...registry(false), actualSha256: "2".repeat(64) };
@@ -322,6 +341,14 @@ test("service registry provider changes make a dataspace due before nextCheckAt"
   assert.equal(blocked.serviceObservations.every(({ effectiveStatus }) => effectiveStatus === "NOT_READY"), true);
   assert.equal(blocked.participants["road-provider"].connector.state, "SUSPENDED");
   assert.equal(context.observed.at(-1).request.desiredState, "SUSPENDED");
+  assert.equal(blocked.desiredGeneration, active.desiredGeneration + 1);
+  assert.equal(context.observed.at(-1).request.desiredGeneration, blocked.desiredGeneration);
+
+  const callsAfterBlock = context.observed.length;
+  const repeatedBlock = await context.service.reconcile("molit-test", ADMIN_A, "reconcile-service-block-repeat-0001");
+  assert.equal(repeatedBlock.desiredGeneration, blocked.desiredGeneration);
+  assert.equal(context.observed.length, callsAfterBlock + 1);
+  assert.equal(context.observed.at(-1).request.desiredGeneration, blocked.desiredGeneration);
 
   currentRegistry = { ...registry(true), actualSha256: "3".repeat(64) };
   const recoveryTick = await scheduler.runOnce();
@@ -330,6 +357,8 @@ test("service registry provider changes make a dataspace due before nextCheckAt"
   assert.equal(recovered.observedState, "ACTIVE");
   assert.equal(recovered.participants["road-provider"].connector.state, "ACTIVE");
   assert.equal(context.observed.at(-1).request.desiredState, "ACTIVE");
+  assert.equal(recovered.desiredGeneration, blocked.desiredGeneration + 1);
+  assert.equal(context.observed.at(-1).request.desiredGeneration, recovered.desiredGeneration);
 });
 
 test("persistent service outage keeps 100 scheduler ticks free of targets, CaaS calls and durable writes", async (t) => {
@@ -575,6 +604,66 @@ test("scheduler stop aborts CaaS and fences a late result from durable state", a
   await rejected;
   assert.equal(await readFile(statePath, "utf8"), before);
   assert.equal(calls, 1);
+});
+
+test("a lease connection failure aborts a delayed CaaS call without committing its result", async (t) => {
+  const entered = Promise.withResolvers();
+  let calls = 0;
+  let requestSignal;
+  const context = await fixture({
+    caas: {
+      async ensureConnector(request, _key, { signal } = {}) {
+        calls += 1;
+        if (calls === 1) {
+          return {
+            connectorId: request.caasTenantId,
+            dataspaceId: request.dataspaceId,
+            participantId: request.participantId,
+            state: request.desiredState,
+          };
+        }
+        requestSignal = signal;
+        entered.resolve();
+        assert.equal(signal instanceof AbortSignal, true);
+        await new Promise((resolve, reject) => {
+          if (signal.aborted) reject(signal.reason);
+          else signal.addEventListener("abort", () => reject(signal.reason), { once: true });
+        });
+        throw new Error("unreachable");
+      },
+    },
+  });
+  t.after(() => rm(context.directory, { recursive: true, force: true }));
+  await context.service.createDataspace(dataspace(), OPERATOR, "create-key-0001");
+  await context.service.submitParticipant("molit-test", participant(), ADMIN_A, "submit-key-0001");
+  await context.service.approveParticipant("molit-test", "road-provider", { decisionId: "decision:2026-001", evidenceSha256: "c".repeat(64) }, ADMIN_B, "approve-key-0001");
+  await context.service.reconcile("molit-test", ADMIN_A, "reconcile-key-0001");
+
+  const durableStore = context.store;
+  const leaseController = new AbortController();
+  context.service.store = {
+    read: durableStore.read.bind(durableStore),
+    transact: durableStore.transact.bind(durableStore),
+    withResourceLock(resourceId, operation, options) {
+      return durableStore.withResourceLock(resourceId, () => operation({
+        resourceId,
+        holderId: "dsaas-instance-test",
+        fencingToken: "2",
+        acquiredAt: context.service.now(),
+        signal: leaseController.signal,
+      }), options);
+    },
+  };
+  const statePath = join(context.directory, "state.json");
+  const before = await readFile(statePath, "utf8");
+  const reconciliation = context.service.reconcile("molit-test", ADMIN_A, "reconcile-key-0002");
+  await entered.promise;
+  leaseController.abort(new RuntimeError("DSAAS_STATE_UNAVAILABLE", "lease connection lost"));
+
+  await assert.rejects(reconciliation, { code: "DSAAS_STATE_UNAVAILABLE" });
+  assert.equal(calls, 2);
+  assert.equal(requestSignal.aborted, true);
+  assert.equal(await readFile(statePath, "utf8"), before);
 });
 
 test("state transaction cancellation before atomic replace leaves durable bytes unchanged", async (t) => {
@@ -879,13 +968,19 @@ test("expired approval persists revocation intent before requesting CaaS suspens
   const blocked = await context.service.reconcile("molit-test", ADMIN_A, "reconcile-key-0002");
   assert.equal(context.observed.length, 2);
   assert.equal(context.observed[1].request.desiredState, "SUSPENDED");
+  assert.equal(context.observed[1].request.desiredGeneration, active.desiredGeneration + 1);
   assert.equal(blocked.observedState, "BLOCKED");
+  assert.equal(blocked.desiredGeneration, active.desiredGeneration + 1);
   assert.equal(blocked.reconcilePending, true);
   assert.equal(blocked.participants["road-provider"].approvalState, "REAPPROVAL_REQUIRED");
   assert.equal(blocked.participants["road-provider"].connector.state, "SUSPENDED");
   assert.equal(blocked.participants["road-provider"].lastKnownConnector.state, "ACTIVE");
   assert.equal(blocked.participants["road-provider"].lastError.code, "DSAAS_APPROVAL_DECISION_EXPIRED");
   assert.equal(blocked.participants["road-provider"].revokePending, false);
+
+  const repeated = await context.service.reconcile("molit-test", ADMIN_A, "reconcile-key-0003");
+  assert.equal(repeated.desiredGeneration, blocked.desiredGeneration);
+  assert.equal(context.observed.at(-1).request.desiredGeneration, blocked.desiredGeneration);
 });
 
 test("stale approval registry requests CaaS suspension and leaves the dataspace blocked", async (t) => {
@@ -1004,6 +1099,7 @@ test("revocation intent is durable before the CaaS suspension response", async (
   await suspendedCall.promise;
   const pending = await context.service.getDataspace("molit-test", ADMIN_A);
   assert.equal(pending.observedState, "BLOCKED");
+  assert.equal(pending.desiredGeneration, 3);
   assert.equal(pending.participants["road-provider"].connector, null);
   assert.equal(pending.participants["road-provider"].lastKnownConnector.state, "ACTIVE");
   assert.equal(pending.participants["road-provider"].observedState, "REVOKING");

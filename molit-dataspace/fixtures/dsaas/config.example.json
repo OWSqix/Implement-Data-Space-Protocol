@@ -7,7 +7,22 @@
   "allowedHosts": [
     "dsaas.data.molit.go.kr"
   ],
-  "statePath": "../../.local/dsaas/state.json",
+  "stateStore": {
+    "type": "postgres",
+    "connectionStringEnv": "MOLIT_DSAAS_POSTGRES_URL",
+    "holderIdEnv": "MOLIT_DSAAS_INSTANCE_ID",
+    "applicationName": "molit-dsaas-control-plane",
+    "tls": {
+      "mode": "verify-full",
+      "caEnv": "MOLIT_DSAAS_POSTGRES_CA_PEM"
+    },
+    "maxPoolSize": 20,
+    "maxLeasePoolSize": 20,
+    "connectionTimeoutMs": 5000,
+    "idleTimeoutMs": 30000,
+    "statementTimeoutMs": 30000,
+    "lockTimeoutMs": 5000
+  },
   "serviceRegistryPath": "service-registry.example.json",
   "serviceRegistrySha256": "e870ff554385dac39244caf01ac284762996209e6868a2fbfc4a85957fcd4107",
   "serviceRegistryMaxAgeSeconds": 86400,

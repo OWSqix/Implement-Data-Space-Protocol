@@ -54,10 +54,21 @@ const STATUS = Object.freeze({
   DSAAS_PARTICIPANT_NOT_FOUND: 404,
   DSAAS_PROFILE_NOT_APPROVED: 422,
   DSAAS_RECONCILE_IN_PROGRESS: 409,
+  DSAAS_RECONCILE_FENCE_LOST: 503,
   DSAAS_RECONCILE_SUPERSEDED: 409,
+  DSAAS_REQUEST_ABORTED: 408,
+  DSAAS_REQUEST_TIMEOUT: 408,
   DSAAS_REVISION_CONFLICT: 409,
   DSAAS_REVISION_REQUIRED: 428,
   DSAAS_STATE_LOCKED: 503,
+  DSAAS_STATE_ABORTED: 503,
+  DSAAS_STATE_CLOSED: 503,
+  DSAAS_STATE_COMMIT_UNKNOWN: 503,
+  DSAAS_STATE_MIGRATION_REQUIRED: 503,
+  DSAAS_STATE_MISSING: 503,
+  DSAAS_STATE_TIMEOUT: 503,
+  DSAAS_STATE_TOO_LARGE: 507,
+  DSAAS_STATE_UNAVAILABLE: 503,
   DSAAS_SECRET_MATERIAL_FORBIDDEN: 422,
   DSAAS_SHUTTING_DOWN: 503,
   DSAAS_SERVICE_REGISTRY_DIGEST_MISMATCH: 503,
@@ -81,6 +92,15 @@ const REGISTRY_UNAVAILABLE = new Set([
   "DSAAS_SERVICE_REGISTRY_DUPLICATE",
   "DSAAS_SERVICE_REGISTRY_REFRESH_FAILED",
   "DSAAS_SERVICE_REGISTRY_STALE",
+]);
+
+const STATE_RETRYABLE = new Set([
+  "DSAAS_RECONCILE_FENCE_LOST",
+  "DSAAS_STATE_ABORTED",
+  "DSAAS_STATE_CLOSED",
+  "DSAAS_STATE_COMMIT_UNKNOWN",
+  "DSAAS_STATE_TIMEOUT",
+  "DSAAS_STATE_UNAVAILABLE",
 ]);
 
 function applyHeaders(response, requestId) {
@@ -176,6 +196,20 @@ export function createDsaasServer({ config, controlPlane, authenticator, schedul
   const server = http.createServer({ keepAlive: true, maxHeaderSize: 16_384, requireHostHeader: true }, async (request, response) => {
     const requestController = new AbortController();
     requestControllers.add(requestController);
+    const abortRequest = (reason) => {
+      if (!requestController.signal.aborted) requestController.abort(reason);
+    };
+    const deadlineTimer = setTimeout(() => {
+      abortRequest(new RuntimeError("DSAAS_REQUEST_TIMEOUT", "request timed out"));
+    }, config.limits.requestTimeoutMs);
+    deadlineTimer.unref();
+    requestController.signal.addEventListener("abort", () => {
+      if (!request.complete && !request.destroyed) request.destroy(requestController.signal.reason);
+    }, { once: true });
+    request.once("aborted", () => abortRequest(new RuntimeError("DSAAS_REQUEST_ABORTED", "client aborted the request")));
+    response.once("close", () => {
+      if (!response.writableFinished) abortRequest(new RuntimeError("DSAAS_REQUEST_ABORTED", "client closed the response"));
+    });
     const requestId = randomUUID();
     const startedAt = process.hrtime.bigint();
     applyHeaders(response, requestId);
@@ -204,7 +238,7 @@ export function createDsaasServer({ config, controlPlane, authenticator, schedul
           json(request, response, 503, { ready: false, status: "stopping" });
           return;
         }
-        const localReadiness = await controlPlane.readiness();
+        const localReadiness = await controlPlane.readiness({ signal: requestController.signal });
         const schedulerReadiness = scheduler?.readiness();
         const available = localReadiness.ready && (schedulerReadiness?.ready ?? true);
         const failureCodes = [...localReadiness.failureCodes];
@@ -232,7 +266,7 @@ export function createDsaasServer({ config, controlPlane, authenticator, schedul
         problem(request, response, 503, "DSAAS_SHUTTING_DOWN", "DSaaS is draining and does not accept management requests", requestId);
         return;
       }
-      const actor = await authenticator.authenticate(request);
+      const actor = await authenticator.authenticate(request, { signal: requestController.signal });
       let match;
       if (request.method === "POST" && target.pathname === "/v1/dataspaces") {
         const result = await controlPlane.createDataspace(await readJson(request, config.limits.maxRequestBytes), actor, idempotencyKey(request), { signal: requestController.signal });
@@ -241,7 +275,7 @@ export function createDsaasServer({ config, controlPlane, authenticator, schedul
       }
       if ((match = /^\/v1\/dataspaces\/([^/]+)$/u.exec(target.pathname)) && request.method === "GET") {
         requireNoBody(request);
-        const result = await controlPlane.getDataspace(identifier(decodeURIComponent(match[1])), actor);
+        const result = await controlPlane.getDataspace(identifier(decodeURIComponent(match[1])), actor, { signal: requestController.signal });
         json(request, response, 200, result, result.revision);
         return;
       }
@@ -265,7 +299,7 @@ export function createDsaasServer({ config, controlPlane, authenticator, schedul
       }
       if ((match = /^\/v1\/dataspaces\/([^/]+)\/participants\/([^/]+)$/u.exec(target.pathname)) && request.method === "GET") {
         requireNoBody(request);
-        const result = await controlPlane.getParticipant(identifier(decodeURIComponent(match[1])), identifier(decodeURIComponent(match[2])), actor);
+        const result = await controlPlane.getParticipant(identifier(decodeURIComponent(match[1])), identifier(decodeURIComponent(match[2])), actor, { signal: requestController.signal });
         json(request, response, 200, result, result.revision);
         return;
       }
@@ -289,8 +323,10 @@ export function createDsaasServer({ config, controlPlane, authenticator, schedul
       }[error?.code] ?? 500);
       telemetry?.log(status >= 500 ? "ERROR" : "WARN", "dsaas.request_rejected", { "error.code": error?.code ?? "INTERNAL_ERROR", "molit.request.id": requestId });
       if (REGISTRY_UNAVAILABLE.has(error?.code)) response.setHeader("Retry-After", "60");
+      else if (STATE_RETRYABLE.has(error?.code)) response.setHeader("Retry-After", "1");
       problem(request, response, status, status === 500 ? "DSAAS_INTERNAL_ERROR" : error.code, status === 500 ? "internal server error" : error.message, requestId);
     } finally {
+      clearTimeout(deadlineTimer);
       requestControllers.delete(requestController);
     }
   });
@@ -314,6 +350,11 @@ export function createDsaasServer({ config, controlPlane, authenticator, schedul
       closing = false;
       closePromise = null;
       try {
+        if (config.environment === "production") {
+          assertRuntime(authenticator?.productionEligible === true, "DSAAS_PRODUCTION_AUTH_REQUIRED", "production DSaaS requires OAuth2 introspection authentication");
+          const localReadiness = await controlPlane.readiness();
+          assertRuntime(localReadiness?.ready === true, "DSAAS_PRODUCTION_NOT_READY", "production DSaaS cannot start before all local readiness gates pass", { failureCodes: localReadiness?.failureCodes ?? [] });
+        }
         await new Promise((resolve, reject) => {
           server.once("error", reject);
           server.listen(config.port, config.listenHost, () => {
@@ -353,13 +394,13 @@ export function createDsaasServer({ config, controlPlane, authenticator, schedul
       }
       return server.address();
     },
-    async close({ timeoutMs = config.limits.gracefulShutdownMs } = {}) {
+    async close({ deadline: requestedDeadline, timeoutMs = config.limits.gracefulShutdownMs } = {}) {
       if (closePromise) return closePromise;
       ready = false;
       closing = true;
       lifecycleEpoch += 1;
       const budgetMs = Number.isFinite(timeoutMs) ? Math.max(0, timeoutMs) : config.limits.gracefulShutdownMs;
-      const deadline = Date.now() + budgetMs;
+      const deadline = Number.isFinite(requestedDeadline) ? Math.max(0, requestedDeadline) : Date.now() + budgetMs;
       const serverDrain = started || server.listening
         ? new Promise((resolve, reject) => {
           server.close((error) => error ? reject(error) : resolve());

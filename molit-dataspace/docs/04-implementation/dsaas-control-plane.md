@@ -14,9 +14,10 @@
 - 만료·철회·Registry 오류가 난 승인의 durable 철회 의도 기록과 CaaS `SUSPENDED` 수렴
 - generation fencing을 적용한 CaaS 수렴
 - 응답 계약과 tenant·generation·plan·intent 상관관계를 고정한 CaaS 호출
-- 중복 tick을 막고 한 번에 처리할 수를 제한한 단일 호스트 주기 reconcile scheduler
+- 중복 tick을 막고 한 번에 처리할 수를 제한한 주기 reconcile scheduler
 - OAuth2 introspection, principal·client·key 귀속, 역할별 접근제어, 멱등성 원장
-- 단일 호스트 atomic file store와 상태 snapshot 감사 결합
+- PostgreSQL JSONB·CAS, 별도 state·lease pool, advisory lock·fencing token
+- 개발·시험용 atomic file store와 상태 snapshot 감사 결합
 
 실제 기관 승인 시스템과 연결하는 Adapter는 구현하지 않았다. 예제 승인 Registry의 상태도 `NOT_CONFIGURED`다. 따라서 예제 설정 그대로는 참여기관을 승인할 수 없다.
 
@@ -25,7 +26,8 @@
 | 경로 | 역할 |
 | --- | --- |
 | `src/dsaas/service.mjs` | 데이터 스페이스·참여기관 상태와 CaaS 수렴 |
-| `src/dsaas/store.mjs` | atomic file store, lock, 상태 snapshot, 감사 hash chain |
+| `src/dsaas/store.mjs` | 상태 검증, atomic file backend, snapshot·감사 hash chain |
+| `src/control-store/postgres-json-store.mjs` | PostgreSQL JSONB·CAS, advisory lock, fencing lease |
 | `src/dsaas/server.mjs` | 관리 REST API, Host·body·timeout 제한 |
 | `src/dsaas/auth.mjs` | OAuth2 token introspection과 claim 검사 |
 | `src/dsaas/caas-client.mjs` | CaaS `POST /v1/connectors/ensure` 호출 |
@@ -38,6 +40,24 @@
 `governance/molit-dataspace-governance.v1.json`은 후보 문서다. 파일의 상태는 `candidate-not-institutionally-approved`이며 운영기관 승인본이 아니다.
 
 CaaS provisioner는 승인된 plan에 따라 Connector 인프라를 생성·갱신·회수할 수 있다. 이 권한은 참여기관 asset 조회나 실제 데이터 접근 권한을 포함하지 않는다. 후보 거버넌스는 두 권한을 별도 항목으로 고정한다.
+
+### 2.1 PostgreSQL 상태와 reconcile lease
+
+production 설정은 PostgreSQL backend와 `verify-full` TLS를 강제한다. DSaaS는 `molit_control_store.json_snapshot`의 `component=dsaas` row 하나에 dataspace, 참여기관, 멱등성 원장, 감사 event와 무결성 head를 저장한다.
+
+transaction은 row를 `FOR UPDATE`로 읽고 `revision`을 비교하는 조건부 `UPDATE`로 JSONB 전체를 교체한다. state transaction과 reconcile lease는 서로 다른 pool을 사용한다.
+
+따라서 장시간 CaaS 호출이 lease connection을 점유해도 state pool의 connection을 모두 소진하지 않는다.
+
+데이터 스페이스별 reconcile은 `dataspace:{dataspaceId}`를 자원 ID로 한 session advisory lock을 획득한다. lock을 얻을 때 `resource_fence`의 token을 증가시키고 holder와 획득 시각을 기록한다. 같은 데이터 스페이스에 대한 다른 instance의 reconcile은 `DSAAS_RECONCILE_IN_PROGRESS`로 거부된다.
+
+lease connection이 끊기면 reconcile의 `AbortSignal`을 취소한다. state transaction은 현재 token, holder와 미해제 상태를 확인한 경우에만 commit한다.
+
+정리 단계는 제한된 시간 안에 fence row와 advisory lock을 해제한다. 해제 결과가 불명확하면 connection을 폐기한다.
+
+이 저장소는 DSaaS 전체 상태를 JSONB row 하나에 둔다. 서로 다른 데이터 스페이스의 쓰기도 같은 row lock에서 직렬화되고, 감사 event와 멱등성 record가 같은 row를 키운다.
+
+상용 용량시험 전에는 dataspace·participant·idempotency·audit를 정규화해야 한다. append-only audit partition과 보존·export 절차도 구현해야 한다.
 
 ## 3. API
 
@@ -59,17 +79,31 @@ CaaS provisioner는 승인된 plan에 따라 Connector 인프라를 생성·갱�
 
 승인 API도 먼저 이 원장을 read-only로 확인한다. 완료된 exact replay는 현재 승인 Registry를 다시 읽지 않고 저장 응답을 반환한다. ledger miss일 때만 Registry를 읽으며, state transaction 안에서 ledger를 다시 확인해 동시 요청의 TOCTOU를 막는다.
 
-`/readyz`의 범위는 `LOCAL_CONTROL_PLANE`이다. 매 요청에서 state file을 다시 읽어 snapshot과 감사 chain을 검증한다.
+`/readyz`의 범위는 `LOCAL_CONTROL_PLANE`이다. 매 요청에서 현재 backend의 state를 다시 읽어 snapshot과 감사 chain을 검증한다. PostgreSQL backend는 state pool과 별도 lease pool의 연결도 확인한다.
 
 서비스 Registry와 승인 결정 Registry도 원본 파일에서 다시 읽는다. 이 과정에서 시작 시 설정에 고정된 digest와 유효기간을 검사하고, 승인 Registry는 `READY` 상태인지도 확인한다. scheduler가 설정된 runtime에서는 마지막 tick의 지연과 대상별 실패도 검사한다.
 
-HTTP listener는 scheduler의 첫 tick을 기다리지 않고 열린다. 첫 tick이 끝날 때까지 `/healthz`는 응답하지만 `/readyz`는 `503`을 반환한다.
+production은 OAuth2 introspection을 수행하는 운영용 authenticator가 아니면 시작하지 않는다. listener를 열기 전에 state, 서비스 Registry, 승인 결정 Registry의 로컬 readiness도 확인한다. 하나라도 준비되지 않으면 `DSAAS_PRODUCTION_NOT_READY`로 시작을 중단한다.
+
+development와 test에서는 HTTP listener가 scheduler의 첫 tick 전에 열릴 수 있다. 첫 tick이 끝날 때까지 `/healthz`는 응답하지만 `/readyz`는 `503`을 반환한다.
+
+각 HTTP 요청에는 `requestTimeoutMs` 하나의 전체 deadline을 적용한다. readiness 검사, OAuth2 introspection, 조회, 변경 요청은 같은 `AbortSignal`을 전달받는다.
+
+deadline을 넘기면 `DSAAS_REQUEST_TIMEOUT`과 `408`을 반환한다. client가 연결을 끊으면 `DSAAS_REQUEST_ABORTED`로 중단한다. 아직 읽지 않은 request body가 있으면 connection을 폐기한다.
 
 승인 결정 Registry와 서비스 Registry의 digest 불일치, 중복 ID, 유효기간 경과, 갱신 실패는 관리 요청에서도 `503 Service Unavailable`로 반환한다. 응답에는 원래 오류 코드를 보존하고 `Retry-After: 60`을 넣는다.
 
 `/readyz`가 같은 Registry 오류로 `503`을 반환할 때도 `Retry-After: 60`을 넣는다. 파일 부재, 읽기 실패, JSON 구문 오류와 Registry schema 위반은 각각 `DSAAS_APPROVAL_REGISTRY_REFRESH_FAILED` 또는 `DSAAS_SERVICE_REGISTRY_REFRESH_FAILED`로 정규화한다.
 
 이 header는 60초 뒤 복구를 보장한다는 뜻이 아니다. 운영자는 Registry 원본과 설정 digest를 바로잡아야 하며, 호출자는 이 시간보다 짧은 간격으로 같은 요청을 반복하지 않는다.
+
+PostgreSQL 상태 오류는 원래 code를 숨기지 않는다. `DSAAS_STATE_ABORTED`, `DSAAS_STATE_CLOSED`, `DSAAS_STATE_COMMIT_UNKNOWN`, `DSAAS_STATE_TIMEOUT`, `DSAAS_STATE_UNAVAILABLE`와 `DSAAS_RECONCILE_FENCE_LOST`는 `503`과 `Retry-After: 1`로 반환한다.
+
+`DSAAS_STATE_LOCKED`, `DSAAS_STATE_MIGRATION_REQUIRED`, `DSAAS_STATE_MISSING`은 운영자 조치가 필요하므로 `Retry-After`를 넣지 않는다. `DSAAS_STATE_TOO_LARGE`는 재시도로 해소되지 않으므로 `507`을 반환한다.
+
+`DSAAS_STATE_COMMIT_UNKNOWN`은 `COMMIT` 전송을 시작한 뒤 connection 결과를 확인하지 못했다는 뜻이다. 같은 요청을 새 key로 다시 만들면 부작용이 중복될 수 있다.
+
+호출자는 먼저 resource 상태를 조회한다. 재시도가 필요하면 원래 `Idempotency-Key`와 본문을 그대로 사용하고, 운영자는 database transaction과 감사 record를 대조한다.
 
 현재 runtime은 Registry 파일만 동적으로 교체해 새 digest를 신뢰하지 않는다. `serviceRegistrySha256`과 `approvalDecisionRegistrySha256`는 process 시작 시 config에 고정된다.
 
@@ -175,7 +209,7 @@ CaaS가 `ACTIVE`를 반환하면 응답을 거부한다. 새 Registry 파일과 
 
 reconcile은 데이터 스페이스별 resource lock 안에서 다음 순서로 실행한다.
 
-1. state file에서 최신 revision과 `desiredGeneration`을 읽는다.
+1. state store에서 최신 revision과 `desiredGeneration`을 읽는다.
 2. 승인된 참여기관별 CaaS 요청을 만들고 `desiredGeneration`을 본문에 넣는다.
 3. 요청, `caasTenantId`·`desiredGeneration`·`connectorPlanId`·intent와 현재 reconcile key의 stable digest로 CaaS idempotency key를 만든다.
 4. `POST /v1/connectors/ensure`를 호출한다.
@@ -191,7 +225,11 @@ interleaving 시험은 첫 CaaS 호출을 중단한 상태에서 원하는 상�
 
 제한을 넘으면 원격 호출을 중단하고 `DSAAS_RECONCILE_SUPERSEDED`를 반환한다. `reconcilePending=true`와 최신 `desiredGeneration`은 state에 남으므로 다음 bounded reconcile이 이어받는다.
 
-지속적인 쓰기 경합은 한 요청을 무한히 점유하지 않는다. 다중 호스트 배포에서는 이 단일 호스트 lock을 사용하지 말고 lease와 fencing token을 갖춘 transaction store로 교체해야 한다.
+지속적인 쓰기 경합은 한 요청을 무한히 점유하지 않는다. PostgreSQL backend는 여러 instance가 같은 데이터 스페이스에 들어오는 것을 advisory lock으로 직렬화하고, lease를 잃은 instance의 state commit을 fencing token으로 거부한다.
+
+원하는 상태 변경은 장시간 reconcile lease를 기다리지 않고 짧은 state transaction에서 진행된다. 따라서 CaaS 원격 호출 중 새 generation이 기록될 수 있다.
+
+reconcile은 원격 응답 뒤 revision과 generation을 다시 비교한다. 값이 바뀌었으면 관찰값을 버린 뒤 최신 명령을 같은 bounded loop에서 다시 적용한다.
 
 주기 reconcile은 `reconcileScheduler.intervalMs`마다 due target만 순환한다. 한 tick은 `maxDataspacesPerTick`까지만 직렬 처리하고, 이전 tick이 끝나지 않았으면 새 tick을 건너뛴다.
 
@@ -217,9 +255,25 @@ due 이후에도 승인·서비스 projection과 Connector 관찰 상태가 모�
 
 scheduler 호출은 `system:dsaas-reconcile-scheduler` principal, `molit-dsaas-control-plane` client, `internal-reconcile-scheduler-v1` key로 감사한다. 사용 역할은 `dsaas.operator`다. 주기 실행은 외부 API 멱등성 원장을 소비하지 않는다.
 
-이 scheduler는 단일 process용이다. 여러 DSaaS instance를 동시에 실행하면 각 instance가 같은 대상을 reconcile할 수 있다. 다중 호스트 배포에는 leader election 또는 lease와 fencing token이 필요하며, 현재 구현에는 없다.
+여러 DSaaS instance의 scheduler가 같은 대상을 선택할 수는 있다. PostgreSQL의 데이터 스페이스별 lease가 실제 reconcile 중복 실행을 막는다.
 
-### 8.1 종료 순서
+cluster 전체 tick을 한 instance에 배정하는 leader election은 없다. 장애조치 지연, 대량 lock 경합과 scheduler 부하 분산은 별도 고가용성 시험 대상이다.
+
+### 8.1 필수 서비스 Gate의 generation 전이
+
+필수 서비스 projection의 준비 상태가 바뀌고 활성 승인 참여기관의 CaaS 명령에 영향을 주면 DSaaS는 `desiredGeneration`을 한 번 증가시킨다. 같은 장애가 지속되거나 같은 projection을 다시 읽을 때는 generation을 더 올리지 않는다.
+
+통합시험의 고정 전이는 다음과 같다.
+
+```text
+generation 2: required service READY     -> dataspace ACTIVE, Connector ACTIVE
+generation 3: required service NOT_READY -> dataspace BLOCKED, Connector SUSPENDED
+generation 4: required service READY     -> dataspace ACTIVE, Connector ACTIVE
+```
+
+2→3 전이는 `intent=SERVICE_BLOCK`과 `desiredState=SUSPENDED`를 CaaS에 전달한다. 3→4 전이는 원래 참여기관 desired state를 다시 적용한다. 각 CaaS 요청에는 해당 generation이 들어가며, CaaS는 이전 generation의 새 명령과 같은 generation의 다른 본문을 거부한다.
+
+### 8.2 종료 순서
 
 `close()`는 먼저 readiness를 내리고 HTTP listener의 새 연결 수락을 중단한다. 이미 열린 연결에서 뒤늦게 들어온 관리 요청은 인증이나 state 접근 전에 `DSAAS_SHUTTING_DOWN`과 `503`을 받는다. `/healthz`는 process liveness 확인을 위해 계속 응답하고 `/readyz`는 `503`과 `status=stopping`을 반환한다.
 
@@ -231,13 +285,19 @@ scheduler stop과 HTTP drain은 `gracefulShutdownMs`로 계산한 하나의 절�
 
 HTTP 관리 요청에도 request별 취소 신호를 둔다. 생성, desired-state 변경, 수동 reconcile, 참가자 제출, 참가자 승인 요청은 drain deadline까지 실행할 수 있다.
 
-deadline이 지나면 신호를 취소하고 각 service transaction과 파일 state의 atomic replace 경계에서 commit을 차단한다.
+deadline이 지나면 신호를 취소하고 각 service transaction의 commit 경계에서 중단한다.
 
 CaaS Adapter가 취소를 무시하고 나중에 성공 응답을 반환하더라도 서비스는 신호를 다시 확인한다. 그 관찰값은 state transaction에 넘기지 않으며 종료 뒤에는 새 tick도 시작하지 않는다.
 
-파일 state transaction은 임시 파일을 원본으로 바꾸기 직전에 취소 신호를 다시 검사한다. 취소가 먼저 도착하면 원본 state를 유지한다. atomic replace가 먼저 끝났다면 durable commit을 성공 결과로 반환하며, 뒤늦은 취소로 결과를 `AbortError`로 바꾸지 않는다.
+PostgreSQL transaction은 `COMMIT` 전에 취소와 현재 lease fence를 다시 확인한다. `COMMIT` 시작 뒤 결과가 불명확하면 `DSAAS_STATE_COMMIT_UNKNOWN`을 반환한다. 성공한 durable commit을 뒤늦은 취소로 실패 처리하지 않는다.
+
+development·test의 file backend는 임시 파일을 원본으로 바꾸기 직전에 취소 신호를 다시 검사한다. 취소가 먼저 도착하면 원본 state를 유지하고, atomic replace가 먼저 끝났다면 성공으로 반환한다.
 
 `start()`와 `close()`에는 lifecycle epoch를 적용한다. listen callback이 오기 전에 종료가 시작되면 늦게 도착한 callback은 listener를 닫고 `DSAAS_START_ABORTED`로 끝난다. 이 경로에서는 scheduler를 시작하지 않는다.
+
+runtime은 server와 scheduler drain을 마친 뒤 state store를 닫는다. PostgreSQL store는 state pool과 lease pool을 함께 종료한다.
+
+실제 CaaS·Kubernetes 작업의 취소와 보상 완료 여부는 하위 Adapter의 책임이다. 현재 상용 Gate에서 별도로 차단한다.
 
 ## 9. CaaS 오류 관찰
 
@@ -271,7 +331,7 @@ scheduler 결과는 수렴 완료를 `succeeded`, 승인·서비스 조건 차�
 
 ## 10. 상태 snapshot과 감사
 
-state 저장은 임시 파일 기록, file `fsync`, atomic rename, directory `fsync` 순서를 따른다.
+상태의 논리 구조와 감사 검증은 file·PostgreSQL backend에서 같다. PostgreSQL은 JSONB row transaction으로 저장하고, development·test의 file backend는 임시 파일 기록, file `fsync`, atomic rename, directory `fsync` 순서를 따른다.
 
 각 transaction은 `dataspaces`와 `idempotency` 전체의 stable snapshot digest를 계산한다. 마지막 `state.commit` 감사 event가 이 digest를 포함하고, state의 `integrity`가 snapshot digest와 audit head를 함께 저장한다.
 
@@ -300,9 +360,17 @@ introspection endpoint의 HTTP Basic credential은 RFC 6749 §2.3.1을 따른다
 
 따라서 이 값은 보안 서명이나 부인방지 증거가 아니다. 운영 배포에서는 감사 event를 외부 append-only 저장소로 반출하고 MAC 또는 서명과 보존 정책을 적용해야 한다.
 
-## 11. lock 복구
+PostgreSQL을 쓰더라도 같은 한계가 남는다. database 쓰기 권한이 있는 관리자는 JSONB와 digest를 함께 다시 만들 수 있고, 감사 배열은 같은 row 안에서 계속 증가한다. WORM 반출, 서명 anchor, partition과 보존·삭제 원장이 구현되기 전에는 독립 감사 증거로 판정하지 않는다.
 
-state lock과 resource lock은 stale 여부를 추정해 자동 삭제하지 않는다. PID 재사용, host 오판, 파일 삭제 경합으로 두 writer가 동시에 진입할 수 있기 때문이다.
+## 11. lock과 lease 복구
+
+PostgreSQL advisory lock은 session이 종료되면 database가 해제한다. 애플리케이션은 정상 정리 시 `resource_fence.released_at`을 기록하고 lock 해제 결과를 확인한다.
+
+connection 오류, 정리 timeout 또는 fence row 변경으로 결과를 확인할 수 없으면 connection을 pool에 되돌리지 않고 폐기한다.
+
+`resource_fence`에 미해제 기록이 남았다고 row를 수동 삭제하거나 token을 낮추면 안 된다. database session과 현재 holder를 확인하고, 새 lease가 더 큰 token을 발급받는지 검증한 뒤 운영 사고 기록을 남긴다. token은 재사용하지 않는다.
+
+development·test file backend의 state lock과 resource lock은 stale 여부를 추정해 자동 삭제하지 않는다. PID 재사용, host 오판, 파일 삭제 경합으로 두 writer가 동시에 진입할 수 있기 때문이다.
 
 lock 파일이 남으면 `DSAAS_STATE_LOCKED` 또는 `DSAAS_RECONCILE_IN_PROGRESS`로 중단한다. 수동 복구 순서는 다음과 같다.
 
@@ -345,14 +413,19 @@ npm run dsaas:serve
 - [ ] 승인 결정의 발급·철회·만료 운영 절차
 - [ ] 운영기관이 승인한 거버넌스 묶음
 - [ ] CaaS·Identity Hub·Federated Catalog 운영 endpoint와 최신 readiness 증거
-- [ ] 분산 transaction store, scheduler leader election, lease, fencing token
+- [x] PostgreSQL JSONB·CAS, 별도 lease pool, advisory lock과 fencing token
+- [ ] JSONB 단일 row를 dataspace·participant·멱등성·감사 table로 분리
+- [ ] scheduler leader election 또는 다중 instance 부하·장애조치 시험
+- [ ] PostgreSQL 고가용성·PITR과 database primary·zone 장애 복구 시험
 - [ ] 감사 event 외부 반출과 서명·보존 정책
 - [ ] 참여기관 offboarding과 보존기간 처리
 - [ ] 멱등성 원장의 보존기간, 데이터 스페이스별 상한과 안전한 정리 절차
 - [ ] 운영 OAuth2·DCP identity 체계
 - [ ] 실제 EDC provisioner와 이기종 DSP 상호운용 증거
 
-현재 완료된 범위는 단일 호스트 DSaaS 제어 계약, 승인 만료·철회를 자동 감지하는 bounded scheduler, 시험 가능한 CaaS 수렴 경로다. 운영기관 승인, 다중 호스트 scheduler 리더 선출과 장애조치, 실제 EDC 배포는 별도 완료조건으로 남는다.
+상용 판정은 `governance/commercial-readiness-register.v1.json`을 정본으로 사용한다. `npm run commercial:status`는 2026-07-14 현재 `commercialReady=false`와 exit code 2를 반환한다.
+
+현재 완료된 범위는 공유 PostgreSQL에서 데이터 스페이스별 reconcile을 조정하고, 승인·서비스 Gate와 CaaS generation을 수렴하는 DSaaS 제어 계약이다. 운영기관 승인, 실운영 신원, WORM 감사, 고가용성·PITR, 실제 EDC 배포와 이기종 상호운용은 별도 완료조건으로 남는다.
 
 HTTP client는 요청과 각 retry 전에 DNS 응답을 검사한다. origin allowlist, redirect 금지, 응답 크기와 timeout도 적용한다.
 

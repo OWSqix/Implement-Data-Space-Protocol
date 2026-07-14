@@ -10,6 +10,7 @@ import { loadCaasConfig } from "../../src/caas/config.mjs";
 import { createCaasProvisioners } from "../../src/caas/provisioner.mjs";
 import { createCaaSHttpServer } from "../../src/caas/server.mjs";
 import { CaaSControlService } from "../../src/caas/service.mjs";
+import { FileCaasStore } from "../../src/caas/store.mjs";
 import { ResilientHttpClient } from "../../src/bridge-runtime/http-client.mjs";
 import { HttpCaasClient } from "../../src/dsaas/caas-client.mjs";
 import { DsaasControlPlane } from "../../src/dsaas/service.mjs";
@@ -18,6 +19,21 @@ import { FileDsaasStore } from "../../src/dsaas/store.mjs";
 const PROFILE = { iri: "https://data.molit.go.kr/profile/molit-dcat-ap/1.0.0-rc.1", version: "1.0.0-rc.1", sha256: "0666b7c2ed74800264a9ac6c8292f819fc973a02057397faca3b3d5df3bacfe4" };
 const GOVERNANCE = { iri: "https://data.molit.go.kr/governance/molit-dataspace/0.1.0", version: "0.1.0", sha256: "a".repeat(64) };
 const PROTOCOL = { dspVersion: "2025-1", specification: "https://eclipse-dataspace-protocol-base.github.io/DataspaceProtocol/2025-1-err1/", identityMode: "dcp" };
+
+function serviceRegistry(status, actualSha256) {
+  return {
+    actualSha256,
+    issuedAt: "2026-07-13T00:00:00Z",
+    validUntil: "2026-07-14T00:00:00Z",
+    maxAgeSeconds: 86_400,
+    registry: { issuedAt: "2026-07-13T00:00:00Z", validUntil: "2026-07-14T00:00:00Z" },
+    byId: new Map([["caas-primary", {
+      serviceId: "caas-primary",
+      status,
+      evidence: { observedAt: "2026-07-13T00:00:00Z", sha256: "d".repeat(64) },
+    }]]),
+  };
+}
 
 async function listen(server) {
   await new Promise((resolve, reject) => {
@@ -34,7 +50,7 @@ test("DSaaS approved membership converges through the authenticated CaaS API", a
   const directory = await mkdtemp(join(tmpdir(), "molit-dsaas-caas-"));
   t.after(() => rm(directory, { recursive: true, force: true }));
   const caasConfig = await loadCaasConfig(fileURLToPath(new URL("../../fixtures/caas/config.example.json", import.meta.url)));
-  caasConfig.statePath = join(directory, "caas-state.json");
+  caasConfig.stateStore.path = join(directory, "caas-state.json");
   caasConfig.listen = { host: "127.0.0.1", port: 0 };
   caasConfig.provisioners["edc-intent-v1"].manifestDirectory = join(directory, "intents");
   caasConfig.controller.allowedDataspaceIds = ["molit-live"];
@@ -44,17 +60,42 @@ test("DSaaS approved membership converges through the authenticated CaaS API", a
     MOLIT_CAAS_ROAD_DATA_PROVIDER_TOKEN: "tenant-token-at-least-16-characters",
   };
   const provisioners = createCaasProvisioners(caasConfig);
+  const fixedClock = () => new Date("2026-07-13T00:00:00Z");
+  const caasStore = new FileCaasStore({
+    path: caasConfig.stateStore.path,
+    maxBytes: caasConfig.limits.maxStateBytes,
+    maxAuditEvents: caasConfig.limits.maxAuditEvents,
+    clock: fixedClock,
+  });
   // The dry-run adapter cannot report ACTIVE. This test-only wrapper stands in
   // for an operational adapter after independent Connector health confirmation.
   const intentProvisioner = provisioners["edc-intent-v1"];
+  let lastAdapterResult;
   provisioners["edc-intent-v1"] = {
     intentOnly: false,
-    readiness: () => intentProvisioner.readiness(),
-    async provision(tenant, key) { return { ...await intentProvisioner.provision(tenant, key), converged: true }; },
-    async deprovision(tenant, key) { return { ...await intentProvisioner.deprovision(tenant, key), converged: true }; },
+    readiness: (options) => intentProvisioner.readiness(options),
+    async provision(tenant, key, options) {
+      lastAdapterResult = { ...await intentProvisioner.provision(tenant, key, options), converged: true };
+      return lastAdapterResult;
+    },
+    async deprovision(tenant, key, options) {
+      lastAdapterResult = { ...await intentProvisioner.deprovision(tenant, key, options), converged: true };
+      return lastAdapterResult;
+    },
+    async observe(tenant, key) {
+      return {
+        adapterResourceId: lastAdapterResult.adapterResourceId,
+        intentDigest: lastAdapterResult.intentDigest,
+        operationKey: key,
+        generation: tenant.generation,
+        desiredState: tenant.desiredState,
+        exists: tenant.desiredState === "PROVISIONED",
+        converged: true,
+      };
+    },
   };
-  const caasService = new CaaSControlService({ config: caasConfig, provisioners, env, now: () => new Date("2026-07-13T00:00:00Z") });
-  const authorizer = new CaaSAuthorizer({ config: caasConfig, env });
+  const caasService = new CaaSControlService({ config: caasConfig, provisioners, store: caasStore, env, now: fixedClock });
+  const authorizer = new CaaSAuthorizer({ config: caasConfig, store: caasStore, env });
   const caasServer = createCaaSHttpServer({ config: caasConfig, service: caasService, authorizer });
   const address = await listen(caasServer);
   t.after(() => new Promise((resolve) => caasServer.close(resolve)));
@@ -91,16 +132,11 @@ test("DSaaS approved membership converges through the authenticated CaaS API", a
     http,
     env,
   });
+  let currentServiceRegistry = serviceRegistry("READY", "1".repeat(64));
   const dsaas = new DsaasControlPlane({
     store: new FileDsaasStore({ path: join(directory, "dsaas-state.json"), clock: () => new Date("2026-07-13T00:00:00Z") }),
     caas,
-    serviceRegistry: {
-      issuedAt: "2026-07-13T00:00:00Z",
-      validUntil: "2026-07-14T00:00:00Z",
-      maxAgeSeconds: 86_400,
-      registry: { issuedAt: "2026-07-13T00:00:00Z", validUntil: "2026-07-14T00:00:00Z" },
-      byId: new Map([["caas-primary", { serviceId: "caas-primary", status: "READY", evidence: { observedAt: "2026-07-13T00:00:00Z", sha256: "d".repeat(64) } }]]),
-    },
+    serviceRegistryProvider: () => currentServiceRegistry,
     approvalDecisionRegistry: {
       actualSha256: "e".repeat(64),
       status: "READY",
@@ -160,6 +196,7 @@ test("DSaaS approved membership converges through the authenticated CaaS API", a
   await dsaas.approveParticipant("molit-live", "road-membership", { decisionId: "decision:2026-001", evidenceSha256: "c".repeat(64) }, approver, "approve-participant-0001");
   const active = await dsaas.reconcile("molit-live", approver, "reconcile-active-0001");
   assert.equal(active.observedState, "ACTIVE");
+  assert.equal(active.desiredGeneration, 2);
   assert.equal(active.participants["road-membership"].connector.connectorId, "road-data-provider");
   assert.equal((await caasService.getTenant("road-data-provider")).observedState, "PROVISIONED");
 
@@ -168,7 +205,21 @@ test("DSaaS approved membership converges through the authenticated CaaS API", a
   assert.equal(intent.includes(env.MOLIT_CAAS_ROAD_DATA_PROVIDER_TOKEN), false);
   assert.match(intent, /vault:\/\/molit\/caas\/road-data-provider\/edc-vault/u);
 
-  const suspendedDesired = await dsaas.setDesiredState("molit-live", "SUSPENDED", active.revision, approver, "suspend-dataspace-0001");
+  currentServiceRegistry = serviceRegistry("NOT_READY", "2".repeat(64));
+  const serviceBlocked = await dsaas.reconcile("molit-live", approver, "reconcile-service-blocked-0001");
+  assert.equal(serviceBlocked.observedState, "BLOCKED");
+  assert.equal(serviceBlocked.desiredGeneration, active.desiredGeneration + 1);
+  assert.equal(serviceBlocked.participants["road-membership"].connector.state, "SUSPENDED");
+  assert.equal((await caasService.getTenant("road-data-provider")).observedState, "NOT_PROVISIONED");
+
+  currentServiceRegistry = serviceRegistry("READY", "3".repeat(64));
+  const serviceRecovered = await dsaas.reconcile("molit-live", approver, "reconcile-service-recovered-0001");
+  assert.equal(serviceRecovered.observedState, "ACTIVE");
+  assert.equal(serviceRecovered.desiredGeneration, serviceBlocked.desiredGeneration + 1);
+  assert.equal(serviceRecovered.participants["road-membership"].connector.state, "ACTIVE");
+  assert.equal((await caasService.getTenant("road-data-provider")).observedState, "PROVISIONED");
+
+  const suspendedDesired = await dsaas.setDesiredState("molit-live", "SUSPENDED", serviceRecovered.revision, approver, "suspend-dataspace-0001");
   assert.equal(suspendedDesired.spec.desiredState, "SUSPENDED");
   const suspended = await dsaas.reconcile("molit-live", approver, "reconcile-suspended-0001");
   assert.equal(suspended.observedState, "SUSPENDED");

@@ -6,13 +6,13 @@
     "fileCount": 21
   },
   "installMetadata": {
-    "bytes": 75810,
+    "bytes": 81201,
     "path": "node_modules/.package-lock.json",
-    "sha256": "127415c85be81dad9d686052c408a10dec1bdcc9f06d18810605fe8f804f8995"
+    "sha256": "049b3d118e10912c3b22142cc86afa86765a9f279beaa89bd4ea648fb57225e9"
   },
   "nodeVersion": "v24.16.0",
-  "packageCount": 152,
-  "packageLockSha256": "1b76ccb7051195a20051de3733896d7a9f226d59ab902049633bf1875067c2fa",
+  "packageCount": 166,
+  "packageLockSha256": "969ae0ec8974c396501927ed7bcf126319e18a6b66917f333041ecaa51c07395",
   "packages": [
     {
       "bytes": 20853,
@@ -1125,6 +1125,86 @@
       "version": "8.0.0"
     },
     {
+      "bytes": 95249,
+      "contentSha256": "2d007f6aeec058701806c2a705eba5b4a65dc38ef477eee20b6c5ca223e0d7a4",
+      "fileCount": 20,
+      "integrity": "sha512-8wih1vVIBMxoUM2oB4soJsD9tDnDpLv4OXBJ+EJzFsvycD+lfyIreC2gGHq78f8jbLLt+bvlPTFdFZfJkOuzAA==",
+      "name": "pg",
+      "packageJsonSha256": "bab5faf4410151a463078fffa326d10979150bfc330f0a29bd08948378ed3421",
+      "path": "node_modules/pg",
+      "version": "8.22.0"
+    },
+    {
+      "bytes": 23542,
+      "contentSha256": "231bb5eeab4077f279f94a7696413f918533d9ec6a87a36d831a46b06e4bc303",
+      "fileCount": 13,
+      "integrity": "sha512-Vo7z/6rrQYxpNRylp4Tlob2elzbh+N/MOQbxFVWCxS7oEx6jF53GTJFxK2WWpKuBRkmiin4Mt+xofFDjx09R0A==",
+      "name": "pg-cloudflare",
+      "packageJsonSha256": "26a5017fe5fa14bb2eaa90fb87a2c54becc2666516ef79ee591694bcb9533531",
+      "path": "node_modules/pg-cloudflare",
+      "version": "1.4.0"
+    },
+    {
+      "bytes": 16144,
+      "contentSha256": "449e0fc35953ddffc63c99a0c5771932d2573c4119733a56f149550f5004e969",
+      "fileCount": 6,
+      "integrity": "sha512-XwWDGcLRGCXAR8F/AM5bG7Q+A3Wm2s6QeEjlOKZLlH3UYcguiqCWKyWXVag5TLTIjR7oOJUY8kcADaZgWPyLeg==",
+      "name": "pg-connection-string",
+      "packageJsonSha256": "5e07e70c64af1e8695a91f9371b713106eeed3b52a1d6b7f7238a33f01dd3f20",
+      "path": "node_modules/pg-connection-string",
+      "version": "2.14.0"
+    },
+    {
+      "bytes": 3186,
+      "contentSha256": "634777c67e7aa114b1b751c9e0e92d4f15ab499520302e054f3ed715fb840bdf",
+      "fileCount": 4,
+      "integrity": "sha512-WCtabS6t3c8SkpDBUlb1kjOs7l66xsGdKpIPZsg4wR+B3+u9UAum2odSsF9tnvxg80h4ZxLWMy4pRjOsFIqQpw==",
+      "name": "pg-int8",
+      "packageJsonSha256": "147155887a41bb6f69ff98b3dde827b7e6a8214c3a71938da4babf8e12adff2e",
+      "path": "node_modules/pg-int8",
+      "version": "1.0.1"
+    },
+    {
+      "bytes": 29835,
+      "contentSha256": "0dc2ee4c6d858ccca4c82ade8bf109bd3b844004e5f4cc7377f05b2e37396ad7",
+      "fileCount": 5,
+      "integrity": "sha512-gKtPkFdQPU3DksooVLi9LsjZxrsBUZIpa+7aVx+LV5pNh0KzP4Zleud2po+ConrxbuXGBJ6Hfer6hdgpIBpBaw==",
+      "name": "pg-pool",
+      "packageJsonSha256": "0a9924def9e06f791b09a44eaefb227f323a39199887f6ce17b44cb5a9193134",
+      "path": "node_modules/pg-pool",
+      "version": "3.14.0"
+    },
+    {
+      "bytes": 199933,
+      "contentSha256": "94da9257394fa78d1cd1b8d6c1bfed7e836666bcc7bf9b9bf64a8dc62889a9d7",
+      "fileCount": 43,
+      "integrity": "sha512-cq9sECI5s0+uPUXjbz8ioyPJni6RzsRib0US67i5IoTZKw8fNeYlVE7u8F4dG7vEJJtc5wdD1K189lCCUwqWTQ==",
+      "name": "pg-protocol",
+      "packageJsonSha256": "379307bb82f56d649b11a5050d1d7978460ad6f2a92c0d3d7f15a04148e933d4",
+      "path": "node_modules/pg-protocol",
+      "version": "1.15.0"
+    },
+    {
+      "bytes": 35296,
+      "contentSha256": "838ace7030de06ac27c8210dc1c822e952c7ca40281d80eaf13e86ed7543b816",
+      "fileCount": 13,
+      "integrity": "sha512-qTAAlrEsl8s4OiEQY69wDvcMIdQN6wdz5ojQiOy6YRMuynxenON0O5oCpJI6lshc6scgAY8qvJ2On/p+CXY0GA==",
+      "name": "pg-types",
+      "packageJsonSha256": "3ec0293cb38cc8d9475e3eb32ac5f19d195bf9fccc8b19a0714e6ecd6e7c2cf0",
+      "path": "node_modules/pg-types",
+      "version": "2.2.0"
+    },
+    {
+      "bytes": 10323,
+      "contentSha256": "c46d1a0f97b1611183c7ac7280b6562f397b42fbeb1b47f81e5440968dccc7fc",
+      "fileCount": 4,
+      "integrity": "sha512-FdW9r/jQZhSeohs1Z3sI1yxFQNFvMcnmfuj4WBMUTxOrAyLMaTcE1aAMBiTlbMNaXvBCQuVi0R7hd8udDSP7ug==",
+      "name": "pgpass",
+      "packageJsonSha256": "d75240eb4fe759c10db9f903838275348676a8bdc1f329e20a833713cd7c99bd",
+      "path": "node_modules/pgpass",
+      "version": "1.0.5"
+    },
+    {
       "bytes": 90605,
       "contentSha256": "29cbf843d24810259107db84ad6e510f3e8bd13dee784ecb22243be6825c32da",
       "fileCount": 9,
@@ -1133,6 +1213,46 @@
       "packageJsonSha256": "63264d817e856a4bff57d4304f2b38d2964a4f6df520eb169e7bcdb619f13e9a",
       "path": "node_modules/picomatch",
       "version": "2.3.2"
+    },
+    {
+      "bytes": 4903,
+      "contentSha256": "3480d5d880b5b6ee658992ec0c81c1fba3d97caeeae52b702ef1b243b8a3b3be",
+      "fileCount": 5,
+      "integrity": "sha512-VpZrUqU5A69eQyW2c5CA1jtLecCsN2U/bD6VilrFDWq5+5UIEVO7nazS3TEcHf1zuPYO/sqGvUvW62g86RXZuA==",
+      "name": "postgres-array",
+      "packageJsonSha256": "dcd6a505fcbc032b409ee2838ab2c776dea3a9cfe02b736364b6cb82a946665f",
+      "path": "node_modules/postgres-array",
+      "version": "2.0.0"
+    },
+    {
+      "bytes": 3095,
+      "contentSha256": "48b70dbee5bdcdebce9de7190827cf4f35ffbb47da3c40f17a428112ce56067e",
+      "fileCount": 4,
+      "integrity": "sha512-5+5HqXnsZPE65IJZSMkZtURARZelel2oXUEO8rH83VS/hxH5vv1uHquPg5wZs8yMAfdv971IU+kcPUczi7NVBQ==",
+      "name": "postgres-bytea",
+      "packageJsonSha256": "9125568c5fb51a65b8f11adb0080c2775b99ee82822d73bff8b56b2a9d47d7aa",
+      "path": "node_modules/postgres-bytea",
+      "version": "1.0.1"
+    },
+    {
+      "bytes": 5915,
+      "contentSha256": "272e1ccf6c3881d06833923439ed4841972e008f2cf44ffe446b0ce7cdcda249",
+      "fileCount": 4,
+      "integrity": "sha512-suDmjLVQg78nMK2UZ454hAG+OAW+HQPZ6n++TNDUX+L0+uUlLywnoxJKDou51Zm+zTCjrCl0Nq6J9C5hP9vK/Q==",
+      "name": "postgres-date",
+      "packageJsonSha256": "03f9edefa96697072075e02df045cc61ed4ca2f8dfffb1ff87f4070bc3404151",
+      "path": "node_modules/postgres-date",
+      "version": "1.0.7"
+    },
+    {
+      "bytes": 6727,
+      "contentSha256": "75a216437d1918edb0011a6b6042126c91879ff96f00a612061320fa6001073c",
+      "fileCount": 5,
+      "integrity": "sha512-9ZhXKM/rw350N1ovuWHbGxnGh/SNJ4cnxHiM0rxE4VN41wsg8P8zWn9hv/buK00RP4WvlOyr/RBDiptyxVbkZQ==",
+      "name": "postgres-interval",
+      "packageJsonSha256": "cc3056db105e66c9128cb8a387cda782d5f1ae9281be90de0b8d26a90af89c57",
+      "path": "node_modules/postgres-interval",
+      "version": "1.2.0"
     },
     {
       "bytes": 15325,
@@ -1385,6 +1505,16 @@
       "version": "1.7.0"
     },
     {
+      "bytes": 17419,
+      "contentSha256": "0bbb51c61a0ed28a0689399f7849cad86e535f50fdb0e9bb704afe646e266906",
+      "fileCount": 6,
+      "integrity": "sha512-UcjcJOWknrNkF6PLX83qcHM6KHgVKNkV62Y8a5uYDVv9ydGQVwAHMKqHdJje1VTWpljG0WYpCDhrCdAOYH4TWg==",
+      "name": "split2",
+      "packageJsonSha256": "87b734c3087c8d9ed5d76d1bff00db30f960831ba8705dd18d73b180d08d2140",
+      "path": "node_modules/split2",
+      "version": "4.2.0"
+    },
+    {
       "bytes": 11545,
       "contentSha256": "0a0e15e3dc7099e2d0fe276a85fca86272edcd3cf4278f421e294b3c692096e6",
       "fileCount": 5,
@@ -1525,6 +1655,16 @@
       "version": "3.1.0"
     },
     {
+      "bytes": 6465,
+      "contentSha256": "ed20e10c14bf10842b6713d09337c56e4dd7d1a1ab6ccd25df2fe3705bd2d1a3",
+      "fileCount": 7,
+      "integrity": "sha512-LKYU1iAXJXUgAXn9URjiu+MWhyUXHsvfp7mcuYm9dSUKK0/CjtrUwFAxD82/mCWbtLsGjFIad0wIsod4zrTAEQ==",
+      "name": "xtend",
+      "packageJsonSha256": "b02ffef8cda96c5c3ee00a00390e63f608362c2ddfb3ed754e181d013a45d48a",
+      "path": "node_modules/xtend",
+      "version": "4.0.2"
+    },
+    {
       "bytes": 14752,
       "contentSha256": "5010edd1c958c5659254ee826c6482553e079254557f5ce5957f25f04af48460",
       "fileCount": 5,
@@ -1538,9 +1678,9 @@
   "platform": "win32",
   "sbom": {
     "format": "SPDX-2.3-json",
-    "packageCount": 153,
+    "packageCount": 167,
     "path": "evidence/dependencies/node-sbom.spdx.json",
-    "sha256": "243412ea01c385da25ff1f51ba5cf122a472e7478fb00b03a996b4198d245f45"
+    "sha256": "f648afb5f27465a20abc2de93bea8006b9068e6158811d8f70c7caa4dd4980f1"
   },
   "schemaVersion": "molit.node-installed-tree/1"
 }

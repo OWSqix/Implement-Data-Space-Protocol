@@ -1,6 +1,7 @@
 import assert from "node:assert/strict";
 import test from "node:test";
 
+import { RuntimeError } from "../../src/bridge-runtime/errors.mjs";
 import { OAuth2IntrospectionAuthenticator } from "../../src/dsaas/auth.mjs";
 
 function request(authorization = "Bearer 1234567890abcdef") {
@@ -155,4 +156,26 @@ test("duplicate authorization headers are rejected before introspection", async 
   });
   await assert.rejects(auth.authenticate({ rawHeaders: ["Authorization", "Bearer 1234567890abcdef", "Authorization", "Bearer fedcba0987654321"] }), { code: "DSAAS_UNAUTHENTICATED" });
   assert.equal(called, false);
+});
+
+test("request cancellation reaches introspection and preserves the timeout code", async () => {
+  let receivedSignal;
+  const auth = new OAuth2IntrospectionAuthenticator({
+    config: config(),
+    http: {
+      async json(_url, { signal }) {
+        receivedSignal = signal;
+        return new Promise((_resolve, reject) => {
+          signal.addEventListener("abort", () => reject(new Error("upstream aborted")), { once: true });
+        });
+      },
+    },
+    env: { DSAAS_CLIENT_ID: "client", DSAAS_CLIENT_SECRET: "secret" },
+  });
+  const controller = new AbortController();
+  const authenticating = auth.authenticate(request(), { signal: controller.signal });
+  const reason = new RuntimeError("DSAAS_REQUEST_TIMEOUT", "request timed out");
+  controller.abort(reason);
+  await assert.rejects(authenticating, (error) => error === reason);
+  assert.equal(receivedSignal, controller.signal);
 });

@@ -4,7 +4,7 @@ import { mkdtemp, writeFile } from "node:fs/promises";
 import { join } from "node:path";
 import { tmpdir } from "node:os";
 import { validateCaasContract } from "../../src/caas/contracts.mjs";
-import { loadCaasConfig, tenantIdentity } from "../../src/caas/config.mjs";
+import { assertCaasEnvironment, loadCaasConfig, tenantIdentity } from "../../src/caas/config.mjs";
 import { validateDeploymentSecretReference } from "../../src/caas/secrets.mjs";
 
 const registration = {
@@ -26,7 +26,7 @@ function config() {
     schemaVersion: "molit.caas-config/1",
     environment: "test",
     listen: { host: "127.0.0.1", port: 0 },
-    statePath: "state.json",
+    stateStore: { type: "file", path: "state.json" },
     adminSecretRef: "env://ADMIN_TOKEN",
     adminPrincipalId: "urn:test:principal:caas-admin",
     adminClientId: "test-caas-admin-client",
@@ -118,5 +118,51 @@ test("production config rejects non-loopback HTTP bind and intent-only provision
 
   value.listen.host = "127.0.0.1";
   await writeFile(path, JSON.stringify(value));
+  await assert.rejects(loadCaasConfig(path), (error) => error.code === "CAAS_CONFIG_INVALID" && /PostgreSQL control store/u.test(error.message));
+
+  value.stateStore = {
+    type: "postgres",
+    connectionStringEnv: "CAAS_DATABASE_URL",
+    holderIdEnv: "CAAS_HOLDER_ID",
+    applicationName: "molit-caas",
+    tls: { mode: "verify-full", caEnv: "CAAS_POSTGRES_CA" },
+    maxPoolSize: 10,
+    maxLeasePoolSize: 4,
+    connectionTimeoutMs: 5000,
+    idleTimeoutMs: 30000,
+    statementTimeoutMs: 30000,
+    lockTimeoutMs: 5000,
+  };
+  await writeFile(path, JSON.stringify(value));
   await assert.rejects(loadCaasConfig(path), (error) => error.code === "CAAS_CONFIG_INVALID" && /intent-only/u.test(error.message));
+});
+
+test("PostgreSQL state-store secrets are checked without embedding credential values in config", async () => {
+  const directory = await mkdtemp(join(tmpdir(), "molit-caas-postgres-config-"));
+  const path = join(directory, "config.json");
+  const value = config();
+  value.stateStore = {
+    type: "postgres",
+    connectionStringEnv: "CAAS_DATABASE_URL",
+    holderIdEnv: "CAAS_HOLDER_ID",
+    applicationName: "molit-caas",
+    tls: { mode: "verify-full", caEnv: "CAAS_POSTGRES_CA" },
+    maxPoolSize: 10,
+    maxLeasePoolSize: 4,
+    connectionTimeoutMs: 5000,
+    idleTimeoutMs: 30000,
+    statementTimeoutMs: 30000,
+    lockTimeoutMs: 5000,
+  };
+  await writeFile(path, JSON.stringify(value));
+  const loaded = await loadCaasConfig(path);
+  const env = {
+    ADMIN_TOKEN: "admin-token-at-least-16-characters",
+    CONTROLLER_TOKEN: "controller-token-at-least-16-characters",
+    CAAS_DATABASE_URL: "postgresql://caas.invalid/control",
+    CAAS_HOLDER_ID: "caas-test-holder",
+    CAAS_POSTGRES_CA: "test-ca",
+  };
+  assert.doesNotThrow(() => assertCaasEnvironment(loaded, env));
+  assert.throws(() => assertCaasEnvironment(loaded, { ...env, CAAS_POSTGRES_CA: "" }), { code: "CAAS_SECRET_ENV_MISSING" });
 });

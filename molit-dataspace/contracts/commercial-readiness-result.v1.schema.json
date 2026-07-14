@@ -1,0 +1,46 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://data.molit.go.kr/schema/commercial-readiness-result.v1.json",
+  "title": "MOLIT commercial readiness Gate result",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "gateId",
+    "status",
+    "sourceCommit",
+    "artifactDigests",
+    "environmentDigest",
+    "startedAt",
+    "finishedAt",
+    "validUntil",
+    "testProfileId",
+    "evidencePath",
+    "evidenceSha256"
+  ],
+  "properties": {
+    "schemaVersion": { "const": "molit.commercial-readiness-result/1" },
+    "gateId": { "type": "string", "pattern": "^COM-[A-Z0-9-]+$" },
+    "status": { "const": "pass" },
+    "sourceCommit": { "type": "string", "pattern": "^(?:[a-f0-9]{40}|[a-f0-9]{64})$" },
+    "artifactDigests": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 64,
+      "uniqueItems": true,
+      "items": { "type": "string", "pattern": "^sha256:[a-f0-9]{64}$" }
+    },
+    "environmentDigest": { "type": "string", "pattern": "^sha256:[a-f0-9]{64}$" },
+    "startedAt": { "type": "string", "format": "date-time" },
+    "finishedAt": { "type": "string", "format": "date-time" },
+    "validUntil": { "type": "string", "format": "date-time" },
+    "testProfileId": { "type": "string", "minLength": 3, "maxLength": 256 },
+    "evidencePath": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 512,
+      "pattern": "^(?!/)(?!.*(?:^|/)\\.\\.(?:/|$))(?!.*\\\\)[^\\u0000-\\u001f\\u007f]+$"
+    },
+    "evidenceSha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" }
+  }
+}

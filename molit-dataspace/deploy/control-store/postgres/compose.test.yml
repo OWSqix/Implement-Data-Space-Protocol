@@ -1,0 +1,17 @@
+services:
+  postgres:
+    image: postgres:17.10-alpine3.24@sha256:742f40ea20b9ff2ff31db5458d127452988a2164df9e17441e191f3b72252193
+    platform: linux/amd64
+    environment:
+      POSTGRES_DB: molit_control_store_test
+      POSTGRES_PASSWORD: molit-control-store-test
+      POSTGRES_USER: molit_control_store_test
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U molit_control_store_test -d molit_control_store_test"]
+      interval: 2s
+      timeout: 2s
+      retries: 20
+    ports:
+      - "127.0.0.1::5432"
+    tmpfs:
+      - /var/lib/postgresql/data

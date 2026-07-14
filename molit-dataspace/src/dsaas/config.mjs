@@ -52,19 +52,32 @@ export async function loadDsaasConfig(path) {
   "DSAAS_CONFIG_INVALID", "caas.ensurePath must be one unambiguous absolute path without authority, query, fragment, traversal, or encoded separators");
   assertRuntime(config.reconcileScheduler.readinessMaxLagMs >= config.reconcileScheduler.intervalMs * 2, "DSAAS_CONFIG_INVALID", "reconcile scheduler readinessMaxLagMs must cover at least two intervals");
   assertRuntime(config.reconcileScheduler.caasRetryMaxMs >= config.reconcileScheduler.caasRetryBaseMs, "DSAAS_CONFIG_INVALID", "CaaS retry maximum backoff must be greater than or equal to the base backoff");
+  if (config.stateStore.type === "postgres") {
+    assertRuntime(config.stateStore.lockTimeoutMs <= config.stateStore.statementTimeoutMs, "DSAAS_CONFIG_INVALID", "PostgreSQL lockTimeoutMs must not exceed statementTimeoutMs");
+  }
   if (config.environment === "production") {
     assertRuntime(["127.0.0.1", "::1"].includes(config.listenHost), "DSAAS_CONFIG_INVALID", "production DSaaS must bind its plain HTTP listener to loopback behind the approved TLS boundary");
     assertRuntime(publicUrl.protocol === "https:" && caasUrl.protocol === "https:" && introspectionUrl.protocol === "https:" && issuerUrl.protocol === "https:", "DSAAS_CONFIG_INVALID", "production endpoints and issuer require HTTPS");
     assertRuntime(config.network.allowHttp === false && config.network.allowPrivate === false, "DSAAS_CONFIG_INVALID", "production forbids HTTP and the broad private-network bypass");
+    assertRuntime(config.stateStore.type === "postgres", "DSAAS_CONFIG_INVALID", "production DSaaS requires the PostgreSQL control store");
+    assertRuntime(config.stateStore.tls.mode === "verify-full", "DSAAS_CONFIG_INVALID", "production PostgreSQL requires verify-full TLS");
   }
-  config.statePath = resolve(dirname(absolutePath), config.statePath);
+  if (config.stateStore.type === "file") config.stateStore.path = resolve(dirname(absolutePath), config.stateStore.path);
   config.serviceRegistryPath = resolve(dirname(absolutePath), config.serviceRegistryPath);
   config.approvalDecisionRegistryPath = resolve(dirname(absolutePath), config.approvalDecisionRegistryPath);
   return config;
 }
 
 export function assertDsaasEnvironment(config, env = process.env) {
-  for (const name of [config.auth.clientIdEnv, config.auth.clientSecretEnv, config.caas.auth.env]) {
+  const required = [config.auth.clientIdEnv, config.auth.clientSecretEnv, config.caas.auth.env];
+  if (config.stateStore.type === "postgres") {
+    required.push(config.stateStore.connectionStringEnv, config.stateStore.holderIdEnv);
+    if (config.stateStore.tls.mode === "verify-full") {
+      required.push(config.stateStore.tls.caEnv);
+      if (config.stateStore.tls.certEnv) required.push(config.stateStore.tls.certEnv, config.stateStore.tls.keyEnv);
+    }
+  }
+  for (const name of required) {
     assertRuntime(typeof env[name] === "string" && env[name].length > 0, "DSAAS_SECRET_ENV_MISSING", "required credential environment variable is not set", { env: name });
   }
 }

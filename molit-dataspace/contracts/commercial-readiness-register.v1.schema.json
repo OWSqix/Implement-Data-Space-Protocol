@@ -1,0 +1,127 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://data.molit.go.kr/schema/commercial-readiness-register.v1.json",
+  "title": "MOLIT commercial CaaS and DSaaS readiness register",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "asOf", "target", "baseline", "gates"],
+  "properties": {
+    "schemaVersion": { "const": "molit.commercial-readiness-register/1" },
+    "asOf": { "type": "string", "format": "date" },
+    "target": { "const": "commercial-production" },
+    "baseline": {
+      "type": "string",
+      "const": "docs/02-design/commercial-caas-dsaas-baseline.md"
+    },
+    "gates": {
+      "type": "array",
+      "minItems": 14,
+      "maxItems": 14,
+      "items": { "$ref": "#/$defs/gate" }
+    }
+  },
+  "$defs": {
+    "path": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 512,
+      "pattern": "^(?!/)(?!.*(?:^|/)\\.\\.(?:/|$))(?!.*\\\\)[^\\u0000-\\u001f\\u007f]+$"
+    },
+    "blocker": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "summary", "owner"],
+      "properties": {
+        "id": { "type": "string", "pattern": "^COM-[A-Z0-9-]+$" },
+        "summary": { "type": "string", "minLength": 8, "maxLength": 240 },
+        "owner": { "type": "string", "minLength": 2, "maxLength": 80 }
+      }
+    },
+    "resultEvidence": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["path", "sha256"],
+      "properties": {
+        "path": { "$ref": "#/$defs/path" },
+        "sha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" }
+      }
+    },
+    "gate": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["gateId", "phase", "status", "summary", "evidencePaths", "resultEvidence", "blockers"],
+      "properties": {
+        "gateId": { "type": "string", "pattern": "^COM-[A-Z0-9-]+$" },
+        "phase": { "enum": ["P0", "P1", "P2"] },
+        "status": { "enum": ["open", "partial", "pass", "not-applicable"] },
+        "summary": { "type": "string", "minLength": 8, "maxLength": 240 },
+        "evidencePaths": {
+          "type": "array",
+          "maxItems": 16,
+          "uniqueItems": true,
+          "items": { "$ref": "#/$defs/path" }
+        },
+        "resultEvidence": {
+          "type": "array",
+          "maxItems": 8,
+          "uniqueItems": true,
+          "items": { "$ref": "#/$defs/resultEvidence" }
+        },
+        "blockers": {
+          "type": "array",
+          "maxItems": 16,
+          "items": { "$ref": "#/$defs/blocker" }
+        },
+        "notApplicableApproval": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["decisionId", "approvedBy", "approvedAt", "reason", "scope", "validUntil", "evidencePath", "evidenceSha256"],
+          "properties": {
+            "decisionId": { "type": "string", "minLength": 3, "maxLength": 128 },
+            "approvedBy": { "type": "string", "minLength": 3, "maxLength": 256 },
+            "approvedAt": { "type": "string", "format": "date-time" },
+            "reason": { "type": "string", "minLength": 8, "maxLength": 512 },
+            "scope": { "type": "string", "minLength": 8, "maxLength": 512 },
+            "validUntil": { "type": "string", "format": "date-time" },
+            "evidencePath": { "$ref": "#/$defs/path" },
+            "evidenceSha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" }
+          }
+        }
+      },
+      "allOf": [
+        {
+          "if": { "properties": { "status": { "const": "pass" } }, "required": ["status"] },
+          "then": {
+            "properties": {
+              "evidencePaths": { "type": "array", "minItems": 1 },
+              "resultEvidence": { "type": "array", "minItems": 1 },
+              "blockers": { "type": "array", "maxItems": 0 }
+            }
+          }
+        },
+        {
+          "if": { "properties": { "status": { "enum": ["open", "partial"] } }, "required": ["status"] },
+          "then": {
+            "properties": {
+              "resultEvidence": { "type": "array", "maxItems": 0 },
+              "blockers": { "type": "array", "minItems": 1 }
+            }
+          }
+        },
+        {
+          "if": { "properties": { "status": { "const": "not-applicable" } }, "required": ["status"] },
+          "then": {
+            "required": ["notApplicableApproval"],
+            "properties": {
+              "gateId": { "const": "COM-BIL-001" },
+              "blockers": { "type": "array", "maxItems": 0 },
+              "resultEvidence": { "type": "array", "maxItems": 0 },
+              "notApplicableApproval": { "type": "object" }
+            }
+          },
+          "else": { "not": { "required": ["notApplicableApproval"] } }
+        }
+      ]
+    }
+  }
+}

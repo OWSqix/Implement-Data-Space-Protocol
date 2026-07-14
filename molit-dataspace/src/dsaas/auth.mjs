@@ -35,9 +35,10 @@ export function formUrlEncodedComponent(value) {
 export class OAuth2IntrospectionAuthenticator {
   constructor({ config, http, env = process.env, clock = () => new Date() }) {
     Object.assign(this, { config, http, env, clock });
+    this.productionEligible = true;
   }
 
-  async authenticate(request) {
+  async authenticate(request, { signal } = {}) {
     const values = rawHeaderValues(request, "authorization");
     assertRuntime(values.length === 1, "DSAAS_UNAUTHENTICATED", "exactly one Authorization header is required");
     const match = /^Bearer ([\x21-\x7e]{16,8192})$/u.exec(values[0]);
@@ -59,8 +60,10 @@ export class OAuth2IntrospectionAuthenticator {
         },
         body,
         retryUnsafe: true,
+        signal,
       });
     } catch (error) {
+      if (signal?.aborted && signal.reason instanceof Error) throw signal.reason;
       throw new RuntimeError("DSAAS_AUTH_UNAVAILABLE", "OAuth2 token introspection failed", { causeCode: error?.code ?? "UPSTREAM_ERROR" });
     }
     assertRuntime(response.status === 200 && response.value && typeof response.value === "object" && !Array.isArray(response.value), "DSAAS_AUTH_UNAVAILABLE", "OAuth2 introspection endpoint returned an invalid response");

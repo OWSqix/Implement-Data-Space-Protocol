@@ -157,7 +157,7 @@ export function appendAudit(state, { actor, actorPrincipalId, actorClientId, act
   return event;
 }
 
-function sealDsaasState(state, at) {
+export function sealDsaasState(state, at) {
   const stateSnapshotDigest = dsaasStateSnapshotDigest(state);
   const unchanged = state.integrity?.snapshotDigest === stateSnapshotDigest
     && state.integrity?.auditHead === state.audit.head;
@@ -298,4 +298,6 @@ export class FileDsaasStore {
       await unlink(lockPath).catch(() => {});
     }
   }
+
+  async close() {}
 }

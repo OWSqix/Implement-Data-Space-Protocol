@@ -10,7 +10,7 @@
     "port",
     "publicOrigin",
     "allowedHosts",
-    "statePath",
+    "stateStore",
     "serviceRegistryPath",
     "serviceRegistrySha256",
     "serviceRegistryMaxAgeSeconds",
@@ -39,7 +39,7 @@
       "uniqueItems": true,
       "items": { "type": "string", "pattern": "^[A-Za-z0-9.-]+(?::[0-9]{1,5})?$" }
     },
-    "statePath": { "type": "string", "minLength": 1 },
+    "stateStore": { "$ref": "#/$defs/stateStore" },
     "serviceRegistryPath": { "type": "string", "minLength": 1 },
     "serviceRegistrySha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
     "serviceRegistryMaxAgeSeconds": { "type": "integer", "minimum": 60, "maximum": 2592000 },
@@ -134,6 +134,74 @@
   },
   "$defs": {
     "env": { "type": "string", "pattern": "^[A-Z_][A-Z0-9_]*$" },
+    "stateStore": {
+      "oneOf": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["type", "path"],
+          "properties": {
+            "type": { "const": "file" },
+            "path": { "type": "string", "minLength": 1, "maxLength": 4096 }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "type",
+            "connectionStringEnv",
+            "holderIdEnv",
+            "applicationName",
+            "tls",
+            "maxPoolSize",
+            "maxLeasePoolSize",
+            "connectionTimeoutMs",
+            "idleTimeoutMs",
+            "statementTimeoutMs",
+            "lockTimeoutMs"
+          ],
+          "properties": {
+            "type": { "const": "postgres" },
+            "connectionStringEnv": { "$ref": "#/$defs/env" },
+            "holderIdEnv": { "$ref": "#/$defs/env" },
+            "applicationName": { "type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]{2,62}$" },
+            "tls": { "$ref": "#/$defs/postgresTls" },
+            "maxPoolSize": { "type": "integer", "minimum": 1, "maximum": 100 },
+            "maxLeasePoolSize": { "type": "integer", "minimum": 1, "maximum": 100 },
+            "connectionTimeoutMs": { "type": "integer", "minimum": 100, "maximum": 120000 },
+            "idleTimeoutMs": { "type": "integer", "minimum": 1000, "maximum": 600000 },
+            "statementTimeoutMs": { "type": "integer", "minimum": 100, "maximum": 120000 },
+            "lockTimeoutMs": { "type": "integer", "minimum": 100, "maximum": 120000 }
+          }
+        }
+      ]
+    },
+    "postgresTls": {
+      "oneOf": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["mode"],
+          "properties": { "mode": { "const": "disable" } }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["mode", "caEnv"],
+          "properties": {
+            "mode": { "const": "verify-full" },
+            "caEnv": { "$ref": "#/$defs/env" },
+            "certEnv": { "$ref": "#/$defs/env" },
+            "keyEnv": { "$ref": "#/$defs/env" }
+          },
+          "dependentRequired": {
+            "certEnv": ["keyEnv"],
+            "keyEnv": ["certEnv"]
+          }
+        }
+      ]
+    },
     "outboundAuth": {
       "type": "object",
       "additionalProperties": false,

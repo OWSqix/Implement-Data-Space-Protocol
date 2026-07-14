@@ -1,9 +1,9 @@
 # 국토교통 기존 플랫폼의 데이터 스페이스 연계 연구
 
 작성일: 2026-07-11  
-작성 기준: 2026-07-13
+작성 기준: 2026-07-14
 상태: Active  
-단계: MOLIT DCAT-AP 1.0.0-rc.1 Candidate / EDC 0.18.0 로컬 토폴로지 / CaaS·DSaaS 제어면 구현
+단계: MOLIT DCAT-AP 1.0.0-rc.1 Candidate / EDC 0.18.0 로컬 토폴로지 / PostgreSQL 기반 CaaS·DSaaS 구현 후보
 
 ## 1. 연구 질문
 
@@ -54,8 +54,8 @@ Mobilithek은 조건에 맞는 hosted·brokered 데이터의 구독과 전달을
 | Provider 게시 Bridge | 원천 poll, staged RDF Gate, 분리 승인, durable queue, 관리 API 게시 구현 | 기관별 crosswalk·Connector 관리 API·멱등 계약 |
 | 전송 provisioning | 승인 상태 재조회, private binding, pull DataAddress 발급·철회 journal 구현 | Connector webhook inbox, push·suspend·complete adapter, 실제 Data Plane 시험 |
 | EDC 로컬 토폴로지 | EDC 0.18.0 Provider·Consumer의 Control Plane과 Data Plane 배포판 구성, 이전 clean-volume smoke 결과 보존 | 현재 source의 recorder 결합 재실행, 운영 DPS 전송 worker, 외부 DSP 구현 시험 |
-| CaaS | tenant·desired state·감사 원장과 dry-run 배포 의도 수렴 구현 | 실제 Compose·Kubernetes provisioner와 운영 인증·분산 store |
-| DSaaS | 데이터 스페이스 정의·참가 승인·서비스 Gate·CaaS 수렴 구현 | 기관 승인 시스템, 운영 Registry, 승인 갱신·철회 실증 |
+| CaaS | PostgreSQL JSONB·CAS, tenant lease·fencing, 감사 원장과 배포 의도 수렴 구현 | 실제 Kubernetes EDC provisioner, 운영 신원, 외부 fencing·HA 실증 |
+| DSaaS | PostgreSQL 데이터 스페이스 lease, 참가 승인·서비스 Gate·CaaS generation 수렴 구현 | 기관 승인 시스템, 운영 Registry, 정규화 저장소, HA·PITR 실증 |
 | PoC | 공개 데이터로 lifecycle을 먼저 검증 | 실제 플랫폼 후보와 sandbox 승인 |
 
 ## 4. 문서 읽는 순서
@@ -100,6 +100,9 @@ Mobilithek은 조건에 맞는 hosted·brokered 데이터의 구독과 전달을
 36. [DSaaS 제어 평면](docs/04-implementation/dsaas-control-plane.md)
 37. [Profile·ontology namespace 배포](docs/04-implementation/stable-namespace-operations.md)
 38. [결정 기록](docs/adr/README.md)
+39. [상용 CaaS·DSaaS 제품 기준선](docs/02-design/commercial-caas-dsaas-baseline.md)
+40. [EDC·CaaS·DSaaS 작업 인계 기록](docs/03-plan/edc-caas-dsaas-handoff-2026-07-14.md)
+41. [상용 readiness machine register](governance/commercial-readiness-register.v1.json)
 
 조사의 근거는 다음 파일에서 추적한다.
 
@@ -146,8 +149,9 @@ molit-dataspace/
 - **(현재 구현)** Connector 승인 pull 전송의 platform provisioning·revoke Worker
 - **(현재 구현)** Profile·ontology namespace 서버와 배포·원격 attestation 도구
 - **(현재 구현)** EDC v4 게시 Adapter와 동일 구현 간 로컬 상호운용 smoke
-- **(현재 구현)** CaaS·DSaaS 단일 호스트 제어면과 dry-run 배포 의도 수렴
+- **(현재 구현)** CaaS·DSaaS PostgreSQL JSONB·CAS, 별도 lease pool, advisory lock·fencing과 graceful shutdown
 - **(미연결)** 기관별 원천 crosswalk, 실제 CaaS 배포 Adapter, 운영 DPS worker, push·suspend·complete Data Plane
+- **(상용 차단)** 운영 OIDC·DCP, OpenTelemetry·WORM, 다중 가용영역·PITR, 최종 image DSP TCK와 이기종 Connector 시험
 - **(후속 승인)** DNS·TLS·namespace·어휘·Connector 제품·기관 운영 배포
 
 상위 저장소의 `docs/blog/code/dsp-python`은 DSP version endpoint 학습용 scaffold이며 운영 Connector나 이 프로젝트의 구현체로 보지 않는다.
@@ -201,9 +205,12 @@ npm run caas:serve
 npm run dsaas:serve
 npm run test:caas
 npm run test:dsaas
+npm run commercial:status
 ```
 
 `run-smoke.ps1`은 동일한 EDC 0.18.0 구현 두 개 사이의 시험이다. 성공해도 외부 DSP 구현과의 이기종 상호운용을 입증하지 않는다. CaaS 예제는 Connector process를 배포하지 않는 `dry-run-manifest` Adapter다. DSaaS 예제 Registry는 운영 승인 증거가 아니므로 그대로 개통에 쓰지 않는다.
+
+`commercial:status`는 `governance/commercial-readiness-register.v1.json`을 읽는다. 미해결 상용 Gate가 있으면 `commercialReady=false`와 차단 항목을 출력하고 exit code 2를 반환한다. 2026-07-14 현재 이 판정은 `blocked`다.
 
 ### 5.3 검증
 
@@ -258,6 +265,8 @@ verifier는 archive의 publisher checksum snapshot, archive digest와 설치 tre
 Discovery 상태를 초기화할 때 `.local` 전체를 삭제하지 않는다. `.local/toolchains`를 삭제하면 release lane의 검토된 archive와 설치 tree도 함께 사라진다.
 
 `release:status`는 machine register, Provider authority registry와 ISO 19115 technical Gate를 읽는다. 미해결 항목이 있으면 JSON에 `releaseEligible=false`를 기록하고 exit code 2를 반환한다. 현재 판정과 해소 책임은 [release 차단 Gate 현황](docs/03-plan/release-gate-status.md)에 정리한다.
+
+`release:status`는 응용 프로파일 release 판정이고 `commercial:status`는 CaaS·DSaaS 상용 운영 판정이다. 한 명령의 통과가 다른 판정을 대신하지 않는다.
 
 파일 단위 검사는 다음 명령을 사용한다.
 

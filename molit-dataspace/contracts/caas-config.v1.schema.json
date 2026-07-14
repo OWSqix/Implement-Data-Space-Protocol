@@ -4,7 +4,7 @@
   "title": "MOLIT CaaS control-plane configuration",
   "type": "object",
   "additionalProperties": false,
-  "required": ["schemaVersion", "environment", "listen", "statePath", "adminSecretRef", "adminPrincipalId", "adminClientId", "adminKeyId", "controller", "identityPolicy", "limits", "connectorPlans", "provisioners"],
+  "required": ["schemaVersion", "environment", "listen", "stateStore", "adminSecretRef", "adminPrincipalId", "adminClientId", "adminKeyId", "controller", "identityPolicy", "limits", "connectorPlans", "provisioners"],
   "properties": {
     "schemaVersion": { "const": "molit.caas-config/1" },
     "environment": { "enum": ["production", "development", "test"] },
@@ -17,7 +17,7 @@
         "port": { "type": "integer", "minimum": 0, "maximum": 65535 }
       }
     },
-    "statePath": { "type": "string", "minLength": 1, "maxLength": 4096 },
+    "stateStore": { "$ref": "#/$defs/stateStore" },
     "adminSecretRef": { "$ref": "#/$defs/envSecretRef" },
     "adminPrincipalId": { "$ref": "#/$defs/authId" },
     "adminClientId": { "$ref": "#/$defs/authId" },
@@ -55,7 +55,8 @@
         "maxStateBytes": { "type": "integer", "minimum": 65536, "maximum": 268435456 },
         "maxAuditEvents": { "type": "integer", "minimum": 100, "maximum": 1000000 },
         "maxAuditResponseEvents": { "type": "integer", "minimum": 1, "maximum": 10000 },
-        "requestTimeoutMs": { "type": "integer", "minimum": 100, "maximum": 120000 }
+        "requestTimeoutMs": { "type": "integer", "minimum": 100, "maximum": 120000 },
+        "gracefulShutdownMs": { "type": "integer", "minimum": 100, "maximum": 300000 }
       }
     },
     "connectorPlans": {
@@ -97,6 +98,63 @@
     }
   },
   "$defs": {
+    "env": { "type": "string", "pattern": "^[A-Z_][A-Z0-9_]*$" },
+    "stateStore": {
+      "oneOf": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["type", "path"],
+          "properties": {
+            "type": { "const": "file" },
+            "path": { "type": "string", "minLength": 1, "maxLength": 4096 }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["type", "connectionStringEnv", "holderIdEnv", "applicationName", "tls", "maxPoolSize", "maxLeasePoolSize", "connectionTimeoutMs", "idleTimeoutMs", "statementTimeoutMs", "lockTimeoutMs"],
+          "properties": {
+            "type": { "const": "postgres" },
+            "connectionStringEnv": { "$ref": "#/$defs/env" },
+            "holderIdEnv": { "$ref": "#/$defs/env" },
+            "applicationName": { "type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]{2,62}$" },
+            "tls": { "$ref": "#/$defs/postgresTls" },
+            "maxPoolSize": { "type": "integer", "minimum": 1, "maximum": 100 },
+            "maxLeasePoolSize": { "type": "integer", "minimum": 1, "maximum": 100 },
+            "connectionTimeoutMs": { "type": "integer", "minimum": 100, "maximum": 120000 },
+            "idleTimeoutMs": { "type": "integer", "minimum": 1000, "maximum": 600000 },
+            "statementTimeoutMs": { "type": "integer", "minimum": 100, "maximum": 120000 },
+            "lockTimeoutMs": { "type": "integer", "minimum": 100, "maximum": 120000 }
+          }
+        }
+      ]
+    },
+    "postgresTls": {
+      "oneOf": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["mode"],
+          "properties": { "mode": { "const": "disable" } }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["mode", "caEnv"],
+          "properties": {
+            "mode": { "const": "verify-full" },
+            "caEnv": { "$ref": "#/$defs/env" },
+            "certEnv": { "$ref": "#/$defs/env" },
+            "keyEnv": { "$ref": "#/$defs/env" }
+          },
+          "dependentRequired": {
+            "certEnv": ["keyEnv"],
+            "keyEnv": ["certEnv"]
+          }
+        }
+      ]
+    },
     "envSecretRef": { "type": "string", "pattern": "^env://[A-Z_][A-Z0-9_]*$", "maxLength": 256 },
     "authId": { "type": "string", "minLength": 3, "maxLength": 256, "pattern": "^[^\\u0000-\\u001f\\u007f\\s]+$" },
     "idList": {

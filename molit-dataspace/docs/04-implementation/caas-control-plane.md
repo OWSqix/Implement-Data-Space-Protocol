@@ -4,7 +4,11 @@
 
 이 제어 평면은 기관별 Connector instance의 원하는 상태를 기록하고 provisioner에 전달한다. tenant 등록, 상태 변경, provision, deprovision, 재조정, 감사 조회를 제공한다.
 
-현재 provisioner는 EDC 배포 명세를 만들지 않는다. Connector 배포 의도를 중립 JSON으로 고정하는 `dry-run-manifest` 어댑터만 구현했다.
+상태 저장소는 개발·시험용 file backend와 PostgreSQL backend를 제공한다. production 설정은 PostgreSQL과 `verify-full` TLS를 강제한다.
+
+PostgreSQL backend는 구성요소별 JSONB snapshot과 revision compare-and-swap을 사용한다. state·lease pool, tenant별 advisory lock과 fencing token도 분리했다.
+
+현재 저장소가 생성할 수 있는 provisioner는 Connector 배포 의도를 중립 JSON으로 고정하는 `dry-run-manifest`뿐이다. 운영 provisioner의 interface와 fencing receipt 검사는 구현했지만 Kubernetes에서 EDC를 생성·갱신·삭제하는 Adapter는 없다.
 
 특정 EDC 버전의 Management API, 환경 변수 이름, Docker image, Helm chart를 사실로 가정하지 않는다.
 
@@ -14,7 +18,7 @@
 
 - EDC Connector 바이너리와 DSP endpoint
 - EDC 버전별 asset·policy·contract definition API
-- Kubernetes·Docker Compose 실제 배포
+- Kubernetes·Docker Compose 실제 배포와 rollback·orphan 회수
 - Vault secret material 전달
 - 데이터 평면과 전송 worker
 - 사용량 과금, SLA, 지원 portal을 포함한 DSaaS 상품 계층
@@ -30,22 +34,43 @@ CaaS HTTP control plane
     ├─ desired and observed state
     ├─ idempotency ledger
     ├─ audit hash chain
-    └─ per-tenant reconcile lock
-            │ connector-neutral deployment intent
-            ▼
-      Provisioner interface
-            └─ dry-run-manifest
+    └─ PostgreSQL control store
+            ├─ state pool: JSONB snapshot transaction
+            └─ lease pool: advisory lock and fencing token
+                    │ connector-neutral operation
+                    ▼
+              Provisioner interface
+                    └─ dry-run-manifest
 ```
 
 | 경로 | 역할 |
 | --- | --- |
 | `src/caas/server.mjs` | lifecycle HTTP API와 health endpoint |
 | `src/caas/service.mjs` | tenant 등록, desired state, reconcile 상태 머신 |
-| `src/caas/store.mjs` | 단일 호스트 durable state, lock, 감사 체인 |
+| `src/caas/store.mjs` | CaaS 상태 검증, file backend, 감사 체인 |
+| `src/control-store/postgres-json-store.mjs` | PostgreSQL JSONB·CAS, advisory lock, fencing lease |
 | `src/caas/provisioner.mjs` | provisioner 계약과 dry-run manifest 구현 |
 | `src/caas/auth.mjs` | 관리자·tenant bearer 경계 |
 | `src/caas/config.mjs` | identity template와 운영 설정 검사 |
 | `contracts/caas-*.schema.json` | 설정과 API 입력 계약 |
+
+### 2.1 PostgreSQL 상태와 lease
+
+Migration은 `molit_control_store.json_snapshot`과 `molit_control_store.resource_fence`를 만든다. CaaS는 `component=caas`인 JSONB row 하나에 tenant, API 멱등성 원장, 감사 event와 무결성 head를 저장한다.
+
+상태 변경은 row를 `FOR UPDATE`로 읽고 검증한 뒤 `revision = revision + 1` 조건부 `UPDATE`로 교체한다. 선택한 revision과 다른 row는 commit하지 않는다. `COMMIT`을 시작한 뒤 connection 결과를 알 수 없으면 `CAAS_STATE_COMMIT_UNKNOWN`으로 반환하며 성공이나 실패로 추정하지 않는다.
+
+tenant reconcile은 별도 lease pool의 session advisory lock을 사용한다. lock key는 구성요소와 `tenant:{tenantId}`를 결합해 만든다. lock 획득 뒤 `resource_fence`의 token을 증가시키며, 같은 tenant에 대한 다른 instance의 reconcile은 `CAAS_TENANT_BUSY`로 거부한다.
+
+lease를 가진 transaction은 현재 token, holder와 미해제 상태를 다시 확인해야 JSONB를 저장할 수 있다. lease connection 오류는 작업의 `AbortSignal`을 취소한다.
+
+정리 단계는 제한된 시간 안에 fence row를 해제하고 advisory lock을 반납한다. 해제 여부를 확인할 수 없으면 해당 connection을 폐기한다.
+
+state pool과 lease pool은 같은 객체일 수 없다. 장시간 외부 provisioner 호출이 lease connection을 점유해도 state transaction용 connection을 남기기 위한 경계다.
+
+이 구조는 구성요소 안의 모든 CaaS 쓰기를 JSONB row 하나에서 직렬화한다. tenant가 서로 달라도 state write는 같은 row lock을 기다린다.
+
+감사 배열과 멱등성 원장도 같은 row에서 증가한다. 상용 부하 전에는 정규 table, partitioned audit, 보존·export와 outbox로 분리해야 한다.
 
 ## 3. API
 
@@ -261,7 +286,23 @@ desired state가 바뀌면 generation이 증가한다. reconcile operation key�
 | deprovision manifest 기록 후 완료 전 | 같은 revoke 의도를 재확인 |
 | state 완료 후 응답 전 | API idempotency ledger 결과 반환 |
 
-tenant별 operation lock은 외부 provisioner 호출이 끝날 때까지 유지된다. desired state 변경과 reconcile이 서로 엇갈리는 것을 막는다.
+tenant별 resource lease는 외부 provisioner 호출과 사후 관찰이 끝날 때까지 유지된다. PostgreSQL backend는 session advisory lock과 fencing token을 쓰고, file backend는 개발·시험용 process lock을 쓴다.
+
+외부 호출은 PostgreSQL state transaction 안에서 실행하지 않는다. reconcile은 다음 경계로 나뉜다.
+
+1. tenant snapshot을 읽고 transaction을 닫는다.
+2. 이미 완료 상태라면 provisioner의 `observe`를 외부에서 호출한다.
+3. 짧은 transaction에서 snapshot의 generation, 상태, operation key, intent digest와 이전 fencing token이 그대로인지 확인하고 진행 상태를 저장한다.
+4. transaction을 닫은 뒤 `provision` 또는 `deprovision`과 후속 `observe`를 호출한다.
+5. 마지막 transaction에서 operation key와 generation을 다시 비교한 뒤 관찰 상태와 receipt를 저장한다.
+
+관찰 중 state가 바뀌면 `CAAS_RECONCILE_FENCE_VIOLATION`으로 중단한다. PostgreSQL row lock을 원격 호출 동안 잡지 않으면서, 오래된 관찰값을 현재 상태에 commit하지 않는 구조다.
+
+PostgreSQL lease를 받은 운영 provisioner는 `fencingCapable=true`여야 한다. 명령 결과는 `fencingAccepted=true`와 요청 token을 그대로 담은 `fencingToken`을 반환해야 한다. 후속 관찰은 같은 값을 `lastAppliedFencingToken`으로 반환한다.
+
+CaaS는 확인한 값을 tenant의 `lastAppliedFencingToken`에 저장한다. 이후 완료 상태를 다시 관찰할 때 resource ID, generation, operation key, desired state, intent digest와 이 token이 모두 일치해야 수렴으로 인정한다.
+
+이 receipt 계약은 Adapter가 token을 되돌려줬다는 사실만 검증한다. 실제 Kubernetes admission·operator·database가 지연된 이전 token의 부작용을 거부하는지는 운영 Adapter 시험으로 입증해야 한다.
 
 `INTENT_READY`를 state 값만 보고 유지하지 않는다. 새 idempotency key로 reconcile하거나 readiness를 확인할 때 dry-run provisioner가 manifest를 다시 읽는다.
 
@@ -269,9 +310,11 @@ tenant별 operation lock은 외부 provisioner 호출이 끝날 때까지 유지
 - 파일이 없거나 바뀌었으면 readiness는 `CAAS_PROVISIONER_DRIFT`로 실패한다.
 - 같은 operation key가 남은 manifest의 내용이 바뀌면 `CAAS_PROVISIONER_IDEMPOTENCY_CONFLICT`로 중단한다.
 
-단일 호스트 lock은 stale 여부를 자동 판단해 삭제하지 않는다. PID 재사용과 unlink 경합으로 이중 소유가 생길 수 있기 때문이다. 운영자가 프로세스 중단과 lock 소유 정보를 확인한 뒤 수동으로 복구한다.
+file backend의 lock은 stale 여부를 자동 판단해 삭제하지 않는다. PID 재사용과 unlink 경합으로 이중 소유가 생길 수 있기 때문이다. 이 backend는 development·test에만 쓴다.
 
-여러 호스트에서 같은 state를 공유하는 배포에는 적합하지 않다. 해당 배포에서는 lease와 fencing token을 갖춘 분산 store로 교체해야 한다.
+여러 CaaS instance는 PostgreSQL backend에서 같은 tenant lease를 경합할 수 있다.
+
+database primary 장애, network partition, connection outcome ambiguity와 외부 provisioner fencing을 함께 재현한 고가용성 시험은 아직 없다.
 
 ## 7. 감사
 
@@ -298,12 +341,19 @@ HTTP 조회는 설정한 최대 event 수만 최신순 구간으로 반환한다
 제어 평면은 다음 인터페이스만 요구한다.
 
 ```javascript
-await provisioner.readiness();
-await provisioner.provision(tenantSnapshot, operationKey);
-await provisioner.deprovision(tenantSnapshot, operationKey);
+await provisioner.readiness({ signal });
+await provisioner.provision(tenantSnapshot, operationKey, leaseOptions);
+await provisioner.deprovision(tenantSnapshot, operationKey, leaseOptions);
+await provisioner.observe(tenantSnapshot, operationKey, leaseOptions);
 ```
 
-provision과 deprovision은 같은 operation key에 대해 멱등이어야 한다. 반환값에는 안정된 `adapterResourceId`, 실행 증거 digest, 실제 수렴 여부가 있어야 한다.
+명령용 `leaseOptions`에는 `signal`, `fencingToken`, `holderId`, `acquiredAt`이 들어간다. file backend에서는 fencing 값이 `null`일 수 있다.
+
+완료 상태를 다시 확인하는 수동 관찰에는 현재 lease token을 전달하지 않는다. `expectedLastAppliedFencingToken`에 tenant가 저장한 마지막 적용 token을 전달한다. 명령 직후 관찰에만 방금 사용한 명령용 `leaseOptions`를 다시 사용한다.
+
+provision과 deprovision은 같은 operation key에 대해 멱등이어야 한다. 반환값에는 안정된 `adapterResourceId`, `intentDigest`, 실제 수렴 여부가 있어야 한다. PostgreSQL lease를 사용하는 운영 Adapter는 외부 fencing acceptance receipt도 반환해야 한다.
+
+`observe`는 외부 자원의 존재, 수렴 여부, resource ID, intent digest, operation key, generation, desired state와 마지막 적용 fencing token을 반환한다. 운영 Adapter에 `observe`가 없거나 결과가 닫힌 계약을 만족하지 않으면 CaaS는 수렴을 저장하지 않는다.
 
 현재 구현은 다음 파일만 기록한다.
 
@@ -315,7 +365,7 @@ provision과 deprovision은 같은 operation key에 대해 멱등이어야 한�
 
 dry-run adapter는 `converged=false`를 반환하고 관찰 상태를 `INTENT_READY`로 둔다. ensure 응답도 `PROVISIONING`이다. 실제 Connector health 증거가 없으므로 `ACTIVE`나 `SUSPENDED`를 반환하지 않는다.
 
-실제 EDC 어댑터는 채택한 EDC 버전과 배포 방식을 확정한 뒤 작성한다. 어댑터가 정해야 할 항목은 다음과 같다.
+실제 EDC 어댑터는 채택한 EDC 버전과 배포 방식을 확정한 뒤 작성한다. 현재 config Schema와 factory도 `dry-run-manifest`만 생성하므로 production 설정은 의도적으로 시작할 수 없다. 어댑터가 정해야 할 항목은 다음과 같다.
 
 1. EDC image와 extension set의 고정 digest
 2. DSP·Management·Control·Data Plane endpoint 배치
@@ -325,6 +375,8 @@ dry-run adapter는 `converged=false`를 반환하고 관찰 상태를 `INTENT_RE
 6. deprovision 순서와 데이터 보존 정책
 7. timeout, retry, 보상, 실제 배포 resource ID
 8. Control Plane·Data Plane·database·Vault의 실제 상태 재관찰과 관찰 digest
+9. 외부 resource가 fencing token을 원자적으로 비교·저장하고 낮은 token을 거부하는 방법
+10. 명령 결과 receipt와 `lastAppliedFencingToken`의 독립 재관찰 방법
 
 ## 9. 실행
 
@@ -362,22 +414,36 @@ reverse proxy에서 server TLS를 종료하는 것만으로 이 공백이 닫히
 
 선택한 profile과 credential 발급·회수·rotation 절차가 계약시험과 침투시험을 통과하기 전에는 운영 배포를 차단한다. 이 항목은 권고가 아니라 운영 blocker다.
 
+### 9.1 요청 기한과 graceful shutdown
+
+변경 요청은 `requestTimeoutMs`가 지나면 request별 `AbortSignal`을 취소한다. 이 신호는 state 접근, provisioner 명령과 관찰에 전달된다. Adapter가 신호를 무시하면 CaaS는 외부 호출 뒤 신호를 다시 확인하고 완료 상태를 저장하지 않는다.
+
+종료는 먼저 readiness를 내리고 새 관리 write를 `CAAS_SHUTTING_DOWN`과 `503`으로 거부한다. idle connection을 닫은 뒤 진행 중인 요청이 `gracefulShutdownMs` 안에 끝나기를 기다린다.
+
+기한이 지나면 모든 request controller를 취소하고 남은 socket을 닫는다. HTTP drain이 성공하거나 강제 종료 경계에 도달한 뒤 state store를 닫는다. PostgreSQL store의 `close()`는 state pool과 lease pool을 모두 종료한다.
+
+이 종료 절차는 process 내부의 늦은 state commit을 막는다. 외부 Kubernetes·EDC 작업의 취소·보상 완료는 실제 provisioner가 구현하고 시험해야 한다.
+
 ## 10. 운영 전 남은 항목
 
 - [ ] 운영 namespace·endpoint·participant ID 발급 정책 승인
 - [ ] EDC 버전과 extension BOM 고정
-- [ ] 실제 Compose 또는 Kubernetes provisioner 구현
+- [ ] 실제 Kubernetes EDC provisioner와 upgrade·rollback·orphan 회수 구현
 - [ ] Vault·database·network의 tenant별 격리 시험
 - [ ] OAuth2/OIDC token 검증 또는 introspection과 scope·audience 정책 구현
 - [ ] mTLS client 인증과 certificate-to-principal 대응 정책 구현
 - [ ] credential 발급·회수·rotation과 key ID 변경 절차 구현
 - [ ] reverse proxy의 TLS 적용
-- [ ] 분산 store, lease, fencing 기반 다중 host 제어 평면 구현
+- [x] PostgreSQL JSONB·CAS, 별도 lease pool, advisory lock과 fencing token 구현
+- [ ] 실제 Kubernetes 자원에서 낮은 fencing token 거부 시험
+- [ ] JSONB 단일 row를 tenant·멱등성·감사·outbox table로 분리
 - [ ] 감사 event 외부 반출과 WORM·서명 정책 적용
 - [ ] tenant별 요청·Connector quota와 비용 기준 수립
 - [ ] 멱등성 원장의 TTL, tenant별 상한과 안전한 정리 절차 수립
-- [ ] backup과 disaster recovery 기준 수립
+- [ ] PostgreSQL 고가용성·PITR과 database primary·zone 장애 복구 시험
 - [ ] EDC DSP 상호운용 시험과 Connector 관리 API 계약시험
 - [ ] tenant offboarding과 보존기간 만료 후 state 삭제 절차 수립
 
-이 구현은 CaaS 제어 평면의 실행 가능한 최소 범위다. 실제 EDC를 배포하는 provisioner와 DSaaS 운영 기능은 별도 완료조건으로 남는다.
+상용 판정은 `governance/commercial-readiness-register.v1.json`을 정본으로 사용한다. `npm run commercial:status`는 2026-07-14 현재 `commercialReady=false`와 exit code 2를 반환한다.
+
+이 구현은 공유 PostgreSQL에서 tenant reconcile을 조정하는 CaaS 제어 평면이다. 실제 EDC를 배포하는 provisioner, 운영 신원, WORM 감사, 고가용성·PITR과 최종 image 상호운용 증거는 별도 완료조건으로 남는다.

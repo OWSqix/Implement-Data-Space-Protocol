@@ -245,6 +245,79 @@ test("DSaaS HTTP API applies authentication, idempotency and revision ETag", asy
     controlPlane.approveParticipant = originalApproveParticipant;
   }
 
+  const stateFailures = [
+    "DSAAS_RECONCILE_FENCE_LOST",
+    "DSAAS_STATE_ABORTED",
+    "DSAAS_STATE_CLOSED",
+    "DSAAS_STATE_COMMIT_UNKNOWN",
+    "DSAAS_STATE_TIMEOUT",
+    "DSAAS_STATE_UNAVAILABLE",
+  ];
+  const originalCreateDataspace = controlPlane.createDataspace;
+  try {
+    for (const [index, code] of stateFailures.entries()) {
+      controlPlane.createDataspace = async () => {
+        const error = new Error("control-store request can be retried with the same idempotency key");
+        error.code = code;
+        throw error;
+      };
+      const response = await fetch(`${origin}/v1/dataspaces`, {
+        method: "POST",
+        headers: {
+          authorization: "Bearer integration-test-token",
+          "content-type": "application/json",
+          "idempotency-key": `state-error-${index.toString().padStart(4, "0")}`,
+        },
+        body: JSON.stringify(body()),
+      });
+      assert.equal(response.status, 503);
+      assert.equal(response.headers.get("retry-after"), "1");
+      assert.equal((await response.json()).code, code);
+    }
+    for (const [index, code] of [
+      "DSAAS_STATE_LOCKED",
+      "DSAAS_STATE_MIGRATION_REQUIRED",
+      "DSAAS_STATE_MISSING",
+    ].entries()) {
+      controlPlane.createDataspace = async () => {
+        const error = new Error("control-store requires operator recovery");
+        error.code = code;
+        throw error;
+      };
+      const response = await fetch(`${origin}/v1/dataspaces`, {
+        method: "POST",
+        headers: {
+          authorization: "Bearer integration-test-token",
+          "content-type": "application/json",
+          "idempotency-key": `state-operator-action-${index.toString().padStart(4, "0")}`,
+        },
+        body: JSON.stringify(body()),
+      });
+      assert.equal(response.status, 503);
+      assert.equal(response.headers.get("retry-after"), null);
+      assert.equal((await response.json()).code, code);
+    }
+    controlPlane.createDataspace = async () => {
+      const error = new Error("control-store state exceeds its configured byte limit");
+      error.code = "DSAAS_STATE_TOO_LARGE";
+      throw error;
+    };
+    const capacity = await fetch(`${origin}/v1/dataspaces`, {
+      method: "POST",
+      headers: {
+        authorization: "Bearer integration-test-token",
+        "content-type": "application/json",
+        "idempotency-key": "state-too-large-0001",
+      },
+      body: JSON.stringify(body()),
+    });
+    assert.equal(capacity.status, 507);
+    assert.equal(capacity.headers.get("retry-after"), null);
+    assert.equal((await capacity.json()).code, "DSAAS_STATE_TOO_LARGE");
+  } finally {
+    controlPlane.createDataspace = originalCreateDataspace;
+  }
+
   const malformedApprovalPath = join(directory, "approval-registry-malformed.json");
   const missingApprovalPath = join(directory, "approval-registry-missing.json");
   await writeFile(malformedApprovalPath, "{not-json");
@@ -402,6 +475,74 @@ test("close after the listen callback wins the epoch race before scheduler start
   assert.equal(runtime.server.listening, false);
   assert.equal(schedulerStarts, 0);
   assert.ok(schedulerStops >= 1);
+});
+
+test("readiness, authentication, and read handlers share the request deadline signal", async () => {
+  const config = lifecycleConfig();
+  config.limits.requestTimeoutMs = 30;
+  const received = [];
+  const waitForAbort = (component, signal) => {
+    received.push({ component, signal });
+    return new Promise((_resolve, reject) => {
+      signal.addEventListener("abort", () => reject(signal.reason), { once: true });
+    });
+  };
+  const runtime = createDsaasServer({
+    config,
+    controlPlane: {
+      readiness({ signal }) { return waitForAbort("readiness", signal); },
+      getDataspace(_dataspaceId, _actor, { signal }) { return waitForAbort("dataspace", signal); },
+    },
+    authenticator: {
+      async authenticate(_request, { signal }) {
+        received.push({ component: "authentication", signal });
+        return LIFECYCLE_ACTOR;
+      },
+    },
+    scheduler: { async start() {}, async stop() {} },
+  });
+  const address = await runtime.start();
+  config.allowedHosts.push(`127.0.0.1:${address.port}`);
+  const origin = `http://127.0.0.1:${address.port}`;
+  const dataspace = await fetch(`${origin}/v1/dataspaces/slow`, { headers: { authorization: "Bearer token" } });
+  assert.equal(dataspace.status, 408);
+  assert.equal((await dataspace.json()).code, "DSAAS_REQUEST_TIMEOUT");
+  const readiness = await fetch(`${origin}/readyz`);
+  assert.equal(readiness.status, 408);
+  assert.equal((await readiness.json()).code, "DSAAS_REQUEST_TIMEOUT");
+  assert.deepEqual(received.map(({ component }) => component), ["authentication", "dataspace", "readiness"]);
+  for (const { signal } of received) {
+    assert.equal(signal.aborted, true);
+    assert.equal(signal.reason.code, "DSAAS_REQUEST_TIMEOUT");
+  }
+  await runtime.close();
+});
+
+test("production server refuses static authentication and incomplete readiness", async () => {
+  const config = { ...lifecycleConfig(), environment: "production" };
+  let schedulerStarts = 0;
+  const scheduler = {
+    async start() { schedulerStarts += 1; },
+    async stop() {},
+  };
+  const staticAuth = createDsaasServer({
+    config,
+    controlPlane: { async readiness() { return { ready: true, failureCodes: [] }; } },
+    authenticator: { async authenticate() { return LIFECYCLE_ACTOR; } },
+    scheduler,
+  });
+  await assert.rejects(staticAuth.start(), { code: "DSAAS_PRODUCTION_AUTH_REQUIRED" });
+  assert.equal(staticAuth.server.listening, false);
+
+  const notReady = createDsaasServer({
+    config,
+    controlPlane: { async readiness() { return { ready: false, failureCodes: ["DSAAS_EXTERNAL_APPROVAL_GATE_BLOCKED"] }; } },
+    authenticator: { productionEligible: true, async authenticate() { return LIFECYCLE_ACTOR; } },
+    scheduler,
+  });
+  await assert.rejects(notReady.start(), { code: "DSAAS_PRODUCTION_NOT_READY" });
+  assert.equal(notReady.server.listening, false);
+  assert.equal(schedulerStarts, 0);
 });
 
 test("signal-style void shutdown keeps the process alive through its deadline", { timeout: 5_000 }, async () => {

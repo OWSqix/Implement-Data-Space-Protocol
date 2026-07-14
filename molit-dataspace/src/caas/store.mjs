@@ -1,5 +1,6 @@
 import { createHash, randomUUID } from "node:crypto";
-import { mkdir, open, rename, unlink } from "node:fs/promises";
+import { renameSync } from "node:fs";
+import { mkdir, open, unlink } from "node:fs/promises";
 import { dirname } from "node:path";
 import { hostname } from "node:os";
 import { digest } from "../discovery/stable-json.mjs";
@@ -10,7 +11,7 @@ const phases = new Set(["NOT_PROVISIONED", "PROVISIONING", "PROVISIONED", "DEPRO
 const desiredStates = new Set(["PROVISIONED", "DEPROVISIONED"]);
 const actorIdentifier = /^[^\s\u0000-\u001f\u007f]{3,256}$/u;
 const persistedErrorCode = /^[A-Z0-9_:-]{1,64}$/u;
-const tenantFields = new Set(["tenantId", "displayName", "participantId", "namespace", "endpoint", "adapterId", "connectorPlanId", "connectorPlanSnapshot", "connectorPlanDigest", "runtimeProfileRef", "apiAccessSecretRef", "apiPrincipalId", "apiClientId", "apiKeyId", "deploymentSecretRefs", "desiredState", "observedState", "generation", "observedGeneration", "createdAt", "updatedAt", "adapterResourceId", "lastIntentDigest", "lastError", "operationKey", "dataspaceId", "dsaasDesiredGeneration", "dsaasRequestDigest", "organizationId"]);
+const tenantFields = new Set(["tenantId", "displayName", "participantId", "namespace", "endpoint", "adapterId", "connectorPlanId", "connectorPlanSnapshot", "connectorPlanDigest", "runtimeProfileRef", "apiAccessSecretRef", "apiPrincipalId", "apiClientId", "apiKeyId", "deploymentSecretRefs", "desiredState", "observedState", "generation", "observedGeneration", "createdAt", "updatedAt", "adapterResourceId", "lastIntentDigest", "lastAppliedFencingToken", "lastError", "operationKey", "dataspaceId", "dsaasDesiredGeneration", "dsaasRequestDigest", "organizationId"]);
 const rootFields = new Set(["schemaVersion", "tenants", "requests", "audit", "integrity"]);
 
 function snapshotPayload(state) {
@@ -64,6 +65,9 @@ export function validateCaasState(state) {
     if (tenant.lastError !== undefined) {
       assertCaas(tenant.lastError && typeof tenant.lastError === "object" && !Array.isArray(tenant.lastError) && Object.keys(tenant.lastError).every((field) => ["code", "message"].includes(field)), "CAAS_STATE_INVALID", "tenant lastError is invalid", { tenantId });
       assertCaas(persistedErrorCode.test(tenant.lastError.code ?? "") && typeof tenant.lastError.message === "string" && tenant.lastError.message.length <= 256, "CAAS_STATE_INVALID", "tenant lastError contains an invalid code or message", { tenantId });
+    }
+    if (tenant.lastAppliedFencingToken !== undefined) {
+      assertCaas(/^[1-9][0-9]*$/u.test(tenant.lastAppliedFencingToken), "CAAS_STATE_INVALID", "tenant last-applied fencing token is invalid", { tenantId });
     }
     if (["PROVISIONING", "DEPROVISIONING"].includes(tenant.observedState)) assertCaas(/^[a-f0-9]{64}$/u.test(tenant.operationKey ?? ""), "CAAS_STATE_INVALID", "in-flight tenant state requires an operation key", { tenantId });
     if (tenant.observedState === "PROVISIONED") assertCaas(typeof tenant.adapterResourceId === "string" && tenant.adapterResourceId.length > 0, "CAAS_STATE_INVALID", "provisioned tenant lacks an adapter resource ID", { tenantId });
@@ -119,7 +123,16 @@ export async function loadCaasState(path, maxBytes = 128 * 1024 * 1024) {
   }
 }
 
-async function save(path, state, maxBytes) {
+function throwIfAborted(signal) {
+  if (!signal?.aborted) return;
+  if (signal.reason instanceof Error) throw signal.reason;
+  const error = new Error("CaaS state transaction was aborted");
+  error.name = "AbortError";
+  throw error;
+}
+
+async function save(path, state, maxBytes, { signal } = {}) {
+  throwIfAborted(signal);
   validateCaasState(state);
   const serialized = `${JSON.stringify(state, null, 2)}\n`;
   assertCaas(Buffer.byteLength(serialized) <= maxBytes, "CAAS_STATE_TOO_LARGE", "CaaS state exceeds its byte limit");
@@ -132,7 +145,10 @@ async function save(path, state, maxBytes) {
     await handle.sync();
     await handle.close();
     handle = undefined;
-    await rename(temporary, path);
+    // The synchronous replace is the transaction linearization point. Once
+    // this abort gate passes, no signal callback can interleave before it.
+    throwIfAborted(signal);
+    renameSync(temporary, path);
     const directory = await open(dirname(path), "r").catch(() => null);
     await directory?.sync().catch((error) => {
       if (!["EINVAL", "ENOTSUP", "EPERM"].includes(error?.code)) throw error;
@@ -151,32 +167,37 @@ async function acquireLock(path) {
   return handle;
 }
 
-async function withLock(lockPath, conflictCode, operation) {
+async function withLock(lockPath, conflictCode, operation, { signal } = {}) {
+  throwIfAborted(signal);
   await mkdir(dirname(lockPath), { recursive: true });
   let lock;
   try { lock = await acquireLock(lockPath); } catch (error) {
     if (error?.code === "EEXIST") throw new CaaSError(conflictCode, "CaaS state operation is already in progress", { status: 409 });
     throw error;
   }
-  try { return await operation(); } finally {
+  try {
+    throwIfAborted(signal);
+    return await operation();
+  } finally {
     await lock.close();
     await unlink(lockPath);
   }
 }
 
-export async function withCaasState(path, operation, { maxBytes = 128 * 1024 * 1024, maxAuditEvents = 1_000_000, now = () => new Date() } = {}) {
+export async function withCaasState(path, operation, { maxBytes = 128 * 1024 * 1024, maxAuditEvents = 1_000_000, now = () => new Date(), signal } = {}) {
   return withLock(`${path}.lock`, "CAAS_STATE_LOCKED", async () => {
     const state = await loadCaasState(path, maxBytes);
     const result = await operation(state);
+    throwIfAborted(signal);
     sealCaasState(state, { maxAuditEvents, now: typeof now === "function" ? now() : now });
-    await save(path, state, maxBytes);
+    await save(path, state, maxBytes, { signal });
     return result;
-  });
+  }, { signal });
 }
 
-export async function withTenantOperationLock(statePath, tenantId, operation) {
+export async function withTenantOperationLock(statePath, tenantId, operation, { signal } = {}) {
   const token = createHash("sha256").update(tenantId).digest("hex");
-  return withLock(`${statePath}.tenant-${token}.lock`, "CAAS_TENANT_BUSY", operation);
+  return withLock(`${statePath}.tenant-${token}.lock`, "CAAS_TENANT_BUSY", operation, { signal });
 }
 
 export function appendAudit(state, value, { maxAuditEvents, now = new Date() }) {
@@ -193,7 +214,7 @@ export function appendAudit(state, value, { maxAuditEvents, now = new Date() }) 
   return event;
 }
 
-function sealCaasState(state, { maxAuditEvents, now }) {
+export function sealCaasState(state, { maxAuditEvents, now }) {
   const stateSnapshotDigest = caasStateSnapshotDigest(state);
   const currentAuditHead = state.audit.at(-1)?.eventDigest ?? null;
   if (state.integrity?.snapshotDigest === stateSnapshotDigest && state.integrity?.auditHead === currentAuditHead) return state;
@@ -212,6 +233,80 @@ function sealCaasState(state, { maxAuditEvents, now }) {
     bindingDigest: digest({ auditHead: commit.eventDigest, snapshotDigest: stateSnapshotDigest }),
   };
   return state;
+}
+
+export class FileCaasStore {
+  constructor({ path, maxBytes = 128 * 1024 * 1024, maxAuditEvents = 1_000_000, clock = () => new Date() }) {
+    assertCaas(typeof path === "string" && path.length > 0, "CAAS_STATE_INVALID", "CaaS file store path is required");
+    Object.assign(this, {
+      kind: "file",
+      supportsDistributedFencing: false,
+      path,
+      maxBytes,
+      maxAuditEvents,
+      clock,
+      holderId: `file:${hostname()}:${process.pid}`,
+      closed: false,
+    });
+  }
+
+  #assertOpen() {
+    assertCaas(!this.closed, "CAAS_STATE_CLOSED", "CaaS file store is closed");
+  }
+
+  async initialize({ signal } = {}) {
+    this.#assertOpen();
+    throwIfAborted(signal);
+    await loadCaasState(this.path, this.maxBytes);
+    throwIfAborted(signal);
+  }
+
+  async read(operation = (state) => state, { signal } = {}) {
+    this.#assertOpen();
+    throwIfAborted(signal);
+    const state = await loadCaasState(this.path, this.maxBytes);
+    const result = await operation(structuredClone(state));
+    throwIfAborted(signal);
+    return structuredClone(result);
+  }
+
+  async transact(operation, { signal } = {}) {
+    this.#assertOpen();
+    return structuredClone(await withCaasState(this.path, operation, {
+      maxBytes: this.maxBytes,
+      maxAuditEvents: this.maxAuditEvents,
+      now: this.clock,
+      signal,
+    }));
+  }
+
+  async withResourceLock(resourceId, operation, { signal } = {}) {
+    this.#assertOpen();
+    assertCaas(typeof resourceId === "string" && resourceId.length >= 3 && resourceId.length <= 1024,
+      "CAAS_STATE_INVALID", "CaaS resource identifier is invalid");
+    assertCaas(typeof operation === "function", "CAAS_STATE_INVALID", "CaaS resource operation is invalid");
+    return structuredClone(await withTenantOperationLock(this.path, resourceId, () => operation(Object.freeze({
+      resourceId,
+      holderId: this.holderId,
+      fencingToken: null,
+      acquiredAt: this.clock().toISOString(),
+      signal,
+    })), { signal }));
+  }
+
+  async readiness({ signal } = {}) {
+    if (this.closed) return Object.freeze({ ready: false, status: "CLOSED", failureCode: "CAAS_STATE_CLOSED" });
+    try {
+      await this.read(() => null, { signal });
+      return Object.freeze({ ready: true, status: "READY", failureCode: null });
+    } catch (error) {
+      return Object.freeze({ ready: false, status: "NOT_READY", failureCode: error?.code ?? "CAAS_STATE_UNAVAILABLE" });
+    }
+  }
+
+  async close() {
+    this.closed = true;
+  }
 }
 
 export function idempotencyReplay(state, scope, key, payload) {

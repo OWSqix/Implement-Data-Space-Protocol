@@ -22,6 +22,10 @@ function sha256(bytes) {
 test("production DSaaS config and pinned service registry validate", async () => {
   const config = await loadDsaasConfig(fileURLToPath(CONFIG));
   assert.equal(config.environment, "production");
+  assert.equal(config.stateStore.type, "postgres");
+  assert.equal(config.stateStore.tls.mode, "verify-full");
+  assert.equal(config.stateStore.maxPoolSize, 20);
+  assert.equal(config.stateStore.maxLeasePoolSize, 20);
   assert.equal(config.network.allowHttp, false);
   assert.equal(config.network.allowPrivate, false);
   assert.equal(config.reconcileScheduler.intervalMs, 60_000);
@@ -43,6 +47,9 @@ test("production DSaaS config and pinned service registry validate", async () =>
     MOLIT_DSAAS_INTROSPECTION_CLIENT_ID: "client",
     MOLIT_DSAAS_INTROSPECTION_CLIENT_SECRET: "secret",
     MOLIT_CAAS_DSAAS_CONTROLLER_TOKEN: "caas-controller-token",
+    MOLIT_DSAAS_POSTGRES_URL: "postgresql://dsaas:secret@postgres.example/dsaas",
+    MOLIT_DSAAS_INSTANCE_ID: "dsaas-instance-01",
+    MOLIT_DSAAS_POSTGRES_CA_PEM: "test-ca",
   }));
   assert.throws(() => assertDsaasEnvironment(config, {}), { code: "DSAAS_SECRET_ENV_MISSING" });
 });
@@ -95,6 +102,40 @@ test("production DSaaS config rejects a non-loopback plain HTTP listener", async
   const path = join(directory, "config.json");
   await writeFile(path, JSON.stringify({ ...source, listenHost: "0.0.0.0" }));
   await assert.rejects(loadDsaasConfig(path), (error) => error.code === "DSAAS_CONFIG_INVALID" && /loopback/u.test(error.message));
+});
+
+test("production DSaaS requires PostgreSQL with verify-full TLS", async (t) => {
+  const directory = await mkdtemp(join(tmpdir(), "molit-dsaas-config-store-"));
+  t.after(() => rm(directory, { recursive: true, force: true }));
+  const source = JSON.parse(await readFile(CONFIG, "utf8"));
+  const fileConfig = join(directory, "file.json");
+  await writeFile(fileConfig, JSON.stringify({
+    ...source,
+    stateStore: { type: "file", path: "state.json" },
+  }));
+  await assert.rejects(loadDsaasConfig(fileConfig), (error) => error.code === "DSAAS_CONFIG_INVALID" && /PostgreSQL control store/u.test(error.message));
+
+  const insecureConfig = join(directory, "insecure.json");
+  await writeFile(insecureConfig, JSON.stringify({
+    ...source,
+    stateStore: { ...source.stateStore, tls: { mode: "disable" } },
+  }));
+  await assert.rejects(loadDsaasConfig(insecureConfig), (error) => error.code === "DSAAS_CONFIG_INVALID" && /verify-full/u.test(error.message));
+});
+
+test("development and test DSaaS retain the file store", async (t) => {
+  const directory = await mkdtemp(join(tmpdir(), "molit-dsaas-config-file-store-"));
+  t.after(() => rm(directory, { recursive: true, force: true }));
+  const source = JSON.parse(await readFile(CONFIG, "utf8"));
+  const path = join(directory, "config.json");
+  await writeFile(path, JSON.stringify({
+    ...source,
+    environment: "development",
+    stateStore: { type: "file", path: "state.json" },
+  }));
+  const config = await loadDsaasConfig(path);
+  assert.equal(config.stateStore.type, "file");
+  assert.equal(config.stateStore.path, join(directory, "state.json"));
 });
 
 test("example dataspace and participant satisfy strict contracts", async () => {

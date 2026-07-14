@@ -4,6 +4,7 @@
   "profile": "molit-government-rd-report-v1",
   "roots": [
     "README.md",
+    "deploy/control-store/postgres/README.md",
     "docs",
     "evidence",
     "profiles",

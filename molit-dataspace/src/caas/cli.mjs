@@ -9,18 +9,19 @@ if (!configPath) {
   process.exitCode = 64;
 } else {
   try {
-    const { config, service, server } = await createCaaSRuntime({ configPath: resolve(configPath) });
-    await service.readiness();
-    server.listen(config.listen.port, config.listen.host, () => {
-      const address = server.address();
-      process.stdout.write(`${JSON.stringify({ status: "listening", host: address.address, port: address.port })}\n`);
-    });
-    let stopping = false;
+    const runtime = await createCaaSRuntime({ configPath: resolve(configPath) });
+    const address = await runtime.start();
+    process.stdout.write(`${JSON.stringify({ status: "listening", host: address.address, port: address.port })}\n`);
+    let stopPromise = null;
     const stop = () => {
-      if (stopping) return;
-      stopping = true;
-      server.close((error) => { process.exitCode = error ? 1 : 0; });
-      setTimeout(() => process.exit(1), 10_000).unref();
+      if (stopPromise) return stopPromise;
+      stopPromise = runtime.close({ timeoutMs: runtime.config.limits.gracefulShutdownMs ?? 10_000 })
+        .then(() => { process.exitCode = 0; })
+        .catch((error) => {
+          process.stderr.write(`${JSON.stringify({ code: error?.code ?? "CAAS_STOP_FAILED", message: error?.message ?? "CaaS failed to stop" })}\n`);
+          process.exitCode = 1;
+        });
+      return stopPromise;
     };
     process.on("SIGINT", stop);
     process.on("SIGTERM", stop);

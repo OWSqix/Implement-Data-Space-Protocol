@@ -1,0 +1,164 @@
+{
+  "schemaVersion": "molit.commercial-readiness-register/1",
+  "asOf": "2026-07-14",
+  "target": "commercial-production",
+  "baseline": "docs/02-design/commercial-caas-dsaas-baseline.md",
+  "gates": [
+    {
+      "gateId": "COM-TEN-001",
+      "phase": "P0",
+      "status": "partial",
+      "summary": "API의 tenant 권한 경계는 시험했으나 운영 인프라의 DB·queue·object·secret 격리는 입증하지 않았다.",
+      "evidencePaths": ["tests/integration/caas-control-plane-e2e.test.mjs", "tests/unit/caas-auth-attribution.test.mjs"],
+      "resultEvidence": [],
+      "blockers": [
+        { "id": "COM-TEN-INFRA-ISOLATION", "summary": "두 tenant 사이의 DB·network·queue·object·secret 교차 접근 시험이 없다.", "owner": "platform-security" }
+      ]
+    },
+    {
+      "gateId": "COM-LCM-001",
+      "phase": "P0",
+      "status": "partial",
+      "summary": "수렴 상태와 멱등성은 구현했으나 실제 EDC를 생성·갱신·복구·삭제하는 provisioner가 없다.",
+      "evidencePaths": ["src/caas/service.mjs", "tests/unit/caas-service.test.mjs"],
+      "resultEvidence": [],
+      "blockers": [
+        { "id": "COM-LCM-K8S-PROVISIONER", "summary": "Kubernetes EDC provisioner와 upgrade·rollback·orphan 회수 시험이 없다.", "owner": "connector-platform" }
+      ]
+    },
+    {
+      "gateId": "COM-ID-001",
+      "phase": "P0",
+      "status": "partial",
+      "summary": "호출자 attribution과 DSaaS introspection 경계는 있으나 운영 IdP·workload identity·회전 절차가 없다.",
+      "evidencePaths": ["src/dsaas/auth.mjs", "tests/unit/dsaas-auth.test.mjs"],
+      "resultEvidence": [],
+      "blockers": [
+        { "id": "COM-ID-OPERATING-IDENTITY", "summary": "OIDC·MFA·mTLS·DCP credential 발급과 폐기 시험이 없다.", "owner": "identity-security" }
+      ]
+    },
+    {
+      "gateId": "COM-OBS-001",
+      "phase": "P0",
+      "status": "partial",
+      "summary": "감사 hash chain은 검증하지만 OpenTelemetry 상관관계와 외부 불변 저장소는 연결하지 않았다.",
+      "evidencePaths": ["src/caas/store.mjs", "src/dsaas/store.mjs"],
+      "resultEvidence": [],
+      "blockers": [
+        { "id": "COM-OBS-OTEL-WORM", "summary": "관리 API부터 DSP 전송까지의 trace와 WORM 감사 반출 증거가 없다.", "owner": "service-operations" }
+      ]
+    },
+    {
+      "gateId": "COM-HA-001",
+      "phase": "P0",
+      "status": "partial",
+      "summary": "PostgreSQL 내부 transaction·advisory lease·fencing은 시험했으나 외부 자원 CAS와 장애복구는 입증하지 않았다.",
+      "evidencePaths": ["src/control-store/postgres-json-store.mjs", "tests/integration/dsaas-postgres-store-docker.test.mjs"],
+      "resultEvidence": [],
+      "blockers": [
+        { "id": "COM-HA-EXTERNAL-FENCE", "summary": "실제 Kubernetes 자원에서 N+1 적용 뒤 지연된 N 명령을 거부한 증거가 없다.", "owner": "connector-platform" },
+        { "id": "COM-HA-FAILOVER-RESTORE", "summary": "DB primary·zone 장애와 backup 복구의 RPO·RTO 증거가 없다.", "owner": "platform-sre" }
+      ]
+    },
+    {
+      "gateId": "COM-SUP-001",
+      "phase": "P0",
+      "status": "partial",
+      "summary": "Node 의존성 및 EDC upstream digest는 고정했으나 최종 배포 image의 서명·SBOM·provenance가 없다.",
+      "evidencePaths": ["evidence/dependencies/node-sbom.spdx.json", "deploy/edc/upstream-lock.json"],
+      "resultEvidence": [],
+      "blockers": [
+        { "id": "COM-SUP-FINAL-IMAGES", "summary": "최종 CaaS·DSaaS·EDC image digest의 서명과 취약점 Gate가 없다.", "owner": "software-supply-chain" }
+      ]
+    },
+    {
+      "gateId": "COM-TRUST-001",
+      "phase": "P1",
+      "status": "partial",
+      "summary": "승인 만료·철회 상태는 강제하지만 서명된 기관 결정과 운영 trust anchor는 연결하지 않았다.",
+      "evidencePaths": ["src/dsaas/approval-registry.mjs", "tests/unit/dsaas-control-plane.test.mjs"],
+      "resultEvidence": [],
+      "blockers": [
+        { "id": "COM-TRUST-SIGNED-DECISIONS", "summary": "승인기관 서명 검증과 credential status·trust anchor 회전 증거가 없다.", "owner": "dataspace-governance" }
+      ]
+    },
+    {
+      "gateId": "COM-CAT-001",
+      "phase": "P1",
+      "status": "partial",
+      "summary": "MOLIT DCAT-AP 검증과 Bridge 변환은 있으나 운영 federated Catalog 수집·중복·tombstone 시험은 없다.",
+      "evidencePaths": ["profiles/molit-dcat-ap/releases/1.0.0-rc.1/manifest.json", "src/bridge-runtime/worker.mjs"],
+      "resultEvidence": [],
+      "blockers": [
+        { "id": "COM-CAT-FEDERATED-RUNTIME", "summary": "운영 Catalog의 crawl·version·dedup·private visibility 수렴 증거가 없다.", "owner": "catalog-platform" }
+      ]
+    },
+    {
+      "gateId": "COM-POL-001",
+      "phase": "P1",
+      "status": "partial",
+      "summary": "로컬 DSP 계약·전송 흐름은 실행했으나 승인 ODRL template과 종료 후 원천 권한 회수를 입증하지 않았다.",
+      "evidencePaths": ["evidence/edc/local-interoperability-status.v1.json", "tests/edc/evidence-recorder.test.mjs"],
+      "resultEvidence": [],
+      "blockers": [
+        { "id": "COM-POL-OBLIGATION-ENFORCEMENT", "summary": "Agreement 종료와 원천 시스템 권한 회수까지 연결한 정책 집행 증거가 없다.", "owner": "policy-contract" }
+      ]
+    },
+    {
+      "gateId": "COM-OPS-001",
+      "phase": "P1",
+      "status": "open",
+      "summary": "구독·quota·지원·export·tenant 삭제를 하나의 관리형 서비스 수명주기로 구현하지 않았다.",
+      "evidencePaths": [],
+      "resultEvidence": [],
+      "blockers": [
+        { "id": "COM-OPS-SUBSCRIPTION-LIFECYCLE", "summary": "주문·plan 변경·quota·해지·export·삭제 API와 원장이 없다.", "owner": "product-operations" }
+      ]
+    },
+    {
+      "gateId": "COM-DSP-001",
+      "phase": "P1",
+      "status": "partial",
+      "summary": "동일 EDC 구성의 로컬 수명주기는 확인했으나 최종 image TCK와 외부 구현 2종 시험은 없다.",
+      "evidencePaths": ["evidence/edc/local-interoperability-status.v1.json", "deploy/edc/upstream-lock.json"],
+      "resultEvidence": [],
+      "blockers": [
+        { "id": "COM-DSP-FINAL-IMAGE-TCK", "summary": "국토교통 확장과 설정을 포함한 최종 image의 DSP TCK 원시 출력이 없다.", "owner": "interoperability" },
+        { "id": "COM-DSP-EXTERNAL-CONNECTORS", "summary": "서로 다른 외부 Connector 구현 2종과의 전체 수명주기 증거가 없다.", "owner": "interoperability" }
+      ]
+    },
+    {
+      "gateId": "COM-CMP-001",
+      "phase": "P2",
+      "status": "open",
+      "summary": "적용 법령과 인증 범위, 개인정보 처리, 데이터 거주지, 보존·삭제, 외부 보안 검증을 확정하지 않았다.",
+      "evidencePaths": [],
+      "resultEvidence": [],
+      "blockers": [
+        { "id": "COM-CMP-APPLICABILITY-EVIDENCE", "summary": "적용성 결정, 개인정보 통제, 외부 침투시험과 업무 연속성 훈련 증거가 없다.", "owner": "risk-compliance" }
+      ]
+    },
+    {
+      "gateId": "COM-BIL-001",
+      "phase": "P2",
+      "status": "open",
+      "summary": "유상거래 원장과 결제·세금·환불·수수료 조정 기능을 구현하지 않았다.",
+      "evidencePaths": [],
+      "resultEvidence": [],
+      "blockers": [
+        { "id": "COM-BIL-SCOPE-DECISION", "summary": "유상거래 포함 여부와 not-applicable 승인 중 어느 것도 확정되지 않았다.", "owner": "business-governance" }
+      ]
+    },
+    {
+      "gateId": "COM-SLA-001",
+      "phase": "P2",
+      "status": "open",
+      "summary": "승인 capacity profile, 30일 canary와 월별 SLA 산출물을 만들지 않았다.",
+      "evidencePaths": [],
+      "resultEvidence": [],
+      "blockers": [
+        { "id": "COM-SLA-OPERATING-EVIDENCE", "summary": "가용성·제외시간·오류예산·service credit을 재현하는 운영 증거가 없다.", "owner": "service-management" }
+      ]
+    }
+  ]
+}
