@@ -1,0 +1,104 @@
+{
+  "schemaVersion": "molit.edc-local-interoperability-run/1",
+  "recordingMode": "recorder",
+  "runId": "0eeb09e2-df47-4456-ab6c-586755e16b2b",
+  "status": "pass",
+  "startedAt": "2026-07-14T05:00:50.064Z",
+  "completedAt": "2026-07-14T05:02:03.894Z",
+  "command": ".\\tools\\edc\\run-smoke.ps1 -RecordEvidence evidence/edc/runs/20260714T140041+0900-implementation-cae2063.json",
+  "sourceBinding": {
+    "algorithm": "sha-256",
+    "digest": "ee90d47cf29457ac95a9ebfc35fb3f6aea866e4a32936eaaadf5b6b2b8d91a0d",
+    "fileCount": 48,
+    "scope": "deploy/edc, tools/edc, tests/edc, .gitattributes, package.json, package-lock.json, contracts/edc-local-interoperability-run.v1.schema.json; excluding build and .gradle directories"
+  },
+  "sourceStable": true,
+  "git": {
+    "captured": true,
+    "headAtStart": "cae2063110c7a6c00e337dbfdd25daf0ca1d6b9a",
+    "headAtEnd": "cae2063110c7a6c00e337dbfdd25daf0ca1d6b9a",
+    "scopedPaths": [
+      "deploy/edc",
+      "tools/edc",
+      "tests/edc",
+      ".gitattributes",
+      "package.json",
+      "package-lock.json",
+      "contracts/edc-local-interoperability-run.v1.schema.json"
+    ],
+    "statusAtStart": [],
+    "statusAtEnd": [],
+    "cleanAtStart": true,
+    "cleanAtEnd": true
+  },
+  "docker": {
+    "captured": true,
+    "server": {
+      "version": "25.0.3",
+      "operatingSystem": "linux",
+      "architecture": "amd64"
+    },
+    "composeVersion": "2.24.6-desktop.1",
+    "images": [
+      {
+        "service": "consumer-control-plane",
+        "imageId": "sha256:503d016ed06b9e2a095f49ae83e997e7aec9cce62d933d3e9621224863f776b3"
+      },
+      {
+        "service": "consumer-data-plane",
+        "imageId": "sha256:2acad1fd6bd54aa75378af2f5017def65b8e9e1689edc52de6cd08dfc4f30e3c"
+      },
+      {
+        "service": "provider-backend",
+        "imageId": "sha256:d0701bd41f8279135aa6c81e23fbcdae7bcc3df591c47741405412a8dcdb2eab"
+      },
+      {
+        "service": "provider-control-plane",
+        "imageId": "sha256:e84a77c8b6528fb78e7b52d005fc1117b37254df23074d2fbad2c5d93ed59845"
+      },
+      {
+        "service": "provider-data-plane",
+        "imageId": "sha256:176c507cfe4fa4c37b21f0e41a07ffb475eb2cc8ac5e38814a83de1d89623ef0"
+      }
+    ]
+  },
+  "cleanStart": {
+    "attempted": true,
+    "status": "pass"
+  },
+  "cleanup": {
+    "attempted": true,
+    "status": "pass"
+  },
+  "execution": {
+    "exitCode": 0,
+    "stdout": {
+      "captureMode": "runner-captured",
+      "encoding": "utf-8",
+      "sha256": "aaa2138024cf682d9da0606c7f90a7a391e7b8087f69a4ffcca8fd10e24404e5",
+      "byteLength": 437,
+      "text": "{\"ok\":true,\"managementApi\":\"v4\",\"dsp\":\"dataspace-protocol-http:2025-1\",\"assetId\":\"molit-edc-smoke-asset-4a8cb82f-00b9-4d79-8cb4-f0537232579a\",\"agreementId\":\"68deabb8-7b27-44d3-8763-76084b5eba5d\",\"transferId\":\"8fe69257-cdf8-4ef7-94c9-853bfa331903\",\"startState\":\"STARTED\",\"finalState\":\"TERMINATED\",\"revokedStatus\":403,\"bytes\":96,\"contentType\":\"application/json\",\"sha256\":\"2f013648aa3071d46c9e29b2e938c5fb36336cc53f27d1f5e507da3683da41a7\"}\n"
+    },
+    "result": {
+      "ok": true,
+      "managementApi": "v4",
+      "dsp": "dataspace-protocol-http:2025-1",
+      "assetId": "molit-edc-smoke-asset-4a8cb82f-00b9-4d79-8cb4-f0537232579a",
+      "agreementId": "68deabb8-7b27-44d3-8763-76084b5eba5d",
+      "transferId": "8fe69257-cdf8-4ef7-94c9-853bfa331903",
+      "startState": "STARTED",
+      "finalState": "TERMINATED",
+      "revokedStatus": 403,
+      "bytes": 96,
+      "contentType": "application/json",
+      "sha256": "2f013648aa3071d46c9e29b2e938c5fb36336cc53f27d1f5e507da3683da41a7"
+    },
+    "error": null
+  },
+  "limitations": [
+    "same Eclipse EDC Connector implementation on both participants",
+    "DSP official TCK and cross-implementation interoperability not executed",
+    "production DPS worker, identity, trust anchors and public delivery service not verified",
+    "Maven dependency verification, SBOM, image signature and license inventory not complete"
+  ]
+}

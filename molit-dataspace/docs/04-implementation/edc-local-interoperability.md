@@ -241,16 +241,23 @@ Gradle :smoke-data-plane:shadowJar   PASS
 node --test tests/edc/*.test.mjs     PASS (29/29)
 node tools/edc/verify-topology.mjs   PASS (26 files, source binding matched)
 docker compose ... config --quiet    PASS
-Docker recorder-bound smoke          PENDING RERUN
+Docker recorder-bound smoke          PASS
 ```
 
-2026-07-14 clean volume 실행에서 네 EDC process가 readiness를 통과했다. 같은 EDC 0.18.0 구현 사이에서 Catalog 조회, 계약 `FINALIZED`, PULL, 종료와 token 폐기를 확인했다.
+2026-07-14에 commit `87b587039d08cc902a349aad90535a0b72ccf7e6`의 detached worktree에서 recorder-bound smoke를 실행했다.
 
-이 실행은 recorder를 추가하기 전에 끝났다. 알려진 결과는 retrospective placeholder에 보존했다.
+Provider·Consumer Control Plane과 Data Plane이 readiness를 통과했다. 같은 EDC 0.18.0 구현 사이에서 Catalog 조회, 계약 `FINALIZED`, PULL, 종료와 token 폐기를 확인했다.
 
-source digest 전후 비교, Git 상태, image ID와 stdout 원문은 실행 당시 수집하지 않았다. 현재 source tree의 Docker 통과 증거로 사용하지 않으며, recorder 재실행 전까지 `pending-rerun`으로 판정한다.
+실행 ID는 `9e293e00-946c-44eb-9d6e-9b6135a97b3f`이다. Git HEAD는 시작과 종료 시점에 같았고, EDC 범위의 worktree도 두 시점 모두 clean이었다. source digest `a926a4a8da1670569186ae5a4bcf27a0d810883ceedd5a3460e9fa0edb45f839`가 실행 전후에 유지됐다. 5개 서비스의 Docker image ID를 기록했고 clean-start와 cleanup도 통과했다.
+
+원시 증거는 `evidence/edc/runs/20260714T140859+0900-implementation-87b5870.json`이다. 파일 SHA-256은 `ee2dd17cc2f786e59d103005f18cf3d59d0ba659aeabbee32c19d86b7093fffc`, stdout SHA-256은 `a8bd3d6124f1a30ad5643ef48df5f20b2a3142e72988b00143277aa9bcbfe213`다.
+
+`evidence/edc/runs/20260714T140041+0900-implementation-cae2063.json`은 이전 구현 commit의 recorder 통과 이력으로 보존한다. 현재 상태의 정본은 증거 참조 시험을 보강한 `87b5870` 실행이다.
 
 ```text
+assetId=molit-edc-smoke-asset-dadab320-f13c-4505-a9d0-92d508a20a35
+agreementId=752e4733-49e1-4cf7-b110-653e22d69a6f
+transferId=89d2ca95-214f-47be-b856-906601b15ed5
 startState=STARTED
 finalState=TERMINATED
 revokedStatus=403
@@ -263,6 +270,6 @@ Consumer Control Plane은 legacy prepare 단계에서 `No dataplane found` 경�
 
 Legacy controller는 PULL destination을 준비할 Data Plane이 없으면 경고 후 성공으로 진행하도록 구현돼 있다. 실제 전송은 Provider Data Plane에서 시작됐고 위 결과까지 끝났다.
 
-이 결과는 서로 다른 Connector 구현 간 상호운용 증거가 아니다. 운영 DPS worker, 외부 신원 체계, 공개 전달 계층도 검증하지 않았다.
+이 결과는 서로 다른 Connector 구현 간 상호운용 증거가 아니며 공식 DSP TCK 결과도 아니다. 운영 DPS worker, 외부 신원 체계, 공개 전달 계층과 production readiness도 검증하지 않았다.
 
 명령별 결과와 미검증 항목은 [EDC 로컬 상호운용 실행 상태](../../evidence/edc/local-interoperability-status.v1.json)에 기록했다.

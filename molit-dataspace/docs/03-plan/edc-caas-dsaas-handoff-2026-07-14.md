@@ -1,14 +1,15 @@
 # EDC·CaaS·DSaaS 작업 인계 기록
 
 작성일: 2026-07-14 KST
-상태: 구현 후보 검증 완료, 구현 commit 기준 EDC smoke 재실행 대기
+상태: 구현 후보 검증 완료, 구현 commit 기준 EDC smoke 증거 확보
 
 ## 1. 인계 기준
 
 - **(기준선)** 작업 시작 commit은 `044dfda`
+- **(구현 commit)** 본 구현은 `3c30128`, EDC recorder 보강은 `cae2063`, 증거 참조 시험 보강은 `87b5870`
 - **(구현 상태)** EDC 로컬 구성, CaaS·DSaaS 제어면, Bridge HTTP 방어, Provider transfer worker 구현 완료
 - **(시험 상태)** 단위·통합·focused 시험과 EDC runtime 검증 통과
-- **(증거 상태)** clean worktree와 clean volume에서 생성할 EDC raw run은 `pending-rerun`
+- **(증거 상태)** commit `87b5870`의 detached worktree에서 EDC source-binding 범위와 clean volume을 확인한 recorder-bound raw run 통과
 - **(금지 사항)** 상위 경로의 기획보고서 PDF는 이 저장소의 commit 대상에서 제외
 
 이 문서의 시험 수는 2026-07-14에 실행한 결과다. focused suite는 전체 unit·integration suite와 중복되므로 합산하지 않는다.
@@ -76,29 +77,42 @@ Journal HMAC은 변조를 검출하지만 과거의 유효한 journal 전체를 
 | `npm run test:transfer-runtime` | `29/29` 통과 | receipt·journal·복구 |
 | `npm run test:edc` | `29/29` 통과 | topology·runner·evidence schema |
 | `npm run edc:verify:runtime` | 통과 | Gradle build·Java 17·JAR 분리·Compose |
+| `npm run verify` | 통과 | 문서·Registry·profile·ontology·전체 Node 시험 |
+| `npm run dependencies:verify` | 통과 | 설치 package 152개·SPDX package 153개 결합 |
 | `npm audit --omit=dev` | 취약점 `0`건 | npm production dependency |
 
-이 결과는 현재 source의 코드 경로와 정적·격리 통합시험 결과다. Docker 기반 Catalog·계약·전송 수명주기의 최신 실행 증거를 대신하지 않는다.
+전체 `npm run verify`는 945.8초 걸렸다. RC 기술후보 Gate는 clean 구현 commit `3c30128`에서 `candidateEligible=true`를 반환했다. 기관 Recommendation은 외부 승인·표준 원문·운영 Registry 등 16개 항목이 남아 있어 승인되지 않았다.
+
+Node 시험과 별도로 Docker 기반 Catalog·계약·전송 수명주기는 다음 절의 raw run으로 확인했다.
 
 ## 4. EDC 실행 증거 상태
 
 ### 4.1 현재 판정
 
-- **(상태)** `pending-rerun`
-- **(사유)** 구현 commit을 기준으로 한 detached clean worktree smoke를 아직 실행하지 않음
-- **(과거 기록)** recorder 도입 전 실행은 retrospective placeholder로만 보존
-- **(사용 제한)** 과거 asset·agreement·transfer ID와 payload hash를 현재 source의 통과 증거로 인용하지 않음
+- **(상태)** `pass`
+- **(source commit)** `87b587039d08cc902a349aad90535a0b72ccf7e6`
+- **(run ID)** `9e293e00-946c-44eb-9d6e-9b6135a97b3f`
+- **(raw run)** `evidence/edc/runs/20260714T140859+0900-implementation-87b5870.json`
+- **(raw SHA-256)** `ee2dd17cc2f786e59d103005f18cf3d59d0ba659aeabbee32c19d86b7093fffc`
+- **(source SHA-256)** `a926a4a8da1670569186ae5a4bcf27a0d810883ceedd5a3460e9fa0edb45f839`
 
-구현 commit과 그 구현을 시험한 raw run을 같은 commit에 넣을 수는 없다. 먼저 구현을 commit한 뒤 해당 commit의 clean worktree에서 smoke를 실행하고, raw run과 상태 요약은 별도 증거 commit으로 기록한다.
+Git HEAD와 source digest는 시작부터 종료까지 바뀌지 않았다. EDC 범위 worktree도 시작과 종료 시점에 clean이었다. 실행기는 5개 서비스의 Docker image ID와 stdout SHA-256을 기록했다. clean-start와 cleanup은 모두 통과했다.
 
-### 4.2 재실행 절차
+`20260714T140041+0900-implementation-cae2063.json`도 해당 commit의 유효한 recorder 실행으로 남긴다. 현재 상태 원장은 증거 참조 시험까지 보강한 `87b5870` 실행을 정본으로 사용한다.
 
-1. stage 범위·secret·실행 파일 mode·임시 산출물을 점검하고 구현 commit을 생성한다.
-2. 구현 commit을 가리키는 detached worktree를 별도 경로에 만든다.
-3. 해당 worktree에서 `npm ci`와 EDC 사전 검증을 실행한다.
-4. `tools/edc/run-smoke.ps1 -RecordEvidence <raw-run-path>`로 clean-volume smoke를 실행한다.
-5. raw run의 Git commit, clean-start·cleanup, source digest 전후 일치, image ID, stdout hash를 검증한다.
-6. raw run과 상태 요약을 본 worktree에 반영하고 증거 commit을 생성한다.
+### 4.2 실행 결과
+
+```text
+assetId=molit-edc-smoke-asset-dadab320-f13c-4505-a9d0-92d508a20a35
+agreementId=752e4733-49e1-4cf7-b110-653e22d69a6f
+transferId=89d2ca95-214f-47be-b856-906601b15ed5
+startState=STARTED
+finalState=TERMINATED
+revokedStatus=403
+bytes=96
+contentType=application/json
+payloadSha256=2f013648aa3071d46c9e29b2e938c5fb36336cc53f27d1f5e507da3683da41a7
+```
 
 통과 범위는 동일한 Eclipse EDC 0.18.0 구성 두 참여자 사이의 Catalog, 계약 협상, PULL, 종료, 종료 후 token 거부다. 서로 다른 DSP 구현 사이의 상호운용이나 DSP TCK 적합성은 별도 시험 대상이다.
 
@@ -134,16 +148,14 @@ Journal HMAC은 변조를 검출하지만 과거의 유효한 journal 전체를 
 
 ## 6. 다음 작업 순서
 
-1. 구현 변경의 stage 범위와 실행 파일 mode를 확인하고 구현 commit을 만든다.
-2. 구현 commit의 detached clean worktree에서 EDC clean-volume smoke를 실행한다.
-3. recorder-bound raw run의 hash와 source 결합을 검증하고 증거 commit을 만든다.
-4. 실제 CaaS provisioner와 공유 transaction store를 구현한 뒤 다중 instance 경합시험을 추가한다.
-5. production DPS worker와 EDC publication adapter의 live 수명주기 시험을 추가한다.
-6. 외부 승인 서명과 Registry trust-anchor 갱신 절차를 정한다.
-7. stable namespace 승인 후 이기종 DSP 시험과 공식 TCK를 별도 증거로 등록한다.
+1. 실제 CaaS provisioner와 공유 transaction store를 구현한 뒤 다중 instance 경합시험을 추가한다.
+2. production DPS worker와 EDC publication adapter의 live 수명주기 시험을 추가한다.
+3. 외부 승인 서명과 Registry trust-anchor 갱신 절차를 정한다.
+4. 운영기관의 stable namespace 승인을 받는다.
+5. 이기종 DSP 시험과 공식 TCK를 별도 증거로 등록한다.
 
 ## 7. 인계 판정
 
-현재 상태는 `EDC 기반 로컬 수명주기와 CaaS·DSaaS 제어면의 구현 후보`다. 코드 시험은 통과했으나 구현 commit 기준 EDC smoke가 남아 있으므로 로컬 수명주기 통과도 최신 증거로 확정하지 않는다.
+현재 상태는 `recorder-bound EDC 로컬 수명주기와 CaaS·DSaaS 제어면을 검증한 구현 후보`다. 동일 EDC 구현 두 참여자 사이의 로컬 수명주기는 commit과 source digest에 결합된 raw run으로 확인했다.
 
 실 provisioner, 분산 상태 제어, 운영 인증·승인, production DPS, stable namespace, 공급망 통제가 없으므로 실운영 완료로 표기할 수 없다. 이기종 구현이나 DSP TCK를 실행하지 않았으므로 DSP 상호운용 완료로도 표기할 수 없다.

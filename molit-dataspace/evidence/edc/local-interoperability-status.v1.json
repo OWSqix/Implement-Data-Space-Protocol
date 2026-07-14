@@ -1,10 +1,10 @@
 {
   "schemaVersion": "molit.edc-local-interoperability-status/1",
-  "recordedAt": "2026-07-14T12:14:04+09:00",
+  "recordedAt": "2026-07-14T14:10:17+09:00",
   "subject": "deploy/edc same-implementation local lifecycle topology",
   "sourceBinding": {
     "algorithm": "sha-256",
-    "digest": "ee90d47cf29457ac95a9ebfc35fb3f6aea866e4a32936eaaadf5b6b2b8d91a0d",
+    "digest": "a926a4a8da1670569186ae5a4bcf27a0d810883ceedd5a3460e9fa0edb45f839",
     "fileCount": 48,
     "scope": "deploy/edc, tools/edc, tests/edc, .gitattributes, package.json, package-lock.json, contracts/edc-local-interoperability-run.v1.schema.json; excluding build and .gradle directories"
   },
@@ -37,21 +37,21 @@
     {
       "check": "docker-same-implementation-smoke",
       "command": ".\\tools\\edc\\run-smoke.ps1 -RecordEvidence evidence/edc/runs/<run>.json",
-      "result": "pending-rerun",
-      "detail": "the prior pass is retained as a retrospective placeholder; the raw recorder has not executed Docker"
+      "result": "pass",
+      "detail": "clean-volume recorder run passed on commit 87b587039d08cc902a349aad90535a0b72ccf7e6; Git and source bindings stayed stable, five runtime image IDs were captured, and cleanup passed"
     }
   ],
   "runEvidence": {
-    "path": "evidence/edc/runs/20260714T002009+0900-retrospective-placeholder.json",
-    "sha256": "32342067bdf32c93f89478a39fe7b8545ce221ef73a5b776930c1db0c73990df",
-    "status": "pending-rerun",
+    "path": "evidence/edc/runs/20260714T140859+0900-implementation-87b5870.json",
+    "sha256": "ee2dd17cc2f786e59d103005f18cf3d59d0ba659aeabbee32c19d86b7093fffc",
+    "status": "pass",
     "result": {
       "ok": true,
       "managementApi": "v4",
       "dsp": "dataspace-protocol-http:2025-1",
-      "assetId": "molit-edc-smoke-asset-541a39c5-880c-4645-8e4a-2f49c4135cb1",
-      "agreementId": "cd1399bb-1793-490a-8458-fa4f640800f1",
-      "transferId": "993c66c7-0360-4eec-8cad-3e9b33d5fba8",
+      "assetId": "molit-edc-smoke-asset-dadab320-f13c-4505-a9d0-92d508a20a35",
+      "agreementId": "752e4733-49e1-4cf7-b110-653e22d69a6f",
+      "transferId": "89d2ca95-214f-47be-b856-906601b15ed5",
       "startState": "STARTED",
       "finalState": "TERMINATED",
       "revokedStatus": 403,
@@ -61,16 +61,16 @@
     }
   },
   "runtimeExecution": {
-    "status": "pending-recorder-rerun",
-    "evidenceQuality": "retrospective-placeholder",
+    "status": "pass",
+    "evidenceQuality": "recorder-bound",
     "sameImplementationScope": "two Eclipse EDC Connector 0.18.0 participants",
     "result": {
       "ok": true,
       "managementApi": "v4",
       "dsp": "dataspace-protocol-http:2025-1",
-      "assetId": "molit-edc-smoke-asset-541a39c5-880c-4645-8e4a-2f49c4135cb1",
-      "agreementId": "cd1399bb-1793-490a-8458-fa4f640800f1",
-      "transferId": "993c66c7-0360-4eec-8cad-3e9b33d5fba8",
+      "assetId": "molit-edc-smoke-asset-dadab320-f13c-4505-a9d0-92d508a20a35",
+      "agreementId": "752e4733-49e1-4cf7-b110-653e22d69a6f",
+      "transferId": "89d2ca95-214f-47be-b856-906601b15ed5",
       "startState": "STARTED",
       "finalState": "TERMINATED",
       "revokedStatus": 403,
@@ -79,7 +79,6 @@
       "sha256": "2f013648aa3071d46c9e29b2e938c5fb36336cc53f27d1f5e507da3683da41a7"
     },
     "notVerified": [
-      "recorder-bound rerun of the current source tree",
       "DSP official TCK",
       "cross-implementation DSP interoperability",
       "production participant identity and trust anchors",
@@ -139,5 +138,5 @@
       "requiredArtifact": "live EDC asset, policy and contract-definition publication and reconciliation evidence"
     }
   ],
-  "releaseClaim": "The retrospective smoke result is not release evidence for the current source tree. Production readiness remains blocked."
+  "releaseClaim": "The recorder-bound same-implementation local lifecycle passed on commit 87b587039d08cc902a349aad90535a0b72ccf7e6. This is not DSP TCK, cross-implementation, or production-readiness evidence."
 }
