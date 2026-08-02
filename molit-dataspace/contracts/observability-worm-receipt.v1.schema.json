@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://data.molit.go.kr/contracts/observability-worm-receipt.v1.schema.json",
+  "title": "MOLIT WORM append receipt",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "backendId", "eventId", "contentDigest", "sequence", "previousReceiptDigest", "retentionUntil", "storedAt", "receiptDigest"],
+  "properties": {
+    "schemaVersion": { "const": "molit.worm-receipt/1" },
+    "backendId": { "type": "string", "minLength": 1, "maxLength": 256 },
+    "eventId": { "type": "string", "pattern": "^[a-zA-Z0-9][a-zA-Z0-9._:-]{7,127}$" },
+    "contentDigest": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+    "sequence": { "type": "integer", "minimum": 1 },
+    "previousReceiptDigest": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+    "retentionUntil": { "type": "string", "format": "date-time" },
+    "storedAt": { "type": "string", "format": "date-time" },
+    "receiptDigest": { "type": "string", "pattern": "^[0-9a-f]{64}$" }
+  }
+}

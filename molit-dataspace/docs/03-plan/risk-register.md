@@ -47,6 +47,7 @@ Sponsor는 다음 위험의 처리방향을 실증 착수 전에 승인한다.
 28. `R-050` 국내 CRS 근거 응답의 byte 고정 부재
 29. `R-051` 국내 표준 status 근거의 동시 변경 가능성
 30. `R-052` 비정형 conformance claim 우회
+31. `R-053` 거래 유형별 증적 법적·계약적 근거 부재
 
 ## 3. 위험 목록
 
@@ -75,7 +76,7 @@ Sponsor는 다음 위험의 처리방향을 실증 착수 전에 승인한다.
 | R-021 | 해외 cloud·운영접속이 국외이전·반출 조건 위반 | M | C | Legal·security architecture | data residency inventory, egress·support access 검토 | foreign region·support access 발견 | Open |
 | R-022 | 법령·행정규칙 개정 후 오래된 기준을 사용 | M | H | Compliance owner | 시행일 기준 baseline·정기 review | source register review overdue | Open |
 | R-023 | metadata가 오래되거나 source와 불일치 | H | H | Catalog·source steward | delta+reconciliation, stale 표시, SLO | modified·availability diff | Open |
-| R-024 | 운영 주체·비용·지원책임이 불명확 | H | H | Sponsor·governance | RACI, service agreement, capacity·cost model | incident에 owner 없음 | Open |
+| R-024 | 운영 주체·비용·지원책임이 불명확 | H | H | Sponsor·governance | RACI, service agreement, capacity·cost model, [DEF-01·02](../01-research/dssc-gap-register.md#32-이월-색인-정본)의 운영 법인·법적 형태 확정 | incident에 owner 없음 | Open |
 | R-025 | 보고서·생성문서의 부정확한 2차 설명을 기준으로 사용 | M | H | Research owner | 1차 출처 register와 claim matrix, review | 근거 ID 없는 normative claim | Mitigating |
 | R-026 | `applycation/json` 문서 오탈자를 실제 Content-Type으로 구현 | M | M | Adapter owner·Research owner | 운영 응답과 공식 정정 확인, media type contract test | 잘못된 `Content-Type` 또는 parser 실패 | Open |
 | R-027 | 문서상 Open API host의 DNS 실패로 metadata 연계가 시작되지 않음 | H | H | 통합 채널 운영자·Network owner | 지원 hostname·접근망·DNS를 공식 확인하고 배포환경에서 사전 시험 | `SERVFAIL`, loopback·private·unknown address, DNS view 불일치 | Open |
@@ -85,7 +86,7 @@ Sponsor는 다음 위험의 처리방향을 실증 착수 전에 승인한다.
 | R-031 | 데이터 스페이스 참가자 identity가 공용 플랫폼 계정으로 합쳐져 confused deputy·quota 혼선 발생 | M | C | IAM·Platform owner | organization·tenant binding, scoped service identity, participant별 audit·quota | 공용 key·계정에서 여러 Agreement 구분 불가 | Open |
 | R-032 | subscription 생성·삭제 API가 없거나 수동 절차라 full lifecycle 자동화가 불가능 | H | H | Platform owner·Sponsor | capability profile, manual·API 수준 명시, PoC 범위 하향 또는 source platform 선택 | Agreement 종료 뒤 자동 revoke 불가 | Open |
 | R-033 | metadata·Offering과 platform source의 수정·삭제가 동기화되지 않음 | H | H | Offering onboarding owner | delta·tombstone, version, event gap detection, full reconciliation | 삭제 source의 Catalog·Offer 잔존 | Open |
-| R-034 | CaaS가 Provider 권한·source secret·network와 tenant를 과도하게 집중 | M | C | Architecture·Security·legal | 대리권한, tenant·key·egress·audit·offboarding 검토, 대체 배치 비교 | cross-tenant 접근·국외 egress·회수 불가 | Open |
+| R-034 | CaaS가 Provider 권한·source secret·network와 tenant를 과도하게 집중 | M | C | Architecture·Security·legal | 대리권한, tenant·key·egress·audit·offboarding 검토, 대체 배치 비교, 관리형 통제 상속의 versioned 경로 binding과 정기 제3자 감사 | cross-tenant 접근·국외 egress·회수 불가 | Open |
 | R-035 | 참조 사례(MDS) 운영·재원 변동으로 참조 architecture의 사례 근거가 약화 | M | M | Research owner | 사례 지속성 정기 확인, 설계 원칙과 사례 존속의 분리(C-030~C-034), 국내 PoC 결과를 대체 근거로 축적 | MDS 운영·재원 관련 공지 | Open |
 | R-036 | 운영기관 무응답 또는 소관 부서 미식별로 P0 증거 확보가 지연·불가 | H | H | Research owner·Sponsor | 문의 패키지 단계적 발송, 회신 기한과 escalation 경로 지정, 원천 플랫폼(통계누리·ITS 등) 대체 후보 병행 조사 | 1차 회신 기한 초과, 소관 부서 불명 회신 | Open |
 | R-037 | 스폰서·수행 근거 부재로 실증 착수 권한과 위험 승인 주체가 없음 | H | C | Sponsor·governance | 착수 전 스폰서와 수행 근거 확보, 승인 전 대외 신청·호출·상태 변경 금지 유지 | 상위 위험 처리방향의 승인 주체 부재 | Open |
@@ -104,6 +105,7 @@ Sponsor는 다음 위험의 처리방향을 실증 착수 전에 승인한다.
 | R-050 | CRS resolver snapshot 변경·누락으로 축 정책 근거를 재현하지 못함 | M | H | Geospatial governance owner·release manager | CRS 7종·coordinate system 2종의 byte·SHA-256·semantic field와 정책 생성 검증 | resolver 변경, snapshot 누락·digest 불일치·검토기한 초과 | Mitigating |
 | R-051 | 국내 표준 lifecycle record와 source register를 같은 변경에서 함께 고치면 가변 정본끼리의 equality Gate를 우회할 수 있음 | M | C | Standards liaison·release manager | 검토 baseline digest를 코드에 고정하고 공식 status HTML·PDF·WARC의 URL·수집시각·byte 수·SHA-256과 독립 승인자를 기록 | baseline digest 변경, 공식 고정본 누락, source·register 동시 status 변경 | Open |
 | R-052 | 등록한 금지 문자열 밖의 동의어·문맥으로 검증하지 않은 conformance를 대외 표시 | M | C | Publication owner·standards liaison | 정형 declaration만 허용하고 승인자·범위·표준판·근거 digest·만료일 기록, 발간 전 사람 검토 | 미등록 동의어, 승인 record 없는 준수·부합·호환 표현 | Open |
+| R-053 | 거래 유형별 중앙 증적 의무의 법적·계약적 근거가 확인되지 않아 대상 선정과 운영 책임을 확정할 수 없음 | H | H | 거버넌스·법무 | 근거가 확인된 거래만 ADR-0006 제안 대상으로 분류하고 미확인 거래는 로컬 로그로 처리, 지자체 조례·협약·발주 계약·감사 규정 조문 대조 | 근거 조항 ID 누락 또는 근거 없는 중앙 notary 대상 지정 | Open |
 
 ## 4. 위험 처리 절차
 

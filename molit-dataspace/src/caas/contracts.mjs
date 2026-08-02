@@ -16,6 +16,8 @@ const validators = {
   config: await compile("caas-config.v1.schema.json"),
   registration: await compile("caas-tenant-registration.v1.schema.json"),
   desiredState: await compile("caas-desired-state.v1.schema.json"),
+  upgrade: await compile("caas-connector-upgrade.v1.schema.json"),
+  rollback: await compile("caas-connector-rollback.v1.schema.json"),
   ensure: await compile("caas-connector-ensure.v1.schema.json"),
   ensureResponse: await compile("caas-connector-ensure-response.v1.schema.json"),
 };

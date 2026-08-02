@@ -1,0 +1,124 @@
+apiVersion: barmancloud.cnpg.io/v1
+kind: ObjectStore
+metadata:
+  name: molit-control-store-backup
+  namespace: molit-caas-system
+spec:
+  retentionPolicy: "30d"
+  configuration:
+    destinationPath: "@@BACKUP_DESTINATION@@"
+    endpointURL: "@@BACKUP_ENDPOINT@@"
+    s3Credentials:
+      accessKeyId:
+        name: molit-backup-credentials
+        key: access-key-id
+      secretAccessKey:
+        name: molit-backup-credentials
+        key: secret-access-key
+    wal:
+      compression: gzip
+      maxParallel: 4
+    data:
+      compression: gzip
+---
+apiVersion: postgresql.cnpg.io/v1
+kind: Cluster
+metadata:
+  name: molit-control-store
+  namespace: molit-caas-system
+spec:
+  instances: 3
+  imageName: "@@POSTGRES_IMAGE@@"
+  primaryUpdateStrategy: unsupervised
+  failoverDelay: 30
+  switchoverDelay: 300
+  smartShutdownTimeout: 180
+  stopDelay: 1800
+  affinity:
+    enablePodAntiAffinity: true
+    topologyKey: topology.kubernetes.io/zone
+    podAntiAffinityType: required
+  storage:
+    storageClass: "@@STORAGE_CLASS@@"
+    size: 100Gi
+  walStorage:
+    storageClass: "@@STORAGE_CLASS@@"
+    size: 20Gi
+  postgresql:
+    parameters:
+      archive_timeout: 300s
+      max_connections: "300"
+      shared_buffers: 1GB
+      synchronous_commit: "on"
+      wal_compression: "on"
+    synchronous:
+      method: any
+      number: 1
+      dataDurability: required
+      failoverQuorum: true
+  plugins:
+    - name: barman-cloud.cloudnative-pg.io
+      isWALArchiver: true
+      parameters:
+        barmanObjectName: molit-control-store-backup
+  monitoring:
+    enablePodMonitor: true
+  managed:
+    roles:
+      - name: "@@CAAS_DATABASE_ROLE@@"
+        ensure: present
+        comment: MOLIT CaaS runtime role
+        login: @@RUNTIME_ROLE_LOGIN@@
+        superuser: false
+        createdb: false
+        createrole: false
+        inherit: false
+        replication: false
+        bypassrls: false
+        connectionLimit: 100
+        passwordSecret:
+          name: molit-caas-database-role
+      - name: "@@DSAAS_DATABASE_ROLE@@"
+        ensure: present
+        comment: MOLIT DSaaS runtime role
+        login: @@RUNTIME_ROLE_LOGIN@@
+        superuser: false
+        createdb: false
+        createrole: false
+        inherit: false
+        replication: false
+        bypassrls: false
+        connectionLimit: 100
+        passwordSecret:
+          name: molit-dsaas-database-role
+  bootstrap:
+    initdb:
+      database: molit_control_store
+      owner: molit_control_store
+      secret:
+        name: molit-control-store-app
+      postInitApplicationSQLRefs:
+        configMapRefs:
+          - name: molit-control-store-migrations
+            key: 001_control_store.sql
+          - name: molit-control-store-migrations
+            key: 002_normalized_projection.sql
+          - name: molit-control-store-migrations
+            key: 003_usage_metering.sql
+          - name: molit-control-store-migrations
+            key: 004_authoritative_scoped_state.sql
+---
+apiVersion: postgresql.cnpg.io/v1
+kind: ScheduledBackup
+metadata:
+  name: molit-control-store-daily
+  namespace: molit-caas-system
+spec:
+  schedule: "0 0 2 * * *"
+  backupOwnerReference: self
+  immediate: true
+  method: plugin
+  pluginConfiguration:
+    name: barman-cloud.cloudnative-pg.io
+  cluster:
+    name: molit-control-store

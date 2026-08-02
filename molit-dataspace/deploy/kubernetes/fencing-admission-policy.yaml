@@ -1,0 +1,77 @@
+apiVersion: admissionregistration.k8s.io/v1
+kind: ValidatingAdmissionPolicy
+metadata:
+  name: molit-caas-fencing
+  annotations:
+    caas.data.molit.go.kr/fencing-policy-version: "2"
+spec:
+  failurePolicy: Fail
+  matchConstraints:
+    resourceRules:
+      - apiGroups: [""]
+        apiVersions: ["v1"]
+        operations: ["CREATE", "UPDATE"]
+        resources: ["namespaces", "configmaps", "limitranges", "resourcequotas", "secrets", "serviceaccounts", "services"]
+      - apiGroups: ["apps"]
+        apiVersions: ["v1"]
+        operations: ["CREATE", "UPDATE"]
+        resources: ["deployments"]
+      - apiGroups: ["batch"]
+        apiVersions: ["v1"]
+        operations: ["CREATE", "UPDATE"]
+        resources: ["jobs"]
+      - apiGroups: ["networking.k8s.io"]
+        apiVersions: ["v1"]
+        operations: ["CREATE", "UPDATE"]
+        resources: ["networkpolicies"]
+      - apiGroups: ["policy"]
+        apiVersions: ["v1"]
+        operations: ["CREATE", "UPDATE"]
+        resources: ["poddisruptionbudgets"]
+      - apiGroups: ["gateway.networking.k8s.io"]
+        apiVersions: ["v1"]
+        operations: ["CREATE", "UPDATE"]
+        resources: ["httproutes"]
+  matchConditions:
+    - name: managed-by-molit-caas
+      expression: >-
+        has(object.metadata.labels) &&
+        'app.kubernetes.io/managed-by' in object.metadata.labels &&
+        object.metadata.labels['app.kubernetes.io/managed-by'] == 'molit-caas'
+  validations:
+    - expression: >-
+        has(object.metadata.annotations) &&
+        'caas.data.molit.go.kr/fencing-token' in object.metadata.annotations &&
+        object.metadata.annotations['caas.data.molit.go.kr/fencing-token'].matches('^[1-9][0-9]*$')
+      message: "MOLIT CaaS managed resources require a positive fencing token."
+      reason: Invalid
+    - expression: >-
+        oldObject == null ||
+        !has(oldObject.metadata.annotations) ||
+        !('caas.data.molit.go.kr/fencing-token' in oldObject.metadata.annotations) ||
+        int(object.metadata.annotations['caas.data.molit.go.kr/fencing-token']) >=
+          int(oldObject.metadata.annotations['caas.data.molit.go.kr/fencing-token'])
+      message: "A MOLIT CaaS fencing token cannot decrease."
+      reason: Forbidden
+    - expression: >-
+        oldObject == null ||
+        !has(oldObject.metadata.annotations) ||
+        !('caas.data.molit.go.kr/fencing-token' in oldObject.metadata.annotations) ||
+        int(object.metadata.annotations['caas.data.molit.go.kr/fencing-token']) >
+          int(oldObject.metadata.annotations['caas.data.molit.go.kr/fencing-token']) ||
+        (object.metadata.annotations['caas.data.molit.go.kr/operation-key'] == oldObject.metadata.annotations['caas.data.molit.go.kr/operation-key'] &&
+         object.metadata.annotations['caas.data.molit.go.kr/generation'] == oldObject.metadata.annotations['caas.data.molit.go.kr/generation'] &&
+         object.metadata.annotations['caas.data.molit.go.kr/intent-digest'] == oldObject.metadata.annotations['caas.data.molit.go.kr/intent-digest'] &&
+         object.metadata.annotations['caas.data.molit.go.kr/desired-state'] == oldObject.metadata.annotations['caas.data.molit.go.kr/desired-state'])
+      message: "Reuse of a MOLIT CaaS fencing token is limited to the same command."
+      reason: Forbidden
+---
+apiVersion: admissionregistration.k8s.io/v1
+kind: ValidatingAdmissionPolicyBinding
+metadata:
+  name: molit-caas-fencing
+  annotations:
+    caas.data.molit.go.kr/fencing-policy-version: "2"
+spec:
+  policyName: molit-caas-fencing
+  validationActions: [Deny, Audit]

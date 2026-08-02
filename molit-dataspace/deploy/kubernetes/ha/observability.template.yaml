@@ -1,0 +1,193 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: observability
+  labels:
+    app.kubernetes.io/managed-by: molit-platform-release
+    supply-chain.data.molit.go.kr/enforcement: required
+    observability.data.molit.go.kr/metrics-access: allowed
+    pod-security.kubernetes.io/enforce: restricted
+    pod-security.kubernetes.io/audit: restricted
+    pod-security.kubernetes.io/warn: restricted
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: otel-collector
+  namespace: observability
+automountServiceAccountToken: false
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: otel-collector-headless
+  namespace: observability
+spec:
+  clusterIP: None
+  selector: { app.kubernetes.io/name: otel-collector }
+  ports: [{ name: otlp-http, port: 4318, targetPort: otlp-http }]
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: otel-collector
+  namespace: observability
+spec:
+  selector: { app.kubernetes.io/name: otel-collector }
+  ports:
+    - { name: otlp-http, port: 4318, targetPort: otlp-http }
+    - { name: metrics, port: 8888, targetPort: metrics }
+    - { name: health, port: 13133, targetPort: health }
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: observability-default-deny
+  namespace: observability
+spec:
+  podSelector: {}
+  policyTypes: [Ingress, Egress]
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: otel-collector-ingress
+  namespace: observability
+spec:
+  podSelector: { matchLabels: { app.kubernetes.io/name: otel-collector } }
+  policyTypes: [Ingress]
+  ingress:
+    - from:
+        - namespaceSelector: { matchLabels: { kubernetes.io/metadata.name: molit-caas-system } }
+        - namespaceSelector: { matchLabels: { app.kubernetes.io/managed-by: molit-caas } }
+      ports: [{ protocol: TCP, port: 4318 }]
+    - from:
+        - namespaceSelector: { matchLabels: { observability.data.molit.go.kr/metrics-access: allowed } }
+          podSelector: { matchLabels: { observability.data.molit.go.kr/metrics-reader: "true" } }
+      ports: [{ protocol: TCP, port: 8888 }]
+    - from:
+        - namespaceSelector: { matchLabels: { kubernetes.io/metadata.name: observability } }
+      ports: [{ protocol: TCP, port: 13133 }]
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: otel-collector-egress
+  namespace: observability
+spec:
+  podSelector: { matchLabels: { app.kubernetes.io/name: otel-collector } }
+  policyTypes: [Egress]
+  egress:
+    - to:
+        - namespaceSelector: { matchLabels: { kubernetes.io/metadata.name: kube-system } }
+          podSelector: { matchLabels: { k8s-app: kube-dns } }
+      ports:
+        - { protocol: UDP, port: 53 }
+        - { protocol: TCP, port: 53 }
+    - ports: [{ protocol: TCP, port: 443 }]
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: otel-collector
+  namespace: observability
+spec:
+  serviceName: otel-collector-headless
+  replicas: 3
+  podManagementPolicy: Parallel
+  updateStrategy: { type: RollingUpdate }
+  selector:
+    matchLabels: { app.kubernetes.io/name: otel-collector }
+  template:
+    metadata:
+      labels: { app.kubernetes.io/name: otel-collector }
+      annotations:
+        observability.data.molit.go.kr/configuration-sha256: "@@OTEL_CONFIGURATION_SHA256@@"
+    spec:
+      serviceAccountName: otel-collector
+      automountServiceAccountToken: false
+      terminationGracePeriodSeconds: 30
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 10001
+        runAsGroup: 10001
+        fsGroup: 10001
+        seccompProfile: { type: RuntimeDefault }
+      topologySpreadConstraints:
+        - maxSkew: 1
+          minDomains: 3
+          topologyKey: topology.kubernetes.io/zone
+          whenUnsatisfiable: DoNotSchedule
+          labelSelector:
+            matchLabels: { app.kubernetes.io/name: otel-collector }
+        - maxSkew: 1
+          minDomains: 3
+          topologyKey: kubernetes.io/hostname
+          whenUnsatisfiable: DoNotSchedule
+          labelSelector:
+            matchLabels: { app.kubernetes.io/name: otel-collector }
+      containers:
+        - name: collector
+          image: "@@OTEL_COLLECTOR_IMAGE@@"
+          imagePullPolicy: IfNotPresent
+          args: ["--config=/etc/otelcol/config.yaml"]
+          env:
+            - name: UPSTREAM_OTLP_ENDPOINT
+              valueFrom: { secretKeyRef: { name: molit-otel-collector, key: upstream-endpoint } }
+          ports:
+            - { name: otlp-http, containerPort: 4318, protocol: TCP }
+            - { name: metrics, containerPort: 8888, protocol: TCP }
+            - { name: health, containerPort: 13133, protocol: TCP }
+          startupProbe:
+            httpGet: { path: /, port: health }
+            periodSeconds: 2
+            failureThreshold: 30
+          readinessProbe:
+            httpGet: { path: /, port: health }
+            periodSeconds: 5
+            timeoutSeconds: 2
+          livenessProbe:
+            httpGet: { path: /, port: health }
+            periodSeconds: 10
+            timeoutSeconds: 2
+          resources:
+            requests: { cpu: 200m, memory: 512Mi }
+            limits: { cpu: "2", memory: 1Gi }
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities: { drop: ["ALL"] }
+            readOnlyRootFilesystem: true
+          volumeMounts:
+            - { name: config, mountPath: /etc/otelcol/config.yaml, subPath: config.yaml, readOnly: true }
+            - { name: credentials, mountPath: /run/secrets, readOnly: true }
+            - { name: queue, mountPath: /var/lib/otelcol/queue }
+            - { name: tmp, mountPath: /tmp }
+      volumes:
+        - name: config
+          configMap: { name: molit-otel-collector-config, defaultMode: 288 }
+        - name: credentials
+          secret:
+            secretName: molit-otel-collector
+            defaultMode: 288
+            items:
+              - { key: server-cert, path: otel_server_cert }
+              - { key: server-key, path: otel_server_key }
+              - { key: client-ca, path: otel_client_ca }
+              - { key: ingress-token, path: ingress_token }
+              - { key: upstream-token, path: upstream_token }
+              - { key: upstream-ca, path: upstream_ca }
+        - { name: tmp, emptyDir: { sizeLimit: 64Mi } }
+  volumeClaimTemplates:
+    - metadata: { name: queue }
+      spec:
+        accessModes: ["ReadWriteOnce"]
+        storageClassName: "@@OBSERVABILITY_STORAGE_CLASS@@"
+        resources:
+          requests: { storage: "@@OBSERVABILITY_QUEUE_SIZE@@" }
+---
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata: { name: otel-collector, namespace: observability }
+spec:
+  minAvailable: 2
+  selector: { matchLabels: { app.kubernetes.io/name: otel-collector } }

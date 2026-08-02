@@ -1,5 +1,6 @@
 import pg from "pg";
 import { AsyncLocalStorage } from "node:async_hooks";
+import { randomBytes, randomUUID } from "node:crypto";
 
 import { RuntimeError, assertRuntime } from "../bridge-runtime/errors.mjs";
 
@@ -65,6 +66,15 @@ function stateValue(value) {
 function jsonBytes(value) {
   const body = JSON.stringify(value);
   return { body, bytes: Buffer.byteLength(body) };
+}
+
+function validatedDatabaseContext(value) {
+  if (value === null) return null;
+  assertRuntime(value && typeof value === "object" && !Array.isArray(value)
+    && value.tenantId === "molit-platform" && value.accessMode === "service"
+    && typeof value.actorId === "string" && IDENTIFIER.test(value.actorId),
+  DEFAULT_CODES.invalid, "PostgreSQL platform service context is invalid");
+  return Object.freeze({ accessMode: "service", actorId: value.actorId, tenantId: "molit-platform" });
 }
 
 async function setLocalTimeouts(client, statementTimeoutMs, lockTimeoutMs) {
@@ -289,6 +299,8 @@ export class PostgresJsonStore {
     clock = () => new Date(),
     codes = {},
     preserveError = () => false,
+    projection = null,
+    databaseContext = null,
   }) {
     assertRuntime(pool && typeof pool.connect === "function" && typeof pool.end === "function", DEFAULT_CODES.invalid, "PostgreSQL pool is invalid");
     assertRuntime(leasePool && typeof leasePool.connect === "function" && typeof leasePool.end === "function" && leasePool !== pool, DEFAULT_CODES.invalid, "PostgreSQL lease pool must be a distinct pool");
@@ -300,6 +312,8 @@ export class PostgresJsonStore {
     assertRuntime(Number.isSafeInteger(lockTimeoutMs) && lockTimeoutMs >= 100 && lockTimeoutMs <= statementTimeoutMs, DEFAULT_CODES.invalid, "control-store lock timeout is invalid");
     assertRuntime(Number.isSafeInteger(cleanupTimeoutMs) && cleanupTimeoutMs >= 10 && cleanupTimeoutMs <= statementTimeoutMs, DEFAULT_CODES.invalid, "control-store cleanup timeout is invalid");
     assertRuntime(typeof preserveError === "function", DEFAULT_CODES.invalid, "control-store error-preservation policy is invalid");
+    assertRuntime(projection === null || (typeof projection.initialize === "function" && typeof projection.apply === "function"),
+      DEFAULT_CODES.invalid, "control-store normalized projection is invalid");
     Object.assign(this, {
       pool,
       leasePool,
@@ -315,6 +329,8 @@ export class PostgresJsonStore {
       clock,
       codes: Object.freeze({ ...DEFAULT_CODES, ...codes }),
       preserveError,
+      projection,
+      databaseContext: validatedDatabaseContext(databaseContext),
     });
     this.initialized = false;
     this.closed = false;
@@ -326,6 +342,27 @@ export class PostgresJsonStore {
   }
 
   now() { return this.clock().toISOString(); }
+
+  #databaseContextQuery() {
+    if (!this.databaseContext) return null;
+    return {
+      text: `SELECT
+        set_config('molit.tenant_id', $1, true),
+        set_config('molit.actor_id', $2, true),
+        set_config('molit.access_mode', 'service', true),
+        set_config('molit.trace_id', $3, true),
+        set_config('molit.correlation_id', $4, true),
+        set_config('molit.break_glass_reason', '', true),
+        set_config('molit.break_glass_expires_at', '', true)`,
+      values: [this.databaseContext.tenantId, this.databaseContext.actorId,
+        randomBytes(16).toString("hex"), `${this.component}:${randomUUID()}`],
+    };
+  }
+
+  async #setDatabaseContext(client) {
+    const query = this.#databaseContextQuery();
+    if (query) await client.query(query.text, query.values);
+  }
 
   #assertUsable() {
     assertRuntime(!this.closed, this.codes.closed, "PostgreSQL control-store is closed");
@@ -459,6 +496,7 @@ export class PostgresJsonStore {
       throwIfAborted(executionSignal, this.codes.aborted, this.preserveError);
       await client.query("BEGIN");
       transaction = true;
+      await this.#setDatabaseContext(client);
       await setLocalTimeouts(client, this.statementTimeoutMs, this.lockTimeoutMs);
       const migration = await client.query(
         "SELECT version FROM molit_control_store.schema_migration WHERE component = $1",
@@ -479,12 +517,21 @@ export class PostgresJsonStore {
          ON CONFLICT (component) DO NOTHING`,
         [this.component, body, this.now()],
       );
-      const current = await client.query(
-        "SELECT state FROM molit_control_store.json_snapshot WHERE component = $1 FOR UPDATE",
-        [this.component],
-      );
-      assertRuntime(current.rowCount === 1, this.codes.missing, "PostgreSQL control-store snapshot row is missing");
-      this.#decode(current.rows[0].state);
+      if (this.projection) {
+        const current = await client.query(
+          "SELECT revision, state FROM molit_control_store.json_snapshot WHERE component = $1 FOR UPDATE",
+          [this.component],
+        );
+        assertRuntime(current.rowCount === 1, this.codes.missing, "PostgreSQL control-store snapshot row is missing");
+        const currentState = this.#decode(current.rows[0].state);
+        await this.projection.initialize({
+          client,
+          component: this.component,
+          nextState: structuredClone(currentState),
+          now: this.now(),
+          snapshotRevision: String(current.rows[0].revision),
+        });
+      }
       throwIfAborted(executionSignal, this.codes.aborted, this.preserveError);
       await client.query("COMMIT");
       transaction = false;
@@ -525,6 +572,7 @@ export class PostgresJsonStore {
       client = entry.client;
       await client.query("BEGIN READ ONLY");
       transaction = true;
+      await this.#setDatabaseContext(client);
       await setLocalTimeouts(client, this.statementTimeoutMs, this.lockTimeoutMs);
       const result = await client.query(
         "SELECT state FROM molit_control_store.json_snapshot WHERE component = $1",
@@ -566,6 +614,7 @@ export class PostgresJsonStore {
       client = entry.client;
       await client.query("BEGIN");
       transaction = true;
+      await this.#setDatabaseContext(client);
       await setLocalTimeouts(client, this.statementTimeoutMs, this.lockTimeoutMs);
       const selected = await client.query(
         "SELECT revision, state FROM molit_control_store.json_snapshot WHERE component = $1 FOR UPDATE",
@@ -573,6 +622,7 @@ export class PostgresJsonStore {
       );
       assertRuntime(selected.rowCount === 1, this.codes.missing, "PostgreSQL control-store snapshot row is missing");
       const state = this.#decode(selected.rows[0].state);
+      const previousState = structuredClone(state);
       const result = await operation(state);
       throwIfAborted(executionSignal, this.codes.aborted, this.preserveError);
       if (activeLease) {
@@ -589,7 +639,8 @@ export class PostgresJsonStore {
           && fence.rows[0].released_at === null,
         this.codes.fenceLost, "PostgreSQL resource fencing token is no longer current", { resourceId: activeLease.resourceId });
       }
-      this.sealState(state, this.now());
+      const committedAt = this.now();
+      this.sealState(state, committedAt);
       const body = this.#encode(state);
       throwIfAborted(executionSignal, this.codes.aborted, this.preserveError);
       const updated = await client.query(
@@ -597,9 +648,19 @@ export class PostgresJsonStore {
          SET revision = revision + 1, state = $2::jsonb, updated_at = $3::timestamptz
          WHERE component = $1 AND revision = $4::bigint
          RETURNING revision`,
-        [this.component, body, this.now(), selected.rows[0].revision],
+        [this.component, body, committedAt, selected.rows[0].revision],
       );
       assertRuntime(updated.rowCount === 1, this.codes.fenceLost, "PostgreSQL control-store snapshot revision fence was lost");
+      if (this.projection) {
+        await this.projection.apply({
+          client,
+          component: this.component,
+          nextState: structuredClone(state),
+          now: committedAt,
+          previousState,
+          snapshotRevision: String(updated.rows[0].revision),
+        });
+      }
       throwIfAborted(executionSignal, this.codes.aborted, this.preserveError);
       commitStarted = true;
       await client.query("COMMIT");
@@ -648,6 +709,7 @@ export class PostgresJsonStore {
       await client.query("BEGIN");
       leaseTransaction = true;
       try {
+        await this.#setDatabaseContext(client);
         await setLocalTimeouts(client, this.statementTimeoutMs, this.lockTimeoutMs);
         const fence = await client.query(
           `INSERT INTO molit_control_store.resource_fence
@@ -698,7 +760,14 @@ export class PostgresJsonStore {
 
     if (client && acquired && !connectionFailed) {
       const cleanupDeadline = Date.now() + this.cleanupTimeoutMs;
+      let cleanupTransaction = false;
       try {
+        const databaseContext = this.#databaseContextQuery();
+        if (databaseContext) {
+          await queryBeforeDeadline(client, "BEGIN", [], cleanupDeadline, this.codes);
+          cleanupTransaction = true;
+          await queryBeforeDeadline(client, databaseContext.text, databaseContext.values, cleanupDeadline, this.codes);
+        }
         const released = await queryBeforeDeadline(client,
           `UPDATE molit_control_store.resource_fence
            SET released_at = clock_timestamp()
@@ -711,6 +780,10 @@ export class PostgresJsonStore {
         if (released.rowCount !== 1 && !failure) {
           failure = new RuntimeError(this.codes.fenceLost, "PostgreSQL resource fencing row changed before release", { resourceId });
         }
+        if (cleanupTransaction) {
+          await queryBeforeDeadline(client, "COMMIT", [], cleanupDeadline, this.codes);
+          cleanupTransaction = false;
+        }
         const unlocked = await queryBeforeDeadline(client,
           "SELECT pg_advisory_unlock(hashtextextended($1, 0)) AS unlocked",
           [lockName],
@@ -722,6 +795,9 @@ export class PostgresJsonStore {
           if (!failure) failure = new RuntimeError(this.codes.fenceLost, "PostgreSQL resource lock was lost before release", { resourceId });
         }
       } catch (error) {
+        if (cleanupTransaction) {
+          await queryBeforeDeadline(client, "ROLLBACK", [], cleanupDeadline, this.codes).catch(() => {});
+        }
         connectionFailed = true;
         if (!failure) failure = mapPostgresError(error, this.codes);
       }

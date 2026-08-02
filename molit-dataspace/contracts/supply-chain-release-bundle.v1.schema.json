@@ -1,0 +1,104 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://data.molit.go.kr/contracts/supply-chain-release-bundle.v1.schema.json",
+  "title": "MOLIT signed container supply-chain bundle",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "artifact", "image", "toolchain", "artifacts", "vulnerabilityGate", "provenance", "dsse"],
+  "properties": {
+    "schemaVersion": { "const": "molit.supply-chain-release/1" },
+    "artifact": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["service", "runtimeClass", "productionEligible"],
+      "properties": {
+        "service": { "enum": ["caas", "dsaas", "fencing-webhook", "edc-control-plane", "edc-data-plane", "edc-schema-migration", "postgres-operand", "otel-collector"] },
+        "runtimeClass": { "enum": ["caas-control-plane", "dsaas-control-plane", "fencing-webhook", "edc-control-plane", "edc-data-plane", "schema-migration", "postgres-operand", "otel-collector"] },
+        "productionEligible": { "type": "boolean" }
+      }
+    },
+    "image": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["name", "digest"],
+      "properties": {
+        "name": { "type": "string", "minLength": 1, "maxLength": 512 },
+        "digest": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" }
+      }
+    },
+    "toolchain": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["baseImage", "buildImage", "sbomGeneratorImage", "scannerImage", "signerImage"],
+      "properties": {
+        "baseImage": { "$ref": "#/$defs/pinnedImage" },
+        "buildImage": { "$ref": "#/$defs/pinnedImage" },
+        "sbomGeneratorImage": { "$ref": "#/$defs/pinnedImage" },
+        "scannerImage": { "$ref": "#/$defs/pinnedImage" },
+        "signerImage": { "$ref": "#/$defs/pinnedImage" }
+      }
+    },
+    "artifacts": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["spdx", "cycloneDx", "vulnerabilityScan", "vulnerabilityScanRaw"],
+      "properties": {
+        "spdx": { "$ref": "#/$defs/artifact" },
+        "cycloneDx": { "$ref": "#/$defs/artifact" },
+        "vulnerabilityScan": { "$ref": "#/$defs/artifact" },
+        "vulnerabilityScanRaw": { "$ref": "#/$defs/artifact" }
+      }
+    },
+    "vulnerabilityGate": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["decision", "blockingSeverities", "findingCount", "databaseUpdatedAt", "evaluatedAt"],
+      "properties": {
+        "decision": { "enum": ["pass", "blocked"] },
+        "blockingSeverities": { "const": ["UNKNOWN", "HIGH", "CRITICAL"] },
+        "findingCount": { "type": "integer", "minimum": 0 },
+        "databaseUpdatedAt": { "type": "string", "format": "date-time" },
+        "evaluatedAt": { "type": "string", "format": "date-time" }
+      }
+    },
+    "provenance": { "type": "object" },
+    "dsse": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["payloadType", "payload", "signatures"],
+      "properties": {
+        "payloadType": { "const": "application/vnd.in-toto+json" },
+        "payload": { "type": "string", "contentEncoding": "base64" },
+        "signatures": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 1,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["keyid", "sig"],
+            "properties": {
+              "keyid": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+              "sig": { "type": "string", "contentEncoding": "base64" }
+            }
+          }
+        }
+      }
+    }
+  },
+  "$defs": {
+    "pinnedImage": {
+      "type": "string",
+      "pattern": "^[^@\\s]+@sha256:[0-9a-f]{64}$"
+    },
+    "artifact": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["path", "sha256"],
+      "properties": {
+        "path": { "type": "string", "pattern": "^[^/\\\\]+\\.json$" },
+        "sha256": { "type": "string", "pattern": "^[0-9a-f]{64}$" }
+      }
+    }
+  }
+}

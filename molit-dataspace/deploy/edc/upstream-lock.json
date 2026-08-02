@@ -16,6 +16,18 @@
       "org.eclipse.edc:iam-mock:0.18.0",
       "org.eclipse.edc:transfer-data-plane-signaling:0.18.0"
     ],
+    "artifactClasses": {
+      "production": [
+        "org.eclipse.edc:controlplane-base-bom:0.18.0",
+        "org.eclipse.edc:controlplane-feature-sql-bom:0.18.0",
+        "org.eclipse.edc:dataplane-base-bom:0.18.0",
+        "org.eclipse.edc:dataplane-feature-sql-bom:0.18.0"
+      ],
+      "smokeOnly": [
+        "org.eclipse.edc:iam-mock:0.18.0",
+        "org.eclipse.edc:transfer-data-plane-signaling:0.18.0"
+      ]
+    },
     "managementApi": "v4",
     "dspVersion": "2025-1",
     "javaClassMajor": 61,

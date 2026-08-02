@@ -14,15 +14,20 @@ if (!configPath) {
     runtime = await createDsaasRuntime({ configPath: resolve(configPath) });
     const address = await runtime.server.start();
     runtime.telemetry.log("INFO", "dsaas.started", { "server.address": typeof address === "string" ? address : address?.address, "server.port": address?.port });
-    let stopping = false;
-    const stop = async (signal) => {
-      if (stopping) return;
-      stopping = true;
+    let stopPromise = null;
+    const stop = (signal) => {
+      if (stopPromise) return stopPromise;
       runtime.telemetry.log("INFO", "dsaas.stopping", { signal });
-      await runtime.close();
+      stopPromise = runtime.close({ timeoutMs: runtime.config.limits.gracefulShutdownMs ?? 10_000 })
+        .then(() => { process.exitCode = 0; })
+        .catch((error) => {
+          process.stderr.write(`${JSON.stringify({ code: error?.code ?? "DSAAS_STOP_FAILED", message: error?.message ?? "DSaaS failed to stop" })}\n`);
+          process.exitCode = 1;
+        });
+      return stopPromise;
     };
-    process.once("SIGINT", () => void stop("SIGINT"));
-    process.once("SIGTERM", () => void stop("SIGTERM"));
+    process.once("SIGINT", () => stop("SIGINT"));
+    process.once("SIGTERM", () => stop("SIGTERM"));
   } catch (error) {
     await runtime?.close().catch(() => {});
     process.stderr.write(`${JSON.stringify({ code: error?.code ?? "DSAAS_STARTUP_FAILED", message: error?.message ?? String(error) })}\n`);

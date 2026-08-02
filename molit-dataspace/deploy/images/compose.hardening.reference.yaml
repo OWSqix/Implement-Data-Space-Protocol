@@ -1,0 +1,12 @@
+# This is an extension-field reference, not a runnable production topology.
+# The supported production entrypoint is deploy/kubernetes/ha/apply.ps1.
+x-molit-container-hardening: &molit-container-hardening
+  read_only: true
+  user: "1000:1000"
+  init: true
+  cap_drop: ["ALL"]
+  security_opt: ["no-new-privileges:true"]
+  tmpfs:
+    - /tmp:rw,noexec,nosuid,nodev,size=16m,mode=1777
+  restart: unless-stopped
+  stop_grace_period: 45s

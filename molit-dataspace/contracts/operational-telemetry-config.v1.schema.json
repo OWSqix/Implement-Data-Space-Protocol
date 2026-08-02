@@ -1,0 +1,58 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://data.molit.go.kr/contracts/operational-telemetry-config.v1.schema.json",
+  "title": "MOLIT metrics and logs OTLP configuration",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "service", "tenantCardinality", "metrics", "logs"],
+  "properties": {
+    "schemaVersion": { "const": "molit.operational-telemetry-config/1" },
+    "service": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["name", "environment"],
+      "properties": {
+        "name": { "enum": ["molit-caas", "molit-dsaas"] },
+        "version": { "type": "string", "minLength": 1, "maxLength": 128 },
+        "environment": { "type": "string", "minLength": 1, "maxLength": 64 }
+      }
+    },
+    "tenantCardinality": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["bucketCount", "saltRef"],
+      "properties": {
+        "bucketCount": { "type": "integer", "minimum": 2, "maximum": 256 },
+        "saltRef": { "type": "string", "pattern": "^(?:env|file)://" }
+      }
+    },
+    "metrics": { "$ref": "#/$defs/signal" },
+    "logs": { "$ref": "#/$defs/signal" }
+  },
+  "$defs": {
+    "signal": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["mode", "endpoint", "authorizationRef", "tls"],
+      "properties": {
+        "mode": { "const": "operational" },
+        "endpoint": { "type": "string", "format": "uri", "pattern": "^https://.+/v1/(?:metrics|logs)$" },
+        "authorizationRef": { "type": "string", "pattern": "^(?:env|file)://" },
+        "tls": { "$ref": "#/$defs/mutualTls" },
+        "timeoutMs": { "type": "integer", "minimum": 100, "maximum": 30000 }
+      }
+    },
+    "mutualTls": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["caRef", "certificateRef", "privateKeyRef", "reloadIntervalMs"],
+      "properties": {
+        "caRef": { "type": "string", "pattern": "^(?:env|file)://" },
+        "certificateRef": { "type": "string", "pattern": "^(?:env|file)://" },
+        "privateKeyRef": { "type": "string", "pattern": "^(?:env|file)://" },
+        "reloadIntervalMs": { "type": "integer", "minimum": 250, "maximum": 300000 },
+        "serverName": { "type": "string", "pattern": "^(?=.{1,253}$)(?:[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?)(?:\\.(?:[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?))*$" }
+      }
+    }
+  }
+}

@@ -115,17 +115,21 @@ urn:kr:molit-dataspace:participant:{organization-id}
 
 국토교통 profile은 자체 필수 필드와 별도로 다음 외부 profile과의 crosswalk를 산출물로 관리한다. crosswalk는 필드 대응, cardinality 차이와 미대응 필드를 기록하며 profile 승인 전에는 초안으로 둔다.
 
+용어의 경위 정본은 [데이터 스페이스 개념 감사](../01-research/dataspace-concept-audit.md)에 두며, 대표 표기의 등록·승격은 `report-style.config.json`의 `terminology`를 따른다. 이는 이 절의 필드 crosswalk와 별도 체계다.
+
 | 대상 | 용도 | 상태 |
 | --- | --- | --- |
 | DCAT-AP 3.0.1 | 공통 카탈로그 제약 | 0.1.0 규범 기반·원본 SHACL 고정 |
 | GeoDCAT-AP 3.1.0 | 공간정보 카탈로그 교환 | 0.1.0 공간 profile의 blocking SHACL |
-| mobilityDCAT-AP 1.1.0 | 유럽 NAP·모빌리티 포털 교환; MDS·Mobilithek 연계 참조 | SHACL 미병합, Transport Mode 1.0.0 어휘만 재사용. 근거: `C-062` |
-| TTAK.OT-10.1406 DCAT-AP-KR | 국내 데이터 포털 교환 | DCAT-AP 2.1.0 기반. 3.0.1 migration crosswalk 미구현. 근거: `C-074` |
+| mobilityDCAT-AP 1.1.0 | 유럽 NAP·모빌리티 포털 교환; MDS·Mobilithek 연계 참조 | SHACL 미병합, Transport Mode 1.0.0 어휘만 재사용. Profile version·경계는 `CT-SEM-001`에서 검사. 정합 검토 산출물은 class·property·cardinality·통제어 차이와 손실표. 근거: `C-062` |
+| TTAK.OT-10.1406 DCAT-AP-KR | 국내 데이터 포털 교환 | DCAT-AP 2.1.0 기반. 정본 3.0.1 graph를 2.1 계열로 내보내는 하향 crosswalk와 class·property·cardinality·통제어 손실 원장 미구현. 근거: `C-074` |
 | TTAK.KO-10.1422 | 국내 공간정보 포털 교환 | 원문 확보와 GeoDCAT-AP 3.1.0 차이 분석 필요. 근거: `C-074` |
 | TTAK.KO-10.1510-Part3 | 디지털 국토정보 플랫폼 메타데이터 교환 | 2026-06-26 현행. 원문 기반 cardinality 분석 미완료. 근거: `C-069`, `C-070` |
 | KS X ISO 19115-1·-2·-3 | 공간 원천 메타데이터 수집 | 개념모델, 획득 확장과 현행 XML ingest를 분리. 125개 manifest·offline XSD·Schematron smoke 구현, 승인 cache·KS 조항·왕복시험 대기. 근거: `C-064`, `C-068` |
 | 국토지리정보원 메타데이터·품질 적용확인서 | 적용 대상 공간 제품의 국내 규정 준수 | 공개 RDF와 분리한 내부 compliance record 및 제품별 validator 필요 |
-| 국가 데이터 카탈로그(국가데이터인프라) | 국내 범정부 카탈로그 연계 | NIA 원-윈도우 가이드 v1.0은 DCAT-AP 2.1 준용. 2.1→3.0.1 migration과 운영 fixture는 미검증. 근거: `C-083` |
+| 국가 데이터 카탈로그(국가데이터인프라) | 국내 범정부 카탈로그 연계 | NIA 원-윈도우 가이드 v1.0은 DCAT-AP 2.1 준용. 정본 3.0.1→2.1 하향 crosswalk, 손실 원장, 양방향 fixture와 비가역 항목 판정이 산출물. 근거: `C-083` |
+
+프로젝트 metadata 정본 3.0.1([ADR-0005](../adr/0005-dcat-ap-3-profile-baseline.md))은 불변이다. 하향 crosswalk는 원-윈도우 연계 산출물이며 정본 version을 2.1로 낮추지 않는다.
 
 ## 5. Distribution 프로필
 
@@ -285,6 +289,23 @@ Open 자산은 데이터 스페이스 가입을 기존 공개 경로의 선행�
 | attribution | license obligation | Agreement·consumer evidence |
 | deletion deadline | contract termination time | 사후 workflow·audit |
 | no redistribution | contract term | 소비자 통제·법적 집행 |
+
+다음 표는 D-09 조건 축과 기존 후보의 표현·집행 시점을 대조한 판정 기록이다. 위 표의 집행 시점 값은 변경하지 않는다.
+
+| D-09 비교 축 | §9 대응 | 기존 집행 시점 | 판정 |
+| --- | --- | --- | --- |
+| 목적 | declared purpose | negotiation·transfer | 정합 — 기계집행 최소 집합 |
+| 수신자 | participant role | Catalog·negotiation | 정합 — 기계집행 최소 집합 |
+| 기간 | contract expiry | transfer·token issuance | 정합 — 기계집행 최소 집합 |
+| 재제공 | no redistribution | 소비자 통제·법적 집행 | 불일치 — 표현 유지, 전달 후 기계집행 불가 |
+| 보존 | deletion deadline | 사후 workflow·audit | 불일치 — 표현 유지, 전달 후 기계집행 불가 |
+| 관할 — FR-POL-004, D-09 밖 | jurisdiction | negotiation·transfer | D-09 미포함; FR-POL-004(MUST) 표현 후보로 유지 |
+
+D-09의 최소 기계집행 집합은 목적·수신자·기간과 참가 등급 연동이다. 각 축은 위 표의 기존 집행 시점을 따른다.
+
+**재제공과 보존의 전달 후 기계집행은 불가하다.** 재제공·보존은 ODRL로 표현할 수 있으나 전달 뒤에는 계약, 당사자 증적·공통 감사 ID와 제재 절차를 결합한다. 표현 가능성을 기술적 통제 가능성으로 판정하지 않는다.
+
+관할은 D-09 범위 밖이며 [FR-POL-004](requirements.md#4-기능-요구사항)와의 관계를 유지한다. `spatial area`와 `max requests/bytes`는 이미 Data Plane 집행으로 등록되어 추가 작업이 없다. FR-TRN-004의 method·row·column·BBOX·quota 요구는 변경하지 않는다.
 
 정책어를 문자열로만 추가하지 않는다. 의미, datatype, operator, evaluation failure, 지원하지 않는 처리기의 동작을 Profile 문서에 정의한다.
 

@@ -45,10 +45,28 @@ function config() {
       namespaceTemplate: "http://data.example/{tenantId}/",
       endpointTemplate: "http://connectors.example/{tenantId}/",
     },
-    limits: { maxRequestBytes: 4096, maxStateBytes: 1048576, maxAuditEvents: 100, maxAuditResponseEvents: 50, requestTimeoutMs: 1000 },
+    limits: { maxRequestBytes: 4096, maxStateBytes: 1048576, maxTenants: 100, maxIdempotencyRecords: 1000, maxAuditEvents: 100, maxAuditResponseEvents: 50, requestTimeoutMs: 1000 },
     connectorPlans: { standard: { adapterId: "dry", runtimeProfileRef: "urn:profile:edc", deploymentMode: "isolated", metadataProfile: { iri: "https://profiles.example/metadata", version: "1", sha256: "a".repeat(64) }, protocolProfile: { dspVersion: "2025-1", specification: "https://eclipse-dataspace-protocol-base.github.io/DataspaceProtocol/2025-1-err1/", identityMode: "dcp" }, requiredDeploymentSecretNames: ["vaultAccess"] } },
     provisioners: { dry: { type: "dry-run-manifest", manifestDirectory: "manifests" } },
   };
+}
+
+function productionConfig() {
+  const value = config();
+  value.environment = "production";
+  value.identityConfigPath = "identity.json";
+  value.observabilityConfigPath = "observability.json";
+  value.tls = { certFile: "tls.crt", keyFile: "tls.key", clientCaFile: "client-ca.crt", reloadIntervalMs: 1000 };
+  delete value.adminSecretRef;
+  delete value.adminPrincipalId;
+  delete value.adminClientId;
+  delete value.adminKeyId;
+  value.controller = {
+    allowedDataspaceIds: value.controller.allowedDataspaceIds,
+    allowedTenantIds: value.controller.allowedTenantIds,
+    allowedConnectorPlanIds: value.controller.allowedConnectorPlanIds,
+  };
+  return value;
 }
 
 test("registration accepts references and rejects inline or unknown credential material", () => {
@@ -99,24 +117,18 @@ test("identity values are derived from one configured tenant template", async ()
 test("production templates require HTTPS and a fixed listen port", async () => {
   const directory = await mkdtemp(join(tmpdir(), "molit-caas-production-"));
   const path = join(directory, "config.json");
-  const value = config();
-  value.environment = "production";
+  const value = productionConfig();
   await writeFile(path, JSON.stringify(value));
   await assert.rejects(loadCaasConfig(path), { code: "CAAS_CONFIG_INVALID" });
 });
 
-test("production config rejects non-loopback HTTP bind and intent-only provisioners", async () => {
+test("production config permits a direct TLS bind and rejects intent-only provisioners", async () => {
   const directory = await mkdtemp(join(tmpdir(), "molit-caas-production-boundary-"));
   const path = join(directory, "config.json");
-  const value = config();
-  value.environment = "production";
+  const value = productionConfig();
   value.listen = { host: "0.0.0.0", port: 8787 };
   value.identityPolicy.namespaceTemplate = "https://data.example/{tenantId}/";
   value.identityPolicy.endpointTemplate = "https://connectors.example/{tenantId}/";
-  await writeFile(path, JSON.stringify(value));
-  await assert.rejects(loadCaasConfig(path), (error) => error.code === "CAAS_CONFIG_INVALID" && /loopback/u.test(error.message));
-
-  value.listen.host = "127.0.0.1";
   await writeFile(path, JSON.stringify(value));
   await assert.rejects(loadCaasConfig(path), (error) => error.code === "CAAS_CONFIG_INVALID" && /PostgreSQL control store/u.test(error.message));
 

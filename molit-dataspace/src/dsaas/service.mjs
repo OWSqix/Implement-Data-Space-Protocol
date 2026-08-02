@@ -50,6 +50,8 @@ function requireOperator(actor) {
 function auditActor(actor, usedRole) {
   actorSubject(actor);
   assertRuntime(actor.roles.includes(usedRole), "DSAAS_FORBIDDEN", "audit role was not granted to the authenticated actor");
+  assertRuntime(actor.traceId === undefined || /^[a-f0-9]{32}$/u.test(actor.traceId), "DSAAS_ACTOR_INVALID", "authenticated actor traceId is invalid");
+  assertRuntime(actor.correlationId === undefined || /^[A-Za-z0-9][A-Za-z0-9._:-]{7,127}$/u.test(actor.correlationId), "DSAAS_ACTOR_INVALID", "authenticated actor correlationId is invalid");
   return {
     actor: actor.subject,
     actorPrincipalId: actor.principalId,
@@ -57,6 +59,8 @@ function auditActor(actor, usedRole) {
     actorKeyId: actor.keyId,
     actorRoles: [...new Set(actor.roles)].sort(),
     actorUsedRole: usedRole,
+    ...(actor.traceId ? { traceId: actor.traceId } : {}),
+    ...(actor.correlationId ? { correlationId: actor.correlationId } : {}),
   };
 }
 
@@ -75,11 +79,12 @@ function priorIdempotent(state, slot, requestDigest) {
   return structuredClone(prior.response);
 }
 
-function rememberIdempotent(state, slot, requestDigest, response, at, maxRecords) {
+function rememberIdempotent(state, slot, scopeId, requestDigest, response, at, maxRecords) {
+  assertRuntime(/^[a-z][a-z0-9-]{2,62}$/u.test(scopeId), "DSAAS_IDEMPOTENCY_SCOPE_INVALID", "idempotency scope is invalid");
   if (!state.idempotency[slot] && Object.keys(state.idempotency).length >= maxRecords) {
     throw new RuntimeError("DSAAS_IDEMPOTENCY_CAPACITY", "DSaaS idempotency registry reached its configured capacity");
   }
-  state.idempotency[slot] = { at, requestDigest, response: structuredClone(response) };
+  state.idempotency[slot] = { at, scopeId, requestDigest, response: structuredClone(response) };
 }
 
 function resourceView(record) {
@@ -301,6 +306,46 @@ export class DsaasControlPlane {
 
   now() { return this.clock().toISOString(); }
 
+  #read(dataspaceId, operation, options) {
+    return this.store.kind === "postgres-scoped"
+      ? this.store.readScope(dataspaceId, operation, options)
+      : this.store.read(operation, options);
+  }
+
+  #transact(dataspaceId, operation, options) {
+    return this.store.kind === "postgres-scoped"
+      ? this.store.transactScope(dataspaceId, operation, options)
+      : this.store.transact(operation, options);
+  }
+
+  #create(dataspaceId, operation, options) {
+    return this.store.kind === "postgres-scoped"
+      ? this.store.createScope(dataspaceId, operation, { ...options, capacity: this.maxDataspaces })
+      : this.store.transact(operation, options);
+  }
+
+  async #dataspaceEntries({ signal } = {}) {
+    if (this.store.kind !== "postgres-scoped") {
+      return this.store.read((state) => Object.entries(state.dataspaces), { signal });
+    }
+    const ids = [];
+    let after = "";
+    while (ids.length < this.maxDataspaces) {
+      const pageLimit = Math.min(1_000, this.maxDataspaces - ids.length);
+      const page = await this.store.listScopeIds({ after, limit: pageLimit, signal });
+      ids.push(...page);
+      if (page.length < pageLimit) break;
+      after = page.at(-1);
+    }
+    assertRuntime(ids.length <= this.maxDataspaces, "DSAAS_CAPACITY", "dataspace registry exceeds configured capacity");
+    const entries = [];
+    for (const dataspaceId of ids) {
+      const record = await this.store.readScope(dataspaceId, (state) => resourceView(findDataspace(state, dataspaceId)), { signal });
+      entries.push([dataspaceId, record]);
+    }
+    return entries;
+  }
+
   async #currentApprovalDecisionRegistry() {
     return this.approvalDecisionRegistryProvider
       ? this.approvalDecisionRegistryProvider()
@@ -321,7 +366,10 @@ export class DsaasControlPlane {
     };
     const failureCodes = [];
     try {
-      await this.store.read(() => null, { signal });
+      if (this.store.kind === "postgres-scoped") {
+        const readiness = await this.store.readiness({ signal });
+        assertRuntime(readiness.ready === true, readiness.failureCode ?? "DSAAS_STATE_READINESS_FAILED", "scoped control-store is not ready");
+      } else await this.store.read(() => null, { signal });
       checks.state = "READY";
     } catch (error) {
       throwIfAborted(signal);
@@ -376,7 +424,7 @@ export class DsaasControlPlane {
       serviceRegistryUnavailable = true;
     }
     throwIfAborted(signal);
-    const targets = await this.store.read((state) => Object.entries(state.dataspaces)
+    const targets = (await this.#dataspaceEntries({ signal }))
       .filter(([, record]) => {
         const approved = Object.values(record.participants).filter(({ approvalState }) => approvalState === "APPROVED");
         const registryChanged = approved.some((participant) => participant.approval?.externalDecision?.registrySha256 !== registryDigest);
@@ -395,17 +443,16 @@ export class DsaasControlPlane {
         return approvalRefreshRequired || serviceProjectionChanged || durableDeadlineMissing || deadlineDue;
       })
       .map(([dataspaceId]) => dataspaceId)
-      .sort());
+      .sort();
     throwIfAborted(signal);
     return targets;
   }
 
   async reconciliationBacklog({ signal } = {}) {
     throwIfAborted(signal);
-    const backlog = await this.store.read((state) => {
-      const failures = [];
-      const blocked = [];
-      for (const [dataspaceId, record] of Object.entries(state.dataspaces)) {
+    const failures = [];
+    const blocked = [];
+    for (const [dataspaceId, record] of await this.#dataspaceEntries({ signal })) {
         if (record.caasRetry) {
           failures.push({ dataspaceId, errorCodes: record.caasRetry.errorCodes, nextRetryAt: record.caasRetry.nextRetryAt });
           continue;
@@ -419,11 +466,9 @@ export class DsaasControlPlane {
             ? "DSAAS_APPROVAL_BLOCKED"
             : serviceBlocked ? "DSAAS_REQUIRED_SERVICE_BLOCKED" : "DSAAS_RECONCILIATION_BLOCKED",
         });
-      }
-      return { blocked, failures };
-    });
+    }
     throwIfAborted(signal);
-    return backlog;
+    return { blocked, failures };
   }
 
   async reconcileScheduled(dataspaceId, runId, { signal } = {}) {
@@ -450,7 +495,7 @@ export class DsaasControlPlane {
     const operation = "dataspace.create";
     const requestDigest = digest(spec);
     const slot = idempotencySlot(actor, operation, key);
-    return this.store.transact((state) => {
+    return this.#create(spec.dataspaceId, (state) => {
       throwIfAborted(signal);
       const prior = priorIdempotent(state, slot, requestDigest);
       if (prior) return prior;
@@ -477,7 +522,7 @@ export class DsaasControlPlane {
       state.dataspaces[spec.dataspaceId] = record;
       appendAudit(state, { ...actorAudit, action: operation, resource: `dataspace:${spec.dataspaceId}`, outcome: "accepted", detailsDigest: requestDigest, at });
       const response = resourceView(record);
-      rememberIdempotent(state, slot, requestDigest, response, at, this.maxIdempotencyRecords);
+      rememberIdempotent(state, slot, spec.dataspaceId, requestDigest, response, at, this.maxIdempotencyRecords);
       return response;
     }, { signal });
   }
@@ -485,13 +530,13 @@ export class DsaasControlPlane {
   async getDataspace(dataspaceId, actor, { signal } = {}) {
     throwIfAborted(signal);
     requireAuthorization(actor, dataspaceId, false);
-    return this.store.read((state) => resourceView(findDataspace(state, dataspaceId)), { signal });
+    return this.#read(dataspaceId, (state) => resourceView(findDataspace(state, dataspaceId)), { signal });
   }
 
   async getParticipant(dataspaceId, participantId, actor, { signal } = {}) {
     throwIfAborted(signal);
     requireAuthorization(actor, dataspaceId, false);
-    return this.store.read((state) => {
+    return this.#read(dataspaceId, (state) => {
       const participant = findDataspace(state, dataspaceId).participants[participantId];
       if (!participant) throw new RuntimeError("DSAAS_PARTICIPANT_NOT_FOUND", "participant does not exist", { participantId });
       return resourceView(participant);
@@ -508,7 +553,7 @@ export class DsaasControlPlane {
     const input = { dataspaceId, desiredState, expectedRevision };
     const requestDigest = digest(input);
     const slot = idempotencySlot(actor, operation, key);
-    return this.store.transact((state) => {
+    return this.#transact(dataspaceId, (state) => {
       throwIfAborted(signal);
       const prior = priorIdempotent(state, slot, requestDigest);
       if (prior) return prior;
@@ -525,7 +570,7 @@ export class DsaasControlPlane {
       record.updatedAt = at;
       appendAudit(state, { ...actorAudit, action: operation, resource: `dataspace:${dataspaceId}`, outcome: "accepted", detailsDigest: requestDigest, at });
       const response = resourceView(record);
-      rememberIdempotent(state, slot, requestDigest, response, at, this.maxIdempotencyRecords);
+      rememberIdempotent(state, slot, dataspaceId, requestDigest, response, at, this.maxIdempotencyRecords);
       return response;
     }, { signal });
   }
@@ -543,7 +588,7 @@ export class DsaasControlPlane {
     const operation = "participant.submit";
     const requestDigest = digest({ dataspaceId, spec });
     const slot = idempotencySlot(actor, operation, key);
-    return this.store.transact((state) => {
+    return this.#transact(dataspaceId, (state) => {
       throwIfAborted(signal);
       const prior = priorIdempotent(state, slot, requestDigest);
       if (prior) return prior;
@@ -576,7 +621,7 @@ export class DsaasControlPlane {
       record.updatedAt = at;
       appendAudit(state, { ...actorAudit, action: operation, resource: `dataspace:${dataspaceId}/participant:${spec.participantId}`, outcome: "pending-approval", detailsDigest: requestDigest, at });
       const response = resourceView(participant);
-      rememberIdempotent(state, slot, requestDigest, response, at, this.maxIdempotencyRecords);
+      rememberIdempotent(state, slot, dataspaceId, requestDigest, response, at, this.maxIdempotencyRecords);
       return response;
     }, { signal });
   }
@@ -589,12 +634,12 @@ export class DsaasControlPlane {
     const operation = "participant.approve";
     const requestDigest = digest({ dataspaceId, participantId, approval });
     const slot = idempotencySlot(actor, operation, key);
-    const replay = await this.store.read((state) => priorIdempotent(state, slot, requestDigest));
+    const replay = await this.#read(dataspaceId, (state) => priorIdempotent(state, slot, requestDigest));
     throwIfAborted(signal);
     if (replay) return replay;
     const approvalDecisionRegistry = await this.#currentApprovalDecisionRegistry();
     throwIfAborted(signal);
-    return this.store.transact((state) => {
+    return this.#transact(dataspaceId, (state) => {
       throwIfAborted(signal);
       const prior = priorIdempotent(state, slot, requestDigest);
       if (prior) return prior;
@@ -627,7 +672,7 @@ export class DsaasControlPlane {
       record.updatedAt = at;
       appendAudit(state, { ...actorAudit, action: operation, resource: `dataspace:${dataspaceId}/participant:${participantId}`, outcome: approvalOutcome, detailsDigest: requestDigest, at });
       const response = resourceView(participant);
-      rememberIdempotent(state, slot, requestDigest, response, at, this.maxIdempotencyRecords);
+      rememberIdempotent(state, slot, dataspaceId, requestDigest, response, at, this.maxIdempotencyRecords);
       return response;
     }, { signal });
   }
@@ -650,7 +695,7 @@ export class DsaasControlPlane {
         : lease?.signal ?? requestSignal;
       throwIfAborted(signal);
       const requestDigest = digest({ dataspaceId });
-      const replay = slot === null ? null : await this.store.read((state) => priorIdempotent(state, slot, requestDigest));
+      const replay = slot === null ? null : await this.#read(dataspaceId, (state) => priorIdempotent(state, slot, requestDigest));
       throwIfAborted(signal);
       if (replay) return replay;
       // Desired-state writers use the state transaction lock, not this long-lived
@@ -660,7 +705,7 @@ export class DsaasControlPlane {
       let supersessions = 0;
       while (supersessions < this.maxReconcileSupersessions) {
         throwIfAborted(signal);
-        let snapshot = await this.store.read((state) => resourceView(findDataspace(state, dataspaceId)));
+        let snapshot = await this.#read(dataspaceId, (state) => resourceView(findDataspace(state, dataspaceId)));
         throwIfAborted(signal);
         const observedAt = this.now();
         let serviceRegistry;
@@ -754,7 +799,7 @@ export class DsaasControlPlane {
         }
         if (approvalBlocked && approvalTransitionRequired) {
           throwIfAborted(signal);
-          const prepared = await this.store.transact((state) => {
+          const prepared = await this.#transact(dataspaceId, (state) => {
             throwIfAborted(signal);
             const prior = slot === null ? null : priorIdempotent(state, slot, requestDigest);
             if (prior) return { completed: prior, retry: false };
@@ -817,7 +862,7 @@ export class DsaasControlPlane {
           && serviceGateAffectsCaasCommand(snapshot);
         if (serviceCommandTransitionRequired) {
           throwIfAborted(signal);
-          const prepared = await this.store.transact((state) => {
+          const prepared = await this.#transact(dataspaceId, (state) => {
             throwIfAborted(signal);
             const prior = slot === null ? null : priorIdempotent(state, slot, requestDigest);
             if (prior) return { completed: prior, retry: false };
@@ -908,7 +953,7 @@ export class DsaasControlPlane {
           try {
             await validateContract("caasEnsureRequest", request);
             throwIfAborted(signal);
-            const response = await this.caas.ensureConnector(request, operationKey, { signal });
+            const response = await this.caas.ensureConnector(request, operationKey, { signal, traceContext: actor.traceContext });
             throwIfAborted(signal);
             const observation = await validateCaasObservation(response, request, correlation);
             throwIfAborted(signal);
@@ -922,7 +967,7 @@ export class DsaasControlPlane {
         }
         throwIfAborted(signal);
         const caasErrors = caasErrorProjection(observations);
-        const committed = await this.store.transact((state) => {
+        const committed = await this.#transact(dataspaceId, (state) => {
           throwIfAborted(signal);
           const prior = slot === null ? null : priorIdempotent(state, slot, requestDigest);
           if (prior) return { response: prior, retry: false };
@@ -1047,25 +1092,25 @@ export class DsaasControlPlane {
           record.lastReconcileAt = at;
           record.updatedAt = at;
           record.revision += 1;
-          if (!scheduled || !repeatedCaasError) {
+          if (this.store.kind === "postgres-scoped" || !scheduled || !repeatedCaasError) {
             appendAudit(state, {
               ...actorAudit,
               action: operation,
               resource: `dataspace:${dataspaceId}`,
-              outcome: record.caasRetry === null ? record.observedState.toLowerCase() : "caas-error",
+              outcome: record.caasRetry === null ? record.observedState.toLowerCase() : repeatedCaasError ? "caas-error-repeated" : "caas-error",
               detailsDigest: digest({ approvalChecks, correlations, desiredGeneration: snapshot.desiredGeneration, observations, services: services.services }),
               at,
             });
           }
           const response = resourceView(record);
-          if (slot !== null) rememberIdempotent(state, slot, requestDigest, response, at, this.maxIdempotencyRecords);
+          if (slot !== null) rememberIdempotent(state, slot, dataspaceId, requestDigest, response, at, this.maxIdempotencyRecords);
           return { response, retry: false };
         }, { signal });
         if (!committed.retry) return committed.response;
         supersessions += 1;
       }
       throwIfAborted(signal);
-      await this.store.transact((state) => {
+      await this.#transact(dataspaceId, (state) => {
         throwIfAborted(signal);
         const record = findDataspace(state, dataspaceId);
         const at = this.now();

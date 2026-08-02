@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://data.molit.go.kr/schema/caas-connector-rollback.v1.json",
+  "title": "CaaS connector rollback request",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "targetConnectorPlanDigest"],
+  "properties": {
+    "schemaVersion": { "const": "molit.caas-connector-rollback/1" },
+    "targetConnectorPlanDigest": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    }
+  }
+}

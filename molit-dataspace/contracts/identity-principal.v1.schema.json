@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://molit.example/contracts/identity-principal.v1.schema.json",
+  "title": "MOLIT operational identity principal",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "issuer", "subject", "principalId", "clientId", "tokenId", "signingKeyId", "actorType", "roles", "tenantIds", "certificateThumbprint", "issuedAt", "expiresAt"],
+  "properties": {
+    "schemaVersion": { "const": "molit.identity-principal/1" },
+    "issuer": { "type": "string", "format": "uri", "maxLength": 2048 },
+    "subject": { "type": "string", "minLength": 1, "maxLength": 512 },
+    "principalId": { "type": "string", "minLength": 1, "maxLength": 512 },
+    "clientId": { "type": "string", "minLength": 1, "maxLength": 512 },
+    "tokenId": { "type": "string", "minLength": 1, "maxLength": 512 },
+    "signingKeyId": { "type": ["string", "null"], "maxLength": 128 },
+    "actorType": { "enum": ["human", "service"] },
+    "roles": { "type": "array", "minItems": 1, "maxItems": 128, "uniqueItems": true, "items": { "type": "string", "minLength": 1, "maxLength": 256 } },
+    "tenantIds": { "type": "array", "minItems": 1, "maxItems": 128, "uniqueItems": true, "items": { "type": "string", "minLength": 1, "maxLength": 256 } },
+    "certificateThumbprint": { "type": ["string", "null"], "pattern": "^[A-Za-z0-9_-]{43}$" },
+    "issuedAt": { "type": "string", "format": "date-time" },
+    "expiresAt": { "type": "string", "format": "date-time" }
+  }
+}

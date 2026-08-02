@@ -1,0 +1,104 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://data.molit.go.kr/contracts/p0-local-verification.v1.schema.json",
+  "title": "MOLIT P0 local verification evidence",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "startedAt", "finishedAt", "durationMs", "source", "environment", "verificationProfile", "complete", "skipped", "steps", "artifacts", "externalOperatingEvidence"],
+  "properties": {
+    "schemaVersion": { "const": "molit.p0-local-verification/1" },
+    "startedAt": { "type": "string", "format": "date-time" },
+    "finishedAt": { "type": "string", "format": "date-time" },
+    "durationMs": { "type": "number", "minimum": 0 },
+    "source": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["commit", "worktreeClean", "immutableReleaseEvidence", "statusSha256", "digestAlgorithm", "worktreeDigest", "fileCount", "stableDuringRun"],
+      "properties": {
+        "commit": { "type": "string", "pattern": "^[a-f0-9]{40}$" },
+        "worktreeClean": { "type": "boolean" },
+        "immutableReleaseEvidence": { "type": "boolean" },
+        "statusSha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+        "digestAlgorithm": { "const": "git-ls-files-content-sha256-v1" },
+        "worktreeDigest": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+        "fileCount": { "type": "integer", "minimum": 1 },
+        "stableDuringRun": { "type": "boolean" }
+      }
+    },
+    "environment": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["operatingSystem", "architecture", "node", "npm", "docker", "kubectl", "kind"],
+      "properties": {
+        "operatingSystem": { "type": "string", "minLength": 1 },
+        "architecture": { "type": "string", "minLength": 1 },
+        "node": { "type": ["string", "null"] },
+        "npm": { "type": ["string", "null"] },
+        "docker": { "type": ["string", "null"] },
+        "kubectl": { "type": ["string", "null"] },
+        "kind": { "type": ["string", "null"] }
+      }
+    },
+    "verificationProfile": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["path", "sha256"],
+      "properties": {
+        "path": { "const": "deploy/p0/verification-steps.v1.json" },
+        "sha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" }
+      }
+    },
+    "complete": { "type": "boolean" },
+    "skipped": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": { "type": "string", "minLength": 1 }
+    },
+    "steps": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "command", "arguments", "expectedExitCodes", "exitCode", "status", "startedAt", "finishedAt", "durationMs", "log"],
+        "properties": {
+          "id": { "type": "string", "pattern": "^[a-z0-9-]+$" },
+          "command": { "type": "string", "minLength": 1 },
+          "arguments": { "type": "array", "items": { "type": "string" } },
+          "expectedExitCodes": { "type": "array", "minItems": 1, "uniqueItems": true, "items": { "type": "integer" } },
+          "exitCode": { "type": "integer" },
+          "status": { "enum": ["passed", "failed"] },
+          "startedAt": { "type": "string", "format": "date-time" },
+          "finishedAt": { "type": "string", "format": "date-time" },
+          "durationMs": { "type": "number", "minimum": 0 },
+          "log": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["pathRelativeToEvidence", "sha256", "bytes"],
+            "properties": {
+              "pathRelativeToEvidence": { "type": "string", "pattern": "^logs/[a-z0-9-]+\\.log$" },
+              "sha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+              "bytes": { "type": "integer", "minimum": 0 }
+            }
+          }
+        }
+      }
+    },
+    "artifacts": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["sourceStepId", "pathRelativeToEvidence", "schema", "sha256", "bytes"],
+        "properties": {
+          "sourceStepId": { "type": "string", "pattern": "^[a-z0-9-]+$" },
+          "pathRelativeToEvidence": { "type": "string", "pattern": "^[a-z0-9-]+\\.json$" },
+          "schema": { "type": "string", "pattern": "^contracts/[a-z0-9.-]+\\.schema\\.json$" },
+          "sha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+          "bytes": { "type": "integer", "minimum": 1 }
+        }
+      }
+    },
+    "externalOperatingEvidence": { "const": "not-evaluated-as-pass" }
+  }
+}

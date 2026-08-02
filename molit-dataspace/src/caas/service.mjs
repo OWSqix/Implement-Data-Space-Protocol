@@ -16,6 +16,11 @@ function publicTenant(tenant) {
     endpoint: tenant.endpoint,
     adapterId: tenant.adapterId,
     connectorPlanId: tenant.connectorPlanId,
+    connectorPlanDigest: tenant.connectorPlanDigest,
+    deployedConnectorPlanId: tenant.deployedConnectorPlanId ?? null,
+    deployedConnectorPlanDigest: tenant.deployedConnectorPlanDigest ?? null,
+    connectorVersionHistory: (tenant.connectorVersionHistory ?? []).map(({ connectorPlanId, connectorPlanDigest, recordedAt }) => ({ connectorPlanId, connectorPlanDigest, recordedAt })),
+    lifecycleOperation: tenant.lifecycleOperation ?? null,
     runtimeProfileRef: tenant.runtimeProfileRef,
     apiPrincipalId: tenant.apiPrincipalId,
     apiClientId: tenant.apiClientId,
@@ -34,7 +39,43 @@ function publicTenant(tenant) {
 }
 
 function operationKey(tenant) {
-  return createHash("sha256").update(`molit-caas/1\0${tenant.tenantId}\0${tenant.generation}\0${tenant.desiredState}`).digest("hex");
+  return createHash("sha256").update(`molit-caas/2\0${tenant.tenantId}\0${tenant.generation}\0${tenant.desiredState}\0${tenant.connectorPlanDigest}`).digest("hex");
+}
+
+function finalObservedState(desiredState) {
+  if (desiredState === "PROVISIONED") return "PROVISIONED";
+  if (desiredState === "SUSPENDED") return "SUSPENDED";
+  if (desiredState === "DELETED") return "DELETED";
+  return "NOT_PROVISIONED";
+}
+
+function pendingObservedState(tenant) {
+  if (tenant.desiredState === "PROVISIONED" && tenant.lifecycleOperation === "UPGRADE") return "UPGRADING";
+  if (tenant.desiredState === "PROVISIONED" && tenant.lifecycleOperation === "ROLLBACK") return "ROLLING_BACK";
+  if (tenant.desiredState === "PROVISIONED") return "PROVISIONING";
+  if (tenant.desiredState === "SUSPENDED") return "SUSPENDING";
+  if (tenant.desiredState === "DELETED") return "DELETING";
+  return "DEPROVISIONING";
+}
+
+function rememberConnectorVersion(tenant, now) {
+  tenant.connectorVersionHistory ??= [];
+  if (tenant.connectorVersionHistory.some(({ connectorPlanDigest }) => connectorPlanDigest === tenant.connectorPlanDigest)) return;
+  assertCaas(tenant.connectorVersionHistory.length < 64, "CAAS_VERSION_HISTORY_CAPACITY", "connector version history is full", { status: 507 });
+  tenant.connectorVersionHistory.push({
+    connectorPlanId: tenant.connectorPlanId,
+    connectorPlanDigest: tenant.connectorPlanDigest,
+    connectorPlanSnapshot: structuredClone(tenant.connectorPlanSnapshot),
+    recordedAt: now.toISOString(),
+  });
+}
+
+function applyConnectorVersion(tenant, version) {
+  tenant.connectorPlanId = version.connectorPlanId;
+  tenant.connectorPlanSnapshot = structuredClone(version.connectorPlanSnapshot);
+  tenant.connectorPlanDigest = version.connectorPlanDigest;
+  tenant.adapterId = version.connectorPlanSnapshot.adapterId;
+  tenant.runtimeProfileRef = version.connectorPlanSnapshot.runtimeProfileRef;
 }
 
 function sortedKeys(value) { return Object.keys(value).sort(); }
@@ -63,7 +104,7 @@ function validateOperationalObservation(value) {
     "CAAS_ADAPTER_OBSERVATION_INVALID", "operational observation operationKey is invalid");
   assertCaas(value.generation === null || (Number.isSafeInteger(value.generation) && value.generation >= 0),
     "CAAS_ADAPTER_OBSERVATION_INVALID", "operational observation generation is invalid");
-  assertCaas(value.desiredState === null || ["PROVISIONED", "DEPROVISIONED"].includes(value.desiredState),
+  assertCaas(value.desiredState === null || ["PROVISIONED", "SUSPENDED", "DELETED", "DEPROVISIONED"].includes(value.desiredState),
     "CAAS_ADAPTER_OBSERVATION_INVALID", "operational observation desiredState is invalid");
   assertCaas(value.lastAppliedFencingToken === null || value.lastAppliedFencingToken === undefined || /^[1-9][0-9]*$/u.test(value.lastAppliedFencingToken),
     "CAAS_ADAPTER_OBSERVATION_INVALID", "operational observation lastAppliedFencingToken is invalid");
@@ -125,7 +166,7 @@ function observationConverged(observation, tenant, opKey, intentDigest, adapterR
     || observation.desiredState !== tenant.desiredState
     || observation.intentDigest !== intentDigest
     || (expectedFencingToken !== null && observation.lastAppliedFencingToken !== expectedFencingToken)) return false;
-  if (tenant.desiredState === "PROVISIONED") {
+  if (["PROVISIONED", "SUSPENDED"].includes(tenant.desiredState)) {
     return observation.exists === true
       && observation.adapterResourceId === adapterResourceId;
   }
@@ -135,7 +176,16 @@ function observationConverged(observation, tenant, opKey, intentDigest, adapterR
 function auditActor(actor) {
   assertCaas(actor && ["admin", "controller", "tenant"].includes(actor.role), "CAAS_ACTOR_INVALID", "authenticated actor role is required");
   for (const field of ["principalId", "clientId", "keyId"]) assertCaas(actorIdentifier.test(actor[field] ?? ""), "CAAS_ACTOR_INVALID", `authenticated actor ${field} is required`);
-  return { actorRole: actor.role, actorPrincipalId: actor.principalId, actorClientId: actor.clientId, actorKeyId: actor.keyId };
+  assertCaas(actor.traceId === undefined || /^[a-f0-9]{32}$/u.test(actor.traceId), "CAAS_ACTOR_INVALID", "authenticated actor traceId is invalid");
+  assertCaas(actor.correlationId === undefined || /^[A-Za-z0-9][A-Za-z0-9._:-]{7,127}$/u.test(actor.correlationId), "CAAS_ACTOR_INVALID", "authenticated actor correlationId is invalid");
+  return {
+    actorRole: actor.role,
+    actorPrincipalId: actor.principalId,
+    actorClientId: actor.clientId,
+    actorKeyId: actor.keyId,
+    ...(actor.traceId ? { traceId: actor.traceId } : {}),
+    ...(actor.correlationId ? { correlationId: actor.correlationId } : {}),
+  };
 }
 
 function persistedAdapterErrorCode(error) {
@@ -156,9 +206,49 @@ function registrationPlan(config, request) {
 
 export class CaaSControlService {
   constructor({ config, provisioners, store, env = process.env, now = () => new Date() }) {
-    assertCaas(store && ["read", "transact", "withResourceLock", "readiness", "close"].every((method) => typeof store[method] === "function"),
+    const stateMethods = store?.kind === "postgres-scoped"
+      ? ["readScope", "createScope", "transactScope", "listScopeIds", "readAudit"]
+      : ["read", "transact"];
+    assertCaas(store && [...stateMethods, "withResourceLock", "readiness", "close"].every((method) => typeof store[method] === "function"),
       "CAAS_STATE_STORE_INVALID", "CaaS state store does not implement the required interface");
     Object.assign(this, { config, provisioners, store, env, now });
+  }
+
+  #read(tenantId, operation, options) {
+    return this.store.kind === "postgres-scoped"
+      ? this.store.readScope(tenantId, operation, options)
+      : this.store.read(operation, options);
+  }
+
+  #transact(tenantId, operation, options) {
+    return this.store.kind === "postgres-scoped"
+      ? this.store.transactScope(tenantId, operation, options)
+      : this.store.transact(operation, options);
+  }
+
+  #create(tenantId, operation, options) {
+    return this.store.kind === "postgres-scoped"
+      ? this.store.createScope(tenantId, operation, { ...options, capacity: this.config.limits.maxTenants ?? 10_000 })
+      : this.store.transact(operation, options);
+  }
+
+  async #allTenantState({ signal } = {}) {
+    if (this.store.kind !== "postgres-scoped") return this.store.read((state) => state, { signal });
+    const maxTenants = this.config.limits.maxTenants ?? 10_000;
+    const tenantIds = [];
+    let after = "";
+    while (tenantIds.length < maxTenants) {
+      const page = await this.store.listScopeIds({ after, limit: Math.min(1_000, maxTenants - tenantIds.length), signal });
+      tenantIds.push(...page);
+      if (page.length < Math.min(1_000, maxTenants - tenantIds.length + page.length)) break;
+      after = page.at(-1);
+    }
+    assertCaas(tenantIds.length <= maxTenants, "CAAS_CAPACITY", "tenant registry exceeds configured capacity");
+    const tenants = {};
+    for (const tenantId of tenantIds) {
+      tenants[tenantId] = await this.store.readScope(tenantId, (state) => state.tenants[tenantId], { signal });
+    }
+    return { tenants };
   }
 
   async register(input, key, actor, { signal } = {}) {
@@ -167,23 +257,28 @@ export class CaaSControlService {
     Object.values(request.deploymentSecretRefs).forEach(validateDeploymentSecretReference);
     assertCaas(Object.hasOwn(this.provisioners, request.adapterId), "CAAS_ADAPTER_NOT_FOUND", "requested provisioner adapter is not configured", { status: 400 });
     const selectedPlan = registrationPlan(this.config, request);
-    const apiSecret = resolveEnvironmentSecret(request.apiAccessSecretRef, this.env);
-    const reservedSecrets = [resolveEnvironmentSecret(this.config.adminSecretRef, this.env)];
-    if (this.config.controller) reservedSecrets.push(resolveEnvironmentSecret(this.config.controller.secretRef, this.env));
-    assertCaas(reservedSecrets.every((reserved) => !secretEqual(apiSecret, reserved)), "CAAS_SECRET_COLLISION", "tenant credential must differ from administrator and controller credentials", { status: 400 });
-    const reservedClientIds = [this.config.adminClientId, this.config.controller?.clientId].filter(Boolean);
-    const reservedKeyIds = [this.config.adminKeyId, this.config.controller?.keyId].filter(Boolean);
-    assertCaas(!reservedClientIds.includes(request.apiClientId) && !reservedKeyIds.includes(request.apiKeyId), "CAAS_ACTOR_ID_COLLISION", "tenant clientId and keyId must differ from administrator and controller identifiers", { status: 400 });
+    const staticAuthentication = this.config.environment !== "production";
+    const apiSecret = staticAuthentication ? resolveEnvironmentSecret(request.apiAccessSecretRef, this.env) : null;
+    if (staticAuthentication) {
+      const reservedSecrets = [resolveEnvironmentSecret(this.config.adminSecretRef, this.env)];
+      if (this.config.controller) reservedSecrets.push(resolveEnvironmentSecret(this.config.controller.secretRef, this.env));
+      assertCaas(reservedSecrets.every((reserved) => !secretEqual(apiSecret, reserved)), "CAAS_SECRET_COLLISION", "tenant credential must differ from administrator and controller credentials", { status: 400 });
+      const reservedClientIds = [this.config.adminClientId, this.config.controller?.clientId].filter(Boolean);
+      const reservedKeyIds = [this.config.adminKeyId, this.config.controller?.keyId].filter(Boolean);
+      assertCaas(!reservedClientIds.includes(request.apiClientId) && !reservedKeyIds.includes(request.apiKeyId), "CAAS_ACTOR_ID_COLLISION", "tenant clientId and keyId must differ from administrator and controller identifiers", { status: 400 });
+    }
     const actorEvidence = auditActor(actor);
-    return this.store.withResourceLock(`tenant:${request.tenantId}`, () => this.store.transact((state) => {
+    return this.store.withResourceLock(`tenant:${request.tenantId}`, () => this.#create(request.tenantId, (state) => {
       throwIfAborted(signal);
       const replay = idempotencyReplay(state, `register:${request.tenantId}`, key, request);
       if (replay.result) return replay.result;
       assertCaas(!state.tenants[request.tenantId], "CAAS_TENANT_EXISTS", "tenant already exists", { status: 409 });
       for (const tenant of Object.values(state.tenants)) {
-        const other = resolveEnvironmentSecret(tenant.apiAccessSecretRef, this.env);
-        assertCaas(!secretEqual(apiSecret, other), "CAAS_SECRET_COLLISION", "tenant API credential collides with another tenant", { status: 400 });
-        assertCaas(request.apiClientId !== tenant.apiClientId && request.apiKeyId !== tenant.apiKeyId, "CAAS_ACTOR_ID_COLLISION", "tenant clientId and keyId must be unique", { status: 400 });
+        if (staticAuthentication) {
+          const other = resolveEnvironmentSecret(tenant.apiAccessSecretRef, this.env);
+          assertCaas(!secretEqual(apiSecret, other), "CAAS_SECRET_COLLISION", "tenant API credential collides with another tenant", { status: 400 });
+          assertCaas(request.apiClientId !== tenant.apiClientId && request.apiKeyId !== tenant.apiKeyId, "CAAS_ACTOR_ID_COLLISION", "tenant clientId and keyId must be unique", { status: 400 });
+        }
       }
       const derived = tenantIdentity(this.config.identityPolicy, request.tenantId);
       for (const tenant of Object.values(state.tenants)) {
@@ -200,6 +295,7 @@ export class CaaSControlService {
         connectorPlanId: selectedPlan.connectorPlanId,
         connectorPlanSnapshot: structuredClone(selectedPlan.plan),
         connectorPlanDigest: digest(selectedPlan.plan),
+        connectorVersionHistory: [],
         apiAccessSecretRef: request.apiAccessSecretRef,
         apiPrincipalId: request.apiPrincipalId,
         apiClientId: request.apiClientId,
@@ -222,7 +318,7 @@ export class CaaSControlService {
 
   async getTenant(tenantId, { signal } = {}) {
     throwIfAborted(signal);
-    const tenant = await this.store.read((state) => state.tenants[tenantId], { signal });
+    const tenant = await this.#read(tenantId, (state) => state.tenants[tenantId], { signal });
     assertCaas(tenant, "CAAS_TENANT_NOT_FOUND", "tenant was not found", { status: 404 });
     return publicTenant(tenant);
   }
@@ -231,7 +327,7 @@ export class CaaSControlService {
     throwIfAborted(signal);
     const request = validateCaasContract("desiredState", structuredClone(input));
     const actorEvidence = auditActor(actor);
-    return this.store.withResourceLock(`tenant:${tenantId}`, () => this.store.transact((state) => {
+    return this.store.withResourceLock(`tenant:${tenantId}`, () => this.#transact(tenantId, (state) => {
       throwIfAborted(signal);
       const tenant = state.tenants[tenantId];
       assertCaas(tenant, "CAAS_TENANT_NOT_FOUND", "tenant was not found", { status: 404 });
@@ -239,13 +335,81 @@ export class CaaSControlService {
       const replay = idempotencyReplay(state, `desired:${tenantId}`, key, request);
       if (replay.result) return replay.result;
       const timestamp = this.now();
-      if (tenant.desiredState !== request.desiredState) {
-        tenant.desiredState = request.desiredState;
+      const desiredState = request.desiredState;
+      if (tenant.desiredState !== desiredState) {
+        tenant.desiredState = desiredState;
         tenant.generation += 1;
         tenant.updatedAt = timestamp.toISOString();
+        delete tenant.lifecycleOperation;
         delete tenant.lastError;
         appendAudit(state, { tenantId, action: "DESIRED_STATE_CHANGED", ...actorEvidence, desiredState: tenant.desiredState, generation: tenant.generation }, { maxAuditEvents: this.config.limits.maxAuditEvents, now: timestamp });
+      } else if (this.store.kind === "postgres-scoped") {
+        appendAudit(state, { tenantId, action: "DESIRED_STATE_CONFIRMED", ...actorEvidence, desiredState: tenant.desiredState, generation: tenant.generation }, { maxAuditEvents: this.config.limits.maxAuditEvents, now: timestamp });
       }
+      const result = publicTenant(tenant);
+      recordIdempotency(state, replay, result, timestamp);
+      return result;
+    }, { signal }), { signal });
+  }
+
+  async upgrade(tenantId, input, key, actor, { signal } = {}) {
+    throwIfAborted(signal);
+    const request = validateCaasContract("upgrade", structuredClone(input));
+    const actorEvidence = auditActor(actor);
+    assertCaas(actor.role === "admin" || actor.role === "tenant", "CAAS_UPGRADE_FORBIDDEN", "connector upgrade requires tenant or administrator authority", { status: 403 });
+    return this.store.withResourceLock(`tenant:${tenantId}`, () => this.#transact(tenantId, (state) => {
+      throwIfAborted(signal);
+      const tenant = state.tenants[tenantId];
+      assertCaas(tenant, "CAAS_TENANT_NOT_FOUND", "tenant was not found", { status: 404 });
+      const replay = idempotencyReplay(state, `upgrade:${tenantId}`, key, request);
+      if (replay.result) return replay.result;
+      assertCaas(tenant.desiredState === "PROVISIONED" && tenant.observedState === "PROVISIONED",
+        "CAAS_UPGRADE_STATE_INVALID", "connector must be fully provisioned before upgrade", { status: 409 });
+      const plan = this.config.connectorPlans[request.connectorPlanId];
+      assertCaas(plan, "CAAS_PLAN_NOT_ALLOWED", "upgrade connector plan is not configured", { status: 400 });
+      assertCaas(Object.hasOwn(this.provisioners, plan.adapterId), "CAAS_ADAPTER_NOT_FOUND", "upgrade provisioner adapter is not configured", { status: 400 });
+      assertCaas(digest(plan) !== tenant.connectorPlanDigest, "CAAS_UPGRADE_NO_CHANGE", "upgrade target is already selected", { status: 409 });
+      assertCaas(JSON.stringify([...plan.requiredDeploymentSecretNames].sort()) === JSON.stringify(Object.keys(tenant.deploymentSecretRefs).sort()),
+        "CAAS_UPGRADE_SECRET_SET_MISMATCH", "upgrade target requires a different deployment secret set", { status: 409 });
+      const timestamp = this.now();
+      rememberConnectorVersion(tenant, timestamp);
+      applyConnectorVersion(tenant, { connectorPlanId: request.connectorPlanId, connectorPlanDigest: digest(plan), connectorPlanSnapshot: plan });
+      tenant.desiredState = "PROVISIONED";
+      tenant.lifecycleOperation = "UPGRADE";
+      tenant.generation += 1;
+      tenant.updatedAt = timestamp.toISOString();
+      delete tenant.lastError;
+      appendAudit(state, { tenantId, action: "CONNECTOR_UPGRADE_REQUESTED", ...actorEvidence, connectorPlanId: tenant.connectorPlanId, connectorPlanDigest: tenant.connectorPlanDigest, generation: tenant.generation }, { maxAuditEvents: this.config.limits.maxAuditEvents, now: timestamp });
+      const result = publicTenant(tenant);
+      recordIdempotency(state, replay, result, timestamp);
+      return result;
+    }, { signal }), { signal });
+  }
+
+  async rollback(tenantId, input, key, actor, { signal } = {}) {
+    throwIfAborted(signal);
+    const request = validateCaasContract("rollback", structuredClone(input));
+    const actorEvidence = auditActor(actor);
+    assertCaas(actor.role === "admin" || actor.role === "tenant", "CAAS_ROLLBACK_FORBIDDEN", "connector rollback requires tenant or administrator authority", { status: 403 });
+    return this.store.withResourceLock(`tenant:${tenantId}`, () => this.#transact(tenantId, (state) => {
+      throwIfAborted(signal);
+      const tenant = state.tenants[tenantId];
+      assertCaas(tenant, "CAAS_TENANT_NOT_FOUND", "tenant was not found", { status: 404 });
+      const replay = idempotencyReplay(state, `rollback:${tenantId}`, key, request);
+      if (replay.result) return replay.result;
+      const target = (tenant.connectorVersionHistory ?? []).find(({ connectorPlanDigest }) => connectorPlanDigest === request.targetConnectorPlanDigest);
+      assertCaas(target, "CAAS_ROLLBACK_TARGET_NOT_FOUND", "rollback target is not present in connector version history", { status: 404 });
+      assertCaas(target.connectorPlanDigest !== tenant.connectorPlanDigest, "CAAS_ROLLBACK_NO_CHANGE", "rollback target is already selected", { status: 409 });
+      assertCaas(Object.hasOwn(this.provisioners, target.connectorPlanSnapshot.adapterId), "CAAS_ADAPTER_NOT_FOUND", "rollback provisioner adapter is not configured", { status: 409 });
+      const timestamp = this.now();
+      rememberConnectorVersion(tenant, timestamp);
+      applyConnectorVersion(tenant, target);
+      tenant.desiredState = "PROVISIONED";
+      tenant.lifecycleOperation = "ROLLBACK";
+      tenant.generation += 1;
+      tenant.updatedAt = timestamp.toISOString();
+      delete tenant.lastError;
+      appendAudit(state, { tenantId, action: "CONNECTOR_ROLLBACK_REQUESTED", ...actorEvidence, connectorPlanId: tenant.connectorPlanId, connectorPlanDigest: tenant.connectorPlanDigest, generation: tenant.generation }, { maxAuditEvents: this.config.limits.maxAuditEvents, now: timestamp });
       const result = publicTenant(tenant);
       recordIdempotency(state, replay, result, timestamp);
       return result;
@@ -262,14 +426,14 @@ export class CaaSControlService {
       const signal = lease.signal;
       throwIfAborted(signal);
       const actorEvidence = auditActor(actor);
-      const snapshot = await this.store.read((state) => {
+      const snapshot = await this.#read(tenantId, (state) => {
         const tenant = state.tenants[tenantId];
         assertCaas(tenant, "CAAS_TENANT_NOT_FOUND", "tenant was not found", { status: 404 });
         assertCaas(Object.hasOwn(this.provisioners, tenant.adapterId), "CAAS_ADAPTER_NOT_FOUND", "tenant provisioner adapter is not configured");
         return structuredClone(tenant);
       }, { signal });
       const provisioner = this.provisioners[snapshot.adapterId];
-      const finalState = snapshot.desiredState === "PROVISIONED" ? "PROVISIONED" : "NOT_PROVISIONED";
+      const finalState = finalObservedState(snapshot.desiredState);
       const opKey = operationKey(snapshot);
       let intentObservation = null;
       if (snapshot.observedState === "INTENT_READY" && provisioner.intentOnly === true
@@ -290,7 +454,7 @@ export class CaaSControlService {
           expectedLastAppliedFencingToken: snapshot.lastAppliedFencingToken ?? null,
         });
       }
-      const prepared = await this.store.transact((state) => {
+      const prepared = await this.#transact(tenantId, (state) => {
         throwIfAborted(signal);
         const tenant = state.tenants[tenantId];
         assertCaas(tenant, "CAAS_TENANT_NOT_FOUND", "tenant was not found", { status: 404 });
@@ -325,7 +489,7 @@ export class CaaSControlService {
         }
         const runtimeStillObserved = runtimeObservation !== null
           && observationConverged(runtimeObservation, tenant, opKey, tenant.lastIntentDigest,
-            tenant.desiredState === "PROVISIONED" ? tenant.adapterResourceId : null,
+            ["PROVISIONED", "SUSPENDED"].includes(tenant.desiredState) ? tenant.adapterResourceId : null,
             tenant.lastAppliedFencingToken ?? null);
         if (runtimeObservation !== null) {
           if (!runtimeStillObserved) {
@@ -347,7 +511,7 @@ export class CaaSControlService {
           recordIdempotency(state, replay, result, this.now());
           return { completed: result };
         }
-        tenant.observedState = tenant.desiredState === "PROVISIONED" ? "PROVISIONING" : "DEPROVISIONING";
+        tenant.observedState = pendingObservedState(tenant);
         tenant.operationKey = opKey;
         tenant.updatedAt = this.now().toISOString();
         appendAudit(state, { tenantId, action: "RECONCILE_STARTED", ...actorEvidence, desiredState: tenant.desiredState, generation: tenant.generation, operationKey: opKey }, { maxAuditEvents: this.config.limits.maxAuditEvents, now: this.now() });
@@ -360,9 +524,14 @@ export class CaaSControlService {
       try {
         throwIfAborted(signal);
         if (provisioner.intentOnly !== true) assertFencingCapability(provisioner, lease);
+        const options = adapterCommandOptions(lease);
         const adapterResult = tenant.desiredState === "PROVISIONED"
-          ? await provisioner.provision(tenant, tenant.operationKey, adapterCommandOptions(lease))
-          : await provisioner.deprovision(tenant, tenant.operationKey, adapterCommandOptions(lease));
+          ? await provisioner.provision(tenant, tenant.operationKey, options)
+          : tenant.desiredState === "SUSPENDED" && typeof provisioner.suspend === "function"
+            ? await provisioner.suspend(tenant, tenant.operationKey, options)
+            : tenant.desiredState === "DELETED" && typeof provisioner.delete === "function"
+              ? await provisioner.delete(tenant, tenant.operationKey, options)
+              : await provisioner.deprovision(tenant, tenant.operationKey, options);
         throwIfAborted(signal);
         validateAdapterResult(adapterResult, lease);
         acceptedFencingToken = lease.fencingToken;
@@ -377,18 +546,26 @@ export class CaaSControlService {
           && observationConverged(observation, tenant, tenant.operationKey, adapterResult.intentDigest,
             adapterResult.adapterResourceId, lease.fencingToken);
         persistingResult = true;
-        return await this.store.transact((state) => {
+        return await this.#transact(tenantId, (state) => {
           throwIfAborted(signal);
           const current = state.tenants[tenantId];
           assertCaas(current?.operationKey === tenant.operationKey && current.generation === tenant.generation, "CAAS_RECONCILE_FENCE_VIOLATION", "tenant changed while reconciliation was in progress");
-          const finalState = current.desiredState === "PROVISIONED" ? "PROVISIONED" : "NOT_PROVISIONED";
-          const pendingState = current.desiredState === "PROVISIONED" ? "PROVISIONING" : "DEPROVISIONING";
+          const finalState = finalObservedState(current.desiredState);
+          const pendingState = pendingObservedState(current);
           current.observedState = provisioner.intentOnly === true
             ? "INTENT_READY"
             : observedConvergence ? finalState : pendingState;
           current.observedGeneration = current.generation;
-          if (current.desiredState === "PROVISIONED") current.adapterResourceId = adapterResult.adapterResourceId;
+          if (["PROVISIONED", "SUSPENDED"].includes(current.desiredState)) current.adapterResourceId = adapterResult.adapterResourceId;
           else if (observedConvergence) delete current.adapterResourceId;
+          if (observedConvergence && current.desiredState === "PROVISIONED") {
+            current.deployedConnectorPlanId = current.connectorPlanId;
+            current.deployedConnectorPlanDigest = current.connectorPlanDigest;
+            delete current.lifecycleOperation;
+          } else if (observedConvergence && ["DELETED", "DEPROVISIONED"].includes(current.desiredState)) {
+            delete current.deployedConnectorPlanId;
+            delete current.deployedConnectorPlanDigest;
+          }
           current.lastIntentDigest = adapterResult.intentDigest;
           if (lease.fencingToken !== null) current.lastAppliedFencingToken = lease.fencingToken;
           current.updatedAt = this.now().toISOString();
@@ -410,7 +587,7 @@ export class CaaSControlService {
       } catch (error) {
         throwIfAborted(signal);
         if (persistingResult) throw error;
-        await this.store.transact((state) => {
+        await this.#transact(tenantId, (state) => {
           throwIfAborted(signal);
           const current = state.tenants[tenantId];
           if (current?.operationKey === tenant.operationKey) {
@@ -438,7 +615,7 @@ export class CaaSControlService {
     const tenantId = request.caasTenantId;
     return this.store.withResourceLock(`tenant:${tenantId}`, async (lease) => {
       const operationSignal = lease.signal;
-      const before = await this.store.transact((state) => {
+      const before = await this.#transact(tenantId, (state) => {
         throwIfAborted(operationSignal);
         const tenant = state.tenants[tenantId];
         assertCaas(tenant, "CAAS_TENANT_NOT_FOUND", "organization must be onboarded as a CaaS tenant before connector convergence", { status: 404 });
@@ -471,7 +648,7 @@ export class CaaSControlService {
             requestDigest: replay.payloadDigest,
           }, { maxAuditEvents: this.config.limits.maxAuditEvents, now: this.now() });
         }
-        const desiredState = request.desiredState === "ACTIVE" ? "PROVISIONED" : "DEPROVISIONED";
+        const desiredState = request.desiredState === "ACTIVE" ? "PROVISIONED" : "SUSPENDED";
         if (tenant.desiredState !== desiredState) {
           tenant.desiredState = desiredState;
           tenant.generation += 1;
@@ -505,12 +682,12 @@ export class CaaSControlService {
           ? "ERROR"
           : request.desiredState === "ACTIVE" && reconciled.observedState === "PROVISIONED"
             ? "ACTIVE"
-            : request.desiredState === "SUSPENDED" && reconciled.observedState === "NOT_PROVISIONED"
+            : request.desiredState === "SUSPENDED" && reconciled.observedState === "SUSPENDED"
               ? "SUSPENDED"
               : "PROVISIONING",
         ...(new URL(reconciled.endpoint).protocol === "https:" ? { endpoints: { connectorBase: reconciled.endpoint } } : {}),
       });
-      return this.store.transact((state) => {
+      return this.#transact(tenantId, (state) => {
         throwIfAborted(operationSignal);
         const replay = idempotencyReplay(state, `ensure:${tenantId}`, key, request);
         if (replay.result) return replay.result;
@@ -523,6 +700,9 @@ export class CaaSControlService {
 
   async audit(tenantId, { signal } = {}) {
     throwIfAborted(signal);
+    if (this.store.kind === "postgres-scoped") {
+      return this.store.readAudit(tenantId, { limit: this.config.limits.maxAuditResponseEvents, signal });
+    }
     const state = await this.store.read((value) => value, { signal });
     const selected = state.audit.filter((event) => !tenantId || event.tenantId === tenantId);
     const limit = this.config.limits.maxAuditResponseEvents;
@@ -533,22 +713,24 @@ export class CaaSControlService {
     throwIfAborted(signal);
     const storeReadiness = await this.store.readiness({ signal });
     assertCaas(storeReadiness.ready === true, storeReadiness.failureCode ?? "CAAS_STATE_UNAVAILABLE", "CaaS state store is not ready");
-    const state = await this.store.read((value) => value, { signal });
-    const values = [resolveEnvironmentSecret(this.config.adminSecretRef, this.env)];
-    const clientIds = [this.config.adminClientId];
-    const keyIds = [this.config.adminKeyId];
-    if (this.config.controller) {
-      values.push(resolveEnvironmentSecret(this.config.controller.secretRef, this.env));
-      clientIds.push(this.config.controller.clientId);
-      keyIds.push(this.config.controller.keyId);
+    const state = await this.#allTenantState({ signal });
+    if (this.config.environment !== "production") {
+      const values = [resolveEnvironmentSecret(this.config.adminSecretRef, this.env)];
+      const clientIds = [this.config.adminClientId];
+      const keyIds = [this.config.adminKeyId];
+      if (this.config.controller) {
+        values.push(resolveEnvironmentSecret(this.config.controller.secretRef, this.env));
+        clientIds.push(this.config.controller.clientId);
+        keyIds.push(this.config.controller.keyId);
+      }
+      for (const tenant of Object.values(state.tenants)) {
+        values.push(resolveEnvironmentSecret(tenant.apiAccessSecretRef, this.env));
+        clientIds.push(tenant.apiClientId);
+        keyIds.push(tenant.apiKeyId);
+      }
+      assertCaas(new Set(values).size === values.length, "CAAS_SECRET_COLLISION", "administrator, controller, and tenant API credentials must be unique");
+      assertCaas(new Set(clientIds).size === clientIds.length && new Set(keyIds).size === keyIds.length, "CAAS_ACTOR_ID_COLLISION", "administrator, controller, and tenant clientId/keyId values must be unique");
     }
-    for (const tenant of Object.values(state.tenants)) {
-      values.push(resolveEnvironmentSecret(tenant.apiAccessSecretRef, this.env));
-      clientIds.push(tenant.apiClientId);
-      keyIds.push(tenant.apiKeyId);
-    }
-    assertCaas(new Set(values).size === values.length, "CAAS_SECRET_COLLISION", "administrator, controller, and tenant API credentials must be unique");
-    assertCaas(new Set(clientIds).size === clientIds.length && new Set(keyIds).size === keyIds.length, "CAAS_ACTOR_ID_COLLISION", "administrator, controller, and tenant clientId/keyId values must be unique");
     const provisioners = Object.values(this.provisioners);
     assertCaas(this.config.environment !== "production" || this.store.supportsDistributedFencing === true,
       "CAAS_STATE_STORE_FENCING_REQUIRED", "production CaaS requires a distributed state store with fencing leases");

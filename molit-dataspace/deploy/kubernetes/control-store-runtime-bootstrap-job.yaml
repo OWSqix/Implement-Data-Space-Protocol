@@ -1,0 +1,92 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: molit-control-store-runtime-bootstrap
+  namespace: molit-caas-system
+  labels:
+    app.kubernetes.io/managed-by: molit-caas-bootstrap
+spec:
+  backoffLimit: 3
+  activeDeadlineSeconds: 300
+  ttlSecondsAfterFinished: 3600
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: molit-control-store-runtime-bootstrap
+    spec:
+      restartPolicy: Never
+      automountServiceAccountToken: false
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 70
+        runAsGroup: 70
+        seccompProfile: { type: RuntimeDefault }
+      containers:
+        - name: bootstrap
+          image: "@@DATABASE_TOOL_IMAGE@@"
+          imagePullPolicy: IfNotPresent
+          command: ["/bin/sh", "-ec"]
+          args:
+            - |
+              read_value() {
+                test -s "$1" || { echo "required bootstrap input is empty" >&2; exit 2; }
+                value="$(cat "$1")"
+                case "$value" in *[!A-Za-z0-9._:@/-]*) echo "bootstrap input contains a forbidden character" >&2; exit 2;; esac
+                printf '%s' "$value"
+              }
+              CAAS_ROLE="$(read_value /runtime-roles/caas-username)"
+              DSAAS_ROLE="$(read_value /runtime-roles/dsaas-username)"
+              APPROVED_BY="$(read_value /policy/approved-by)"
+              APPROVAL_REFERENCE="$(read_value /policy/approval-reference)"
+              exec psql "$DATABASE_URL" -X -v ON_ERROR_STOP=1 \
+                -v caas_role="$CAAS_ROLE" \
+                -v dsaas_role="$DSAAS_ROLE" \
+                -v approved_by="$APPROVED_BY" \
+                -v approval_reference="$APPROVAL_REFERENCE" \
+                -f /bootstrap/runtime-role-bootstrap.sql
+          env:
+            - name: DATABASE_URL
+              valueFrom:
+                secretKeyRef:
+                  name: molit-control-store-database
+                  key: url
+            - name: PGSSLMODE
+              value: verify-full
+            - name: PGSSLROOTCERT
+              value: /tls/ca.crt
+          resources:
+            requests: { cpu: 50m, memory: 64Mi }
+            limits: { cpu: 500m, memory: 256Mi }
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities: { drop: ["ALL"] }
+            readOnlyRootFilesystem: true
+            runAsNonRoot: true
+          volumeMounts:
+            - { name: bootstrap, mountPath: /bootstrap, readOnly: true }
+            - { name: caas-role, mountPath: /runtime-roles/caas-username, subPath: username, readOnly: true }
+            - { name: dsaas-role, mountPath: /runtime-roles/dsaas-username, subPath: username, readOnly: true }
+            - { name: policy, mountPath: /policy, readOnly: true }
+            - { name: database-ca, mountPath: /tls, readOnly: true }
+            - { name: tmp, mountPath: /tmp }
+      volumes:
+        - name: bootstrap
+          configMap:
+            name: molit-control-store-migrations
+            items: [{ key: runtime-role-bootstrap.sql, path: runtime-role-bootstrap.sql }]
+        - name: caas-role
+          secret:
+            secretName: molit-caas-database-role
+            defaultMode: 288
+            items: [{ key: username, path: username }]
+        - name: dsaas-role
+          secret:
+            secretName: molit-dsaas-database-role
+            defaultMode: 288
+            items: [{ key: username, path: username }]
+        - name: policy
+          configMap: { name: molit-control-store-bootstrap-policy, defaultMode: 288 }
+        - name: database-ca
+          secret: { secretName: molit-control-store-database-ca, defaultMode: 288 }
+        - name: tmp
+          emptyDir: { sizeLimit: 32Mi }

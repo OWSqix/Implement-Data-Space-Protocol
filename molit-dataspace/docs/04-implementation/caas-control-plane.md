@@ -6,22 +6,20 @@
 
 상태 저장소는 개발·시험용 file backend와 PostgreSQL backend를 제공한다. production 설정은 PostgreSQL과 `verify-full` TLS를 강제한다.
 
-PostgreSQL backend는 구성요소별 JSONB snapshot과 revision compare-and-swap을 사용한다. state·lease pool, tenant별 advisory lock과 fencing token도 분리했다.
+PostgreSQL backend는 tenant별 authoritative row와 revision compare-and-swap을 사용한다. state·lease pool, tenant별 advisory lock과 fencing token도 분리했다.
 
-현재 저장소가 생성할 수 있는 provisioner는 Connector 배포 의도를 중립 JSON으로 고정하는 `dry-run-manifest`뿐이다. 운영 provisioner의 interface와 fencing receipt 검사는 구현했지만 Kubernetes에서 EDC를 생성·갱신·삭제하는 Adapter는 없다.
+provisioner는 개발용 `dry-run-manifest`와 운영용 `kubernetes-edc`를 제공한다. 운영 Adapter는 Kubernetes API로 tenant별 EDC Control Plane·Data Plane을 배포한다.
 
-특정 EDC 버전의 Management API, 환경 변수 이름, Docker image, Helm chart를 사실로 가정하지 않는다.
+suspend, upgrade, rollback, delete와 orphan 회수도 같은 Adapter가 처리한다. 운영 설정에는 digest image, 외부 Secret, Gateway API 경로와 target-side fencing이 필요하다.
 
-이 adapter를 쓰는 예제 환경은 `development`다. readiness scope는 `INTENT_ONLY`, `productionEligible=false`이며 production config는 이 adapter를 거부한다.
+EDC runtime과 DSP endpoint는 `deploy/edc`에서 고정한다. CaaS는 EDC asset·policy·contract definition을 대신 관리하지 않는다. 이 업무는 데이터 스페이스 Catalog·계약·전송 계층의 책임이다.
 
-따라서 다음 항목은 구현 범위가 아니다.
+현재 P0 구현에서 제외한 범위는 다음과 같다.
 
-- EDC Connector 바이너리와 DSP endpoint
-- EDC 버전별 asset·policy·contract definition API
-- Kubernetes·Docker Compose 실제 배포와 rollback·orphan 회수
-- Vault secret material 전달
-- 데이터 평면과 전송 worker
-- 사용량 과금, SLA, 지원 portal을 포함한 DSaaS 상품 계층
+- 데이터 상품 등록, 계약 협상과 전송 실행의 업무 API
+- 운영기관 Vault·KMS·DNS·Gateway 제품의 생성과 승인
+- 사용료 청구, SLA service credit와 고객 지원 portal
+- 외부 Connector 구현을 사용한 DSP TCK·상호운용 승인
 
 ## 2. 구성
 
@@ -35,12 +33,16 @@ CaaS HTTP control plane
     ├─ idempotency ledger
     ├─ audit hash chain
     └─ PostgreSQL control store
-            ├─ state pool: JSONB snapshot transaction
+            ├─ state pool: tenant-scoped transaction
             └─ lease pool: advisory lock and fencing token
                     │ connector-neutral operation
                     ▼
               Provisioner interface
-                    └─ dry-run-manifest
+                    ├─ dry-run-manifest
+                    └─ kubernetes-edc
+                           ├─ EDC Control Plane·Data Plane
+                           ├─ Gateway API HTTPRoute
+                           └─ fencing admission·orphan recovery
 ```
 
 | 경로 | 역할 |
@@ -48,29 +50,30 @@ CaaS HTTP control plane
 | `src/caas/server.mjs` | lifecycle HTTP API와 health endpoint |
 | `src/caas/service.mjs` | tenant 등록, desired state, reconcile 상태 머신 |
 | `src/caas/store.mjs` | CaaS 상태 검증, file backend, 감사 체인 |
-| `src/control-store/postgres-json-store.mjs` | PostgreSQL JSONB·CAS, advisory lock, fencing lease |
-| `src/caas/provisioner.mjs` | provisioner 계약과 dry-run manifest 구현 |
-| `src/caas/auth.mjs` | 관리자·tenant bearer 경계 |
-| `src/caas/config.mjs` | identity template와 운영 설정 검사 |
+| `src/control-store/postgres-scoped-control-store.mjs` | PostgreSQL tenant 정본, CAS, audit·outbox 원자 커밋과 fencing lease |
+| `src/caas/provisioner.mjs` | provisioner 계약과 Adapter 선택 |
+| `src/caas/kubernetes-provisioner.mjs` | tenant별 EDC·NetworkPolicy·Gateway route의 수명주기와 fencing |
+| `src/caas/orphan-recovery.mjs` | 삭제 완료 tenant의 잔여 Kubernetes 자원 회수 |
+| `src/caas/auth.mjs` | 개발용 bearer와 운영 OIDC·introspection·mTLS principal 경계 |
+| `src/caas/config.mjs` | identity, TLS, observability와 provisioner 운영 설정 검사 |
+| `src/observability/runtime-bundle.mjs` | trace·metric·log, WORM 감사와 usage dispatcher 조립 |
 | `contracts/caas-*.schema.json` | 설정과 API 입력 계약 |
 
 ### 2.1 PostgreSQL 상태와 lease
 
-Migration은 `molit_control_store.json_snapshot`과 `molit_control_store.resource_fence`를 만든다. CaaS는 `component=caas`인 JSONB row 하나에 tenant, API 멱등성 원장, 감사 event와 무결성 head를 저장한다.
+Migration은 tenant별 authoritative state, scope registry, idempotency, 감사와 outbox table을 만든다. object·secret reference, metric과 usage table도 포함한다.
 
-상태 변경은 row를 `FOR UPDATE`로 읽고 검증한 뒤 `revision = revision + 1` 조건부 `UPDATE`로 교체한다. 선택한 revision과 다른 row는 commit하지 않는다. `COMMIT`을 시작한 뒤 connection 결과를 알 수 없으면 `CAAS_STATE_COMMIT_UNKNOWN`으로 반환하며 성공이나 실패로 추정하지 않는다.
+CaaS는 `component=caas`의 tenant row 하나만 transaction에 올린다. 상태 변경은 row를 `FOR UPDATE`로 읽고 검증한 뒤 `revision = revision + 1` 조건부 `UPDATE`로 교체한다. 선택한 revision과 다른 row는 commit하지 않는다. `COMMIT`을 시작한 뒤 connection 결과를 알 수 없으면 `CAAS_STATE_COMMIT_UNKNOWN`으로 반환하며 성공이나 실패로 추정하지 않는다.
 
 tenant reconcile은 별도 lease pool의 session advisory lock을 사용한다. lock key는 구성요소와 `tenant:{tenantId}`를 결합해 만든다. lock 획득 뒤 `resource_fence`의 token을 증가시키며, 같은 tenant에 대한 다른 instance의 reconcile은 `CAAS_TENANT_BUSY`로 거부한다.
 
-lease를 가진 transaction은 현재 token, holder와 미해제 상태를 다시 확인해야 JSONB를 저장할 수 있다. lease connection 오류는 작업의 `AbortSignal`을 취소한다.
+lease를 가진 transaction은 현재 token, holder와 미해제 상태를 다시 확인해야 tenant row를 저장할 수 있다. lease connection 오류는 작업의 `AbortSignal`을 취소한다.
 
 정리 단계는 제한된 시간 안에 fence row를 해제하고 advisory lock을 반납한다. 해제 여부를 확인할 수 없으면 해당 connection을 폐기한다.
 
 state pool과 lease pool은 같은 객체일 수 없다. 장시간 외부 provisioner 호출이 lease connection을 점유해도 state transaction용 connection을 남기기 위한 경계다.
 
-이 구조는 구성요소 안의 모든 CaaS 쓰기를 JSONB row 하나에서 직렬화한다. tenant가 서로 달라도 state write는 같은 row lock을 기다린다.
-
-감사 배열과 멱등성 원장도 같은 row에서 증가한다. 상용 부하 전에는 정규 table, partitioned audit, 보존·export와 outbox로 분리해야 한다.
+tenant 상태, 멱등성, append-only 감사와 outbox는 독립 row로 저장한다. `control_scope_registry`와 component audit head 갱신은 component 단위로 직렬화한다. 모든 table에는 component·tenant `FORCE RLS`와 database principal binding을 적용한다.
 
 ## 3. API
 
@@ -82,6 +85,8 @@ state pool과 lease pool은 같은 객체일 수 없다. 장시간 외부 provis
 | `POST` | `/v1/connectors/ensure` | 관리자 또는 범위가 고정된 DSaaS controller | 기존 tenant Connector 수렴 |
 | `GET` | `/v1/tenants/{tenantId}` | 관리자 또는 해당 tenant | instance 상태 조회 |
 | `PUT` | `/v1/tenants/{tenantId}/desired-state` | 관리자 또는 해당 tenant | 원하는 상태 변경 |
+| `POST` | `/v1/tenants/{tenantId}/upgrade` | 관리자 또는 해당 tenant | 승인된 Connector plan으로 upgrade 시작 |
+| `POST` | `/v1/tenants/{tenantId}/rollback` | 관리자 또는 해당 tenant | version history의 plan으로 rollback 시작 |
 | `POST` | `/v1/tenants/{tenantId}/reconcile` | 관리자 또는 해당 tenant | provisioner 실행 |
 | `GET` | `/v1/tenants/{tenantId}/audit` | 관리자 또는 해당 tenant | 해당 tenant 감사 조회 |
 | `GET` | `/v1/audit` | 관리자 | 전체 감사 조회 |
@@ -175,8 +180,8 @@ provisioner가 일시적으로 실패하면 `ERROR`를 반환하되 성공 idemp
   "apiClientId": "road-data-provider-control-client",
   "apiKeyId": "road-data-provider-2026-01",
   "deploymentSecretRefs": {
-    "vaultAccess": "vault://molit/caas/road-data-provider/edc-vault",
-    "databaseAccess": "vault://molit/caas/road-data-provider/source-db"
+    "vaultAccess": "vault://tenants/road-data-provider/edc/vault",
+    "databaseAccess": "vault://tenants/road-data-provider/source/database"
   }
 }
 ```
@@ -262,9 +267,11 @@ tenant 등록 시 Connector plan 전체와 digest를 state에 고정한다. 설�
 
 ## 6. 상태와 reconcile
 
-원하는 상태는 두 가지다.
+원하는 상태는 다음 네 가지다. `DEPROVISIONED`는 기존 호출 호환용이며, 보존과 삭제를 구분하는 새 호출은 `SUSPENDED` 또는 `DELETED`를 쓴다.
 
 - `PROVISIONED`
+- `SUSPENDED`
+- `DELETED`
 - `DEPROVISIONED`
 
 관찰 상태는 다음과 같다.
@@ -272,6 +279,10 @@ tenant 등록 시 Connector plan 전체와 digest를 state에 고정한다. 설�
 ```text
 NOT_PROVISIONED
     → PROVISIONING → PROVISIONED
+    → UPGRADING → PROVISIONED
+    → ROLLING_BACK → PROVISIONED
+    → SUSPENDING → SUSPENDED
+    → DELETING → DELETED
     → DEPROVISIONING → NOT_PROVISIONED
     → INTENT_READY
     → ERROR → 다음 reconcile에서 재시도
@@ -290,10 +301,10 @@ tenant별 resource lease는 외부 provisioner 호출과 사후 관찰이 끝날
 
 외부 호출은 PostgreSQL state transaction 안에서 실행하지 않는다. reconcile은 다음 경계로 나뉜다.
 
-1. tenant snapshot을 읽고 transaction을 닫는다.
+1. tenant scope를 읽고 transaction을 닫는다.
 2. 이미 완료 상태라면 provisioner의 `observe`를 외부에서 호출한다.
-3. 짧은 transaction에서 snapshot의 generation, 상태, operation key, intent digest와 이전 fencing token이 그대로인지 확인하고 진행 상태를 저장한다.
-4. transaction을 닫은 뒤 `provision` 또는 `deprovision`과 후속 `observe`를 호출한다.
+3. 짧은 transaction에서 scope의 generation, 상태, operation key, intent digest와 이전 fencing token이 그대로인지 확인하고 진행 상태를 저장한다.
+4. transaction을 닫은 뒤 원하는 상태에 맞는 `provision`, `suspend`, `delete` 또는 `deprovision`과 후속 `observe`를 호출한다.
 5. 마지막 transaction에서 operation key와 generation을 다시 비교한 뒤 관찰 상태와 receipt를 저장한다.
 
 관찰 중 state가 바뀌면 `CAAS_RECONCILE_FENCE_VIOLATION`으로 중단한다. PostgreSQL row lock을 원격 호출 동안 잡지 않으면서, 오래된 관찰값을 현재 상태에 commit하지 않는 구조다.
@@ -302,7 +313,11 @@ PostgreSQL lease를 받은 운영 provisioner는 `fencingCapable=true`여야 한
 
 CaaS는 확인한 값을 tenant의 `lastAppliedFencingToken`에 저장한다. 이후 완료 상태를 다시 관찰할 때 resource ID, generation, operation key, desired state, intent digest와 이 token이 모두 일치해야 수렴으로 인정한다.
 
-이 receipt 계약은 Adapter가 token을 되돌려줬다는 사실만 검증한다. 실제 Kubernetes admission·operator·database가 지연된 이전 token의 부작용을 거부하는지는 운영 Adapter 시험으로 입증해야 한다.
+Kubernetes Adapter는 중앙 fence ConfigMap을 compare-and-set으로 갱신한다. 모든 관리 자원에는 같은 fence를 붙인다.
+
+TLS admission webhook은 대상 자원과 중앙 fence의 전체 tuple을 비교한다. token·holder·operation key·generation·intent digest·desired state가 다르거나 낮은 token이면 변경과 삭제를 거부한다.
+
+kind 시험은 N+1 적용 뒤 지연된 N DELETE가 실제 API server에서 거부되는지 확인한다. 운영 cluster에서 같은 결과를 승인하는 절차는 별도 상용 Gate다.
 
 `INTENT_READY`를 state 값만 보고 유지하지 않는다. 새 idempotency key로 reconcile하거나 readiness를 확인할 때 dry-run provisioner가 manifest를 다시 읽는다.
 
@@ -314,7 +329,9 @@ file backend의 lock은 stale 여부를 자동 판단해 삭제하지 않는다.
 
 여러 CaaS instance는 PostgreSQL backend에서 같은 tenant lease를 경합할 수 있다.
 
-database primary 장애, network partition, connection outcome ambiguity와 외부 provisioner fencing을 함께 재현한 고가용성 시험은 아직 없다.
+로컬 HA harness는 동기 commit 뒤 primary를 강제 종료한다. fencing, failover, WAL archive와 PITR digest를 확인한다.
+
+kind harness는 Kubernetes stale fencing과 수명주기를 확인한다. 두 시험은 운영 multi-zone cluster와 실제 object storage를 사용한 승인 훈련을 대신하지 않는다.
 
 ## 7. 감사
 
@@ -328,9 +345,9 @@ state store는 `tenants`와 `requests`가 바뀐 transaction 끝에 `STATE_COMMI
 
 state를 읽을 때는 snapshot digest, 감사 head, 마지막 commit event를 함께 검사한다. 파일에서 tenant나 request 결과만 직접 바꾸면 `CAAS_STATE_SNAPSHOT_INVALID`로 거부한다. tenant별 감사 조회에서는 tenant ID가 없는 system commit을 제외하고, 관리자 전체 조회에는 포함한다.
 
-감사 chain과 snapshot 결합은 우발적 손상과 단순 변조를 검사한다. 파일을 쓸 수 있는 공격자가 chain과 snapshot digest를 모두 다시 계산하는 경우까지 막지는 못한다. 외부 서명이나 WORM 저장소가 없으므로 독립적인 부인방지 증거도 아니다.
+감사 chain과 snapshot 결합은 우발적 손상과 단순 변조를 검사한다. production runtime은 같은 transaction의 `audit.appended` outbox를 WORM API로 반출한다.
 
-운영 배포에서는 audit event와 snapshot head를 기관 로그 시스템으로 반출하고 보존기간과 접근권을 적용해야 한다.
+read-back receipt를 검증한 뒤에만 acknowledge한다. WORM 제품의 object lock, 관리자 우회 방지와 보존기간은 운영 증거로 확인해야 한다.
 
 감사 용량에는 system commit event도 포함한다. 설정 한도에 도달하면 새 변경을 거부한다. 승인된 export·rotation 절차 없이 과거 event를 자동 삭제하지 않는다.
 
@@ -343,6 +360,8 @@ HTTP 조회는 설정한 최대 event 수만 최신순 구간으로 반환한다
 ```javascript
 await provisioner.readiness({ signal });
 await provisioner.provision(tenantSnapshot, operationKey, leaseOptions);
+await provisioner.suspend(tenantSnapshot, operationKey, leaseOptions);
+await provisioner.delete(tenantSnapshot, operationKey, leaseOptions);
 await provisioner.deprovision(tenantSnapshot, operationKey, leaseOptions);
 await provisioner.observe(tenantSnapshot, operationKey, leaseOptions);
 ```
@@ -351,11 +370,11 @@ await provisioner.observe(tenantSnapshot, operationKey, leaseOptions);
 
 완료 상태를 다시 확인하는 수동 관찰에는 현재 lease token을 전달하지 않는다. `expectedLastAppliedFencingToken`에 tenant가 저장한 마지막 적용 token을 전달한다. 명령 직후 관찰에만 방금 사용한 명령용 `leaseOptions`를 다시 사용한다.
 
-provision과 deprovision은 같은 operation key에 대해 멱등이어야 한다. 반환값에는 안정된 `adapterResourceId`, `intentDigest`, 실제 수렴 여부가 있어야 한다. PostgreSQL lease를 사용하는 운영 Adapter는 외부 fencing acceptance receipt도 반환해야 한다.
+모든 수명주기 명령은 같은 operation key에 대해 멱등이어야 한다. 반환값에는 안정된 `adapterResourceId`, `intentDigest`, 실제 수렴 여부가 있어야 한다. PostgreSQL lease를 사용하는 운영 Adapter는 외부 fencing acceptance receipt도 반환해야 한다.
 
 `observe`는 외부 자원의 존재, 수렴 여부, resource ID, intent digest, operation key, generation, desired state와 마지막 적용 fencing token을 반환한다. 운영 Adapter에 `observe`가 없거나 결과가 닫힌 계약을 만족하지 않으면 CaaS는 수렴을 저장하지 않는다.
 
-현재 구현은 다음 파일만 기록한다.
+`dry-run-manifest`는 다음 파일만 기록한다.
 
 ```text
 .local/caas/deployment-intents/{tenantId}.intent.json
@@ -365,22 +384,15 @@ provision과 deprovision은 같은 operation key에 대해 멱등이어야 한�
 
 dry-run adapter는 `converged=false`를 반환하고 관찰 상태를 `INTENT_READY`로 둔다. ensure 응답도 `PROVISIONING`이다. 실제 Connector health 증거가 없으므로 `ACTIVE`나 `SUSPENDED`를 반환하지 않는다.
 
-실제 EDC 어댑터는 채택한 EDC 버전과 배포 방식을 확정한 뒤 작성한다. 현재 config Schema와 factory도 `dry-run-manifest`만 생성하므로 production 설정은 의도적으로 시작할 수 없다. 어댑터가 정해야 할 항목은 다음과 같다.
+`kubernetes-edc`는 Namespace, ServiceAccount, quota, 제한값과 NetworkPolicy를 만든다. EDC Deployment·Service·PDB와 Gateway API route도 포함한다.
 
-1. EDC image와 extension set의 고정 digest
-2. DSP·Management·Control·Data Plane endpoint 배치
-3. participant identity와 credential 발급
-4. vault와 database tenant 분리
-5. health 판정과 rollout 완료 기준
-6. deprovision 순서와 데이터 보존 정책
-7. timeout, retry, 보상, 실제 배포 resource ID
-8. Control Plane·Data Plane·database·Vault의 실제 상태 재관찰과 관찰 digest
-9. 외부 resource가 fencing token을 원자적으로 비교·저장하고 낮은 token을 거부하는 방법
-10. 명령 결과 receipt와 `lastAppliedFencingToken`의 독립 재관찰 방법
+Control Plane·Data Plane readiness와 route의 `Accepted`·`ResolvedRefs`를 확인한다. 중앙 fence와 실제 자원의 annotation까지 다시 읽어야 `converged=true`를 반환한다.
+
+적용 중 오류가 나면 시작 전에 읽은 자원 snapshot으로 rollback한다. 삭제는 UID와 `resourceVersion` precondition을 사용한다. orphan recovery는 삭제된 tenant의 남은 namespace를 조회하고 현재 fence를 획득한 뒤 회수한다. 자세한 배포 조건과 30회 시험은 `deploy/kubernetes/README.md`에 기록했다.
 
 ## 9. 실행
 
-예제 token은 16자 이상의 임의 값으로 환경 변수에 넣는다. 파일에 기록하지 않는다.
+아래 정적 token 예시는 `development` 전용이다. production은 `deploy/kubernetes/caas-config.production.example.json`과 별도 identity·observability 설정을 사용한다.
 
 ```powershell
 $env:MOLIT_CAAS_ADMIN_TOKEN = "replace-with-admin-secret"
@@ -404,15 +416,11 @@ Invoke-RestMethod `
   -InFile "fixtures/caas/tenant-registration.example.json"
 ```
 
-제어 평면 서버는 TLS를 직접 종료하지 않는다. production config는 plain HTTP listener의 loopback bind만 허용한다. 인증된 reverse proxy가 같은 host에서 TLS를 종료하고 외부 요청을 전달해야 한다.
+production 서버는 Node HTTPS listener에서 TLS를 직접 종료한다. 인증서·개인키·client CA를 주기적으로 다시 읽고, 유효하지 않은 새 material은 적용하지 않은 채 readiness를 내린다. 유효한 교체는 기존 연결을 끊지 않고 새 secure context에 반영한다.
 
-정적 bearer 비교에는 token issuer와 서명, 만료시간, audience, scope, 폐기 상태를 검증하는 기능이 없다. proof-of-possession과 client certificate identity도 확인하지 않는다.
+Production 관리자와 사용자 token은 RFC 7662 introspection으로 issuer, audience, scope, 만료와 폐기 상태를 확인한다. OIDC JWKS 경로는 durable revocation Registry가 연결될 때까지 개발·상호운용 시험에만 사용한다.
 
-reverse proxy에서 server TLS를 종료하는 것만으로 이 공백이 닫히지 않는다.
-
-따라서 현재 인증 구현은 운영용 인증 수단이 아니다. 운영기관은 OAuth2/OIDC 서명 검증 또는 introspection, mTLS client 인증 중 채택할 인증 profile을 먼저 고정해야 한다.
-
-선택한 profile과 credential 발급·회수·rotation 절차가 계약시험과 침투시험을 통과하기 전에는 운영 배포를 차단한다. 이 항목은 권고가 아니라 운영 blocker다.
+사람 principal은 MFA claim을 요구한다. service principal은 token의 `cnf`와 신뢰한 client certificate를 결합한다. 정적 bearer는 development·test에서만 허용한다.
 
 ### 9.1 요청 기한과 graceful shutdown
 
@@ -422,28 +430,30 @@ reverse proxy에서 server TLS를 종료하는 것만으로 이 공백이 닫히
 
 기한이 지나면 모든 request controller를 취소하고 남은 socket을 닫는다. HTTP drain이 성공하거나 강제 종료 경계에 도달한 뒤 state store를 닫는다. PostgreSQL store의 `close()`는 state pool과 lease pool을 모두 종료한다.
 
-이 종료 절차는 process 내부의 늦은 state commit을 막는다. 외부 Kubernetes·EDC 작업의 취소·보상 완료는 실제 provisioner가 구현하고 시험해야 한다.
+이 종료 절차는 process 내부의 늦은 state commit을 막는다. Kubernetes Adapter도 `AbortSignal`을 각 API 호출에 전달하고 적용 실패 시 snapshot rollback을 시도한다.
 
 ## 10. 운영 전 남은 항목
 
 - [ ] 운영 namespace·endpoint·participant ID 발급 정책 승인
-- [ ] EDC 버전과 extension BOM 고정
-- [ ] 실제 Kubernetes EDC provisioner와 upgrade·rollback·orphan 회수 구현
+- [x] EDC version과 extension BOM·image digest 고정
+- [x] Kubernetes EDC provisioner와 upgrade·rollback·suspend·delete·orphan 회수 구현
 - [ ] Vault·database·network의 tenant별 격리 시험
-- [ ] OAuth2/OIDC token 검증 또는 introspection과 scope·audience 정책 구현
-- [ ] mTLS client 인증과 certificate-to-principal 대응 정책 구현
-- [ ] credential 발급·회수·rotation과 key ID 변경 절차 구현
-- [ ] reverse proxy의 TLS 적용
-- [x] PostgreSQL JSONB·CAS, 별도 lease pool, advisory lock과 fencing token 구현
-- [ ] 실제 Kubernetes 자원에서 낮은 fencing token 거부 시험
-- [ ] JSONB 단일 row를 tenant·멱등성·감사·outbox table로 분리
-- [ ] 감사 event 외부 반출과 WORM·서명 정책 적용
+- [x] OAuth2/OIDC token 검증 또는 introspection과 scope·audience 정책 구현
+- [x] mTLS client 인증과 certificate-to-principal 대응 정책 구현
+- [x] inbound·outbound 인증서 무중단 회전과 폐기 credential 재사용 거부 구현
+- [x] 애플리케이션 직접 HTTPS 종료와 인증서 회전 구현
+- [x] PostgreSQL tenant-scoped 정본·CAS, 별도 lease pool, advisory lock과 fencing token 구현
+- [x] 실제 kind Kubernetes 자원에서 낮은 fencing token 거부 시험
+- [x] tenant·멱등성·감사·outbox authoritative row와 component·tenant FORCE RLS 구현
+- [x] 감사 event transaction outbox와 WORM 반출·receipt 검증 구현
 - [ ] tenant별 요청·Connector quota와 비용 기준 수립
 - [ ] 멱등성 원장의 TTL, tenant별 상한과 안전한 정리 절차 수립
-- [ ] PostgreSQL 고가용성·PITR과 database primary·zone 장애 복구 시험
+- [x] 동기 PostgreSQL primary 장애조치·WAL archive·PITR 로컬 harness 구현
 - [ ] EDC DSP 상호운용 시험과 Connector 관리 API 계약시험
 - [ ] tenant offboarding과 보존기간 만료 후 state 삭제 절차 수립
 
 상용 판정은 `governance/commercial-readiness-register.v1.json`을 정본으로 사용한다. `npm run commercial:status`는 2026-07-14 현재 `commercialReady=false`와 exit code 2를 반환한다.
 
-이 구현은 공유 PostgreSQL에서 tenant reconcile을 조정하는 CaaS 제어 평면이다. 실제 EDC를 배포하는 provisioner, 운영 신원, WORM 감사, 고가용성·PITR과 최종 image 상호운용 증거는 별도 완료조건으로 남는다.
+P0 소스 범위에는 Kubernetes EDC 수명주기, 운영 신원, WORM 감사와 usage 원장이 들어 있다. 동기 PostgreSQL HA·PITR과 공급망 Gate도 구현했다.
+
+운영기관 namespace 승인, 외부 Vault·KMS·Gateway와 multi-zone 훈련은 별도 완료조건이다. 최종 image의 외부 DSP 상호운용 증거도 P1 Gate에서 다룬다.

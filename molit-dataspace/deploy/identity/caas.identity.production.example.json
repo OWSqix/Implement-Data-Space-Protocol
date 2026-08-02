@@ -1,0 +1,34 @@
+{
+  "schemaVersion": "molit.identity-runtime-config/1",
+  "mode": "rfc7662-introspection",
+  "network": {
+    "allowedOrigins": ["https://identity.data.molit.go.kr"],
+    "allowInsecureLoopback": false,
+    "timeoutMs": 5000,
+    "maxResponseBytes": 1048576
+  },
+  "policy": {
+    "issuer": "https://identity.data.molit.go.kr/",
+    "audiences": ["molit-caas"],
+    "clientIdClaim": "client_id",
+    "tokenIdClaim": "jti",
+    "actorTypeClaim": "actor_type",
+    "rolesClaim": "roles",
+    "tenantIdsClaim": "tenant_ids",
+    "actorTypes": { "human": "human", "service": "service" },
+    "allowedClientIds": ["molit-caas-console", "molit-dsaas-control-plane", "molit-tenant-automation"],
+    "allowedRoles": ["caas.admin", "caas.controller", "caas.tenant"],
+    "clockSkewSeconds": 30,
+    "maxTokenLifetimeSeconds": 900,
+    "humanMfa": {
+      "acceptedAcrValues": ["urn:molit:loa:mfa"],
+      "requiredAmrAny": ["otp", "hwk", "webauthn"]
+    }
+  },
+  "introspection": {
+    "introspectionUrl": "https://identity.data.molit.go.kr/oauth2/introspect",
+    "clientId": "molit-caas-resource-server",
+    "clientSecretRef": "file:///var/run/secrets/molit-identity/introspection-client-secret",
+    "readinessMaxAgeMs": 60000
+  }
+}

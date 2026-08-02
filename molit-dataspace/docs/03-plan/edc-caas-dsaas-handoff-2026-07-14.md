@@ -3,6 +3,10 @@
 작성일: 2026-07-14 KST
 상태: PostgreSQL 제어 저장소 구현 후보, 상용 운영 판정 차단
 
+> 이 문서는 작성 시점의 작업 인계 기록이다. 이후 구현 결과와 현재 판정은
+> [P0 운영 제어면 구현과 검증](../04-implementation/p0-control-plane-verification.md) 및
+> `governance/commercial-readiness-register.v1.json`을 기준으로 확인한다.
+
 ## 1. 인계 기준
 
 - **(기준선)** 작업 시작 commit은 `044dfda`

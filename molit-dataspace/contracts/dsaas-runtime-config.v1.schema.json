@@ -21,7 +21,6 @@
     "approvedGovernanceBundles",
     "connectorPlanIds",
     "allowedNamespaceOrigins",
-    "auth",
     "caas",
     "reconcileScheduler",
     "network",
@@ -40,6 +39,9 @@
       "items": { "type": "string", "pattern": "^[A-Za-z0-9.-]+(?::[0-9]{1,5})?$" }
     },
     "stateStore": { "$ref": "#/$defs/stateStore" },
+    "identityConfigPath": { "type": "string", "minLength": 1, "maxLength": 4096 },
+    "observabilityConfigPath": { "type": "string", "minLength": 1, "maxLength": 4096 },
+    "tls": { "$ref": "#/$defs/inboundTls" },
     "serviceRegistryPath": { "type": "string", "minLength": 1 },
     "serviceRegistrySha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
     "serviceRegistryMaxAgeSeconds": { "type": "integer", "minimum": 60, "maximum": 2592000 },
@@ -132,8 +134,26 @@
       }
     }
   },
+  "allOf": [
+    {
+      "if": { "properties": { "environment": { "const": "production" } } },
+      "then": { "required": ["identityConfigPath", "observabilityConfigPath", "tls"], "properties": { "identityConfigPath": {}, "observabilityConfigPath": {}, "tls": {}, "auth": false } },
+      "else": { "anyOf": [{ "required": ["auth"], "properties": { "auth": {} } }, { "required": ["identityConfigPath"], "properties": { "identityConfigPath": {} } }] }
+    }
+  ],
   "$defs": {
     "env": { "type": "string", "pattern": "^[A-Z_][A-Z0-9_]*$" },
+    "inboundTls": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["certFile", "keyFile", "clientCaFile", "reloadIntervalMs"],
+      "properties": {
+        "certFile": { "type": "string", "minLength": 1, "maxLength": 4096 },
+        "keyFile": { "type": "string", "minLength": 1, "maxLength": 4096 },
+        "clientCaFile": { "type": "string", "minLength": 1, "maxLength": 4096 },
+        "reloadIntervalMs": { "type": "integer", "minimum": 250, "maximum": 300000 }
+      }
+    },
     "stateStore": {
       "oneOf": [
         {
@@ -203,16 +223,37 @@
       ]
     },
     "outboundAuth": {
-      "type": "object",
-      "additionalProperties": false,
-      "required": ["type", "env"],
-      "properties": {
-        "type": { "enum": ["bearer", "api-key"] },
-        "env": { "$ref": "#/$defs/env" },
-        "header": { "enum": ["api-key", "ocp-apim-subscription-key", "x-api-key", "x-auth-token"] }
-      },
-      "allOf": [
-        { "if": { "properties": { "type": { "const": "bearer" } }, "required": ["type"] }, "then": { "properties": { "header": false } } }
+      "oneOf": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["type", "env"],
+          "properties": {
+            "type": { "enum": ["bearer", "api-key"] },
+            "env": { "$ref": "#/$defs/env" },
+            "header": { "enum": ["api-key", "ocp-apim-subscription-key", "x-api-key", "x-auth-token"] }
+          },
+          "allOf": [
+            { "if": { "properties": { "type": { "const": "bearer" } }, "required": ["type"] }, "then": { "properties": { "header": false } } }
+          ]
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["type", "tokenUrl", "clientId", "clientSecretRef", "scope", "refreshSkewSeconds", "caFile", "certFile", "keyFile", "serverName"],
+          "properties": {
+            "type": { "const": "oauth2-client-credentials-mtls" },
+            "tokenUrl": { "type": "string", "format": "uri", "pattern": "^https://" },
+            "clientId": { "type": "string", "pattern": "^[A-Za-z0-9._~-]{3,128}$" },
+            "clientSecretRef": { "type": "string", "format": "uri", "pattern": "^file:///" },
+            "scope": { "type": "string", "pattern": "^[A-Za-z0-9._:/~-]+(?: [A-Za-z0-9._:/~-]+)*$", "maxLength": 1024 },
+            "refreshSkewSeconds": { "type": "integer", "minimum": 5, "maximum": 600 },
+            "caFile": { "type": "string", "minLength": 1, "maxLength": 4096 },
+            "certFile": { "type": "string", "minLength": 1, "maxLength": 4096 },
+            "keyFile": { "type": "string", "minLength": 1, "maxLength": 4096 },
+            "serverName": { "type": "string", "pattern": "^(?=.{1,253}$)(?:[A-Za-z0-9](?:[A-Za-z0-9-]{0,61}[A-Za-z0-9])?\\.)+[A-Za-z]{2,63}$" }
+          }
+        }
       ]
     },
     "artifact": {

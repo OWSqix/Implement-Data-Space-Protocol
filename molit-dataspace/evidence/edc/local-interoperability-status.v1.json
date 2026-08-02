@@ -1,11 +1,11 @@
 {
   "schemaVersion": "molit.edc-local-interoperability-status/1",
-  "recordedAt": "2026-07-14T09:27:05.071Z",
+  "recordedAt": "2026-07-14T13:40:19.887Z",
   "subject": "deploy/edc same-implementation local lifecycle topology",
   "sourceBinding": {
     "algorithm": "sha-256",
-    "digest": "524fae74e92c718f513c6afa7ccd9e65f5f1fa23d649ea3b36177a1785bcd882",
-    "fileCount": 48,
+    "digest": "2cf510c3fd326a2fb5320f596c5c176face0e1da66b6a12cdd4ff3fde39a916b",
+    "fileCount": 52,
     "scope": "deploy/edc, tools/edc, tests/edc, .gitattributes, package.json, package-lock.json, contracts/edc-local-interoperability-run.v1.schema.json; excluding build and .gradle directories"
   },
   "verdict": "production-readiness-blocked",
@@ -14,13 +14,13 @@
       "check": "topology-static",
       "command": "node tools/edc/verify-topology.mjs",
       "result": "pass",
-      "detail": "26 topology files checked; current source binding and referenced raw evidence matched"
+      "detail": "31 topology files checked; production/smoke/schema-migration artifact classes and referenced raw evidence matched"
     },
     {
       "check": "node-tests",
       "command": "node --test tests/edc/*.test.mjs",
       "result": "pass",
-      "detail": "29 passed, 0 failed"
+      "detail": "30 passed, 0 failed"
     },
     {
       "check": "gradle-jars",
@@ -38,20 +38,20 @@
       "check": "docker-same-implementation-smoke",
       "command": ".\\tools\\edc\\run-smoke.ps1 -RecordEvidence evidence/edc/runs/<run>.json",
       "result": "pass",
-      "detail": "clean-volume recorder run passed on commit 8a878949727d37e5d375915b3b6a043509c8c4c4; Git and source bindings stayed stable, five runtime image IDs were captured, and cleanup passed"
+      "detail": "clean-volume recorder run passed on checkout b20c5f591a8fb5d0c7e50bc6309251af46b94323; source binding 2cf510c3fd326a2fb5320f596c5c176face0e1da66b6a12cdd4ff3fde39a916 stayed byte-stable, five runtime image IDs were captured, and cleanup passed"
     }
   ],
   "runEvidence": {
-    "path": "evidence/edc/runs/20260714T182543+0900-implementation-8a87894.json",
-    "sha256": "497593d33aee4cf658e396cf49235315b991d405481371b54abbda8d0d2c321a",
+    "path": "evidence/edc/runs/20260714T2240+0900-p0-schema-admission.json",
+    "sha256": "dcc4dc589c7f4830cc3eaec8398ded5c582f35bc03ad89e79a0eb86a2ac17f8d",
     "status": "pass",
     "result": {
       "ok": true,
       "managementApi": "v4",
       "dsp": "dataspace-protocol-http:2025-1",
-      "assetId": "molit-edc-smoke-asset-70fd70a8-695e-4127-87db-e26a506c9164",
-      "agreementId": "45e51bfa-22fe-47f2-876d-bb7fd9807b18",
-      "transferId": "d7ddd22d-7460-4efc-8073-105838f99c62",
+      "assetId": "molit-edc-smoke-asset-316a9ac0-8e8f-4186-88e1-4020dce5c3dd",
+      "agreementId": "fad5203c-b69c-4248-8990-bbce6a1244a0",
+      "transferId": "5e878ccb-1dc9-4d8c-8666-91777975665a",
       "startState": "STARTED",
       "finalState": "TERMINATED",
       "revokedStatus": 403,
@@ -68,9 +68,9 @@
       "ok": true,
       "managementApi": "v4",
       "dsp": "dataspace-protocol-http:2025-1",
-      "assetId": "molit-edc-smoke-asset-70fd70a8-695e-4127-87db-e26a506c9164",
-      "agreementId": "45e51bfa-22fe-47f2-876d-bb7fd9807b18",
-      "transferId": "d7ddd22d-7460-4efc-8073-105838f99c62",
+      "assetId": "molit-edc-smoke-asset-316a9ac0-8e8f-4186-88e1-4020dce5c3dd",
+      "agreementId": "fad5203c-b69c-4248-8990-bbce6a1244a0",
+      "transferId": "5e878ccb-1dc9-4d8c-8666-91777975665a",
       "startState": "STARTED",
       "finalState": "TERMINATED",
       "revokedStatus": 403,
@@ -138,5 +138,5 @@
       "requiredArtifact": "live EDC asset, policy and contract-definition publication and reconciliation evidence"
     }
   ],
-  "releaseClaim": "The recorder-bound same-implementation local lifecycle passed on commit 8a878949727d37e5d375915b3b6a043509c8c4c4. This is not DSP TCK, cross-implementation, or production-readiness evidence."
+  "releaseClaim": "The recorder-bound same-implementation local lifecycle passed for source binding 2cf510c3fd326a2fb5320f596c5c176face0e1da66b6a12cdd4ff3fde39a916b. This is not DSP TCK, cross-implementation, or production-readiness evidence."
 }

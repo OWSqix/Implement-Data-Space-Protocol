@@ -1,8 +1,16 @@
 {
   "schemaVersion": "molit.dsaas-runtime-config/1",
   "environment": "production",
-  "listenHost": "127.0.0.1",
+  "listenHost": "0.0.0.0",
   "port": 8888,
+  "identityConfigPath": "../../deploy/identity/dsaas.identity.production.example.json",
+  "observabilityConfigPath": "../../deploy/observability/dsaas.production.example.json",
+  "tls": {
+    "certFile": "/var/run/secrets/molit-inbound/tls.crt",
+    "keyFile": "/var/run/secrets/molit-inbound/tls.key",
+    "clientCaFile": "/var/run/secrets/molit-inbound/client-ca.crt",
+    "reloadIntervalMs": 5000
+  },
   "publicOrigin": "https://dsaas.data.molit.go.kr",
   "allowedHosts": [
     "dsaas.data.molit.go.kr"
@@ -49,25 +57,21 @@
   "allowedNamespaceOrigins": [
     "https://data.molit.go.kr"
   ],
-  "auth": {
-    "type": "oauth2-introspection",
-    "introspectionUrl": "https://identity.data.molit.go.kr/oauth2/introspect",
-    "clientIdEnv": "MOLIT_DSAAS_INTROSPECTION_CLIENT_ID",
-    "clientSecretEnv": "MOLIT_DSAAS_INTROSPECTION_CLIENT_SECRET",
-    "issuer": "https://identity.data.molit.go.kr/",
-    "audience": "molit-dsaas",
-    "clientIdClaim": "client_id",
-    "keyIdClaim": "jti",
-    "rolesClaim": "roles",
-    "dataspaceIdsClaim": "dataspace_ids"
-  },
   "caas": {
     "baseUrl": "https://caas.data.molit.go.kr/",
     "ensurePath": "/v1/connectors/ensure",
     "supportsIdempotencyKey": true,
     "auth": {
-      "type": "bearer",
-      "env": "MOLIT_CAAS_DSAAS_CONTROLLER_TOKEN"
+      "type": "oauth2-client-credentials-mtls",
+      "tokenUrl": "https://identity.data.molit.go.kr/oauth2/token",
+      "clientId": "molit-dsaas-controller",
+      "clientSecretRef": "file:///var/run/secrets/molit-caas-client/client-secret",
+      "scope": "caas.controller",
+      "refreshSkewSeconds": 60,
+      "caFile": "/var/run/secrets/molit-caas-client/ca.crt",
+      "certFile": "/var/run/secrets/molit-caas-client/tls.crt",
+      "keyFile": "/var/run/secrets/molit-caas-client/tls.key",
+      "serverName": "caas.data.molit.go.kr"
     }
   },
   "reconcileScheduler": {

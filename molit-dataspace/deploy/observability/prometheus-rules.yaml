@@ -1,0 +1,112 @@
+groups:
+  - name: molit-sli-recording
+    interval: 30s
+    rules:
+      - record: molit:sli_request_count:30d
+        expr: round(sum by (service_name) (increase(molit_request_count_total[30d])))
+      - record: molit:sli_server_error_count:30d
+        expr: round(sum by (service_name) (increase(molit_request_count_total{molit_outcome="error"}[30d])))
+      - record: molit:sli_latency_eligible_count:30d
+        expr: round(sum by (service_name) (increase(molit_request_duration_milliseconds_count[30d])))
+      - record: molit:sli_latency_good_count:30d
+        expr: round(sum by (service_name) (increase(molit_request_duration_milliseconds_bucket{le="500"}[30d])))
+      - record: molit:sli_availability:ratio_5m
+        expr: 1 - (sum by (service_name) (rate(molit_request_count_total{molit_outcome="error"}[5m])) / clamp_min(sum by (service_name) (rate(molit_request_count_total[5m])), 1e-12))
+      - record: molit:sli_availability:ratio_1h
+        expr: 1 - (sum by (service_name) (rate(molit_request_count_total{molit_outcome="error"}[1h])) / clamp_min(sum by (service_name) (rate(molit_request_count_total[1h])), 1e-12))
+      - record: molit:sli_availability:ratio_30m
+        expr: 1 - (sum by (service_name) (rate(molit_request_count_total{molit_outcome="error"}[30m])) / clamp_min(sum by (service_name) (rate(molit_request_count_total[30m])), 1e-12))
+      - record: molit:sli_availability:ratio_6h
+        expr: 1 - (sum by (service_name) (rate(molit_request_count_total{molit_outcome="error"}[6h])) / clamp_min(sum by (service_name) (rate(molit_request_count_total[6h])), 1e-12))
+      - record: molit:sli_availability:ratio_30d
+        expr: 1 - (molit:sli_server_error_count:30d / clamp_min(molit:sli_request_count:30d, 1))
+      - record: molit:sli_latency:ratio_5m
+        expr: sum by (service_name) (rate(molit_request_duration_milliseconds_bucket{le="500"}[5m])) / clamp_min(sum by (service_name) (rate(molit_request_duration_milliseconds_count[5m])), 1e-12)
+      - record: molit:sli_latency:ratio_1h
+        expr: sum by (service_name) (rate(molit_request_duration_milliseconds_bucket{le="500"}[1h])) / clamp_min(sum by (service_name) (rate(molit_request_duration_milliseconds_count[1h])), 1e-12)
+      - record: molit:sli_latency:ratio_30m
+        expr: sum by (service_name) (rate(molit_request_duration_milliseconds_bucket{le="500"}[30m])) / clamp_min(sum by (service_name) (rate(molit_request_duration_milliseconds_count[30m])), 1e-12)
+      - record: molit:sli_latency:ratio_6h
+        expr: sum by (service_name) (rate(molit_request_duration_milliseconds_bucket{le="500"}[6h])) / clamp_min(sum by (service_name) (rate(molit_request_duration_milliseconds_count[6h])), 1e-12)
+      - record: molit:sli_latency:ratio_30d
+        expr: molit:sli_latency_good_count:30d / clamp_min(molit:sli_latency_eligible_count:30d, 1)
+      - record: molit:slo_availability_budget_remaining:ratio_30d
+        expr: clamp_min(1 - ((1 - molit:sli_availability:ratio_30d) / (1 - 0.999)), 0)
+      - record: molit:slo_latency_budget_remaining:ratio_30d
+        expr: clamp_min(1 - ((1 - molit:sli_latency:ratio_30d) / (1 - 0.95)), 0)
+
+  - name: molit-slo-alerts
+    interval: 30s
+    rules:
+      - alert: MolitAvailabilityBudgetFastBurn
+        expr: ((1 - molit:sli_availability:ratio_1h) / (1 - 0.999) > 14.4) and ((1 - molit:sli_availability:ratio_5m) / (1 - 0.999) > 14.4)
+        for: 2m
+        labels:
+          severity: critical
+          objective: availability
+        annotations:
+          summary: "가용성 오류 예산이 빠르게 소진되고 있음"
+          runbook_url: "https://data.molit.go.kr/runbooks/observability/availability-fast-burn"
+      - alert: MolitAvailabilityBudgetSlowBurn
+        expr: ((1 - molit:sli_availability:ratio_6h) / (1 - 0.999) > 6) and ((1 - molit:sli_availability:ratio_30m) / (1 - 0.999) > 6)
+        for: 15m
+        labels:
+          severity: warning
+          objective: availability
+        annotations:
+          summary: "가용성 오류 예산이 지속해서 소진되고 있음"
+          runbook_url: "https://data.molit.go.kr/runbooks/observability/availability-slow-burn"
+      - alert: MolitLatencyBudgetFastBurn
+        expr: ((1 - molit:sli_latency:ratio_1h) / (1 - 0.95) > 14.4) and ((1 - molit:sli_latency:ratio_5m) / (1 - 0.95) > 14.4)
+        for: 2m
+        labels:
+          severity: critical
+          objective: latency
+        annotations:
+          summary: "500 ms 지연시간 예산이 빠르게 소진되고 있음"
+          runbook_url: "https://data.molit.go.kr/runbooks/observability/latency-fast-burn"
+      - alert: MolitLatencyBudgetSlowBurn
+        expr: ((1 - molit:sli_latency:ratio_6h) / (1 - 0.95) > 6) and ((1 - molit:sli_latency:ratio_30m) / (1 - 0.95) > 6)
+        for: 15m
+        labels:
+          severity: warning
+          objective: latency
+        annotations:
+          summary: "500 ms 지연시간 예산이 지속해서 소진되고 있음"
+          runbook_url: "https://data.molit.go.kr/runbooks/observability/latency-slow-burn"
+      - alert: MolitUsageMeterOutboxDeadLetter
+        expr: max by (service_name) (molit_outbox_dead_lettered{molit_event_type=~"usage.meter.*"}) > 0
+        for: 1m
+        labels:
+          severity: critical
+          objective: usage-integrity
+        annotations:
+          summary: "사용량 원장 outbox에 배달 불가 이벤트가 있음"
+          runbook_url: "https://data.molit.go.kr/runbooks/observability/usage-meter-dead-letter"
+      - alert: MolitOtlpExporterUnavailable
+        expr: min_over_time(up{job="molit-otel-collector"}[5m]) == 0
+        for: 5m
+        labels:
+          severity: critical
+          objective: telemetry-delivery
+        annotations:
+          summary: "운영 OTLP 수집기가 5분 이상 응답하지 않음"
+          runbook_url: "https://data.molit.go.kr/runbooks/observability/otlp-unavailable"
+      - alert: MolitOtelCollectorQueueSaturation
+        expr: max(otelcol_exporter_queue_size{exporter="otlphttp/upstream"} / clamp_min(otelcol_exporter_queue_capacity{exporter="otlphttp/upstream"}, 1)) > 0.9
+        for: 5m
+        labels:
+          severity: critical
+          objective: telemetry-durability
+        annotations:
+          summary: "Collector durable queue usage exceeds 90 percent"
+          runbook_url: "https://data.molit.go.kr/runbooks/observability/collector-queue-saturation"
+      - alert: MolitOtelCollectorQueueEnqueueFailure
+        expr: (sum(increase(otelcol_exporter_enqueue_failed_spans_total{exporter="otlphttp/upstream"}[5m])) + sum(increase(otelcol_exporter_enqueue_failed_metric_points_total{exporter="otlphttp/upstream"}[5m])) + sum(increase(otelcol_exporter_enqueue_failed_log_records_total{exporter="otlphttp/upstream"}[5m]))) > 0
+        for: 1m
+        labels:
+          severity: critical
+          objective: telemetry-durability
+        annotations:
+          summary: "Collector could not enqueue telemetry into durable storage"
+          runbook_url: "https://data.molit.go.kr/runbooks/observability/collector-queue-enqueue-failure"

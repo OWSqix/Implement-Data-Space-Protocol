@@ -1,0 +1,101 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://data.molit.go.kr/schema/edc-schema-postgres-verification.v1.json",
+  "title": "MOLIT EDC schema PostgreSQL verification",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "status", "sourceCommit", "startedAt", "finishedAt", "artifact", "database", "execution", "productionGate"],
+  "properties": {
+    "schemaVersion": { "const": "molit.edc-schema-postgres-verification/1" },
+    "status": { "const": "pass" },
+    "sourceCommit": { "type": "string", "pattern": "^[a-f0-9]{40}$" },
+    "startedAt": { "type": "string", "format": "date-time" },
+    "finishedAt": { "type": "string", "format": "date-time" },
+    "artifact": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["dockerTarget", "localImageId", "dockerfileSha256", "migrationRunnerSha256", "migrationManifestSha256", "verificationScriptSha256", "sourceTreeSha256", "sourceFileCount", "requiredVersion"],
+      "properties": {
+        "dockerTarget": { "const": "schema-migration" },
+        "localImageId": { "type": "string", "pattern": "^sha256:[a-f0-9]{64}$" },
+        "dockerfileSha256": { "$ref": "#/$defs/sha256" },
+        "migrationRunnerSha256": { "$ref": "#/$defs/sha256" },
+        "migrationManifestSha256": { "$ref": "#/$defs/sha256" },
+        "verificationScriptSha256": { "$ref": "#/$defs/sha256" },
+        "sourceTreeSha256": { "$ref": "#/$defs/sha256" },
+        "sourceFileCount": { "type": "integer", "minimum": 1 },
+        "requiredVersion": { "const": "edc-0.18.0-sql-v1" }
+      }
+    },
+    "database": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["image", "tlsMode", "serverNameVerified", "caCertificateSha256"],
+      "properties": {
+        "image": { "type": "string", "pattern": "^postgres:[^\\s]+@sha256:[a-f0-9]{64}$" },
+        "tlsMode": { "const": "verify-full" },
+        "serverNameVerified": { "type": "string", "pattern": "^molit-edc-schema-postgres-[0-9]+-[a-f0-9]+$" },
+        "caCertificateSha256": { "$ref": "#/$defs/sha256" }
+      }
+    },
+    "execution": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["cycles", "components", "totalSuccessfulRuns", "markerSummary", "idempotentRepeat", "sourceStableDuringRun", "negativeTls"],
+      "properties": {
+        "cycles": { "const": 2 },
+        "components": {
+          "type": "array",
+          "minItems": 2,
+          "maxItems": 2,
+          "uniqueItems": true,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["name", "successfulRuns", "requiredTableCount", "versionMarkerCount"],
+            "properties": {
+              "name": { "enum": ["control-plane", "data-plane"] },
+              "successfulRuns": { "const": 2 },
+              "requiredTableCount": { "type": "integer", "enum": [2, 12] },
+              "versionMarkerCount": { "const": 1 }
+            },
+            "allOf": [
+              { "if": { "properties": { "name": { "const": "control-plane" } } }, "then": { "properties": { "requiredTableCount": { "const": 12 } } } },
+              { "if": { "properties": { "name": { "const": "data-plane" } } }, "then": { "properties": { "requiredTableCount": { "const": 2 } } } }
+            ]
+          },
+          "allOf": [
+              { "contains": { "type": "object", "properties": { "name": { "const": "control-plane" } }, "required": ["name"] }, "minContains": 1, "maxContains": 1 },
+              { "contains": { "type": "object", "properties": { "name": { "const": "data-plane" } }, "required": ["name"] }, "minContains": 1, "maxContains": 1 }
+          ]
+        },
+        "totalSuccessfulRuns": { "const": 4 },
+        "markerSummary": { "const": "2:control-plane=edc-0.18.0-sql-v1,data-plane=edc-0.18.0-sql-v1" },
+        "idempotentRepeat": { "const": true },
+        "sourceStableDuringRun": { "const": true },
+        "negativeTls": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["wrongHostnameRejected", "wrongCaRejected"],
+          "properties": {
+            "wrongHostnameRejected": { "const": true },
+            "wrongCaRejected": { "const": true }
+          }
+        }
+      }
+    },
+    "productionGate": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["policyName", "attestationPredicateType", "localImageIsNotReleaseAuthorization"],
+      "properties": {
+        "policyName": { "const": "molit-verify-release-images" },
+        "attestationPredicateType": { "const": "https://data.molit.go.kr/attestations/release-bundle/v1" },
+        "localImageIsNotReleaseAuthorization": { "const": true }
+      }
+    }
+  },
+  "$defs": {
+    "sha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" }
+  }
+}

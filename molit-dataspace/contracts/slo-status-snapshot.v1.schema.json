@@ -1,0 +1,55 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://data.molit.go.kr/contracts/slo-status-snapshot.v1.schema.json",
+  "title": "MOLIT service-level objective status snapshot",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "service", "generatedAt", "window", "status", "measurements", "availability", "latency", "snapshotDigest"],
+  "properties": {
+    "schemaVersion": { "const": "molit.slo-status-snapshot/1" },
+    "service": { "enum": ["molit-caas", "molit-dsaas"] },
+    "generatedAt": { "type": "string", "format": "date-time" },
+    "window": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["from", "to", "seconds"],
+      "properties": {
+        "from": { "type": "string", "format": "date-time" },
+        "to": { "type": "string", "format": "date-time" },
+        "seconds": { "type": "integer", "minimum": 1 }
+      }
+    },
+    "status": { "enum": ["MET", "BREACHED", "INSUFFICIENT_DATA"] },
+    "measurements": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["requestCount", "serverErrorCount", "latencyEligibleCount", "latencyGoodCount"],
+      "properties": {
+        "requestCount": { "type": "integer", "minimum": 0 },
+        "serverErrorCount": { "type": "integer", "minimum": 0 },
+        "latencyEligibleCount": { "type": "integer", "minimum": 0 },
+        "latencyGoodCount": { "type": "integer", "minimum": 0 }
+      }
+    },
+    "availability": { "$ref": "#/$defs/objective" },
+    "latency": { "$ref": "#/$defs/objective" },
+    "snapshotDigest": { "type": "string", "pattern": "^[a-f0-9]{64}$" }
+  },
+  "$defs": {
+    "objective": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["target", "sli", "badEventRatio", "budgetConsumedRatio", "budgetRemainingRatio", "burnRate", "met"],
+      "properties": {
+        "target": { "type": "number", "exclusiveMinimum": 0, "exclusiveMaximum": 1 },
+        "thresholdMs": { "type": "number", "exclusiveMinimum": 0 },
+        "sli": { "type": ["number", "null"], "minimum": 0, "maximum": 1 },
+        "badEventRatio": { "type": ["number", "null"], "minimum": 0, "maximum": 1 },
+        "budgetConsumedRatio": { "type": ["number", "null"], "minimum": 0 },
+        "budgetRemainingRatio": { "type": ["number", "null"], "minimum": 0, "maximum": 1 },
+        "burnRate": { "type": ["number", "null"], "minimum": 0 },
+        "met": { "type": ["boolean", "null"] }
+      }
+    }
+  }
+}

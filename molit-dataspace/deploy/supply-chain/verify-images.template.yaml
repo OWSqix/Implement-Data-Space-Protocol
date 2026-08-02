@@ -1,0 +1,187 @@
+apiVersion: policies.kyverno.io/v1
+kind: ValidatingPolicy
+metadata:
+  name: molit-restrict-release-images
+  labels:
+    app.kubernetes.io/part-of: molit-dataspace
+    supply-chain.data.molit.go.kr/control: canonical-image-reference
+spec:
+  failurePolicy: Fail
+  validationActions: [Deny]
+  evaluation:
+    admission: { enabled: true }
+    background: { enabled: true }
+  webhookConfiguration:
+    timeoutSeconds: 30
+  matchConstraints:
+    resourceRules:
+      - apiGroups: ['']
+        apiVersions: [v1]
+        operations: [CREATE, UPDATE]
+        resources: [pods, pods/ephemeralcontainers]
+  variables:
+    - name: enforcedNamespace
+      expression: >-
+        object.metadata.namespace in ['molit-caas-system', 'observability'] ||
+        (namespaceObject != null && has(namespaceObject.metadata.labels) &&
+         'supply-chain.data.molit.go.kr/enforcement' in namespaceObject.metadata.labels &&
+         namespaceObject.metadata.labels['supply-chain.data.molit.go.kr/enforcement'] == 'required')
+    - name: allContainers
+      expression: >-
+        object.spec.containers +
+        object.spec.?initContainers.orValue([]) +
+        object.spec.?ephemeralContainers.orValue([])
+    - name: allowedRepositories
+      expression: >-
+        ['@@REGISTRY_PREFIX@@/caas',
+         '@@REGISTRY_PREFIX@@/dsaas',
+         '@@REGISTRY_PREFIX@@/fencing-webhook',
+         '@@REGISTRY_PREFIX@@/edc-control-plane',
+         '@@REGISTRY_PREFIX@@/edc-data-plane',
+         '@@REGISTRY_PREFIX@@/edc-schema-migration',
+         '@@REGISTRY_PREFIX@@/postgres-operand',
+         '@@REGISTRY_PREFIX@@/otel-collector']
+  validations:
+    - expression: >-
+        !variables.enforcedNamespace || variables.allContainers.all(container,
+          isImage(container.image) && image(container.image).containsDigest() &&
+          image(container.image).digest().matches('^sha256:[0-9a-f]{64}$') &&
+          variables.allowedRepositories.exists(repository,
+            image(container.image).registry() + '/' + image(container.image).repository() == repository))
+      message: Every image in a managed namespace must use an approved repository and an immutable sha256 digest.
+---
+apiVersion: policies.kyverno.io/v1
+kind: ImageValidatingPolicy
+metadata:
+  name: molit-verify-release-images
+  annotations:
+    supply-chain.data.molit.go.kr/trust-anchor-sha256: "@@COSIGN_PUBLIC_KEY_SHA256@@"
+  labels:
+    app.kubernetes.io/part-of: molit-dataspace
+    supply-chain.data.molit.go.kr/control: signed-release-bundle
+spec:
+  failurePolicy: Fail
+  validationActions: [Deny]
+  evaluation:
+    admission: { enabled: true }
+    background: { enabled: true }
+  webhookConfiguration:
+    timeoutSeconds: 30
+  matchConstraints:
+    resourceRules:
+      - apiGroups: ['']
+        apiVersions: [v1]
+        operations: [CREATE, UPDATE]
+        resources: [pods, pods/ephemeralcontainers]
+  matchConditions:
+    - name: managed-namespace
+      expression: >-
+        object.metadata.namespace in ['molit-caas-system', 'observability'] ||
+        (namespaceObject != null && has(namespaceObject.metadata.labels) &&
+         'supply-chain.data.molit.go.kr/enforcement' in namespaceObject.metadata.labels &&
+         namespaceObject.metadata.labels['supply-chain.data.molit.go.kr/enforcement'] == 'required')
+  matchImageReferences:
+    - glob: '@@REGISTRY_PREFIX@@/*@sha256:*'
+  validationConfigurations:
+    mutateDigest: false
+    required: true
+    verifyDigest: true
+  credentials:
+    allowInsecureRegistry: @@ALLOW_INSECURE_REGISTRY@@
+  attestors:
+    - name: releaseKey
+      cosign:
+        key:
+          data: |
+@@COSIGN_PUBLIC_KEY@@
+        ctlog:
+          url: https://rekor.invalid
+          insecureIgnoreTlog: true
+  attestations:
+    - name: releaseBundle
+      intoto:
+        type: https://data.molit.go.kr/attestations/release-bundle/v1
+  validations:
+    - expression: >-
+        (images.containers + images.initContainers + images.ephemeralContainers).all(image,
+          verifyImageSignatures(image, [attestors.releaseKey]) > 0 &&
+          verifyAttestationSignatures(image, attestations.releaseBundle, [attestors.releaseKey]) > 0)
+      message: The image and its release-bundle attestation must both be signed by the configured MOLIT release key.
+    - expression: >-
+        (images.containers + images.initContainers + images.ephemeralContainers).all(image,
+          extractPayload(image, attestations.releaseBundle).image.name + '@' +
+          extractPayload(image, attestations.releaseBundle).image.digest == image)
+      message: The signed release bundle subject must match the admitted image repository and digest.
+    - expression: >-
+        (images.containers + images.initContainers + images.ephemeralContainers).map(image,
+          extractPayload(image, attestations.releaseBundle)).all(payload,
+            payload.schemaVersion == 'molit.supply-chain-release/1' &&
+            payload.artifact.productionEligible == true &&
+            payload.vulnerabilityGate.decision == 'pass' &&
+            payload.vulnerabilityGate.findingCount == 0 &&
+            payload.vulnerabilityGate.blockingSeverities == ['UNKNOWN', 'HIGH', 'CRITICAL'] &&
+            timestamp(payload.vulnerabilityGate.databaseUpdatedAt) <= time.now() &&
+            time.now() - timestamp(payload.vulnerabilityGate.databaseUpdatedAt) <= duration('24h') &&
+            timestamp(payload.vulnerabilityGate.evaluatedAt) <= time.now() &&
+            time.now() - timestamp(payload.vulnerabilityGate.evaluatedAt) <= duration('24h') &&
+            payload.provenance.predicateType == 'https://slsa.dev/provenance/v1' &&
+            payload.provenance.predicate.buildDefinition.externalParameters.artifact == payload.artifact &&
+            timestamp(payload.provenance.predicate.runDetails.metadata.finishedOn) <= time.now() &&
+            time.now() - timestamp(payload.provenance.predicate.runDetails.metadata.finishedOn) <= duration('24h'))
+      message: The signed release bundle is stale, vulnerable, not production eligible, or not bound to SLSA provenance.
+    - expression: >-
+        (images.containers + images.initContainers + images.ephemeralContainers)
+          .filter(image, image.startsWith('@@REGISTRY_PREFIX@@/caas@sha256:'))
+          .map(image, extractPayload(image, attestations.releaseBundle)).all(payload,
+            payload.artifact.service == 'caas' &&
+            payload.artifact.runtimeClass == 'caas-control-plane')
+      message: The caas repository requires the caas-control-plane runtime identity.
+    - expression: >-
+        (images.containers + images.initContainers + images.ephemeralContainers)
+          .filter(image, image.startsWith('@@REGISTRY_PREFIX@@/dsaas@sha256:'))
+          .map(image, extractPayload(image, attestations.releaseBundle)).all(payload,
+            payload.artifact.service == 'dsaas' &&
+            payload.artifact.runtimeClass == 'dsaas-control-plane')
+      message: The dsaas repository requires the dsaas-control-plane runtime identity.
+    - expression: >-
+        (images.containers + images.initContainers + images.ephemeralContainers)
+          .filter(image, image.startsWith('@@REGISTRY_PREFIX@@/fencing-webhook@sha256:'))
+          .map(image, extractPayload(image, attestations.releaseBundle)).all(payload,
+            payload.artifact.service == 'fencing-webhook' &&
+            payload.artifact.runtimeClass == 'fencing-webhook')
+      message: The fencing-webhook repository requires the fencing-webhook runtime identity.
+    - expression: >-
+        (images.containers + images.initContainers + images.ephemeralContainers)
+          .filter(image, image.startsWith('@@REGISTRY_PREFIX@@/edc-control-plane@sha256:'))
+          .map(image, extractPayload(image, attestations.releaseBundle)).all(payload,
+            payload.artifact.service == 'edc-control-plane' &&
+            payload.artifact.runtimeClass == 'edc-control-plane')
+      message: The edc-control-plane repository requires the edc-control-plane runtime identity.
+    - expression: >-
+        (images.containers + images.initContainers + images.ephemeralContainers)
+          .filter(image, image.startsWith('@@REGISTRY_PREFIX@@/edc-data-plane@sha256:'))
+          .map(image, extractPayload(image, attestations.releaseBundle)).all(payload,
+            payload.artifact.service == 'edc-data-plane' &&
+            payload.artifact.runtimeClass == 'edc-data-plane')
+      message: The edc-data-plane repository requires the edc-data-plane runtime identity.
+    - expression: >-
+        (images.containers + images.initContainers + images.ephemeralContainers)
+          .filter(image, image.startsWith('@@REGISTRY_PREFIX@@/edc-schema-migration@sha256:'))
+          .map(image, extractPayload(image, attestations.releaseBundle)).all(payload,
+            payload.artifact.service == 'edc-schema-migration' &&
+            payload.artifact.runtimeClass == 'schema-migration')
+      message: The edc-schema-migration repository requires the schema-migration runtime identity.
+    - expression: >-
+        (images.containers + images.initContainers + images.ephemeralContainers)
+          .filter(image, image.startsWith('@@REGISTRY_PREFIX@@/postgres-operand@sha256:'))
+          .map(image, extractPayload(image, attestations.releaseBundle)).all(payload,
+            payload.artifact.service == 'postgres-operand' &&
+            payload.artifact.runtimeClass == 'postgres-operand')
+      message: The postgres-operand repository requires the postgres-operand runtime identity.
+    - expression: >-
+        (images.containers + images.initContainers + images.ephemeralContainers)
+          .filter(image, image.startsWith('@@REGISTRY_PREFIX@@/otel-collector@sha256:'))
+          .map(image, extractPayload(image, attestations.releaseBundle)).all(payload,
+            payload.artifact.service == 'otel-collector' &&
+            payload.artifact.runtimeClass == 'otel-collector')
+      message: The otel-collector repository requires the otel-collector runtime identity.

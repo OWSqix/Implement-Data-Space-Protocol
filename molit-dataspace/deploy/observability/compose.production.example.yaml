@@ -1,0 +1,25 @@
+name: molit-observability
+services:
+  collector:
+    image: otel/opentelemetry-collector-contrib:0.156.0@sha256:125bdbeb7590cc1952c5b3430ecf14063568980c2c93d5b38676cc0446ed8108
+    command: ["--config=/etc/otelcol/config.yaml"]
+    read_only: true
+    user: "10001:10001"
+    cap_drop: ["ALL"]
+    security_opt: ["no-new-privileges:true"]
+    environment:
+      UPSTREAM_OTLP_ENDPOINT: ${UPSTREAM_OTLP_ENDPOINT:?set upstream HTTPS OTLP endpoint}
+    volumes:
+      - ./otel-collector.production.yaml:/etc/otelcol/config.yaml:ro
+      - ${OTEL_QUEUE_DIR:?set pre-created uid 10001 queue directory}:/var/lib/otelcol/queue
+      - ${OTEL_SERVER_CERT:?set server certificate}:/run/secrets/otel_server_cert:ro
+      - ${OTEL_SERVER_KEY:?set server key}:/run/secrets/otel_server_key:ro
+      - ${OTEL_CLIENT_CA:?set client CA}:/run/secrets/otel_client_ca:ro
+      - ${OTEL_UPSTREAM_CA:?set upstream CA}:/run/secrets/upstream_ca:ro
+      - ${OTEL_UPSTREAM_TOKEN:?set upstream bearer token file}:/run/secrets/upstream_token:ro
+    ports:
+      - "127.0.0.1:4318:4318"
+      - "127.0.0.1:8888:8888"
+      - "127.0.0.1:13133:13133"
+    restart: unless-stopped
+    stop_grace_period: 30s

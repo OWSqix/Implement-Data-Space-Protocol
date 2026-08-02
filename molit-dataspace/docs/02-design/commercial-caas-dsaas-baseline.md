@@ -12,11 +12,19 @@
 - **(제외 범위)** 공급사 비공개 architecture, 실제 고객 계약의 SLA credit, 가격표, 국내 법률·인증 적용 여부의 최종 판단
 - **(판정 기준)** 화면 기능의 존재가 아니라 tenant 격리, 배포·복구, 계약·전송, 감사와 서비스 수준을 재현한 기계 판독 증거
 
-현재 CaaS와 DSaaS에는 PostgreSQL JSONB snapshot과 revision compare-and-swap이 구현돼 있다. state·lease pool, session advisory lock과 단조 증가 fencing token도 분리했다.
+현재 production CaaS와 DSaaS에는 scope별 PostgreSQL authoritative state와 revision compare-and-swap이 구현돼 있다. state·lease pool, session advisory lock과 단조 증가 fencing token도 분리했다.
 
 상태 전이, 멱등성, generation fence, 감사 원장과 graceful shutdown은 시험 대상으로 고정했다.
 
-실제 Kubernetes EDC provisioner, 운영 OIDC·DCP, OpenTelemetry 전 구간 추적, WORM 감사, 다중 가용영역·PITR, 최종 image DSP TCK와 이기종 Connector 시험은 없다. 현재 상태를 상용 서비스 완료로 판정하지 않는다.
+P0 소스 범위에는 Kubernetes EDC provisioner와 신원 경계가 구현돼 있다. OIDC JWKS는 개발·상호운용에 사용하고 production은 RFC 7662 introspection·mTLS를 강제한다.
+
+OpenTelemetry metric·log·trace, WORM audit outbox, usage meter와 3개 zone 배치 manifest도 포함한다. PostgreSQL 동기 복제·PITR 시험기와 최종 image 공급망 Gate도 같은 범위다.
+
+로컬 PostgreSQL·Keycloak·TLS·Docker·kind 시험은 구현의 실행 가능성을 확인한다.
+
+운영기관의 IdP·CA·KMS, object storage·Vault와 OTLP·WORM 제품에서 만든 결과는 아직 없다. 다중 가용영역 cluster와 운영 registry의 서명 결과도 없다.
+
+따라서 P0 소스 구현 완료와 상용 운영 Gate 통과를 같은 판정으로 쓰지 않는다.
 
 sovity는 EDC 기반 관리형 Connector 상품의 서비스 등급을 공개한다. T-Systems는 관리형 Connector, 데이터 스페이스 운영환경과 법인 신뢰 서비스를 결합한다.
 
@@ -51,7 +59,7 @@ Dawex는 참가자 운영부터 가격·결제·수수료까지 포함하는 데
 | --- | --- | --- | --- | --- |
 | tenant | 조직 등록, 사용자·역할·권한, participant의 CaaS 주문 또는 운영자 quota, 구성요소 상태 [SOV-02] | 법인·법적 식별자·과금주소, Company Admin, 사용자 초대, 구독, 전용 사용자 그룹 [TS-03] [TS-04] | 조직 계층, 사용자·service account, 역할·권한, participant 유형별 access plan, private group, multi-tenant architecture [DAW-01] | 법인→데이터 스페이스→환경→Connector·구독 계층, tenant별 quota·감사·거주지·중지·삭제 |
 | Connector 수명주기 | 즉시 provisioning, Portal, Control Plane·Data Plane·DB, 관리 API·SDK, 자동 release, backup과 상태 확인. Hybrid 분리는 제품표에서 `soon`으로 표시 [SOV-01] [SOV-02] | cloud 또는 on-premise 자동 설정, Connector·외부 Connector·asset 관리, backend integration, 참가자 onboarding 때 Connector 배포 [TS-01] [TS-02] [TS-06] | managed·decentralized Connector, EDC·DSP, 저장소 Connector, file·API push·pull [DAW-01] [DAW-02] | 실제 Kubernetes provisioner, desired·observed state 수렴, upgrade·rollback, 인증서 회전, 중지·삭제와 orphan 회수 |
-| 신원·신뢰 | DAPS 또는 Managed Identity Wallet, SSI·DID, 중앙·분산·연합 identity, OAuth, SSO·MFA, BPN [SOV-01] [SOV-02] | Digital.ID 법인 검증, W3C DID·VC, eIDAS·Gaia-X 정렬, HSM 서명 credential, 수신자·credential 수명주기 [TS-03] [TS-05] | 조직 vetting, SSO, 중앙·연합 identity, DID wallet, Gaia-X Clearing House, 2FA와 역할·권한 [DAW-01] [DAW-02] [DAW-05] | 사람 OIDC·SAML·MFA, workload mTLS·OAuth2, 법인 credential, revocation, trust anchor 서명·회전과 KMS·HSM |
+| 신원·신뢰 | DAPS 또는 Managed Identity Wallet, SSI·DID, 중앙·분산·연합 identity, OAuth, SSO·MFA, BPN [SOV-01] [SOV-02] | Digital.ID 법인 검증, W3C DID·VC, eIDAS·Gaia-X 정렬, HSM 서명 credential, 수신자·credential 수명주기 [TS-03] [TS-05] | 조직 vetting, SSO, 중앙·연합 identity, DID wallet, Gaia-X Digital Clearing House(GXDCH), 2FA와 역할·권한 [DAW-01] [DAW-02] [DAW-05] | 사람 OIDC·SAML·MFA, workload mTLS·OAuth2, 법인 credential, revocation, trust anchor 서명·회전과 KMS·HSM |
 | 정책·계약 | Offering wizard, access·usage policy, Catalog 탐색, negotiation, 계약조건과 전송이력 [SOV-01] | governance·policy·asset 관리, 화면 기반 policy 관리, custom governance 집행 [TS-01] [TS-02] [TS-03] | 계약·license, ODRL, access·usage rights, 가격·배포조건과 거래 추적 [DAW-01] [DAW-02] | versioned ODRL template, 법률문서 binding, 협상·Agreement·Transfer·종료 상태, obligation 집행과 판정 log |
 | Catalog | EDC 호환 Catalog-as-a-Service, scheduled crawl, Connector Offering 자동 등록, 검색·filter·cluster, vocabulary hub [SOV-02] | asset 관리와 application Catalog 공개. 데이터 상품 Catalog의 crawl·dedup·version 세부는 공개 근거 미확인 [TS-01] [TS-03] [TS-06] | 다국어·공간 검색, taxonomy, semantic hub, metadata import API, 게시·검색과 private visibility [DAW-01] [DAW-02] | MOLIT DCAT-AP 검증·승인·게시, federated crawl, provenance·version·dedup, private group과 공간·의미 검색 |
 | 관측성 | KPI dashboard, 계약·전송 상태와 이력, monitoring·log·alert, Grafana [SOV-01] | Connector monitoring, Grafana·Loki·Prometheus, system health·participant activity·application performance dashboard [TS-01] [TS-03] [TS-06] | real-time metric·report·dashboard, infrastructure monitoring, network·system·application audit log, SRE observability와 alert [DAW-01] [DAW-05] | tenant별 OpenTelemetry metric·log·trace, SLO alert, 불변 감사 원장, transfer receipt, usage metering과 status page |
@@ -112,46 +120,68 @@ Marketplace는 선택 모듈로 둔다. 무료·공공 데이터 Offering의 이
 
 ### 4.3 현재 구현과 확장 한계
 
-`src/control-store/postgres-json-store.mjs`는 CaaS와 DSaaS가 함께 쓰는 PostgreSQL 제어 저장소다. `json_snapshot`은 구성요소마다 JSONB row 하나를 두고 `revision` 비교와 `FOR UPDATE`로 상태를 교체한다. `resource_fence`는 자원별 holder, fencing token, 획득·해제 시각을 보관한다.
+production 제어 저장소는 `src/control-store/postgres-scoped-control-store.mjs`다. CaaS tenant와 DSaaS dataspace마다 `scoped_control_state` row를 하나씩 두고 revision과 payload digest를 관리한다. 멱등성 record, 감사와 outbox도 tenant ID를 기본 경계로 사용한다.
 
 상태 transaction과 advisory lock은 서로 다른 pool을 쓴다. 장시간 reconcile이 lease connection을 점유해도 state transaction용 connection을 남기기 위한 분리다.
 
-advisory lock을 얻을 때 fencing token을 증가시킨다. lease를 잃은 작업은 JSONB snapshot을 commit하지 못한다.
+advisory lock을 얻을 때 fencing token을 증가시킨다. lease를 잃은 작업은 scoped state를 commit하지 못한다.
 
 CaaS의 운영 provisioner 계약은 외부 부작용이 fencing token을 받아들였다는 receipt를 요구한다. 이후 관찰값의 `lastAppliedFencingToken`도 같은 값을 반환해야 한다.
 
-이 계약은 지연된 이전 명령을 실제 Kubernetes API나 EDC 운영 Adapter가 거부했다는 증거를 대신하지 않는다. 해당 증거는 `COM-HA-001`의 차단 항목이다.
+Kubernetes Adapter는 중앙 fence ConfigMap의 token과 명령 digest를 CAS로 갱신한다.
 
-JSONB row 하나는 구성요소 안의 모든 쓰기를 직렬화한다. tenant·dataspace 수가 늘면 서로 무관한 변경도 같은 row lock을 기다린다. 감사 event와 멱등성 원장도 같은 JSONB에 들어가므로 row rewrite, vacuum, backup, 복구 시간과 최대 크기가 함께 증가한다.
+fail-closed admission policy와 target-side webhook은 관리 resource와 namespace 삭제를 다시 검사한다. 요청은 현재 fence와 정확히 일치해야 한다.
 
-상용 용량시험 전에는 tenant·dataspace·idempotency·audit를 정규화한 table로 분리해야 한다. append-only audit partition, 보존·export, outbox와 재처리 원장도 필요하다.
+로컬 kind 시험은 N+1 명령 뒤 도착한 N 삭제를 거부한다.
 
-현재 JSONB 저장소는 분산 조정의 정확성을 검증하는 구현이다. 상용 규모의 최종 persistence model로 판정하지 않는다.
+이 시험은 운영 cluster의 admission 설정, 최종 EDC image와 장애 상황을 사용한 서명 결과를 대신하지 않는다. 운영 증거는 `COM-HA-001`의 차단 항목이다.
+
+`control_scope_registry`는 scope ID, current revision·digest와 기술 식별자 unique index를 보관한다. DSaaS의 participant 식별자는 별도 전역 registry에서 dataspace 사이 중복을 막는다.
+
+scope transaction은 payload, 멱등성, domain audit, state-commit audit와 `audit.appended` outbox를 한 번에 기록한다. 일부만 성공하는 commit은 허용하지 않는다. component audit head와 current state root도 같은 transaction에서 바뀐다.
+
+각 table에는 `FORCE ROW LEVEL SECURITY`, database login role의 component binding과 tenant binding을 적용한다. 같은 tenant ID가 CaaS와 DSaaS에 모두 있어도 서로의 row를 읽을 수 없다.
+
+runtime은 scope registry에서 ID만 페이지 단위로 읽고 각 scope를 별도 transaction으로 처리한다. WORM dispatcher도 같은 registry를 사용하며 다른 tenant context의 acknowledge와 reject를 거부한다.
+
+전환은 승인된 DB snapshot, 승인 증거가 있는 legacy file 또는 잔여 상태가 없는 fresh install만 허용한다.
+
+전환 시점 root는 `cutover_state_root_sha256`에 고정하고 runtime은 별도 current root만 갱신한다. Production runtime role은 legacy snapshot table을 읽거나 쓸 수 없다.
+
+용량시험에서는 scope registry lock 대기, tenant row 크기, audit head 경합과 vacuum 지연을 측정한다.
+
+Registry 갱신은 component 단위로 직렬화된다. Tenant 수와 쓰기율이 승인된 capacity profile을 넘으면 registry partitioning 또는 identity reservation service가 필요하다.
+
+PostgreSQL 동기 standby 강제 승격 시험은 RPO 0과 split-brain commit 0을 검사한다. outbox 보존과 PITR digest 일치도 검사 대상이다.
+
+CloudNativePG 3-instance manifest는 별도다. 로컬 Docker 결과를 운영 multi-zone RPO·RTO 증거로 사용하지 않는다.
 
 ## 5. 구현 순서
 
 ### 5.1 P0 운영 제어면
 
-P0는 외부 pilot에 Connector를 제공하기 전에 끝내는 범위다.
+P0는 외부 pilot에 Connector를 제공하기 전에 끝내는 운영 제어면 범위다. 저장소 소스의 구현 완료와 운영기관 환경의 승인 완료를 따로 판정한다.
 
 1. **영속 상태와 배포 controller**
-   - 구현된 PostgreSQL snapshot·lease·fencing을 tenant·dataspace·audit·idempotency table과 outbox로 확장
+   - 구현된 PostgreSQL scoped-authoritative state, scope registry, audit·idempotency table과 outbox를 운영 migration으로 고정
    - Kubernetes API를 호출하는 실제 provisioner와 외부 fencing receipt 구현
    - create, upgrade, rollback, suspend, delete와 orphan 회수 상태 구현
 2. **tenant와 운영 신원**
-   - 법인, 사용자, service account, role, environment와 subscription schema 구현
-   - OIDC·SAML, MFA, mTLS, KMS·Vault, secret·certificate rotation 연결
-   - tenant별 namespace, DB row, queue와 object storage 격리시험 구현
+   - 법인 식별자, 사람·service principal, role, tenant와 실행환경 binding을 CaaS·DSaaS 계약과 identity claim으로 고정
+   - 개발·상호운용 OIDC JWKS와 production RFC 7662 결과를 분리하고 사람 MFA claim, workload mTLS binding, secret reference와 certificate rotation을 runtime에서 강제
+   - SAML federation은 운영 IdP에서 OIDC claim으로 끝내며, private CA·KMS·Vault와 함께 운영기관 승인시험 대상으로 관리
+   - tenant별 namespace, DB row와 queue·object·secret reference를 격리하고 운영 bucket policy·Vault ACL·NetworkPolicy는 별도 침투시험으로 확인
+   - 주문·plan·quota·해지까지 포함한 관리형 subscription 수명주기는 `COM-OPS-001`의 P1 범위로 유지
 3. **가용성과 운영 관측**
-   - multi-zone CaaS controller, DSaaS API, PostgreSQL과 queue 구성
+   - CaaS controller, DSaaS API와 PostgreSQL의 3개 zone 배치, 동기 quorum·WAL archive·PITR 구성
    - OpenTelemetry, SLO dashboard, alert, 불변 audit와 usage meter 구현
-   - backup·restore, zone failure, rolling upgrade와 rollback 시험 자동화
+   - 로컬 장애주입으로 backup·restore, failover, rolling upgrade와 rollback 시험을 자동화하고 운영 multi-zone 훈련은 별도 수행
 4. **공급망과 배포 증거**
-   - 최종 EDC·CaaS·DSaaS image의 SBOM, signature와 provenance 생성
-   - 배포 manifest, migration, image digest와 source commit 결합
-   - critical vulnerability 예외 승인과 만료 절차 구현
+   - production namespace에 배포되는 모든 image를 runtime class와 source-build 또는 external-adoption provenance로 등록
+   - SBOM, scan, signature, source commit, runtime class와 production eligibility를 image digest에 결합
+   - `UNKNOWN`, `HIGH`, `CRITICAL` 취약점은 P0에서 예외 없이 거부하고 production admission에서 같은 정책을 재검증
 
-P0 종료 시 `COM-TEN-001`, `COM-LCM-001`, `COM-ID-001`, `COM-OBS-001`, `COM-HA-001`과 `COM-SUP-001`이 통과해야 한다.
+P0 소스 구현은 `npm run verify:p0:local`이 생략 없이 통과하고 원시 log digest 검증이 끝났을 때 완료로 판정한다. 외부 pilot 승인은 별도다. 운영기관 환경에서 만든 결과 증거가 등록돼 `COM-TEN-001`, `COM-LCM-001`, `COM-ID-001`, `COM-OBS-001`, `COM-HA-001`과 `COM-SUP-001`이 모두 통과해야 한다.
 
 ### 5.2 P1 데이터 스페이스 운영
 
@@ -221,7 +251,11 @@ npm run commercial:status
 }
 ```
 
-판정기는 필수 Gate 집합, 결과 파일과 원시 증거의 digest, Gate ID 결합, 실행시간 순서와 결과 만료일을 검사한다. `not-applicable`에는 결정 ID, 승인자, 승인시각, 사유, 범위, 만료일과 digest가 고정된 승인 문서가 필요하다. 누락·불일치·만료 또는 미해결 Gate가 있으면 exit code 2를 반환한다.
+판정기는 필수 Gate 집합, 결과 파일과 원시 증거의 digest, Gate ID 결합, 실행시간 순서와 결과 만료일을 검사한다. `not-applicable`에는 결정 ID, 승인자, 승인시각, 사유, 범위, 만료일과 digest가 고정된 승인 문서가 필요하다.
+
+종료 코드는 판정 결과와 판정 실패를 구분한다. Schema와 증거 계약을 만족하는 원장에서 미해결 Gate가 남으면 exit code 2를 반환한다.
+
+원장·Schema가 유효하지 않거나 증거 누락·digest 불일치·만료로 평가를 끝내지 못하면 exit code 1을 반환한다. 모든 Gate가 `pass` 또는 승인된 `not-applicable`이면 exit code 0이다.
 
 `sourceCommit`은 증거 생성 시점의 source 식별자를 기록하며 판정기는 형식만 검사한다. commit 존재 여부, 승인 branch 포함 여부와 이후 source 변경 검사는 아직 자동화하지 않았다. 최종 상용 판정 전에는 서명된 build provenance와 source 검증을 추가해야 한다.
 

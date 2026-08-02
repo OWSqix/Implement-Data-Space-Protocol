@@ -3,6 +3,7 @@ import { join } from "node:path";
 import { randomUUID } from "node:crypto";
 import { digest } from "../discovery/stable-json.mjs";
 import { CaaSError, assertCaas } from "./errors.mjs";
+import { createKubernetesEdcProvisioner } from "./kubernetes-provisioner.mjs";
 
 function throwIfAborted(signal) {
   if (!signal?.aborted) return;
@@ -62,6 +63,14 @@ export class DryRunManifestProvisioner {
     return this.#writeIntent(tenant, operationKey, "DEPROVISIONED", { signal });
   }
 
+  async suspend(tenant, operationKey, { signal } = {}) {
+    return this.#writeIntent(tenant, operationKey, "SUSPENDED", { signal });
+  }
+
+  async delete(tenant, operationKey, { signal } = {}) {
+    return this.#writeIntent(tenant, operationKey, "DELETED", { signal });
+  }
+
   async observe(tenant, _operationKey, { signal } = {}) {
     throwIfAborted(signal);
     const path = join(this.manifestDirectory, `${tenant.tenantId}.intent.json`);
@@ -103,7 +112,7 @@ export class DryRunManifestProvisioner {
       connectorPlanId: tenant.connectorPlanId,
       connectorPlan: tenant.connectorPlanSnapshot,
       connectorPlanDigest: tenant.connectorPlanDigest,
-      deploymentSecretRefs: desiredState === "PROVISIONED" ? tenant.deploymentSecretRefs : {},
+      deploymentSecretRefs: ["PROVISIONED", "SUSPENDED"].includes(desiredState) ? tenant.deploymentSecretRefs : {},
     };
     const intentDigest = digest(intent);
     let existing;
@@ -120,7 +129,8 @@ export class DryRunManifestProvisioner {
 
 export function createCaasProvisioners(config) {
   return Object.fromEntries(Object.entries(config.provisioners).map(([id, value]) => {
-    if (value.type !== "dry-run-manifest") throw new CaaSError("CAAS_PROVISIONER_UNSUPPORTED", `unsupported provisioner type: ${value.type}`);
-    return [id, new DryRunManifestProvisioner({ id, manifestDirectory: value.manifestDirectory })];
+    if (value.type === "dry-run-manifest") return [id, new DryRunManifestProvisioner({ id, manifestDirectory: value.manifestDirectory })];
+    if (value.type === "kubernetes-edc") return [id, createKubernetesEdcProvisioner({ id, config: value })];
+    throw new CaaSError("CAAS_PROVISIONER_UNSUPPORTED", `unsupported provisioner type: ${value.type}`);
   }));
 }

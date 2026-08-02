@@ -11,3 +11,6 @@
 !profiles/molit-dcat-ap/releases/
 !profiles/molit-dcat-ap/releases/1.0.0-rc.1/
 !profiles/molit-dcat-ap/releases/1.0.0-rc.1/**
+!deploy/
+!deploy/kubernetes/
+!deploy/kubernetes/test-workload.mjs

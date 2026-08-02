@@ -1,0 +1,21 @@
+{
+  "schemaVersion": "molit.p0-verification-steps/1",
+  "executable": "npm",
+  "steps": [
+    { "id": "repository-verify", "arguments": ["run", "verify"], "expectedExitCodes": [0], "skippable": false },
+    { "id": "tenant-control-store-postgres", "arguments": ["run", "test:control-store:postgres"], "expectedExitCodes": [0], "skippable": false },
+    { "id": "operational-identity", "arguments": ["run", "test:identity"], "expectedExitCodes": [0], "skippable": false },
+    { "id": "keycloak-integration", "arguments": ["run", "test:identity:keycloak"], "expectedExitCodes": [0], "skippable": true },
+    { "id": "observability-runtime", "arguments": ["run", "test:observability"], "expectedExitCodes": [0], "skippable": false },
+    { "id": "otel-collector-config", "arguments": ["run", "test:observability:collector"], "expectedExitCodes": [0], "skippable": false },
+    { "id": "prometheus-rules", "arguments": ["run", "test:observability:rules"], "expectedExitCodes": [0], "skippable": false },
+    { "id": "kubernetes-contracts", "arguments": ["run", "test:kubernetes"], "expectedExitCodes": [0], "skippable": false },
+    { "id": "kubernetes-kind-30", "arguments": ["run", "test:kubernetes:kind", "--", "-Cycles", "30", "-EvidencePath", "{{EVIDENCE_DIR}}/kubernetes-lifecycle-repeat.json"], "expectedExitCodes": [0], "skippable": true, "artifacts": [{ "pathRelativeToEvidence": "kubernetes-lifecycle-repeat.json", "schema": "contracts/kubernetes-lifecycle-evidence.v1.schema.json" }] },
+    { "id": "postgres-ha-pitr", "arguments": ["run", "test:ha:pitr", "--", "-ReportPath", "{{EVIDENCE_DIR}}/postgres-ha-pitr-run.json"], "expectedExitCodes": [0], "skippable": true, "artifacts": [{ "pathRelativeToEvidence": "postgres-ha-pitr-run.json", "schema": "contracts/postgres-ha-pitr-run.v1.schema.json" }] },
+    { "id": "runtime-images", "arguments": ["run", "test:runtime-images", "--", "-EvidencePath", "{{EVIDENCE_DIR}}/runtime-images.json"], "expectedExitCodes": [0], "skippable": false, "artifacts": [{ "pathRelativeToEvidence": "runtime-images.json", "schema": "contracts/runtime-image-local-verification.v1.schema.json" }] },
+    { "id": "edc-runtime-build", "arguments": ["run", "edc:verify:runtime"], "expectedExitCodes": [0], "skippable": false },
+    { "id": "edc-schema-postgres", "arguments": ["run", "test:edc:schema:postgres", "--", "-EvidencePath", "{{EVIDENCE_DIR}}/edc-schema-postgres.json"], "expectedExitCodes": [0], "skippable": false, "artifacts": [{ "pathRelativeToEvidence": "edc-schema-postgres.json", "schema": "contracts/edc-schema-postgres-verification.v1.schema.json" }] },
+    { "id": "software-supply-chain", "arguments": ["run", "test:supply-chain"], "expectedExitCodes": [0], "skippable": false },
+    { "id": "commercial-gate-fail-closed", "arguments": ["run", "commercial:status"], "expectedExitCodes": [2], "skippable": false }
+  ]
+}

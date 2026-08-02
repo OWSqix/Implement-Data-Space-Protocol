@@ -1,0 +1,105 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://data.molit.go.kr/contracts/observability-config.v1.schema.json",
+  "title": "MOLIT operational observability configuration",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "service", "tracing", "metrics", "logs", "audit", "usageMeter"],
+  "properties": {
+    "schemaVersion": { "const": "molit.observability-config/1" },
+    "service": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["name", "environment"],
+      "properties": {
+        "name": { "enum": ["molit-caas", "molit-dsaas"] },
+        "version": { "type": "string", "minLength": 1, "maxLength": 128 },
+        "environment": { "type": "string", "minLength": 1, "maxLength": 64 }
+      }
+    },
+    "tracing": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["mode", "endpoint", "authorizationRef", "tls", "tenantBucketCount", "tenantSaltRef"],
+      "properties": {
+        "mode": { "const": "operational" },
+        "endpoint": { "type": "string", "format": "uri", "pattern": "^https://.+/v1/traces$" },
+        "authorizationRef": { "type": "string", "pattern": "^(?:env|file)://" },
+        "tls": { "$ref": "#/$defs/mutualTls" },
+        "tenantBucketCount": { "type": "integer", "minimum": 2, "maximum": 256 },
+        "tenantSaltRef": { "type": "string", "pattern": "^(?:env|file)://" },
+        "timeoutMs": { "type": "integer", "minimum": 100, "maximum": 30000 }
+      }
+    },
+    "metrics": { "$ref": "#/$defs/otlpSignal" },
+    "logs": { "$ref": "#/$defs/otlpSignal" },
+    "audit": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["mode", "baseUrl", "authorizationRef", "tls", "retentionDays"],
+      "properties": {
+        "mode": { "const": "operational-worm" },
+        "baseUrl": { "type": "string", "format": "uri", "pattern": "^https://.+/$" },
+        "authorizationRef": { "type": "string", "pattern": "^(?:env|file)://" },
+        "tls": { "$ref": "#/$defs/mutualTls" },
+        "retentionDays": { "type": "integer", "minimum": 90, "maximum": 3650 },
+        "timeoutMs": { "type": "integer", "minimum": 100, "maximum": 30000 }
+      }
+    },
+    "usageMeter": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["purpose", "meterName", "unit", "dimensionKeys", "maximumEventAgeDays", "maximumFutureSkewMs", "maxAttempts", "retryBaseMs", "outbox"],
+      "properties": {
+        "purpose": { "const": "operational-non-billable" },
+        "meterName": { "const": "management.api.request" },
+        "unit": { "const": "{request}" },
+        "dimensionKeys": { "const": ["operation", "outcome"] },
+        "maximumEventAgeDays": { "type": "integer", "minimum": 1, "maximum": 400 },
+        "maximumFutureSkewMs": { "type": "integer", "minimum": 0, "maximum": 300000 },
+        "maxAttempts": { "type": "integer", "minimum": 1, "maximum": 5 },
+        "retryBaseMs": { "type": "integer", "minimum": 10, "maximum": 1000 },
+        "outbox": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["maxAttempts", "batchSize", "leaseMs", "pollIntervalMs", "retryBaseMs", "retryMaxMs", "healthIntervalMs"],
+          "properties": {
+            "maxAttempts": { "type": "integer", "minimum": 1, "maximum": 100 },
+            "batchSize": { "type": "integer", "minimum": 1, "maximum": 500 },
+            "leaseMs": { "type": "integer", "minimum": 1000, "maximum": 900000 },
+            "pollIntervalMs": { "type": "integer", "minimum": 10, "maximum": 60000 },
+            "retryBaseMs": { "type": "integer", "minimum": 10, "maximum": 86400000 },
+            "retryMaxMs": { "type": "integer", "minimum": 10, "maximum": 86400000 },
+            "healthIntervalMs": { "type": "integer", "minimum": 1000, "maximum": 300000 }
+          }
+        }
+      }
+    }
+  },
+  "$defs": {
+    "otlpSignal": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["mode", "endpoint", "authorizationRef", "tls", "timeoutMs"],
+      "properties": {
+        "mode": { "const": "operational" },
+        "endpoint": { "type": "string", "format": "uri", "pattern": "^https://.+/v1/(?:metrics|logs)$" },
+        "authorizationRef": { "type": "string", "pattern": "^(?:env|file)://" },
+        "tls": { "$ref": "#/$defs/mutualTls" },
+        "timeoutMs": { "type": "integer", "minimum": 100, "maximum": 30000 }
+      }
+    },
+    "mutualTls": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["caRef", "certificateRef", "privateKeyRef", "reloadIntervalMs"],
+      "properties": {
+        "caRef": { "type": "string", "pattern": "^(?:env|file)://" },
+        "certificateRef": { "type": "string", "pattern": "^(?:env|file)://" },
+        "privateKeyRef": { "type": "string", "pattern": "^(?:env|file)://" },
+        "reloadIntervalMs": { "type": "integer", "minimum": 250, "maximum": 300000 },
+        "serverName": { "type": "string", "pattern": "^(?=.{1,253}$)(?:[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?)(?:\\.(?:[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?))*$" }
+      }
+    }
+  }
+}

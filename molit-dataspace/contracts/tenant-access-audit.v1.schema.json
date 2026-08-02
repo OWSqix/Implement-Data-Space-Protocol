@@ -1,0 +1,36 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://data.molit.go.kr/dataspace/contracts/tenant-access-audit.v1.schema.json",
+  "title": "MOLIT tenant access audit event",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion", "sequence", "tenantId", "sessionTenantId", "requestedTenantId",
+    "actorId", "actorKind", "accessMode", "resourceKind", "resourceId", "decision",
+    "reasonCode", "traceId", "correlationId", "occurredAt", "previousDigest", "eventDigest"
+  ],
+  "properties": {
+    "schemaVersion": { "const": "molit.tenant-access-audit/1" },
+    "sequence": { "type": "integer", "minimum": 1 },
+    "tenantId": { "type": "string", "pattern": "^[a-z][a-z0-9-]{2,62}$" },
+    "sessionTenantId": { "type": "string", "pattern": "^[a-z][a-z0-9-]{2,62}$" },
+    "requestedTenantId": { "type": "string", "pattern": "^[a-z][a-z0-9-]{2,62}$" },
+    "actorId": { "type": "string", "minLength": 3, "maxLength": 256 },
+    "actorKind": { "enum": ["user", "service", "workload", "operator"] },
+    "accessMode": { "enum": ["tenant", "service", "break-glass"] },
+    "resourceKind": { "type": "string", "minLength": 2, "maxLength": 1024 },
+    "resourceId": { "type": "string", "minLength": 2, "maxLength": 1024 },
+    "decision": { "enum": ["PERMIT", "DENY"] },
+    "reasonCode": { "type": "string", "pattern": "^[A-Z][A-Z0-9_:-]{2,63}$" },
+    "traceId": { "type": "string", "pattern": "^[a-f0-9]{32}$" },
+    "correlationId": { "type": "string", "minLength": 8, "maxLength": 128 },
+    "occurredAt": { "type": "string", "format": "date-time" },
+    "previousDigest": {
+      "oneOf": [
+        { "type": "null" },
+        { "type": "string", "pattern": "^[a-f0-9]{64}$" }
+      ]
+    },
+    "eventDigest": { "type": "string", "pattern": "^[a-f0-9]{64}$" }
+  }
+}

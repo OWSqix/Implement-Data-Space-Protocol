@@ -113,6 +113,9 @@ test("DSaaS HTTP API applies authentication, idempotency and revision ETag", asy
         error.code = "DSAAS_AUTH_CONFIGURATION_ERROR";
         throw error;
       }
+      if (request.headers.authorization === "Bearer forbidden-test-token") {
+        return { subject: "auditor", principalId: "auditor", clientId: "auditor-client", keyId: "auditor-key-1", roles: ["dsaas.auditor"], dataspaceIds: [] };
+      }
       if (request.headers.authorization !== "Bearer integration-test-token") {
         const error = new Error("invalid token");
         error.code = "DSAAS_UNAUTHENTICATED";
@@ -137,7 +140,10 @@ test("DSaaS HTTP API applies authentication, idempotency and revision ETag", asy
     async stop() { schedulerStops += 1; },
     readiness() { return schedulerStatus; },
   };
-  const runtime = createDsaasServer({ config, controlPlane, authenticator, scheduler });
+  const usageRecords = [];
+  let spanSequence = 0;
+  const tracer = { startIncomingSpan() { spanSequence += 1; const context = { traceId: spanSequence.toString(16).padStart(32, "0"), spanId: spanSequence.toString(16).padStart(16, "0") }; return { context, outboundHeaders: (headers) => ({ ...headers, traceparent: `00-${context.traceId}-${context.spanId}-01` }), async end() {} }; } };
+  const runtime = createDsaasServer({ config, controlPlane, authenticator, scheduler, tracer, usageRecorder: { async record(value) { usageRecords.push(value); } } });
   const address = await runtime.start();
   assert.equal(schedulerStarts, 1);
   t.after(async () => {
@@ -190,6 +196,25 @@ test("DSaaS HTTP API applies authentication, idempotency and revision ETag", asy
   assert.equal(create.headers.get("etag"), '"1"');
   const created = await create.json();
   assert.equal(created.spec.dataspaceId, "molit-api");
+  assert.deepEqual(usageRecords.at(-1) && { tenantId: usageRecords.at(-1).tenantId, operation: usageRecords.at(-1).operation }, { tenantId: "molit-api", operation: "dataspace.create" });
+  const missingDataspace = await fetch(`${origin}/v1/dataspaces/missing-space`, {
+    headers: { authorization: "Bearer integration-test-token" },
+  });
+  assert.equal(missingDataspace.status, 404);
+  await missingDataspace.json();
+  assert.deepEqual(
+    { tenantId: usageRecords.at(-1).tenantId, operation: usageRecords.at(-1).operation, statusCode: usageRecords.at(-1).statusCode },
+    { tenantId: "molit-platform", operation: "dataspace.read", statusCode: 404 },
+  );
+  const forbiddenDataspace = await fetch(`${origin}/v1/dataspaces/molit-api`, {
+    headers: { authorization: "Bearer forbidden-test-token" },
+  });
+  assert.equal(forbiddenDataspace.status, 403);
+  await forbiddenDataspace.json();
+  assert.deepEqual(
+    { tenantId: usageRecords.at(-1).tenantId, operation: usageRecords.at(-1).operation, statusCode: usageRecords.at(-1).statusCode },
+    { tenantId: "molit-platform", operation: "dataspace.read", statusCode: 403 },
+  );
   const invalidApprovals = [
     null,
     { unexpected: true },
@@ -518,7 +543,7 @@ test("readiness, authentication, and read handlers share the request deadline si
   await runtime.close();
 });
 
-test("production server refuses static authentication and incomplete readiness", async () => {
+test("production server refuses static authentication and a missing direct TLS context", async () => {
   const config = { ...lifecycleConfig(), environment: "production" };
   let schedulerStarts = 0;
   const scheduler = {
@@ -537,11 +562,27 @@ test("production server refuses static authentication and incomplete readiness",
   const notReady = createDsaasServer({
     config,
     controlPlane: { async readiness() { return { ready: false, failureCodes: ["DSAAS_EXTERNAL_APPROVAL_GATE_BLOCKED"] }; } },
-    authenticator: { productionEligible: true, async authenticate() { return LIFECYCLE_ACTOR; } },
+    authenticator: { productionEligible: true, async initialize() {}, async readiness() { return { ready: true }; }, async authenticate() { return LIFECYCLE_ACTOR; } },
     scheduler,
   });
-  await assert.rejects(notReady.start(), { code: "DSAAS_PRODUCTION_NOT_READY" });
+  await assert.rejects(notReady.start(), { code: "DSAAS_PRODUCTION_TLS_REQUIRED" });
   assert.equal(notReady.server.listening, false);
+
+  const [cert, key, ca] = await Promise.all([
+    readFile(new URL("../fixtures/identity-tls/server-one.crt", import.meta.url), "utf8"),
+    readFile(new URL("../fixtures/identity-tls/server-one.key", import.meta.url), "utf8"),
+    readFile(new URL("../fixtures/identity-tls/root.crt", import.meta.url), "utf8"),
+  ]);
+  const observationBlocked = createDsaasServer({
+    config,
+    controlPlane: { async readiness() { return { ready: true, failureCodes: [] }; } },
+    authenticator: { productionEligible: true, async initialize() {}, async readiness() { return { ready: true }; }, async authenticate() { return LIFECYCLE_ACTOR; } },
+    scheduler,
+    tlsRuntime: { readiness() { return { ready: true }; }, serverOptions() { return { cert, key, ca }; }, attach() {}, async close() {} },
+    observabilityReadiness: async () => ({ ready: false }),
+  });
+  await assert.rejects(observationBlocked.start(), { code: "DSAAS_OBSERVABILITY_NOT_READY" });
+  assert.equal(observationBlocked.server.listening, false);
   assert.equal(schedulerStarts, 0);
 });
 
@@ -786,4 +827,53 @@ test("scheduler stop and HTTP drain share one absolute shutdown budget", async (
   assert.ok(stopOptions.timeoutMs <= timeoutMs);
   assert.ok(elapsedMs < timeoutMs * 1.8, `close took ${elapsedMs.toFixed(1)} ms for a ${timeoutMs} ms budget`);
   t.after(() => runtime.close());
+});
+
+test("DSaaS close drains request finalizers after the HTTP response has ended", async (t) => {
+  const finalizerEntered = Promise.withResolvers();
+  const releaseFinalizer = Promise.withResolvers();
+  const config = lifecycleConfig();
+  const tracer = {
+    startIncomingSpan() {
+      const context = { traceId: "c".repeat(32), spanId: "d".repeat(16) };
+      return {
+        context,
+        outboundHeaders(headers) { return { ...headers, traceparent: `00-${context.traceId}-${context.spanId}-01` }; },
+        async end() {
+          finalizerEntered.resolve();
+          await releaseFinalizer.promise;
+        },
+      };
+    },
+  };
+  const runtime = createDsaasServer({
+    config,
+    authenticator: { async authenticate() { return LIFECYCLE_ACTOR; } },
+    controlPlane: {
+      async getDataspace(dataspaceId) { return { dataspaceId, revision: 1 }; },
+    },
+    scheduler: { async start() {}, async stop() {} },
+    tracer,
+  });
+  const address = await runtime.start();
+  config.allowedHosts.push(`127.0.0.1:${address.port}`);
+  t.after(async () => {
+    releaseFinalizer.resolve();
+    await runtime.close();
+  });
+
+  const completed = await fetch(`http://127.0.0.1:${address.port}/v1/dataspaces/finalizer-test`, {
+    headers: { authorization: "Bearer token" },
+  });
+  assert.equal(completed.status, 200);
+  await completed.json();
+  await finalizerEntered.promise;
+
+  let closed = false;
+  const closing = runtime.close({ timeoutMs: 1_000 }).then(() => { closed = true; });
+  await new Promise((resolve) => setTimeout(resolve, 20));
+  assert.equal(closed, false, "response completion must not hide an unfinished request finalizer");
+  releaseFinalizer.resolve();
+  await closing;
+  assert.equal(closed, true);
 });

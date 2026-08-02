@@ -202,7 +202,69 @@ Provider Connector의 DataService endpoint와 원천 API URL은 다르다. 원�
 - 분석센터 Open API의 화면 정의와 신청 절차를 확인했다.
 - 전체 Dataset의 payload hosting, broker subscription과 DSP 계약 연동은 확인하지 못했다.
 
-## 10. 관련 문서
+## 10. 역할·용어와 민감도 기준
+
+### 10.1 역할 모델의 변화
+
+- **(Verified)** IDSA Rulebook Release 2026-1의 기술 역할은 Participant와 데이터 스페이스 거버넌스 기관(Data Space Governance Authority, DSGA)이며 Data Provider·Consumer는 계약상 기능임
+- **(Verified)** RAM 4 계열의 Broker·IDS Clearing House·App Store·Vocabulary Provider·Identity Provider 명칭은 현행 역할 목록에서 사용하지 않음
+- **(Verified)** 선택적 Service Provider 기능은 Commercial·Lookup·Observability의 세 범주로 정리됨
+
+근거: [IDSA Rulebook Release 2026-1 역할](https://kb.internationaldataspaces.org/external/rulebook/005_Roles/), 확인일 2026-07-30
+
+| 현재 범주 | 책임 범위 | 이전 역할과의 관계 |
+| --- | --- | --- |
+| Participant | 데이터 스페이스 참가와 계약상 Provider·Consumer 기능 | Provider·Consumer를 고정된 기술 지위가 아닌 계약별 기능으로 처리 |
+| DSGA | 참가·규칙·거버넌스 권한 | 규칙 제정 기능을 별도 역할로 식별 |
+| Commercial Services | 마켓플레이스·매치메이킹 | Broker·App Store의 상업 기능을 선택 서비스로 일반화 |
+| Lookup Services | 어휘·공유 정보 조회 | Vocabulary Provider와 정보 조회 기능을 선택 서비스로 일반화 |
+| Observability Services | audit·notary | RAM 4의 거래 증적·감사 기능을 선택 서비스로 일반화 |
+
+### 10.2 Observability Services 경위와 GXDCH 구분
+
+- **(Verified)** RAM 4의 역사적 IDS Clearing House 역할은 금융·데이터 교환 거래의 clearing·settlement 중개와 양측 상세 로깅을 다룸. 과금 지원·분쟁 해결·부인방지가 포함됨
+  - 근거: [IDS-RAM 4 §3.1.1](https://docs.internationaldataspaces.org/ids-knowledgebase/ids-ram-4/layers-of-the-reference-architecture-model/3-layers-of-the-reference-architecture-model/3-1-business-layer/3_1_1_roles_in_the_ids), RAM 4 2022-04, 확인일 2026-07-30
+- **(Verified)** RAM 4의 system layer는 IDS Connector 기반의 clearing·billing·usage control 로깅 서비스로 설명함
+  - 근거: [IDS-RAM 4 §3.5.5](https://docs.internationaldataspaces.org/ids-knowledgebase/ids-ram-4/layers-of-the-reference-architecture-model/3-layers-of-the-reference-architecture-model/3_5_0_system_layer/3_5_5_clearing_house), RAM 4 2022-04, 확인일 2026-07-30
+- **(Verified)** Fraunhofer AISEC 참조 구현의 마지막 push는 2024-05-08이며 IDSA 포크는 archive 상태임
+  - 근거: [Fraunhofer AISEC 구현](https://github.com/Fraunhofer-AISEC/ids-clearing-house-service), [IDSA archive](https://github.com/International-Data-Spaces-Association/ids-clearing-house-service), 확인일 2026-07-30
+- **(Verified)** IDSA Rulebook Release 2026-1은 audit·notary 기능을 Observability Services로 일반화함
+  - 근거: [IDSA Rulebook 역할](https://kb.internationaldataspaces.org/external/rulebook/005_Roles/), 확인일 2026-07-30
+- **(Verified)** Gaia-X Digital Clearing House(GXDCH)는 법인 온보딩 검증과 Self-Description 적합성 검증을 위한 별개 신뢰 앵커임
+  - 근거: [Catena-X 운영 서비스 맵](https://catenax-ev.github.io/docs/operating-model/what-service-map), 확인일 2026-07-30
+
+이 프로젝트는 RAM 4의 거래 증적·감사 개념을 Observability Services로 지칭한다. GXDCH의 온보딩 검증·notarization 기능과 같은 서비스로 취급하지 않는다.
+
+### 10.3 프로젝트 표기 규칙
+
+| 대상 | 대표 표기 | 적용 규칙 |
+| --- | --- | --- |
+| 현행 RAM 초안 | `IDS-RAM 2026-1 working draft` | 최종본으로 표기하지 않음 |
+| 현행 Rulebook | `IDSA Rulebook Release 2026-1(2026-05-05)` | 발표일을 정식 표기에 포함 |
+| GXDCH 서비스 | `Gaia-X Digital Clearing House(GXDCH)` | 이후 `GXDCH` 사용 가능 |
+| IDS 거래 증적·감사 개념 | `Observability Services` | RAM 4의 역사·원문·표준 인용만 이전 명칭 허용 |
+
+- **(Decision)** 수식어 없는 `Clearing House`는 GXDCH가 뜻하는 온보딩 검증·notarization 서비스를 지칭할 때만 사용
+- **(Decision)** IDS의 거래 증적·감사 개념은 산문에서 `Observability Services`로 지칭
+- **(예외)** 원문·표준·역사적 개념 인용은 원래 명칭을 유지하고 인용 상태와 출처를 병기
+
+현행 RAM 표기는 [IDSA RAM 지식베이스](https://kb.internationaldataspaces.org/external/ram/)에서 확인했다. 현행 Rulebook 표기는 [Release 2026-1 발표](https://internationaldataspaces.org/idsa-rulebook-2026-1-structural-clarifications-for-operational-data-spaces/)에서 확인했다. 확인일은 2026-07-30이다.
+
+### 10.4 민감도 차등 원칙
+
+IDSA Rulebook Release 2026-1은 정책 통제를 데이터 민감도에 따라 구분한다.
+
+| 민감도 | Rulebook의 통제 방향 |
+| --- | --- |
+| 낮음 | 모니터링과 계약적 구제 |
+| 중간 | 강건한 로깅, 분산 관측성과 주기적 자동 점검 |
+| 높음 | confined compute와 필수 암호화 |
+
+근거: [IDSA Rulebook Release 2026-1 정책](https://kb.internationaldataspaces.org/external/rulebook/105_Policies/), 확인일 2026-07-30
+
+민감도 등급만으로 중앙 notary 기록 대상을 정하지 않는다. 제3자 지급, 보조금·감사 규정과 법적·계약적 근거는 [ADR-0006](adr/0006-selective-notary-evidence.md)의 판정 축으로 별도 확인한다.
+
+## 11. 관련 문서
 
 - 실제 해외 사례: [MDS–Mobilithek 참조 사례](01-research/mds-mobilithek-reference-case.md)
 - 가능한 연결 방식: [기존 플랫폼 연계 패턴](01-research/existing-platform-integration-patterns.md)

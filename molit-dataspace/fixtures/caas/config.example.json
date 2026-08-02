@@ -30,6 +30,8 @@
   "limits": {
     "maxRequestBytes": 65536,
     "maxStateBytes": 67108864,
+    "maxTenants": 1000,
+    "maxIdempotencyRecords": 100000,
     "maxAuditEvents": 100000,
     "maxAuditResponseEvents": 1000,
     "requestTimeoutMs": 15000,

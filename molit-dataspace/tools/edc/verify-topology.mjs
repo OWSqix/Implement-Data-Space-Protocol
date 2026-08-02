@@ -3,6 +3,8 @@ import { readFile, readdir } from 'node:fs/promises';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 import { isDeepStrictEqual } from 'node:util';
 import path from 'node:path';
+import Ajv2020 from 'ajv/dist/2020.js';
+import addFormats from 'ajv-formats';
 import { computeEdcSourceDigest } from './source-binding.mjs';
 import { sha256Bytes, validateRunEvidence } from './record-smoke.mjs';
 
@@ -89,11 +91,16 @@ export async function verifyTopology(root = defaultRoot) {
     'deploy/edc/compose.yaml',
     'deploy/edc/compose.smoke.yaml',
     'deploy/edc/upstream-lock.json',
+    'deploy/edc/runtime-artifacts.v1.json',
+    'deploy/edc/database-schema/migration-manifest.v1.json',
+    'deploy/edc/database-schema/run-schema-migration.sh',
+    'deploy/edc/database-schema/run-postgres-verification.ps1',
     'deploy/edc/THIRD_PARTY_NOTICES.md',
     'deploy/edc/licenses/Apache-2.0.txt',
     'deploy/edc/runtime/build.gradle.kts',
     'deploy/edc/runtime/gradle.properties',
     'deploy/edc/runtime/control-plane/build.gradle.kts',
+    'deploy/edc/runtime/smoke-control-plane/build.gradle.kts',
     'deploy/edc/runtime/gradlew',
     'deploy/edc/config/provider-control-plane.properties',
     'deploy/edc/config/provider-data-plane.properties',
@@ -102,7 +109,9 @@ export async function verifyTopology(root = defaultRoot) {
     'deploy/edc/config/consumer-data-plane.properties',
     'deploy/edc/postgres/init/00-create-databases.sql',
     'tools/edc/smoke.mjs',
-    'evidence/edc/local-interoperability-status.v1.json'
+    'evidence/edc/local-interoperability-status.v1.json',
+    'evidence/edc/schema-migration-postgres.v1.json',
+    'contracts/edc-schema-postgres-verification.v1.schema.json'
   ];
   const loaded = new Map();
   for (const relative of required) {
@@ -118,19 +127,79 @@ export async function verifyTopology(root = defaultRoot) {
   const smokeRunnerPowerShell = await text(root, 'tools/edc/run-smoke.ps1');
   const smokeRunnerShell = await text(root, 'tools/edc/run-smoke.sh');
   const lock = JSON.parse(loaded.get('deploy/edc/upstream-lock.json'));
+  const runtimeArtifacts = JSON.parse(loaded.get('deploy/edc/runtime-artifacts.v1.json'));
+  const migrationManifest = JSON.parse(loaded.get('deploy/edc/database-schema/migration-manifest.v1.json'));
+  const migrationRunner = loaded.get('deploy/edc/database-schema/run-schema-migration.sh');
   const thirdPartyNotices = loaded.get('deploy/edc/THIRD_PARTY_NOTICES.md');
   const runtimeBuild = loaded.get('deploy/edc/runtime/build.gradle.kts');
   const gradleProperties = loaded.get('deploy/edc/runtime/gradle.properties');
   const controlPlaneBuild = loaded.get('deploy/edc/runtime/control-plane/build.gradle.kts');
+  const smokeControlPlaneBuild = loaded.get('deploy/edc/runtime/smoke-control-plane/build.gradle.kts');
   const gradleLauncher = loaded.get('deploy/edc/runtime/gradlew');
   const dataPlaneBuild = await text(root, 'deploy/edc/runtime/data-plane/build.gradle.kts');
   const smokeController = await text(root, 'deploy/edc/runtime/smoke-data-plane/src/main/java/org/eclipse/edc/molit/smoke/SmokeProxyController.java');
   const productionDataPlaneFiles = await filesUnder(root, 'deploy/edc/runtime/data-plane/src');
   const productionDataPlaneSource = `${dataPlaneBuild}\n${(await Promise.all(productionDataPlaneFiles.map((file) => readFile(file, 'utf8')))).join('\n')}`;
   const evidence = JSON.parse(loaded.get('evidence/edc/local-interoperability-status.v1.json'));
+  const schemaMigrationEvidence = JSON.parse(loaded.get('evidence/edc/schema-migration-postgres.v1.json'));
+  const schemaMigrationEvidenceSchema = JSON.parse(loaded.get('contracts/edc-schema-postgres-verification.v1.schema.json'));
   const sourceBinding = await computeEdcSourceDigest(root);
+  const schemaAjv = new Ajv2020({ strict: true, allErrors: true });
+  addFormats(schemaAjv);
+  const validateSchemaMigrationEvidence = schemaAjv.compile(schemaMigrationEvidenceSchema);
 
   assert(lock.eclipseEdc.version === '0.18.0', 'EDC lock must pin 0.18.0', failures);
+  assert(runtimeArtifacts.schemaVersion === 'molit.edc-runtime-artifacts/1'
+    && runtimeArtifacts.releaseStatus === 'production-blocked',
+  'EDC runtime artifact release register is absent or does not fail closed', failures);
+  for (const artifact of ['control-plane', 'data-plane', 'smoke-control-plane', 'smoke-data-plane']) {
+    assert(runtimeArtifacts.artifacts?.[artifact]?.dockerTarget === artifact
+      && runtimeArtifacts.artifacts[artifact].productionEligible === false,
+    `EDC artifact is not explicitly blocked from production promotion: ${artifact}`, failures);
+  }
+  const schemaArtifact = runtimeArtifacts.artifacts?.['schema-migration'];
+  assert(schemaArtifact?.dockerTarget === 'schema-migration'
+    && schemaArtifact.productionEligible === true
+    && schemaArtifact.eligibilityMode === 'signed-admission-only'
+    && schemaArtifact.requiredAdmissionPolicy === 'molit-verify-release-images'
+    && schemaArtifact.requiredAttestationPredicateType === 'https://data.molit.go.kr/attestations/release-bundle/v1'
+    && schemaArtifact.blockers?.length === 0,
+  'EDC schema migration artifact lacks its conditional production eligibility gate', failures);
+  assert(schemaArtifact?.verificationEvidence?.path === 'evidence/edc/schema-migration-postgres.v1.json'
+    && schemaArtifact.verificationEvidence.sha256 === await sha256(root, 'evidence/edc/schema-migration-postgres.v1.json')
+    && validateSchemaMigrationEvidence(schemaMigrationEvidence)
+    && schemaMigrationEvidence.schemaVersion === 'molit.edc-schema-postgres-verification/1'
+    && schemaMigrationEvidence.status === 'pass'
+    && schemaMigrationEvidence.execution?.cycles === 2
+    && schemaMigrationEvidence.execution?.totalSuccessfulRuns === 4
+    && schemaMigrationEvidence.execution?.idempotentRepeat === true
+    && /^sha256:[a-f0-9]{64}$/u.test(schemaMigrationEvidence.artifact?.localImageId ?? '')
+    && schemaMigrationEvidence.artifact?.dockerfileSha256 === await sha256(root, 'deploy/edc/Dockerfile')
+    && schemaMigrationEvidence.artifact?.migrationRunnerSha256 === await sha256(root, 'deploy/edc/database-schema/run-schema-migration.sh')
+    && schemaMigrationEvidence.artifact?.migrationManifestSha256 === await sha256(root, 'deploy/edc/database-schema/migration-manifest.v1.json')
+    && schemaMigrationEvidence.artifact?.verificationScriptSha256 === await sha256(root, 'deploy/edc/database-schema/run-postgres-verification.ps1')
+    && schemaMigrationEvidence.database?.image === `postgres:17.10-alpine3.24@${lock.containerImages?.['postgres:17.10-alpine3.24']}`
+    && schemaMigrationEvidence.database?.tlsMode === 'verify-full'
+    && schemaMigrationEvidence.productionGate?.policyName === schemaArtifact.requiredAdmissionPolicy
+    && schemaMigrationEvidence.productionGate?.attestationPredicateType === schemaArtifact.requiredAttestationPredicateType
+    && schemaMigrationEvidence.productionGate?.localImageIsNotReleaseAuthorization === true,
+  'EDC schema migration PostgreSQL evidence is absent, stale, or treated as release authorization', failures);
+  assert(runtimeArtifacts.artifacts['smoke-control-plane'].smokeOnly === true
+    && runtimeArtifacts.artifacts['smoke-data-plane'].smokeOnly === true,
+  'smoke EDC artifacts are not classified as smoke-only', failures);
+  assert(runtimeArtifacts.artifacts['schema-migration'].smokeOnly === false
+    && migrationManifest.edcVersion === lock.eclipseEdc.version
+    && migrationManifest.sourceCommit === lock.eclipseEdc.commit
+    && migrationManifest.requiredVersion === 'edc-0.18.0-sql-v1',
+  'EDC database migration artifact is not bound to the locked EDC source', failures);
+  assert(migrationRunner.startsWith('#!/bin/sh\n')
+    && migrationRunner.includes('sslmode_count')
+    && migrationRunner.includes('[ "$value" = "verify-full" ]')
+    && migrationRunner.includes('[ "$sslmode_count" -eq 1 ]')
+    && migrationRunner.includes('[ "$sslrootcert_count" -eq 1 ]')
+    && migrationRunner.includes('molit_edc_schema_version')
+    && migrationRunner.includes('required EDC tables are absent after migration'),
+  'EDC schema migration runner lacks TLS, version marker, or table readiness gates', failures);
   const apacheLicense = lock.thirdPartyLicenses?.find(({ spdx }) => spdx === 'Apache-2.0');
   const apacheLicenseDigest = await sha256(root, 'deploy/edc/licenses/Apache-2.0.txt');
   assert(apacheLicense?.path === 'deploy/edc/licenses/Apache-2.0.txt'
@@ -157,10 +226,22 @@ export async function verifyTopology(root = defaultRoot) {
   await verifyRunReference(root, evidence, sourceBinding, failures);
   const runtimeEdcVersion = gradleProperties.match(/^edcVersion\s*=\s*([^\s#]+)\s*$/mu)?.[1];
   assert(runtimeEdcVersion === lock.eclipseEdc.version, 'Gradle edcVersion differs from the EDC upstream lock', failures);
-  assert(lock.eclipseEdc.artifacts.includes(`org.eclipse.edc:transfer-data-plane-signaling:${lock.eclipseEdc.version}`), 'legacy transfer signaling compatibility dependency is absent from the upstream lock', failures);
-  assert(controlPlaneBuild.includes('org.eclipse.edc:transfer-data-plane-signaling:$edcVersion'), 'control plane lacks the pinned local legacy Data Plane signaling compatibility extension', failures);
-  assert(controlPlaneBuild.includes('exclude(group = "org.eclipse.edc", module = "data-plane-signaling")'), 'control plane does not exclude the incompatible DPS controller from the local legacy smoke runtime', failures);
-  assert(controlPlaneBuild.includes('exclude(group = "org.eclipse.edc", module = "data-plane-signaling-oauth2")'), 'control plane retains DPS OAuth wiring after excluding its controller', failures);
+  assert(lock.eclipseEdc.artifactClasses?.smokeOnly?.includes(`org.eclipse.edc:iam-mock:${lock.eclipseEdc.version}`)
+    && lock.eclipseEdc.artifactClasses?.smokeOnly?.includes(`org.eclipse.edc:transfer-data-plane-signaling:${lock.eclipseEdc.version}`),
+  'mock identity and legacy signaling are not classified as smoke-only in the upstream lock', failures);
+  assert(!controlPlaneBuild.includes('org.eclipse.edc:iam-mock')
+    && !controlPlaneBuild.includes('org.eclipse.edc:transfer-data-plane-signaling:$edcVersion')
+    && !controlPlaneBuild.includes('exclude(group = "org.eclipse.edc", module = "data-plane-signaling")'),
+  'production control plane declares a smoke-only identity or legacy signaling dependency', failures);
+  assert(controlPlaneBuild.includes('verifyProductionRuntimeClasspath')
+    && controlPlaneBuild.includes('setOf("iam-mock", "transfer-data-plane-signaling")')
+    && controlPlaneBuild.includes('dependsOn(verifyProductionRuntimeClasspath)'),
+  'production control plane lacks a resolved runtime-classpath exclusion gate', failures);
+  assert(smokeControlPlaneBuild.includes('org.eclipse.edc:iam-mock:$edcVersion')
+    && smokeControlPlaneBuild.includes('org.eclipse.edc:transfer-data-plane-signaling:$edcVersion')
+    && smokeControlPlaneBuild.includes('exclude(group = "org.eclipse.edc", module = "data-plane-signaling")')
+    && smokeControlPlaneBuild.includes('exclude(group = "org.eclipse.edc", module = "data-plane-signaling-oauth2")'),
+  'smoke control plane does not contain the isolated mock/legacy compatibility graph', failures);
   assert(lock.eclipseEdc.commit === '911a22ba6b90688ffeb35bb92bf5cc040ffdf37f', 'EDC tag commit mismatch', failures);
   assert(lock.eclipseEdc.managementApi === 'v4', 'lock must identify v4 as stable management API', failures);
   assert(lock.eclipseEdc.javaRuntime === 17 && lock.eclipseEdc.javaClassMajor === 61, 'Java 17/class major 61 evidence missing', failures);
@@ -171,14 +252,26 @@ export async function verifyTopology(root = defaultRoot) {
   assert(dockerfile.includes('eclipse-temurin:17-jre-jammy@sha256:'), 'runtime is not a digest-pinned JRE 17 image', failures);
   assert(dockerfile.includes('RUN chmod 0755 gradlew && ./gradlew'), 'Docker build depends on a checkout-preserved Gradle wrapper executable bit', failures);
   assert(dockerfile.includes('FROM runtime-base AS data-plane'), 'production data-plane target missing', failures);
+  assert(dockerfile.includes('FROM runtime-base AS control-plane'), 'dependency-clean control-plane target missing', failures);
+  assert(dockerfile.includes('FROM runtime-base AS smoke-control-plane'), 'isolated smoke control-plane target missing', failures);
   assert(dockerfile.includes('FROM runtime-base AS smoke-data-plane'), 'isolated smoke data-plane target missing', failures);
+  assert(dockerfile.includes('AS schema-migration')
+    && dockerfile.includes('COPY --from=schema-build --chown=70:70 /schema /opt/molit-edc-schema')
+    && dockerfile.includes('kr.go.molit.dataspace.production-eligible="true"')
+    && dockerfile.includes('kr.go.molit.dataspace.production-gate="signed-release-attestation"')
+    && dockerfile.includes('USER 70:70\nHEALTHCHECK NONE'),
+  'EDC schema migration image target is missing or can run as root', failures);
   assert(!dataPlaneBuild.includes('smoke-data-plane') && !dataPlaneBuild.includes('molit.smoke'), 'production data-plane depends on smoke code', failures);
   assert(!/org\.eclipse\.edc\.molit\.smoke|SmokeProxy|SmokePullProxy/.test(productionDataPlaneSource), 'production data-plane source tree contains smoke proxy code', failures);
   assert(dataPlaneBuild.includes('verifyNoSmokeClasses') && dataPlaneBuild.includes('org/eclipse/edc/molit/smoke/') && dataPlaneBuild.includes('finalizedBy(verifyNoSmokeClasses)'), 'production JAR lacks a build-time smoke-class exclusion gate', failures);
   const productionBuildStage = dockerfile.match(/AS build\s+([\s\S]*?)\nFROM build AS smoke-build/)?.[1] ?? '';
+  const productionControlPlaneStage = dockerfile.match(/FROM runtime-base AS control-plane\s+([\s\S]*?)\nFROM runtime-base AS smoke-control-plane/)?.[1] ?? '';
   const productionDataPlaneStage = dockerfile.match(/FROM runtime-base AS data-plane\s+([\s\S]*?)\nFROM runtime-base AS smoke-data-plane/)?.[1] ?? '';
   const productionDataPlaneInstructions = productionDataPlaneStage.split(/\r?\n/).filter((line) => !line.trimStart().startsWith('#')).join('\n');
-  assert(productionBuildStage && !productionBuildStage.includes(':smoke-data-plane:'), 'production Docker build stage builds the smoke artifact', failures);
+  assert(productionBuildStage && !productionBuildStage.includes(':smoke-control-plane:') && !productionBuildStage.includes(':smoke-data-plane:'), 'production Docker build stage builds a smoke artifact', failures);
+  assert(productionControlPlaneStage.includes('/control-plane/build/libs/molit-edc-control-plane.jar')
+    && !/iam-mock|legacy|smoke/i.test(productionControlPlaneStage.split(/\r?\n/).filter((line) => !line.trimStart().startsWith('#')).join('\n')),
+  'control-plane image target is not bound exclusively to the dependency-clean production JAR', failures);
   assert(productionDataPlaneStage.includes('/data-plane/build/libs/molit-edc-data-plane.jar'), 'production image does not copy the production data-plane JAR', failures);
   assert(!/smoke/i.test(productionDataPlaneInstructions), 'production data-plane image stage references a smoke artifact', failures);
 
@@ -198,7 +291,13 @@ export async function verifyTopology(root = defaultRoot) {
     assert(imageDefinitions.includes(`${imageName}@${digest}`), `locked container image is not used exactly: ${imageName}`, failures);
   }
   assert(/provider-data-plane:[\s\S]*?target: data-plane/.test(compose), 'base compose must use production data-plane target', failures);
+  assert(/provider-control-plane:[\s\S]*?target: control-plane/.test(compose)
+    && /consumer-control-plane:[\s\S]*?target: control-plane/.test(compose),
+  'base compose must use the dependency-clean control-plane target', failures);
   assert(/provider-data-plane:[\s\S]*?target: smoke-data-plane/.test(overlay), 'smoke overlay must explicitly opt into smoke target', failures);
+  assert(/provider-control-plane:[\s\S]*?target: smoke-control-plane/.test(overlay)
+    && /consumer-control-plane:[\s\S]*?target: smoke-control-plane/.test(overlay),
+  'smoke overlay must explicitly opt both control planes into the mock/legacy target', failures);
   assert(overlay.includes('service_completed_successfully'), 'smoke key generation is not an explicit one-shot dependency', failures);
   assert(/consumer-control-plane\s+consumer-data-plane/.test(smokeRunnerPowerShell) && /consumer-control-plane\s+consumer-data-plane/.test(smokeRunnerShell), 'PULL smoke startup omits the consumer data plane required for legacy preparation', failures);
   const powerShellReset = smokeRunnerPowerShell.indexOf('docker compose -f $compose -f $overlay down --volumes --remove-orphans');

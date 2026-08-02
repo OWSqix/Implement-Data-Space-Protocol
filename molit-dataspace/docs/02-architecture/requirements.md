@@ -100,6 +100,7 @@
 | FR-PLT-011 | Transfer 완료를 Agreement 해지로 간주하지 않아야 하며 local Agreement 만료·철회·해지 때 관련 active Transfer와 Agreement scope 자원을 종료해야 한다. | MUST | ST-PLT-004 |
 | FR-ID-001 | 참가자 식별과 Connector 요청 인증을 지원해야 한다. | MUST | ST-ID-001 |
 | FR-ID-002 | 제한 단계에서 기관 자격 credential을 정책 입력으로 검증할 수 있어야 한다. | SHOULD | ST-ID-002 |
+| FR-ID-003 | 시스템은 관리 평면 OIDC·introspection token을 DSP 참가자 간 Catalog·협상·Transfer 흐름의 참가자 credential로 받아들이지 않아야 한다. | MUST | ST-ID-003 |
 | FR-AUD-001 | participant, Contract Negotiation PID, Agreement, Transfer PID, platform external resource와 source request를 상관관계로 연결해야 한다. | MUST | OP-AUD-001 |
 | FR-AUD-002 | 승인·정책판정·접근·철회·파기 증거를 보존해야 한다. | MUST | OP-AUD-002 |
 | FR-OPS-001 | source 장애·quota 초과·schema 변경을 탐지하고 안전하게 실패해야 한다. | MUST | FT-OPS-001 |
@@ -149,5 +150,9 @@
 - [출처 레지스터](../../evidence/source-register.yaml)
 - [주장-근거 매트릭스](../../evidence/claim-evidence-matrix.md)
 - 변경된 요구사항에 연결된 검증 항목
+
+| 변경일 | 요구사항 | 변경 | 승인·근거 | 연결 시험 |
+| --- | --- | --- | --- | --- |
+| 2026-08-01 | FR-ID-003 | 관리 평면 token의 참가자 간 DSP 흐름 사용 금지를 MUST로 신설 | 설계 인터뷰 D-07, 실행 계획 v5와 사용자 승인 2026-08-01 | ST-ID-003 |
 
 변경 검토자는 검증 기준을 충족한 경우에만 변경을 완료로 승인한다.

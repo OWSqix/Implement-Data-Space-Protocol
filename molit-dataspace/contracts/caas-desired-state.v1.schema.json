@@ -7,6 +7,6 @@
   "required": ["schemaVersion", "desiredState"],
   "properties": {
     "schemaVersion": { "const": "molit.caas-desired-state/1" },
-    "desiredState": { "enum": ["PROVISIONED", "DEPROVISIONED"] }
+    "desiredState": { "enum": ["PROVISIONED", "SUSPENDED", "DELETED", "DEPROVISIONED"] }
   }
 }

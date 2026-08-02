@@ -7,19 +7,8 @@ val edcVersion: String by project
 
 dependencies {
     implementation(project(":health-probe"))
-    implementation("org.eclipse.edc:controlplane-base-bom:$edcVersion") {
-        // The local smoke uses EDC's deprecated legacy Data Plane. Loading the
-        // new DPS flow controller at the same time replaces the legacy
-        // controller and sends incompatible prepare/start messages to it.
-        exclude(group = "org.eclipse.edc", module = "data-plane-signaling")
-        exclude(group = "org.eclipse.edc", module = "data-plane-signaling-oauth2")
-    }
+    implementation("org.eclipse.edc:controlplane-base-bom:$edcVersion")
     implementation("org.eclipse.edc:controlplane-feature-sql-bom:$edcVersion")
-    implementation("org.eclipse.edc:iam-mock:$edcVersion")
-    // EDC's own Data Plane is deprecated in 0.18.0. This compatibility
-    // extension is retained only so the local two-connector smoke can drive
-    // that Data Plane. Production must replace both with a DPS implementation.
-    implementation("org.eclipse.edc:transfer-data-plane-signaling:$edcVersion")
 }
 
 application {
@@ -30,4 +19,23 @@ tasks.shadowJar {
     archiveFileName.set("molit-edc-control-plane.jar")
     mergeServiceFiles()
     duplicatesStrategy = DuplicatesStrategy.INCLUDE
+}
+
+val verifyProductionRuntimeClasspath = tasks.register("verifyProductionRuntimeClasspath") {
+    description = "Rejects mock identity and the deprecated legacy Data Plane signaling module"
+    doLast {
+        val forbiddenModules = setOf("iam-mock", "transfer-data-plane-signaling")
+        val resolved = configurations.runtimeClasspath.get().resolvedConfiguration.resolvedArtifacts
+            .map { "${it.moduleVersion.id.group}:${it.name}:${it.moduleVersion.id.version}" }
+        val forbidden = resolved.filter { coordinate ->
+            coordinate.substringAfter(':').substringBefore(':') in forbiddenModules
+        }
+        check(forbidden.isEmpty()) {
+            "Production Control Plane runtime contains smoke-only dependencies: ${forbidden.joinToString()}"
+        }
+    }
+}
+
+tasks.shadowJar {
+    dependsOn(verifyProductionRuntimeClasspath)
 }

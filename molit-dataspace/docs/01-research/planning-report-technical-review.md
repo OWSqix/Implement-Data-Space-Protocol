@@ -81,7 +81,7 @@
 - **우선순위:** P1
 - **대상:** 본문 p.42, p.135·156·162·294. PDF p.54, p.147·168·174·306
 - **대상 문장:** “IDS-RAM 5.0에서 분산 모니터링·감사·분쟁해결 메커니즘을 표준화”, “IDS-RAM 5.0 및 DIN EN 18235 정합”
-- **문제:** IDS-RAM 5 공식 문서는 Working Draft이며 하나의 blueprint가 아니라 design space라고 설명한다. DIN EN 18235-1과 18235-2도 각각 draft standard다. 안정된 국제표준과 같은 수준의 적합성 기준으로 쓸 수 없다.
+- **문제:** `IDS-RAM 5.0` 최종본은 미발행이며 현행 문서는 `IDS-RAM 2026-1 working draft`다. RAM 4는 안정판으로 병존한다. DIN EN 18235-1과 18235-2도 각각 draft standard다. 안정된 국제표준과 같은 수준의 적합성 기준으로 쓸 수 없다.
 - **교체 문안:**
 
 > IDS-RAM 5 Working Draft는 centralized, federated, decentralized pattern을 선택하는 비규범 설계 참고자료로 사용한다. DIN EN 18235-1과 18235-2는 draft이므로 연구동향과 향후 정합성 추적 대상으로 둔다. 구현 acceptance 기준은 안정된 DSP·DCP version, 국토교통 profile과 승인된 운영·보안 요구사항에 둔다. Working Draft와 draft standard를 준수·인증 대상으로 표현하지 않는다.

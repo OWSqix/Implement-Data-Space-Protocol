@@ -155,7 +155,7 @@ export class ResilientHttpClient {
     const operationSignal = options.signal
       ? AbortSignal.any([options.signal, timeoutSignal])
       : timeoutSignal;
-    const { maxResponseBytes, retryUnsafe: _retryUnsafe, signal: _signal, ...requestOptions } = options;
+    const { dispatcherContext, maxResponseBytes, retryUnsafe: _retryUnsafe, signal: _signal, ...requestOptions } = options;
     try {
       for (let attempt = 0; attempt <= this.retries; attempt += 1) {
         let dispatcher;
@@ -166,7 +166,10 @@ export class ResilientHttpClient {
             lookupImpl: this.lookupImpl,
             resolveForConnection: true,
           }), operationSignal);
-          dispatcher = this.dispatcherFactory(resolved.url, resolved.addresses);
+          dispatcher = await runWithSignal(
+            () => this.dispatcherFactory(resolved.url, resolved.addresses, { dispatcherContext }),
+            operationSignal,
+          );
           assertRuntime(dispatcher && typeof dispatcher.close === "function", "HTTP_DISPATCHER_CAPABILITY_REQUIRED", "pinned dispatcher factory returned an invalid dispatcher");
           const started = Date.now();
           response = await runWithSignal(() => this.fetchImpl(resolved.url, {

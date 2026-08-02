@@ -13,4 +13,4 @@ dependencyResolutionManagement {
 }
 
 rootProject.name = "molit-edc-ci-runtime"
-include("health-probe", "control-plane", "data-plane", "smoke-data-plane")
+include("health-probe", "control-plane", "data-plane", "smoke-control-plane", "smoke-data-plane")

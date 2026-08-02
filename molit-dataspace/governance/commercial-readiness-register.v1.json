@@ -8,67 +8,67 @@
       "gateId": "COM-TEN-001",
       "phase": "P0",
       "status": "partial",
-      "summary": "API의 tenant 권한 경계는 시험했으나 운영 인프라의 DB·queue·object·secret 격리는 입증하지 않았다.",
-      "evidencePaths": ["tests/integration/caas-control-plane-e2e.test.mjs", "tests/unit/caas-auth-attribution.test.mjs"],
+      "summary": "PostgreSQL FORCE RLS, database principal binding, tenant별 상태·queue·object reference·secret reference·metric·감사 격리와 동적 등록 원자성을 실제 PostgreSQL에서 검증했다. 외부 저장소와 비밀 관리 체계의 운영 격리 증거는 별도다.",
+      "evidencePaths": ["deploy/control-store/postgres/002_normalized_projection.sql", "src/control-store/postgres-tenant-store.mjs", "tests/integration/tenant-isolation-postgres.test.mjs", "tests/integration/normalized-control-store-docker.test.mjs"],
       "resultEvidence": [],
       "blockers": [
-        { "id": "COM-TEN-INFRA-ISOLATION", "summary": "두 tenant 사이의 DB·network·queue·object·secret 교차 접근 시험이 없다.", "owner": "platform-security" }
+        { "id": "COM-TEN-INFRA-ISOLATION", "summary": "운영 object storage bucket policy, Vault ACL과 cluster network policy를 대상으로 한 교차 tenant 침투시험 및 승인 결과가 없다.", "owner": "platform-security" }
       ]
     },
     {
       "gateId": "COM-LCM-001",
       "phase": "P0",
       "status": "partial",
-      "summary": "수렴 상태와 멱등성은 구현했으나 실제 EDC를 생성·갱신·복구·삭제하는 provisioner가 없다.",
-      "evidencePaths": ["src/caas/service.mjs", "tests/unit/caas-service.test.mjs"],
+      "summary": "Kubernetes EDC provisioner가 create, upgrade, rollback, suspend, delete, stale fencing 거부와 orphan 회수를 수행한다. 로컬 kind 반복시험과 운영 cluster 승인시험은 구분한다.",
+      "evidencePaths": ["src/caas/kubernetes-provisioner.mjs", "src/caas/orphan-recovery.mjs", "deploy/kubernetes/run-kind-integration.ps1", "tests/integration/kubernetes-lifecycle-repeat.test.mjs"],
       "resultEvidence": [],
       "blockers": [
-        { "id": "COM-LCM-K8S-PROVISIONER", "summary": "Kubernetes EDC provisioner와 upgrade·rollback·orphan 회수 시험이 없다.", "owner": "connector-platform" }
+        { "id": "COM-LCM-K8S-PROVISIONER", "summary": "승인된 운영 cluster, 최종 image, Gateway·DNS와 비밀 backend를 사용한 30회 수명주기 결과 및 운영자 서명이 없다.", "owner": "connector-platform" }
       ]
     },
     {
       "gateId": "COM-ID-001",
       "phase": "P0",
       "status": "partial",
-      "summary": "호출자 attribution과 DSaaS introspection 경계는 있으나 운영 IdP·workload identity·회전 절차가 없다.",
-      "evidencePaths": ["src/dsaas/auth.mjs", "tests/unit/dsaas-auth.test.mjs"],
+      "summary": "개발·상호운용 경로에는 OIDC JWKS를, production 경로에는 RFC 7662 startup probe와 TTL readiness를 적용했다. 사람 MFA claim, service mTLS certificate binding, 폐기 조회와 inbound·outbound 인증서 회전도 구현했다. 운영기관 신원 체계의 ceremony 증거는 별도다.",
+      "evidencePaths": ["src/identity/runtime.mjs", "src/identity/tls-runtime.mjs", "deploy/identity/keycloak/run-integration.ps1", "tests/integration/identity-production-tls.test.mjs", "tests/integration/identity-keycloak.test.mjs"],
       "resultEvidence": [],
       "blockers": [
-        { "id": "COM-ID-OPERATING-IDENTITY", "summary": "OIDC·MFA·mTLS·DCP credential 발급과 폐기 시험이 없다.", "owner": "identity-security" }
+        { "id": "COM-ID-OPERATING-IDENTITY", "summary": "운영 IdP의 MFA·SAML ceremony, private CA·KMS의 workload credential 발급·회전·폐기와 DCP trust chain 승인 결과가 없다.", "owner": "identity-security" }
       ]
     },
     {
       "gateId": "COM-OBS-001",
       "phase": "P0",
       "status": "partial",
-      "summary": "감사 hash chain은 검증하지만 OpenTelemetry 상관관계와 외부 불변 저장소는 연결하지 않았다.",
-      "evidencePaths": ["src/caas/store.mjs", "src/dsaas/store.mjs"],
+      "summary": "관리 요청의 trace·metric·log, PostgreSQL audit outbox의 WORM 반출, 비과금 usage 원장, SLO rule과 dashboard를 production runtime에 연결했다. 운영 backend의 보존·가용성 증거는 별도다.",
+      "evidencePaths": ["src/observability/runtime-bundle.mjs", "src/observability/usage-meter.mjs", "deploy/observability/otel-collector.production.yaml", "deploy/observability/prometheus-rules.yaml", "tests/integration/observability-worm-dispatcher-postgres.test.mjs", "tests/integration/usage-meter-postgres.test.mjs"],
       "resultEvidence": [],
       "blockers": [
-        { "id": "COM-OBS-OTEL-WORM", "summary": "관리 API부터 DSP 전송까지의 trace와 WORM 감사 반출 증거가 없다.", "owner": "service-operations" }
+        { "id": "COM-OBS-OTEL-WORM", "summary": "운영 OTLP·WORM 제품의 가용성·보존·권한 시험과 관리 API부터 실제 DSP 계약·전송까지 이어진 상관관계 결과가 없다.", "owner": "service-operations" }
       ]
     },
     {
       "gateId": "COM-HA-001",
       "phase": "P0",
       "status": "partial",
-      "summary": "PostgreSQL 내부 transaction·advisory lease·fencing은 시험했으나 외부 자원 CAS와 장애복구는 입증하지 않았다.",
-      "evidencePaths": ["src/control-store/postgres-json-store.mjs", "tests/integration/dsaas-postgres-store-docker.test.mjs"],
+      "summary": "3개 zone 배치 manifest, 동기 PostgreSQL quorum·WAL archive·PITR, target-side Kubernetes fencing과 primary 강제 종료·복원 harness를 구현했다. 로컬 장애주입은 운영 multi-zone 훈련을 대신하지 않는다.",
+      "evidencePaths": ["deploy/kubernetes/ha/control-plane.template.yaml", "deploy/kubernetes/ha/postgres.template.yaml", "deploy/ha/postgres/run-ha-pitr.mjs", "tests/contract/ha-deployment.test.mjs", "tests/integration/kubernetes-lifecycle-repeat.test.mjs"],
       "resultEvidence": [],
       "blockers": [
-        { "id": "COM-HA-EXTERNAL-FENCE", "summary": "실제 Kubernetes 자원에서 N+1 적용 뒤 지연된 N 명령을 거부한 증거가 없다.", "owner": "connector-platform" },
-        { "id": "COM-HA-FAILOVER-RESTORE", "summary": "DB primary·zone 장애와 backup 복구의 RPO·RTO 증거가 없다.", "owner": "platform-sre" }
+        { "id": "COM-HA-EXTERNAL-FENCE", "summary": "운영 admission controller와 최종 EDC 자원에서 N+1 적용 뒤 지연된 N 명령이 거부된 서명 결과가 없다.", "owner": "connector-platform" },
+        { "id": "COM-HA-FAILOVER-RESTORE", "summary": "운영 multi-zone PostgreSQL, queue와 object storage를 함께 중단·복구한 승인 RPO·RTO 훈련 결과가 없다.", "owner": "platform-sre" }
       ]
     },
     {
       "gateId": "COM-SUP-001",
       "phase": "P0",
       "status": "partial",
-      "summary": "Node 의존성 및 EDC upstream digest는 고정했으나 최종 배포 image의 서명·SBOM·provenance가 없다.",
-      "evidencePaths": ["evidence/dependencies/node-sbom.spdx.json", "deploy/edc/upstream-lock.json"],
+      "summary": "8개 runtime class 원장과 source build 6종, PostgreSQL·OTEL 외부 채택, SBOM, 무예외 취약점 Gate, runtimeClass·운영 적격성을 묶은 provenance·서명·fail-closed admission을 구현했다. EDC 두 plane은 P1 전까지 productionEligible=false이며 운영 registry 발행 증거는 없다.",
+      "evidencePaths": ["deploy/images/build-sign-verify.ps1", "deploy/images/adopt-sign-verify.ps1", "deploy/images/verify-local-runtime-images.ps1", "deploy/supply-chain/runtime-image-inventory.v1.json", "deploy/supply-chain/verify-images.template.yaml", "contracts/supply-chain-runtime-image-inventory.v1.schema.json", "tools/supply-chain/attest.mjs", "tools/supply-chain/verify.mjs", "tests/contract/supply-chain-release-bundle.test.mjs", "tests/contract/supply-chain-admission.test.mjs", "tests/contract/supply-chain-runtime-inventory.test.mjs"],
       "resultEvidence": [],
       "blockers": [
-        { "id": "COM-SUP-FINAL-IMAGES", "summary": "최종 CaaS·DSaaS·EDC image digest의 서명과 취약점 Gate가 없다.", "owner": "software-supply-chain" }
+        { "id": "COM-SUP-FINAL-IMAGES", "summary": "운영 registry와 KMS·HSM release key로 발행한 production-eligible 6종(CaaS, DSaaS, fencing webhook, EDC schema migration, PostgreSQL operand, OTEL Collector) digest의 최신 SBOM·scan·signature·provenance 및 admission 결과가 없다.", "owner": "software-supply-chain" }
       ]
     },
     {

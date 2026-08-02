@@ -1,0 +1,132 @@
+{
+  "schemaVersion": "molit.edc-local-interoperability-run/1",
+  "recordingMode": "recorder",
+  "runId": "005f1d40-775a-441e-a68d-031b52cedfda",
+  "status": "pass",
+  "startedAt": "2026-07-14T13:15:06.796Z",
+  "completedAt": "2026-07-14T13:16:48.275Z",
+  "command": ".\\tools\\edc\\run-smoke.ps1 -RecordEvidence evidence/edc/runs/20260714T2215+0900-p0-runtime-split.json",
+  "sourceBinding": {
+    "algorithm": "sha-256",
+    "digest": "435fe056a547610e51b2f55acc372d95a2d00aaed2c6d9f31edaa69909b25b31",
+    "fileCount": 52,
+    "scope": "deploy/edc, tools/edc, tests/edc, .gitattributes, package.json, package-lock.json, contracts/edc-local-interoperability-run.v1.schema.json; excluding build and .gradle directories"
+  },
+  "sourceStable": true,
+  "git": {
+    "captured": true,
+    "headAtStart": "b20c5f591a8fb5d0c7e50bc6309251af46b94323",
+    "headAtEnd": "b20c5f591a8fb5d0c7e50bc6309251af46b94323",
+    "scopedPaths": [
+      "deploy/edc",
+      "tools/edc",
+      "tests/edc",
+      ".gitattributes",
+      "package.json",
+      "package-lock.json",
+      "contracts/edc-local-interoperability-run.v1.schema.json"
+    ],
+    "statusAtStart": [
+      " M molit-dataspace/deploy/edc/Dockerfile",
+      " M molit-dataspace/deploy/edc/compose.smoke.yaml",
+      " M molit-dataspace/deploy/edc/runtime/control-plane/build.gradle.kts",
+      " M molit-dataspace/deploy/edc/runtime/settings.gradle.kts",
+      " M molit-dataspace/deploy/edc/upstream-lock.json",
+      " M molit-dataspace/package.json",
+      " M molit-dataspace/tests/edc/topology-static.test.mjs",
+      " M molit-dataspace/tools/edc/build-runtime.mjs",
+      " M molit-dataspace/tools/edc/verify-topology.mjs",
+      "?? molit-dataspace/deploy/edc/database-schema/migration-manifest.v1.json",
+      "?? molit-dataspace/deploy/edc/database-schema/run-schema-migration.sh",
+      "?? molit-dataspace/deploy/edc/runtime-artifacts.v1.json",
+      "?? molit-dataspace/deploy/edc/runtime/smoke-control-plane/build.gradle.kts"
+    ],
+    "statusAtEnd": [
+      " M molit-dataspace/deploy/edc/Dockerfile",
+      " M molit-dataspace/deploy/edc/compose.smoke.yaml",
+      " M molit-dataspace/deploy/edc/runtime/control-plane/build.gradle.kts",
+      " M molit-dataspace/deploy/edc/runtime/settings.gradle.kts",
+      " M molit-dataspace/deploy/edc/upstream-lock.json",
+      " M molit-dataspace/package.json",
+      " M molit-dataspace/tests/edc/topology-static.test.mjs",
+      " M molit-dataspace/tools/edc/build-runtime.mjs",
+      " M molit-dataspace/tools/edc/verify-topology.mjs",
+      "?? molit-dataspace/deploy/edc/database-schema/migration-manifest.v1.json",
+      "?? molit-dataspace/deploy/edc/database-schema/run-schema-migration.sh",
+      "?? molit-dataspace/deploy/edc/runtime-artifacts.v1.json",
+      "?? molit-dataspace/deploy/edc/runtime/smoke-control-plane/build.gradle.kts"
+    ],
+    "cleanAtStart": false,
+    "cleanAtEnd": false
+  },
+  "docker": {
+    "captured": true,
+    "server": {
+      "version": "25.0.3",
+      "operatingSystem": "linux",
+      "architecture": "amd64"
+    },
+    "composeVersion": "2.24.6-desktop.1",
+    "images": [
+      {
+        "service": "consumer-control-plane",
+        "imageId": "sha256:5e996106ccfac8050129a68f4de4e3b31a8ec4b3dfab65cb555bd366a95e95f5"
+      },
+      {
+        "service": "consumer-data-plane",
+        "imageId": "sha256:6a8d1c65cd887457e439576b43f82017cd5b1a280852d3a9bb8264f71a9bfb22"
+      },
+      {
+        "service": "provider-backend",
+        "imageId": "sha256:d0701bd41f8279135aa6c81e23fbcdae7bcc3df591c47741405412a8dcdb2eab"
+      },
+      {
+        "service": "provider-control-plane",
+        "imageId": "sha256:f2845e678a1c6c0b52db827f8870c9f06fd6126d66e041089dcf569aa22565c0"
+      },
+      {
+        "service": "provider-data-plane",
+        "imageId": "sha256:db52e77f7ce8b973171e040336e4e044e68c506fd449b44d14ba523078601263"
+      }
+    ]
+  },
+  "cleanStart": {
+    "attempted": true,
+    "status": "pass"
+  },
+  "cleanup": {
+    "attempted": true,
+    "status": "pass"
+  },
+  "execution": {
+    "exitCode": 0,
+    "stdout": {
+      "captureMode": "runner-captured",
+      "encoding": "utf-8",
+      "sha256": "8d22e906d3be46b95533085eced9e09bf613af7ab33d9a403647d02e318c53cf",
+      "byteLength": 437,
+      "text": "{\"ok\":true,\"managementApi\":\"v4\",\"dsp\":\"dataspace-protocol-http:2025-1\",\"assetId\":\"molit-edc-smoke-asset-69edd487-118d-4f40-8b98-265e4559a3df\",\"agreementId\":\"d7d201db-9ec1-4ef8-a341-d645584d29bb\",\"transferId\":\"c1669001-2991-4eaa-b742-11c95e451f0f\",\"startState\":\"STARTED\",\"finalState\":\"TERMINATED\",\"revokedStatus\":403,\"bytes\":96,\"contentType\":\"application/json\",\"sha256\":\"2f013648aa3071d46c9e29b2e938c5fb36336cc53f27d1f5e507da3683da41a7\"}\n"
+    },
+    "result": {
+      "ok": true,
+      "managementApi": "v4",
+      "dsp": "dataspace-protocol-http:2025-1",
+      "assetId": "molit-edc-smoke-asset-69edd487-118d-4f40-8b98-265e4559a3df",
+      "agreementId": "d7d201db-9ec1-4ef8-a341-d645584d29bb",
+      "transferId": "c1669001-2991-4eaa-b742-11c95e451f0f",
+      "startState": "STARTED",
+      "finalState": "TERMINATED",
+      "revokedStatus": 403,
+      "bytes": 96,
+      "contentType": "application/json",
+      "sha256": "2f013648aa3071d46c9e29b2e938c5fb36336cc53f27d1f5e507da3683da41a7"
+    },
+    "error": null
+  },
+  "limitations": [
+    "same Eclipse EDC Connector implementation on both participants",
+    "DSP official TCK and cross-implementation interoperability not executed",
+    "production DPS worker, identity, trust anchors and public delivery service not verified",
+    "Maven dependency verification, SBOM, image signature and license inventory not complete"
+  ]
+}

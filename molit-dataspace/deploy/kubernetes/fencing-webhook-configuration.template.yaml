@@ -1,0 +1,64 @@
+apiVersion: admissionregistration.k8s.io/v1
+kind: ValidatingWebhookConfiguration
+metadata:
+  name: molit-caas-fencing
+  annotations:
+    caas.data.molit.go.kr/fencing-policy-version: "3"
+webhooks:
+  - name: fencing.caas.data.molit.go.kr
+    admissionReviewVersions: ["v1"]
+    sideEffects: None
+    failurePolicy: Fail
+    matchPolicy: Equivalent
+    timeoutSeconds: 3
+    clientConfig:
+      service:
+        name: molit-caas-fencing-webhook
+        namespace: molit-caas-system
+        path: /validate
+        port: 443
+      caBundle: __CA_BUNDLE__
+    objectSelector:
+      matchLabels:
+        app.kubernetes.io/managed-by: molit-caas
+    matchConditions:
+      - name: exclude-central-fence-store
+        expression: "request.namespace != 'molit-caas-system'"
+      - name: allow-accepted-deletion-finalization
+        expression: "request.operation != 'UPDATE' || !has(oldObject.metadata.deletionTimestamp)"
+    rules:
+      - apiGroups: [""]
+        apiVersions: ["v1"]
+        operations: ["CREATE", "UPDATE", "DELETE"]
+        resources: ["namespaces"]
+        scope: "Cluster"
+      - apiGroups: [""]
+        apiVersions: ["v1"]
+        operations: ["CREATE", "UPDATE"]
+        resources: ["configmaps", "limitranges", "resourcequotas", "secrets", "serviceaccounts", "services"]
+        scope: "Namespaced"
+      - apiGroups: ["apps"]
+        apiVersions: ["v1"]
+        operations: ["CREATE", "UPDATE"]
+        resources: ["deployments"]
+        scope: "Namespaced"
+      - apiGroups: ["batch"]
+        apiVersions: ["v1"]
+        operations: ["CREATE", "UPDATE", "DELETE"]
+        resources: ["jobs"]
+        scope: "Namespaced"
+      - apiGroups: ["networking.k8s.io"]
+        apiVersions: ["v1"]
+        operations: ["CREATE", "UPDATE"]
+        resources: ["networkpolicies"]
+        scope: "Namespaced"
+      - apiGroups: ["policy"]
+        apiVersions: ["v1"]
+        operations: ["CREATE", "UPDATE"]
+        resources: ["poddisruptionbudgets"]
+        scope: "Namespaced"
+      - apiGroups: ["gateway.networking.k8s.io"]
+        apiVersions: ["v1"]
+        operations: ["CREATE", "UPDATE"]
+        resources: ["httproutes"]
+        scope: "Namespaced"

@@ -10,7 +10,7 @@
   "apiClientId": "road-data-provider-control-client",
   "apiKeyId": "road-data-provider-2026-01",
   "deploymentSecretRefs": {
-    "vaultAccess": "vault://molit/caas/road-data-provider/edc-vault",
-    "databaseAccess": "vault://molit/caas/road-data-provider/source-db"
+    "vaultAccess": "vault://tenants/road-data-provider/edc/vault",
+    "databaseAccess": "vault://tenants/road-data-provider/source/database"
   }
 }

@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://data.molit.go.kr/contracts/usage-delivery-receipt.v1.schema.json",
+  "title": "MOLIT usage outbox OTLP delivery receipt",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "deliveryPurpose", "eventType", "idempotencyKey", "payloadSha256", "sink", "deliveredAt"],
+  "properties": {
+    "schemaVersion": { "const": "molit.usage-delivery-receipt/1" },
+    "deliveryPurpose": { "const": "usage-integrity" },
+    "eventType": { "enum": ["usage.meter.recorded", "usage.meter.reprocessed"] },
+    "idempotencyKey": { "type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{7,127}$" },
+    "payloadSha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+    "sink": { "const": "otlp-log" },
+    "deliveredAt": { "type": "string", "format": "date-time" }
+  }
+}

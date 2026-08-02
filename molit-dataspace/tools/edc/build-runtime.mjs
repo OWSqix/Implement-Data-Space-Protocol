@@ -13,6 +13,7 @@ const tasks = [
   'clean',
   ':control-plane:shadowJar',
   ':data-plane:shadowJar',
+  ':smoke-control-plane:shadowJar',
   ':smoke-data-plane:shadowJar',
 ];
 

@@ -9,7 +9,10 @@ import { fileURLToPath } from "node:url";
 import Ajv2020 from "ajv/dist/2020.js";
 import addFormats from "ajv-formats";
 
-import { evaluateCommercialReadiness } from "../../tools/commercial/readiness-status.mjs";
+import {
+  evaluateCommercialReadiness,
+  runCommercialReadinessCli,
+} from "../../tools/commercial/readiness-status.mjs";
 
 const root = path.resolve(fileURLToPath(new URL("../../", import.meta.url)));
 const [register, schema, resultSchema] = await Promise.all([
@@ -192,4 +195,30 @@ test("COMMERCIAL-REGISTER-007: a valid result resolves only its bound Gate", asy
   assert.equal(status.gateCounts.pass, 1);
   assert.equal(status.gateCounts.unresolved, 13);
   assert.equal(status.unresolvedGates.some(({ gateId }) => gateId === gate.gateId), false);
+});
+
+test("COMMERCIAL-REGISTER-008: CLI reserves exit 2 for a valid unresolved decision", async () => {
+  let output = "";
+  const unresolvedExitCode = await runCommercialReadinessCli({
+    evaluate: () => evaluateCommercialReadiness({ now: evaluationTime }),
+    write: (value) => { output += value; },
+  });
+  assert.equal(unresolvedExitCode, 2);
+  assert.equal(JSON.parse(output).decision, "blocked");
+
+  const invalidRegister = structuredClone(register);
+  invalidRegister.gates[0].summary = "x".repeat(241);
+  output = "";
+  const invalidExitCode = await runCommercialReadinessCli({
+    evaluate: () => evaluateCommercialReadiness({
+      now: evaluationTime,
+      rootPath: root,
+      register: invalidRegister,
+      registerSchema: schema,
+      resultSchema,
+    }),
+    write: (value) => { output += value; },
+  });
+  assert.equal(invalidExitCode, 1);
+  assert.equal(JSON.parse(output).evaluationErrors[0].code, "COMMERCIAL_REGISTER_INVALID");
 });

@@ -6,6 +6,18 @@ services:
       POSTGRES_DB: molit_control_store_test
       POSTGRES_PASSWORD: molit-control-store-test
       POSTGRES_USER: molit_control_store_test
+    entrypoint: ["/bin/sh", "-ec"]
+    command:
+      - |
+        install -d -m 700 -o postgres -g postgres /var/lib/postgresql/tls
+        install -m 644 -o postgres -g postgres /test-tls/server-one.crt /var/lib/postgresql/tls/server.crt
+        install -m 600 -o postgres -g postgres /test-tls/server-one.key /var/lib/postgresql/tls/server.key
+        install -m 644 -o postgres -g postgres /test-tls/root.crt /var/lib/postgresql/tls/root.crt
+        exec /usr/local/bin/docker-entrypoint.sh postgres \
+          -c ssl=on \
+          -c ssl_cert_file=/var/lib/postgresql/tls/server.crt \
+          -c ssl_key_file=/var/lib/postgresql/tls/server.key \
+          -c ssl_ca_file=/var/lib/postgresql/tls/root.crt
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U molit_control_store_test -d molit_control_store_test"]
       interval: 2s
@@ -13,5 +25,7 @@ services:
       retries: 20
     ports:
       - "127.0.0.1::5432"
+    volumes:
+      - ../../../tests/fixtures/identity-tls:/test-tls:ro
     tmpfs:
       - /var/lib/postgresql/data

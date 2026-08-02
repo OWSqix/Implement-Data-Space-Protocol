@@ -1,0 +1,150 @@
+{
+  "schemaVersion": "molit.caas-config/1",
+  "environment": "production",
+  "listen": { "host": "0.0.0.0", "port": 8787 },
+  "identityConfigPath": "/run/molit/identity/caas.json",
+  "observabilityConfigPath": "/run/molit/observability/caas.json",
+  "tls": {
+    "certFile": "/var/run/secrets/molit-inbound/tls.crt",
+    "keyFile": "/var/run/secrets/molit-inbound/tls.key",
+    "clientCaFile": "/var/run/secrets/molit-inbound/client-ca.crt",
+    "reloadIntervalMs": 5000
+  },
+  "stateStore": {
+    "type": "postgres",
+    "connectionStringEnv": "MOLIT_CAAS_DATABASE_URL",
+    "holderIdEnv": "MOLIT_CAAS_HOLDER_ID",
+    "applicationName": "molit-caas",
+    "tls": { "mode": "verify-full", "caEnv": "MOLIT_CAAS_DATABASE_CA" },
+    "maxPoolSize": 20,
+    "maxLeasePoolSize": 20,
+    "connectionTimeoutMs": 5000,
+    "idleTimeoutMs": 30000,
+    "statementTimeoutMs": 10000,
+    "lockTimeoutMs": 5000
+  },
+  "controller": {
+    "allowedDataspaceIds": ["molit-production"],
+    "allowedTenantIds": ["road-data-provider"],
+    "allowedConnectorPlanIds": ["edc-isolated"]
+  },
+  "identityPolicy": {
+    "participantIdTemplate": "did:web:connectors.data.molit.go.kr:{tenantId}",
+    "namespaceTemplate": "https://data.molit.go.kr/tenants/{tenantId}/",
+    "endpointTemplate": "https://{tenantId}.connectors.data.molit.go.kr/"
+  },
+  "limits": {
+    "maxRequestBytes": 65536,
+    "maxStateBytes": 67108864,
+    "maxTenants": 1000,
+    "maxIdempotencyRecords": 100000,
+    "maxAuditEvents": 100000,
+    "maxAuditResponseEvents": 1000,
+    "requestTimeoutMs": 15000,
+    "gracefulShutdownMs": 30000
+  },
+  "connectorPlans": {
+    "edc-isolated": {
+      "adapterId": "kube-edc",
+      "runtimeProfileRef": "urn:molit:caas:runtime-profile:edc-connector-v1",
+      "deploymentMode": "isolated",
+      "metadataProfile": {
+        "iri": "https://data.molit.go.kr/profile/molit-dcat-ap/1.0.0-rc.1",
+        "version": "1.0.0-rc.1",
+        "sha256": "0666b7c2ed74800264a9ac6c8292f819fc973a02057397faca3b3d5df3bacfe4"
+      },
+      "protocolProfile": {
+        "dspVersion": "2025-1",
+        "specification": "https://eclipse-dataspace-protocol-base.github.io/DataspaceProtocol/2025-1-err1/",
+        "identityMode": "dcp"
+      },
+      "databaseSchema": {
+        "requiredVersion": "edc-0.18.0-sql-v1",
+        "migrationArtifact": {
+          "iri": "https://data.molit.go.kr/artifacts/edc/database-schema/edc-0.18.0-sql-v1",
+          "version": "edc-0.18.0-sql-v1",
+          "sha256": "aafa223e72a763aa5e7e0e12cb1463cdd7cb530d95fa4bde97caf3ecd49f3114"
+        },
+        "migrationImage": "registry.example.invalid/molit/edc-schema-migration@sha256:cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+        "migrationTimeoutMs": 600000,
+        "pollIntervalMs": 1000,
+        "connection": {
+          "secretBindingName": "databaseAccess",
+          "controlUrlKey": "control-url",
+          "dataUrlKey": "data-url",
+          "usernameKey": "username",
+          "passwordKey": "password",
+          "sslMode": "verify-full",
+          "caKey": "ca.crt",
+          "clientCertificateKey": "tls.crt",
+          "clientPrivateKeyKey": "tls.key",
+          "mountPath": "/var/run/secrets/edc-database"
+        }
+      },
+      "requiredDeploymentSecretNames": ["vaultAccess", "databaseAccess"]
+    }
+  },
+  "provisioners": {
+    "kube-edc": {
+      "type": "kubernetes-edc",
+      "apiServer": "https://kubernetes.default.svc/",
+      "authentication": {
+        "type": "service-account",
+        "tokenFile": "/var/run/secrets/kubernetes.io/serviceaccount/token",
+        "caFile": "/var/run/secrets/kubernetes.io/serviceaccount/ca.crt"
+      },
+      "controlNamespace": "molit-caas-system",
+      "admissionPolicyName": "molit-caas-fencing",
+      "supplyChainAdmission": {
+        "policyName": "molit-verify-release-images",
+        "attestationPredicateType": "https://data.molit.go.kr/attestations/release-bundle/v1",
+        "trustAnchorSha256": "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd"
+      },
+      "namespacePrefix": "molit-edc-",
+      "instanceId": "caas-primary",
+      "routing": {
+        "mode": "gateway-api",
+        "parentRef": { "name": "molit-connectors", "namespace": "molit-gateway-system" },
+        "protocolSectionName": "dsp-https",
+        "dataPlaneSectionName": "data-https",
+        "gatewayAccessLabelValue": "molit-connectors",
+        "protocolHostnameTemplate": "{tenantId}.connectors.data.molit.go.kr",
+        "dataPlaneHostnameTemplate": "{tenantId}.transfer.data.molit.go.kr"
+      },
+      "images": {
+        "controlPlane": "registry.example.invalid/molit/edc-control-plane@sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "dataPlane": "registry.example.invalid/molit/edc-data-plane@sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+      },
+      "replicas": { "controlPlane": 2, "dataPlane": 2 },
+      "ports": { "default": 8080, "management": 8081, "protocol": 8082, "control": 8083, "dataPlaneDefault": 8080, "dataPlaneControl": 8083 },
+      "resources": {
+        "control-plane": { "requests": { "cpu": "500m", "memory": "1Gi" }, "limits": { "cpu": "2", "memory": "2Gi" } },
+        "data-plane": { "requests": { "cpu": "500m", "memory": "1Gi" }, "limits": { "cpu": "2", "memory": "2Gi" } }
+      },
+      "quota": { "requests.cpu": "4", "requests.memory": "8Gi", "limits.cpu": "8", "limits.memory": "16Gi", "pods": "20" },
+      "limitRange": { "default": { "cpu": "1", "memory": "1Gi" }, "defaultRequest": { "cpu": "250m", "memory": "512Mi" } },
+      "networkPolicy": { "allowedIngressCidrs": ["10.0.0.0/8"], "allowedEgressCidrs": ["10.0.0.0/8"] },
+      "secretBindings": {
+        "vaultAccess": {
+          "secretNameTemplate": "edc-{tenantId}-runtime",
+          "keys": [
+            { "key": "management-api-key", "environmentVariable": "WEB_HTTP_MANAGEMENT_AUTH_KEY", "components": ["control-plane"] }
+          ]
+        },
+        "databaseAccess": {
+          "secretNameTemplate": "edc-{tenantId}-database",
+          "keys": [
+            { "key": "control-url", "environmentVariable": "EDC_DATASOURCE_DEFAULT_URL", "components": ["control-plane"] },
+            { "key": "data-url", "environmentVariable": "EDC_DATASOURCE_DEFAULT_URL", "components": ["data-plane"] },
+            { "key": "username", "environmentVariable": "EDC_DATASOURCE_DEFAULT_USER", "components": ["control-plane", "data-plane"] },
+            { "key": "password", "environmentVariable": "EDC_DATASOURCE_DEFAULT_PASSWORD", "components": ["control-plane", "data-plane"] }
+          ]
+        }
+      },
+      "deprovisionPolicy": "delete",
+      "revisionHistoryLimit": 5,
+      "terminationGracePeriodSeconds": 30,
+      "requestTimeoutMs": 10000
+    }
+  }
+}

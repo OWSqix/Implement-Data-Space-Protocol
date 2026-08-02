@@ -1,0 +1,27 @@
+FROM node:24.18.0-bookworm-slim@sha256:6f7b03f7c2c8e2e784dcf9295400527b9b1270fd37b7e9a7285cf83b6951452d AS dependencies
+WORKDIR /app
+COPY package.json package-lock.json ./
+RUN npm ci --omit=dev --ignore-scripts --no-audit --no-fund \
+    && npm cache clean --force
+
+FROM node:24.18.0-bookworm-slim@sha256:6f7b03f7c2c8e2e784dcf9295400527b9b1270fd37b7e9a7285cf83b6951452d
+LABEL org.opencontainers.image.title="MOLIT CaaS control plane" \
+      org.opencontainers.image.base.name="node:24.18.0-bookworm-slim" \
+      org.opencontainers.image.base.digest="sha256:6f7b03f7c2c8e2e784dcf9295400527b9b1270fd37b7e9a7285cf83b6951452d" \
+      kr.go.molit.dataspace.runtime-class="caas-control-plane" \
+      kr.go.molit.dataspace.production-eligible="true"
+ENV NODE_ENV=production \
+    NODE_OPTIONS="--disable-warning=ExperimentalWarning" \
+    MOLIT_HEALTH_PORT=8787
+WORKDIR /app
+COPY --from=dependencies --chown=node:node /app/node_modules ./node_modules
+COPY --chown=node:node package.json package-lock.json ./
+COPY --chown=node:node src ./src
+COPY --chown=node:node contracts ./contracts
+COPY --chown=node:node standards/generated ./standards/generated
+USER node
+EXPOSE 8787
+STOPSIGNAL SIGTERM
+HEALTHCHECK --interval=30s --timeout=3s --start-period=20s --retries=3 CMD ["node", "-e", "const https=require('node:https');const request=https.get({hostname:'127.0.0.1',port:process.env.MOLIT_HEALTH_PORT,path:'/healthz',rejectUnauthorized:false,timeout:2000},response=>{response.resume();if(response.statusCode!==200)process.exitCode=1});request.on('timeout',()=>process.exit(1));request.on('error',()=>process.exit(1))"]
+ENTRYPOINT ["node", "src/caas/cli.mjs"]
+CMD ["--config", "/run/molit/caas.json"]

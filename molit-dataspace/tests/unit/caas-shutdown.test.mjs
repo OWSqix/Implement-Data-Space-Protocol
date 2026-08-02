@@ -179,3 +179,53 @@ test("PostgreSQL CAAS_* failures retain a stable HTTP status and code", async ()
   assert.equal(unavailable.value.error.code, "CAAS_STATE_UNAVAILABLE");
   await server.closeGracefully();
 });
+
+test("graceful shutdown drains request finalizers after the HTTP response has ended", async (t) => {
+  const finalizerEntered = deferred();
+  const releaseFinalizer = deferred();
+  const config = { limits: { maxRequestBytes: 8192, requestTimeoutMs: 1_000, gracefulShutdownMs: 1_000 } };
+  const service = {
+    async readiness() { return { ready: true }; },
+    async getTenant(tenantId) { return { tenantId, observedState: "PROVISIONED" }; },
+  };
+  const authorizer = {
+    async tenant() {
+      return { role: "tenant", principalId: "urn:test:principal:road", clientId: "test-road-client", keyId: "test-road-key-1" };
+    },
+  };
+  const tracer = {
+    startIncomingSpan() {
+      const context = { traceId: "a".repeat(32), spanId: "b".repeat(16) };
+      return {
+        context,
+        outboundHeaders(headers) { return { ...headers, traceparent: `00-${context.traceId}-${context.spanId}-01` }; },
+        async end() {
+          finalizerEntered.resolve();
+          await releaseFinalizer.promise;
+        },
+      };
+    },
+  };
+  const server = createCaaSHttpServer({ config, service, authorizer, tracer });
+  server.listen(0, "127.0.0.1");
+  await once(server, "listening");
+  t.after(async () => {
+    releaseFinalizer.resolve();
+    await server.closeGracefully();
+  });
+  const origin = `http://127.0.0.1:${server.address().port}`;
+
+  const completed = await response(origin, "/v1/tenants/road-operator", {
+    headers: { authorization: "Bearer tenant-token" },
+  });
+  assert.equal(completed.status, 200);
+  await finalizerEntered.promise;
+
+  let closed = false;
+  const closing = server.closeGracefully({ timeoutMs: 1_000 }).then(() => { closed = true; });
+  await new Promise((resolvePromise) => setTimeout(resolvePromise, 20));
+  assert.equal(closed, false, "response completion must not hide an unfinished request finalizer");
+  releaseFinalizer.resolve();
+  await closing;
+  assert.equal(closed, true);
+});

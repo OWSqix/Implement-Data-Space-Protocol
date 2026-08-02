@@ -46,12 +46,12 @@ test("production DSaaS config and pinned service registry validate", async () =>
   assert.doesNotThrow(() => assertDsaasEnvironment(config, {
     MOLIT_DSAAS_INTROSPECTION_CLIENT_ID: "client",
     MOLIT_DSAAS_INTROSPECTION_CLIENT_SECRET: "secret",
-    MOLIT_CAAS_DSAAS_CONTROLLER_TOKEN: "caas-controller-token",
     MOLIT_DSAAS_POSTGRES_URL: "postgresql://dsaas:secret@postgres.example/dsaas",
     MOLIT_DSAAS_INSTANCE_ID: "dsaas-instance-01",
     MOLIT_DSAAS_POSTGRES_CA_PEM: "test-ca",
   }));
   assert.throws(() => assertDsaasEnvironment(config, {}), { code: "DSAAS_SECRET_ENV_MISSING" });
+  assert.equal(config.caas.auth.type, "oauth2-client-credentials-mtls");
 });
 
 test("CaaS ensurePath rejects query, authority, traversal and separator ambiguity", async (t) => {
@@ -95,13 +95,15 @@ test("HTTP CaaS client forwards the scheduler AbortSignal unchanged", async () =
   assert.equal(observedOptions.headers["idempotency-key"], "dsaas-test-key");
 });
 
-test("production DSaaS config rejects a non-loopback plain HTTP listener", async (t) => {
+test("production DSaaS config permits a non-loopback listener because Node terminates TLS", async (t) => {
   const directory = await mkdtemp(join(tmpdir(), "molit-dsaas-config-listen-"));
   t.after(() => rm(directory, { recursive: true, force: true }));
   const source = JSON.parse(await readFile(CONFIG, "utf8"));
   const path = join(directory, "config.json");
   await writeFile(path, JSON.stringify({ ...source, listenHost: "0.0.0.0" }));
-  await assert.rejects(loadDsaasConfig(path), (error) => error.code === "DSAAS_CONFIG_INVALID" && /loopback/u.test(error.message));
+  const loaded = await loadDsaasConfig(path);
+  assert.equal(loaded.listenHost, "0.0.0.0");
+  assert.ok(loaded.tls.certFile.endsWith("tls.crt"));
 });
 
 test("production DSaaS requires PostgreSQL with verify-full TLS", async (t) => {

@@ -1,9 +1,13 @@
 import http from "node:http";
+import https from "node:https";
 import { randomUUID } from "node:crypto";
+import { managementAccountingTenant, managementOperation } from "../observability/index.mjs";
 
 import { RuntimeError, assertRuntime } from "../bridge-runtime/errors.mjs";
 import { validateRequestTarget } from "../publication/server.mjs";
 import { authorizationChallenge } from "./auth.mjs";
+import { rejectUntrustedPresentedClientCertificate } from "../identity/tls-runtime.mjs";
+import { recordHttpDenial } from "../control-store/http-denial-audit.mjs";
 
 const SECURITY_HEADERS = Object.freeze({
   "Cache-Control": "no-store",
@@ -184,7 +188,12 @@ function identifier(value) {
   return value;
 }
 
-export function createDsaasServer({ config, controlPlane, authenticator, scheduler, telemetry }) {
+function correlatedActor(actor, span, correlationId) {
+  if (!span) return { ...actor, correlationId };
+  return { ...actor, correlationId, traceId: span.context.traceId, traceContext: span.context };
+}
+
+export function createDsaasServer({ config, controlPlane, authenticator, scheduler, telemetry, tlsRuntime = null, tracer = null, operationalTelemetry = null, observabilityReadiness = null, tenantAccessStore = null, usageRecorder = null }) {
   let ready = true;
   let started = false;
   let starting = false;
@@ -193,7 +202,8 @@ export function createDsaasServer({ config, controlPlane, authenticator, schedul
   let lifecycleEpoch = 0;
   const sockets = new Set();
   const requestControllers = new Set();
-  const server = http.createServer({ keepAlive: true, maxHeaderSize: 16_384, requireHostHeader: true }, async (request, response) => {
+  const requestFinalizers = new Set();
+  const handleRequest = async (request, response) => {
     const requestController = new AbortController();
     requestControllers.add(requestController);
     const abortRequest = (reason) => {
@@ -211,6 +221,11 @@ export function createDsaasServer({ config, controlPlane, authenticator, schedul
       if (!response.writableFinished) abortRequest(new RuntimeError("DSAAS_REQUEST_ABORTED", "client closed the response"));
     });
     const requestId = randomUUID();
+    let span = null;
+    let requestActor = null;
+    let requestAuthenticated = false;
+    let requestedTenantId = null;
+    let requestPath = request.url?.split("?", 1)[0] ?? "/";
     const startedAt = process.hrtime.bigint();
     applyHeaders(response, requestId);
     response.once("finish", () => telemetry?.log("INFO", "dsaas.access", {
@@ -218,13 +233,23 @@ export function createDsaasServer({ config, controlPlane, authenticator, schedul
       "http.response.status_code": response.statusCode,
       "http.route": request.url?.split("?", 1)[0] ?? null,
       "molit.request.id": requestId,
+      "molit.trace.id": span?.context.traceId ?? null,
       "molit.duration.ms": Number((Number(process.hrtime.bigint() - startedAt) / 1_000_000).toFixed(3)),
     }));
     try {
+      rejectUntrustedPresentedClientCertificate(request);
       if (!hostAllowed(request, config.allowedHosts)) throw new RuntimeError("DSAAS_HOST_NOT_ALLOWED", "request Host is not allowed");
       if (!validateRequestTarget(request.url, 4096)) throw new RuntimeError("DSAAS_REQUEST_INVALID", "request target is malformed or unsafe");
       const target = new URL(request.url, config.publicOrigin);
+      requestPath = target.pathname;
       assertRuntime(target.search === "", "DSAAS_REQUEST_INVALID", "query parameters are not supported");
+      const tenantMatch = /^\/v1\/dataspaces\/([a-z][a-z0-9-]{2,62})(?:\/|$)/u.exec(target.pathname);
+      requestedTenantId = tenantMatch?.[1] ?? null;
+      span = tracer?.startIncomingSpan("dsaas.http.request", request.headers, {
+        attributes: { "http.request.method": request.method, "http.route": target.pathname, "molit.request.id": requestId },
+        tenantId: tenantMatch?.[1],
+      });
+      if (span) response.setHeader("traceparent", span.outboundHeaders({}).traceparent);
       if (["/healthz", "/readyz"].includes(target.pathname)) {
         assertRuntime(request.method === "GET", "DSAAS_METHOD_NOT_ALLOWED", "health endpoints support GET only");
         requireNoBody(request);
@@ -239,8 +264,10 @@ export function createDsaasServer({ config, controlPlane, authenticator, schedul
           return;
         }
         const localReadiness = await controlPlane.readiness({ signal: requestController.signal });
+        const tlsReadiness = tlsRuntime?.readiness();
+        const observation = await observabilityReadiness?.({ signal: requestController.signal });
         const schedulerReadiness = scheduler?.readiness();
-        const available = localReadiness.ready && (schedulerReadiness?.ready ?? true);
+        const available = localReadiness.ready && (schedulerReadiness?.ready ?? true) && (tlsReadiness?.ready ?? true) && (observation?.ready ?? true);
         const failureCodes = [...localReadiness.failureCodes];
         if (schedulerReadiness && !schedulerReadiness.ready) {
           const schedulerFailures = [schedulerReadiness.lastFatalErrorCode, ...(schedulerReadiness.lastFailureCodes ?? [])].filter(Boolean);
@@ -257,6 +284,8 @@ export function createDsaasServer({ config, controlPlane, authenticator, schedul
           },
           failureCodes: uniqueFailureCodes,
           ...(schedulerReadiness ? { scheduler: schedulerReadiness } : {}),
+          ...(tlsReadiness ? { tls: tlsReadiness } : {}),
+          ...(observation ? { observability: observation } : {}),
           status: available ? "ok" : "not-ready",
         });
         return;
@@ -266,10 +295,14 @@ export function createDsaasServer({ config, controlPlane, authenticator, schedul
         problem(request, response, 503, "DSAAS_SHUTTING_DOWN", "DSaaS is draining and does not accept management requests", requestId);
         return;
       }
-      const actor = await authenticator.authenticate(request, { signal: requestController.signal });
+      const actor = correlatedActor(await authenticator.authenticate(request, { signal: requestController.signal }), span, requestId);
+      requestAuthenticated = true;
+      requestActor = actor;
       let match;
       if (request.method === "POST" && target.pathname === "/v1/dataspaces") {
-        const result = await controlPlane.createDataspace(await readJson(request, config.limits.maxRequestBytes), actor, idempotencyKey(request), { signal: requestController.signal });
+        const body = await readJson(request, config.limits.maxRequestBytes);
+        requestedTenantId = typeof body?.dataspaceId === "string" ? body.dataspaceId : null;
+        const result = await controlPlane.createDataspace(body, actor, idempotencyKey(request), { signal: requestController.signal });
         json(request, response, 201, result, result.revision);
         return;
       }
@@ -314,22 +347,100 @@ export function createDsaasServer({ config, controlPlane, authenticator, schedul
         response.destroy();
         return;
       }
-      const status = STATUS[error?.code] ?? ({
+      let rejectedError = error;
+      try {
+        await recordHttpDenial({
+          actor: requestActor,
+          component: "dsaas",
+          error,
+          method: request.method,
+          path: requestPath,
+          requestId,
+          store: tenantAccessStore,
+          tenantId: requestedTenantId,
+          traceId: span?.context.traceId,
+        });
+      } catch (auditError) {
+        rejectedError = auditError;
+      }
+      const identityStatus = typeof rejectedError?.code === "string" && rejectedError.code.startsWith("IDENTITY_") ? rejectedError.status : undefined;
+      const status = identityStatus ?? STATUS[rejectedError?.code] ?? ({
         DSAAS_CONTENT_TYPE_REQUIRED: 415,
         DSAAS_HOST_NOT_ALLOWED: 421,
         DSAAS_REQUEST_INVALID: 400,
         DSAAS_REQUEST_TOO_LARGE: 413,
         DSAAS_ROUTE_NOT_FOUND: 404,
-      }[error?.code] ?? 500);
-      telemetry?.log(status >= 500 ? "ERROR" : "WARN", "dsaas.request_rejected", { "error.code": error?.code ?? "INTERNAL_ERROR", "molit.request.id": requestId });
-      if (REGISTRY_UNAVAILABLE.has(error?.code)) response.setHeader("Retry-After", "60");
-      else if (STATE_RETRYABLE.has(error?.code)) response.setHeader("Retry-After", "1");
-      problem(request, response, status, status === 500 ? "DSAAS_INTERNAL_ERROR" : error.code, status === 500 ? "internal server error" : error.message, requestId);
+      }[rejectedError?.code] ?? 500);
+      telemetry?.log(status >= 500 ? "ERROR" : "WARN", "dsaas.request_rejected", { "error.code": rejectedError?.code ?? "INTERNAL_ERROR", "molit.request.id": requestId, "molit.trace.id": span?.context.traceId ?? null });
+      if (REGISTRY_UNAVAILABLE.has(rejectedError?.code)) response.setHeader("Retry-After", "60");
+      else if (STATE_RETRYABLE.has(rejectedError?.code)) response.setHeader("Retry-After", "1");
+      problem(request, response, status, status === 500 ? "DSAAS_INTERNAL_ERROR" : rejectedError.code, status === 500 ? "internal server error" : rejectedError.message, requestId);
     } finally {
       clearTimeout(deadlineTimer);
+      const usageOperation = requestAuthenticated ? managementOperation("dsaas", request.method, requestPath) : null;
+      const accountingTenantId = usageOperation ? managementAccountingTenant({
+        authenticated: true,
+        requestedTenantId,
+        statusCode: response.statusCode,
+      }) : null;
+      let usagePromise = Promise.resolve();
+      if (span && usageRecorder && usageOperation && accountingTenantId) {
+        try {
+          usagePromise = Promise.resolve(usageRecorder.record({
+            tenantId: accountingTenantId,
+            operation: usageOperation,
+            statusCode: response.statusCode,
+            requestId,
+            traceId: span.context.traceId,
+            spanId: span.context.spanId,
+            signal: requestController.signal,
+          })).catch((error) => telemetry?.log("ERROR", "dsaas.usage_meter_failed", { "error.code": error?.code ?? "OBS_USAGE_RECORD_FAILED", "molit.request.id": requestId }));
+        } catch (error) {
+          telemetry?.log("ERROR", "dsaas.usage_meter_failed", { "error.code": error?.code ?? "OBS_USAGE_RECORD_FAILED", "molit.request.id": requestId });
+        }
+      }
+      if (span) {
+        await span.end({
+          status: response.statusCode >= 500 ? "ERROR" : "OK",
+          ...(response.statusCode >= 400 ? { message: `HTTP ${response.statusCode}` } : {}),
+          attributes: { "http.response.status_code": response.statusCode },
+          signal: requestController.signal,
+        }).catch((error) => telemetry?.log("ERROR", "dsaas.trace_export_failed", { "error.code": error?.code ?? "OBS_TRACE_EXPORT_FAILED", "molit.request.id": requestId }));
+      }
+      if (span && operationalTelemetry) {
+        await operationalTelemetry.recordRequest({
+          tenantId: requestedTenantId ?? "molit-platform",
+          operation: "dsaas.http.request",
+          statusCode: response.statusCode,
+          durationMs: Number(process.hrtime.bigint() - startedAt) / 1_000_000,
+          correlationId: requestId,
+          traceId: span.context.traceId,
+          spanId: span.context.spanId,
+          signal: requestController.signal,
+        }).catch((error) => telemetry?.log("ERROR", "dsaas.telemetry_export_failed", { "error.code": error?.code ?? "OBS_EXPORT_FAILED", "molit.request.id": requestId }));
+      }
+      await usagePromise;
       requestControllers.delete(requestController);
     }
-  });
+  };
+  const handler = (request, response) => {
+    const finalizer = handleRequest(request, response);
+    requestFinalizers.add(finalizer);
+    void finalizer.catch((error) => {
+      telemetry?.log("ERROR", "dsaas.request_finalizer_failed", {
+        "error.code": error?.code ?? "DSAAS_FINALIZER_FAILED",
+        "molit.request.id": response.getHeader("x-request-id") ?? null,
+      });
+      if (!response.destroyed && !response.writableFinished) response.destroy(error);
+    }).finally(() => requestFinalizers.delete(finalizer));
+  };
+  const drainRequestFinalizers = async () => {
+    while (requestFinalizers.size > 0) await Promise.allSettled([...requestFinalizers]);
+  };
+  const server = tlsRuntime
+    ? https.createServer({ ...tlsRuntime.serverOptions(), keepAlive: true, maxHeaderSize: 16_384, requireHostHeader: true }, handler)
+    : http.createServer({ keepAlive: true, maxHeaderSize: 16_384, requireHostHeader: true }, handler);
+  if (tlsRuntime) tlsRuntime.attach(server);
   server.headersTimeout = config.limits.headerTimeoutMs;
   server.requestTimeout = config.limits.requestTimeoutMs;
   server.keepAliveTimeout = config.limits.keepAliveTimeoutMs;
@@ -352,8 +463,15 @@ export function createDsaasServer({ config, controlPlane, authenticator, schedul
       try {
         if (config.environment === "production") {
           assertRuntime(authenticator?.productionEligible === true, "DSAAS_PRODUCTION_AUTH_REQUIRED", "production DSaaS requires OAuth2 introspection authentication");
+          assertRuntime(typeof authenticator.initialize === "function" && typeof authenticator.readiness === "function", "DSAAS_PRODUCTION_AUTH_REQUIRED", "production DSaaS requires an identity startup probe");
+          await authenticator.initialize();
+          const identity = await authenticator.readiness({ probe: false });
+          assertRuntime(identity?.ready === true, "DSAAS_PRODUCTION_AUTH_NOT_READY", "production DSaaS cannot start while the identity provider is unavailable");
+          assertRuntime(tlsRuntime?.readiness().ready === true, "DSAAS_PRODUCTION_TLS_REQUIRED", "production DSaaS requires a valid directly terminated TLS context");
           const localReadiness = await controlPlane.readiness();
           assertRuntime(localReadiness?.ready === true, "DSAAS_PRODUCTION_NOT_READY", "production DSaaS cannot start before all local readiness gates pass", { failureCodes: localReadiness?.failureCodes ?? [] });
+          const observation = await observabilityReadiness?.();
+          assertRuntime(observation?.ready === true, "DSAAS_OBSERVABILITY_NOT_READY", "production DSaaS cannot start before observability and usage delivery are ready");
         }
         await new Promise((resolve, reject) => {
           server.once("error", reject);
@@ -406,6 +524,7 @@ export function createDsaasServer({ config, controlPlane, authenticator, schedul
           server.close((error) => error ? reject(error) : resolve());
         })
         : Promise.resolve();
+      const finalizerDrain = serverDrain.then(drainRequestFinalizers);
       server.closeIdleConnections?.();
       const schedulerDrain = Promise.resolve(scheduler?.stop({
         deadline,
@@ -413,7 +532,7 @@ export function createDsaasServer({ config, controlPlane, authenticator, schedul
       }));
       closePromise = (async () => {
         let timer;
-        const drains = Promise.allSettled([schedulerDrain, serverDrain]);
+        const drains = Promise.allSettled([schedulerDrain, finalizerDrain]);
         const remainingMs = Math.max(0, deadline - Date.now());
         const outcome = remainingMs === 0
           ? { timedOut: true }
@@ -429,6 +548,7 @@ export function createDsaasServer({ config, controlPlane, authenticator, schedul
           for (const controller of requestControllers) controller.abort(reason);
           for (const socket of sockets) socket.destroy();
         }
+        await tlsRuntime?.close();
         started = false;
         const failure = outcome.results?.find(({ status }) => status === "rejected");
         if (failure) throw failure.reason;

@@ -1,0 +1,67 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: molit-control-store-runtime-login-verification
+  namespace: molit-caas-system
+spec:
+  backoffLimit: 2
+  activeDeadlineSeconds: 300
+  ttlSecondsAfterFinished: 3600
+  template:
+    metadata: { labels: { app.kubernetes.io/name: molit-control-store-runtime-login-verification } }
+    spec:
+      restartPolicy: Never
+      automountServiceAccountToken: false
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 70
+        runAsGroup: 70
+        seccompProfile: { type: RuntimeDefault }
+      containers:
+        - name: verify
+          image: "@@DATABASE_TOOL_IMAGE@@"
+          imagePullPolicy: IfNotPresent
+          command: ["/bin/sh", "-ec"]
+          args:
+            - |
+              for attempt in $(seq 1 120); do
+                if psql "$DATABASE_URL" -X -v ON_ERROR_STOP=1 \
+                  -v caas_role="$(cat /runtime-roles/caas-username)" \
+                  -v dsaas_role="$(cat /runtime-roles/dsaas-username)" \
+                  -f /migrations/runtime-role-login-verification.sql; then
+                  exit 0
+                fi
+                sleep 2
+              done
+              echo "CNPG did not restore runtime role LOGIN within the bounded interval" >&2
+              exit 4
+          env:
+            - name: DATABASE_URL
+              valueFrom: { secretKeyRef: { name: molit-control-store-database, key: url } }
+            - { name: PGSSLMODE, value: verify-full }
+            - { name: PGSSLROOTCERT, value: /tls/ca.crt }
+          resources:
+            requests: { cpu: 50m, memory: 64Mi }
+            limits: { cpu: 500m, memory: 256Mi }
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities: { drop: ["ALL"] }
+            readOnlyRootFilesystem: true
+          volumeMounts:
+            - { name: migrations, mountPath: /migrations, readOnly: true }
+            - { name: caas-role, mountPath: /runtime-roles/caas-username, subPath: username, readOnly: true }
+            - { name: dsaas-role, mountPath: /runtime-roles/dsaas-username, subPath: username, readOnly: true }
+            - { name: database-ca, mountPath: /tls, readOnly: true }
+            - { name: tmp, mountPath: /tmp }
+      volumes:
+        - name: migrations
+          configMap:
+            name: molit-control-store-migrations
+            items: [{ key: runtime-role-login-verification.sql, path: runtime-role-login-verification.sql }]
+        - name: caas-role
+          secret: { secretName: molit-caas-database-role, defaultMode: 288, items: [{ key: username, path: username }] }
+        - name: dsaas-role
+          secret: { secretName: molit-dsaas-database-role, defaultMode: 288, items: [{ key: username, path: username }] }
+        - name: database-ca
+          secret: { secretName: molit-control-store-database-ca }
+        - { name: tmp, emptyDir: { sizeLimit: 16Mi } }

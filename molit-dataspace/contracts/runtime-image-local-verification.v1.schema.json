@@ -1,0 +1,102 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://data.molit.go.kr/contracts/runtime-image-local-verification.v1.schema.json",
+  "title": "MOLIT local runtime image verification",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "startedAt", "finishedAt", "durationMs", "status", "operatingRegistryEvidence", "inventory", "images", "externalAdoptions", "failureCode", "failureMessage"],
+  "allOf": [
+    {
+      "if": { "properties": { "status": { "const": "passed" } }, "required": ["status"] },
+      "then": {
+        "properties": {
+          "inventory": { "type": "object", "properties": { "schemaValidated": { "const": true } } },
+          "images": {
+            "type": "array",
+            "minItems": 6,
+            "maxItems": 6,
+            "allOf": [
+              { "contains": { "type": "object", "properties": { "service": { "const": "caas" } }, "required": ["service"] }, "minContains": 1, "maxContains": 1 },
+              { "contains": { "type": "object", "properties": { "service": { "const": "dsaas" } }, "required": ["service"] }, "minContains": 1, "maxContains": 1 },
+              { "contains": { "type": "object", "properties": { "service": { "const": "fencing-webhook" } }, "required": ["service"] }, "minContains": 1, "maxContains": 1 },
+              { "contains": { "type": "object", "properties": { "service": { "const": "edc-control-plane" } }, "required": ["service"] }, "minContains": 1, "maxContains": 1 },
+              { "contains": { "type": "object", "properties": { "service": { "const": "edc-data-plane" } }, "required": ["service"] }, "minContains": 1, "maxContains": 1 },
+              { "contains": { "type": "object", "properties": { "service": { "const": "edc-schema-migration" } }, "required": ["service"] }, "minContains": 1, "maxContains": 1 }
+            ]
+          },
+          "externalAdoptions": {
+            "type": "array",
+            "minItems": 2,
+            "maxItems": 2,
+            "allOf": [
+              { "type": "array", "contains": { "type": "object", "properties": { "service": { "const": "postgres-operand" } }, "required": ["service"] }, "minContains": 1, "maxContains": 1 },
+              { "type": "array", "contains": { "type": "object", "properties": { "service": { "const": "otel-collector" } }, "required": ["service"] }, "minContains": 1, "maxContains": 1 }
+            ]
+          },
+          "failureCode": { "type": "null" },
+          "failureMessage": { "type": "null" }
+        }
+      }
+    },
+    {
+      "if": { "properties": { "status": { "const": "failed" } }, "required": ["status"] },
+      "then": { "properties": { "failureCode": { "type": "string", "minLength": 1 }, "failureMessage": { "type": "string", "minLength": 1 } } }
+    }
+  ],
+  "properties": {
+    "schemaVersion": { "const": "molit.runtime-image-local-verification/1" },
+    "startedAt": { "type": "string", "format": "date-time" },
+    "finishedAt": { "type": "string", "format": "date-time" },
+    "durationMs": { "type": "number", "minimum": 0 },
+    "status": { "enum": ["passed", "failed"] },
+    "operatingRegistryEvidence": { "const": false },
+    "inventory": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["path", "sha256", "schemaValidated"],
+      "properties": {
+        "path": { "const": "deploy/supply-chain/runtime-image-inventory.v1.json" },
+        "sha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+        "schemaValidated": { "type": "boolean" }
+      }
+    },
+    "images": {
+      "type": "array",
+      "maxItems": 6,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["service", "imageId", "user", "healthcheck", "readOnlyNonRootRuntimeProbe", "productionEligibleLabel", "runtimeClassLabel"],
+        "properties": {
+          "service": { "enum": ["caas", "dsaas", "fencing-webhook", "edc-control-plane", "edc-data-plane", "edc-schema-migration"] },
+          "imageId": { "type": "string", "pattern": "^sha256:[a-f0-9]{64}$" },
+          "user": { "type": "string", "minLength": 1 },
+          "healthcheck": { "type": "array", "items": { "type": "string" } },
+          "readOnlyNonRootRuntimeProbe": { "const": true },
+          "productionEligibleLabel": { "enum": ["true", "false"] },
+          "runtimeClassLabel": { "enum": ["caas-control-plane", "dsaas-control-plane", "fencing-webhook", "edc-control-plane", "edc-data-plane", "schema-migration"] }
+        }
+      }
+    },
+    "externalAdoptions": {
+      "type": "array",
+      "maxItems": 2,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["service", "runtimeClass", "upstreamImage", "provenanceMode", "productionEligible", "releasePathContractDeclared", "operatingRegistryEvidence"],
+        "properties": {
+          "service": { "enum": ["postgres-operand", "otel-collector"] },
+          "runtimeClass": { "enum": ["postgres-operand", "otel-collector"] },
+          "upstreamImage": { "type": "string", "pattern": "^[^@\\s]+@sha256:[a-f0-9]{64}$" },
+          "provenanceMode": { "const": "external-adoption" },
+          "productionEligible": { "const": true },
+          "releasePathContractDeclared": { "const": true },
+          "operatingRegistryEvidence": { "const": false }
+        }
+      }
+    },
+    "failureCode": { "type": ["string", "null"] },
+    "failureMessage": { "type": ["string", "null"] }
+  }
+}

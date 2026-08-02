@@ -33,6 +33,14 @@ services:
       keygen:
         condition: service_completed_successfully
 
+  provider-control-plane:
+    build:
+      target: smoke-control-plane
+
+  consumer-control-plane:
+    build:
+      target: smoke-control-plane
+
   smoke:
     image: node:24.18.0-alpine3.24@sha256:a0b9bf06e4e6193cf7a0f58816cc935ff8c2a908f81e6f1a95432d679c54fbfd
     command: ["node", "/work/tools/edc/smoke.mjs"]

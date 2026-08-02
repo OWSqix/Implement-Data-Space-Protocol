@@ -1,0 +1,104 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://data.molit.go.kr/contracts/kubernetes-lifecycle-evidence.v1.schema.json",
+  "title": "MOLIT Kubernetes repeated lifecycle evidence",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "startedAt", "completedAt", "cyclesRequested", "cyclesCompleted", "operationsCompleted", "cluster", "images", "latencyMs", "inventory", "eventJournal", "bootstrap"],
+  "properties": {
+    "schemaVersion": { "const": "molit.kubernetes-lifecycle-evidence/1" },
+    "startedAt": { "type": "string", "format": "date-time" },
+    "completedAt": { "type": "string", "format": "date-time" },
+    "cyclesRequested": { "const": 30 },
+    "cyclesCompleted": { "const": 30 },
+    "operationsCompleted": { "const": 150 },
+    "cluster": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["gitVersion", "platform"],
+      "properties": {
+        "gitVersion": { "type": "string", "pattern": "^v1\\.35\\." },
+        "platform": { "type": "string", "minLength": 3 }
+      }
+    },
+    "images": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["baseline", "upgrade"],
+      "properties": {
+        "baseline": { "$ref": "#/$defs/imagePair" },
+        "upgrade": { "$ref": "#/$defs/imagePair" }
+      }
+    },
+    "latencyMs": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["p50", "p95", "max"],
+      "properties": {
+        "p50": { "type": "number", "minimum": 0 },
+        "p95": { "type": "number", "minimum": 0 },
+        "max": { "type": "number", "minimum": 0 }
+      }
+    },
+    "inventory": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["managedNamespaces", "retainedFenceRecords", "orphanNamespaces"],
+      "properties": {
+        "managedNamespaces": { "const": 0 },
+        "retainedFenceRecords": { "const": 30 },
+        "orphanNamespaces": { "const": 0 }
+      }
+    },
+    "eventJournal": {
+      "type": "array",
+      "minItems": 150,
+      "maxItems": 150,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["cycle", "sequence", "tenantId", "state", "transition", "fencingToken", "durationMs", "exists", "planDigest", "controlPlaneImage"],
+        "properties": {
+          "cycle": { "type": "integer", "minimum": 1, "maximum": 30 },
+          "sequence": { "type": "integer", "minimum": 1, "maximum": 5 },
+          "tenantId": { "type": "string", "pattern": "^rp-[a-f0-9]{8}-[0-9]{3}$" },
+          "state": { "enum": ["PROVISIONED", "SUSPENDED", "DELETED"] },
+          "transition": { "type": ["string", "null"], "enum": [null, "UPGRADE", "ROLLBACK"] },
+          "fencingToken": { "type": "string", "pattern": "^[1-5]$" },
+          "durationMs": { "type": "number", "minimum": 0 },
+          "exists": { "type": "boolean" },
+          "planDigest": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+          "controlPlaneImage": { "$ref": "#/$defs/image" }
+        }
+      }
+    },
+    "bootstrap": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["kindVersion", "kindExecutableSha256", "kubectlVersion", "kubectlExecutableSha256", "nodeImage", "webhookImage", "baselineWorkloadImage", "upgradeWorkloadImage", "clusterName"],
+      "properties": {
+        "kindVersion": { "type": "string", "pattern": "kind v0\\.31\\.0" },
+        "kindExecutableSha256": { "const": "2c3a9ff954de16244380778683cf99e271bfc2fac9c6c4e797e4623c45e59d9d" },
+        "kubectlVersion": { "const": "v1.35.0" },
+        "kubectlExecutableSha256": { "const": "4c5d14b8673bd55f813a8965ad70d5150e3960ee5f274025e2286aea3a0fa8b6" },
+        "nodeImage": { "const": "kindest/node:v1.35.0@sha256:452d707d4862f52530247495d180205e029056831160e22870e37e3f6c1ac31f" },
+        "webhookImage": { "$ref": "#/$defs/image" },
+        "baselineWorkloadImage": { "$ref": "#/$defs/image" },
+        "upgradeWorkloadImage": { "$ref": "#/$defs/image" },
+        "clusterName": { "type": "string", "pattern": "^[a-z0-9][a-z0-9-]{1,40}$" }
+      }
+    }
+  },
+  "$defs": {
+    "image": { "type": "string", "pattern": "^[^@\\s]+@sha256:[a-f0-9]{64}$" },
+    "imagePair": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["controlPlane", "dataPlane"],
+      "properties": {
+        "controlPlane": { "$ref": "#/$defs/image" },
+        "dataPlane": { "$ref": "#/$defs/image" }
+      }
+    }
+  }
+}

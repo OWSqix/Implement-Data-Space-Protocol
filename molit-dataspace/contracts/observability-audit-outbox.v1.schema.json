@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://data.molit.go.kr/contracts/observability-audit-outbox.v1.schema.json",
+  "title": "MOLIT transactional audit outbox payload",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "sourceComponent", "sourceSequence", "sourceEventDigest", "auditEventPayloadSha256", "auditEvent"],
+  "properties": {
+    "schemaVersion": { "const": "molit.audit-outbox/1" },
+    "sourceComponent": { "enum": ["caas", "dsaas"] },
+    "sourceSequence": { "type": "integer", "minimum": 1 },
+    "sourceEventDigest": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+    "auditEventPayloadSha256": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+    "auditEvent": { "type": "object", "minProperties": 1 }
+  }
+}

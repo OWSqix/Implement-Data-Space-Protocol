@@ -15,6 +15,7 @@ async function copyTopologyRoot(root) {
   await cp(new URL('../../evidence/edc', import.meta.url), path.join(root, 'evidence', 'edc'), { recursive: true });
   await mkdir(path.join(root, 'contracts'), { recursive: true });
   await cp(new URL('../../contracts/edc-local-interoperability-run.v1.schema.json', import.meta.url), path.join(root, 'contracts', 'edc-local-interoperability-run.v1.schema.json'));
+  await cp(new URL('../../contracts/edc-schema-postgres-verification.v1.schema.json', import.meta.url), path.join(root, 'contracts', 'edc-schema-postgres-verification.v1.schema.json'));
   await cp(new URL('../../package.json', import.meta.url), path.join(root, 'package.json'));
   await cp(new URL('../../package-lock.json', import.meta.url), path.join(root, 'package-lock.json'));
   await cp(new URL('../../.gitattributes', import.meta.url), path.join(root, '.gitattributes'));
@@ -42,6 +43,35 @@ test('EDC topology rejects a Gradle dependency version that differs from the ups
     const result = await verifyTopology(root);
     assert.equal(result.ok, false);
     assert.ok(result.failures.includes('Gradle edcVersion differs from the EDC upstream lock'));
+  } finally {
+    await rm(root, { recursive: true, force: true });
+  }
+});
+
+test('EDC topology rejects schema evidence after its PostgreSQL verifier changes', async () => {
+  const root = await mkdtemp(path.join(tmpdir(), 'molit-edc-topology-schema-verifier-'));
+  try {
+    await copyTopologyRoot(root);
+    const target = path.join(root, 'deploy', 'edc', 'database-schema', 'run-postgres-verification.ps1');
+    await writeFile(target, `${await readFile(target, 'utf8')}\n# changed verifier\n`);
+    const result = await verifyTopology(root);
+    assert.equal(result.ok, false);
+    assert.ok(result.failures.includes('EDC schema migration PostgreSQL evidence is absent, stale, or treated as release authorization'));
+  } finally {
+    await rm(root, { recursive: true, force: true });
+  }
+});
+
+test('EDC topology rejects mock IAM or legacy signaling in the production control plane', async () => {
+  const root = await mkdtemp(path.join(tmpdir(), 'molit-edc-topology-production-dependency-'));
+  try {
+    await copyTopologyRoot(root);
+    const target = path.join(root, 'deploy', 'edc', 'runtime', 'control-plane', 'build.gradle.kts');
+    const source = await readFile(target, 'utf8');
+    await writeFile(target, source.replace('implementation(project(":health-probe"))', 'implementation(project(":health-probe"))\n    implementation("org.eclipse.edc:iam-mock:$edcVersion")'));
+    const result = await verifyTopology(root);
+    assert.equal(result.ok, false);
+    assert.ok(result.failures.includes('production control plane declares a smoke-only identity or legacy signaling dependency'));
   } finally {
     await rm(root, { recursive: true, force: true });
   }

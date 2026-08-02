@@ -1,0 +1,118 @@
+openapi: 3.1.0
+info:
+  title: MOLIT WORM audit sink adapter
+  version: 1.0.0
+paths:
+  /v1/capabilities:
+    get:
+      operationId: capabilities
+      responses:
+        "200":
+          description: Backend identity and enforced immutability capabilities
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/capabilities"
+  /v1/head:
+    get:
+      operationId: head
+      responses:
+        "200":
+          description: Current receipt-chain head
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/head"
+  /v1/records:
+    post:
+      operationId: append
+      description: Atomically appends only when expectedHead equals the current head.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: false
+              required: [record, expectedHead]
+              properties:
+                record:
+                  type: object
+                expectedHead:
+                  $ref: "#/components/schemas/head"
+      responses:
+        "200":
+          description: Durable append receipt
+          content:
+            application/json:
+              schema:
+                type: object
+        "409":
+          description: Duplicate event identifier or stale head
+  /v1/records/{eventId}:
+    get:
+      operationId: getRecord
+      parameters:
+        - name: eventId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Persisted audit record
+          content:
+            application/json:
+              schema:
+                type: object
+        "404":
+          description: Record not found; treated as a deletion failure before retention expiry
+  /v1/receipts/{eventId}:
+    get:
+      operationId: getReceipt
+      description: Returns the immutable append receipt used to recover an append completed before outbox acknowledgement.
+      parameters:
+        - name: eventId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Persisted append receipt
+          content:
+            application/json:
+              schema:
+                type: object
+        "404":
+          description: Receipt not found
+components:
+  schemas:
+    head:
+      type: object
+      additionalProperties: false
+      required: [sequence, receiptDigest]
+      properties:
+        sequence:
+          type: integer
+          minimum: 0
+        receiptDigest:
+          type: string
+          pattern: "^[0-9a-f]{64}$"
+    capabilities:
+      type: object
+      additionalProperties: false
+      required: [backendId, appendOnly, conditionalAppend, immutableUntilRetention, readAfterWrite, retentionEnforced]
+      properties:
+        backendId:
+          type: string
+        appendOnly:
+          const: true
+        conditionalAppend:
+          const: true
+        immutableUntilRetention:
+          const: true
+        readAfterWrite:
+          const: true
+        retentionEnforced:
+          const: true

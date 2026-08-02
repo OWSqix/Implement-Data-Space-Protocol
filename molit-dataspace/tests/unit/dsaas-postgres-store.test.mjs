@@ -890,6 +890,7 @@ test("DSaaS runtime initializes the PostgreSQL adapter before returning it", asy
       limits: { maxStateBytes: 1024 * 1024 },
     },
     env: {},
+    projectionFactory: () => null,
     poolFactory: async ({ errorCodes }) => {
       assert.deepEqual(errorCodes, {
         configInvalid: "DSAAS_CONFIG_INVALID",

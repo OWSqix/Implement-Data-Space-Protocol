@@ -16,7 +16,14 @@ try {
   }
   $port = $Matches[1]
   $env:MOLIT_POSTGRES_INTEGRATION_URL = "postgresql://molit_control_store_test:molit-control-store-test@127.0.0.1:$port/molit_control_store_test"
-  node --test (Join-Path $projectRoot "tests/integration/dsaas-postgres-store-docker.test.mjs")
+  node --test --test-concurrency=1 `
+    (Join-Path $projectRoot "tests/integration/dsaas-postgres-store-docker.test.mjs") `
+    (Join-Path $projectRoot "tests/integration/normalized-control-store-docker.test.mjs") `
+    (Join-Path $projectRoot "tests/integration/observability-worm-dispatcher-postgres.test.mjs") `
+    (Join-Path $projectRoot "tests/integration/tenant-isolation-postgres.test.mjs") `
+    (Join-Path $projectRoot "tests/integration/usage-meter-postgres.test.mjs") `
+    (Join-Path $projectRoot "tests/integration/scoped-control-store-postgres.test.mjs") `
+    (Join-Path $projectRoot "tests/integration/scoped-control-store-postgres-tls.test.mjs")
   if ($LASTEXITCODE -ne 0) { throw "PostgreSQL control-store integration test failed" }
 } catch {
   $primaryFailure = $_

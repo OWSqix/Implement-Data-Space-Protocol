@@ -217,25 +217,33 @@ export async function evaluateCommercialReadiness({
   });
 }
 
+export async function runCommercialReadinessCli({
+  evaluate = evaluateCommercialReadiness,
+  write = (value) => process.stdout.write(value),
+} = {}) {
+  try {
+    const status = await evaluate();
+    write(`${JSON.stringify(status, null, 2)}\n`);
+    return status.commercialReady ? 0 : 2;
+  } catch (error) {
+    if (!(error instanceof CommercialReadinessEvaluationError)) throw error;
+    write(`${JSON.stringify({
+      schemaVersion: "molit.commercial-readiness-status/1",
+      target: "commercial-production",
+      commercialReady: false,
+      decision: "blocked",
+      evaluationErrors: [{ code: error.code, message: error.message }],
+    }, null, 2)}\n`);
+    return 1;
+  }
+}
+
 async function main() {
-  const status = await evaluateCommercialReadiness();
-  process.stdout.write(`${JSON.stringify(status, null, 2)}\n`);
-  process.exitCode = status.commercialReady ? 0 : 2;
+  process.exitCode = await runCommercialReadinessCli();
 }
 
 if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
   main().catch((error) => {
-    if (error instanceof CommercialReadinessEvaluationError) {
-      process.stdout.write(`${JSON.stringify({
-        schemaVersion: "molit.commercial-readiness-status/1",
-        target: "commercial-production",
-        commercialReady: false,
-        decision: "blocked",
-        evaluationErrors: [{ code: error.code, message: error.message }],
-      }, null, 2)}\n`);
-      process.exitCode = 2;
-      return;
-    }
     process.stderr.write(`${JSON.stringify({ code: "COMMERCIAL_STATUS_FAILED", message: error.message })}\n`);
     process.exitCode = 1;
   });

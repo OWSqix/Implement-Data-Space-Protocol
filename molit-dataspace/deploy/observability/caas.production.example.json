@@ -1,0 +1,46 @@
+{
+  "schemaVersion": "molit.observability-config/1",
+  "service": { "name": "molit-caas", "version": "0.1.0", "environment": "production" },
+  "tracing": {
+    "mode": "operational",
+    "endpoint": "https://otel-collector.observability.svc:4318/v1/traces",
+    "authorizationRef": "file:///var/run/secrets/molit-observability/otlp-token",
+    "tls": { "caRef": "file:///var/run/secrets/molit-observability/ca.crt", "certificateRef": "file:///var/run/secrets/molit-observability/tls.crt", "privateKeyRef": "file:///var/run/secrets/molit-observability/tls.key", "serverName": "otel-collector.observability.svc", "reloadIntervalMs": 30000 },
+    "tenantBucketCount": 64,
+    "tenantSaltRef": "file:///var/run/secrets/molit-observability/tenant-salt",
+    "timeoutMs": 5000
+  },
+  "metrics": {
+    "mode": "operational",
+    "endpoint": "https://otel-collector.observability.svc:4318/v1/metrics",
+    "authorizationRef": "file:///var/run/secrets/molit-observability/otlp-token",
+    "tls": { "caRef": "file:///var/run/secrets/molit-observability/ca.crt", "certificateRef": "file:///var/run/secrets/molit-observability/tls.crt", "privateKeyRef": "file:///var/run/secrets/molit-observability/tls.key", "serverName": "otel-collector.observability.svc", "reloadIntervalMs": 30000 },
+    "timeoutMs": 5000
+  },
+  "logs": {
+    "mode": "operational",
+    "endpoint": "https://otel-collector.observability.svc:4318/v1/logs",
+    "authorizationRef": "file:///var/run/secrets/molit-observability/otlp-token",
+    "tls": { "caRef": "file:///var/run/secrets/molit-observability/ca.crt", "certificateRef": "file:///var/run/secrets/molit-observability/tls.crt", "privateKeyRef": "file:///var/run/secrets/molit-observability/tls.key", "serverName": "otel-collector.observability.svc", "reloadIntervalMs": 30000 },
+    "timeoutMs": 5000
+  },
+  "audit": {
+    "mode": "operational-worm",
+    "baseUrl": "https://worm-audit.observability.svc/",
+    "authorizationRef": "file:///var/run/secrets/molit-observability/worm-token",
+    "tls": { "caRef": "file:///var/run/secrets/molit-observability/ca.crt", "certificateRef": "file:///var/run/secrets/molit-observability/tls.crt", "privateKeyRef": "file:///var/run/secrets/molit-observability/tls.key", "serverName": "worm-audit.observability.svc", "reloadIntervalMs": 30000 },
+    "retentionDays": 365,
+    "timeoutMs": 5000
+  },
+  "usageMeter": {
+    "purpose": "operational-non-billable",
+    "meterName": "management.api.request",
+    "unit": "{request}",
+    "dimensionKeys": ["operation", "outcome"],
+    "maximumEventAgeDays": 400,
+    "maximumFutureSkewMs": 300000,
+    "maxAttempts": 3,
+    "retryBaseMs": 50,
+    "outbox": { "maxAttempts": 12, "batchSize": 50, "leaseMs": 30000, "pollIntervalMs": 1000, "retryBaseMs": 1000, "retryMaxMs": 300000, "healthIntervalMs": 30000 }
+  }
+}

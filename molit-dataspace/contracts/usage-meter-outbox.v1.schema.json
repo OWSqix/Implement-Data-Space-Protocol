@@ -1,0 +1,49 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://data.molit.go.kr/contracts/usage-meter-outbox.v1.schema.json",
+  "title": "MOLIT durable usage meter outbox payload",
+  "oneOf": [
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["schemaVersion", "usageEvent", "usageEventSha256"],
+      "properties": {
+        "schemaVersion": { "const": "molit.usage-meter-outbox/1" },
+        "usageEvent": { "$ref": "usage-meter-event.v1.schema.json" },
+        "usageEventSha256": { "$ref": "#/$defs/sha256" }
+      }
+    },
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["schemaVersion", "request", "requestSha256", "result"],
+      "properties": {
+        "schemaVersion": { "const": "molit.usage-meter-reprocess-outbox/1" },
+        "request": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["meterName", "operationId", "periodFrom", "periodTo", "tenantId", "purpose", "unit", "traceId", "correlationId"],
+          "properties": {
+            "meterName": { "$ref": "#/$defs/meterName" },
+            "operationId": { "$ref": "#/$defs/identifier" },
+            "periodFrom": { "type": "string", "format": "date-time" },
+            "periodTo": { "type": "string", "format": "date-time" },
+            "tenantId": { "type": "string", "pattern": "^[a-z][a-z0-9-]{2,62}$" },
+            "purpose": { "enum": ["operational-non-billable", "billing-candidate"] },
+            "unit": { "type": "string", "minLength": 1, "maxLength": 32 },
+            "traceId": { "type": "string", "pattern": "^[a-f0-9]{32}$" },
+            "correlationId": { "$ref": "#/$defs/identifier" }
+          }
+        },
+        "requestSha256": { "$ref": "#/$defs/sha256" },
+        "result": { "type": "object" }
+      }
+    }
+  ],
+  "$defs": {
+    "identifier": { "type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{7,127}$" },
+    "meterName": { "type": "string", "pattern": "^[a-z][a-z0-9._-]{1,95}$" },
+    "sha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" }
+  }
+}
+

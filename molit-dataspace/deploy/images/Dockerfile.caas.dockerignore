@@ -1,0 +1,10 @@
+**
+!package.json
+!package-lock.json
+!src/
+!src/**
+!contracts/
+!contracts/**
+!standards/
+!standards/generated/
+!standards/generated/**

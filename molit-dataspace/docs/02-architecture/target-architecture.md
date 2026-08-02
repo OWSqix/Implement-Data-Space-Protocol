@@ -19,6 +19,8 @@
 - 플랫폼 자체 Connector, 별도 Bridge, CaaS, 원천기관별 Connector 중 무엇을 배치하는가
 - EDC 또는 다른 Connector 제품을 사용하는가
 - identity, transfer profile, public/private network를 어떻게 구성하는가
+- DSGA 주체와 국가·국토교통 2계층 권한 구조를 어떻게 구성하는가
+- notary 운영 주체를 어느 기관으로 정하는가
 
 [ADR-0001](../adr/0001-federated-provider-model.md)의 기관별 Provider 모델은 비교 대상이며 기본 구조로 확정하지 않는다. 기존 플랫폼 연결의 1차 선택지는 [ADR-0003](../adr/0003-existing-platform-integration-topology.md)에 제안한다.
 
@@ -395,5 +397,10 @@ EDC는 MDS 사례와 확장 구조를 검토할 수 있는 후보지만 DSP가 E
 - Connector 평가자는 승인된 source fixture로 custom source와 external Data Plane 연계를 실행하고 격리·상호운용 시험 결과를 남긴다.
 - CaaS tenant, secret, network와 audit 경계
 - 제품 upgrade·migration·backup·지원 수명주기
+
+다음 두 항목도 구현 선택에서 유보한다. §8의 선택적 구성 판정과 §13 항목 7의 필요 확인 뒤 별도 결정 절차를 함께 준거로 삼는다.
+
+- Observability Services 도입·배치 — 필요성과 운영 요건 확인 뒤 별도 ADR에서 결정
+- Governance 기능 분해 — [ADR-0007](../adr/0007-governance-function-separation.md) `Proposed`이며 승인 전에는 현행 구조에 반영하지 않음
 
 선택 결과는 별도 ADR에 version과 근거를 고정한다.

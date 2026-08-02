@@ -4,14 +4,19 @@ import { mkdir, open, unlink } from "node:fs/promises";
 import { dirname } from "node:path";
 import { hostname } from "node:os";
 import { digest } from "../discovery/stable-json.mjs";
+import { encodeIdempotencyRecordKey } from "../control-store/idempotency-record-key.mjs";
 import { CaaSError, assertCaas } from "./errors.mjs";
 import { validateDeploymentSecretReference } from "./secrets.mjs";
 
-const phases = new Set(["NOT_PROVISIONED", "PROVISIONING", "PROVISIONED", "DEPROVISIONING", "INTENT_READY", "ERROR"]);
-const desiredStates = new Set(["PROVISIONED", "DEPROVISIONED"]);
+const phases = new Set([
+  "NOT_PROVISIONED", "PROVISIONING", "PROVISIONED", "UPGRADING", "ROLLING_BACK",
+  "SUSPENDING", "SUSPENDED", "DELETING", "DELETED", "DEPROVISIONING", "INTENT_READY", "ERROR",
+]);
+const desiredStates = new Set(["PROVISIONED", "SUSPENDED", "DELETED", "DEPROVISIONED"]);
 const actorIdentifier = /^[^\s\u0000-\u001f\u007f]{3,256}$/u;
 const persistedErrorCode = /^[A-Z0-9_:-]{1,64}$/u;
-const tenantFields = new Set(["tenantId", "displayName", "participantId", "namespace", "endpoint", "adapterId", "connectorPlanId", "connectorPlanSnapshot", "connectorPlanDigest", "runtimeProfileRef", "apiAccessSecretRef", "apiPrincipalId", "apiClientId", "apiKeyId", "deploymentSecretRefs", "desiredState", "observedState", "generation", "observedGeneration", "createdAt", "updatedAt", "adapterResourceId", "lastIntentDigest", "lastAppliedFencingToken", "lastError", "operationKey", "dataspaceId", "dsaasDesiredGeneration", "dsaasRequestDigest", "organizationId"]);
+const tenantFields = new Set(["tenantId", "displayName", "participantId", "namespace", "endpoint", "adapterId", "connectorPlanId", "connectorPlanSnapshot", "connectorPlanDigest", "runtimeProfileRef", "deployedConnectorPlanId", "deployedConnectorPlanDigest", "connectorVersionHistory", "lifecycleOperation", "apiAccessSecretRef", "apiPrincipalId", "apiClientId", "apiKeyId", "deploymentSecretRefs", "desiredState", "observedState", "generation", "observedGeneration", "createdAt", "updatedAt", "adapterResourceId", "lastIntentDigest", "lastAppliedFencingToken", "lastError", "operationKey", "dataspaceId", "dsaasDesiredGeneration", "dsaasRequestDigest", "organizationId"]);
+const versionFields = new Set(["connectorPlanId", "connectorPlanDigest", "connectorPlanSnapshot", "recordedAt"]);
 const rootFields = new Set(["schemaVersion", "tenants", "requests", "audit", "integrity"]);
 
 function snapshotPayload(state) {
@@ -53,6 +58,28 @@ export function validateCaasState(state) {
     for (const field of ["organizationId", "participantId", "namespace", "endpoint", "adapterId", "connectorPlanId", "runtimeProfileRef", "apiPrincipalId", "apiClientId", "apiKeyId"]) assertCaas(typeof tenant[field] === "string" && tenant[field].length > 0, "CAAS_STATE_INVALID", `tenant ${field} is missing`, { tenantId });
     for (const field of ["apiPrincipalId", "apiClientId", "apiKeyId"]) assertCaas(actorIdentifier.test(tenant[field]), "CAAS_STATE_INVALID", `tenant ${field} is invalid`, { tenantId });
     assertCaas(tenant.connectorPlanSnapshot && typeof tenant.connectorPlanSnapshot === "object" && !Array.isArray(tenant.connectorPlanSnapshot) && tenant.connectorPlanDigest === digest(tenant.connectorPlanSnapshot), "CAAS_STATE_INVALID", "tenant connector plan snapshot is missing or corrupted", { tenantId });
+    assertCaas(tenant.connectorVersionHistory === undefined || (Array.isArray(tenant.connectorVersionHistory)
+      && tenant.connectorVersionHistory.length <= 64), "CAAS_STATE_INVALID", "tenant connector version history is invalid", { tenantId });
+    const historyDigests = new Set();
+    for (const version of tenant.connectorVersionHistory ?? []) {
+      assertCaas(version && typeof version === "object" && !Array.isArray(version)
+        && Object.keys(version).every((field) => versionFields.has(field))
+        && typeof version.connectorPlanId === "string" && version.connectorPlanId.length > 0
+        && version.connectorPlanSnapshot && typeof version.connectorPlanSnapshot === "object" && !Array.isArray(version.connectorPlanSnapshot)
+        && version.connectorPlanDigest === digest(version.connectorPlanSnapshot)
+        && !historyDigests.has(version.connectorPlanDigest)
+        && Number.isFinite(Date.parse(version.recordedAt)),
+      "CAAS_STATE_INVALID", "tenant connector version history entry is invalid", { tenantId });
+      historyDigests.add(version.connectorPlanDigest);
+    }
+    if (tenant.lifecycleOperation !== undefined) {
+      assertCaas(["UPGRADE", "ROLLBACK"].includes(tenant.lifecycleOperation), "CAAS_STATE_INVALID", "tenant lifecycle operation is invalid", { tenantId });
+    }
+    if (tenant.deployedConnectorPlanDigest !== undefined || tenant.deployedConnectorPlanId !== undefined) {
+      assertCaas(/^[a-f0-9]{64}$/u.test(tenant.deployedConnectorPlanDigest ?? "")
+        && typeof tenant.deployedConnectorPlanId === "string" && tenant.deployedConnectorPlanId.length > 0,
+      "CAAS_STATE_INVALID", "tenant deployed connector version is incomplete", { tenantId });
+    }
     const hasDsaasGeneration = tenant.dsaasDesiredGeneration !== undefined;
     const hasDsaasRequestDigest = tenant.dsaasRequestDigest !== undefined;
     assertCaas(hasDsaasGeneration === hasDsaasRequestDigest, "CAAS_STATE_INVALID", "DSaaS generation fence is incomplete", { tenantId });
@@ -69,7 +96,7 @@ export function validateCaasState(state) {
     if (tenant.lastAppliedFencingToken !== undefined) {
       assertCaas(/^[1-9][0-9]*$/u.test(tenant.lastAppliedFencingToken), "CAAS_STATE_INVALID", "tenant last-applied fencing token is invalid", { tenantId });
     }
-    if (["PROVISIONING", "DEPROVISIONING"].includes(tenant.observedState)) assertCaas(/^[a-f0-9]{64}$/u.test(tenant.operationKey ?? ""), "CAAS_STATE_INVALID", "in-flight tenant state requires an operation key", { tenantId });
+    if (["PROVISIONING", "UPGRADING", "ROLLING_BACK", "SUSPENDING", "DELETING", "DEPROVISIONING"].includes(tenant.observedState)) assertCaas(/^[a-f0-9]{64}$/u.test(tenant.operationKey ?? ""), "CAAS_STATE_INVALID", "in-flight tenant state requires an operation key", { tenantId });
     if (tenant.observedState === "PROVISIONED") assertCaas(typeof tenant.adapterResourceId === "string" && tenant.adapterResourceId.length > 0, "CAAS_STATE_INVALID", "provisioned tenant lacks an adapter resource ID", { tenantId });
   }
   let previousDigest = null;
@@ -311,16 +338,25 @@ export class FileCaasStore {
 
 export function idempotencyReplay(state, scope, key, payload) {
   assertCaas(typeof key === "string" && /^[^\u0000-\u001f\u007f]{1,256}$/u.test(key), "CAAS_IDEMPOTENCY_KEY_REQUIRED", "Idempotency-Key is required", { status: 400 });
-  const ledgerKey = `${scope}\u0000${key}`;
+  const scopeId = scope.slice(scope.indexOf(":") + 1);
+  assertCaas(/^[a-z][a-z0-9-]{0,62}$/u.test(scopeId), "CAAS_IDEMPOTENCY_SCOPE_INVALID", "idempotency scope is invalid");
+  const ledgerKey = encodeIdempotencyRecordKey(scope, key);
+  const legacyLedgerKey = `${scope}\u0000${key}`;
   const payloadDigest = digest(payload);
-  const existing = state.requests[ledgerKey];
+  const existing = state.requests[ledgerKey] ?? state.requests[legacyLedgerKey];
   if (existing) {
     assertCaas(existing.payloadDigest === payloadDigest, "CAAS_IDEMPOTENCY_CONFLICT", "Idempotency-Key was already used with a different request", { status: 409 });
-    return { ledgerKey, payloadDigest, result: structuredClone(existing.result) };
+    assertCaas(existing.scopeId === undefined || existing.scopeId === scopeId, "CAAS_IDEMPOTENCY_SCOPE_INVALID", "idempotency record belongs to another tenant");
+    return { ledgerKey: Object.hasOwn(state.requests, ledgerKey) ? ledgerKey : legacyLedgerKey, payloadDigest, result: structuredClone(existing.result), scopeId };
   }
-  return { ledgerKey, payloadDigest, result: null };
+  return { ledgerKey, payloadDigest, result: null, scopeId };
 }
 
 export function recordIdempotency(state, replay, result, now = new Date()) {
-  state.requests[replay.ledgerKey] = { payloadDigest: replay.payloadDigest, completedAt: now.toISOString(), result: structuredClone(result) };
+  state.requests[replay.ledgerKey] = {
+    scopeId: replay.scopeId,
+    payloadDigest: replay.payloadDigest,
+    completedAt: now.toISOString(),
+    result: structuredClone(result),
+  };
 }

@@ -4,7 +4,7 @@
   "title": "MOLIT CaaS control-plane configuration",
   "type": "object",
   "additionalProperties": false,
-  "required": ["schemaVersion", "environment", "listen", "stateStore", "adminSecretRef", "adminPrincipalId", "adminClientId", "adminKeyId", "controller", "identityPolicy", "limits", "connectorPlans", "provisioners"],
+  "required": ["schemaVersion", "environment", "listen", "stateStore", "controller", "identityPolicy", "limits", "connectorPlans", "provisioners"],
   "properties": {
     "schemaVersion": { "const": "molit.caas-config/1" },
     "environment": { "enum": ["production", "development", "test"] },
@@ -18,6 +18,9 @@
       }
     },
     "stateStore": { "$ref": "#/$defs/stateStore" },
+    "identityConfigPath": { "type": "string", "minLength": 1, "maxLength": 4096 },
+    "observabilityConfigPath": { "type": "string", "minLength": 1, "maxLength": 4096 },
+    "tls": { "$ref": "#/$defs/inboundTls" },
     "adminSecretRef": { "$ref": "#/$defs/envSecretRef" },
     "adminPrincipalId": { "$ref": "#/$defs/authId" },
     "adminClientId": { "$ref": "#/$defs/authId" },
@@ -25,7 +28,6 @@
     "controller": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["secretRef", "principalId", "clientId", "keyId", "allowedDataspaceIds", "allowedTenantIds", "allowedConnectorPlanIds"],
       "properties": {
         "secretRef": { "$ref": "#/$defs/envSecretRef" },
         "principalId": { "$ref": "#/$defs/authId" },
@@ -49,10 +51,12 @@
     "limits": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["maxRequestBytes", "maxStateBytes", "maxAuditEvents", "maxAuditResponseEvents", "requestTimeoutMs"],
+      "required": ["maxRequestBytes", "maxStateBytes", "maxTenants", "maxIdempotencyRecords", "maxAuditEvents", "maxAuditResponseEvents", "requestTimeoutMs"],
       "properties": {
         "maxRequestBytes": { "type": "integer", "minimum": 1024, "maximum": 1048576 },
         "maxStateBytes": { "type": "integer", "minimum": 65536, "maximum": 268435456 },
+        "maxTenants": { "type": "integer", "minimum": 1, "maximum": 10000 },
+        "maxIdempotencyRecords": { "type": "integer", "minimum": 1, "maximum": 1000000 },
         "maxAuditEvents": { "type": "integer", "minimum": 100, "maximum": 1000000 },
         "maxAuditResponseEvents": { "type": "integer", "minimum": 1, "maximum": 10000 },
         "requestTimeoutMs": { "type": "integer", "minimum": 100, "maximum": 120000 },
@@ -73,6 +77,16 @@
           "deploymentMode": { "enum": ["isolated", "virtualized"] },
           "metadataProfile": { "$ref": "#/$defs/versionedArtifact" },
           "protocolProfile": { "$ref": "#/$defs/protocolProfile" },
+          "databaseSchema": { "$ref": "#/$defs/databaseSchema" },
+          "images": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["controlPlane", "dataPlane"],
+            "properties": {
+              "controlPlane": { "$ref": "#/$defs/digestImage" },
+              "dataPlane": { "$ref": "#/$defs/digestImage" }
+            }
+          },
           "requiredDeploymentSecretNames": {
             "type": "array",
             "uniqueItems": true,
@@ -86,19 +100,265 @@
       "type": "object",
       "minProperties": 1,
       "propertyNames": { "pattern": "^[a-z][a-z0-9-]{2,62}$" },
-      "additionalProperties": {
-        "type": "object",
-        "additionalProperties": false,
-        "required": ["type", "manifestDirectory"],
+      "additionalProperties": { "$ref": "#/$defs/provisioner" }
+    }
+  },
+  "allOf": [
+    {
+      "if": { "properties": { "environment": { "const": "production" } } },
+      "then": {
+        "required": ["identityConfigPath", "observabilityConfigPath", "tls"],
         "properties": {
-          "type": { "const": "dry-run-manifest" },
-          "manifestDirectory": { "type": "string", "minLength": 1, "maxLength": 4096 }
+          "identityConfigPath": {},
+          "observabilityConfigPath": {},
+          "tls": {},
+          "adminSecretRef": false,
+          "adminPrincipalId": false,
+          "adminClientId": false,
+          "adminKeyId": false,
+          "controller": {
+            "type": "object",
+            "required": ["allowedDataspaceIds", "allowedTenantIds", "allowedConnectorPlanIds"],
+            "properties": {
+              "secretRef": false, "principalId": false, "clientId": false, "keyId": false,
+              "allowedDataspaceIds": {}, "allowedTenantIds": {}, "allowedConnectorPlanIds": {}
+            }
+          }
+        }
+      },
+      "else": {
+        "required": ["adminSecretRef", "adminPrincipalId", "adminClientId", "adminKeyId"],
+        "properties": {
+          "adminSecretRef": {},
+          "adminPrincipalId": {},
+          "adminClientId": {},
+          "adminKeyId": {},
+          "controller": {
+            "type": "object",
+            "required": ["secretRef", "principalId", "clientId", "keyId", "allowedDataspaceIds", "allowedTenantIds", "allowedConnectorPlanIds"],
+            "properties": {
+              "secretRef": {}, "principalId": {}, "clientId": {}, "keyId": {},
+              "allowedDataspaceIds": {}, "allowedTenantIds": {}, "allowedConnectorPlanIds": {}
+            }
+          }
         }
       }
     }
-  },
+  ],
   "$defs": {
     "env": { "type": "string", "pattern": "^[A-Z_][A-Z0-9_]*$" },
+    "inboundTls": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["certFile", "keyFile", "clientCaFile", "reloadIntervalMs"],
+      "properties": {
+        "certFile": { "type": "string", "minLength": 1, "maxLength": 4096 },
+        "keyFile": { "type": "string", "minLength": 1, "maxLength": 4096 },
+        "clientCaFile": { "type": "string", "minLength": 1, "maxLength": 4096 },
+        "reloadIntervalMs": { "type": "integer", "minimum": 250, "maximum": 300000 }
+      }
+    },
+    "provisioner": {
+      "oneOf": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["type", "manifestDirectory"],
+          "properties": {
+            "type": { "const": "dry-run-manifest" },
+            "manifestDirectory": { "type": "string", "minLength": 1, "maxLength": 4096 }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["type", "apiServer", "authentication", "controlNamespace", "admissionPolicyName", "namespacePrefix", "instanceId", "routing", "images", "replicas", "ports", "resources", "quota", "limitRange", "networkPolicy", "secretBindings", "deprovisionPolicy", "revisionHistoryLimit", "terminationGracePeriodSeconds", "requestTimeoutMs"],
+          "properties": {
+            "type": { "const": "kubernetes-edc" },
+            "apiServer": { "type": "string", "format": "uri", "pattern": "^https?://", "maxLength": 2048 },
+            "authentication": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["type", "tokenFile", "caFile"],
+              "properties": {
+                "type": { "const": "service-account" },
+                "tokenFile": { "type": "string", "minLength": 1, "maxLength": 4096 },
+                "caFile": { "type": "string", "minLength": 1, "maxLength": 4096 }
+              }
+            },
+            "controlNamespace": { "$ref": "#/$defs/dnsLabel" },
+            "admissionPolicyName": { "$ref": "#/$defs/dnsLabel" },
+            "supplyChainAdmission": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["policyName", "attestationPredicateType", "trustAnchorSha256"],
+              "properties": {
+                "policyName": { "$ref": "#/$defs/dnsLabel" },
+                "attestationPredicateType": { "const": "https://data.molit.go.kr/attestations/release-bundle/v1" },
+                "trustAnchorSha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" }
+              }
+            },
+            "namespacePrefix": { "type": "string", "pattern": "^[a-z][a-z0-9-]{1,30}-$" },
+            "instanceId": { "$ref": "#/$defs/dnsLabel" },
+            "routing": {
+              "oneOf": [
+                {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": ["mode"],
+                  "properties": { "mode": { "const": "internal-test" } }
+                },
+                {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": ["mode", "parentRef", "protocolSectionName", "dataPlaneSectionName", "gatewayAccessLabelValue", "protocolHostnameTemplate", "dataPlaneHostnameTemplate"],
+                  "properties": {
+                    "mode": { "const": "gateway-api" },
+                    "parentRef": {
+                      "type": "object",
+                      "additionalProperties": false,
+                      "required": ["name", "namespace"],
+                      "properties": {
+                        "name": { "$ref": "#/$defs/dnsLabel" },
+                        "namespace": { "$ref": "#/$defs/dnsLabel" }
+                      }
+                    },
+                    "protocolSectionName": { "$ref": "#/$defs/dnsLabel" },
+                    "dataPlaneSectionName": { "$ref": "#/$defs/dnsLabel" },
+                    "gatewayAccessLabelValue": { "$ref": "#/$defs/dnsLabel" },
+                    "protocolHostnameTemplate": { "type": "string", "minLength": 3, "maxLength": 253 },
+                    "dataPlaneHostnameTemplate": { "type": "string", "minLength": 3, "maxLength": 253 }
+                  }
+                }
+              ]
+            },
+            "images": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["controlPlane", "dataPlane"],
+              "properties": {
+                "controlPlane": { "$ref": "#/$defs/digestImage" },
+                "dataPlane": { "$ref": "#/$defs/digestImage" }
+              }
+            },
+            "replicas": { "$ref": "#/$defs/replicas" },
+            "ports": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["default", "management", "protocol", "control", "dataPlaneDefault", "dataPlaneControl"],
+              "properties": {
+                "default": { "type": "integer", "minimum": 1024, "maximum": 65535 },
+                "management": { "type": "integer", "minimum": 1024, "maximum": 65535 },
+                "protocol": { "type": "integer", "minimum": 1024, "maximum": 65535 },
+                "control": { "type": "integer", "minimum": 1024, "maximum": 65535 },
+                "dataPlaneDefault": { "type": "integer", "minimum": 1024, "maximum": 65535 },
+                "dataPlaneControl": { "type": "integer", "minimum": 1024, "maximum": 65535 }
+              }
+            },
+            "resources": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["control-plane", "data-plane"],
+              "properties": {
+                "control-plane": { "$ref": "#/$defs/containerResources" },
+                "data-plane": { "$ref": "#/$defs/containerResources" }
+              }
+            },
+            "quota": { "$ref": "#/$defs/quantityMap" },
+            "limitRange": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["default", "defaultRequest"],
+              "properties": {
+                "default": { "$ref": "#/$defs/quantityMap" },
+                "defaultRequest": { "$ref": "#/$defs/quantityMap" }
+              }
+            },
+            "networkPolicy": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["allowedIngressCidrs", "allowedEgressCidrs"],
+              "properties": {
+                "allowedIngressCidrs": { "$ref": "#/$defs/cidrList" },
+                "allowedEgressCidrs": { "$ref": "#/$defs/cidrList" }
+              }
+            },
+            "secretBindings": {
+              "type": "object",
+              "minProperties": 1,
+              "maxProperties": 32,
+              "propertyNames": { "pattern": "^[a-z][a-zA-Z0-9._-]{0,63}$" },
+              "additionalProperties": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": ["secretNameTemplate", "keys"],
+                "properties": {
+                  "secretNameTemplate": { "type": "string", "minLength": 1, "maxLength": 253 },
+                  "keys": {
+                    "type": "array",
+                    "minItems": 1,
+                    "maxItems": 32,
+                    "items": {
+                      "type": "object",
+                      "additionalProperties": false,
+                      "required": ["key", "environmentVariable", "components"],
+                      "properties": {
+                        "key": { "type": "string", "pattern": "^[A-Za-z0-9._-]{1,253}$" },
+                        "environmentVariable": { "type": "string", "pattern": "^[A-Z_][A-Z0-9_]{0,127}$" },
+                        "components": {
+                          "type": "array",
+                          "minItems": 1,
+                          "maxItems": 2,
+                          "uniqueItems": true,
+                          "items": { "enum": ["control-plane", "data-plane"] }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "deprovisionPolicy": { "enum": ["suspend", "delete"] },
+            "revisionHistoryLimit": { "type": "integer", "minimum": 1, "maximum": 20 },
+            "terminationGracePeriodSeconds": { "type": "integer", "minimum": 10, "maximum": 300 },
+            "requestTimeoutMs": { "type": "integer", "minimum": 100, "maximum": 120000 }
+          }
+        }
+      ]
+    },
+    "dnsLabel": { "type": "string", "pattern": "^[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?$" },
+    "digestImage": { "type": "string", "pattern": "^[^\\s:@]+(?:[./][^\\s:@]+)+@sha256:[a-f0-9]{64}$", "maxLength": 512 },
+    "replicas": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["controlPlane", "dataPlane"],
+      "properties": {
+        "controlPlane": { "type": "integer", "minimum": 1, "maximum": 50 },
+        "dataPlane": { "type": "integer", "minimum": 1, "maximum": 100 }
+      }
+    },
+    "quantityMap": {
+      "type": "object",
+      "minProperties": 1,
+      "maxProperties": 32,
+      "propertyNames": { "pattern": "^[A-Za-z0-9./_-]{1,128}$" },
+      "additionalProperties": { "type": "string", "pattern": "^[0-9]+(?:m|Ki|Mi|Gi|Ti|Pi|Ei)?$", "maxLength": 32 }
+    },
+    "containerResources": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["requests", "limits"],
+      "properties": {
+        "requests": { "$ref": "#/$defs/quantityMap" },
+        "limits": { "$ref": "#/$defs/quantityMap" }
+      }
+    },
+    "cidrList": {
+      "type": "array",
+      "maxItems": 64,
+      "uniqueItems": true,
+      "items": { "type": "string", "pattern": "^[0-9A-Fa-f:.]+/[0-9]{1,3}$", "maxLength": 64 }
+    },
     "stateStore": {
       "oneOf": [
         {
@@ -172,6 +432,39 @@
         "iri": { "type": "string", "format": "uri", "pattern": "^https://" },
         "version": { "type": "string", "minLength": 1, "maxLength": 64 },
         "sha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" }
+      }
+    },
+    "databaseSchema": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["requiredVersion", "migrationArtifact", "migrationImage", "migrationTimeoutMs", "pollIntervalMs", "connection"],
+      "properties": {
+        "requiredVersion": { "type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9._+-]{0,63}$" },
+        "migrationArtifact": { "$ref": "#/$defs/versionedArtifact" },
+        "migrationImage": { "$ref": "#/$defs/digestImage" },
+        "migrationTimeoutMs": { "type": "integer", "minimum": 10000, "maximum": 1800000 },
+        "pollIntervalMs": { "type": "integer", "minimum": 100, "maximum": 10000 },
+        "connection": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["secretBindingName", "controlUrlKey", "dataUrlKey", "usernameKey", "passwordKey", "sslMode", "caKey", "mountPath"],
+          "properties": {
+            "secretBindingName": { "type": "string", "pattern": "^[a-z][a-zA-Z0-9._-]{0,63}$" },
+            "controlUrlKey": { "type": "string", "pattern": "^[A-Za-z0-9._-]{1,253}$" },
+            "dataUrlKey": { "type": "string", "pattern": "^[A-Za-z0-9._-]{1,253}$" },
+            "usernameKey": { "type": "string", "pattern": "^[A-Za-z0-9._-]{1,253}$" },
+            "passwordKey": { "type": "string", "pattern": "^[A-Za-z0-9._-]{1,253}$" },
+            "sslMode": { "const": "verify-full" },
+            "caKey": { "type": "string", "pattern": "^[A-Za-z0-9._-]{1,253}$" },
+            "clientCertificateKey": { "type": "string", "pattern": "^[A-Za-z0-9._-]{1,253}$" },
+            "clientPrivateKeyKey": { "type": "string", "pattern": "^[A-Za-z0-9._-]{1,253}$" },
+            "mountPath": { "type": "string", "pattern": "^/(?:[A-Za-z0-9._-]+/)*[A-Za-z0-9._-]+$", "maxLength": 1024 }
+          },
+          "dependentRequired": {
+            "clientCertificateKey": ["clientPrivateKeyKey"],
+            "clientPrivateKeyKey": ["clientCertificateKey"]
+          }
+        }
       }
     },
     "protocolProfile": {

@@ -136,7 +136,9 @@
     "As-Is": "AS-IS",
     "To-Be": "TO-BE",
     "To-be": "TO-BE",
-    "유즈 케이스": "유즈케이스"
+    "유즈 케이스": "유즈케이스",
+    "IDS-RAM 5.0": "IDS-RAM 2026-1 working draft",
+    "Rulebook 3.0": "IDSA Rulebook Release 2026-1(2026-05-05)"
   },
   "overrides": [
     {

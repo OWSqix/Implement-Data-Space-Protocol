@@ -82,6 +82,10 @@ test("DSaaS approved membership converges through the authenticated CaaS API", a
       lastAdapterResult = { ...await intentProvisioner.deprovision(tenant, key, options), converged: true };
       return lastAdapterResult;
     },
+    async suspend(tenant, key, options) {
+      lastAdapterResult = { ...await intentProvisioner.suspend(tenant, key, options), converged: true };
+      return lastAdapterResult;
+    },
     async observe(tenant, key) {
       return {
         adapterResourceId: lastAdapterResult.adapterResourceId,
@@ -89,7 +93,7 @@ test("DSaaS approved membership converges through the authenticated CaaS API", a
         operationKey: key,
         generation: tenant.generation,
         desiredState: tenant.desiredState,
-        exists: tenant.desiredState === "PROVISIONED",
+        exists: ["PROVISIONED", "SUSPENDED"].includes(tenant.desiredState),
         converged: true,
       };
     },
@@ -210,7 +214,7 @@ test("DSaaS approved membership converges through the authenticated CaaS API", a
   assert.equal(serviceBlocked.observedState, "BLOCKED");
   assert.equal(serviceBlocked.desiredGeneration, active.desiredGeneration + 1);
   assert.equal(serviceBlocked.participants["road-membership"].connector.state, "SUSPENDED");
-  assert.equal((await caasService.getTenant("road-data-provider")).observedState, "NOT_PROVISIONED");
+  assert.equal((await caasService.getTenant("road-data-provider")).observedState, "SUSPENDED");
 
   currentServiceRegistry = serviceRegistry("READY", "3".repeat(64));
   const serviceRecovered = await dsaas.reconcile("molit-live", approver, "reconcile-service-recovered-0001");
@@ -223,5 +227,5 @@ test("DSaaS approved membership converges through the authenticated CaaS API", a
   assert.equal(suspendedDesired.spec.desiredState, "SUSPENDED");
   const suspended = await dsaas.reconcile("molit-live", approver, "reconcile-suspended-0001");
   assert.equal(suspended.observedState, "SUSPENDED");
-  assert.equal((await caasService.getTenant("road-data-provider")).observedState, "NOT_PROVISIONED");
+  assert.equal((await caasService.getTenant("road-data-provider")).observedState, "SUSPENDED");
 });

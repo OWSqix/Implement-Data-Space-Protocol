@@ -6,6 +6,7 @@ import { tmpdir } from "node:os";
 import { DryRunManifestProvisioner } from "../../src/caas/provisioner.mjs";
 import { CaaSControlService } from "../../src/caas/service.mjs";
 import { FileCaasStore } from "../../src/caas/store.mjs";
+import { digest } from "../../src/discovery/stable-json.mjs";
 
 const ADMIN_ACTOR = {
   role: "admin",
@@ -75,6 +76,65 @@ test("service reconciles desired state through a secret-free idempotent manifest
   assert.doesNotMatch(manifest, /tenant-token-00000|admin-token-000000/u);
   await service.setDesiredState("road-operator", { schemaVersion: "molit.caas-desired-state/1", desiredState: "DEPROVISIONED" }, "desired-2", TENANT_ACTOR);
   assert.equal((await service.reconcile("road-operator", "reconcile-2", TENANT_ACTOR)).observedState, "INTENT_READY");
+});
+
+test("failed connector upgrade can be rolled back to an immutable prior plan", async () => {
+  const directory = await mkdtemp(join(tmpdir(), "molit-caas-version-lifecycle-"));
+  const { service } = setup(directory);
+  const version2 = {
+    ...structuredClone(service.config.connectorPlans.standard),
+    runtimeProfileRef: "urn:profile:edc:v2",
+    images: {
+      controlPlane: `registry.example/molit/edc-control@sha256:${"b".repeat(64)}`,
+      dataPlane: `registry.example/molit/edc-data@sha256:${"c".repeat(64)}`,
+    },
+  };
+  service.config.connectorPlans.version2 = version2;
+  let applied = null;
+  let failDigest = null;
+  service.provisioners.dry = {
+    intentOnly: false,
+    fencingCapable: true,
+    readiness: async () => true,
+    async provision(tenant, key) {
+      if (tenant.connectorPlanDigest === failDigest) {
+        const error = new Error("injected upgrade failure");
+        error.code = "CAAS_TEST_UPGRADE_FAILED";
+        throw error;
+      }
+      const intentDigest = digest({ key, plan: tenant.connectorPlanDigest, desiredState: tenant.desiredState });
+      applied = { adapterResourceId: `test:${tenant.tenantId}`, intentDigest, operationKey: key, generation: tenant.generation, desiredState: tenant.desiredState };
+      return { adapterResourceId: applied.adapterResourceId, intentDigest, converged: true };
+    },
+    async deprovision(tenant, key) {
+      const intentDigest = digest({ key, plan: tenant.connectorPlanDigest, desiredState: tenant.desiredState });
+      applied = { adapterResourceId: `test:${tenant.tenantId}`, intentDigest, operationKey: key, generation: tenant.generation, desiredState: tenant.desiredState };
+      return { adapterResourceId: applied.adapterResourceId, intentDigest, converged: true };
+    },
+    async observe(_tenant, _key) {
+      return { ...applied, exists: applied?.desiredState !== "DELETED", converged: true, lastAppliedFencingToken: null };
+    },
+  };
+  await service.register(registration, "version-register", ADMIN_ACTOR);
+  await service.setDesiredState("road-operator", { schemaVersion: "molit.caas-desired-state/1", desiredState: "PROVISIONED" }, "version-provision", ADMIN_ACTOR);
+  const initial = await service.reconcile("road-operator", "version-reconcile-v1", ADMIN_ACTOR);
+  const initialDigest = initial.connectorPlanDigest;
+  failDigest = digest(version2);
+  const upgrading = await service.upgrade("road-operator", { schemaVersion: "molit.caas-connector-upgrade/1", connectorPlanId: "version2" }, "version-upgrade", ADMIN_ACTOR);
+  assert.equal(upgrading.lifecycleOperation, "UPGRADE");
+  await assert.rejects(service.reconcile("road-operator", "version-reconcile-v2", ADMIN_ACTOR), { code: "CAAS_TEST_UPGRADE_FAILED" });
+  assert.equal((await service.getTenant("road-operator")).observedState, "ERROR");
+  failDigest = null;
+  const rollingBack = await service.rollback("road-operator", { schemaVersion: "molit.caas-connector-rollback/1", targetConnectorPlanDigest: initialDigest }, "version-rollback", ADMIN_ACTOR);
+  assert.equal(rollingBack.lifecycleOperation, "ROLLBACK");
+  const restored = await service.reconcile("road-operator", "version-reconcile-rollback", ADMIN_ACTOR);
+  assert.equal(restored.observedState, "PROVISIONED");
+  assert.equal(restored.connectorPlanDigest, initialDigest);
+  assert.equal(restored.deployedConnectorPlanDigest, initialDigest);
+  assert.equal(restored.lifecycleOperation, null);
+  const actions = (await service.audit("road-operator")).events.map(({ action }) => action);
+  assert.ok(actions.includes("CONNECTOR_UPGRADE_REQUESTED"));
+  assert.ok(actions.includes("CONNECTOR_ROLLBACK_REQUESTED"));
 });
 
 test("INTENT_READY is re-observed and readiness fails closed on manifest drift", async () => {
@@ -278,7 +338,7 @@ test("a DSaaS-bound tenant cannot reactivate itself after administrator suspensi
     schemaVersion: "molit.caas-desired-state/1",
     desiredState: "PROVISIONED",
   }, "tenant-reactivation", TENANT_ACTOR), { code: "CAAS_DSAAS_LIFECYCLE_LOCKED" });
-  assert.equal((await service.getTenant("road-operator")).desiredState, "DEPROVISIONED");
+  assert.equal((await service.getTenant("road-operator")).desiredState, "SUSPENDED");
 });
 
 test("state snapshot integrity detects direct tenant mutation", async () => {

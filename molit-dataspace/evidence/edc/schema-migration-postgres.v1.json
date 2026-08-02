@@ -1,0 +1,41 @@
+{
+  "schemaVersion": "molit.edc-schema-postgres-verification/1",
+  "status": "pass",
+  "sourceCommit": "b20c5f591a8fb5d0c7e50bc6309251af46b94323",
+  "startedAt": "2026-07-14T15:30:02.8076970+00:00",
+  "finishedAt": "2026-07-14T15:30:18.5491124+00:00",
+  "artifact": {
+    "dockerTarget": "schema-migration",
+    "localImageId": "sha256:dd3050d6542bc7a93042990ec48cbd4668fc1424dc576b83850e6bf38897dfd9",
+    "dockerfileSha256": "4660c514754fbbab2ffc9e260a5d89443e97b2c30f0daf612c8d445cccd2d517",
+    "migrationRunnerSha256": "ce7fa8849e1f1def3024c5016b19f2ff164e4aaa5eb5a0bb39fe15437ebdae51",
+    "migrationManifestSha256": "aafa223e72a763aa5e7e0e12cb1463cdd7cb530d95fa4bde97caf3ecd49f3114",
+    "verificationScriptSha256": "aa3e61fff6de590ddc6de8c5eb9d0a1bf60bd3f264e941faf5b91b3c1ca9cf97",
+    "sourceTreeSha256": "ee93bee4e46f73cc038f5950467c1ed6577722ef74bd87955fade2c206750e2b",
+    "sourceFileCount": 38,
+    "requiredVersion": "edc-0.18.0-sql-v1"
+  },
+  "database": {
+    "image": "postgres:17.10-alpine3.24@sha256:742f40ea20b9ff2ff31db5458d127452988a2164df9e17441e191f3b72252193",
+    "tlsMode": "verify-full",
+    "serverNameVerified": "molit-edc-schema-postgres-38588-fc3d57fbeee0",
+    "caCertificateSha256": "d9087f7fc40219715b4f853a3ed2a4eea0174291e12448c98c83b137bce24caa"
+  },
+  "execution": {
+    "cycles": 2,
+    "components": [
+      { "name": "control-plane", "successfulRuns": 2, "requiredTableCount": 12, "versionMarkerCount": 1 },
+      { "name": "data-plane", "successfulRuns": 2, "requiredTableCount": 2, "versionMarkerCount": 1 }
+    ],
+    "totalSuccessfulRuns": 4,
+    "markerSummary": "2:control-plane=edc-0.18.0-sql-v1,data-plane=edc-0.18.0-sql-v1",
+    "idempotentRepeat": true,
+    "sourceStableDuringRun": true,
+    "negativeTls": { "wrongHostnameRejected": true, "wrongCaRejected": true }
+  },
+  "productionGate": {
+    "policyName": "molit-verify-release-images",
+    "attestationPredicateType": "https://data.molit.go.kr/attestations/release-bundle/v1",
+    "localImageIsNotReleaseAuthorization": true
+  }
+}

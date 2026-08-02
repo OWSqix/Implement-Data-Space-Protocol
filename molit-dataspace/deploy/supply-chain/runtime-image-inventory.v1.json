@@ -1,0 +1,115 @@
+{
+  "schemaVersion": "molit.supply-chain-runtime-image-inventory/1",
+  "admissionPolicy": {
+    "apiVersion": "policies.kyverno.io/v1",
+    "kind": "ImageValidatingPolicy",
+    "name": "molit-verify-release-images",
+    "predicateType": "https://data.molit.go.kr/attestations/release-bundle/v1",
+    "managedNamespaceLabel": "supply-chain.data.molit.go.kr/enforcement=required"
+  },
+  "vulnerabilityExceptionPolicy": "no-waiver",
+  "forbiddenDockerTargets": ["smoke-control-plane", "smoke-data-plane"],
+  "artifacts": [
+    {
+      "service": "caas",
+      "runtimeClass": "caas-control-plane",
+      "productionEligible": true,
+      "provenanceMode": "source-build",
+      "releaseCommand": "deploy/images/build-sign-verify.ps1 -Service caas",
+      "admissionRequired": true,
+      "deploymentUses": [
+        { "id": "control-plane-caas", "path": "deploy/kubernetes/ha/control-plane.template.yaml", "imageBinding": "@@CAAS_IMAGE@@" },
+        { "id": "control-store-cutover", "path": "deploy/kubernetes/control-store-migration-job.yaml", "imageBinding": "@@CAAS_IMAGE@@" }
+      ],
+      "blockers": []
+    },
+    {
+      "service": "dsaas",
+      "runtimeClass": "dsaas-control-plane",
+      "productionEligible": true,
+      "provenanceMode": "source-build",
+      "releaseCommand": "deploy/images/build-sign-verify.ps1 -Service dsaas",
+      "admissionRequired": true,
+      "deploymentUses": [
+        { "id": "control-plane-dsaas", "path": "deploy/kubernetes/ha/control-plane.template.yaml", "imageBinding": "@@DSAAS_IMAGE@@" }
+      ],
+      "blockers": []
+    },
+    {
+      "service": "fencing-webhook",
+      "runtimeClass": "fencing-webhook",
+      "productionEligible": true,
+      "provenanceMode": "source-build",
+      "releaseCommand": "deploy/images/build-sign-verify.ps1 -Service fencing-webhook",
+      "admissionRequired": true,
+      "deploymentUses": [
+        { "id": "fencing-webhook", "path": "deploy/kubernetes/fencing-webhook.template.yaml", "imageBinding": "__WEBHOOK_IMAGE__" }
+      ],
+      "blockers": []
+    },
+    {
+      "service": "edc-control-plane",
+      "runtimeClass": "edc-control-plane",
+      "productionEligible": false,
+      "provenanceMode": "source-build",
+      "releaseCommand": "deploy/images/build-sign-verify.ps1 -Service edc-control-plane",
+      "admissionRequired": true,
+      "deploymentUses": [
+        { "id": "tenant-edc-control-plane", "path": "src/caas/kubernetes-provisioner.mjs", "imageBinding": "images.controlPlane" }
+      ],
+      "blockers": ["P1-DSP-TCK", "P1-PRODUCTION-IDENTITY", "P1-EXTERNAL-CONNECTOR-INTEROP"]
+    },
+    {
+      "service": "edc-data-plane",
+      "runtimeClass": "edc-data-plane",
+      "productionEligible": false,
+      "provenanceMode": "source-build",
+      "releaseCommand": "deploy/images/build-sign-verify.ps1 -Service edc-data-plane",
+      "admissionRequired": true,
+      "deploymentUses": [
+        { "id": "tenant-edc-data-plane", "path": "src/caas/kubernetes-provisioner.mjs", "imageBinding": "images.dataPlane" }
+      ],
+      "blockers": ["P1-DSP-TCK", "P1-PRODUCTION-DATA-TRANSFER", "P1-EXTERNAL-CONNECTOR-INTEROP"]
+    },
+    {
+      "service": "edc-schema-migration",
+      "runtimeClass": "schema-migration",
+      "productionEligible": true,
+      "provenanceMode": "source-build",
+      "releaseCommand": "deploy/images/build-sign-verify.ps1 -Service edc-schema-migration",
+      "admissionRequired": true,
+      "deploymentUses": [
+        { "id": "tenant-edc-schema-migration", "path": "src/caas/kubernetes-provisioner.mjs", "imageBinding": "schema.migrationImage" },
+        { "id": "control-store-database-tool-migration", "path": "deploy/kubernetes/control-store-migration-job.yaml", "imageBinding": "@@DATABASE_TOOL_IMAGE@@" },
+        { "id": "control-store-database-tool-bootstrap", "path": "deploy/kubernetes/control-store-runtime-bootstrap-job.yaml", "imageBinding": "@@DATABASE_TOOL_IMAGE@@" }
+      ],
+      "blockers": []
+    },
+    {
+      "service": "postgres-operand",
+      "runtimeClass": "postgres-operand",
+      "productionEligible": true,
+      "provenanceMode": "external-adoption",
+      "upstreamImage": "postgres:17.10-alpine3.24@sha256:742f40ea20b9ff2ff31db5458d127452988a2164df9e17441e191f3b72252193",
+      "releaseCommand": "deploy/images/adopt-sign-verify.ps1 -Service postgres-operand",
+      "admissionRequired": true,
+      "deploymentUses": [
+        { "id": "cloudnativepg-postgres-operand", "path": "deploy/kubernetes/ha/postgres.template.yaml", "imageBinding": "@@POSTGRES_IMAGE@@" }
+      ],
+      "blockers": []
+    },
+    {
+      "service": "otel-collector",
+      "runtimeClass": "otel-collector",
+      "productionEligible": true,
+      "provenanceMode": "external-adoption",
+      "upstreamImage": "otel/opentelemetry-collector-contrib:0.156.0@sha256:125bdbeb7590cc1952c5b3430ecf14063568980c2c93d5b38676cc0446ed8108",
+      "releaseCommand": "deploy/images/adopt-sign-verify.ps1 -Service otel-collector",
+      "admissionRequired": true,
+      "deploymentUses": [
+        { "id": "observability-otel-collector", "path": "deploy/kubernetes/ha/observability.template.yaml", "imageBinding": "@@OTEL_COLLECTOR_IMAGE@@" }
+      ],
+      "blockers": []
+    }
+  ]
+}

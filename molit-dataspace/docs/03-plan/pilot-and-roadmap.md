@@ -38,6 +38,22 @@ metadata만 동기화하면 Discovery Bridge PoC다. Agreement와 실제 플랫�
 - `serviceKey`를 HTTP로 전송하지 않는다. 운영기관이 지원 hostname·접근망·DNS·HTTPS를 확인하기 전에는 분석센터 key 발급과 실증 호출을 하지 않는다.
 - 운영기관 승인 없이 활용신청, 외부 문의 발송, 데이터 변경을 수행하지 않는다.
 
+### 2.1 첫 출시 등급 상한
+
+D-12의 첫 출시 범위는 공개·등록형 공개와 기관 제한 자산까지다. 등급 정의는 [보안·신뢰·운영 설계 §3](../02-architecture/security-trust-and-operations.md#3-데이터-등급과-경로), 정책 경로는 [metadata·정책 profile §8](../02-architecture/metadata-and-policy-profile.md#8-정책-등급)을 정본으로 사용하며 이 문서에서 재정의하지 않는다.
+
+| 자산 판정 | 첫 출시 처리 | 선행 증거 | 실패 처리 |
+| --- | --- | --- | --- |
+| 공개·등록형 공개 | 기존 공개 경로를 유지하고 승인된 DSP 경로를 추가 | license, Provider 권한, source·Distribution, 회수방법 | `catalog-only` 또는 제외 |
+| 기관 제한 | 사업자 데이터의 기관 자격·목적·기간과 통제 경로를 자산별 승인 | 권리 inventory, 수신자·목적·기간, 통제 Data Plane, 감사 | 증거 하나라도 없으면 제외 |
+| 개인정보·가명정보 | 첫 출시 제외 유지 | 2차 secure analysis 결정 전에는 평가만 기록 | `excluded` |
+| 공개제한 공간정보 | 첫 출시 제외 유지 | 보안심사·승인환경·반출통제 결정 전에는 평가만 기록 | `excluded` |
+| secure analysis | 2차 출시 이월 | [DEF-08 운영 원칙](../02-design/governance-and-operating-principles.md#4-서비스-portfolio-원칙) 결정과 결과 반출 Gate | 1차 경로 생성 금지 |
+
+자산별 판정은 단계 1 진입 전에 완료한다. 기관·플랫폼 단위의 포괄 승인을 자산 판정으로 대신하지 않는다.
+
+권리·등급 판정이 철회되거나 번복되면 해당 자산을 첫 출시 범위에서 자동 제외한다. Offering 상태는 [보안 Gate의 fail-closed 규칙](../02-architecture/security-trust-and-operations.md#9-개인정보공간정보-gate)에 따라 `PENDING_EVIDENCE`, `CATALOG_ONLY` 또는 `QUARANTINED`를 벗어나지 않는다.
+
 ## 3. 단계 개요
 
 | 단계 | 담당 | 입력·선행조건 | 주요 산출물 | 수행 시점 | 완료조건 |

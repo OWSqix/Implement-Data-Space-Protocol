@@ -1,0 +1,48 @@
+{
+  "schemaVersion": "molit.edc-runtime-artifacts/1",
+  "releaseStatus": "production-blocked",
+  "artifacts": {
+    "control-plane": {
+      "dockerTarget": "control-plane",
+      "productionEligible": false,
+      "smokeOnly": false,
+      "forbiddenRuntimeModules": ["org.eclipse.edc:iam-mock", "org.eclipse.edc:transfer-data-plane-signaling"],
+      "blockers": ["PROD-IDENTITY-TRUST", "PROD-DPS-WORKER", "DSP-TCK-CROSS-IMPLEMENTATION"]
+    },
+    "data-plane": {
+      "dockerTarget": "data-plane",
+      "productionEligible": false,
+      "smokeOnly": false,
+      "forbiddenRuntimePackages": ["org.eclipse.edc.molit.smoke"],
+      "blockers": ["PROD-DPS-WORKER", "PROD-PUBLIC-DELIVERY", "DSP-TCK-CROSS-IMPLEMENTATION"]
+    },
+    "smoke-control-plane": {
+      "dockerTarget": "smoke-control-plane",
+      "productionEligible": false,
+      "smokeOnly": true,
+      "requiredRuntimeModules": ["org.eclipse.edc:iam-mock", "org.eclipse.edc:transfer-data-plane-signaling"],
+      "blockers": ["SMOKE-ONLY-IDENTITY", "SMOKE-ONLY-LEGACY-SIGNALING"]
+    },
+    "smoke-data-plane": {
+      "dockerTarget": "smoke-data-plane",
+      "productionEligible": false,
+      "smokeOnly": true,
+      "requiredRuntimePackages": ["org.eclipse.edc.molit.smoke"],
+      "blockers": ["SMOKE-ONLY-PROXY"]
+    },
+    "schema-migration": {
+      "dockerTarget": "schema-migration",
+      "productionEligible": true,
+      "smokeOnly": false,
+      "requiredRuntimePrograms": ["psql", "sha256sum"],
+      "eligibilityMode": "signed-admission-only",
+      "requiredAdmissionPolicy": "molit-verify-release-images",
+      "requiredAttestationPredicateType": "https://data.molit.go.kr/attestations/release-bundle/v1",
+      "verificationEvidence": {
+        "path": "evidence/edc/schema-migration-postgres.v1.json",
+        "sha256": "dfe9c615492941b8b1207f11c013a02fe5f858d2bde8fd24650cce0b8a5f0218"
+      },
+      "blockers": []
+    }
+  }
+}

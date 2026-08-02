@@ -94,7 +94,8 @@
 | ST-PLT-004 | FR-PLT-011 | 같은 Agreement의 Transfer 2개 중 하나 완료 후 local Agreement 만료 | 첫 완료 때 Agreement subscription 유지, Agreement 만료 때 active Transfer 중지와 subscription 삭제 | state history+resource query |
 | ST-ID-001 | FR-ID-001 | invalid issuer·signature·audience·replay | 요청 거부 | auth log |
 | ST-ID-002 | FR-ID-002 | revoked 기관 credential | Catalog/transfer 거부 | credential trace |
-| OP-AUD-001 | FR-AUD-001 | 종단 transfer | participant→negotiation PID→Agreement→transfer PID→source request 연결 | trace query |
+| ST-ID-003 | FR-ID-003 | 서명·issuer·audience가 유효한 관리 평면 OIDC·introspection token으로 DSP 참가자 간 Catalog·협상·Transfer 요청 | 세 흐름 모두 참가 자격 검증 전에 거부하고 경계 위반 감사 사건 생성 | auth·policy trace+audit export |
+| OP-AUD-001 | FR-AUD-001 | 종단 transfer — ADR-0006 승인 시 참여자 간 범위 개정 필요 | participant→negotiation PID→Agreement→transfer PID→source request 연결 | trace query |
 | OP-AUD-002 | FR-AUD-002 | 승인·철회·파기 workflow | 증거 완결·무결성 확인 | audit export |
 | FT-OPS-001 | FR-OPS-001 | timeout·5xx·quota·schema drift | 제한 재시도·격리·경보 | fault report |
 | DOC-OPS-001 | FR-OPS-002 | source outage drill | runbook으로 중단·복구 | drill record |
@@ -191,6 +192,15 @@
 `SHACL-DIFF-001B`는 결과 message와 blank node label을 비교하지 않는다. `focusNode`, canonical result path, constraint component, severity, source shape 종류와 value RDF term을 정규화한다. engine 불일치는 다수결로 처리하지 않고 release를 차단한다.
 
 국내 표준별 증거 수준과 release 차단사항은 [국내 표준 상호운용성 및 blind spot 검증](../01-research/korean-standards-interoperability.md)의 machine register와 함께 판정한다.
+
+### 4.2 알려진 추적 공백
+
+다음 행은 기존 요구사항 강도를 낮추지 않는다. 현재 시험이 요구 축 전체를 다루지 않는 사실을 등록하며 시험 확장은 이 문서 개정의 범위 밖이다.
+
+| 공백 ID | 요구사항 | 현재 연결 시험 | 시험하지 않는 축 | 현재 판정 |
+| --- | --- | --- | --- | --- |
+| GAP-POL-001 | FR-POL-004 | IT-POL-002는 기관·목적·기간 allow/deny만 시험 | 관할·재제공 표현과 실패 동작 | 알려진 공백 — 요구사항 완료로 판정 금지 |
+| GAP-TRN-001 | FR-TRN-004 | ST-ADP-001은 path·query·BBOX·quota 우회만 시험 | method·row·column 제한 | 알려진 공백 — 요구사항 완료로 판정 금지 |
 
 ## 5. DSP 상호운용
 

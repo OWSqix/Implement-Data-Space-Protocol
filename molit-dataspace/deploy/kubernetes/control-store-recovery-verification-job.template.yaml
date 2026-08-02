@@ -1,0 +1,55 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: "@@RECOVERY_CLUSTER_NAME@@-verification"
+  namespace: molit-caas-system
+spec:
+  backoffLimit: 1
+  activeDeadlineSeconds: 300
+  ttlSecondsAfterFinished: 3600
+  template:
+    metadata: { labels: { app.kubernetes.io/name: molit-control-store-recovery-verification } }
+    spec:
+      restartPolicy: Never
+      automountServiceAccountToken: false
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 70
+        runAsGroup: 70
+        seccompProfile: { type: RuntimeDefault }
+      containers:
+        - name: verify
+          image: "@@DATABASE_TOOL_IMAGE@@"
+          imagePullPolicy: IfNotPresent
+          command: ["/bin/sh", "-ec"]
+          args:
+            - |
+              export PGUSER="$(cat /database/username)"
+              export PGPASSWORD="$(cat /database/password)"
+              exec psql -X -v ON_ERROR_STOP=1 \
+                -v expected_caas_root="@@EXPECTED_CAAS_STATE_ROOT@@" \
+                -v expected_dsaas_root="@@EXPECTED_DSAAS_STATE_ROOT@@" \
+                "host=@@RECOVERY_CLUSTER_NAME@@-rw.molit-caas-system.svc port=5432 dbname=molit_control_store sslmode=verify-full sslrootcert=/tls/ca.crt" \
+                -f /verification/recovery-verification.sql
+          resources:
+            requests: { cpu: 50m, memory: 64Mi }
+            limits: { cpu: 500m, memory: 256Mi }
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities: { drop: ["ALL"] }
+            readOnlyRootFilesystem: true
+          volumeMounts:
+            - { name: verification, mountPath: /verification, readOnly: true }
+            - { name: database, mountPath: /database, readOnly: true }
+            - { name: database-ca, mountPath: /tls, readOnly: true }
+            - { name: tmp, mountPath: /tmp }
+      volumes:
+        - name: verification
+          configMap:
+            name: molit-control-store-recovery-verification
+            items: [{ key: recovery-verification.sql, path: recovery-verification.sql }]
+        - name: database
+          secret: { secretName: "@@RECOVERY_DATABASE_SECRET@@", defaultMode: 288 }
+        - name: database-ca
+          secret: { secretName: "@@RECOVERY_CLUSTER_NAME@@-ca", defaultMode: 288 }
+        - { name: tmp, emptyDir: { sizeLimit: 16Mi } }

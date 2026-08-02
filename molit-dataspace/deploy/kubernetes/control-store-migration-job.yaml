@@ -1,0 +1,140 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: molit-control-store-migration
+  namespace: molit-caas-system
+  labels:
+    app.kubernetes.io/managed-by: molit-caas-bootstrap
+spec:
+  backoffLimit: 1
+  ttlSecondsAfterFinished: 3600
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: molit-control-store-migration
+    spec:
+      restartPolicy: Never
+      automountServiceAccountToken: false
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 70
+        runAsGroup: 70
+        seccompProfile: { type: RuntimeDefault }
+      initContainers:
+        - name: fence-runtime-sessions
+          image: "@@DATABASE_TOOL_IMAGE@@"
+          imagePullPolicy: IfNotPresent
+          command: ["/bin/sh", "-ec"]
+          args:
+            - |
+              CAAS_ROLE="$(cat /runtime-roles/caas-username)"
+              DSAAS_ROLE="$(cat /runtime-roles/dsaas-username)"
+              exec psql "$DATABASE_URL" -X -v ON_ERROR_STOP=1 \
+                -v caas_role="$CAAS_ROLE" \
+                -v dsaas_role="$DSAAS_ROLE" \
+                -f /migrations/runtime-role-fence.sql
+          env:
+            - name: DATABASE_URL
+              valueFrom: { secretKeyRef: { name: molit-control-store-database, key: url } }
+            - { name: PGSSLMODE, value: verify-full }
+            - { name: PGSSLROOTCERT, value: /tls/ca.crt }
+          resources:
+            requests: { cpu: 50m, memory: 64Mi }
+            limits: { cpu: 500m, memory: 256Mi }
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities: { drop: ["ALL"] }
+            readOnlyRootFilesystem: true
+            runAsNonRoot: true
+          volumeMounts:
+            - { name: migrations, mountPath: /migrations, readOnly: true }
+            - { name: caas-role, mountPath: /runtime-roles/caas-username, subPath: username, readOnly: true }
+            - { name: dsaas-role, mountPath: /runtime-roles/dsaas-username, subPath: username, readOnly: true }
+            - { name: database-ca, mountPath: /tls, readOnly: true }
+            - { name: tmp, mountPath: /tmp }
+        - name: migrate-schema
+          image: "@@DATABASE_TOOL_IMAGE@@"
+          imagePullPolicy: IfNotPresent
+          command: ["/bin/sh", "-ec"]
+          args:
+            - >-
+              psql "$DATABASE_URL" -v ON_ERROR_STOP=1 -f /migrations/001_control_store.sql &&
+              psql "$DATABASE_URL" -v ON_ERROR_STOP=1 -f /migrations/002_normalized_projection.sql &&
+              psql "$DATABASE_URL" -v ON_ERROR_STOP=1 -f /migrations/003_usage_metering.sql &&
+              psql "$DATABASE_URL" -v ON_ERROR_STOP=1 -f /migrations/004_authoritative_scoped_state.sql
+          env:
+            - name: DATABASE_URL
+              valueFrom:
+                secretKeyRef:
+                  name: molit-control-store-database
+                  key: url
+            - name: PGSSLMODE
+              value: verify-full
+            - name: PGSSLROOTCERT
+              value: /tls/ca.crt
+          resources:
+            requests: { cpu: 50m, memory: 64Mi }
+            limits: { cpu: 500m, memory: 256Mi }
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities: { drop: ["ALL"] }
+            readOnlyRootFilesystem: true
+            runAsNonRoot: true
+          volumeMounts:
+            - { name: migrations, mountPath: /migrations, readOnly: true }
+            - { name: database-ca, mountPath: /tls, readOnly: true }
+            - { name: tmp, mountPath: /tmp }
+      containers:
+        - name: cutover
+          image: "@@CAAS_IMAGE@@"
+          imagePullPolicy: IfNotPresent
+          command: ["/bin/sh", "-ec"]
+          args:
+            - |
+              bind_input() {
+                if [ -s "$2" ]; then export "$1=$2"; fi
+              }
+              bind_input MOLIT_CAAS_SCOPE_MAP_PATH /cutover-input/caas-scope-map.json
+              bind_input MOLIT_DSAAS_SCOPE_MAP_PATH /cutover-input/dsaas-scope-map.json
+              bind_input MOLIT_CAAS_LEGACY_SOURCE_PATH /cutover-input/caas-legacy-source.json
+              bind_input MOLIT_DSAAS_LEGACY_SOURCE_PATH /cutover-input/dsaas-legacy-source.json
+              exec node src/control-store/scoped-cutover-cli.mjs
+          env:
+            - name: MOLIT_CONTROL_STORE_MIGRATION_DATABASE_URL
+              valueFrom:
+                secretKeyRef:
+                  name: molit-control-store-database
+                  key: url
+            - name: MOLIT_CONTROL_STORE_MIGRATION_CA_FILE
+              value: /tls/ca.crt
+          resources:
+            requests: { cpu: 100m, memory: 128Mi }
+            limits: { cpu: "1", memory: 512Mi }
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities: { drop: ["ALL"] }
+            readOnlyRootFilesystem: true
+            runAsNonRoot: true
+          volumeMounts:
+            - { name: database-ca, mountPath: /tls, readOnly: true }
+            - { name: cutover-input, mountPath: /cutover-input, readOnly: true }
+            - { name: tmp, mountPath: /tmp }
+      volumes:
+        - name: migrations
+          configMap: { name: molit-control-store-migrations }
+        - name: database-ca
+          secret: { secretName: molit-control-store-database-ca }
+        - name: caas-role
+          secret:
+            secretName: molit-caas-database-role
+            defaultMode: 288
+            items: [{ key: username, path: username }]
+        - name: dsaas-role
+          secret:
+            secretName: molit-dsaas-database-role
+            defaultMode: 288
+            items: [{ key: username, path: username }]
+        - name: cutover-input
+@@CUTOVER_INPUT_VOLUME@@
+        - name: tmp
+          emptyDir: { sizeLimit: 32Mi }

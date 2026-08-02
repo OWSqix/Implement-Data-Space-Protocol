@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://data.molit.go.kr/contracts/observability-audit-record.v1.schema.json",
+  "title": "MOLIT content-addressed audit record",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "eventId", "occurredAt", "committedAt", "retentionUntil", "type", "actor", "subject", "data", "contentDigest"],
+  "properties": {
+    "schemaVersion": { "const": "molit.audit-record/1" },
+    "eventId": { "type": "string", "pattern": "^[a-zA-Z0-9][a-zA-Z0-9._:-]{7,127}$" },
+    "occurredAt": { "type": "string", "format": "date-time" },
+    "committedAt": { "type": "string", "format": "date-time" },
+    "retentionUntil": { "type": "string", "format": "date-time" },
+    "type": { "type": "string", "pattern": "^[a-z][a-z0-9._-]{2,127}$" },
+    "traceId": { "type": "string", "pattern": "^[0-9a-f]{32}$" },
+    "actor": { "type": "object" },
+    "subject": { "type": "object" },
+    "data": { "type": "object" },
+    "contentDigest": { "type": "string", "pattern": "^[0-9a-f]{64}$" }
+  }
+}

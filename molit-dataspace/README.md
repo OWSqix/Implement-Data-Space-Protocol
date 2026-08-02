@@ -54,13 +54,15 @@ Mobilithek은 조건에 맞는 hosted·brokered 데이터의 구독과 전달을
 | Provider 게시 Bridge | 원천 poll, staged RDF Gate, 분리 승인, durable queue, 관리 API 게시 구현 | 기관별 crosswalk·Connector 관리 API·멱등 계약 |
 | 전송 provisioning | 승인 상태 재조회, private binding, pull DataAddress 발급·철회 journal 구현 | Connector webhook inbox, push·suspend·complete adapter, 실제 Data Plane 시험 |
 | EDC 로컬 토폴로지 | EDC 0.18.0 Provider·Consumer의 Control Plane과 Data Plane 배포판 구성, 이전 clean-volume smoke 결과 보존 | 현재 source의 recorder 결합 재실행, 운영 DPS 전송 worker, 외부 DSP 구현 시험 |
-| CaaS | PostgreSQL JSONB·CAS, tenant lease·fencing, 감사 원장과 배포 의도 수렴 구현 | 실제 Kubernetes EDC provisioner, 운영 신원, 외부 fencing·HA 실증 |
-| DSaaS | PostgreSQL 데이터 스페이스 lease, 참가 승인·서비스 Gate·CaaS generation 수렴 구현 | 기관 승인 시스템, 운영 Registry, 정규화 저장소, HA·PITR 실증 |
+| CaaS | Scoped PostgreSQL 정본·RLS, Kubernetes EDC 수명주기·fencing, 운영 신원·관측 runtime 구현 | 운영 cluster의 외부 fencing·HA 실증과 P1 DSP Gate |
+| DSaaS | 데이터 스페이스별 정본·RLS, 참가 승인·CaaS generation 수렴, 운영 신원·관측 runtime 구현 | 기관 승인 Registry, 운영 multi-zone·PITR 실증과 P1 Catalog·정책 Gate |
 | PoC | 공개 데이터로 lifecycle을 먼저 검증 | 실제 플랫폼 후보와 sandbox 승인 |
 
 ## 4. 문서 읽는 순서
 
 처음 읽는 경우에는 다음 순서를 권한다.
+
+경로 범례: `docs/02-architecture/`는 시스템·프로토콜·보안 정본, `docs/02-design/`은 분야 규약·거버넌스·상용 경계 설계다.
 
 1. [기본 개념](docs/00-concepts-primer.md)
 2. [프로젝트 헌장](docs/00-project-charter.md)
@@ -99,10 +101,23 @@ Mobilithek은 조건에 맞는 hosted·brokered 데이터의 구독과 전달을
 35. [CaaS Connector 제어 평면](docs/04-implementation/caas-control-plane.md)
 36. [DSaaS 제어 평면](docs/04-implementation/dsaas-control-plane.md)
 37. [Profile·ontology namespace 배포](docs/04-implementation/stable-namespace-operations.md)
-38. [결정 기록](docs/adr/README.md)
-39. [상용 CaaS·DSaaS 제품 기준선](docs/02-design/commercial-caas-dsaas-baseline.md)
-40. [EDC·CaaS·DSaaS 작업 인계 기록](docs/03-plan/edc-caas-dsaas-handoff-2026-07-14.md)
-41. [상용 readiness machine register](governance/commercial-readiness-register.v1.json)
+38. [운영 신원 계층](docs/04-implementation/operational-identity.md)
+39. [tenant 격리](docs/04-implementation/tenant-isolation.md)
+40. [관측성·감사·공급망](docs/04-implementation/observability-and-supply-chain.md)
+41. [P0 운영 제어면 구현과 검증](docs/04-implementation/p0-control-plane-verification.md)
+42. [결정 기록](docs/adr/README.md)
+43. [상용 CaaS·DSaaS 제품 기준선](docs/02-design/commercial-caas-dsaas-baseline.md)
+44. [EDC·CaaS·DSaaS 작업 인계 기록](docs/03-plan/edc-caas-dsaas-handoff-2026-07-14.md)
+45. [상용 readiness machine register](governance/commercial-readiness-register.v1.json)
+46. [데이터 스페이스 실태 조사](docs/01-research/dataspace-landscape-survey.md)
+47. [분야 참여 유인 분석](docs/01-research/sector-adoption-levers.md)
+48. [단일형·분야형 구성 연구](docs/01-research/dataspace-topology-single-vs-sectoral.md)
+49. [데이터 스페이스 개념·용어 감사](docs/01-research/dataspace-concept-audit.md)
+50. [DSSC 빌딩블록 갭 등록부](docs/01-research/dssc-gap-register.md)
+51. [참가자 온보딩·보증 설계](docs/02-architecture/participant-onboarding-and-assurance.md)
+52. [교통모빌리티 분야 규약 골격](docs/02-design/sector-rulebook-framework.md)
+53. [거버넌스·운영 원칙](docs/02-design/governance-and-operating-principles.md)
+54. [초기 유즈케이스·KPI](docs/03-plan/initial-usecases-and-kpi.md)
 
 조사의 근거는 다음 파일에서 추적한다.
 
@@ -149,9 +164,9 @@ molit-dataspace/
 - **(현재 구현)** Connector 승인 pull 전송의 platform provisioning·revoke Worker
 - **(현재 구현)** Profile·ontology namespace 서버와 배포·원격 attestation 도구
 - **(현재 구현)** EDC v4 게시 Adapter와 동일 구현 간 로컬 상호운용 smoke
-- **(현재 구현)** CaaS·DSaaS PostgreSQL JSONB·CAS, 별도 lease pool, advisory lock·fencing과 graceful shutdown
-- **(미연결)** 기관별 원천 crosswalk, 실제 CaaS 배포 Adapter, 운영 DPS worker, push·suspend·complete Data Plane
-- **(상용 차단)** 운영 OIDC·DCP, OpenTelemetry·WORM, 다중 가용영역·PITR, 최종 image DSP TCK와 이기종 Connector 시험
+- **(현재 구현)** CaaS·DSaaS scoped PostgreSQL 정본·RLS, Kubernetes 수명주기·fencing, 운영 신원·관측·공급망과 graceful shutdown
+- **(미연결)** 기관별 원천 crosswalk, 운영 DPS worker, push·suspend·complete Data Plane과 P1 Catalog·정책 집행
+- **(상용 차단)** 운영기관 신원 ceremony, OTLP·WORM backend, multi-zone 장애훈련, registry·KMS release와 최종 image DSP TCK·이기종 Connector 시험
 - **(후속 승인)** DNS·TLS·namespace·어휘·Connector 제품·기관 운영 배포
 
 상위 저장소의 `docs/blog/code/dsp-python`은 DSP version endpoint 학습용 scaffold이며 운영 Connector나 이 프로젝트의 구현체로 보지 않는다.
@@ -244,6 +259,15 @@ npm run release:gate:win32-x64
 ```
 
 `verify:release:win32-x64`는 Node 설치 tree·SBOM과 Apache Jena 6.1.0·Temurin JRE 21 설치 증거를 검사한다. 이 명령의 성공은 기술 증거의 일치를 뜻하며 release 승인과 같지 않다.
+
+P0 운영 제어면의 전체 로컬 검증과 aggregate 증거 재검증은 다음 명령을 사용한다.
+
+```powershell
+npm run verify:p0:local
+npm run verify:p0:evidence
+```
+
+첫 명령은 고정한 실행 원장의 전 단계를 순서대로 실행한다. 두 번째 명령은 현재 checkout, 실행 profile, 원시 log와 중첩 JSON 증거의 SHA-256을 다시 확인한다. 세부 완료조건은 [P0 운영 제어면 구현과 검증](docs/04-implementation/p0-control-plane-verification.md)을 따른다.
 
 같은 release lane은 `edc:verify:runtime`도 실행한다. 이 Gate는 EDC 세 실행 JAR의 컴파일, Java 17 class, base Data Plane의 smoke class 부재와 Compose 모델을 검사한다. 실제 두 Connector의 Docker 전송 시험은 `tools/edc/run-smoke.ps1`에서 별도로 실행한다.
 

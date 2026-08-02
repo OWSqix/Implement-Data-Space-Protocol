@@ -1,0 +1,102 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://data.molit.go.kr/schema/postgres-ha-pitr-run.v1.json",
+  "title": "MOLIT PostgreSQL HA and PITR execution result",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "status",
+    "sourceCommit",
+    "startedAt",
+    "finishedAt",
+    "image",
+    "topology",
+    "rollingRestart",
+    "rollback",
+    "failover",
+    "pitr"
+  ],
+  "properties": {
+    "schemaVersion": { "const": "molit.postgres-ha-pitr-run/1" },
+    "status": { "const": "pass" },
+    "sourceCommit": { "type": "string", "pattern": "^[a-f0-9]{40}$" },
+    "startedAt": { "type": "string", "format": "date-time" },
+    "finishedAt": { "type": "string", "format": "date-time" },
+    "image": { "type": "string", "pattern": "^[^\\s]+@sha256:[a-f0-9]{64}$" },
+    "topology": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["primary", "standby", "walArchive", "synchronousCommit", "synchronousStandbyNames", "failureInjection", "fencingMethod", "evidenceScope"],
+      "properties": {
+        "primary": { "type": "integer", "const": 1 },
+        "standby": { "type": "integer", "const": 1 },
+        "walArchive": { "type": "boolean", "const": true },
+        "synchronousCommit": { "type": "boolean", "const": true },
+        "synchronousStandbyNames": { "const": "FIRST 1 (walreceiver)" },
+        "failureInjection": { "const": "primary-sigkill-after-synchronous-commit" },
+        "fencingMethod": { "const": "isolated-standby-restart-write-rejection" },
+        "evidenceScope": { "const": "local-container-failover-only" }
+      }
+    },
+    "rollingRestart": { "$ref": "#/$defs/timedCheck" },
+    "rollback": { "$ref": "#/$defs/timedCheck" },
+    "failover": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["rpoSeconds", "rtoSeconds", "missingCommits", "splitBrainCommits", "queueEventPreserved", "oldPrimaryRestarted", "oldPrimaryInRecovery", "oldPrimaryNetworkMode", "oldPrimaryWriteRejected", "oldPrimaryProbeErrorClass", "promotedPrimaryUnaffected"],
+      "properties": {
+        "rpoSeconds": { "type": "number", "minimum": 0, "maximum": 300 },
+        "rtoSeconds": { "type": "number", "minimum": 0, "maximum": 3600 },
+        "missingCommits": { "type": "integer", "const": 0 },
+        "splitBrainCommits": { "type": "integer", "const": 0 },
+        "queueEventPreserved": { "type": "boolean", "const": true },
+        "oldPrimaryRestarted": { "const": true },
+        "oldPrimaryInRecovery": { "const": true },
+        "oldPrimaryNetworkMode": { "const": "none" },
+        "oldPrimaryWriteRejected": { "const": true },
+        "oldPrimaryProbeErrorClass": { "const": "postgresql-read-only-recovery" },
+        "promotedPrimaryUnaffected": { "const": true }
+      }
+    },
+    "pitr": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["restorePoint", "rtoSeconds", "expectedDigest", "restoredDigest", "semanticExpectedDigest", "semanticRestoredDigest", "semanticState", "destructiveRows"],
+      "properties": {
+        "restorePoint": { "const": "molit_before_destructive_change" },
+        "rtoSeconds": { "type": "number", "minimum": 0, "maximum": 3600 },
+        "expectedDigest": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+        "restoredDigest": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+        "semanticExpectedDigest": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+        "semanticRestoredDigest": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+        "semanticState": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["migrationCount", "modeRows", "rootsMatch", "scopedStateRows", "outboxPendingRows", "outboxAcknowledgedRows", "usageEventRows"],
+          "properties": {
+            "migrationCount": { "const": 4 },
+            "modeRows": { "const": 2 },
+            "rootsMatch": { "const": true },
+            "scopedStateRows": { "const": 2 },
+            "outboxPendingRows": { "const": 1 },
+            "outboxAcknowledgedRows": { "const": 1 },
+            "usageEventRows": { "const": 1 }
+          }
+        },
+        "destructiveRows": { "type": "integer", "const": 0 }
+      }
+    }
+  },
+  "$defs": {
+    "timedCheck": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["seconds", "dataLoss"],
+      "properties": {
+        "seconds": { "type": "number", "minimum": 0, "maximum": 600 },
+        "dataLoss": { "type": "integer", "const": 0 }
+      }
+    }
+  }
+}

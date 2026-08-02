@@ -1,0 +1,41 @@
+{
+  "schemaVersion": "molit.edc-database-migration/1",
+  "edcVersion": "0.18.0",
+  "requiredVersion": "edc-0.18.0-sql-v1",
+  "sourceCommit": "911a22ba6b90688ffeb35bb92bf5cc040ffdf37f",
+  "components": {
+    "control-plane": {
+      "sqlResources": [
+        "asset-index-schema.sql",
+        "contract-definition-schema.sql",
+        "contract-negotiation-schema.sql",
+        "policy-definition-schema.sql",
+        "transfer-process-schema.sql",
+        "edr-index-schema.sql",
+        "jti-validation-schema.sql",
+        "dataplane-instance-schema.sql",
+        "policy-monitor-schema.sql",
+        "cache-schema.sql",
+        "target-node-directory-schema.sql"
+      ],
+      "requiredTables": [
+        "edc_asset",
+        "edc_contract_definitions",
+        "edc_contract_agreement",
+        "edc_contract_negotiation",
+        "edc_policydefinitions",
+        "edc_transfer_process",
+        "edc_edr_entry",
+        "edc_jti_validation",
+        "edc_data_plane_instance",
+        "edc_policy_monitor",
+        "edc_federated_catalog",
+        "edc_target_node_directory"
+      ]
+    },
+    "data-plane": {
+      "sqlResources": ["accesstoken-data-schema.sql", "dataplane-schema.sql"],
+      "requiredTables": ["edc_accesstokendata", "edc_data_plane"]
+    }
+  }
+}

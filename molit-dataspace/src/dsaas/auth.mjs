@@ -82,6 +82,50 @@ export class OAuth2IntrospectionAuthenticator {
   }
 }
 
+export class OperationalDsaasAuthenticatorAdapter {
+  constructor({ authenticator }) {
+    assertRuntime(authenticator && typeof authenticator.authenticate === "function", "DSAAS_AUTH_CONFIGURATION_ERROR", "operational identity authenticator is required");
+    assertRuntime(authenticator.productionEligible !== true || (typeof authenticator.initialize === "function" && typeof authenticator.readiness === "function"), "DSAAS_AUTH_CONFIGURATION_ERROR", "production identity authenticator requires initialization and readiness probes");
+    this.authenticator = authenticator;
+    this.productionEligible = authenticator.productionEligible === true;
+  }
+
+  initialize(options) {
+    return this.authenticator.initialize(options);
+  }
+
+  readiness(options) {
+    return this.authenticator.readiness(options);
+  }
+
+  async authenticate(request, { signal } = {}) {
+    let principal;
+    try {
+      principal = await this.authenticator.authenticate(request, { signal });
+    } catch (error) {
+      if (signal?.aborted && signal.reason instanceof Error) throw signal.reason;
+      if (typeof error?.code === "string" && error.code.startsWith("IDENTITY_")) {
+        const code = error.status === 403 ? "DSAAS_FORBIDDEN" : error.status === 503 ? "DSAAS_AUTH_UNAVAILABLE" : "DSAAS_UNAUTHENTICATED";
+        throw new RuntimeError(code, error.message, { identityCode: error.code });
+      }
+      throw new RuntimeError("DSAAS_AUTH_UNAVAILABLE", "operational identity verification failed");
+    }
+    const keyId = principal?.signingKeyId ?? principal?.tokenId;
+    for (const [name, value] of Object.entries({ principalId: principal?.principalId, clientId: principal?.clientId, keyId })) {
+      assertRuntime(typeof value === "string" && /^[^\s\u0000-\u001f\u007f]{3,512}$/u.test(value), "DSAAS_AUTH_UNAVAILABLE", `operational identity ${name} is invalid`);
+    }
+    assertRuntime(Array.isArray(principal.roles) && Array.isArray(principal.tenantIds), "DSAAS_AUTH_UNAVAILABLE", "operational identity role or dataspace assignment is invalid");
+    return Object.freeze({
+      subject: principal.subject,
+      principalId: principal.principalId,
+      clientId: principal.clientId,
+      keyId,
+      roles: Object.freeze([...principal.roles]),
+      dataspaceIds: Object.freeze([...principal.tenantIds]),
+    });
+  }
+}
+
 export function authorizationChallenge(response) {
   response.setHeader("WWW-Authenticate", 'Bearer realm="molit-dsaas"');
 }
