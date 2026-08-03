@@ -312,9 +312,11 @@ npm run verify:release:win32-x64
 npm run release:status
 ```
 
+- **(정본 정렬: B-08)** RC.1 manifest의 `artifactInventoryPolicy: all-release-files`와 artifact lock의 307개 실측이 현행 release inventory이므로 적용한다.
+
 | Gate | 합격 조건 |
 | --- | --- |
-| artifact lock | 기존 52개 machine artifact의 digest 일치, inventory 무단 증감 0건 |
+| artifact lock | `artifactInventoryPolicy: all-release-files` 범위의 release artifact 307개 digest 일치, inventory 무단 증감 0건 |
 | Node profile | release·shape·fixture·preflight 전체 시험 통과 |
 | independent SHACL | pySHACL의 정상·오류 기대판정 일치 |
 | Jena SHACL differential | 13개 Core·Geo 사례의 정규화 결과와 Jena 6.1.0 결과 일치 |

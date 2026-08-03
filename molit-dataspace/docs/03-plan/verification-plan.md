@@ -176,9 +176,9 @@
 | RDF-DIFF-001 | RDF 직렬화 | Turtle·N-Triples·N-Quads·RDF/XML·JSON-LD의 RDFC-1.0 digest 일치 | Node·Jena parser lane 구현 |
 | RDF-SEC-001 | RDF parser | DTD·entity·remote context·과대입력·잘못된 UTF-8 거부 | production loader 구현 |
 | RT-SPATIAL-AXIS-001 | CRS84·EPSG:4737·5179·5185~5188 | authority snapshot의 축 순서와 2차원 Point WKT·GML lexical tuple 왕복 일치 | 구현 |
-| RT-SPATIAL-ACCURACY-001 | 좌표변환 정확도 | 승인 library와 기준점 corpus의 변환 결과가 허용 오차 이내 | 미구현 |
+| RT-SPATIAL-ACCURACY-001 | 좌표변환 정확도 | 승인 library와 기준점 corpus의 변환 결과가 허용 오차 이내 | 구현 — B-03 정본 반영 |
 | GEO-LIT-001 | WKT·GML Point literal | 2차원 tuple의 authority 순서를 보존하고 active XML·3차원·비유한값 거부 | 구현 |
-| GEO-LIT-COVERAGE-001 | 지원 geometry 전체 | geometry별 WKT·GML parser와 적용 XSD 통과 | 미구현 |
+| GEO-LIT-COVERAGE-001 | 지원 geometry 전체 | geometry별 WKT·GML parser와 적용 XSD 통과 | 구현 — B-04 정본 반영 |
 | ISO-DQV-001 | KS X ISO 19157-1 품질 | 지원 result만 lossless, 미지원 result·method·scope는 `unmapped` | 원문·제품 fixture 필요 |
 | XSD-COVERAGE-001 | XSD datatype | 승인 datatype의 lexical·value space 오류 0건, 미승인 XSD datatype 거부 | 15개 datatype registry 구현 |
 | DEP-INTEGRITY-001 | 검증기 실행환경 | 격리 clean install, 실제 dependency tree·SBOM·Jena toolchain digest 일치 | win32-x64 lane 구현 |
@@ -188,6 +188,9 @@
 | RELEASE-GATE-001 | release 판정 | machine register·authority·ISO cache의 미해결 항목이 있으면 exit 2 | 구현; 현재 blocked |
 | STD-STATUS-SNAPSHOT-001 | KS·TTA·행정규칙 lifecycle | 검토 baseline과 source equality를 통과하고 공식 status 응답 원문·수집시각·byte 수·SHA-256이 항목별로 존재 | baseline digest·source equality 구현, 공식 응답 snapshot 미고정 |
 | CLAIM-AUTH-001 | 대외 conformance declaration | 정형 claim에 승인자·적용 표준판·시험범위·근거 digest·만료일이 있고 비정형 동의어는 발간 전 사람 검토 | 금지 문자열·표시 text Gate 구현, 승인 workflow 미구현 |
+
+- **(B-03 정본 근거)** `standards/korean-interoperability-register.json`의 `RT-SPATIAL-ACCURACY-001=implemented`가 현행 machine register 판정이므로 적용한다.
+- **(B-04 정본 근거)** 같은 register의 `GEO-LIT-COVERAGE-001=implemented`가 현행 machine register 판정이므로 적용한다.
 
 `SHACL-DIFF-001B`는 결과 message와 blank node label을 비교하지 않는다. `focusNode`, canonical result path, constraint component, severity, source shape 종류와 value RDF term을 정규화한다. engine 불일치는 다수결로 처리하지 않고 release를 차단한다.
 

@@ -4,7 +4,14 @@
 
 `COM-TEN-001`은 tenant 식별자를 API 인자에만 두지 않는다. PostgreSQL login role, transaction context, 상태 row, 멱등성 record, outbox, object key, secret reference, metric label과 감사 event에 같은 tenant 경계를 적용한다.
 
-production CaaS와 DSaaS의 상태 정본은 `PostgresScopedControlStore`다. CaaS tenant와 DSaaS dataspace는 서로 다른 row에 저장된다. 한 tenant의 요청이 다른 tenant payload를 메모리에 올리는 경로도 허용하지 않는다.
+production CaaS와 DSaaS의 runtime 상태값 정본은 `scoped_control_state`다. `PostgresScopedControlStore`는 그 정본만 읽고 쓰는 production runtime component다.
+
+CaaS tenant와 DSaaS dataspace는 서로 다른 row에 저장된다. 한 tenant의 요청이 다른 tenant payload를 메모리에 올리는 경로도 허용하지 않는다.
+
+- **(정본 범위)** Runtime 상태: `scoped_control_state`; 접근 구현: `PostgresScopedControlStore`
+- **(정본 범위)** 로컬 P0 실행 판정: `.local/p0/local-verification.json`
+- **(정본 범위)** 상용 준비 판정: `governance/commercial-readiness-register.v1.json`
+- **(판정 근거: C1-03)** 저장값·실행 결과·운영 증거는 판정 질문이 달라 서로 대체하지 않는다.
 
 | 파일 | 역할 |
 | --- | --- |

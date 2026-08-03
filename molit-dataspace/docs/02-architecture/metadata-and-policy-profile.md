@@ -8,7 +8,9 @@
 
 이 문서는 통합채널과 원천 플랫폼의 metadata를 canonical model로 정규화하고 DSP Catalog에 투영하는 규칙을 정의한다.
 
-Metadata 계층은 [응용 프로파일 0.1.0](../../profiles/molit-dcat-ap/releases/0.1.0/index.md)으로 구현했다. 운영 URI, 실제 레코드 mapping과 기관 승인이 남아 있어 Working Draft로 관리한다. Policy와 DSP projection 부분은 설계 초안이다.
+Metadata 계층은 [응용 프로파일 1.0.0-rc.1](../../profiles/molit-dcat-ap/releases/1.0.0-rc.1/index.md)로 구현했다. 운영 URI, 실제 레코드 mapping과 기관 승인이 남아 있어 Working Draft로 관리한다. Policy와 DSP projection 부분은 설계 초안이다.
+
+- **(시정 근거: B-06)** 현행 적용판이 RC.1이므로 cardinality·datatype과 실행 범위는 RC.1 requirement ledger·SHACL을 정본으로 판정하고 이전판은 이 문서의 적용 기준에서 제외한다.
 
 - **(규격)** DCAT 3은 Dataset, Distribution과 DataService의 공통 의미를 제공한다.
 - **(프로젝트 결정)** 국토교통 canonical field, Passport와 validation Gate는 이 프로젝트에서 정의한다.
@@ -69,7 +71,11 @@ urn:kr:molit-dataspace:participant:{organization-id}
 
 ## 4. 연계·운영 canonical 목표 metadata
 
-이 표는 Platform Bridge와 운영 Catalog의 목표 모델이다. MOLIT DCAT-AP 1.0.0-rc.1의 현행 규범표가 아니다. RC.1 cardinality와 datatype은 release의 requirement ledger와 SHACL을 정본으로 삼는다.
+이 표는 Platform Bridge와 운영 Catalog의 목표 모델이다. MOLIT DCAT-AP 1.0.0-rc.1의 현행 규범표가 아니다.
+
+RC.1 cardinality와 datatype은 release의 requirement ledger와 SHACL을 정본으로 삼는다. 명세·원장·shape·fixture는 하나의 release 계약으로서 같은 변경에서 함께 갱신하며 불일치 때 어느 하나를 임의로 우선하지 않는다.
+
+- **(시정 근거: C1-02)** RC.1 `index.md`가 문서와 machine artifact의 임의 우선순위를 금지하고 명세·원장·shape·fixture의 동시 갱신을 요구하므로 이 release 계약을 정본 관계로 채택한다.
 
 | 구분 | 필드 | 조건 | 검증 규칙 |
 | --- | --- | --- | --- |
@@ -119,8 +125,8 @@ urn:kr:molit-dataspace:participant:{organization-id}
 
 | 대상 | 용도 | 상태 |
 | --- | --- | --- |
-| DCAT-AP 3.0.1 | 공통 카탈로그 제약 | 0.1.0 규범 기반·원본 SHACL 고정 |
-| GeoDCAT-AP 3.1.0 | 공간정보 카탈로그 교환 | 0.1.0 공간 profile의 blocking SHACL |
+| DCAT-AP 3.0.1 | 공통 카탈로그 제약 | RC.1 규범 기반·원본 SHACL 고정 |
+| GeoDCAT-AP 3.1.0 | 공간정보 카탈로그 교환 | RC.1 공간 profile의 blocking SHACL |
 | mobilityDCAT-AP 1.1.0 | 유럽 NAP·모빌리티 포털 교환; MDS·Mobilithek 연계 참조 | SHACL 미병합, Transport Mode 1.0.0 어휘만 재사용. Profile version·경계는 `CT-SEM-001`에서 검사. 정합 검토 산출물은 class·property·cardinality·통제어 차이와 손실표. 근거: `C-062` |
 | TTAK.OT-10.1406 DCAT-AP-KR | 국내 데이터 포털 교환 | DCAT-AP 2.1.0 기반. 정본 3.0.1 graph를 2.1 계열로 내보내는 하향 crosswalk와 class·property·cardinality·통제어 손실 원장 미구현. 근거: `C-074` |
 | TTAK.KO-10.1422 | 국내 공간정보 포털 교환 | 원문 확보와 GeoDCAT-AP 3.1.0 차이 분석 필요. 근거: `C-074` |
@@ -176,9 +182,9 @@ Transfer Request는 Distribution ID를 전송하지 않는다.
 
 ## 6. 국토교통 확장 필드
 
-0.1.0은 제안 namespace에 교통망 참조, 품질 상태와 공간 공개 정밀도 term을 정의했다. URI는 운영 승인 전이며 외부 장기 식별자로 사용할 수 없다.
+RC.1은 제안 namespace에 교통망 참조, 품질 상태와 공간 공개 정밀도 term을 정의했다. URI는 운영 승인 전이며 외부 장기 식별자로 사용할 수 없다.
 
-다음 표에는 구현 term과 후속 canonical model 후보가 함께 있다. 실행 범위와 cardinality는 [0.1.0 명세](../../profiles/molit-dcat-ap/releases/0.1.0/index.md)를 기준으로 판정한다.
+다음 표에는 구현 term과 후속 canonical model 후보가 함께 있다. 실행 범위와 cardinality는 [RC.1 requirement ledger](../../profiles/molit-dcat-ap/releases/1.0.0-rc.1/requirements/profile-requirements.json)와 RC.1 SHACL을 기준으로 판정한다.
 
 | 의미 | 적용 자산 | 예시 검증 |
 | --- | --- | --- |
@@ -348,7 +354,7 @@ EDC를 채택하면 배포 대상 version과 그 version의 Management API·sour
 
 ## 12. Validation
 
-0.1.0 실행기는 DCAT-AP 3.0.1, GeoDCAT-AP 3.1.0과 프로젝트 자체 SHACL의 RDF 적합성을 검사한다. 이 결과는 TTAK.OT-10.1406, TTAK.KO-10.1422, TTAK.KO-10.1510-Part3, 국토지리정보원 기관표준 또는 제품별 품질규정의 적합성 판정을 대신하지 않는다.
+RC.1 실행기는 DCAT-AP 3.0.1, GeoDCAT-AP 3.1.0과 프로젝트 자체 SHACL의 RDF 적합성을 검사한다. 이 결과는 TTAK.OT-10.1406, TTAK.KO-10.1422, TTAK.KO-10.1510-Part3, 국토지리정보원 기관표준 또는 제품별 품질규정의 적합성 판정을 대신하지 않는다.
 
 Release lock과 fatal UTF-8을 확인한 뒤 exact mailbox·host, PII·credential, Core·Geo routing preflight를 통과한 graph에 SHACL을 적용한다. 검증 명령은 다음과 같다.
 
@@ -358,7 +364,7 @@ npm run profile:verify:independent
 npm run profile:validate:example
 ```
 
-| 구분 | 0.1.0 구현 범위 | 상태 |
+| 구분 | RC.1 구현 범위 | 상태 |
 | --- | --- | --- |
 | RDF 적합성 | DCAT-AP 3.0.1, 조건부 GeoDCAT-AP 3.1.0, 국토교통 필수·통제어 SHACL | 구현 |
 | Profile 선택 | Catalogue·CatalogRecord marker 정확히 1개, canonical IRI, GeoDCAT 15개·GeoSPARQL 6 class/54 property·국토교통 공간 term routing | 구현 |

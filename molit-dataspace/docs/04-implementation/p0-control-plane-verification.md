@@ -19,6 +19,11 @@ P0 저장소 범위는 tenant 격리, Connector 수명주기, 운영 신원, 관
 
 `scoped_control_state`는 CaaS tenant와 DSaaS 데이터 스페이스별 상태 정본이다. Production runtime은 `PostgresScopedControlStore`만 사용한다. `json_snapshot`은 전환 입력으로만 남고 CaaS·DSaaS runtime role의 조회·변경 권한은 회수한다.
 
+- **(정본 범위)** Runtime 상태: `scoped_control_state`
+- **(정본 범위)** 로컬 P0 실행 판정: `.local/p0/local-verification.json`
+- **(정본 범위)** 상용 준비 판정: `governance/commercial-readiness-register.v1.json`
+- **(판정 근거: C1-03)** 저장값·실행 결과·운영 증거는 판정 질문이 달라 서로 대체하지 않는다.
+
 상태 변경, idempotency record, domain 감사 event와 outbox는 하나의 PostgreSQL transaction에서 확정한다.
 
 `control_scope_registry`는 payload 없이 scope 존재 여부만 보관한다. DSaaS의 CaaS tenant ID, Connector participant ID와 namespace 전역 중복은 `control_participant_registry`가 막는다.

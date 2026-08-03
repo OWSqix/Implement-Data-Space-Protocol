@@ -30,6 +30,7 @@ Accepted ADR의 내용은 본문을 수정해 바꾸지 않는다. 결정이 바
 | [0005](0005-dcat-ap-3-profile-baseline.md) | DCAT-AP 3.0.1을 metadata profile 기준으로 고정 | Accepted | — |
 | [0006](0006-selective-notary-evidence.md) | 선별적 notary 증적 체제 | Proposed | 2026-08-01 |
 | [0007](0007-governance-function-separation.md) | 거버넌스 기능 3분리와 2계층 DSGA | Proposed | — |
+| [0008](0008-provider-default-and-existing-system-participation.md) | Provider 기본값과 기존 시스템 참여 | Proposed | — |
 
 ## 4. 후속 후보
 

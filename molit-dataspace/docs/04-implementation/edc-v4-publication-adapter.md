@@ -48,18 +48,22 @@ EDC 0.18.0의 안정 Management API 기준은 v4다. `/v5beta/participants/{part
 
 ## 3. DCAT-AP에서 EDC Asset으로 옮기는 값
 
-EDC Catalog에 전체 RDF graph를 복제하지 않는다. 소비자가 검색과 원문 확인에 필요한 값만 Asset 공개 속성으로 옮기고, 정본은 `metadataIri`가 가리키는 MOLIT DCAT-AP 표현으로 남긴다.
+EDC Catalog에 전체 RDF graph를 복제하지 않는다. 소비자가 검색과 원문 확인에 필요한 값만 Asset 공개 속성으로 옮긴다.
+
+공개 namespace 배포와 dereference 검증이 끝난 뒤에는 상세 메타데이터 정본을 `metadataIri`가 가리키는 MOLIT DCAT-AP 표현으로 남긴다. 그 전의 RC.1 `metadataIri`는 후보 표현을 가리키는 참조다.
+
+**(정본 판정 근거: C3-02)** RC.1 manifest가 namespace를 미배포로 선언하고 현행 `/id/...` 경로도 404이므로, dereference 검증 전 RDF를 정본으로 단정하지 않는다.
 
 | MOLIT 메타데이터 또는 검증 증거 | EDC Asset 공개 속성 | 정보 손실 처리 |
 | --- | --- | --- |
-| 대표 제목 | `name` | 한 개 대표 문자열만 게시한다. 다국어 전체 값은 RDF 정본에 남긴다. |
-| 대표 설명 | `description` | 요약만 게시한다. 상세 설명은 RDF 정본에 남긴다. |
+| 대표 제목 | `name` | 한 개 대표 문자열만 게시한다. 다국어 전체 값은 `metadataIri`가 가리키는 RDF 표현에 남긴다. |
+| 대표 설명 | `description` | 요약만 게시한다. 상세 설명은 `metadataIri`가 가리키는 RDF 표현에 남긴다. |
 | Distribution media type | `contenttype` | 실제 전송 응답의 Content-Type과 별도로 시험한다. |
-| 메타데이터 정본 IRI | `metadataIri` | HTTPS IRI만 허용한다. |
+| 메타데이터 표현 IRI | `metadataIri` | HTTPS IRI만 허용하며, 배포 전에는 후보 표현 참조로 취급한다. |
 | 검증 입력 SHA-256 | `molitMetadataSha256` | Bridge 검증 결과에서 주입한다. 호출자가 덮어쓸 수 없다. |
 | 적합성 class와 버전 | `molitProfileName`, `molitProfileVersion` | Bridge 검증 결과에서 주입한다. |
 | 검증 결정 digest | `molitValidationDecisionDigest` | 승인한 검증 결정과 동일한지 dispatch 전에 확인한다. |
-| 주제·공간·시간·품질·계보 전체 | 직접 평탄화하지 않음 | `metadataIri`의 RDF graph에서 보존한다. |
+| 주제·공간·시간·품질·계보 전체 | 직접 평탄화하지 않음 | `metadataIri`가 가리키는 RDF graph에서 보존하며 정본 인정은 위 배포 조건을 따른다. |
 
 ODRL Policy Definition은 DCAT-AP의 라이선스 문장과 같은 객체가 아니다. 라이선스·접근권 메타데이터는 데이터셋 설명에 남기고, 실제 계약 조건은 별도 정책 심의 결과로 만든다.
 

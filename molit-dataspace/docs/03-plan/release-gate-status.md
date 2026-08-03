@@ -15,7 +15,9 @@
 
 어느 하나라도 누락되거나 schema·digest·Git 상태가 맞지 않으면 판정을 진행하지 않는다. Korean register 파일의 `fixed` 문자열만 바꿔서는 Gate를 통과할 수 없다.
 
-Korean register에는 `fixed` 12건과 미해소 14건이 있다. 이 중 13건은 `releaseGateRequired=true`다. 미해소 항목은 다음 세 범위로 나눈다.
+Korean register에는 `fixed` 13건과 미해소 14건이 있다. 이 중 13건은 `releaseGateRequired=true`다. 미해소 항목은 다음 세 범위로 나눈다.
+
+- **(정본 정렬: B-07)** 독립 검토 digest로 고정된 Korean register의 `fixed` 13건 실측이 현행 machine 판정이므로 적용한다.
 
 - `standard-core`: Profile 공통 표준과 발행정책
 - `module-conditional`: Geo·Quality·Observation처럼 해당 Module에 한정된 표준

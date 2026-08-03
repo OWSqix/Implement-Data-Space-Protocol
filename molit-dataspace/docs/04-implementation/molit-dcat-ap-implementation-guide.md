@@ -392,7 +392,9 @@ Import-Csv `
 - 국내 표준 후보정렬: crosswalk의 증거등급과 claim 상태 확인
 - Publication 권고: 내용 필수조건과 구분해 후속 정책으로 처리
 
-CSV를 직접 고치지 않는다. JSON 정본, SHACL, fixture와 생성 절차를 같은 변경에서 갱신한다.
+CSV를 직접 고치지 않는다. RC.1 명세·JSON requirement 원장·SHACL shape·fixture가 서로 다르면 어느 하나를 임의로 우선하지 않고 release 결함으로 등록해 같은 변경에서 모두 갱신한 뒤 생성 절차로 CSV를 다시 만든다.
+
+- **(시정 근거: C1-02)** RC.1 `index.md`의 release 계약이 명세·원장·shape·fixture의 동시 갱신과 임의 우선순위 금지를 요구하므로 기존 JSON 단일 정본 표현을 이 계약으로 대체한다.
 
 ## 6. 통제어와 식별자
 

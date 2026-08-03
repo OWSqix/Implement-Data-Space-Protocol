@@ -1,8 +1,10 @@
 # 실증과 로드맵
 
 작성일: 2026-07-11  
-작성 기준: 2026-07-11  
+작성 기준: 2026-08-03  
+최종 개정: 2026-08-03  
 상태: Draft
+관련 결정: `E-15`, `E-16`, `E-17`, `E-18`, `E-19`, `E-20`
 
 ## 1. 목적과 완료 판정
 
@@ -18,13 +20,19 @@
   -> DSP Dataset·Offer·Distribution·DataService 게시
   -> Agreement 교환·검증과 Contract Negotiation FINALIZED
   -> platform entitlement·subscription·token·snapshot 생성
-  -> Transfer Process와 payload 접근
+  -> Provider transfer worker가 승인된 PULL 사건에 따라 원천 접근 token·signed URL 발급
+  -> Consumer가 원천 플랫폼에서 payload PULL
   -> Transfer 완료·종료와 단기자원 회수
   -> Agreement 해지·Dataset 철회와 장기자원 회수
   -> reconciliation
 ```
 
 metadata만 동기화하면 Discovery Bridge PoC다. Agreement와 실제 플랫폼 접근 수명주기까지 연결해야 Full Offering Bridge PoC다. 두 결과를 같은 완료로 보고하지 않는다.
+
+- **(Decision)** 데이터 스페이스는 신원·Catalog·계약·정책·감사를 담당하며 payload를 보관하거나 중계하지 않음
+  - **(근거)** [ADR-0002](../adr/0002-data-stays-at-source.md)와 [EDC 기반 CaaS·DSaaS 구성 설계 §6](../02-architecture/edc-caas-dsaas-architecture.md#6-offering-게시와-전송)
+- **(Decision)** 실제 바이트는 Consumer가 계약 뒤 원천에서 직접 PULL함
+  - **(경계)** Provider transfer worker는 원천 token 또는 signed URL 발급 경계이며 EDC Data Plane이나 DSP endpoint가 아님
 
 ## 2. 추진 원칙
 
@@ -44,15 +52,28 @@ D-12의 첫 출시 범위는 공개·등록형 공개와 기관 제한 자산까
 
 | 자산 판정 | 첫 출시 처리 | 선행 증거 | 실패 처리 |
 | --- | --- | --- | --- |
-| 공개·등록형 공개 | 기존 공개 경로를 유지하고 승인된 DSP 경로를 추가 | license, Provider 권한, source·Distribution, 회수방법 | `catalog-only` 또는 제외 |
+| 공개·등록형 공개 | 기존 공개 원천 경로를 유지하고 Consumer가 계약 뒤 원천에서 직접 PULL하는 승인 경로를 추가 | license, Provider 권한, source·Distribution, 회수방법 | `catalog-only` 또는 제외 |
 | 기관 제한 | 사업자 데이터의 기관 자격·목적·기간과 통제 경로를 자산별 승인 | 권리 inventory, 수신자·목적·기간, 통제 Data Plane, 감사 | 증거 하나라도 없으면 제외 |
 | 개인정보·가명정보 | 첫 출시 제외 유지 | 2차 secure analysis 결정 전에는 평가만 기록 | `excluded` |
 | 공개제한 공간정보 | 첫 출시 제외 유지 | 보안심사·승인환경·반출통제 결정 전에는 평가만 기록 | `excluded` |
 | secure analysis | 2차 출시 이월 | [DEF-08 운영 원칙](../02-design/governance-and-operating-principles.md#4-서비스-portfolio-원칙) 결정과 결과 반출 Gate | 1차 경로 생성 금지 |
 
-자산별 판정은 단계 1 진입 전에 완료한다. 기관·플랫폼 단위의 포괄 승인을 자산 판정으로 대신하지 않는다.
+자산별 판정은 단계 1 종료 전에 완료한다. 기관·플랫폼 단위의 포괄 승인을 자산 판정으로 대신하지 않는다.
 
 권리·등급 판정이 철회되거나 번복되면 해당 자산을 첫 출시 범위에서 자동 제외한다. Offering 상태는 [보안 Gate의 fail-closed 규칙](../02-architecture/security-trust-and-operations.md#9-개인정보공간정보-gate)에 따라 `PENDING_EVIDENCE`, `CATALOG_ONLY` 또는 `QUARANTINED`를 벗어나지 않는다.
+
+### 2.2 확정 결정과 적용 경계
+
+| ID | 결정문 |
+| --- | --- |
+| `E-15` | 기존 **제출 창구** 대체 목표를 **2028년**으로 옮기고 2027년은 병행 시범·준비기간으로 재정의한다 |
+| `E-16` | 계약별로 **Provider 기능을 수행하는 주체의 기본값은 원천기관**이다. 허브가 특정 데이터셋에서 Provider 기능을 수행하려면 **포괄 위임이 문서로 확인**돼야 한다 |
+| `E-17` | 초기 출범을 **허브 섭외에 종속시키지 않는다.** `E-11`은 **유지하되 초기 범위에서 제외하고 확장 단계로 옮긴다** |
+| `E-18` | 허브 연계 범위는 **재제공권 확인목록**으로 한다. 기본값은 미연계이고 재제공 권리가 문서로 확인된 데이터셋만 추가한다 |
+| `E-19` | 기존 정산 시스템(회계처리·버스경영관리시스템)은 **Consumer로 온보딩**한다. 계약을 맺고 운수사 원천에서 당겨온다 |
+| `E-20` | 제출 이행은 **계약 체결 + 수신 가능 상태 + 기술적 온보딩 완료**의 세 조건이 모두 충족된 때 성립한다 |
+
+`Provider`는 계약별 기능이며 기관의 고정 지위가 아니다. 허브는 기본값이 아니지만, 포괄 위임이 문서로 확인된 데이터셋에서는 그 계약의 Provider 기능을 수행할 수 있다.
 
 ## 3. 단계 개요
 
@@ -68,6 +89,24 @@ D-12의 첫 출시 범위는 공개·등록형 공개와 기관 제한 자산까
 | 7. 운영·연합 | SRE·governance owner | 승인된 실증 결과와 운영 요구 | runbook, DR, onboarding, federation ADR | 운영 전환 전 | 법무·보안·운영 승인 |
 
 각 Gate의 세부 조건은 [PoC 후보 목록](poc-candidate-shortlist.md)의 `G0~G6`을 사용한다.
+
+### 3.1 Gate와 사업·권리 시퀀스
+
+다음 여섯 단계는 사업·권리 시퀀스이며 단계 0~7의 진입·종료조건을 대체하지 않는다. 각 단계는 대응 Gate의 증거를 충족한 뒤 다음 단계로 진행하며, 단계 6의 전달 방식별 검증은 독립적으로 유지한다.
+
+| 순서 | 사업·권리 단계 | 입력·동작 | 기존 Gate와의 관계 | 산출물·완료 증거 |
+| ---: | --- | --- | --- | --- |
+| 1 | 원천 권리 확정 | 파일럿 지자체 조례·준공영제 협약·정산 위수탁계약·운수사 데이터 권리를 확인 | 단계 1의 `G0~G3` 판정 입력 | 원문별 권리·제한·계약별 Provider 기능 주체를 추적한 Dataset Passport |
+| 2 | 표준 참여계약과 데이터 분류 확정 | 미동의·민감 항목은 제외 / 집계 / 폐쇄환경 중 하나로 판정 | 단계 1~2의 권리·정책·보안 review | 서명된 계약·부속합의서와 항목별 분류 기록 |
+| 3 | **허브 없이 직접 연계 1건 완주** | 초기 출범 범위로서 Consumer가 계약을 맺고 운수사 원천에서 PULL | 단계 3~5의 직접 종단 실증 | Agreement→승인된 PULL 사건→원천 접근→종료·회수의 상관관계 증거 1건 |
+| 4 | 재제공권이 확인된 데이터만 첫 허브 1곳에 연계 | `재제공권 확인목록`에 오른 데이터셋만 추가 | 직접 연계 완주 뒤 자산별 `G0~G6` 재통과 | 데이터셋별 위임문서와 허브 종단시험 증거 |
+| 5 | 패턴 확정 후 타부처 협의 | 직접·허브 실증의 계약·API·보안·비용·책임 결과를 협의 입력으로 사용 | 단계 7의 연합 확장 | 협의 안건과 기관별 보완·결정 기록 |
+| 6 | NTIC·K-MaaS·오픈마켓은 유즈케이스 발생 시 확장 | 실제 수요·권리·운영 책임이 확인된 대상만 추가 | 단계 7의 유즈케이스별 확장 | 허브별 승인 범위와 독립 종단시험 증거 |
+
+- **(Inferred)** 초기 유즈케이스에 필요한 허브는 0곳이고 지시만으로 기능·계약·보안·권리를 모두 반영할 수 있는 허브도 0곳임
+  - **(근거)** [기존 플랫폼 섭외 가능성 조사 §2.2·§3.2](../01-research/hub-recruitment-feasibility.md#22-최소-필요-구성), 조사 외부자료 확인일 2026-08-02
+- **(Inferred)** 권리 협상 리드타임은 산정 불가
+  - **(한계)** 조사 입력의 “법정 상한 없음” 주장은 직접 근거 URL이 없어 `Unverified`이며 기간 수치로 대체하지 않음 — [같은 조사 §5.1](../01-research/hub-recruitment-feasibility.md#51-산정-결과)
 
 ## 4. 단계 0: 조사 기준선
 
@@ -92,16 +131,18 @@ D-12의 첫 출시 범위는 공개·등록형 공개와 기관 제한 자산까
 
 ### 5.1 후보 순서
 
-| 순위 | 후보 | 사용 목적 | 현재 상태 |
-| ---: | --- | --- | --- |
-| 1 | 통합채널 hosted·brokered 공개 Dataset | Mobilithek형 full lifecycle | 대상 미식별, 운영기관 증거 필요 |
+| 순서 | 후보 | 사용 목적 | 현재 상태 |
+| --- | --- | --- | --- |
+| 1 | 파일럿 운수사 원천의 승인된 정산 Dataset | 허브 없는 직접 PULL full lifecycle | 대상 미정, 조례·협약·위수탁계약·데이터 권리 증거 필요 |
 | 2 | 분석 데이터셋 metadata `GET` | Discovery Bridge | 설계 가능, endpoint·HTTPS 확인 전 실행 차단 |
 | 3 | ITS 표준 노드·링크 파일 | finite snapshot fallback | 권리·source 계약 필요 |
 | 4 | 통계누리 공개 통계 REST | REST gateway fallback | proxy·credential·quota 확인 필요 |
 | 5 | ITS 교통소통 REST | 실시간성·freshness 후속시험 | quota·version 확인 필요 |
 | 6 | VWorld 공개 WFS/WMS | 공간 query 정책 후속시험 | layer 권리·보안등급 확인 필요 |
+| 확장 | 통합채널에서 hosted·brokered 증거와 재제공권이 확인된 공개 Dataset | `E-11`의 Mobilithek형 full lifecycle | 직접 연계 1건 완주 뒤 대상 식별·운영기관 증거 필요 |
 
 근거와 제외조건은 [PoC 후보 목록](poc-candidate-shortlist.md)에 기록한다.
+`E-11` 후보는 폐기하지 않으며 `E-17`에 따라 초기 출범 범위가 아닌 확장 순서에 둔다.
 
 ### 5.2 Dataset Passport
 
@@ -239,7 +280,7 @@ EDC는 사례와 확장성을 확인할 후보지만 채택을 가정하지 않�
 
 1. mock adapter의 southbound client만 실제 sandbox client로 교체한다.
 2. 같은 contract test를 실행한다.
-3. metadata 한 건을 게시하고 실제 payload를 한 번 전달한다.
+3. metadata 한 건을 게시한다. Provider transfer worker가 Connector가 승인한 PULL 사건에 따라 원천 플랫폼 token 또는 signed URL을 발급하고, Consumer가 이를 사용해 원천 플랫폼에서 payload를 한 번 PULL한다.
 4. 재시도·만료·정지·종료를 낮은 호출량으로 시험한다.
 5. platform audit와 Connector audit의 correlation을 확인한다.
 6. 생성한 계정·token·subscription·snapshot을 모두 정리한다.
@@ -321,7 +362,59 @@ DSP 기본 규격이 실제 transfer protocol, stream 또는 원격 작업 형�
 | PoC Dataset 확정 | Provider·운영기관이 권리·sandbox 승인 | 승인 전 payload 호출 금지 |
 | 외부 상태 변경 | 신청·subscription·resource 생성·삭제 승인 | 작업 범위·정리계획을 먼저 제시 |
 
-## 14. 일정 산정 전제
+## 14. 일정·외부 대기 전제
+
+### 14.1 제출 창구 대체 목표와 선례
+
+`E-15`에 따라 2027년은 병행 시범·준비기간이고 2028년은 기존 제출 창구 대체 목표다. 연도 도달만으로 단계 0~7의 진입·종료조건이나 참가자별 `E-20` 조건을 충족한 것으로 보지 않는다. 기준일: 2026-08-03.
+
+| 선례 | 판정 | 일정 근거 | 출처 |
+| --- | --- | --- | --- |
+| 부산·광주 준공영제 | `Verified` | 부산은 공포 뒤 약 9개월, 광주는 2024-05-31 공포 뒤 2024-12-01 시행까지 약 6개월의 준비기간을 둠 | [의무화·간주 규정 선례 조사 §8.1](../01-research/mandate-and-deeming-precedents.md#81-준비기간-선례), [부산광역시의회 회의록](https://council.busan.go.kr/assem/user/assem/minute/preView.busan?command=update&minuteSid=22522), [광주 조례](https://www.ulex.co.kr/%EB%B2%95%EB%A5%A0/1934603-2196172-%EA%B4%91%EC%A3%BC%EA%B4%91%EC%97%AD%EC%8B%9C%EC%8B%9C%EB%82%B4%EB%B2%84%EC%8A%A4), [광주 개정 의안](https://clik.nanet.go.kr/potal/search/searchView.do?DOCID=CLIKC481293014420275&collection=bill), 확인일 2026-08-02 |
+| 폐기물 전자정보처리프로그램 | `Verified` | 폐기물관리법 제45조제3항은 2007-08-03 개정 뒤 2008-08-04 시행되어 약 12개월의 준비기간을 둠 | [의무화·간주 규정 선례 조사 §2.2](../01-research/mandate-and-deeming-precedents.md#22-일정-판정), [폐기물관리법 제45조제3항](https://www.law.go.kr/lsLinkCommonInfo.do?chrClsCd=010202&lsJoLnkSeq=1030481523), 확인일 2026-08-02 |
+| 인천 이행협약 | 사실 `Verified`·적용 `Inferred` | 2025-09-01 체결됐고 2년 주기 합의 개정을 규정하므로 2027년 9월 전 변경에는 조합과 별도 중도합의가 필요 | [의무화·간주 규정 선례 조사 §2.2](../01-research/mandate-and-deeming-precedents.md#22-일정-판정), [인천 이행협약 공개자료](https://www.incheon.go.kr/open/OPEN010201/beffatInfoPublictDetail?bbsNo=3003868), 확인일 2026-08-02 |
+
+- **(Verified)** 6~9개월은 부산·광주 선례이며 전국 공식 통계가 아님
+- **(Unverified)** 전국 자치법규 개정 소요기간의 공식 집계통계는 문서 미확인
+
+### 14.2 외부 대기 항목
+
+- **(완료조건)** DS 수신자료가 정산자료 제출로 인정되고, 미사용·장애·정정 시 효과가 규정된 상태
+- **(경계)** 법규 공포만으로 완료 처리하지 않음
+
+이 완료조건의 “DS 수신자료”는 데이터 스페이스가 payload를 수신·보관·중계한다는 뜻이 아니다. `E-19`에 따라 Consumer로 온보딩된 기존 정산 시스템이 계약을 맺고 운수사 원천에서 직접 PULL한 자료와 그 계약·감사 기록을 뜻한다.
+
+| ID | 외부 대기와 현재 판정 | 필요한 조치·완료 증거 | 담당 | 기한 | 근거 |
+| --- | --- | --- | --- | --- | --- |
+| `LEG-01` | 인천·광주 조례 개정 — `E-19` 채택으로 조례 개정 없이 세부기준 위임으로 처리할 여지가 있다는 판정. `Inferred`·조건부 불필요이며 법제심사 미확정은 `Unverified` | 법제심사 결과가 위임 범위 안의 처리 가능성을 확인하고 공통 완료조건을 충족 | 미정 | 미정 | [의무화·간주 규정 선례 조사 §5.2](../01-research/mandate-and-deeming-precedents.md#52-인천과-광주의-직접-명령위임), [인천 조례](https://www.ulex.co.kr/%EB%B2%95%EB%A5%A0/1802189-2191126-%EC%9D%B8%EC%B2%9C%EA%B4%91%EC%97%AD%EC%8B%9C%EC%8B%9C%EB%82%B4%EB%B2%84%EC%8A%A4), [광주 조례](https://www.ulex.co.kr/%EB%B2%95%EB%A5%A0/1934603-2196172-%EA%B4%91%EC%A3%BC%EA%B4%91%EC%97%AD%EC%8B%9C%EC%8B%9C%EB%82%B4%EB%B2%84%EC%8A%A4), 확인일 2026-08-02 |
+| `RULE-02` | 서울·대전·부산·대구 규칙·운영·정산지침 개정. 현행 문서와 개정 권한 일부가 `Unverified` | 개정문서 승인과 공통 완료조건 충족 | 미정 | 미정 | [의무화·간주 규정 선례 조사 §5.1·§5.3](../01-research/mandate-and-deeming-precedents.md#51-도시별-개정-단위), 확인일 2026-08-02 |
+| `AGR-03` | 6개 도시 협약·부속합의서와 특히 인천 중도합의가 `Unverified` | 당사자 합의문서 체결과 공통 완료조건 충족 | 미정 | 미정 | [의무화·간주 규정 선례 조사 §8.1](../01-research/mandate-and-deeming-precedents.md#81-준비기간-선례), [인천 이행협약 공개자료](https://www.incheon.go.kr/open/OPEN010201/beffatInfoPublictDetail?bbsNo=3003868), 확인일 2026-08-02 |
+
+`RULE-02`의 한계는 다음과 같다.
+
+- **(Unverified)** 서울 현행 시행협약·정산지침의 개정주체와 개정조항은 문서 미확인
+- **(Unverified)** 대전에서 확인한 변경절차는 2020년본이며 현행 2023년 지침 전문은 문서 미확인 — [의무화·간주 규정 선례 조사 §5.3](../01-research/mandate-and-deeming-precedents.md#53-현행-문서-한계), `SRC-MAN-036`, 확인일 2026-08-02
+- **(Unverified)** 부산 현행 협약·운영지침의 개정조항과 최종 결재선은 문서 미확인
+- **(Unverified)** 대구 2025-09-22 현행 통합본문의 관련 조문은 최종 대조 전이므로 판정 불가
+
+### 14.3 Gate와 온보딩 완료율
+
+- **(Inferred)** `E-20`으로 전환 일정의 성격이 바뀐다. 기술적 온보딩이 끝나지 않은 참가자는 DS 경유 이행이 성립하지 않으므로 기존 경로 병행이 필수다. 따라서 2028년 전환은 날짜가 아니라 온보딩 완료율을 조건으로 판정해야 함 — 기준일: 2026-08-03
+  - 완료조건: `OPEN-PRM-04`에서 완료율 분모·임계값·증거와 기존 경로 종료조건을 승인한 뒤 적용
+- **(Decision)** 단계 0~7은 기술·운영 증거 Gate로 유지하고, 2028년 목표는 Gate 종료조건을 면제하지 않음 — 기준일: 2026-08-03
+- **(Unverified)** 완료율의 분모·임계값·증거와 판정 주체는 미정이며 이 문서에서 결정하지 않음 — `DRV-01`~`DRV-04`
+
+여기서 DS 경유 이행은 데이터 스페이스의 신원·Catalog·계약·정책·감사 흐름을 뜻한다. payload는 `E-19`의 Consumer가 운수사 원천에서 직접 PULL한다.
+
+### 14.4 개정 이력
+
+| 개정일 | 종전 상태 | 개정 내용 | 근거 결정 |
+| --- | --- | --- | --- |
+| 2026-08-03 | 선행 조사는 2027년 병행 시범과 기존 창구 종료 가능성을 함께 검토 | 2027년을 병행 시범·준비기간으로 두고 기존 제출 창구 대체 목표를 2028년으로 이동 | `E-15` |
+| 2026-08-03 | `E-11` 후보가 초기 후보 순서 1위에 있었음 | `E-11`을 폐기하지 않고 초기 범위에서 제외해 확장 단계로 이동 | `E-17` |
+| 2026-08-03 | 선행 조사는 인천·광주 조례 개정을 필요 조건으로 판정 | 기존 정산 시스템을 Consumer로 온보딩하는 구조에서 세부기준 위임 처리 여지가 있어 `LEG-01`을 조건부 불필요로 변경하되 법제심사 미확정을 유지 | `E-19` |
+
+### 14.5 산정 입력
 
 달력 일정은 다음 외부 대기와 개발 작업을 분리한 뒤 정한다.
 
@@ -338,7 +431,7 @@ DSP 기본 규격이 실제 transfer protocol, stream 또는 원격 작업 형�
 
 ## 15. Definition of Done
 
-단계 완료에는 문서와 코드 외에 다음 증거가 필요하다.
+단계 완료에는 문서와 코드 외에 다음 증거가 필요하다. 이 증거 목록은 단계 0~7의 완료 판정이며, 참가자별 “기술적 온보딩 완료”의 기준과 판정 주체를 확정하지 않는다.
 
 - 담당 owner와 승인자
 - 재현 가능한 command 또는 procedure
@@ -350,3 +443,15 @@ DSP 기본 규격이 실제 transfer protocol, stream 또는 원격 작업 형�
 - 운영 중단·복구·회수 runbook
 - 요구사항·test·source evidence 추적
 - 알려진 제한과 잔여위험 승인
+
+## 16. 미확인 사항과 결정 요청
+
+| ID | 파생 ID | 상태 | 미확인 사항 또는 결정 요청 | 영향 | 담당 | 기한 | 종료 조건 |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| `OPEN-PRM-01` | `DRV-01` | `Unverified` | “기술적 온보딩 완료”의 판정 기준과 증거. 참가자 수준 종단시험 절차가 필요 | `E-20`의 세 번째 조건 판정 불가 | 미정 | 미정 | 판정 기준·증거와 참가자 수준 종단시험 절차 승인 |
+| `OPEN-PRM-02` | `DRV-02` | `Unverified` | 완료 판정 주체 — 운영자·정산주체·제3자 중 미정 | 제출 이행 승인 권한 판정 불가 | 미정 | 미정 | 판정 주체와 이의·재판정 절차 승인 |
+| `OPEN-PRM-03` | `DRV-03` | `Unverified` | 세 조건의 충족 상태를 기계 판독 가능하게 표현하고 감사 기록으로 남기는 방법 | 자동 판정과 사후 감사 방식 미정 | 미정 | 미정 | 상태 표현·감사 schema와 검증 절차 승인 |
+| `OPEN-PRM-04` | `DRV-04` | `Unverified` | 온보딩 미완료 참가자는 DS 경유 이행이 성립하지 않으므로 **기존 경로 병행이 필수**. 전환 일정(`E-15`)은 온보딩 완료율에 종속 | 2028년 제출 창구 대체 판정 기준 미정 | 미정 | 미정 | 완료율 분모·임계값·증거와 기존 경로 종료조건 승인 |
+| `OPEN-PRM-05` | `LEG-01` | `Unverified` | 인천·광주 조례 개정의 조건부 불필요 판정에 대한 법제심사 미확정 | 하위 세부기준만으로 제출 인정 효과를 둘 수 있는지 판정 불가 | 미정 | 미정 | 법제심사 결과와 근거 조문 기록 |
+| `OPEN-PRM-06` | `RULE-02` | `Unverified` | 서울·대전·부산·대구 현행 규칙·운영·정산지침과 개정문서 미확보 | 도시별 제출 인정·장애·정정 효과 판정 불가 | 미정 | 미정 | 현행 원문·개정 권한·승인본과 공통 완료조건 증거 확보 |
+| `OPEN-PRM-07` | `AGR-03` | `Unverified` | 6개 도시 협약·부속합의서와 인천 중도합의 미체결 | 실제 사용의무·전환일정·책임분담 확정 불가 | 미정 | 미정 | 서명된 합의문서와 공통 완료조건 증거 확보 |

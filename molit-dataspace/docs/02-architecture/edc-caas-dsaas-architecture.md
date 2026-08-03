@@ -2,6 +2,8 @@
 
 목적: 국토교통 데이터 스페이스의 Connector 실행 계층과 운영 제어 계층을 분리하고, 각 계층의 책임과 시험 범위를 고정한다.
 작성일: 2026-07-13
+개정일: 2026-08-03
+관련 결정: `E-19`, `E-20`
 상태: 구현 기준선 확정, 실운영 인프라와 기관 승인은 미확정
 
 ## 1. 적용 기준선
@@ -66,18 +68,22 @@ CaaS는 사전 등록된 tenant의 desired state를 배포 상태로 수렴시�
 
 ```text
 NOT_PROVISIONED
-  -> PROVISIONING
-  -> PROVISIONED
-  -> DEPROVISIONING
-  -> NOT_PROVISIONED
+  -> PROVISIONING -> PROVISIONED
+  -> SUSPENDING -> SUSPENDED
+  -> DELETING -> DELETED
+  -> DEPROVISIONING -> NOT_PROVISIONED (legacy)
 ```
+
+현행 상태 계약은 보존과 삭제를 `SUSPENDED`와 `DELETED`로 구분한다. `DEPROVISIONED`는 기존 호출 호환을 위한 legacy 상태로만 유지한다.
 
 DSaaS 상태는 다음과 같이 번역한다.
 
 | DSaaS 요청 | CaaS desired state | 실제 provisioner 수렴 응답 |
 | --- | --- | --- |
 | `ACTIVE` | `PROVISIONED` | `ACTIVE` |
-| `SUSPENDED` | `DEPROVISIONED` | `SUSPENDED` |
+| `SUSPENDED` | `SUSPENDED` | `SUSPENDED` |
+
+**(정본 선택 근거: B-02)** `caas-control-plane.md`의 현행 수명주기 계약과 CaaS 구현이 `SUSPENDED`·`DELETED`를 구분하고 `DEPROVISIONED`를 legacy 호환으로 유지하므로 그 상태 경계를 따른다.
 
 위 마지막 열은 실제 배포 자원을 재관찰하는 provisioner 기준이다. 현재 `dry-run-manifest`는 배포 의도 파일만 확인하므로 `ACTIVE` 요청에도 `PROVISIONING`을 반환하고 내부 관찰 상태를 `INTENT_READY`로 둔다.
 
@@ -155,6 +161,40 @@ Provider transfer worker는 Connector가 이미 승인한 PULL 전송 사건을 
 
 발급 결과인 DataAddress 원문은 journal에 저장하지 않는다. 이 worker를 EDC Data Plane이나 DSP endpoint로 부르지 않는다.
 
+### 6.1 기존 정산 시스템의 Consumer 배치
+
+- **(Decision — E-19)** 기존 정산 시스템(회계처리·버스경영관리시스템)은 **Consumer로 온보딩**한다. 계약을 맺고 운수사 원천에서 당겨온다
+- **(근거 구분)** 정산주체의 수요·수신 역할과 계약별 역할 구분은 [교통·물류 데이터 스페이스 참가자 지도](../01-research/transport-participant-map.md#91-동일-주체의-역할-차이)에서 `Verified`와 `Inferred`로 확인했다. Consumer 배치와 PULL 경로는 `E-19`의 `Decision`이다.
+
+Consumer 측 흐름은 다음 순서다.
+
+```text
+기존 정산 시스템 운영기관의 기관 신원
+  -> Consumer 측 Connector에서 DSP Catalog 조회
+  -> 계약 협상
+  -> 승인된 PULL 전송 요청
+  -> Provider transfer worker의 원천 플랫폼 token 또는 signed URL 발급
+  -> 운수사 원천에서 payload 직접 수신
+  -> Consumer가 자기 시스템에 적재
+```
+
+- **(필요 기능)** 기존 시스템 운영기관에는 기관 신원, 계약 협상과 전송 요청 기능이 필요하다. 수신 뒤 자기 시스템 적재는 Consumer의 책임이다.
+- **(책임 경계)** 데이터 스페이스는 신원·Catalog·계약·정책·감사 사건을 다룬다. payload 보관·중계, 기존 정산 시스템을 목적지로 한 바이트 전송과 내부 적재는 데이터 스페이스의 책임에서 제외한다.
+- **(전송 경계)** 실제 바이트는 운수사 원천에서 Consumer로 직접 이동한다. Provider transfer worker의 책임은 승인된 PULL 사건에 대한 원천 접근 자원 발급으로 한정한다.
+
+### 6.2 제출 이행 상태와 감사 공백
+
+- **(Decision — E-20)** 제출 이행은 **계약 체결 + 수신 가능 상태 + 기술적 온보딩 완료**의 세 조건이 모두 충족된 때 성립한다
+- **(Decision — T-06 개정 이력)** 이전 정의인 “접수·영수증·재시도·중복방지 흐름 부재”는 폐기한다. 원천 유지와 PULL은 공백이 아니라 [ADR-0002](../adr/0002-data-stays-at-source.md)와 이 절의 정본이다.
+- **(Verified — T-06)** `E-20`이 정한 제출 이행 성립 조건(계약 체결 + 수신 가능 상태 + 기술적 온보딩 완료)을 **판정하고 사후에 증명할 상태 표현과 감사 기록이 현재 아키텍처에 없다.**
+- **(Inferred)** 정산은 법정 제출이므로 “언제 이행됐는가”를 다투게 되며, 그때 제시할 증거 구조가 필요하다. 제출 성립 시점의 규율 필요성은 [의무화·간주 규정 선례 조사](../01-research/mandate-and-deeming-precedents.md#62-협약의-한계)를 근거로 한다.
+- **(해석 경계)** 위 공백은 §5의 일반 hash chain 감사 사건이 없다는 뜻이 아니다. `E-20`의 세 조건과 연결된 상태 표현과 조건별 감사 기록이 없다는 뜻이다.
+- **(Unverified)** 후속 설계에 필요한 범위는 다음 윤곽으로 한정한다. 각 항목의 상태값, schema, API와 전이 규칙은 미정이다.
+  - 세 조건 각각의 기계 판독 가능한 상태 표현
+  - 상태 전이 시각과 근거의 감사 기록
+  - 계약 종료·정지 시 이행 상태의 처리
+  - 참가자가 자기 이행 상태를 확인할 수 있는 수단
+
 ## 7. 상호운용 시험 판정
 
 시험 결과는 세 단계로 나눈다.
@@ -204,3 +244,35 @@ CaaS 관리자 credential과 tenant credential은 분리한다. 저장소에는 
 - EDC 개발자 설명서: <https://eclipse-edc.github.io/documentation/for-contributors/>
 - EDC Virtual-Connector: <https://github.com/eclipse-edc/Virtual-Connector>
 - Dataspace Protocol 2025-1 Errata 1: <https://eclipse-dataspace-protocol-base.github.io/DataspaceProtocol/2025-1-err1/>
+
+## 11. 미확인 사항과 결정 요청
+
+아래 항목은 미결 등록만 수행한다. 승인된 담당과 기한은 없다.
+
+### 11.1 OPEN-EDC-01 — DRV-01
+
+- **(상태)** `Unverified`
+- **(미확인 사항)** “기술적 온보딩 완료”의 판정 기준과 증거. 참가자 수준 종단시험 절차가 필요
+- **(영향)** `E-20`의 세 번째 조건 충족 여부를 판정할 수 없다.
+- **(종료 조건)** 판정 기준, 증거 정의와 참가자 수준 종단시험 절차의 승인 기록이 필요하다.
+- **(담당)** 미정
+- **(기한)** 미정
+
+### 11.2 OPEN-EDC-02 — DRV-03
+
+- **(상태)** `Unverified`
+- **(미확인 사항)** 세 조건의 충족 상태를 기계 판독 가능하게 표현하고 감사 기록으로 남기는 방법
+- **(영향)** 제출 이행 성립 시점의 자동 판정과 사후 증명이 불가능하다.
+- **(종료 조건)** 상태 표현과 감사 기록 방법의 후속 설계 및 승인 기록이 필요하다.
+- **(담당)** 미정
+- **(기한)** 미정
+
+### 11.3 OPEN-EDC-03 — T-06
+
+- **(재정의 상태)** `Decision`
+- **(해결 상태)** `Unverified`
+- **(미확인 사항)** `E-20`의 세 조건을 판정하고 사후에 증명할 상태 표현과 감사 기록의 설계
+- **(영향)** 정산 제출 이행 시점을 판정하고 분쟁 시 증명할 수 없다.
+- **(종료 조건)** §6.2의 네 가지 윤곽에 대한 후속 설계와 승인 기록이 필요하다.
+- **(담당)** 미정
+- **(기한)** 미정

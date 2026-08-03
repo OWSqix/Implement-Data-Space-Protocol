@@ -156,10 +156,12 @@ tenant는 현재 상태 조회, 감사 조회와 현재 desired state의 reconci
 
 ```text
 DSaaS ACTIVE    → CaaS PROVISIONED
-DSaaS SUSPENDED → CaaS DEPROVISIONED
+DSaaS SUSPENDED → CaaS SUSPENDED
 ```
 
-현재 `SUSPENDED`는 Connector process를 유지한 채 traffic만 막는 상태가 아니다. deprovision 의도로 매핑한다. process 유지형 suspension이 필요하면 provisioner 계약과 관찰 상태를 확장해야 한다.
+현행 상태 계약은 보존 의도인 `SUSPENDED`와 삭제 의도인 `DELETED`를 구분한다. `DEPROVISIONED`는 기존 호출 호환을 위한 legacy 상태로만 유지하며, 새 호출은 보존 또는 삭제 의도에 따라 `SUSPENDED`나 `DELETED`를 사용한다.
+
+**(정본 선택 근거: B-02)** 이 문서 §6의 현행 desired-state 선언과 CaaS 구현이 `SUSPENDED`·`DELETED`를 정식 상태로 처리하므로 앞부분의 DSaaS 매핑도 같은 계약을 따른다.
 
 응답에는 `connectorId`, `dataspaceId`, `participantId`, 수렴 상태가 들어간다. HTTPS endpoint가 있을 때만 `endpoints.connectorBase`를 반환한다. secret reference와 secret material은 반환하지 않는다.
 

@@ -20,7 +20,8 @@
 - **(Decision)** 스펙 소유자가 2026-07-30에 수식어 없는 `Clearing House`를 GXDCH의 온보딩 검증·notarization 의미로만 사용하는 표기 결정 승인
 - **(Decision)** IDS의 거래 증적·감사 개념은 산문에서 `Observability Services`로 지칭
 - **(예외)** 원문·표준·역사적 개념 인용에는 원래 명칭을 유지하고 `원문 인용:` 마커와 출처를 병기
-- **(정본)** 프로젝트의 기존 명명 판정은 [기획보고서 기술 검토](planning-report-technical-review.md) `T-24`
+- **(참조)** 프로젝트의 기존 명명 검토안은 [기획보고서 기술 검토](planning-report-technical-review.md) `T-24`를 근거로 참고
+- **(참조 판정 근거: C2-02)** 대상 문서가 `Review` 상태이므로 정본으로 선택하거나 승격하지 않고 이 문서의 명명 결정에 대한 검토 근거로만 사용
 - **(승격 경로)** 대표 표기의 등록·승격은 `report-style.config.json`의 `terminology`를 사용하며 metadata field crosswalk와 분리
 - **(Decision)** N-2 역할 분리 골격은 D-01 record 스키마와 D-02 개봉 절차 반영으로 이월을 해제하고 5절에 등록
 

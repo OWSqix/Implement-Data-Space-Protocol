@@ -234,30 +234,37 @@ EDC transfer callback
 
 ## 7. 이 환경에서 수행한 시험
 
+**(정본 선택 근거: B-01)** recorder-bound raw run과 명령별 결과를 결합한 `evidence/edc/local-interoperability-status.v1.json`을 현재 실행 상태의 기계 정본으로 삼는다.
+
 ```text
 Gradle :control-plane:shadowJar      PASS
 Gradle :data-plane:shadowJar         PASS
 Gradle :smoke-data-plane:shadowJar   PASS
-node --test tests/edc/*.test.mjs     PASS (29/29)
-node tools/edc/verify-topology.mjs   PASS (26 files, source binding matched)
+node --test tests/edc/*.test.mjs     PASS (30 passed, 0 failed)
+node tools/edc/verify-topology.mjs   PASS (31 topology files, source binding matched)
 docker compose ... config --quiet    PASS
 Docker recorder-bound smoke          PASS
 ```
 
-2026-07-14에 commit `87b587039d08cc902a349aad90535a0b72ccf7e6`의 detached worktree에서 recorder-bound smoke를 실행했다.
+상태 정본은 `2026-07-14T13:40:19.887Z`에 기록됐다. recorder-bound smoke는 checkout `b20c5f591a8fb5d0c7e50bc6309251af46b94323`에서 실행됐고, source binding은 SHA-256 `2cf510c3fd326a2fb5320f596c5c176face0e1da66b6a12cdd4ff3fde39a916b`와 범위 내 52개 파일을 기록한다. 이 52개 source binding 파일과 정적 검증기가 확인한 31개 topology 파일은 서로 다른 집계 범위다.
 
 Provider·Consumer Control Plane과 Data Plane이 readiness를 통과했다. 같은 EDC 0.18.0 구현 사이에서 Catalog 조회, 계약 `FINALIZED`, PULL, 종료와 token 폐기를 확인했다.
 
-실행 ID는 `9e293e00-946c-44eb-9d6e-9b6135a97b3f`이다. Git HEAD는 시작과 종료 시점에 같았고, EDC 범위의 worktree도 두 시점 모두 clean이었다. source digest `a926a4a8da1670569186ae5a4bcf27a0d810883ceedd5a3460e9fa0edb45f839`가 실행 전후에 유지됐다. 5개 서비스의 Docker image ID를 기록했고 clean-start와 cleanup도 통과했다.
+실행 ID는 `2cb9b59d-ba9e-4219-87cf-0bf5c8e53c24`이고 exit code는 0이다. Git HEAD와 source digest는 시작과 종료 시점에 같았다.
 
-원시 증거는 `evidence/edc/runs/20260714T140859+0900-implementation-87b5870.json`이다. 파일 SHA-256은 `ee2dd17cc2f786e59d103005f18cf3d59d0ba659aeabbee32c19d86b7093fffc`, stdout SHA-256은 `a8bd3d6124f1a30ad5643ef48df5f20b2a3142e72988b00143277aa9bcbfe213`다.
+범위 내 변경 파일이 있어 `git.cleanAtStart=false`, `git.cleanAtEnd=false`였다. 따라서 이 raw run을 clean worktree 실행으로 주장하지 않는다.
 
-`evidence/edc/runs/20260714T140041+0900-implementation-cae2063.json`은 이전 구현 commit의 recorder 통과 이력으로 보존한다. 현재 상태의 정본은 증거 참조 시험을 보강한 `87b5870` 실행이다.
+별개의 Docker clean-start와 cleanup은 모두 통과했고 5개 서비스의 image ID를 기록했다.
+
+원시 증거는 `evidence/edc/runs/20260714T2240+0900-p0-schema-admission.json`이다. 파일 SHA-256은 `dcc4dc589c7f4830cc3eaec8398ded5c582f35bc03ad89e79a0eb86a2ac17f8d`, stdout SHA-256은 `2b841da69c70842b87cd8bcf6dffc3a10a8143d18fc6222b674554249c153152`다.
 
 ```text
-assetId=molit-edc-smoke-asset-dadab320-f13c-4505-a9d0-92d508a20a35
-agreementId=752e4733-49e1-4cf7-b110-653e22d69a6f
-transferId=89d2ca95-214f-47be-b856-906601b15ed5
+ok=true
+managementApi=v4
+dsp=dataspace-protocol-http:2025-1
+assetId=molit-edc-smoke-asset-316a9ac0-8e8f-4186-88e1-4020dce5c3dd
+agreementId=fad5203c-b69c-4248-8990-bbce6a1244a0
+transferId=5e878ccb-1dc9-4d8c-8666-91777975665a
 startState=STARTED
 finalState=TERMINATED
 revokedStatus=403
@@ -270,6 +277,6 @@ Consumer Control Plane은 legacy prepare 단계에서 `No dataplane found` 경�
 
 Legacy controller는 PULL destination을 준비할 Data Plane이 없으면 경고 후 성공으로 진행하도록 구현돼 있다. 실제 전송은 Provider Data Plane에서 시작됐고 위 결과까지 끝났다.
 
-이 결과는 서로 다른 Connector 구현 간 상호운용 증거가 아니며 공식 DSP TCK 결과도 아니다. 운영 DPS worker, 외부 신원 체계, 공개 전달 계층과 production readiness도 검증하지 않았다.
+상태 정본의 판정은 `production-readiness-blocked`다. 이 결과는 서로 다른 Connector 구현 간 상호운용 증거가 아니며 공식 DSP TCK 결과도 아니다. 운영 DPS worker, 외부 신원 체계, 공개 전달 계층과 production readiness도 검증하지 않았다.
 
 명령별 결과와 미검증 항목은 [EDC 로컬 상호운용 실행 상태](../../evidence/edc/local-interoperability-status.v1.json)에 기록했다.

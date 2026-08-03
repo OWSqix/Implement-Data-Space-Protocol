@@ -56,7 +56,9 @@
 
 ## 5. Registry 분리와 결합 검증
 
-참가자 신뢰 Registry와 Provider 권한 Registry는 독립 정본으로 유지한다. Provider 권한의 2단 정본은 [Provider 권한 Registry §1](../02-architecture/provider-authority-registry.md#1-목적)의 문서와 JSON 경로다.
+참가자 신뢰 Registry와 Provider 권한 Registry는 독립 정본으로 유지한다. Provider 권한의 단일 정본은 [`standards/provider-authority-registry.json`](../../standards/provider-authority-registry.json)이며, [Provider 권한 Registry §1](../02-architecture/provider-authority-registry.md#1-목적)은 그 계약과 운영 방식을 설명하는 문서이지 두 번째 정본이 아니다.
+
+**(정본 판정 근거: C1-01)** Provider 권한 entry와 `releaseDecision`을 기계 판정하는 값이 JSON에 있고 아키텍처 문서도 그 JSON을 정본으로 선언하므로 Provider 권한은 JSON 단일 정본을 따른다.
 
 | 판정 단계 | 입력 | 허용 조건 | 실패 상태 |
 | --- | --- | --- | --- |
