@@ -154,45 +154,53 @@
 
 ### 4.2 국내 표준 상호운용성 Gate
 
-| Test ID | 대상 | 합격 조건 | 현재 상태 |
-| --- | --- | --- | --- |
-| CT-KR-STD-001 | 국내 표준 machine register | JSON Schema, 식별자 고유성, source evidence 연결 통과 | 구현 |
-| CT-KR-STD-002 | 적합성 claim | 폐지 표준의 규범 사용과 미검증 표준의 적합성 허용 0건 | 구현 |
-| CT-KR-STD-005 | 표준 lifecycle provenance | 34개 표준·행정규칙의 상태·사건·발생일·확인일이 primary source와 일치 | 구현 |
-| CT-KR-CLAIM-001 | 게시 claim | Markdown 표시 text의 named entity·link·Unicode 우회 뒤 금지 claim 0건, 주석 외 raw HTML 0건 | 구현 |
-| CT-KR-BLINDSPOT-003 | blind spot evidence | evidence kind 혼용 0건, 저장소 경로 이탈·symlink·reparse 0건, `fixed` 실행 증거 누락 0건 | 구현 |
-| PDP-REAL-001 | 공공데이터포털 RDF/XML 고정본 | digest·10개 결함 유형 일치, pySHACL Core 39건, quarantine | 구현 |
-| PDP-SOURCE-001 | 포털 고정본 provenance | source와 snapshot의 path·수집시각·SHA-256·byte·media type·판정 일치 | 구현 |
-| CT-KR-CRS-001 | 국내 source CRS record | profile IRI·authority·code·HTTPS URL·local English label 일치 | 구현 |
-| SHACL-DIFF-001A | pySHACL 독립 lane | 정상·오류 fixture의 기대판정 일치, network import·inference off | 구현 |
-| SHACL-DIFF-001B | Apache Jena 독립 lane | Core·Geo 13개 사례의 구조 정규화 결과 일치 | Jena 6.1.0 win32-x64 lane 구현 |
-| ISO19115-TECH-001 | ISO 19115 Part 1 공개 package | 125개 artifact digest와 offline XSD·Schematron smoke 일치 | lane 구현; 승인 private cache 필요 |
-| KS-XML-001 | KS X ISO 19115-3 현행 XML | version 고정 XSD·Schematron 정상·오류 corpus 통과 | 원문·fixture 필요 |
-| KS-XML-002 | ISO 19139 legacy XML | legacy로만 판정하고 현행 국내표준 검증 결과로 승격하지 않음 | 미구현 |
-| MAP-COV-001 | TTA·KS·기관 export crosswalk | source field 누락 0건 | 포털 고정본 구현; TTA·기관 원문·schema 필요 |
-| MAP-INVENTORY-001 | 원천 fixture inventory | 안전 parser가 생성한 field·predicate inventory와 crosswalk source 경로의 차이 0건 | 포털 RDF/XML 17개 path 구현 |
-| MAP-LOSS-001 | 변환 손실 | 모든 mapping 행에 loss class·reverse rule·publication Gate 존재 | 포털 고정본 구현; 나머지 profile 미구현 |
-| MAP-CATERR-001 | 기관 DB metadata | 운영·물리 DB 값을 공개 DCAT로 자동 승격하는 금지 변환 전부 거부 | 미구현 |
-| RDF-DIFF-001 | RDF 직렬화 | Turtle·N-Triples·N-Quads·RDF/XML·JSON-LD의 RDFC-1.0 digest 일치 | Node·Jena parser lane 구현 |
-| RDF-SEC-001 | RDF parser | DTD·entity·remote context·과대입력·잘못된 UTF-8 거부 | production loader 구현 |
-| RT-SPATIAL-AXIS-001 | CRS84·EPSG:4737·5179·5185~5188 | authority snapshot의 축 순서와 2차원 Point WKT·GML lexical tuple 왕복 일치 | 구현 |
-| RT-SPATIAL-ACCURACY-001 | 좌표변환 정확도 | 승인 library와 기준점 corpus의 변환 결과가 허용 오차 이내 | 구현 — B-03 정본 반영 |
-| GEO-LIT-001 | WKT·GML Point literal | 2차원 tuple의 authority 순서를 보존하고 active XML·3차원·비유한값 거부 | 구현 |
-| GEO-LIT-COVERAGE-001 | 지원 geometry 전체 | geometry별 WKT·GML parser와 적용 XSD 통과 | 구현 — B-04 정본 반영 |
-| ISO-DQV-001 | KS X ISO 19157-1 품질 | 지원 result만 lossless, 미지원 result·method·scope는 `unmapped` | 원문·제품 fixture 필요 |
-| XSD-COVERAGE-001 | XSD datatype | 승인 datatype의 lexical·value space 오류 0건, 미승인 XSD datatype 거부 | 15개 datatype registry 구현 |
-| DEP-INTEGRITY-001 | 검증기 실행환경 | 격리 clean install, 실제 dependency tree·SBOM·Jena toolchain digest 일치 | win32-x64 lane 구현 |
-| NET-REGISTRY-001 | IANA 주소 레지스트리 | official CSV 3종에서 생성한 주소 판정표와 원본 diff 0건 | 2026-07-12 snapshot·생성기 구현; scheduled refetch·유효기간 Gate 미구현 |
-| CRS-REGISTRY-001 | OGC·EPSG CRS 근거 | CRS 7종·coordinate system 2종의 byte·SHA-256과 생성 정책 일치 | 2026-07-12 snapshot·offline Gate 구현 |
-| AUTH-REG-001~006 | Provider 권한 | identity·scope·기간·철회·receipt·trusted verifier 판정 통과 | resolver 구현; 기관 entry·trust anchor 미확보 |
-| RELEASE-GATE-001 | release 판정 | machine register·authority·ISO cache의 미해결 항목이 있으면 exit 2 | 구현; 현재 blocked |
-| STD-STATUS-SNAPSHOT-001 | KS·TTA·행정규칙 lifecycle | 검토 baseline과 source equality를 통과하고 공식 status 응답 원문·수집시각·byte 수·SHA-256이 항목별로 존재 | baseline digest·source equality 구현, 공식 응답 snapshot 미고정 |
-| CLAIM-AUTH-001 | 대외 conformance declaration | 정형 claim에 승인자·적용 표준판·시험범위·근거 digest·만료일이 있고 비정형 동의어는 발간 전 사람 검토 | 금지 문자열·표시 text Gate 구현, 승인 workflow 미구현 |
+| Test ID | 요구사항 | 대상 | 합격 조건 | 현재 상태 |
+| --- | --- | --- | --- | --- |
+| CT-KR-STD-001 | FR-SEM-008 | 국내 표준 machine register | JSON Schema, 식별자 고유성, source evidence 연결 통과 | 구현 |
+| CT-KR-STD-002 | FR-SEM-008·NFR-INT-002 | 적합성 claim | 폐지 표준의 규범 사용과 미검증 표준의 적합성 허용 0건 | 구현 |
+| CT-KR-STD-005 | FR-SEM-008 | 표준 lifecycle provenance | 34개 표준·행정규칙의 상태·사건·발생일·확인일이 primary source와 일치 | 구현 |
+| CT-KR-CLAIM-001 | FR-SEM-008·NFR-INT-002 | 게시 claim | Markdown 표시 text의 named entity·link·Unicode 우회 뒤 금지 claim 0건, 주석 외 raw HTML 0건 | 구현 |
+| CT-KR-BLINDSPOT-003 | 연결 없음 — 요구사항 신설 필요 | blind spot evidence | evidence kind 혼용 0건, 저장소 경로 이탈·symlink·reparse 0건, `fixed` 실행 증거 누락 0건 | 구현 |
+| PDP-REAL-001 | NFR-INT-002 | 공공데이터포털 RDF/XML 고정본 | digest·10개 결함 유형 일치, pySHACL Core 39건, quarantine | 구현 |
+| PDP-SOURCE-001 | 연결 없음 — 요구사항 신설 필요 | 포털 고정본 provenance | source와 snapshot의 path·수집시각·SHA-256·byte·media type·판정 일치 | 구현 |
+| CT-KR-CRS-001 | FR-META-003 | 국내 source CRS record | profile IRI·authority·code·HTTPS URL·local English label 일치 | 구현 |
+| SHACL-DIFF-001A | FR-SEM-011 | pySHACL 독립 lane | 정상·오류 fixture의 기대판정 일치, network import·inference off | 구현 |
+| SHACL-DIFF-001B | FR-SEM-011 | Apache Jena 독립 lane | Core·Geo 13개 사례의 구조 정규화 결과 일치 | Jena 6.1.0 win32-x64 lane 구현 |
+| ISO19115-TECH-001 | 연결 없음 — 요구사항 신설 필요 | ISO 19115 Part 1 공개 package | 125개 artifact digest와 offline XSD·Schematron smoke 일치 | lane 구현; 승인 private cache 필요 |
+| KS-XML-001 | NFR-INT-002 | KS X ISO 19115-3 현행 XML | version 고정 XSD·Schematron 정상·오류 corpus 통과 | 원문·fixture 필요 |
+| KS-XML-002 | NFR-INT-002 | ISO 19139 legacy XML | legacy로만 판정하고 현행 국내표준 검증 결과로 승격하지 않음 | 미구현 |
+| MAP-COV-001 | FR-SEM-009 | TTA·KS·기관 export crosswalk | source field 누락 0건 | 포털 고정본 구현; TTA·기관 원문·schema 필요 |
+| MAP-INVENTORY-001 | FR-SEM-009 | 원천 fixture inventory | 안전 parser가 생성한 field·predicate inventory와 crosswalk source 경로의 차이 0건 | 포털 RDF/XML 17개 path 구현 |
+| MAP-LOSS-001 | FR-SEM-009 | 변환 손실 | 모든 mapping 행에 loss class·reverse rule·publication Gate 존재 | 포털 고정본 구현; 나머지 profile 미구현 |
+| MAP-CATERR-001 | FR-SEM-010 | 기관 DB metadata | 운영·물리 DB 값을 공개 DCAT로 자동 승격하는 금지 변환 전부 거부 | 미구현 |
+| RDF-DIFF-001 | FR-SEM-011 | RDF 직렬화 | Turtle·N-Triples·N-Quads·RDF/XML·JSON-LD의 RDFC-1.0 digest 일치 | Node·Jena parser lane 구현 |
+| RDF-SEC-001 | FR-SEM-003·FR-SEM-007 | RDF parser | DTD·entity·remote context·과대입력·잘못된 UTF-8 거부 | production loader 구현 |
+| RT-SPATIAL-AXIS-001 | FR-META-003 | CRS84·EPSG:4737·5179·5185~5188 | authority snapshot의 축 순서와 2차원 Point WKT·GML lexical tuple 왕복 일치 | 구현 |
+| RT-SPATIAL-ACCURACY-001 | 연결 없음 — 요구사항 신설 필요 | 좌표변환 정확도 | 승인 library와 기준점 corpus의 변환 결과가 허용 오차 이내 | 구현 — B-03 정본 반영 |
+| GEO-LIT-001 | FR-META-003 | WKT·GML Point literal | 2차원 tuple의 authority 순서를 보존하고 active XML·3차원·비유한값 거부 | 구현 |
+| GEO-LIT-COVERAGE-001 | 연결 없음 — 요구사항 신설 필요 | 지원 geometry 전체 | geometry별 WKT·GML parser와 적용 XSD 통과 | 구현 — B-04 정본 반영 |
+| ISO-DQV-001 | FR-SEM-009 | KS X ISO 19157-1 품질 | 지원 result만 lossless, 미지원 result·method·scope는 `unmapped` | 원문·제품 fixture 필요 |
+| XSD-COVERAGE-001 | 연결 없음 — 요구사항 신설 필요 | XSD datatype | 승인 datatype의 lexical·value space 오류 0건, 미승인 XSD datatype 거부 | 15개 datatype registry 구현 |
+| DEP-INTEGRITY-001 | 연결 없음 — 요구사항 신설 필요 | 검증기 실행환경 | 격리 clean install, 실제 dependency tree·SBOM·Jena toolchain digest 일치 | win32-x64 lane 구현 |
+| NET-REGISTRY-001 | 연결 없음 — 요구사항 신설 필요 | IANA 주소 레지스트리 | official CSV 3종에서 생성한 주소 판정표와 원본 diff 0건 | 2026-07-12 snapshot·생성기 구현; scheduled refetch·유효기간 Gate 미구현 |
+| CRS-REGISTRY-001 | FR-SEM-003 | OGC·EPSG CRS 근거 | CRS 7종·coordinate system 2종의 byte·SHA-256과 생성 정책 일치 | 2026-07-12 snapshot·offline Gate 구현 |
+| AUTH-REG-001~006 | 연결 없음 — 요구사항 신설 필요 | Provider 권한 | identity·scope·기간·철회·receipt·trusted verifier 판정 통과 | resolver 구현; 기관 entry·trust anchor 미확보 |
+| RELEASE-GATE-AUTH-001 | 연결 없음 — 요구사항 신설 필요 | Provider 권한 release ready 값 | `authorityReleaseReadyDecision`이 schema 허용값 `eligible-after-runtime-verification`와 일치 | 구현 |
+| RELEASE-GATE-AUTH-002 | 연결 없음 — 요구사항 신설 필요 | 빈 Provider 권한 Registry | `blocked-no-approved-authority`와 빈 `entries`이면 `authorityBlocked=true` | 구현 |
+| RELEASE-GATE-AUTH-003 | 연결 없음 — 요구사항 신설 필요 | release 가능 Provider 권한 Registry | ready 값과 하나 이상의 entry가 있으면 `authorityBlocked=false` | 구현 |
+| RELEASE-GATE-AUTH-004 | 연결 없음 — 요구사항 신설 필요 | entry 없는 ready Registry | ready 값이어도 `entries`가 비어 있으면 `authorityBlocked=true` | 구현 |
+| RELEASE-GATE-AUTH-005 | 연결 없음 — 요구사항 신설 필요 | 잘못된 Provider 권한 release 값 | entry-level `approved`를 `releaseDecision`으로 인정하지 않고 `authorityBlocked=true` | 구현 |
+| RELEASE-GATE-AUTH-006 | 연결 없음 — 요구사항 신설 필요 | malformed Provider 권한 Registry | `undefined`·`null`·빈 객체·`entries` 누락 입력은 `authorityBlocked=true` | 구현 |
+| RELEASE-GATE-001 | 연결 없음 — 요구사항 신설 필요 | release 판정 | machine register·authority·ISO cache의 미해결 항목이 있으면 exit 2 | 구현; 현재 blocked |
+| STD-STATUS-SNAPSHOT-001 | FR-SEM-008 | KS·TTA·행정규칙 lifecycle | 검토 baseline과 source equality를 통과하고 공식 status 응답 원문·수집시각·byte 수·SHA-256이 항목별로 존재 | baseline digest·source equality 구현, 공식 응답 snapshot 미고정 |
+| CLAIM-AUTH-001 | 연결 없음 — 요구사항 신설 필요 | 대외 conformance declaration | 정형 claim에 승인자·적용 표준판·시험범위·근거 digest·만료일이 있고 비정형 동의어는 발간 전 사람 검토 | 금지 문자열·표시 text Gate 구현, 승인 workflow 미구현 |
 
 - **(B-03 정본 근거)** `standards/korean-interoperability-register.json`의 `RT-SPATIAL-ACCURACY-001=implemented`가 현행 machine register 판정이므로 적용한다.
 - **(B-04 정본 근거)** 같은 register의 `GEO-LIT-COVERAGE-001=implemented`가 현행 machine register 판정이므로 적용한다.
 
 `SHACL-DIFF-001B`는 결과 message와 blank node label을 비교하지 않는다. `focusNode`, canonical result path, constraint component, severity, source shape 종류와 value RDF term을 정규화한다. engine 불일치는 다수결로 처리하지 않고 release를 차단한다.
+
+- **(Verified — 추적 식별자 비고)** `FR-SEM-011`의 검증 열은 parent ID `SHACL-DIFF-001`을 가리키지만 실행 lane은 `SHACL-DIFF-001A/B`다. 두 lane은 요구사항에 연결하되 exact ID 불일치가 남으므로 이 연결만으로 요구사항 완료를 판정하지 않는다. 근거: [내부 일관성 감사](../01-research/internal-consistency-audit-2026-08.md#73-전-시험-id-대조)
 
 국내 표준별 증거 수준과 release 차단사항은 [국내 표준 상호운용성 및 blind spot 검증](../01-research/korean-standards-interoperability.md)의 machine register와 함께 판정한다.
 
@@ -204,6 +212,44 @@
 | --- | --- | --- | --- | --- |
 | GAP-POL-001 | FR-POL-004 | IT-POL-002는 기관·목적·기간 allow/deny만 시험 | 관할·재제공 표현과 실패 동작 | 알려진 공백 — 요구사항 완료로 판정 금지 |
 | GAP-TRN-001 | FR-TRN-004 | ST-ADP-001은 path·query·BBOX·quota 우회만 시험 | method·row·column 제한 | 알려진 공백 — 요구사항 완료로 판정 금지 |
+
+다음 행은 기존 FR·NFR에 연결할 수 없는 시험을 등록한다. 요구사항 신설 방향은 승인 전 제안이며 요구사항 기준선을 변경하지 않는다.
+
+| 공백 ID | 시험 ID | 실제 검증 | 요구사항 신설 방향 | 담당 | 기한 |
+| --- | --- | --- | --- | --- | --- |
+| GAP-LNK-01 | CT-KR-BLINDSPOT-003 | **(Verified)** evidence kind, 저장소 경로 confinement와 실행 증거 결속 | **(Decision — 제안)** 검증·감사 evidence reference의 type, 경로 제한, 실재성과 실행 증거 결속 요구 | 미정 | 미정 |
+| GAP-LNK-02 | PDP-SOURCE-001 | **(Verified)** 외부 RDF 고정본의 path·수집시각·SHA-256·byte·media type·판정을 source register와 대조 | **(Decision — 제안)** 외부 상호운용 fixture의 content-addressed capture provenance와 기대판정 결속 요구 | 미정 | 미정 |
+| GAP-LNK-03 | ISO19115-TECH-001 | **(Verified)** ISO 19115 artifact manifest의 역할·digest·license와 official bytes 미커밋 상태 | **(Decision — 제안)** 외부 XSD·Schematron package의 출처·판·license·digest와 승인 private cache 기반 offline Gate 요구 | 미정 | 미정 |
+| GAP-LNK-04 | RT-SPATIAL-ACCURACY-001 | **(Verified)** 권위 기준값과 지원 CRS·geometry 순·역변환의 허용오차 | **(Decision — 제안)** 승인 library·독립 기준점 corpus·허용오차에 따른 좌표변환 정확도 요구 | 미정 | 미정 |
+| GAP-LNK-05 | GEO-LIT-COVERAGE-001 | **(Verified)** WKT Point·LineString·단일 ring Polygon의 parser·serializer 왕복 | **(Decision — 제안)** 지원 geometry와 WKT·GML·적용 XSD 조합별 정상·오류 corpus 및 round-trip 요구 | 미정 | 미정 |
+| GAP-LNK-06 | XSD-COVERAGE-001 | **(Unverified)** 실행 Test ID 문서 미확인. 계획상 승인 XSD datatype의 lexical·value space와 미승인 datatype 거부 | **(Decision — 제안)** 허용 XSD datatype registry의 판 관리, lexical·value-space 검증과 미승인 datatype fail-closed 요구 | 미정 | 미정 |
+| GAP-LNK-07 | DEP-INTEGRITY-001 | **(Unverified)** 실행 Test ID 문서 미확인. 계획상 clean install의 dependency tree·SBOM·Jena toolchain digest 대조 | **(Decision — 제안)** 검증 실행환경·dependency·SBOM·toolchain의 content-addressed 재현성과 격리 설치 요구 | 미정 | 미정 |
+| GAP-LNK-08 | NET-REGISTRY-001 | **(Unverified)** 실행 Test ID 문서 미확인. 계획상 IANA CSV 3종과 생성 주소 판정표 대조 | **(Decision — 제안)** SSRF·egress 주소 분류의 공식 IANA snapshot·생성정책·drift·유효기간 Gate 요구 | 미정 | 미정 |
+| GAP-LNK-09 | AUTH-REG-001 | **(Verified)** 빈 Registry의 runtime 권한 거부와 entry 없는 적격 상태 위조 차단 | **(Decision — 제안)** 계약 기반 runtime Provider 권한 Registry의 빈 입력·상태 모순 fail-closed 요구 | 미정 | 미정 |
+| GAP-LNK-10 | AUTH-REG-002 | **(Verified)** participant·Provider·source·asset·action exact scope, freshness와 검증 receipt 판정 | **(Decision — 제안)** runtime Provider 권한의 exact scope·기간·철회 freshness·검증 receipt 요구 | 미정 | 미정 |
+| GAP-LNK-11 | AUTH-REG-003 | **(Verified)** wildcard·미검증·모순·철회·중복·stale·구조 오류 권한의 거부 | **(Decision — 제안)** 모호하거나 미검증된 Provider 권한 증거를 fail-closed로 거부하는 의미 규칙 요구 | 미정 | 미정 |
+| GAP-LNK-12 | AUTH-REG-004 | **(Verified)** Registry·요청·receipt 시각의 실제 RFC 3339 calendar instant 여부 | **(Decision — 제안)** Provider 권한 판정 시각 필드의 RFC 3339 lexical·calendar 유효성 요구 | 미정 | 미정 |
+| GAP-LNK-13 | AUTH-REG-005 | **(Verified)** trusted verifier envelope의 요청·범위·증거·정책집행점·receipt digest 결속과 변조 거부 | **(Decision — 제안)** 동기 trusted verifier와 서명 receipt envelope의 필드·digest 결속 요구 | 미정 | 미정 |
+| GAP-LNK-14 | AUTH-REG-006 | **(Verified)** 권한 요청·receipt identity의 parsed HTTPS·bare DID·local identifier 규칙 | **(Decision — 제안)** Provider 권한 주체·검증자·정책집행점과 local ID의 허용 식별자 문법 요구 | 미정 | 미정 |
+| GAP-LNK-15 | RELEASE-GATE-001 | **(Verified)** reviewed 기계 입력의 blocker·digest와 결정론적 blocked report | **(Decision — 제안)** reviewed 입력의 미해결 blocker와 digest를 집계하는 결정론적 release 판정 보고서 요구 | 미정 | 미정 |
+| GAP-LNK-16 | CLAIM-AUTH-001 | **(Unverified)** 실행 Test ID 문서 미확인. 계획상 conformance claim의 승인자·표준판·시험범위·근거 digest·만료일과 사람 검토 | **(Decision — 제안)** 대외 conformance declaration의 정형 승인 필드·만료와 비정형 표현 사람 검토 요구 | 미정 | 미정 |
+| GAP-LNK-17 | RELEASE-GATE-AUTH-001 | **(Verified)** release ready 상수와 schema 허용값의 일치 | **(Decision — 제안)** Provider 권한 Registry의 canonical release ready 값과 schema enum 일치 요구 | 미정 | 미정 |
+| GAP-LNK-18 | RELEASE-GATE-AUTH-002 | **(Verified)** 차단 상태와 빈 entry 조합의 release 차단 | **(Decision — 제안)** 차단 결정 또는 빈 Provider 권한 Registry를 release blocker로 판정하는 요구 | 미정 | 미정 |
+| GAP-LNK-19 | RELEASE-GATE-AUTH-003 | **(Verified)** canonical ready 값과 하나 이상의 entry 조합에서 blocker 해제 | **(Decision — 제안)** Provider 권한 Registry release blocker 해제의 상태·최소 entry 조건 요구 | 미정 | 미정 |
+| GAP-LNK-20 | RELEASE-GATE-AUTH-004 | **(Verified)** ready 값과 빈 entry 조합의 release 차단 | **(Decision — 제안)** ready 상태라도 Provider 권한 entry가 없으면 fail-closed로 차단하는 요구 | 미정 | 미정 |
+| GAP-LNK-21 | RELEASE-GATE-AUTH-005 | **(Verified)** entry-level `approved`의 registry-level `releaseDecision` 오용 거부 | **(Decision — 제안)** entry 결정과 Registry release 결정을 분리하고 schema 밖 상태값을 거부하는 요구 | 미정 | 미정 |
+| GAP-LNK-22 | RELEASE-GATE-AUTH-006 | **(Verified)** `undefined`·`null`·빈 객체·`entries` 누락 입력의 release 차단 | **(Decision — 제안)** malformed Provider 권한 release 입력을 fail-closed로 차단하는 요구 | 미정 | 미정 |
+
+추적 연결 작업(2026-08-04) 중 국내 Gate 표의 `합격 조건` 문언과 실제 시험 assertion의 불일치 6건이 보고됐다. 셀 수정 금지 지시에 따라 정정하지 않고 등록한다. 6건 중 `RELEASE-GATE-001` 건만 시험 원문으로 확인했고 나머지 5건은 보고 상태다.
+
+| ID | 보고된 불일치 | 상태 | 담당 | 기한 | 종료 조건 |
+| --- | --- | --- | --- | --- | --- |
+| GAP-ROW-01 | `RELEASE-GATE-001` 행이 exit `2`를 합격 조건으로 쓰나 exit 검증은 `RELEASE-GATE-002`의 assertion임 | `Verified` | 미정 | 미정 | 두 행의 합격 조건을 실제 assertion 경계로 정정 |
+| GAP-ROW-02 | `ISO19115-TECH-001` 행의 offline smoke는 실제로 `002·004`가 검증하고 `001`은 manifest·license·digest 중심 | `Unverified — 보고` | 미정 | 미정 | 시험 원문 대조 후 행 정정 |
+| GAP-ROW-03 | `RT-SPATIAL-AXIS-001` 행의 WKT·GML 왕복은 실제로 `GEO-LIT-001`이 검증 | `Unverified — 보고` | 미정 | 미정 | 시험 원문 대조 후 행 정정 |
+| GAP-ROW-04 | `GEO-LIT-001` 행의 거부 조건은 실제로 `GEO-LIT-002`가 검증 | `Unverified — 보고` | 미정 | 미정 | 시험 원문 대조 후 행 정정 |
+| GAP-ROW-05 | `GEO-LIT-COVERAGE-001`의 실제 assertion은 WKT 3종이며 행의 GML·XSD 범위는 미검증 | `Unverified — 보고` | 미정 | 미정 | 시험 원문 대조 후 행 정정 또는 시험 확장 |
+| GAP-ROW-06 | `SHACL-DIFF-001` parent ID와 `001A/B` 실행 lane의 exact 추적 불일치 | `Verified` | 미정 | 미정 | parent ID 정리 또는 A/B lane의 명시적 등재(`FR-SEM-011` 공백과 동일 건) |
 
 ## 5. DSP 상호운용
 
