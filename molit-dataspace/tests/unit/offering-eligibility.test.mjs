@@ -177,3 +177,84 @@ test("IT-PLT-002: missing transfer decision normalizes to pending evidence", () 
   assert.equal(decision.state, "PENDING_EVIDENCE");
   assert.ok(decision.reasons.some((item) => item.code === "TRANSFER_NOT_APPROVED"));
 });
+
+// FR-CAT-003은 원 보유기관, Offering Provider, source system과 원천 식별자의
+// 구분을 요구한다. 아래 두 시험이 상호 분리 보존(정상)과 주체별 누락 거부
+// (실패)를 검증한다 — 검증 계획 IT-CAT-003.
+
+test("IT-CAT-003: four distinct parties survive normalization without conflation", () => {
+  const event = structuredClone(baseline.records[0]);
+  event.record.originDataHolderId = "mock-holder-a";
+  event.record.providerParticipantId = "mock-provider-b";
+  event.record.contractingPartyId = "mock-contracting-c";
+  const canonical = normalizeRecord({
+    governanceApproval: resolveApproval(approvalIndex, {
+      evaluatedAt: "2026-07-11T14:00:00+09:00",
+      record: event.record,
+      recordId: event.recordId,
+      resourceVersion: event.resourceVersion,
+      sourceSystemId: baseline.sourceSystemId,
+    }),
+    sourceSystemId: baseline.sourceSystemId,
+    recordId: event.recordId,
+    record: event.record,
+  });
+  // 네 주체가 각자의 필드로 보존되고 어느 것도 다른 값으로 섞이지 않는다.
+  const parties = [
+    canonical.originDataHolderId,
+    canonical.providerParticipantId,
+    canonical.contractingPartyId,
+    canonical.sourceSystemId,
+  ];
+  assert.deepEqual(parties, ["mock-holder-a", "mock-provider-b", "mock-contracting-c", baseline.sourceSystemId]);
+  assert.equal(new Set(parties).size, 4);
+  assert.equal(canonical.publisher.id, event.record.publisher.id);
+  // 주체 누락 계열의 사유가 없어야 한다 — 분리 자체는 차단 사유가 아니다.
+  const codes = decideOffering(canonical).reasons.map((item) => item.code);
+  for (const code of ["MISSING_DATA_HOLDER", "MISSING_PROVIDER_PARTICIPANT", "MISSING_OPERATING_ROLE"]) {
+    assert.equal(codes.includes(code), false, `${code} must not fire for distinct parties`);
+  }
+});
+
+test("IT-CAT-003: each missing party is rejected with its own reason, not a generic one", () => {
+  const cases = [
+    { field: "originDataHolderId", code: "MISSING_DATA_HOLDER" },
+    { field: "providerParticipantId", code: "MISSING_PROVIDER_PARTICIPANT" },
+    { field: "contractingPartyId", code: "MISSING_OPERATING_ROLE" },
+  ];
+  for (const { field, code } of cases) {
+    const event = structuredClone(baseline.records[0]);
+    delete event.record[field];
+    const canonical = normalizeRecord({
+      governanceApproval: resolveApproval(approvalIndex, {
+        evaluatedAt: "2026-07-11T14:00:00+09:00",
+        record: event.record,
+        recordId: event.recordId,
+        resourceVersion: event.resourceVersion,
+        sourceSystemId: baseline.sourceSystemId,
+      }),
+      sourceSystemId: baseline.sourceSystemId,
+      recordId: event.recordId,
+      record: event.record,
+    });
+    const decision = decideOffering(canonical);
+    const codes = decision.reasons.map((item) => item.code);
+    assert.ok(codes.includes(code), `${field} 누락은 ${code}로 거부돼야 한다 (실제: ${codes.join(",")})`);
+    assert.notEqual(decision.state, "OFFERING_CANDIDATE");
+  }
+});
+
+// 아래 두 건은 시험 공백이 아니라 구현 공백이다. 검증 계획 §4.2의
+// GAP-IMPL 항목과 함께 등록되며, 구현이 생기기 전에는 todo로 남긴다.
+
+test(
+  "IT-CAT-004(축 유보): discovery projection은 provenance를 담아야 한다",
+  { todo: "FR-CAT-004의 provenance 축 — toDiscoveryProjection·toOfferingCandidate 어디에도 provenance 방출이 없다(GAP-IMPL-01)" },
+  () => {},
+);
+
+test(
+  "DQ-META-001(축 유보): 시간대·link version 오류는 quarantine돼야 한다",
+  { todo: "FR-META-003의 시간대·link version 축 — DQ 경로에 검사가 없다. xsd-lexical의 timezone 구문 검증은 datatype 층위라 이 축을 대신하지 않는다(GAP-IMPL-02)" },
+  () => {},
+);

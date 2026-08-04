@@ -47,6 +47,39 @@ test("CT-SEM-BRIDGE-000: S1 candidate is rejected as an application-profile grap
   assert.equal(candidate.catalogProjection.profileStatus, "project-draft-not-dsp-wire-message");
 });
 
+// FR-META-002의 format 축 — 검증 계획 CT-META-002. 경계 검사가 강제하는 것은
+// "문자열 리터럴 거부"이며 승인 목록 대조는 이 계층의 범위가 아니다.
+test("CT-META-002: dct:format literal is rejected at its exact path and an IRI node clears it", () => {
+  const synchronized = synchronizeBatch(createEmptyState(), baseline, config, approvals);
+  const candidate = structuredClone(synchronized.state.records[
+    "mock-molit-platform::road-node-link-snapshot"
+  ].offeringCandidate);
+  const graph = candidate.catalogProjection["@graph"];
+  const distributionIndex = graph.findIndex((node) => {
+    const type = node["@type"];
+    return type === "dcat:Distribution" || (Array.isArray(type) && type.includes("dcat:Distribution"));
+  });
+  assert.notEqual(distributionIndex, -1, "fixture candidate must carry a Distribution node");
+
+  // 실패축 — 문자열 리터럴은 정확한 경로로 지목돼 거부된다.
+  assert.equal(typeof graph[distributionIndex]["dct:format"], "string");
+  const literalIssues = assessDraftProjectionGaps(candidate).blockingIssues
+    .filter((item) => item.code === "LITERAL_FORMAT");
+  assert.equal(literalIssues.length, 1);
+  assert.equal(
+    literalIssues[0].path,
+    `catalogProjection.@graph[${distributionIndex}].dct:format`,
+  );
+
+  // 정상축 — File Type IRI 노드는 LITERAL_FORMAT을 해소한다.
+  graph[distributionIndex]["dct:format"] = {
+    "@id": "http://publications.europa.eu/resource/authority/file-type/CSV",
+  };
+  const remaining = assessDraftProjectionGaps(candidate).blockingIssues
+    .map((item) => item.code);
+  assert.equal(remaining.includes("LITERAL_FORMAT"), false);
+});
+
 test("CT-SEM-BRIDGE-000A: bridge preflight rejects duplicate and mixed profile markers", () => {
   const core = "https://data.molit.go.kr/profile/molit-dcat-ap/0.1.0";
   const geo = `${core}/geo`;

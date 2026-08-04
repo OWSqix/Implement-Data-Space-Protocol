@@ -48,16 +48,17 @@
 
 | Test ID | 요구사항 | 시나리오 | 기대 결과 | 증거 |
 | --- | --- | --- | --- | --- |
-| IT-CAT-001 | FR-CAT-001 | 공식 metadata export 수집 | 승인 endpoint만 호출 | trace+config |
+| IT-CAT-001 | FR-CAT-001 | 공식 export 수집과 API poll, etag·if-modified-since 변경 감지, 오류·비배열 페이지·비정상 item 입력 | 승인 endpoint만 호출, 304에서 기존 checkpoint 유지, 나머지는 fail-closed | trace+config, adapter unit test |
 | IT-CAT-002 | FR-CAT-002 | 정보시스템·활용사례·열람전용 입력 | portal·DCAT discovery에만 남고 DSP Catalog Dataset 미생성 | discovery·DSP Catalog diff |
-| IT-CAT-003 | FR-CAT-003 | Provider 없는 record 입력 | quarantine | validation result |
+| IT-CAT-003 | FR-CAT-003 | 네 주체 식별자(원 보유기관·Offering Provider·계약 당사자·source system)가 전부 다른 record와 주체별 누락 record, 비정본 식별자 입력 | 분리 보존·비혼동, 주체별 사유(MISSING_DATA_HOLDER·MISSING_PROVIDER_PARTICIPANT·MISSING_OPERATING_ROLE)로 후보 차단, 비정본 식별자는 상태 변경 전 거부 | validation result, eligibility unit test |
 | IT-CAT-004 | FR-CAT-004 | upstream에서 자격 없는 참가자에게 숨겨진 Dataset을 Broker에서 요청 | Broker도 비노출하고 proof 요구·Offer 의미·Provider DataService를 약화하지 않음 | negative access matrix+semantic diff |
 | IT-CAT-005 | FR-CAT-006 | update·delete·duplicate·out-of-order | 정확한 최종 Catalog | reconciliation report |
+| IT-CAT-008 | FR-CAT-006 | 증분 동기화 cursor pagination 순회와 cursor 반복·페이지 한도·페이지 크기·poll 총량 초과 입력 | 전체 페이지를 누락·중복 없이 순서대로 수집, 결함 입력은 fail-closed(PAGINATION_LOOP·PAGE_LIMIT_EXCEEDED 등) | adapter unit test |
 | IT-CAT-006 | FR-CAT-007 | hosted·brokered·index-only·unknown fixture와 불충분한 근거 | 역할·근거 저장, 불충분 record는 Offering 금지 | capability decision report |
 | IT-CAT-007 | FR-CAT-008 | 대량 Dataset Catalog 요청과 pagination link 순회 | 응답 크기 한도 준수, 전체 Dataset이 누락·중복 없이 조회됨 | catalog response trace |
 | ST-POL-001 | FR-CAT-005 | 자격 있는·없는 participant의 Catalog 요청 | Dataset visibility가 자격에 맞게 필터됨 | Catalog diff+policy trace |
 | CT-META-001 | FR-META-001 | multi-distribution Dataset과 필수 객체, Distribution당 단일 `accessService`, `endpointURL`·version 오류 fixture | cardinality·참조·Provider endpoint·Catalog DSP version 통과, 복수 `accessService` 배열과 오류 fixture 거부 | JSON-LD+validation |
-| CT-META-002 | FR-META-002 | REST·file·WFS metadata | media type·schema·extent·version 존재 | profile report |
+| CT-META-002 | FR-META-002 | REST·file·WFS metadata와 `dct:format` 리터럴·File Type IRI 입력 | media type·schema·extent·version 존재, format 리터럴은 정확한 경로로 거부(`LITERAL_FORMAT`)되고 IRI 노드는 수용. 승인 목록 대조는 경계 검사 범위 밖 | profile report, bridge-boundary test |
 | DQ-META-001 | FR-META-003 | CRS·axis·unit·node version 오류 | quarantine·명확한 error | DQ report |
 | DOC-META-001 | FR-META-004 | 신규 Dataset onboarding | 승인된 Passport reference 필수 | signed review |
 | CT-META-003 | FR-META-005 | 원 보유기관·Publisher·platform·Offering Provider·Connector·계약·전달 운영자가 다른 fixture | 각 role ID와 authority reference가 분리돼 직렬화·추적됨 | profile report+registry lookup |
@@ -250,6 +251,15 @@
 | GAP-ROW-04 | `GEO-LIT-001` 행의 거부 조건은 실제로 `GEO-LIT-002`가 검증 | `Unverified — 보고` | 미정 | 미정 | 시험 원문 대조 후 행 정정 |
 | GAP-ROW-05 | `GEO-LIT-COVERAGE-001`의 실제 assertion은 WKT 3종이며 행의 GML·XSD 범위는 미검증 | `Unverified — 보고` | 미정 | 미정 | 시험 원문 대조 후 행 정정 또는 시험 확장 |
 | GAP-ROW-06 | `SHACL-DIFF-001` parent ID와 `001A/B` 실행 lane의 exact 추적 불일치 | `Verified` | 미정 | 미정 | parent ID 정리 또는 A/B lane의 명시적 등재(`FR-SEM-011` 공백과 동일 건) |
+
+`MUST` 부분 검증 보강 1차(CAT·META, 2026-08-04)에서 아래가 확인됐다. 시험 공백이 아니라 **구현 공백 또는 조건 미성립**이므로 시험 작성으로 닫을 수 없고, 해당 축의 todo 시험과 함께 등록한다.
+
+| ID | 요구 | 확인된 사실 | 상태 | 담당 | 기한 | 종료 조건 |
+| --- | --- | --- | --- | --- | --- | --- |
+| GAP-IMPL-01 | `FR-CAT-004`의 provenance 축 | `toDiscoveryProjection`·`toOfferingCandidate` 어디에도 provenance 방출이 없음. todo 시험 `IT-CAT-004(축 유보)` 등록 | `Verified` | 미정 | 미정 | projection의 provenance 방출 구현과 todo 해제 |
+| GAP-IMPL-02 | `FR-META-003`의 시간대·link version 축 | DQ 경로에 두 축의 검사가 없음. `xsd-lexical`의 timezone 검증은 datatype 구문 층위라 자산 수준 제공 요구를 대신하지 않음. todo 시험 `DQ-META-001(축 유보)` 등록 | `Verified` | 미정 | 미정 | DQ 검사 구현과 todo 해제 |
+| GAP-IMPL-03 | `FR-META-004`의 Passport 내부 권리·품질·계보 축 | 코드에 Passport 구조가 없음(`src/` 전체에 passport 부재). `DOC-META-001`은 signed review 문서 통제라 todo 시험을 얹을 대상 모듈 자체가 없어 등록만 한다 | `Verified` | 미정 | 미정 | Passport 기계 구조 설계 결정 후 시험 재판정 |
+| GAP-COND-01 | `FR-CAT-008`(SHOULD)의 upstream Broker pagination | Broker 구성요소 미채택 — `brokered`는 record 분류값(`src/discovery/model.mjs`)이지 Broker 서비스가 아니며, `IT-CAT-007`은 일반 Catalog pagination을 검증 | `Verified` | 미정 | 미정 | Broker 채택 결정 시 재개. 미채택 유지 시 요구사항의 조건부 표기 확인 |
 
 ## 5. DSP 상호운용
 
