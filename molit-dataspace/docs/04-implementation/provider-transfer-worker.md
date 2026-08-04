@@ -2,13 +2,20 @@
 
 ## 1. 맡는 범위
 
-이 Worker는 Connector가 계약과 전송 요청을 승인한 뒤에 실행한다. 승인된 전송 건을 플랫폼 자원에 연결하고, 소비자가 사용할 `DataAddress`를 Connector 관리 API에 돌려준다. 전송 종료 건에서는 같은 자원을 폐기한 뒤 종료 결과를 보고한다.
+이 Worker는 Connector가 계약과 전송 요청을 승인한 뒤에 실행한다. 승인된 전송 건을 플랫폼 자원에 연결하고, provisioner가 반환한 `DataAddress`를 Connector 관리 API에 돌려준다.
 
-구현된 action은 `START`와 `TERMINATE` 두 개다. PULL 방식의 접근 주소를 발급하고 폐기하는 범위만 다룬다. DSP의 `SUSPENDED`와 `COMPLETED` 상태 전체를 구현한 범용 전송 Worker가 아니다.
+이 값은 Connector를 거쳐 Provider Data Plane의 source binding이 되며 Consumer에게 전달하지 않는다. 전송 종료 건에서는 같은 자원을 폐기한 뒤 종료 결과를 보고한다.
+
+구현된 action은 `START`와 `TERMINATE` 두 개다. PULL 방식에서 Provider Data Plane이 source binding으로 사용할 원천 접근 자원을 발급하고 폐기하는 범위만 다룬다. DSP의 `SUSPENDED`와 `COMPLETED` 상태 전체를 구현한 범용 전송 Worker가 아니다.
 
 이 구성요소는 DSP 전송 프로토콜 엔드포인트가 아니다. DSP 메시지 수신, 계약 검증, 전송 상태 머신, 콜백 송신은 선택한 Connector가 맡는다.
 
 DSP 2025-1 규격도 데이터 평면 인터페이스를 규격 범위 밖으로 둔다. 이 저장소의 `DataAddress`는 Connector 관리 어댑터와 합의한 제어 평면 객체다. 특정 DSP wire 형식에 적합하다고 주장하지 않는다.
+
+- **(Decision — E-21)** payload 전송은 **Provider Data Plane 경유로 단일화**한다. 원천 직접 방식(Consumer가 원천 token·signed URL로 원천에 직접 접근)은 채택하지 않는다
+- **(Decision — E-21 적용 정정)** 2026-08-03에 잘못 추가된 “소비자가 사용할 `DataAddress`” 서술을 철회한다. Consumer는 계약 범위에서 Provider Data Plane에 접근하고, Data Plane이 source binding으로 원천에서 읽어 응답한다.
+- **(Verified)** [`worker.mjs`](../../src/transfer-runtime/worker.mjs)는 provisioner 결과의 `dataAddress`를 `acknowledgeStart`로 넘기고, [`clients.mjs`](../../src/transfer-runtime/clients.mjs)의 `acknowledgeStart`는 이를 Connector 관리 엔드포인트에 POST한다. Consumer에게 보내는 경로는 없다.
+- **(Verified)** [`journal.mjs`](../../src/transfer-runtime/journal.mjs)는 `dataAddress` 원문 저장을 금지하고, 관련 값은 `dataAddressDigest`만 허용한다.
 
 표준 규격은 다음 주소에서 확인한다.
 
@@ -108,7 +115,9 @@ journal integrity envelope은 domain `molit.provider-transfer-journal.integrity`
 
 `resourceRef`에는 자원 식별자와 불변 선택 조건만 기록한다. Worker는 credential 이름의 field뿐 아니라 `Bearer` 값, `token=...` 같은 대입문, URL userinfo, credential query와 fragment도 거부한다.
 
-signed URL은 binding이 아니라 provision 단계의 단기 결과로 만든다. provisioner 제어 API 인증정보는 환경 변수에서만 읽는다.
+signed URL은 private binding registry의 고정 binding이 아니라 provision 단계의 단기 결과로 만든다. 발급 후 Connector를 거쳐 Provider Data Plane의 source binding이 된다.
+
+provisioner 제어 API 인증정보는 환경 변수에서만 읽는다.
 
 `transferMode`는 현재 `PULL`만 허용한다. PUSH 방식에는 소비자 sink DataAddress 수신, 실제 송신 job, 완료 확인, 부분 실패 보상이 필요하므로 별도 어댑터로 구현한다.
 
@@ -125,7 +134,8 @@ authorized → provisioned → active
 3. platform provisioner를 호출한다.
 4. provision 결과의 식별자와 `DataAddress` digest만 journal에 기록한다.
 5. 실제 `DataAddress`는 Connector 관리 API 호출에만 전달한다.
-6. Connector가 접수를 확인하면 `active`로 바꾼다.
+6. 발급 결과는 Connector를 거쳐 Provider Data Plane의 source binding이 된다. Consumer에게 원천 token이나 signed URL을 전달하지 않는다.
+7. Connector가 접수를 확인하면 `active`로 바꾼다.
 
 provisioner 호출 직전에도 authoritative 상태를 확인한다. `START_AUTHORIZED`이면 신규 provision을 허용한다. `STARTED`이면 journal에 `provisioned` 또는 `active` 증거가 있는 복구 호출만 허용한다. 로컬 증거 없는 `STARTED`, `TERMINATION_AUTHORIZED`, `TERMINATED`에서는 provisioner를 호출하지 않는다.
 
@@ -207,6 +217,8 @@ provision 요청은 `providerPid`, `agreementId`, provisioning key, `resourceRef
 
 응답은 다섯 값을 그대로 돌려주고 `provisioningId`와 `dataAddress`를 포함해야 한다. Worker는 `200`, `201`, `409` 모두 같은 receipt 계약으로 검사한다.
 
+`dataAddress`는 Consumer가 사용할 원천 접근 주소가 아니다. Worker는 이를 Connector 관리 엔드포인트에만 POST하고, Connector를 거쳐 Provider Data Plane의 source binding으로 사용한다.
+
 하나라도 요청과 다르거나 추가 field가 있으면 중단한다. journal이 이미 있는 재호출에서는 provisioning ID와 DataAddress digest도 기존 기록과 비교한다.
 
 ```json
@@ -262,7 +274,9 @@ HTTP `204`는 응답 본문을 전달할 수 없다. 실제 HTTP Adapter는 cano
 
 이 규칙은 설정의 `idempotentRevoke: true`와 함께 적용한다. 배포 시험에서는 존재하지 않는 provisioning key와 존재하지 않는 API route를 각각 호출한다. 두 응답을 구별하지 못하면 해당 어댑터를 사용하지 않는다.
 
-signed URL이나 토큰을 만드는 provisioner는 수명, agreement binding, consumer binding, 최소 권한, 취소 방식을 별도로 구현해야 한다. 이 저장소의 범용 어댑터가 해당 정책을 대신 결정하지 않는다.
+signed URL이나 토큰을 만드는 provisioner는 수명, agreement binding, consumer authorization context, 최소 권한, 취소 방식을 별도로 구현해야 한다.
+
+발급 결과는 Provider Data Plane만 source binding으로 사용하고 Consumer에게 노출하지 않는다. 이 저장소의 범용 어댑터가 해당 정책을 대신 결정하지 않는다.
 
 ## 8. 네트워크와 비밀정보
 
@@ -314,7 +328,7 @@ inbox는 서명 검증, 중복 수신, 순서 역전, 재시도, dead-letter 정
 - [ ] journal 저장 볼륨의 접근권과 백업·복구 절차를 정했다.
 - [ ] journal revision을 외부 CAS 또는 append-only anchor에 결합하고 rollback 복구 시험을 했다.
 - [ ] 다중 호스트 배포이면 fencing이 있는 분산 lock으로 교체했다.
-- [ ] Connector별 DataAddress 변환과 데이터 평면 상호운용 시험을 마쳤다.
+- [ ] Connector별 DataAddress의 Provider Data Plane source binding 변환과 데이터 평면 상호운용 시험을 마쳤다.
 - [ ] TLS 인증서, egress allowlist, 환경 변수 secret injection을 배포 환경에서 확인했다.
 - [ ] provision 후 중단, 시작 보고 후 중단, revoke 후 중단 시험을 수행했다.
 

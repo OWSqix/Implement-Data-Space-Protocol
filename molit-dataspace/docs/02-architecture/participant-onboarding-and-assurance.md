@@ -10,7 +10,7 @@
 
 이 문서는 참가 조직이 아니라 데이터 경로에 참가 등급을 부여하는 기준을 정한다. 복수 온보딩 경로, 관리형·자체 운영 Connector 방식과 위임 책임의 경계도 정한다. 재승인 상태 전이, 관리 신원 구현과 DCP 검증 증거는 기존 정본을 참조한다.
 
-- 결정 범위: D-03 참가 등급, D-04 경로 판정, D-05 강등 연결, D-06 책임 분할, D-07 인증 경계, E-12·E-15·E-16·E-20 반영
+- 결정 범위: D-03 참가 등급, D-04 경로 판정, D-05 강등 연결, D-06 책임 분할, D-07 인증 경계, E-12·E-15·E-16·E-20·E-21 반영
 - 제외 범위: DEF-04 운영 증거 확정, 재평가 주기 수치, `DRV-01`·`DRV-02`·`DRV-04` 확정
 - D-03~07 완료 증거: 경로 판정 기록, 운영자 통제 증거, 참가자 적법성 증거, 경계 위반 차단 시험
 
@@ -68,12 +68,16 @@
 
 - **(Decision)** 원천 플랫폼은 system of record로 유지하며 데이터 스페이스(DS)는 payload를 보관하거나 중계하지 않음
   - **(근거)** [ADR-0002](../adr/0002-data-stays-at-source.md), [EDC·CaaS·DSaaS 아키텍처 §6](edc-caas-dsaas-architecture.md#6-offering-게시와-전송)
+- **(Decision · E-21)** payload 전송은 **Provider Data Plane 경유로 단일화**한다. 원천 직접 방식(Consumer가 원천 token·signed URL로 원천에 직접 접근)은 채택하지 않는다
 - **(Decision)** 참가자가 Offering을 게시하려면 Connector가 필요함
   - **(동작)** Connector는 메타데이터·정책·계약 정의를 Control Plane에 등록함
   - **(경계)** 원천 endpoint·credential은 private source binding과 Secret Store에 두고 DSP message의 `dataAddress`와 구분함
-  - **(경계)** 실제 바이트는 계약 뒤 원천에서 수요자(Consumer)로 직접 PULL하며 DSP는 payload 전송 프로토콜을 규정하지 않음
+  - **(전송 경계)** Consumer는 계약 범위에서 Provider Data Plane에 PULL로 접근하고, Provider Data Plane이 source binding으로 원천에서 읽어 응답함
+  - **(책임 경계)** Provider Data Plane은 참가자(Provider) 측 전송 경계이며 데이터 스페이스 공통 서비스가 아님
 - **(Decision)** Provider transfer worker는 Connector가 이미 승인한 PULL 전송 사건을 받아 원천 플랫폼 token이나 signed URL을 발급함
+  - **(source binding)** 발급 결과는 Connector를 거쳐 Provider Data Plane의 source binding이 되며 Consumer에게 제공하지 않음
   - **(경계)** 이 worker는 EDC Data Plane이나 DSP endpoint가 아님
+- **(Decision · E-21 · 정정 기록)** 2026-08-03에 잘못 추가된 Consumer의 원천 직접 접근 서술을 Provider Data Plane 경유 PULL로 정정함
 
 | 온보딩 경로 | 적용 대상 | Offering 게시를 위한 기술 수행 | 남는 책임 |
 | --- | --- | --- | --- |
@@ -92,7 +96,7 @@
 - **(Unverified)** 현행 법령에서 E-20과 동일한 세 조건의 자동 간주 조문은 문서 미확인
   - **(출처)** [의무화·간주 규정 선례 조사](../01-research/mandate-and-deeming-precedents.md)
 - **(Decision)** 수신 가능 상태는 데이터 스페이스의 payload 수신을 뜻하지 않음
-  - **(경계)** 계약된 Consumer가 원천 접근 경로에서 PULL할 수 있어야 함
+  - **(경계)** 계약된 Consumer가 Provider Data Plane에 PULL로 접근할 수 있어야 함
 - **(Unverified)** 기술적 온보딩 완료의 구체 판정 기준과 증거는 `DRV-01`로 남김
 
 ### 2.5 등급 판정 단위

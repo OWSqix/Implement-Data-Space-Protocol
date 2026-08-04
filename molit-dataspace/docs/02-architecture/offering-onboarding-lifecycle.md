@@ -118,7 +118,7 @@ sequenceDiagram
     participant P as Provider Control Plane
     participant O as Lifecycle Orchestrator
     participant X as Existing Platform
-    participant D as Data Plane·Gateway
+    participant D as Provider Data Plane<br/>데이터 바이트 프록시
 
     Note over C,P: @context와 @type은 도식에서 생략
     C->>P: Contract Request Message
@@ -156,6 +156,8 @@ sequenceDiagram
     O->>X: delete Agreement-scoped subscription·entitlement
     O-->>P: cleanup confirmed
 ```
+
+- **(Decision — E-21)** payload 전송은 **Provider Data Plane 경유로 단일화**한다. 원천 직접 방식(Consumer가 원천 token·signed URL로 원천에 직접 접근)은 채택하지 않는다
 
 Contract Negotiation과 Transfer Process의 각 DSP Message 수신자는 ACK 또는 `ERROR`로 응답한다. 송신자는 ACK를 받기 전에 목표 상태 전이를 완료한 것으로 처리하지 않으며, `ERROR` 응답은 상태 전이를 만들지 않는다. 위 도식은 성공한 ACK 경로만 표시한다.
 

@@ -204,7 +204,7 @@ sequenceDiagram
     participant P as Provider Control Plane
     participant O as Lifecycle Orchestrator
     participant X as Existing Platform
-    participant D as Data Plane·Gateway
+    participant D as Provider Data Plane<br/>데이터 바이트 프록시
     participant A as Audit
 
     C->>P: Catalog/Dataset Request
@@ -245,6 +245,8 @@ sequenceDiagram
     O->>X: delete Agreement-scoped subscription·entitlement
     O->>A: cleanup result
 ```
+
+- **(Decision — E-21)** payload 전송은 **Provider Data Plane 경유로 단일화**한다. 원천 직접 방식(Consumer가 원천 token·signed URL로 원천에 직접 접근)은 채택하지 않는다
 
 도식은 모든 JSON-LD 메시지의 `@context`와 `@type`을 생략했다. Contract Negotiation 상태는 다음 Message와 확인 응답(Acknowledgement, ACK)으로 확정한다.
 

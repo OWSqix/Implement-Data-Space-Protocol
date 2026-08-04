@@ -3,7 +3,8 @@
 목적: 국토교통 데이터 스페이스의 Connector 실행 계층과 운영 제어 계층을 분리하고, 각 계층의 책임과 시험 범위를 고정한다.
 작성일: 2026-07-13
 개정일: 2026-08-03
-관련 결정: `E-19`, `E-20`
+관련 결정: `E-19`, `E-20`, `E-21`
+개정 이력: 2026-08-04 — §6.1의 Consumer 원천 직접 수신 서술을 `E-21`에 따라 Provider Data Plane 경유로 정정
 상태: 구현 기준선 확정, 실운영 인프라와 기관 승인은 미확정
 
 ## 1. 적용 기준선
@@ -152,19 +153,26 @@ Provider 측 흐름은 다음 순서다.
   -> DSP Catalog
   -> 계약 협상
   -> 전송 요청
-  -> EDC Data Plane 또는 승인된 platform provisioner
+  -> 승인된 platform provisioner가 원천 접근 자원을 발급해 Provider Data Plane의 source binding 입력 생성
+  -> Provider Data Plane 경유 payload 전송
 ```
 
 MOLIT DCAT-AP 적합 판정은 Offering의 메타데이터 판정이다. 전송 권한, 계약 성립, Data Plane 가용성을 대신 입증하지 않는다. `dataspace-offering` 모듈을 통과한 RDF라도 EDC 계약과 전송 준비가 끝나지 않으면 제공 가능한 데이터로 표시하지 않는다.
 
 Provider transfer worker는 Connector가 이미 승인한 PULL 전송 사건을 받아 원천 플랫폼 token이나 signed URL을 발급하는 경계다.
 
+발급된 원천 플랫폼 token이나 signed URL은 Consumer 접근권이 아니라 Provider Data Plane이 소비하는 source binding이다.
+
 발급 결과인 DataAddress 원문은 journal에 저장하지 않는다. 이 worker를 EDC Data Plane이나 DSP endpoint로 부르지 않는다.
+
+- **(Decision — E-21)** payload 전송은 **Provider Data Plane 경유로 단일화**한다. 원천 직접 방식(Consumer가 원천 token·signed URL로 원천에 직접 접근)은 채택하지 않는다
+- **(Decision — E-21 제약)** 대용량·실시간에서 Provider Data Plane이 병목이 되어도 우회 수단이 없으며, 병목이 실제 문제가 되면 별도 결정으로 예외를 연다.
 
 ### 6.1 기존 정산 시스템의 Consumer 배치
 
 - **(Decision — E-19)** 기존 정산 시스템(회계처리·버스경영관리시스템)은 **Consumer로 온보딩**한다. 계약을 맺고 운수사 원천에서 당겨온다
-- **(근거 구분)** 정산주체의 수요·수신 역할과 계약별 역할 구분은 [교통·물류 데이터 스페이스 참가자 지도](../01-research/transport-participant-map.md#91-동일-주체의-역할-차이)에서 `Verified`와 `Inferred`로 확인했다. Consumer 배치와 PULL 경로는 `E-19`의 `Decision`이다.
+- **(근거 구분)** 정산주체의 수요·수신 역할과 계약별 역할 구분은 [교통·물류 데이터 스페이스 참가자 지도](../01-research/transport-participant-map.md#91-동일-주체의-역할-차이)에서 `Verified`와 `Inferred`로 확인했다.
+- **(결정 구분)** Consumer 배치는 `E-19`의 `Decision`이고, Provider Data Plane 경유 PULL 토폴로지는 `E-21`의 `Decision`이다.
 
 Consumer 측 흐름은 다음 순서다.
 
@@ -173,14 +181,20 @@ Consumer 측 흐름은 다음 순서다.
   -> Consumer 측 Connector에서 DSP Catalog 조회
   -> 계약 협상
   -> 승인된 PULL 전송 요청
-  -> Provider transfer worker의 원천 플랫폼 token 또는 signed URL 발급
-  -> 운수사 원천에서 payload 직접 수신
+  -> Provider 측 Lifecycle Orchestrator가 transfer worker를 통해 운수사 원천에 subscription·entitlement·token 생성
+  -> 운수사 원천이 Lifecycle Orchestrator에 external resource ID + state 반환
+  -> Provider 측 Lifecycle Orchestrator가 Provider Data Plane에 source binding과 access context 설정
+  -> Consumer가 Provider Data Plane에 payload 접근 요청
+  -> Provider Data Plane이 운수사 원천에 authorized source request
+  -> Consumer가 Provider Data Plane에서 payload 수신
   -> Consumer가 자기 시스템에 적재
 ```
 
 - **(필요 기능)** 기존 시스템 운영기관에는 기관 신원, 계약 협상과 전송 요청 기능이 필요하다. 수신 뒤 자기 시스템 적재는 Consumer의 책임이다.
-- **(책임 경계)** 데이터 스페이스는 신원·Catalog·계약·정책·감사 사건을 다룬다. payload 보관·중계, 기존 정산 시스템을 목적지로 한 바이트 전송과 내부 적재는 데이터 스페이스의 책임에서 제외한다.
-- **(전송 경계)** 실제 바이트는 운수사 원천에서 Consumer로 직접 이동한다. Provider transfer worker의 책임은 승인된 PULL 사건에 대한 원천 접근 자원 발급으로 한정한다.
+- **(책임 경계)** 데이터 스페이스 운영자와 DSaaS는 신원·Catalog·계약·정책·감사 사건을 다룬다. payload 보관, Provider Data Plane의 바이트 프록시와 Consumer 내부 적재는 수행하지 않는다.
+- **(전송 경계)** 실제 바이트는 운수사 원천에서 Provider Data Plane을 경유해 Consumer로 이동한다.
+  - **(source binding)** Provider transfer worker가 발급한 token이나 signed URL은 Provider Data Plane에만 사용하고 Consumer에게 노출하지 않는다.
+  - **(프록시 책임)** 데이터 바이트 프록시는 Provider transfer worker가 아니라 Provider Data Plane의 책임이다.
 
 ### 6.2 제출 이행 상태와 감사 공백
 

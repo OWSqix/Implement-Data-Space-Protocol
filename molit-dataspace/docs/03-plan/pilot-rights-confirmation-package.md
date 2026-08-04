@@ -4,7 +4,8 @@
 작성 기준: 2026-08-03 저장소 정본과 2026-08-02 외부 자료 확인 결과  
 상태: Draft  
 적용 단계: 구축 계획 단계 0  
-관련 결정: `E-12`, `E-13`, `E-15`, `E-16`, `E-17`, `E-18`, `E-19`, `E-20`, `T-04`
+관련 결정: `E-12`, `E-13`, `E-15`, `E-16`, `E-17`, `E-18`, `E-19`, `E-20`, `E-21`, `T-04`
+정정 기록: 2026-08-04 — 2026-08-03에 잘못 추가된 Consumer의 원천 직접 접근 서술을 `E-21`에 따라 Provider Data Plane 경유 PULL로 정정
 
 ## 1. 목적과 범위
 
@@ -24,7 +25,9 @@
 - **(미정 범위)** 상세 필드는 `DEF-05` 실물 조사와 분야 데이터 스페이스 거버넌스 기구(Data Space Governance Authority, DSGA) 승인 전까지 미정이다.
   - **(근거)** [초기 유즈케이스·KPI §3.1](initial-usecases-and-kpi.md#31-가치업무-경계), 확인일 2026-08-03
 
-데이터 스페이스는 신원·Catalog·계약·정책·감사를 담당한다. payload를 보관하거나 중계하지 않으며 실제 바이트는 원천에서 Consumer로 직접 이동한다. 근거: [ADR-0002](../adr/0002-data-stays-at-source.md), [EDC 기반 CaaS·DSaaS 구성 설계 §6](../02-architecture/edc-caas-dsaas-architecture.md#6-offering-게시와-전송), 확인일 2026-08-03.
+데이터 스페이스 공통 서비스는 신원·Catalog·계약·정책·감사를 담당하고 payload를 보관하거나 중계하지 않는다.
+Consumer는 계약 범위에서 참가자(Provider)의 Provider Data Plane에 접근해 PULL하며, Data Plane이 source binding으로 원천에서 읽어 응답한다.
+근거: [ADR-0002](../adr/0002-data-stays-at-source.md), [EDC 기반 CaaS·DSaaS 구성 설계 §6](../02-architecture/edc-caas-dsaas-architecture.md#6-offering-게시와-전송), 확인일 2026-08-03.
 
 ### 1.1 적용 결정
 
@@ -39,6 +42,9 @@
 - **(Decision — E-18)** 허브 연계 범위는 **재제공권 확인목록**으로 한다. 기본값은 미연계이고 재제공 권리가 문서로 확인된 데이터셋만 추가한다
 - **(Decision — E-19)** 기존 정산 시스템(회계처리·버스경영관리시스템)은 **Consumer로 온보딩**한다. 계약을 맺고 운수사 원천에서 당겨온다
 - **(Decision — E-20)** 제출 이행은 **계약 체결 + 수신 가능 상태 + 기술적 온보딩 완료**의 세 조건이 모두 충족된 때 성립한다
+- **(Decision — E-21)** payload 전송은 **Provider Data Plane 경유로 단일화**한다. 원천 직접 방식(Consumer가 원천 token·signed URL로 원천에 직접 접근)은 채택하지 않는다
+
+`E-19`의 “운수사 원천에서 당겨온다”는 업무 층위의 승인 문구다. Consumer에게 원천 접근권을 부여한다는 뜻이 아니며, 기술 전송은 Consumer가 Provider Data Plane에서 PULL하고 Data Plane이 source binding으로 운수사 원천에서 읽어 응답하는 경로를 따른다.
 
 ## 2. 현재 판정
 
@@ -148,7 +154,7 @@
 | `PRC-C-05` | 데이터 분리 가능성 | 정산명세·대사결과·공통 감사 ID를 제외 항목과 분리할 수 있는가 | 데이터 사전, 마스킹된 표본, 분리 시험 | `T-04` 재판정 전 범위 확정 금지 |
 | `PRC-C-06` | 변경 시점 | 협약 갱신, 중도합의와 자치법규 개정 절차가 2027년 병행 시범과 양립하는가 | 유효기간·갱신·변경 조항 | 일정 `판정 불가` |
 | `PRC-C-07` | 참가자 기술수준 | 기장 형태, 원천시스템, 내보내기 형식, 기존 정산 시스템 연계와 대행 의존은 무엇인가 | 후보 도시 현행 실태와 분모·기준일 | 전국·타 지역 수치로 대체 금지 |
-| `PRC-C-08` | 계약·수신 준비 | 계약 당사자·목적·기간과 원천 직접 PULL의 수신 준비를 문서화할 수 있는가 | 계약 초안, source binding, 접근자원 발급 절차 | `E-20` 앞 두 조건 준비상태 `판정 불가` |
+| `PRC-C-08` | 계약·수신 준비 | 계약 당사자·목적·기간과 Provider Data Plane 경유 PULL의 수신 준비를 문서화할 수 있는가 | 계약 초안, Provider Data Plane 접근 정보, source binding, 원천 접근자원 발급 절차 | `E-20` 앞 두 조건 준비상태 `판정 불가` |
 
 ### 4.2 6개 도시 대조
 
@@ -253,13 +259,15 @@ Provider는 기관의 고정 지위가 아니라 계약별 기능이다. 기관�
 | 3. 역할 분리 | 업무분장, 계약 당사자, 위수탁 범위 | 운수사·지자체·조합·정산주체·수탁기관·대행자의 계약별 기능과 책임을 분리 | 역할·책임표 | 기관 지위만 있고 계약별 기능 근거 없음 |
 | 4. 기본값 적용 | 2~3단계 결과와 `E-16` | 데이터셋의 원천기관을 Provider 기능 주체 기본값으로 기록하고 법적 계약 당사자를 대조 | 기본값 적용 기록 | 원천기관 식별 불가 |
 | 5. 위임 판정 | 위임·대리·협약·위수탁·동의 문서 | 다른 주체가 기능을 수행하려면 범위·기간·재위임·권리 9항목·credential·사고책임의 포괄 위임을 확인 | 위임 문서·조항 대응표 | 포괄 위임 문서 미확인 |
-| 6. Consumer·PULL 경로 | 계약 목적·수신자, source binding, 접근자원 발급 절차 | 기존 정산 시스템을 Consumer로 배치하고 원천에서 Consumer로 직접 당기는 경로와 책임을 기록 | 계약별 직접 PULL 경로 | Consumer 권한 또는 원천 접근자원 발급 근거 미확인 |
+| 6. Consumer·PULL 경로 | 계약 목적·수신자, Provider Data Plane 접근 정보, source binding, 접근자원 발급 절차 | 기존 정산 시스템을 Consumer로 배치하고 Consumer가 Provider Data Plane에서 PULL하며 Data Plane이 source binding으로 원천에서 읽어 응답하는 경로와 책임을 기록 | 계약별 Provider Data Plane 경유 PULL 경로 | Consumer 권한 또는 Provider Data Plane·원천 접근자원 발급 근거 미확인 |
 | 7. 권리·보호 판정 | 7절 권리표, 개인정보·영업비밀·운행보안 문서 | 데이터셋·필드별 원본 전달, 집계, 폐쇄환경, 제외와 종료·철회 효과를 판정 | 데이터셋별 권리 판정서 | 권리 근거 또는 필드 분리 증거 미확인 |
 | 8. 승인 기록 | 1~7단계 증거와 검토 결과 | 승인된 데이터셋만 Offering 게시 후보로 기록하고 미확인 항목을 9절에 등록 | 판정 ID, 승인·보류 기록 | 미확인 자산의 Offering 게시 금지 |
 
 - **(전송 경계)** Provider transfer worker는 승인된 PULL 전송 사건을 받아 원천 플랫폼 token이나 signed URL을 발급하는 경계다.
+  - **(source binding)** 발급 결과는 Connector를 거쳐 Provider Data Plane의 source binding이 된다.
+  - **(노출 경계)** 발급 결과를 Consumer에게 노출하지 않는다.
 - **(용어 경계)** 이 worker를 EDC Data Plane이나 DSP endpoint로 부르지 않는다.
-- **(책임 경계)** 실제 바이트는 원천에서 Consumer로 직접 이동하며 데이터 스페이스는 보관·중계하지 않는다.
+- **(책임 경계)** 실제 바이트는 원천에서 Provider Data Plane을 경유해 Consumer로 이동한다. Provider Data Plane은 참가자(Provider)의 전송 경계이며 데이터 스페이스 공통 서비스는 payload를 보관·중계하지 않는다.
 
 ## 7. 데이터셋별 권리 분해 체크리스트
 
@@ -275,7 +283,7 @@ Provider는 기관의 고정 지위가 아니라 계약별 기능이다. 기관�
 | 원천시스템·최초 생성 주체 | 미정 |
 | 현 보유 주체 | 미정 |
 | 계약 목적·수신자·기간 | 미정 |
-| 전달 경로 | 원천에서 Consumer로 직접 PULL |
+| 전달 경로 | Consumer가 Provider Data Plane에서 PULL하고 Data Plane이 source binding으로 원천에서 읽어 응답 |
 | 적용 문서 ID | 미정 |
 
 권리 결과는 `허용`, `조건부`, `금지`, `문서 미확인`, `판정 불가` 중 하나로 기록한다. 근거 상태는 별도 열에 `Verified`, `Inferred`, `Unverified`, `Decision` 중 하나로 기록한다. `해당 없음`은 적용 제외 근거 조항이 있을 때만 사용한다.
@@ -284,7 +292,7 @@ Provider는 기관의 고정 지위가 아니라 계약별 기능이다. 기관�
 
 | 번호 | 권리 항목 | 데이터셋별 확인 질문 | 필요한 증거 | 판정 결과 | 조건·제한 | 권리·동의 주체 | 근거 문서·조항·유효기간 | 근거 상태 |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| `R-01` | 원본 전달 | 원천기관이 계약 범위의 원본을 Consumer에게 직접 제공할 수 있는가 | 원천별 위탁·이용허락·제공 조항 | 문서 미확인 | 미정 | 미정 | 미정 | `Unverified` |
+| `R-01` | 원본 전달 | 원천기관이 계약 범위의 원본을 Provider Data Plane을 통해 Consumer에게 제공할 수 있는가 | 원천별 위탁·이용허락·제공 조항 | 문서 미확인 | 미정 | 미정 | 미정 | `Unverified` |
 | `R-02` | cache·복제 | Provider Adapter 또는 Consumer가 어느 위치에서 얼마 동안 cache·복제할 수 있는가 | 허용 주체·저장 위치·기간·삭제 조항 | 문서 미확인 | 미정 | 미정 | 미정 | `Unverified` |
 | `R-03` | 서브라이선스 | 수신 권리나 이용권을 다른 주체에게 다시 부여할 수 있는가 | 재판매·대행·재허락 조항 | 문서 미확인 | 미정 | 미정 | 미정 | `Unverified` |
 | `R-04` | 유상 제공 | 대가 부과, 유상 Offering 또는 비용 회수가 허용되는가 | 가격·대가·수익배분·유상화 조항 | 문서 미확인 | 미정 | 미정 | 미정 | `Unverified` |
@@ -351,9 +359,12 @@ Provider는 기관의 고정 지위가 아니라 계약별 기능이다. 기관�
 | 개인 식별값 | 초기 범위 제외 | `Decision` | 미정 | 미정 | 제외 | 같은 근거 | `Decision` |
 | 가명 식별값 | 초기 범위 제외 | `Decision` | 미정 | 미정 | 제외 | 같은 근거 | `Decision` |
 | 결제수단 원문 | 초기 범위 제외 | `Decision` | 미정 | 미정 | 제외 | 같은 근거 | `Decision` |
-| 추가 필드 묶음 | 미정 | `Unverified` | 미정 | 미정 | 원천 직접 전달·집계·폐쇄환경·제외 중 판정 | 미정 | `Unverified` |
+| 추가 필드 묶음 | 미정 | `Unverified` | 미정 | 미정 | Provider Data Plane 경유 PULL의 원본·집계·폐쇄환경·제외 중 판정 | 미정 | `Unverified` |
 
-`원천 직접 전달`은 데이터 스페이스 보관·중계를 뜻하지 않는다. Consumer가 계약 범위에서 원천으로부터 직접 당기는 방식이다. 집계·폐쇄환경은 가능한 판정값일 뿐 이 문서가 특정 필드에 미리 채택한 경로가 아니다.
+`Provider Data Plane 경유 PULL`은 `E-21`이 정한 전송 경로다.
+Consumer는 계약 범위에서 Provider Data Plane에 접근하고 Data Plane이 source binding으로 원천에서 읽어 응답한다.
+Provider Data Plane은 참가자(Provider)의 전송 경계이며 데이터 스페이스 공통 서비스가 아니다.
+원본·집계·폐쇄환경·제외는 가능한 필드 처리 판정값일 뿐 이 문서가 특정 필드에 미리 채택한 방식이 아니다.
 
 ### 8.4 `E-20` 준비 상태
 
@@ -364,7 +375,7 @@ Provider는 기관의 고정 지위가 아니라 계약별 기능이다. 기관�
 | 조건 | 단계 0 준비 항목 | 충족 증거 후보 | 현재 상태 | 판정 제한 |
 | --- | --- | --- | --- | --- |
 | 계약 체결 | 당사자, 데이터셋, 목적, 수신자, 기간, 권리 9항목, 종료·철회 조항 확정 | 서명 계약과 부속 데이터 명세 | `Unverified` | 서명본 전에는 계약 체결 판정 불가 |
-| 수신 가능 상태 | Consumer, source binding, 원천 접근자원 발급 절차, 허용 형식·기간 확정 | 승인된 접근 절차와 수신 준비 증거 | `Unverified` | 판정 기준·승인 기록 미확인 시 판정 불가 |
+| 수신 가능 상태 | Consumer, Provider Data Plane 수신 endpoint, source binding, Data Plane용 원천 접근자원 발급 절차, 허용 형식·기간 확정 | 승인된 접근 절차와 수신 준비 증거 | `Unverified` | 판정 기준·승인 기록 미확인 시 판정 불가 |
 | 기술적 온보딩 완료 | `DRV-01`의 참가자 수준 종단시험 기준·증거 필요 | 미정 | `Unverified` | 이 문서에서 결정하지 않음 |
 | 세 조건 전체 | 조건별 상태와 감사 기록 연결 필요 | `DRV-03`에서 미정 | `Unverified` | 단계 0 서식만으로 제출 이행 성립 판정 금지 |
 
@@ -404,7 +415,7 @@ Provider는 기관의 고정 지위가 아니라 계약별 기능이다. 기관�
 | `OPEN-PRC-12` | `DRV-04` | `Unverified` | 온보딩 미완료 참가자는 DS 경유 이행이 성립하지 않으므로 **기존 경로 병행이 필수**. 전환 일정(`E-15`)은 온보딩 완료율에 종속 | 기존 경로 종료조건과 전환 시점 판정 불가 | 완료율 분모·임계값·증거와 기존 경로 종료조건 승인 | 미정 | 미정 |
 | `OPEN-PRC-13` | 없음 | `Unverified` | 단계 0 자료 확보·검토·선정 기록의 실행 담당과 기한 | 실행 순서의 책임·일정 추적 불가 | 역할별 담당자와 기한의 승인 기록 | 미정 | 미정 |
 
-`OPEN-PRC-12`의 DS 경유 이행은 데이터 스페이스의 신원·Catalog·계약·정책·감사 절차를 뜻한다. payload는 Consumer가 원천에서 직접 PULL한다.
+`OPEN-PRC-12`의 DS 경유 이행은 데이터 스페이스의 신원·Catalog·계약·정책·감사 절차를 뜻한다. payload는 Consumer가 Provider Data Plane에서 PULL하고, Data Plane이 source binding으로 원천에서 읽어 응답한다.
 
 ## 10. 출처
 
@@ -412,15 +423,15 @@ Provider는 기관의 고정 지위가 아니라 계약별 기능이다. 기관�
 
 | 근거 | 적용 범위 | 확인일 |
 | --- | --- | --- |
-| [ADR-0002: 원천 유지와 Adapter 기반 전달](../adr/0002-data-stays-at-source.md) | 원천 system of record, Adapter 기반 직접 전달, 중앙 전량 복제 제외 | 2026-08-03 |
-| [EDC 기반 CaaS·DSaaS 구성 설계 §6](../02-architecture/edc-caas-dsaas-architecture.md#6-offering-게시와-전송) | Provider transfer worker, 기존 정산 시스템 Consumer 배치, `E-20` | 2026-08-03 |
+| [ADR-0002: 원천 유지와 Adapter 기반 전달](../adr/0002-data-stays-at-source.md) | 원천 system of record, Adapter 기반 전달, 중앙 전량 복제 제외 | 2026-08-03 |
+| [EDC 기반 CaaS·DSaaS 구성 설계 §6](../02-architecture/edc-caas-dsaas-architecture.md#6-offering-게시와-전송) | Provider transfer worker, Provider Data Plane 경유 PULL, 기존 정산 시스템 Consumer 배치, `E-20`, `E-21` | 2026-08-03 |
 | [의무화·간주 규정 선례 조사 §5~§6](../01-research/mandate-and-deeming-precedents.md#5-6개-도시-조례-판정) | 6개 도시 조례, 현행 문서 한계, 법적 4층위 | 2026-08-03 |
 | [운영기관 문의 패키지](../01-research/operator-inquiry-package.md) | 문의 순서, 요청 자료, 회신 판정과 이력 형식 | 2026-08-03 |
 | [운영기관 확인 질문](../01-research/operator-questionnaire.md) | 질문표 형식과 증거 기준 | 2026-08-03 |
 | [원천·권리 인벤토리 §5](../01-research/source-and-rights-inventory.md#5-역할과-offering-provider-판정-절차) | 8단계 Provider 판정 절차 | 2026-08-03 |
 | [기존 허브의 데이터 스페이스 연계 역량 조사 §6.2](../01-research/hub-capability-assessment.md#62-데이터셋별-권리-확인-항목) | 데이터셋별 권리 9항목 | 2026-08-03 |
 | [저기술 참가자 온보딩 선례 조사 §6](../01-research/low-tech-onboarding-precedents.md#6-국내-버스-실태) | 버스 참가자 기술수준과 전국 판정 한계 | 2026-08-03 |
-| [초기 유즈케이스·KPI §3](initial-usecases-and-kpi.md#3-준공영제-정산-유즈케이스) | 초기 교환·제외 범위, 직접 PULL, `T-04` | 2026-08-03 |
+| [초기 유즈케이스·KPI §3](initial-usecases-and-kpi.md#3-준공영제-정산-유즈케이스) | 초기 교환·제외 범위, Provider Data Plane 경유 PULL, `T-04` | 2026-08-03 |
 | [교통·물류 데이터 스페이스 참가자 지도](../01-research/transport-participant-map.md) | 정산 경로의 역할 구분과 미확인 권리 | 2026-08-03 |
 | [법적 근거 확보 선례 조사 §7.2](../01-research/legal-basis-precedents.md#72-고시훈령의-한계) | 고시·훈령과 상위 규범의 권한 경계 | 2026-08-03 |
 | `SRC-PRC-012`·[의무화·간주 규정 선례 조사 §1.1](../01-research/mandate-and-deeming-precedents.md#11-읽기-주의--조사-원문-용어와-저장소-아키텍처의-관계) | `E-15` 결정 기록과 2027·2028년 일정 경계 | 2026-08-03 |

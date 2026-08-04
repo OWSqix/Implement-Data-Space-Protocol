@@ -16,10 +16,13 @@ Superseded by:
 | `E-16` | `Decision` | 계약별로 **Provider 기능을 수행하는 주체의 기본값은 원천기관**이다. 허브가 특정 데이터셋에서 Provider 기능을 수행하려면 **포괄 위임이 문서로 확인**돼야 한다 |
 | `E-18` | `Decision` | 허브 연계 범위는 **재제공권 확인목록**으로 한다. 기본값은 미연계이고 재제공 권리가 문서로 확인된 데이터셋만 추가한다 |
 | `E-19` | `Decision` | 기존 정산 시스템(회계처리·버스경영관리시스템)은 **Consumer로 온보딩**한다. 계약을 맺고 운수사 원천에서 당겨온다 |
+| `E-21` | `Decision` | payload 전송은 **Provider Data Plane 경유로 단일화**한다. 원천 직접 방식(Consumer가 원천 token·signed URL로 원천에 직접 접근)은 채택하지 않는다 |
 
 - **(Decision)** Provider는 계약별 기능이지 기관의 지위가 아니다. 같은 기관도 계약과 데이터셋에 따라 Provider·Consumer 또는 운영 기능을 달리 수행할 수 있다.
 - **(Decision)** 허브는 기관 유형만으로 Provider 기능에서 제외되지 않는다. `E-16`과 `E-18`의 문서 조건을 충족한 데이터셋에서는 Provider 기능을 수행할 수 있다.
-- **(Decision)** 데이터 스페이스는 payload를 보관하지도 중계하지도 않는다. 데이터 스페이스는 신원·카탈로그·계약·정책·감사를 담당하고 실제 바이트는 원천에서 Consumer로 직접 이동한다.
+- **(Decision — E-21)** 데이터 스페이스는 payload를 보관하지도 중계하지도 않는다.
+- **(Decision — E-21)** 데이터 스페이스 공통 서비스는 신원·카탈로그·계약·정책·감사를 담당한다.
+- **(Decision — E-21)** Consumer는 계약 범위에서 Provider Data Plane에 접근하고, Data Plane이 source binding으로 원천에서 읽어 응답한다.
 - **(Decision)** 이 ADR은 [ADR-0003](0003-existing-platform-integration-topology.md)의 4분류·배치 선택지를 뒤집지 않고 보완한다. 대체 관계는 두지 않는다.
 - **(Unverified)** Provider 권한 entry, 재제공권 확인목록의 운영, 기존 시스템별 Consumer 온보딩 요건은 8절에 등록한다.
 
@@ -27,7 +30,9 @@ Superseded by:
 
 - **(Verified)** [ADR-0002](0002-data-stays-at-source.md)는 원천 플랫폼을 system of record로 유지하고 승인된 Adapter로 payload를 전달하는 원칙을 채택했다. DSP는 실제 payload 전송 프로토콜을 규정하지 않고 Control Plane과 Data Plane을 논리적으로 구분한다.
 - **(Decision)** `E-19`는 [ADR-0002](0002-data-stays-at-source.md)의 원천 유지 원칙의 귀결이다.
-- **(Verified)** [EDC 기반 CaaS·DSaaS 구성 설계 §6](../02-architecture/edc-caas-dsaas-architecture.md#6-offering-게시와-전송)은 Provider transfer worker를 승인된 PULL 전송 사건에 따라 원천 token이나 signed URL을 발급하는 경계로 정의한다. 이 worker는 EDC Data Plane이나 DSP endpoint가 아니다.
+- **(Decision — E-19·E-21 해석 경계)** `E-19`의 승인 문구는 업무 층위의 원천 유지와 수신 관계를 뜻한다. Consumer에게 원천 접근권을 부여한다는 뜻이 아니며, 기술 경로는 Provider Data Plane 경유 PULL이다.
+- **(Verified)** [EDC 기반 CaaS·DSaaS 구성 설계 §6](../02-architecture/edc-caas-dsaas-architecture.md#6-offering-게시와-전송)은 Provider transfer worker를 승인된 PULL 전송 사건에 따라 원천 token이나 signed URL을 발급하는 경계로 정의한다.
+- **(Verified)** 발급 결과는 Provider Data Plane의 source binding이며 Consumer에게 노출하지 않는다. 이 worker는 EDC Data Plane이나 DSP endpoint가 아니다.
 - **(Verified)** [허브 역량 조사 §2.1](../01-research/hub-capability-assessment.md#21-핵심-판정)는 공개 문서와 저장소 정본을 기준으로 허브 7곳을 전수 판정했다. 축 2·3·4를 함께 충족한 허브는 0곳이고 공개 문서만으로 확정되는 `brokered` 경로도 0개다. 비공개 운영 기능의 부재까지 단정한 결과는 아니다.
 - **(Inferred)** [허브 역량 조사 §4.3](../01-research/hub-capability-assessment.md#43-격차의-영향)의 입력 `hosted` 13개 행은 정본 증거기준 적용 뒤 9개 `unknown`과 4개 메타데이터 역할로 하향됐다. 기능 부재 판정이 아니라 계약시험·운영 책임·식별자·version·삭제·권리의 묶음 증거가 없다는 판정이다.
 - **(Inferred)** [허브 역량 조사 §6.1](../01-research/hub-capability-assessment.md#61-허브별-위험과-provider-구조)과 [허브 섭외 조사 §4.1](../01-research/hub-recruitment-feasibility.md#41-발주로-만들-수-없는-권리)은 법정 수집권과 DSP 재라이선스권이 동일하지 않다고 판정했다. 수집·가공·공개 근거가 있어도 Provider 기능의 위임과 제3자 재배포 권리는 데이터셋별 문서 확인이 필요하다.
@@ -65,7 +70,7 @@ Superseded by:
 
 | 선택지 | 판정 | 사유 |
 | --- | --- | --- |
-| 기존 정산 시스템을 계약별 Consumer로 온보딩하고 원천에서 PULL | `E-19` 채택 | 원천 유지 원칙과 정산 기능의 수신·대사 역할을 함께 보존 |
+| 기존 정산 시스템을 계약별 Consumer로 온보딩하고 Provider Data Plane에서 PULL | `E-19`·`E-21` 채택 | 원천 유지 원칙과 정산 기능의 수신·대사 역할을 보존하면서 Consumer의 원천 직접 접근을 배제 |
 | 데이터 스페이스가 정산 payload를 중앙 보관하거나 중계 | 기각 | [ADR-0002](0002-data-stays-at-source.md)의 원천 유지 원칙과 payload 경계에 어긋남 |
 | 정산 시스템을 기관 단위 Provider로 고정 | 기각 | 다른 계약에서 제공 기능을 수행할 가능성과 `E-19` 대상 계약의 Consumer 기능을 혼동함 |
 
@@ -86,15 +91,16 @@ Superseded by:
 ### 4.3 Consumer 온보딩과 payload 경로
 
 - **(Decision)** `E-19` 대상 계약에서 회계처리·버스경영관리시스템은 Consumer 기능을 수행한다.
-- **(Decision)** Consumer는 계약을 맺고 승인된 PULL 전송으로 운수사 원천의 실제 바이트를 직접 가져간다.
-- **(Decision)** 데이터 스페이스는 신원·Offering·계약·정책·감사 사건을 처리하고 payload 경로에 들어가지 않는다.
-- **(Verified)** Provider transfer worker는 승인 사건을 원천 token이나 signed URL 발급으로 바꾸며 EDC Data Plane이나 DSP endpoint 역할을 맡지 않는다.
+- **(Decision — E-21)** Consumer는 계약 범위에서 Provider Data Plane에 PULL로 접근하고, Data Plane이 source binding으로 운수사 원천에서 읽어 응답한다.
+- **(Decision — E-21)** 데이터 스페이스 공통 서비스는 신원·Offering·계약·정책·감사 사건을 처리하고 payload를 보관·중계하지 않는다. Provider Data Plane은 참가자 측 구성요소다.
+- **(Verified)** Provider transfer worker는 승인 사건을 원천 token이나 signed URL 발급으로 바꾼다. 발급 결과는 Connector를 거쳐 Provider Data Plane의 source binding이 된다.
+- **(Verified)** 발급 결과는 Consumer에게 전달되지 않는다. 이 worker는 EDC Data Plane이나 DSP endpoint 역할을 맡지 않는다.
 - **(Unverified)** 회계처리·버스경영관리시스템별 identity, endpoint, 보안, 계약과 PULL 수신 요건은 미조사다.
 
 ### 4.4 비용과 제약
 
 - **(Inferred)** 데이터셋별 위임 문서와 재제공 권리 증거를 수집·승인·철회하는 운영 비용이 발생한다.
-- **(Verified)** 중앙 payload 완충 경로를 두지 않으므로 원천 endpoint의 가용성·quota·version 변경이 Consumer에 영향을 준다.
+- **(Verified)** 중앙 payload 완충 경로를 두지 않으므로 Provider Data Plane과 원천 endpoint의 가용성·quota·version 변경이 Consumer 응답에 영향을 준다.
 - **(Unverified)** 기존 정산 시스템 인터페이스의 PULL 지원 여부는 미조사다. 시스템별 Adapter 범위와 전환 조건은 판정 불가다.
 
 ## 5. 검증
@@ -105,8 +111,8 @@ Superseded by:
 | `E-16` 허브 예외 | `Unverified` | 특정 데이터셋의 포괄 위임 문서와 승인 entry | 문서 범위와 정확히 일치하는 허브·원천·자산·행위만 승인 | 위임 증거 ID, 승인 entry와 resolver 결과 |
 | `E-18` 기본 미연계 | `Unverified` | 재제공권 확인목록과 Catalog 후보 | 확인목록에 없는 데이터셋의 허브 Offering을 생성하지 않음 | 확인목록 version, Catalog diff와 거부 기록 |
 | `E-18` 등재 경로 | `Unverified` | 데이터셋별 재제공 권리 문서 | 확인된 권리 범위를 넘는 계약·재배포를 거부 | 법률·계약 검토 기록과 정책 판정 |
-| `E-19` Consumer 경로 | `Unverified` | Consumer 계약, 운수사 원천 endpoint, 승인된 PULL 사건 | 실제 바이트가 원천에서 Consumer로 직접 이동하고 데이터 스페이스에 payload 저장·중계 지점이 없음 | 전송 trace, 원천 접근 로그와 감사 상관관계 |
-| worker 경계 | `Unverified` | 승인·거부 PULL 사건 | 승인 사건에만 원천 token 또는 signed URL을 발급하고 worker를 EDC Data Plane·DSP endpoint로 노출하지 않음 | worker 사건 로그, 배포 명세와 endpoint 검사 |
+| `E-19` Consumer 경로 | `Unverified` | Consumer 계약, Provider Data Plane endpoint와 source binding, 승인된 PULL 사건 | Consumer가 Provider Data Plane에 접근하고 Data Plane이 source binding으로 운수사 원천에서 읽어 응답하며 데이터 스페이스 공통 서비스에 payload 저장·중계 지점이 없음 | 전송 trace, Provider Data Plane·원천 접근 로그와 감사 상관관계 |
+| worker 경계 | `Unverified` | 승인·거부 PULL 사건 | 승인 사건에만 원천 token 또는 signed URL을 발급하고 Connector를 거쳐 Provider Data Plane의 source binding으로 설정하며 Consumer에게 노출하지 않음 | worker 사건 로그, Connector 관리 API 기록, 배포 명세와 endpoint 검사 |
 
 현재 표의 `Unverified`는 결정 미승인을 뜻하지 않는다. 승인된 운영 entry·확인목록·시스템별 종단시험 증거가 아직 없다는 뜻이다.
 
@@ -116,7 +122,7 @@ Superseded by:
 - 법령·조례·계약이 중앙 보관 또는 다른 이행 경로를 명시적으로 요구함
 - 재제공권 확인목록의 운영 주체와 갱신 절차가 승인됨
 - 기존 정산 시스템별 Consumer 온보딩 조사와 종단시험 결과가 확보됨
-- 원천 직접 PULL이 법적 의무, 보안 또는 서비스 수준을 충족하지 못한다는 증거가 확인됨
+- Provider Data Plane 경유 PULL이 법적 의무, 보안 또는 서비스 수준을 충족하지 못한다는 증거가 확인됨
 
 정기 재검토일: 미정
 
@@ -139,7 +145,7 @@ Superseded by:
 | --- | --- | --- | --- | --- | --- | --- |
 | `OPEN-PES-01` | `Verified` | `E-16`의 시행 공백. schema는 `data-owner`·`delegated-provider`·`platform-operator`·`connector-operator` 역할과 `delegate` action을 지원해 모델 표현력이 있다. `standards/provider-authority-registry.json`의 승인 entry는 0건이고 resolver는 정확 일치 후보가 없으면 거부한다. 따라서 `E-16`은 해당 scope의 entry 등록·승인으로만 시행된다. | 현재 원천기관 기본값과 허브 예외를 기계 판정할 승인 권한이 없음 | 문서로 확인된 데이터셋 scope의 승인 entry, 유효한 검증 증거와 exact-match 허용·인접 scope 거부 결과 | 미정 | 미정 |
 | `OPEN-PES-02` | `Unverified` | `E-18` 재제공권 확인목록의 운영 주체와 갱신·철회 절차가 미정 | 등재·제외·권리 변경의 승인 책임과 감사 순서를 판정 불가 | 승인된 책임분장, 갱신·철회 절차와 변경 감사 기록 | 미정 | 미정 |
-| `OPEN-PES-03` | `Unverified` | `E-19` 적용 시 회계처리·버스경영관리시스템별 Consumer 온보딩 요건 미조사 | 대상별 identity·접속·보안·계약·원천 인터페이스와 PULL 가능 여부 판정 불가 | 시스템별 조사서, 승인된 온보딩 판정 기준과 종단시험 증거 | 미정 | 미정 |
+| `OPEN-PES-03` | `Unverified` | `E-19` 적용 시 회계처리·버스경영관리시스템별 Consumer 온보딩 요건 미조사 | 대상별 identity·접속·보안·계약·Provider Data Plane 인터페이스와 PULL 가능 여부 판정 불가 | 시스템별 조사서, 승인된 온보딩 판정 기준과 종단시험 증거 | 미정 | 미정 |
 
 ## 9. 개정 이력
 
@@ -147,3 +153,4 @@ Superseded by:
 
 | 작성일 | 사유 | 이전 문안과의 차이 |
 | --- | --- | --- |
+| 2026-08-04 | `E-21` 전파 정정 | 2026-08-03에 잘못 추가된 Consumer의 원천 직접 PULL 서술을 철회하고 Provider Data Plane 경유 PULL과 source binding 경계로 정정 |

@@ -69,6 +69,19 @@ function assertAuthorityShape(registry) {
   }
 }
 
+// `releaseDecision` is the registry-level verdict and only ever carries the two
+// values the schema allows. `approved` belongs to `entry.decision`, a different
+// enum, so comparing against it here blocked the gate no matter what the
+// registry said. Registry eligibility is the release bar; per-request runtime
+// verification stays a runtime concern.
+export const authorityReleaseReadyDecision = "eligible-after-runtime-verification";
+
+export function authorityBlocked(document) {
+  return document?.releaseDecision !== authorityReleaseReadyDecision
+    || !Array.isArray(document?.entries)
+    || document.entries.length === 0;
+}
+
 function assertIsoShape(manifest) {
   if (manifest?.schemaVersion !== "molit.iso19115-1-tech-gate/1"
     || typeof manifest.gateStatus !== "string"
@@ -96,8 +109,7 @@ export async function evaluateReleaseGate() {
       status: item.status,
     }));
 
-  if (authority.document.releaseDecision !== "approved"
-    || authority.document.entries.length === 0) {
+  if (authorityBlocked(authority.document)) {
     blockers.push({
       id: "PROVIDER-AUTHORITY-APPROVAL",
       source: "provider-authority-registry",

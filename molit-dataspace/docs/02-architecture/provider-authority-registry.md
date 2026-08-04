@@ -20,7 +20,9 @@ Provider 권한 레지스트리는 참가자가 특정 source의 특정 asset에
 
 시행 상태와 아키텍처 경계는 다음과 같다.
 
-- **(범위 경계)** `data-transfer` 권한 판정은 데이터 스페이스의 payload 보관·중계 권한이 아니다. [ADR-0002](../adr/0002-data-stays-at-source.md)와 [아키텍처 §6](edc-caas-dsaas-architecture.md#6-offering-게시와-전송)에 따라 실제 바이트는 원천에서 Consumer로 직접 이동한다.
+- **(범위 경계)** `data-transfer` 권한 판정은 데이터 스페이스의 payload 보관·중계 권한이 아니다.
+  - **(전송 경계 — `E-21`)** 실제 바이트는 원천에서 계약별 Provider 기능 수행 주체의 Data Plane을 경유해 Consumer로 이동한다.
+  - **(근거)** [ADR-0002](../adr/0002-data-stays-at-source.md), [아키텍처 §6](edc-caas-dsaas-architecture.md#6-offering-게시와-전송)
 - **(Verified — 2026-08-03 직접 확인)** Provider 권한의 실행 정본은 [`standards/provider-authority-registry.json`](../../standards/provider-authority-registry.json)이다. 승인 entry는 0건이며 `releaseDecision=blocked-no-approved-authority`다.
 - **(Verified — 시행 상태)** `E-16`은 문서 수준에서 채택됐지만 실행 정본에서는 미시행이다.
 
@@ -253,7 +255,7 @@ resolver는 상태와 기간보다 먼저 정확 일치 후보 수를 센다. �
 | 운영자 | 접속·보안 | 문서로 확인된 `platform-operator`·`connector-operator`, 접근·보안 운영 증거 | 운영 역할을 Provider 기능 권한으로 전용 금지 |
 
 - **(권한 경계)** `data-transfer` action은 계약별 Provider 기능 판정 범위이며 데이터 스페이스의 payload 보관·중계 권한이 아니다.
-- **(전송 경계)** 실제 바이트는 원천에서 Consumer로 직접 이동한다.
+- **(전송 경계 — `E-21`)** 실제 바이트는 원천에서 Provider Data Plane을 경유해 Consumer로 이동한다.
 - **(Verified — resolver 효과)** 정지·철회 상태를 반영한 현재 registry snapshot을 사용하면 resolver는 이후 권한 요청을 거부한다.
 - **(Inferred — worker 요구 동작)** 거부된 권한 요청에서는 Provider transfer worker가 새 token 또는 signed URL을 발급하지 않는 흐름이 필요하다.
 - **(원천 접근자원)** 이미 발급된 접근자원은 원천이 지원하는 경우 철회하고, 지원하지 않으면 만료 여부를 확인한다.
@@ -291,7 +293,7 @@ resolver는 상태와 기간보다 먼저 정확 일치 후보 수를 센다. �
 | `OPEN-PAR-01` | `Unverified` | §6 절차안의 승인과 entry 승인 주체 | 승인 주체가 없어 승인 entry 생성·등록 책임 판정 불가 | 미정 | 미정 | 절차안, 승인 주체와 직무분리 승인 |
 | `OPEN-PAR-02` | `Unverified` | 출시 범위의 다섯 축 조합 원장, 최소 entry 총수와 실제 승인 증거 | 기계 최소치는 1건이나 운영 최소 entry 총수는 산정 불가이며 release는 차단 상태로 유지 | 미정 | 미정 | 출시 범위 원장, coverage표, 승인 증거와 검증 결과 승인 |
 | `OPEN-PAR-03` | `Verified` | [`R-001`](../03-plan/risk-register.md#3-위험-목록)은 계약·재제공 권한 부재를 다루고 `E-16`의 entry 등록·승인 시행 공백은 담고 있지 않으므로 부분 중복 | 권리 부재와 시행 절차 부재의 범위 구분 | 미정 | 미정 | 없음 — 관계만 기록 |
-| `OPEN-PAR-04` | `Verified` | schema·resolver의 `eligible-after-runtime-verification`과 legacy release 검사의 `approved` 상태값 및 reviewed digest 고정이 충돌 | schema-valid registry만으로 `PROVIDER-AUTHORITY-APPROVAL` 해소 방법 판정 불가 | 미정 | 미정 | 기계 계약·baseline 정합화와 회귀시험 승인 |
+| `OPEN-PAR-04` | `Verified` | **상태값 충돌은 2026-08-04 해소됨.** release 검사가 `entry.decision`의 값인 `approved`를 `releaseDecision`과 비교해 어떤 schema-valid registry로도 차단을 풀 수 없었다. 비교 대상을 `eligible-after-runtime-verification`으로 바로잡고 `authorityBlocked`로 분리해 회귀시험 6건(`RELEASE-GATE-AUTH-001`~`006`)을 추가했다. 현행 데이터의 게이트 출력과 report digest는 불변 | **잔여** — reviewed digest 고정은 설계된 통제이므로 결함이 아니다. 승인 entry를 등록할 때 `tools/release/release-gate.mjs`와 `tools/release/reviewed-inputs.mjs`의 baseline sha256을 함께 갱신하는 절차가 필요 | 미정 | 미정 | entry 등록과 baseline 갱신을 한 변경으로 묶는 절차 승인 |
 | `OPEN-PAR-05` | `Unverified` | 승인 결정 artifact의 서명검증 절차, 실제 기관 trust anchor, production composition root adapter와 요청별 receipt 발급·검증 구성 | 승인 entry가 생겨도 runtime 서명검증과 운영 release 판정 불가 | 미정 | 미정 | 승인 artifact·receipt 서명검증과 trust store 종단시험 승인 |
 | `OPEN-PAR-06` | `Verified` | 사고 책임과 FPIS식 3분할 책임은 현 entry에 구조화되지 않고 근거 artifact로만 연결됨 | 책임 조항을 resolver에서 기계 판독·집행하는 범위 판정 불가 | 미정 | 미정 | evidence-only 유지 또는 기계 계약 확장 여부 승인 |
 | `OPEN-PAR-07` | `Unverified` | 갱신·철회 운영 주체, 이전 snapshot 보존 정본, 전파 대상·허용 지연과 완료 판정 | 중복 후보 방지, 철회 freshness와 접근자원 철회·만료 처리 완료 판정 불가 | 미정 | 미정 | 운영 책임분장, 이력·전파 절차와 검증 기준 승인 |

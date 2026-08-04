@@ -11,9 +11,13 @@
 
 이 문서의 2~11절은 허브가 특정 데이터셋에서 계약별 Provider 기능을 수행할 때 적용하는 원천 측 계약이다. southbound는 관리·상태 인터페이스의 방향이며 payload의 목적지를 뜻하지 않는다.
 
-- **(Decision)** 데이터 스페이스는 payload를 보관하거나 중계하지 않는다. 신원·카탈로그·계약·정책·감사를 처리하고, Consumer는 계약 뒤 원천의 실제 바이트를 직접 당겨온다.
+- **(Decision)** 데이터 스페이스는 payload를 보관하거나 중계하지 않는다. 신원·카탈로그·계약·정책·감사를 처리한다. Provider Data Plane은 참가자(Provider) 측 전송 경계이며 데이터 스페이스 공통 서비스가 아니다.
+- **(Decision · E-21)** payload 전송은 **Provider Data Plane 경유로 단일화**한다. 원천 직접 방식(Consumer가 원천 token·signed URL로 원천에 직접 접근)은 채택하지 않는다
+  - **(전송 경계)** Consumer는 계약 범위에서 Provider Data Plane에 PULL로 접근하고, Provider Data Plane이 source binding으로 원천에서 읽어 응답함
 - **(Verified)** DSP는 Control Plane과 Data Plane을 논리적으로 분리하며 payload 전송 프로토콜을 규정하지 않는다.
 - **(Decision)** Provider transfer worker는 Connector가 이미 승인한 당겨오기(Pull, PULL) 전송 사건을 받아 원천 플랫폼 token이나 signed URL을 발급하는 경계다. 이 worker를 EDC Data Plane이나 DSP endpoint로 부르지 않는다.
+  - **(source binding)** 발급 결과는 Connector를 거쳐 Provider Data Plane의 source binding이 되며 Consumer에게 제공하지 않음
+- **(Decision · E-21 · 정정 기록)** 2026-08-03에 잘못 추가된 Consumer의 원천 직접 접근 서술을 Provider Data Plane 경유 PULL로 정정함
 
 근거: [ADR-0002](../adr/0002-data-stays-at-source.md), [EDC 기반 CaaS·DSaaS 구성 설계 §6](edc-caas-dsaas-architecture.md#6-offering-게시와-전송)
 
@@ -122,7 +126,7 @@ listEntitlements(filter)
 - 현재 상태와 상태 변경시각
 - 적용 participant·product·scope
 - expiry와 갱신 규칙
-- payload 접근을 위한 별도 token issuer 또는 binding reference
+- Provider Data Plane source binding을 위한 별도 token issuer 또는 binding reference
 - platform correlation ID
 
 ### 5.2 삭제 의미
@@ -130,7 +134,7 @@ listEntitlements(filter)
 `DELETE 204`만으로 회수가 끝났다고 판정하지 않는다. 다음 결과를 확인한다.
 
 - 신규 payload request의 거부 결과
-- 이미 발급한 token·signed URL·접근제어목록(Access Control List, ACL)의 폐기 결과
+- Provider Data Plane source binding에 발급한 token·signed URL·접근제어목록(Access Control List, ACL)의 폐기 결과
 - stream consumer group과 replay 권한의 제거 결과
 - 플랫폼이 생성·관리하는 export·snapshot의 보존정책별 삭제 결과
 - 삭제 상태 조회 또는 audit evidence
@@ -143,7 +147,7 @@ listEntitlements(filter)
 | 단계 | 입력·선행조건 | 실행 주체와 동작 | 합격 기준 | 증거 |
 | --- | --- | --- | --- | --- |
 | 1. Entitlement 생성 | 체결된 데이터 스페이스 Agreement와 허브 대상 Dataset | 허브 Adapter가 Agreement ID로 entitlement를 한 번 생성 | 허브 entitlement ID가 Agreement ID와 mapping되고 중복 활성 객체 0개 | 생성 response, mapping record, 상태 event |
-| 2. 접근·감사 | 활성 entitlement와 scoped credential | Consumer 서비스계정이 계약-ID를 포함해 원천 플랫폼의 payload에 직접 접근 | 접근 성공, Dataset·version·전달량·결과가 같은 correlation ID로 기록 | access log, payload checksum, audit record |
+| 2. 접근·감사 | 활성 entitlement, Consumer scoped credential와 Provider Data Plane source binding | Consumer 서비스계정이 계약 ID를 포함해 Provider Data Plane에 PULL을 요청하고, Data Plane이 source binding으로 원천 payload를 읽어 응답 | PULL 성공, Dataset·version·전달량·결과가 같은 correlation ID로 기록 | Data Plane access log, payload checksum, audit record |
 | 3. 정지·재개 | 활성 entitlement | Adapter가 `suspend` 뒤 접근을 시도하고 `resume` 뒤 다시 시도 | 정지 중 401 또는 403, 재개 뒤 동일 scope 접근 성공 | 상태 event, 두 접근 response, audit record |
 | 4. 종료·회수 | 종료된 Agreement | Adapter가 원천 구독·key·임시 자원을 삭제하고 기존 credential로 재접근 | 원천 상태가 종료되고 신규·기존 credential 접근에서 401 또는 403 | 삭제 response, 원천 상태 조회, 접근 거부 log |
 | 5. 멱등 재시도 | 각 단계와 같은 idempotency key | Adapter가 생성·정지·재개·삭제 요청을 재전송 | 상태가 한 번만 전이되고 중복 구독·key·청구 0개 | 재시도 response, 객체 수 조회, 상태 이력 |
@@ -157,7 +161,7 @@ listEntitlements(filter)
 
 - **(Verified)** 이미 내려받은 복제본은 기술적으로 회수할 수 없다.
 - **(Decision)** 향후 다운로드 차단과 함께 소비자의 삭제·보존종료 확인 절차로 대체해야 한다.
-  - **(합격 기준)** 계약 종료 뒤 원 다운로드 URL·credential 재사용에서 401 또는 403을 확인한다.
+  - **(합격 기준)** 계약 종료 뒤 기존 Provider Data Plane 다운로드 URL·접근 credential 재사용에서 401 또는 403을 확인한다.
   - **(확인 증거)** 소비자는 파일 ID·checksum·삭제 시각·잔여 보존 예외를 기록한 확인서를 제공한다.
 - **(Unverified)** 삭제 확인 절차만으로 소비자 저장장치의 물리적 삭제 여부는 판정 불가다.
 - **(Inferred)** 이 한계는 재제공·보존이 전달 후 기계집행 불가인 것과 같은 성질이다. 정책 표현과 계약·감사 절차를 결합하되 기술적 회수로 판정하지 않는다.
@@ -257,7 +261,11 @@ mock을 통과해도 운영 연계 승인이 된 것은 아니다. 운영 endpoi
 ## 12. Consumer 측 인터페이스 계약
 
 - **(Decision)** `E-19` — 기존 정산 시스템(회계처리·버스경영관리시스템)은 **Consumer로 온보딩**한다. 계약을 맺고 운수사 원천에서 당겨온다
-- **(Decision)** 데이터 스페이스가 실제 바이트를 수신하거나 정산 시스템에 적재하지 않는다. Consumer는 계약과 전송 요청을 처리한 뒤 운수사 원천에서 직접 PULL하고 자기 시스템에 적재한다.
+- **(Decision · E-21 · 해석 경계)** E-19의 승인 문구는 업무 층위에서 운수사 원천을 system of record로 유지한다는 뜻이며, 원천 접근권을 Consumer에게 부여한다는 뜻이 아니다.
+- **(Decision · E-21)** 데이터 스페이스가 실제 바이트를 수신하거나 정산 시스템에 적재하지 않음
+  - **(전송 경계)** Consumer는 계약 범위에서 Provider Data Plane에 PULL로 접근하고, Provider Data Plane이 source binding으로 운수사 원천에서 읽어 응답함
+  - **(Consumer 책임)** Consumer는 수신 결과를 자기 시스템에 적재함
+  - **(책임 경계)** Provider Data Plane은 참가자(Provider) 측 전송 경계이며 데이터 스페이스 공통 서비스가 아님
 
 Consumer 측 수용 판정에는 다음 능력의 확인이 필요하다.
 

@@ -4,7 +4,7 @@
 작성 기준: 2026-08-03  
 최종 개정: 2026-08-03  
 상태: Draft
-관련 결정: `E-15`, `E-16`, `E-17`, `E-18`, `E-19`, `E-20`
+관련 결정: `E-15`, `E-16`, `E-17`, `E-18`, `E-19`, `E-20`, `E-21`
 
 ## 1. 목적과 완료 판정
 
@@ -21,7 +21,9 @@
   -> Agreement 교환·검증과 Contract Negotiation FINALIZED
   -> platform entitlement·subscription·token·snapshot 생성
   -> Provider transfer worker가 승인된 PULL 사건에 따라 원천 접근 token·signed URL 발급
-  -> Consumer가 원천 플랫폼에서 payload PULL
+  -> 발급 결과를 Connector 관리면을 거쳐 Provider Data Plane의 source binding 입력으로 설정
+  -> Consumer가 계약 범위에서 Provider Data Plane에 payload PULL 요청
+  -> Provider Data Plane이 source binding으로 원천에서 읽어 응답
   -> Transfer 완료·종료와 단기자원 회수
   -> Agreement 해지·Dataset 철회와 장기자원 회수
   -> reconciliation
@@ -29,10 +31,12 @@
 
 metadata만 동기화하면 Discovery Bridge PoC다. Agreement와 실제 플랫폼 접근 수명주기까지 연결해야 Full Offering Bridge PoC다. 두 결과를 같은 완료로 보고하지 않는다.
 
-- **(Decision)** 데이터 스페이스는 신원·Catalog·계약·정책·감사를 담당하며 payload를 보관하거나 중계하지 않음
+- **(Decision)** 데이터 스페이스 공통 서비스는 신원·Catalog·계약·정책·감사를 담당하며 payload를 보관하거나 중계하지 않음
   - **(근거)** [ADR-0002](../adr/0002-data-stays-at-source.md)와 [EDC 기반 CaaS·DSaaS 구성 설계 §6](../02-architecture/edc-caas-dsaas-architecture.md#6-offering-게시와-전송)
-- **(Decision)** 실제 바이트는 Consumer가 계약 뒤 원천에서 직접 PULL함
-  - **(경계)** Provider transfer worker는 원천 token 또는 signed URL 발급 경계이며 EDC Data Plane이나 DSP endpoint가 아님
+- **(Decision — E-21)** payload 전송은 **Provider Data Plane 경유로 단일화**한다. 원천 직접 방식(Consumer가 원천 token·signed URL로 원천에 직접 접근)은 채택하지 않는다
+  - **(전송 경계)** Consumer는 계약 범위에서 Provider Data Plane에 접근해 PULL하고, Provider Data Plane은 source binding으로 원천에서 읽어 응답함
+  - **(소유 경계)** Provider Data Plane은 참가자(Provider)의 전송 경계이며 데이터 스페이스 공통 서비스가 아님
+  - **(worker 경계)** Provider transfer worker는 원천 token 또는 signed URL의 발급 결과를 Connector 관리면으로 넘겨 Provider Data Plane의 source binding 입력을 만드는 경계이며 EDC Data Plane이나 DSP endpoint가 아님
 
 ## 2. 추진 원칙
 
@@ -52,7 +56,7 @@ D-12의 첫 출시 범위는 공개·등록형 공개와 기관 제한 자산까
 
 | 자산 판정 | 첫 출시 처리 | 선행 증거 | 실패 처리 |
 | --- | --- | --- | --- |
-| 공개·등록형 공개 | 기존 공개 원천 경로를 유지하고 Consumer가 계약 뒤 원천에서 직접 PULL하는 승인 경로를 추가 | license, Provider 권한, source·Distribution, 회수방법 | `catalog-only` 또는 제외 |
+| 공개·등록형 공개 | 기존 공개 원천 인터페이스를 Provider Data Plane의 source binding으로 유지하고 Consumer가 계약 뒤 Provider Data Plane에서 PULL하는 승인 경로를 적용 | license, Provider 권한, source·Distribution, 회수방법 | `catalog-only` 또는 제외 |
 | 기관 제한 | 사업자 데이터의 기관 자격·목적·기간과 통제 경로를 자산별 승인 | 권리 inventory, 수신자·목적·기간, 통제 Data Plane, 감사 | 증거 하나라도 없으면 제외 |
 | 개인정보·가명정보 | 첫 출시 제외 유지 | 2차 secure analysis 결정 전에는 평가만 기록 | `excluded` |
 | 공개제한 공간정보 | 첫 출시 제외 유지 | 보안심사·승인환경·반출통제 결정 전에는 평가만 기록 | `excluded` |
@@ -72,8 +76,11 @@ D-12의 첫 출시 범위는 공개·등록형 공개와 기관 제한 자산까
 | `E-18` | 허브 연계 범위는 **재제공권 확인목록**으로 한다. 기본값은 미연계이고 재제공 권리가 문서로 확인된 데이터셋만 추가한다 |
 | `E-19` | 기존 정산 시스템(회계처리·버스경영관리시스템)은 **Consumer로 온보딩**한다. 계약을 맺고 운수사 원천에서 당겨온다 |
 | `E-20` | 제출 이행은 **계약 체결 + 수신 가능 상태 + 기술적 온보딩 완료**의 세 조건이 모두 충족된 때 성립한다 |
+| `E-21` | payload 전송은 **Provider Data Plane 경유로 단일화**한다. 원천 직접 방식(Consumer가 원천 token·signed URL로 원천에 직접 접근)은 채택하지 않는다 |
 
 `Provider`는 계약별 기능이며 기관의 고정 지위가 아니다. 허브는 기본값이 아니지만, 포괄 위임이 문서로 확인된 데이터셋에서는 그 계약의 Provider 기능을 수행할 수 있다.
+
+`E-19`의 “운수사 원천에서 당겨온다”는 업무 층위의 승인 문구다. Consumer에게 원천 접근권을 부여한다는 뜻이 아니며, 기술 전송은 `E-21`에 따라 Consumer가 Provider Data Plane에서 PULL하고 Data Plane이 source binding으로 운수사 원천에서 읽어 응답하는 경로를 따른다.
 
 ## 3. 단계 개요
 
@@ -98,9 +105,9 @@ D-12의 첫 출시 범위는 공개·등록형 공개와 기관 제한 자산까
 | ---: | --- | --- | --- | --- |
 | 1 | 원천 권리 확정 | 파일럿 지자체 조례·준공영제 협약·정산 위수탁계약·운수사 데이터 권리를 확인 | 단계 1의 `G0~G3` 판정 입력 | 원문별 권리·제한·계약별 Provider 기능 주체를 추적한 Dataset Passport |
 | 2 | 표준 참여계약과 데이터 분류 확정 | 미동의·민감 항목은 제외 / 집계 / 폐쇄환경 중 하나로 판정 | 단계 1~2의 권리·정책·보안 review | 서명된 계약·부속합의서와 항목별 분류 기록 |
-| 3 | **허브 없이 직접 연계 1건 완주** | 초기 출범 범위로서 Consumer가 계약을 맺고 운수사 원천에서 PULL | 단계 3~5의 직접 종단 실증 | Agreement→승인된 PULL 사건→원천 접근→종료·회수의 상관관계 증거 1건 |
-| 4 | 재제공권이 확인된 데이터만 첫 허브 1곳에 연계 | `재제공권 확인목록`에 오른 데이터셋만 추가 | 직접 연계 완주 뒤 자산별 `G0~G6` 재통과 | 데이터셋별 위임문서와 허브 종단시험 증거 |
-| 5 | 패턴 확정 후 타부처 협의 | 직접·허브 실증의 계약·API·보안·비용·책임 결과를 협의 입력으로 사용 | 단계 7의 연합 확장 | 협의 안건과 기관별 보완·결정 기록 |
+| 3 | **허브 없이 Provider Data Plane 경유 PULL 1건 완주** | 초기 출범 범위로서 Consumer가 계약을 맺고 Provider Data Plane에서 PULL하며 Data Plane이 source binding으로 운수사 원천에서 읽어 응답 | 단계 3~5의 Provider Data Plane 종단 실증 | Agreement→승인된 PULL 사건→source binding→Provider Data Plane 응답→종료·회수의 상관관계 증거 1건 |
+| 4 | 재제공권이 확인된 데이터만 첫 허브 1곳에 연계 | `재제공권 확인목록`에 오른 데이터셋만 추가 | 허브 미사용 연계 완주 뒤 자산별 `G0~G6` 재통과 | 데이터셋별 위임문서와 허브 종단시험 증거 |
+| 5 | 패턴 확정 후 타부처 협의 | 허브 미사용·허브 연계 실증의 계약·API·보안·비용·책임 결과를 협의 입력으로 사용 | 단계 7의 연합 확장 | 협의 안건과 기관별 보완·결정 기록 |
 | 6 | NTIC·K-MaaS·오픈마켓은 유즈케이스 발생 시 확장 | 실제 수요·권리·운영 책임이 확인된 대상만 추가 | 단계 7의 유즈케이스별 확장 | 허브별 승인 범위와 독립 종단시험 증거 |
 
 - **(Inferred)** 초기 유즈케이스에 필요한 허브는 0곳이고 지시만으로 기능·계약·보안·권리를 모두 반영할 수 있는 허브도 0곳임
@@ -133,13 +140,13 @@ D-12의 첫 출시 범위는 공개·등록형 공개와 기관 제한 자산까
 
 | 순서 | 후보 | 사용 목적 | 현재 상태 |
 | --- | --- | --- | --- |
-| 1 | 파일럿 운수사 원천의 승인된 정산 Dataset | 허브 없는 직접 PULL full lifecycle | 대상 미정, 조례·협약·위수탁계약·데이터 권리 증거 필요 |
+| 1 | 파일럿 운수사 원천의 승인된 정산 Dataset | 허브 없는 Provider Data Plane 경유 PULL full lifecycle | 대상 미정, 조례·협약·위수탁계약·데이터 권리 증거 필요 |
 | 2 | 분석 데이터셋 metadata `GET` | Discovery Bridge | 설계 가능, endpoint·HTTPS 확인 전 실행 차단 |
 | 3 | ITS 표준 노드·링크 파일 | finite snapshot fallback | 권리·source 계약 필요 |
 | 4 | 통계누리 공개 통계 REST | REST gateway fallback | proxy·credential·quota 확인 필요 |
 | 5 | ITS 교통소통 REST | 실시간성·freshness 후속시험 | quota·version 확인 필요 |
 | 6 | VWorld 공개 WFS/WMS | 공간 query 정책 후속시험 | layer 권리·보안등급 확인 필요 |
-| 확장 | 통합채널에서 hosted·brokered 증거와 재제공권이 확인된 공개 Dataset | `E-11`의 Mobilithek형 full lifecycle | 직접 연계 1건 완주 뒤 대상 식별·운영기관 증거 필요 |
+| 확장 | 통합채널에서 hosted·brokered 증거와 재제공권이 확인된 공개 Dataset | `E-11`의 Mobilithek형 full lifecycle | 허브 미사용 Provider Data Plane 연계 1건 완주 뒤 대상 식별·운영기관 증거 필요 |
 
 근거와 제외조건은 [PoC 후보 목록](poc-candidate-shortlist.md)에 기록한다.
 `E-11` 후보는 폐기하지 않으며 `E-17`에 따라 초기 출범 범위가 아닌 확장 순서에 둔다.
@@ -204,7 +211,7 @@ EDC는 사례와 확장성을 확인할 후보지만 채택을 가정하지 않�
 - Offering 등록과 source binding mapping
 - platform provisioning·reconciliation 방식
 - participant와 platform identity binding
-- direct·gateway·snapshot transfer profile
+- Provider Data Plane 경유 REST·snapshot·stream transfer profile
 - production identifier namespace
 - secret·audit·state store와 network 배치
 - Catalog Broker 필요 여부
@@ -238,7 +245,7 @@ EDC는 사례와 확장성을 확인할 후보지만 채택을 가정하지 않�
 2. Consumer가 Catalog를 조회하고 Agreement 교환·검증·수신 확인(Acknowledgement, ACK)을 거쳐 Contract Negotiation을 `FINALIZED`한다.
 3. 필수 필드를 갖춘 Transfer Request와 Provider ACK 뒤 mock platform에 entitlement를 생성한다.
 4. external ID와 source binding을 Data Plane에 연결한다.
-5. pull `dataAddress`를 포함한 Transfer Start와 Consumer ACK 뒤 payload를 읽는다.
+5. Consumer가 Provider Data Plane의 pull `dataAddress`에 접근해 Transfer Start와 ACK 뒤 payload를 PULL한다.
 6. Transfer Completion·Termination 뒤 Transfer scope token·job·snapshot을 삭제한다.
 7. 같은 Agreement로 두 번째 Transfer를 수행해 Agreement scope subscription이 유지됐는지 확인한다.
 8. local Agreement 만료·해지 뒤 subscription·entitlement를 삭제한다.
@@ -280,7 +287,10 @@ EDC는 사례와 확장성을 확인할 후보지만 채택을 가정하지 않�
 
 1. mock adapter의 southbound client만 실제 sandbox client로 교체한다.
 2. 같은 contract test를 실행한다.
-3. metadata 한 건을 게시한다. Provider transfer worker가 Connector가 승인한 PULL 사건에 따라 원천 플랫폼 token 또는 signed URL을 발급하고, Consumer가 이를 사용해 원천 플랫폼에서 payload를 한 번 PULL한다.
+3. metadata 한 건을 게시한다.
+   - Provider transfer worker는 Connector가 승인한 PULL 사건에 따라 원천 플랫폼 token 또는 signed URL을 발급한다.
+   - worker는 발급 결과를 Connector 관리면으로 넘겨 Provider Data Plane의 source binding 입력을 만든다.
+   - Consumer가 계약 범위에서 Provider Data Plane에 접근해 payload를 한 번 PULL하면 Data Plane은 source binding으로 원천에서 읽어 응답한다.
 4. 재시도·만료·정지·종료를 낮은 호출량으로 시험한다.
 5. platform audit와 Connector audit의 correlation을 확인한다.
 6. 생성한 계정·token·subscription·snapshot을 모두 정리한다.
@@ -382,7 +392,9 @@ DSP 기본 규격이 실제 transfer protocol, stream 또는 원격 작업 형�
 - **(완료조건)** DS 수신자료가 정산자료 제출로 인정되고, 미사용·장애·정정 시 효과가 규정된 상태
 - **(경계)** 법규 공포만으로 완료 처리하지 않음
 
-이 완료조건의 “DS 수신자료”는 데이터 스페이스가 payload를 수신·보관·중계한다는 뜻이 아니다. `E-19`에 따라 Consumer로 온보딩된 기존 정산 시스템이 계약을 맺고 운수사 원천에서 직접 PULL한 자료와 그 계약·감사 기록을 뜻한다.
+이 완료조건의 “DS 수신자료”는 데이터 스페이스가 payload를 수신·보관·중계한다는 뜻이 아니다.
+`E-19`에 따라 Consumer로 온보딩된 기존 정산 시스템이 계약을 맺고 Provider Data Plane에서 PULL한 자료와 그 계약·감사 기록을 뜻한다.
+Provider Data Plane은 참가자(Provider)의 전송 경계이며 source binding으로 운수사 원천에서 읽어 응답한다.
 
 | ID | 외부 대기와 현재 판정 | 필요한 조치·완료 증거 | 담당 | 기한 | 근거 |
 | --- | --- | --- | --- | --- | --- |
@@ -404,7 +416,7 @@ DSP 기본 규격이 실제 transfer protocol, stream 또는 원격 작업 형�
 - **(Decision)** 단계 0~7은 기술·운영 증거 Gate로 유지하고, 2028년 목표는 Gate 종료조건을 면제하지 않음 — 기준일: 2026-08-03
 - **(Unverified)** 완료율의 분모·임계값·증거와 판정 주체는 미정이며 이 문서에서 결정하지 않음 — `DRV-01`~`DRV-04`
 
-여기서 DS 경유 이행은 데이터 스페이스의 신원·Catalog·계약·정책·감사 흐름을 뜻한다. payload는 `E-19`의 Consumer가 운수사 원천에서 직접 PULL한다.
+여기서 DS 경유 이행은 데이터 스페이스의 신원·Catalog·계약·정책·감사 흐름을 뜻한다. payload는 `E-19`의 Consumer가 `E-21`에 따라 Provider Data Plane에서 PULL하고, Data Plane이 source binding으로 운수사 원천에서 읽어 응답한다.
 
 ### 14.4 개정 이력
 
@@ -413,6 +425,7 @@ DSP 기본 규격이 실제 transfer protocol, stream 또는 원격 작업 형�
 | 2026-08-03 | 선행 조사는 2027년 병행 시범과 기존 창구 종료 가능성을 함께 검토 | 2027년을 병행 시범·준비기간으로 두고 기존 제출 창구 대체 목표를 2028년으로 이동 | `E-15` |
 | 2026-08-03 | `E-11` 후보가 초기 후보 순서 1위에 있었음 | `E-11`을 폐기하지 않고 초기 범위에서 제외해 확장 단계로 이동 | `E-17` |
 | 2026-08-03 | 선행 조사는 인천·광주 조례 개정을 필요 조건으로 판정 | 기존 정산 시스템을 Consumer로 온보딩하는 구조에서 세부기준 위임 처리 여지가 있어 `LEG-01`을 조건부 불필요로 변경하되 법제심사 미확정을 유지 | `E-19` |
+| 2026-08-04 | 2026-08-03 개정에서 Consumer가 원천 token·signed URL로 원천에 직접 접근하는 서술을 잘못 추가 | Consumer는 계약 범위에서 Provider Data Plane에 접근해 PULL하고 Data Plane이 source binding으로 원천에서 읽어 응답하는 경로로 정정 | `E-21` |
 
 ### 14.5 산정 입력
 
