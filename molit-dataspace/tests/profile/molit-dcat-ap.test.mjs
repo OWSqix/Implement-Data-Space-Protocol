@@ -113,6 +113,47 @@ test("CT-SEM-002: every vendored upstream artifact matches the SHA-256 lock", as
   assert.equal(verification.lock.networkFetchAtRuntime, false);
 });
 
+// FR-SEM-003은 외부 artifact의 source URL·version·license·SHA-256 고정을
+// 요구한다. 기존 CT-SEM-002는 SHA-256 대조만 단언했고 version·license·
+// origin 필드는 어디에서도 단언되지 않았다.
+test("CT-SEM-002: every locked artifact pins version and license; external artifacts pin their source URL", async () => {
+  const verification = await verifyArtifactLock(release);
+  let externalCount = 0;
+  for (const artifact of verification.lock.artifacts) {
+    assert.ok(
+      typeof artifact.version === "string" && artifact.version.length > 0,
+      `artifact version must be pinned: ${artifact.path}`,
+    );
+    assert.ok(
+      typeof artifact.license === "string" && artifact.license.length > 0,
+      `artifact license must be pinned: ${artifact.path}`,
+    );
+    const isExternal = artifact.upstream !== undefined || artifact.source !== undefined;
+    if (isExternal) {
+      externalCount += 1;
+      // 외부 artifact는 FR-SEM-003이 요구하는 source URL로 고정된다.
+      assert.match(
+        String(artifact.source),
+        /^https:\/\//u,
+        `external artifact must pin an https source URL: ${artifact.path}`,
+      );
+    } else {
+      assert.ok(
+        typeof artifact.origin === "string" && artifact.origin.length > 0,
+        `local artifact must declare its origin: ${artifact.path}`,
+      );
+    }
+  }
+  // upstream SHACL 등 외부 artifact가 실제로 존재해야 이 검사가 의미를 가진다.
+  assert.ok(externalCount >= 1, "the lock must contain at least one external artifact");
+});
+
+test(
+  "CT-SEM-002(축 유보): verifier는 version·license가 빠진 lock 항목을 거부해야 한다",
+  { todo: "verifyArtifactLock은 sha256·경로 완전성만 강제하고 version·license 필드 부재를 거부하지 않는다. lock JSON schema도 contracts/에 없다(GAP-IMPL-04)" },
+  () => {},
+);
+
 test("CT-SEM-003: every Turtle artifact and example parses in strict Turtle mode", async () => {
   const files = await filesRecursively(release.releaseRoot, ".ttl");
   assert.ok(files.length >= 20);
@@ -294,6 +335,39 @@ test("CT-SEM-PROF-001: stable and versioned Core and Geo profile IRIs have linea
     assert.equal(description.countQuads(stable, dctHasVersion, versioned, null), 1);
     assert.equal(description.countQuads(versioned, dctIsVersionOf, stable, null), 1);
   }
+});
+
+// FR-SEM-001은 profile만이 아니라 ontology·concept scheme 자원에도 stable
+// IRI와 불변 version IRI의 구분을 요구한다. PROF-001은 profile 종류만
+// 단언했다. shape·instance 종류의 판 불변성은 artifact lock digest가
+// 고정한다(CT-SEM-002).
+test("CT-SEM-PROF-002: ontology and vendored vocabulary declare distinct stable and version IRIs", async () => {
+  const owlVersionIri = namedNode("http://www.w3.org/2002/07/owl#versionIRI");
+  const ontologyStore = new Store(new Parser().parse(await readFile(
+    resolveReleaseArtifact(release, release.manifest.ontology),
+    "utf8",
+  )));
+  const ontologyVersions = ontologyStore.getQuads(
+    namedNode("https://data.molit.go.kr/def/molit-dcat-ap"),
+    owlVersionIri,
+    null,
+    null,
+  );
+  assert.equal(ontologyVersions.length, 1, "the local ontology must declare exactly one version IRI");
+  assert.notEqual(
+    ontologyVersions[0].object.value,
+    "https://data.molit.go.kr/def/molit-dcat-ap",
+    "the version IRI must differ from the stable IRI",
+  );
+  assert.ok(ontologyVersions[0].object.value.startsWith("https://data.molit.go.kr/def/molit-dcat-ap/"));
+
+  const vocabularyStore = new Store(new Parser().parse(await readFile(
+    resolveReleaseArtifact(release, "vocabulary/mobilitydcat-transport-mode-1.0.0.ttl"),
+    "utf8",
+  )));
+  const vocabularyVersions = vocabularyStore.getQuads(null, owlVersionIri, null, null);
+  assert.equal(vocabularyVersions.length, 1, "the vendored vocabulary must pin exactly one version IRI");
+  assert.notEqual(vocabularyVersions[0].subject.value, vocabularyVersions[0].object.value);
 });
 
 test("CT-SEM-005: local ontology avoids identity overclaims and runtime imports", async () => {

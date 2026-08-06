@@ -113,7 +113,11 @@
 | CT-DSP-001 | NFR-INT-001 | DSP schema·state·interop와 적용 가능한 TCK | conformance bundle |
 | CT-PROFILE-001 | NFR-INT-002 | DCAT·국토교통 profile validator 실행 | validation report |
 | CT-SEM-001 | FR-SEM-001 | Profile manifest의 DCAT-AP·GeoDCAT-AP version과 mobilityDCAT 경계 검사 | `tests/profile` result |
-| CT-SEM-002 | FR-SEM-003 | vendored artifact SHA-256·source·license lock 검사 | artifact lock report |
+| CT-SEM-002 | FR-SEM-003 | vendored artifact SHA-256 lock 대조와 전 artifact의 version·license 고정, 외부 artifact의 https source URL 고정 | artifact lock report, 고정 필드 단언 |
+| CT-SEM-REPORT-001 | FR-SEM-007 | 통과 검증의 profile bundle·validator source·report schema digest 3종 보고(상호 상이), 잘못된 UTF-8의 선행 fatal 거부, routing 위반이 같은 digest 보고서에 실림 | validation report assertion |
+| CT-PROFILE-ROUTING-003 | FR-SEM-002 | canonical version IRI를 위조 판 IRI로 치환한 graph | gate 불통과 | validation report |
+| CT-SEM-SEPARATION-001 | FR-SEM-005 | 승인 record·증거 ID·source binding의 공개 catalogProjection 비노출과 내부 결속 절 보존 | eligibility unit test |
+| CT-SEM-PROF-002 | FR-SEM-001 | ontology·vendored vocabulary의 stable IRI와 단일 version IRI 구분. shape·instance의 판 불변성은 CT-SEM-002의 lock digest가 고정 | PROF graph assertion |
 | CT-SEM-003 | FR-SEM-003 | 모든 Turtle artifact와 fixture strict parse | parser test result |
 | CT-SEM-004 | FR-SEM-003 | protected JSON-LD context와 remote import 부재 검사 | context test result |
 | CT-SEM-005 | FR-SEM-004 | local ontology의 `owl:sameAs`·equivalent·remote import 부재 검사 | ontology test result |
@@ -157,7 +161,7 @@
 
 | Test ID | 요구사항 | 대상 | 합격 조건 | 현재 상태 |
 | --- | --- | --- | --- | --- |
-| CT-KR-STD-001 | FR-SEM-008 | 국내 표준 machine register | JSON Schema, 식별자 고유성, source evidence 연결 통과 | 구현 |
+| CT-KR-STD-001 | FR-SEM-008 | 국내 표준 machine register | JSON Schema, 식별자 고유성, source evidence 연결 통과. 상태·구현·crosswalk 증거 3종의 필드 분리와 종류 바꿔치기 값의 schema 거부 | 구현 |
 | CT-KR-STD-002 | FR-SEM-008·NFR-INT-002 | 적합성 claim | 폐지 표준의 규범 사용과 미검증 표준의 적합성 허용 0건 | 구현 |
 | CT-KR-STD-005 | FR-SEM-008 | 표준 lifecycle provenance | 34개 표준·행정규칙의 상태·사건·발생일·확인일이 primary source와 일치 | 구현 |
 | CT-KR-CLAIM-001 | FR-SEM-008·NFR-INT-002 | 게시 claim | Markdown 표시 text의 named entity·link·Unicode 우회 뒤 금지 claim 0건, 주석 외 raw HTML 0건 | 구현 |
@@ -170,7 +174,7 @@
 | ISO19115-TECH-001 | 연결 없음 — 요구사항 신설 필요 | ISO 19115 Part 1 공개 package | 125개 artifact digest와 offline XSD·Schematron smoke 일치 | lane 구현; 승인 private cache 필요 |
 | KS-XML-001 | NFR-INT-002 | KS X ISO 19115-3 현행 XML | version 고정 XSD·Schematron 정상·오류 corpus 통과 | 원문·fixture 필요 |
 | KS-XML-002 | NFR-INT-002 | ISO 19139 legacy XML | legacy로만 판정하고 현행 국내표준 검증 결과로 승격하지 않음 | 미구현 |
-| MAP-COV-001 | FR-SEM-009 | TTA·KS·기관 export crosswalk | source field 누락 0건 | 포털 고정본 구현; TTA·기관 원문·schema 필요 |
+| MAP-COV-001 | FR-SEM-009 | TTA·KS·기관 export crosswalk | 관측된 모든 source path에 정확히 하나의 명시적 mapping 결정, lossy·unmapped·not-published 행의 우회 금지(MAP-LOSS-001과 결합) | 포털 고정본 구현·단언됨; TTA·기관 원문·schema 확대는 외부 의존 |
 | MAP-INVENTORY-001 | FR-SEM-009 | 원천 fixture inventory | 안전 parser가 생성한 field·predicate inventory와 crosswalk source 경로의 차이 0건 | 포털 RDF/XML 17개 path 구현 |
 | MAP-LOSS-001 | FR-SEM-009 | 변환 손실 | 모든 mapping 행에 loss class·reverse rule·publication Gate 존재 | 포털 고정본 구현; 나머지 profile 미구현 |
 | MAP-CATERR-001 | FR-SEM-010 | 기관 DB metadata | 운영·물리 DB 값을 공개 DCAT로 자동 승격하는 금지 변환 전부 거부 | 미구현 |
@@ -250,7 +254,7 @@
 | GAP-ROW-03 | `RT-SPATIAL-AXIS-001` 행의 WKT·GML 왕복은 실제로 `GEO-LIT-001`이 검증 | `Unverified — 보고` | 미정 | 미정 | 시험 원문 대조 후 행 정정 |
 | GAP-ROW-04 | `GEO-LIT-001` 행의 거부 조건은 실제로 `GEO-LIT-002`가 검증 | `Unverified — 보고` | 미정 | 미정 | 시험 원문 대조 후 행 정정 |
 | GAP-ROW-05 | `GEO-LIT-COVERAGE-001`의 실제 assertion은 WKT 3종이며 행의 GML·XSD 범위는 미검증 | `Unverified — 보고` | 미정 | 미정 | 시험 원문 대조 후 행 정정 또는 시험 확장 |
-| GAP-ROW-06 | `SHACL-DIFF-001` parent ID와 `001A/B` 실행 lane의 exact 추적 불일치 | `Verified` | 미정 | 미정 | parent ID 정리 또는 A/B lane의 명시적 등재(`FR-SEM-011` 공백과 동일 건) |
+| GAP-ROW-06 | `SHACL-DIFF-001` parent ID와 `001A/B` 실행 lane의 exact 추적 불일치 | `Decision — 해소(2026-08-04)` | 미정 | 미정 | 충족 — A·B lane이 국내 Gate 표에서 `FR-SEM-011`로 명시 연결됐고, `SHACL-DIFF-001`은 두 lane의 합집합 별칭으로 정의한다. 요구사항 열의 parent 표기는 이 별칭을 가리킨다 |
 
 `MUST` 부분 검증 보강 1차(CAT·META, 2026-08-04)에서 아래가 확인됐다. 시험 공백이 아니라 **구현 공백 또는 조건 미성립**이므로 시험 작성으로 닫을 수 없고, 해당 축의 todo 시험과 함께 등록한다.
 
@@ -260,6 +264,15 @@
 | GAP-IMPL-02 | `FR-META-003`의 시간대·link version 축 | DQ 경로에 두 축의 검사가 없음. `xsd-lexical`의 timezone 검증은 datatype 구문 층위라 자산 수준 제공 요구를 대신하지 않음. todo 시험 `DQ-META-001(축 유보)` 등록 | `Verified` | 미정 | 미정 | DQ 검사 구현과 todo 해제 |
 | GAP-IMPL-03 | `FR-META-004`의 Passport 내부 권리·품질·계보 축 | 코드에 Passport 구조가 없음(`src/` 전체에 passport 부재). `DOC-META-001`은 signed review 문서 통제라 todo 시험을 얹을 대상 모듈 자체가 없어 등록만 한다 | `Verified` | 미정 | 미정 | Passport 기계 구조 설계 결정 후 시험 재판정 |
 | GAP-COND-01 | `FR-CAT-008`(SHOULD)의 upstream Broker pagination | Broker 구성요소 미채택 — `brokered`는 record 분류값(`src/discovery/model.mjs`)이지 Broker 서비스가 아니며, `IT-CAT-007`은 일반 Catalog pagination을 검증 | `Verified` | 미정 | 미정 | Broker 채택 결정 시 재개. 미채택 유지 시 요구사항의 조건부 표기 확인 |
+
+`MUST` 부분 검증 보강 2차(SEM, 2026-08-04)에서 추가로 확인된 공백이다.
+
+| ID | 요구 | 확인된 사실 | 상태 | 담당 | 기한 | 종료 조건 |
+| --- | --- | --- | --- | --- | --- | --- |
+| GAP-IMPL-04 | `FR-SEM-003`의 verifier 강제 축 | `verifyArtifactLock`은 sha256·경로 완전성만 강제하고 version·license 부재를 거부하지 않는다. lock JSON schema도 `contracts/`에 없다. 데이터 고정 자체는 CT-SEM-002 확장 시험이 단언 | `Verified` | 미정 | 미정 | verifier 필드 검사 추가 또는 lock schema 신설 후 todo 해제 |
+| GAP-IMPL-05 | `FR-SEM-006`의 wire 방향 거부 축 | `dsp-schemas.mjs`에 DSP wire message 내 RDF graph 혼입을 거부하는 검사가 없다. 후보→wire 경계와 digest 참조 결속은 기존 시험이 고정 | `Verified` | 미정 | 미정 | wire schema에 혼입 거부 추가 후 todo 해제 |
+| GAP-IMPL-06 | `FR-SEM-010`의 compliance record 유형 축 | 기관 DB 운영·물리 metadata의 공개 승격을 거부할 mapping gate(`MAP-CATERR-001`)가 미구현. `BS-DB-CATALOG-CATEGORY`와 동일 건이며 negative corpus는 외부 확보에 종속 | `Verified` | 미정 | 미정 | gate 구현과 corpus 확보 후 todo 해제 |
+| GAP-PRIN-01 | `FR-SEM-004`의 "기존 표준 term 우선 재사용" 원칙 축 | 금지형 검사(무단 `sameAs`·equivalent·import 부재)는 CT-SEM-005가 고정하나, "우선 재사용"의 기계 판정 기준이 정의돼 있지 않다. 기준을 발명하지 않고 등록한다 | `Verified` | 미정 | 미정 | **(Decision — 제안)** 재사용 판정 기준(예: 표준 어휘에 동일 의미 term 존재 시 local 신설 금지 목록) 승인 후 시험화 |
 
 ## 5. DSP 상호운용
 

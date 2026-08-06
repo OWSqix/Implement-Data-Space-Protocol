@@ -244,6 +244,38 @@ test("IT-CAT-003: each missing party is rejected with its own reason, not a gene
   }
 });
 
+// FR-SEM-005의 빠진 축 — 공개 RDF와 source binding·credential·"승인 증거"의
+// 분리. 기존 시험은 binding 문법·mailbox·host를 다뤘고, 승인 증거가 공개
+// graph에 새지 않는다는 단언은 없었다 — 검증 계획 CT-SEM-MAILBOX-001 옆의
+// 분리 축.
+test("CT-SEM-SEPARATION-001: approval evidence and bindings never leak into the public graph", () => {
+  const event = structuredClone(baseline.records[0]);
+  const canonical = normalizeRecord({
+    governanceApproval: resolveApproval(approvalIndex, {
+      evaluatedAt: "2026-07-11T14:00:00+09:00",
+      record: event.record,
+      recordId: event.recordId,
+      resourceVersion: event.resourceVersion,
+      sourceSystemId: baseline.sourceSystemId,
+    }),
+    sourceSystemId: baseline.sourceSystemId,
+    recordId: event.recordId,
+    record: event.record,
+  });
+  const candidate = toOfferingCandidate(canonical, decideOffering(canonical), config);
+  const publicGraph = JSON.stringify(candidate.catalogProjection);
+  // 승인 증거 ID, source binding 참조, 승인 레코드가 공개 투영에 없어야 한다.
+  assert.equal(publicGraph.includes("EVD-"), false, "evidence IDs must stay private");
+  assert.equal(publicGraph.includes("binding://"), false, "source bindings must stay private");
+  assert.equal(publicGraph.includes("governanceApproval"), false, "approval records must stay private");
+  // 같은 정보는 내부 결속 절에는 존재한다 — 삭제가 아니라 분리다.
+  const privateSection = JSON.stringify(candidate.sourceBinding ?? candidate.binding ?? candidate);
+  assert.equal(privateSection.includes("EVD-"), true);
+  assert.equal(privateSection.includes("binding://"), true);
+  // 전용 헬퍼도 같은 판정을 내려야 한다.
+  assert.equal(publicCatalogContainsPrivateReference(candidate), false);
+});
+
 // 아래 두 건은 시험 공백이 아니라 구현 공백이다. 검증 계획 §4.2의
 // GAP-IMPL 항목과 함께 등록되며, 구현이 생기기 전에는 todo로 남긴다.
 

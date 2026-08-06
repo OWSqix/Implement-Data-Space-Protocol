@@ -80,6 +80,14 @@ test("CT-META-002: dct:format literal is rejected at its exact path and an IRI n
   assert.equal(remaining.includes("LITERAL_FORMAT"), false);
 });
 
+// FR-SEM-006의 남은 축 — DSP wire message 쪽에서 DCAT RDF 혼합을 거부하는
+// 지점이 없다. digest 참조 측(승인 결속)은 runtime-approval 시험이 다룬다.
+test(
+  "CT-SEM-BRIDGE-001(축 유보): wire message에 섞인 DCAT RDF graph는 거부돼야 한다",
+  { todo: "dsp-schemas.mjs에 RDF graph 혼입을 거부하는 검사가 없다. 후보→wire 방향의 경계는 본 파일이 고정하나 wire→RDF 방향의 거부 지점이 구현되지 않았다(GAP-IMPL-05)" },
+  () => {},
+);
+
 test("CT-SEM-BRIDGE-000A: bridge preflight rejects duplicate and mixed profile markers", () => {
   const core = "https://data.molit.go.kr/profile/molit-dcat-ap/0.1.0";
   const geo = `${core}/geo`;

@@ -81,3 +81,13 @@ test("CT-CROSSWALK-UTF8-001: mapping text has no replacement or encoding-loss ma
     }
   }
 });
+
+// FR-SEM-010의 남은 축 — 개인정보 포함 compliance record "유형"의 공개
+// projection 분리. 일반 개인정보 scan(ST-PRIV-001)과 별개로, 기관 DB
+// 운영·물리 metadata를 공개 DCAT로 승격하는 변환을 거부하는 mapping
+// gate(MAP-CATERR-001)가 구현되지 않았다.
+test(
+  "MAP-CATERR-001(축 유보): 기관 DB 운영 metadata의 공개 승격은 거부돼야 한다",
+  { todo: "금지 자동변환을 거부할 mapping gate가 없다(GAP-IMPL-06). negative corpus는 고시 별표 분류와 기관 export 스키마 확보에 종속(BS-DB-CATALOG-CATEGORY)" },
+  () => {},
+);

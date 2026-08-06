@@ -956,3 +956,40 @@ test("CT-KR-BLINDSPOT-005: an unrelated existing file cannot resolve a release g
   const omitted = structuredClone(register.blindspots).slice(1);
   assert.notEqual(blindspotPolicyDigest(omitted), REVIEWED_BLINDSPOT_POLICY_SHA256);
 });
+
+// FR-SEM-008은 표준의 상태와 metadata 확인·구현시험·조항 crosswalk 증거를
+// "분리"할 것을 요구한다. 기존 시험은 상태 조합·연대기·claim 차단을
+// 검증했으나 세 증거 종류가 서로의 자리에 들어갈 수 없다는 분리 자체는
+// 단언되지 않았다 — 검증 계획 CT-KR-STD-001의 분리 축.
+
+test("CT-KR-STD-001: the three evidence kinds are required separately on every standard", () => {
+  for (const standard of register.standards) {
+    for (const field of ["statusEvidence", "implementationEvidence", "crosswalkEvidence"]) {
+      assert.ok(
+        typeof standard[field] === "string" && standard[field].length > 0,
+        `${standard.id}: ${field} must be present`,
+      );
+    }
+  }
+});
+
+test("CT-KR-STD-001: an evidence value cannot stand in for another evidence kind", () => {
+  // 세 enum은 'not-applicable'(구현·crosswalk 공유)을 빼면 서로소다. 종류를
+  // 바꿔치기한 값은 schema가 거부해야 분리가 실질이 된다.
+  const confusions = [
+    (candidate) => { candidate.standards[0].statusEvidence = "title-scope-only"; },
+    (candidate) => { candidate.standards[0].statusEvidence = "implementation-tested"; },
+    (candidate) => { candidate.standards[0].crosswalkEvidence = "official-metadata-verified"; },
+    (candidate) => { candidate.standards[0].implementationEvidence = "official-metadata-verified"; },
+    (candidate) => { candidate.standards[0].implementationEvidence = "full-clause-tested"; },
+  ];
+  for (const mutate of confusions) {
+    const candidate = structuredClone(register);
+    mutate(candidate);
+    assert.equal(
+      validateRegister(candidate),
+      false,
+      "a cross-kind evidence value must fail schema validation",
+    );
+  }
+});
