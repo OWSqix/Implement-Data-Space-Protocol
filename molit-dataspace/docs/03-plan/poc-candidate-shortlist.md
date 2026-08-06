@@ -1,7 +1,10 @@
 # Platform Bridge PoC 후보 목록
 
 작성일: 2026-07-11  
+최종 개정일: 2026-08-06  
 작성 기준: 2026-07-11  
+개정 기준: `E-23`  
+관련 결정: `E-11`, `E-17`, `E-23`  
 상태: Draft
 
 ## 1. 목적과 검증 범위
@@ -84,6 +87,8 @@ PoC를 다음 두 단계로 나눈다.
 **(판정)**  
 `desired-but-unidentified`. 가장 적합한 후보 유형이지만, 현재 근거에서 구체적인 Dataset을 지목할 수 없다. 운영기관이 host 또는 broker 대상 목록을 제공하기 전에는 구현 후보로 확정하지 않는다.
 
+- **(Decision — E-23)** 후보 1은 **확장 단계 후보**로 둔다. 초기 범위에서 제외하고 확장 단계로 옮긴 `E-11`·`E-17`의 경계를 따른다 — 근거: `E-11`·`E-17`·`E-23`, 기준일: 2026-08-06
+
 **(선정 Gate)**
 
 1. 데이터 관리대장이나 운영기관 답변에서 host·broker 역할을 확인한다.
@@ -140,7 +145,10 @@ Discovery Bridge의 수집·정규화·변경추적을 검증한다. Full Offeri
 - 자동 다운로드의 인증·quota 조건
 
 **(판정)**  
-`shortlisted / not-ready`. 위 증거를 확보하면 첫 Full Offering fallback으로 적합하다. 계약 후 snapshot manifest와 만료 URL을 생성하고, 종료 시 임시 snapshot과 token을 회수하는 흐름을 시험한다.
+`shortlisted / not-ready`. 위 증거를 확보하면 첫 Full Offering 대상으로 적합하다. 계약 후 snapshot manifest와 만료 URL을 생성하고, 종료 시 임시 snapshot과 token을 회수하는 흐름을 시험한다.
+
+- **(Decision — E-23)** 후보 3을 **우선 후보**로 지정한다(잠정). 착수와 확정은 확장 단계 착수 결정과 `G0~G6` 통과를 조건으로 한다 — 근거: `E-23`, 기준일: 2026-08-06
+  - 이 지정은 위 `(Unverified)` 항목을 해소하지 않는다. 권리·source·license 증거는 여전히 미확인이다.
 
 ### 4.4 후보 4: 국토교통 통계누리 공개 통계표 REST
 
@@ -209,16 +217,20 @@ OGC query를 DSP Agreement 범위로 제한하는 지리정보시스템(Geograph
 
 ## 5. 후보 비교
 
-| 우선순위 | 후보 | 검증 범위 | 현재 준비도 | 결정 |
+표의 번호는 §4.1~§4.6의 후보 번호이며 실행 순서가 아니다. 실행 순서는 결정 열과 §8.3을 따른다.
+
+| 후보 번호 | 후보 | 검증 범위 | 현재 준비도 | 결정 |
 | ---: | --- | --- | --- | --- |
-| 1 | 통합 채널 host·broker 공개 Dataset | Mobilithek형 종단 수명주기 | 대상 미식별 | 운영기관 증거 대기 |
-| 2 | 분석 데이터셋 metadata `GET` | Discovery Bridge | 설계 가능, 실행 차단 | 지원 HTTPS 확인 후 실행 |
-| 3 | ITS 표준 노드·링크 파일 | File Offering·finite transfer | 권리·source 계약 미확인 | Full Offering fallback 1 |
-| 4 | 통계누리 공개 통계표 | REST Offering·proxy pull | 대상·proxy 조건 미확인 | Full Offering fallback 2 |
+| 1 | 통합 채널 host·broker 공개 Dataset | Mobilithek형 종단 수명주기 | 대상 미식별 | 확장 단계 후보(`E-11`·`E-17`) — 운영기관 증거 대기 |
+| 2 | 분석 데이터셋 metadata `GET` | Discovery Bridge | 설계 가능, 실행 차단 | Discovery Bridge 후보 — 지원 HTTPS 확인 후 실행 |
+| 3 | ITS 표준 노드·링크 파일 | File Offering·finite transfer | 권리·source 계약 미확인 | 우선 후보(`E-23`, 잠정) — 착수는 `G0~G6` 통과 조건 |
+| 4 | 통계누리 공개 통계표 | REST Offering·proxy pull | 대상·proxy 조건 미확인 | Full Offering 차순위 후보 |
 | 5 | ITS 교통소통정보 | 실시간 REST·freshness | quota·version 미확인 | 후속 실증 |
 | 6 | VWorld 공개 WFS/WMS layer | OGC policy·query 제한 | layer·권리 미확인 | 후속 실증 |
 
-우선순위 1의 데이터가 확인되지 않으면 3 또는 4로 Full Offering Bridge를 먼저 검증한다. 이 결과를 "통합 채널이 broker로 동작했다"고 기록하지 않는다. 그 경우 Bridge는 ITS나 통계누리 같은 원천 플랫폼에 붙은 것이다.
+- **(Decision — E-23)** Full Offering Bridge는 **후보 3을 우선 후보**로, 후보 4를 차순위로 검증한다. 후보 1은 확장 단계 후보이므로 초기 순서에서 제외한다 — 근거: `E-23`, 기준일: 2026-08-06
+
+후보 3·4의 검증 결과를 "통합 채널이 broker로 동작했다"고 기록하지 않는다. 그 경우 Bridge는 ITS나 통계누리 같은 원천 플랫폼에 붙은 것이다.
 
 ## 6. 현재 후보로 사용할 수 없는 항목
 
@@ -333,7 +345,7 @@ Critical·high 보안 finding이나 회수 실패가 남으면 PoC를 종료하�
 
 ### 8.3 Full Offering 실증
 
-1. 후보 1이 준비되면 그 데이터로 시작한다. 준비되지 않으면 후보 3, 다음으로 후보 4를 사용한다.
+1. 우선 후보인 후보 3으로 시작한다(`E-23`, 잠정). `G0~G6`를 통과하지 못하면 후보 4를 사용하고, 후보 1은 확장 단계 착수 시점에 재판정한다.
 2. 공개 Dataset 하나와 제공형태 하나만 먼저 등록한다.
 3. Contract Negotiation `FINALIZED` 전에는 source를 호출하지 않는다.
 4. Agreement를 교환·검증하고 각 DSP 메시지의 수신 확인(Acknowledgement, ACK) 뒤 negotiation `FINALIZED`를 확정한다.
@@ -344,8 +356,8 @@ Critical·high 보안 finding이나 회수 실패가 남으면 PoC를 종료하�
 
 ## 9. 후보 확정 기록
 
-**우선 후보 지정(2026-08-06, Decision — 잠정)**: 후보 3(§4.3 ITS 표준 노드·링크 파일 snapshot)을 우선 후보로 지정한다.
-착수는 기존 공개 플랫폼 연계(확장 단계) 착수 결정과 G0~G6 통과를 조건으로 하며, 통과 전에는 아래 확정 기록을 채우지 않는다.
+- **(Decision — E-23)** 후보 3(§4.3 ITS 표준 노드·링크 파일 snapshot)을 우선 후보로 지정한다(잠정). 후보 1은 확장 단계 후보로 둔다 — 근거: `E-23`, 기준일: 2026-08-06
+  - 착수는 기존 공개 플랫폼 연계(확장 단계) 착수 결정과 `G0~G6` 통과를 조건으로 하며, 통과 전에는 아래 확정 기록을 채우지 않는다.
 
 후보 하나를 확정할 때 다음 표를 채운다. URL이나 key 값 대신 승인된 reference와 secret 식별자만 기록한다.
 

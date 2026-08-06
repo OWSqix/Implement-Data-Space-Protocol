@@ -1,6 +1,14 @@
 .omx/
 .omc/
 
+# Source PDFs dropped at the repository root (planning reports, scanned
+# originals). These run to ~100 MB and approach the GitHub 100 MiB blob
+# limit, so a single `git add -A` would stage one. Blocked structurally
+# instead of relying on a manual `git reset -- '*.pdf'` before each commit.
+# Root-scoped on purpose: PDFs inside molit-dataspace/ (e.g. evidence
+# attachments) stay trackable. No PDF has ever been committed to this repo.
+/*.pdf
+
 docs/*
 !docs/reference/
 !docs/reference/**

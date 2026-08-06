@@ -118,6 +118,26 @@ Mobilithek은 조건에 맞는 hosted·brokered 데이터의 구독과 전달을
 52. [교통모빌리티 분야 규약 골격](docs/02-design/sector-rulebook-framework.md)
 53. [거버넌스·운영 원칙](docs/02-design/governance-and-operating-principles.md)
 54. [초기 유즈케이스·KPI](docs/03-plan/initial-usecases-and-kpi.md)
+55. [기존 허브의 데이터 스페이스 연계 역량 조사](docs/01-research/hub-capability-assessment.md)
+56. [기존 플랫폼 섭외 가능성 조사](docs/01-research/hub-recruitment-feasibility.md)
+57. [교통·물류 데이터 스페이스 참가자 지도](docs/01-research/transport-participant-map.md)
+58. [시스템 근거 법령과 의무 부과 조문 조사](docs/01-research/legal-basis-precedents.md)
+59. [의무화·간주 규정 선례 조사](docs/01-research/mandate-and-deeming-precedents.md)
+60. [저기술 참가자 온보딩 선례 조사](docs/01-research/low-tech-onboarding-precedents.md)
+61. [준공영제 정산 데이터 필드 실물 조사](docs/01-research/settlement-data-field-survey.md)
+62. [KPI 기준선 선례 조사](docs/01-research/kpi-baseline-precedents.md)
+63. [국내 실사용 표준 상호운용성 외부 감사 대응서](docs/01-research/external-audit-response-domestic-interoperability.md)
+64. [저장소 내부 일관성 감사](docs/01-research/internal-consistency-audit-2026-08.md)
+65. [Provider 권한 레지스트리](docs/02-architecture/provider-authority-registry.md)
+66. [제출 이행 판정 체계](docs/02-architecture/submission-fulfilment-determination.md)
+67. [국내 실물 데이터 상호운용 검증계획](docs/03-plan/domestic-real-data-validation-plan.md)
+68. [파일럿 권리 확정 패키지](docs/03-plan/pilot-rights-confirmation-package.md)
+69. [운영 이미지 공급망과 외부 이미지 채택](docs/04-implementation/supply-chain-runtime-adoption.md)
+
+이 목록은 `docs/` 아래 여섯 개 디렉터리의 문서를 모두 담는다. 다음 두 가지는 이 목록이 아닌 다른 위치에서 색인한다.
+
+- 개별 ADR과 ADR 서식은 42번 [결정 기록](docs/adr/README.md)의 목록에서 색인한다.
+- 문서 작성 규칙인 [작성 규칙](docs/writing-style.md)과 [기획보고서 문체 프로파일](docs/report-writing-style-profile.md)은 §1에서 참조한다.
 
 조사의 근거는 다음 파일에서 추적한다.
 

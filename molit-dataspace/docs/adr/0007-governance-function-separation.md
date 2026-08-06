@@ -1,9 +1,11 @@
 # ADR-0007: 거버넌스 기능 3분리와 2계층 DSGA
 
 작성일: 2026-07-30  
+최종 개정일: 2026-08-06  
 상태: Proposed  
 결정 범위: 거버넌스 기능과 권한 계층  
-결정권자: 프로젝트 의뢰자
+결정권자: 프로젝트 의뢰자  
+관련 결정: `E-26`
 
 ## 1. 목적과 결정 요약
 
@@ -25,7 +27,10 @@
 - **(Verified)** DSSC Blueprint v3.0은 Governance Authority·Participation Management와 Intermediaries and Operators를 다른 조직 빌딩블록으로 구분함. 근거: [DSSC 조직 빌딩블록](https://blueprint.dssc.eu/?pane=business), 확인일 2026-07-30
 
 - **(Unverified)** 과기부의 국가 프레임 지정, KAIA 전담기관 위임 예정과 도메인별 거버넌스 구상은 전언 기반이며 원문 위임 문서를 확보하지 못함
-- **(Unverified)** KAIA의 예정 기능이 과제 관리인지 DSGA인지 확인되지 않음
+- **(Unverified)** KAIA의 예정 기능이 과제 관리인지 DSGA인지 공식 문서로 확인되지 않음
+- **(Decision — E-26)** 분야 DSGA와 운영 주체를 KAIA 위임 전제로 **잠정 배정**함 — 근거: `E-26`, 기준일: 2026-08-06
+  - 근거는 구두 전언이고 공식 위임·지정 문서는 미확보이므로 KAIA 관련 판정은 `Unverified`를 유지한다.
+  - 이 잠정 배정은 §5의 기관명 판정 금지 원칙을 해제하지 않는다. 결정 기록은 [거버넌스·운영 원칙 §6](../02-design/governance-and-operating-principles.md#6-미결정-주체와-법문화)에 둔다.
 - **(제약)** 기관명이나 예정 위임을 확정 사실로 사용하지 않고 위임 문서와 정관으로 권한을 검증
 
 이 ADR이 승인되면 [목표 아키텍처](../02-architecture/target-architecture.md) §3의 `Governance` 노드를 DSGA 규칙 제정과 서비스 운영 주체로 분해하고 각 노드에서 Bridge·Provider로 가는 정책·승인·운영 엣지를 정의한다. 과제 관리는 기술 다이어그램에서 제외하는 방안을 우선 적용한다. §4 책임 표에도 세 기능의 책임과 비책임을 별도 행으로 기록한다.
@@ -57,6 +62,8 @@
 
 KAIA 관련 행은 위임 원문이 확보될 때까지 `Unverified`로 유지한다. 기관명만으로 과제 관리·DSGA·운영 역할을 판정하지 않는다.
 
+`E-26`의 잠정 배정은 이 원칙의 예외가 아니다. 잠정 배정은 §8 개정 이력과 거버넌스 원칙 §6의 결정 기록에 `Unverified` 근거와 함께 분리 기록하며, 위 검증 표의 통과 조건을 대신하지 않는다.
+
 ## 6. 재검토 조건
 
 - 국가 프레임의 원문 거버넌스 문서와 위임 계층 확인
@@ -70,3 +77,12 @@ KAIA 관련 행은 위임 원문이 확보될 때까지 `Unverified`로 유지�
 - [단일형과 분야형 구성 연구](../01-research/dataspace-topology-single-vs-sectoral.md) §5.1
 - [IDSA Rulebook Release 2026-1 역할](https://kb.internationaldataspaces.org/external/rulebook/005_Roles/), 확인일 2026-07-30
 - [DSSC Blueprint v3.0 조직 빌딩블록](https://blueprint.dssc.eu/?pane=business), 확인일 2026-07-30
+- [거버넌스·운영 원칙 §6](../02-design/governance-and-operating-principles.md#6-미결정-주체와-법문화) `E-26` 결정 기록
+
+## 8. 개정 이력
+
+`Proposed` 상태에서 결정 문안을 제자리 개정한 경우에만 행을 추가한다.
+
+| 작성일 | 사유 | 이전 문안과의 차이 |
+| --- | --- | --- |
+| 2026-08-06 | `E-26` 반영 | 분야 DSGA를 KAIA로 잠정 배정한 사실을 §2에 추가함. 근거는 구두 전언이므로 `Unverified`를 유지하고, §5의 기관명 판정 금지 원칙은 공식 위임 문서 확인 전까지 그대로 둠 |
