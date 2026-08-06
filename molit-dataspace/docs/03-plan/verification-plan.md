@@ -92,9 +92,9 @@
 | IT-PLT-004 | FR-PLT-008 | active Agreement·Transfer 중 Dataset withdrawal | 신규 계약 차단, 영향판정, revoke 뒤 Catalog 제거 | state history+cleanup evidence |
 | ST-PLT-002 | FR-PLT-009 | participant 가입·조직변경·credential revoke·탈퇴 | platform binding·권한·quota가 같은 lifecycle로 변경 | identity trace |
 | ST-PLT-003 | FR-PLT-010 | config·secret store·runtime request에서 password·cookie·CSRF·개인 key 탐지 | Bridge credential로 사용 0건 | config review+secret scan |
-| ST-PLT-004 | FR-PLT-011 | 같은 Agreement의 Transfer 2개 중 하나 완료 후 local Agreement 만료 | 첫 완료 때 Agreement subscription 유지, Agreement 만료 때 active Transfer 중지와 subscription 삭제 | state history+resource query |
-| ST-ID-001 | FR-ID-001 | invalid issuer·signature·audience·replay | 요청 거부 | auth log |
-| ST-ID-002 | FR-ID-002 | revoked 기관 credential | Catalog/transfer 거부 | credential trace |
+| ST-PLT-004 | FR-PLT-011 | 같은 Agreement의 Transfer 2개 중 하나 완료 후 local Agreement 만료 | 첫 완료 때 Agreement subscription 유지, Agreement 만료 때 active Transfer 중지와 subscription 삭제 | state history+resource query | 만료·미도래·철회 승인의 신규 dispatch 차단은 단언됨(runtime-approval). active Transfer·자원 종료 전파는 GAP-IMPL-13 |
+| ST-ID-001 | FR-ID-001 | invalid issuer·signature·audience·replay와 유효 인증 성공 경로 | 무효 요청 거부. 유효 OIDC JWT는 issuer·audience·client·tenant·role·MFA·revocation에 binding되고, service account는 cnf x5t#S256 인증서에, introspection token은 mTLS에 binding됨 | auth log, identity unit tests |
+| ST-ID-002 | FR-ID-002 | revoked 기관 credential과 유효 status-checked credential | revoked 거부, pinned issuer의 status-checked credential만 정책 입력으로 수용 | credential trace, DCP adapter unit test |
 | ST-ID-003 | FR-ID-003 | 서명·issuer·audience가 유효한 관리 평면 OIDC·introspection token으로 DSP 참가자 간 Catalog·협상·Transfer 요청 | 세 흐름 모두 참가 자격 검증 전에 거부하고 경계 위반 감사 사건 생성 | auth·policy trace+audit export |
 | OP-AUD-001 | FR-AUD-001 | 종단 transfer — ADR-0006 승인 시 참여자 간 범위 개정 필요 | participant→negotiation PID→Agreement→transfer PID→source request 연결 | trace query |
 | OP-AUD-002 | FR-AUD-002 | 승인·철회·파기 workflow | 증거 완결·무결성 확인 | audit export |
@@ -273,6 +273,18 @@
 | GAP-IMPL-05 | `FR-SEM-006`의 wire 방향 거부 축 | `dsp-schemas.mjs`에 DSP wire message 내 RDF graph 혼입을 거부하는 검사가 없다. 후보→wire 경계와 digest 참조 결속은 기존 시험이 고정 | `Verified` | 미정 | 미정 | wire schema에 혼입 거부 추가 후 todo 해제 |
 | GAP-IMPL-06 | `FR-SEM-010`의 compliance record 유형 축 | 기관 DB 운영·물리 metadata의 공개 승격을 거부할 mapping gate(`MAP-CATERR-001`)가 미구현. `BS-DB-CATALOG-CATEGORY`와 동일 건이며 negative corpus는 외부 확보에 종속 | `Verified` | 미정 | 미정 | gate 구현과 corpus 확보 후 todo 해제 |
 | GAP-PRIN-01 | `FR-SEM-004`의 "기존 표준 term 우선 재사용" 원칙 축 | 금지형 검사(무단 `sameAs`·equivalent·import 부재)는 CT-SEM-005가 고정하나, "우선 재사용"의 기계 판정 기준이 정의돼 있지 않다. 기준을 발명하지 않고 등록한다 | `Verified` | 미정 | 미정 | **(Decision — 제안)** 재사용 판정 기준(예: 표준 어휘에 동일 의미 term 존재 시 local 신설 금지 목록) 승인 후 시험화 |
+
+`MUST` 부분 검증 보강 3차(DSP·PLT·ID, 2026-08-04)에서 확인된 공백이다. `FR-ID-001`·`FR-ID-002`는 공백이 아니라 계획 행의 과소서술이었고 행 정정으로 처리했다.
+
+| ID | 요구 | 확인된 사실 | 상태 | 담당 | 기한 | 종료 조건 |
+| --- | --- | --- | --- | --- | --- | --- |
+| GAP-IMPL-07 | `FR-DSP-001`의 `.well-known` 경로·binding 선택 축 | 저장소는 DSP wire를 EDC에 위임하며 version metadata endpoint의 구현·시험 표면이 저장소 안에 없다. `CT-DSP-002` 행이 가리키는 실행 시험도 부재 | `Verified` | 미정 | 미정 | EDC interop lane 증거로 위임 범위를 확정하거나 wrapper 검증 신설 |
+| GAP-IMPL-08 | `FR-PLT-002`의 DataService 검증 축 | DataService 노드는 projection이 자동 생성하므로 "등록 전 검증"의 대상 입력이 없다. SHACL 계층의 구조 검증(CT-META-001)과 별개로 eligibility 사유 목록에 DataService 축이 없다 | `Verified` | 미정 | 미정 | 자동 생성 구조에서 검증 축의 의미를 설계 판단 후 시험화 또는 요구 문언 정비 |
+| GAP-IMPL-09 | `FR-PLT-004`의 자원 scope 기록 축 | transfer contracts·binding registry 어디에도 `Offering·Agreement·Transfer·Request` scope 어휘가 없다 | `Verified` | 미정 | 미정 | scope 필드 설계·구현 후 todo 해제 |
+| GAP-IMPL-10 | `FR-PLT-005`의 trigger 선택·기록 축 | 현행 worker는 Connector 승인 뒤 START 단일 경로다. trigger 어휘·Dataset별 선택·기록이 미구현. FINALIZED 전 provision 금지 축은 워커 실행 계약으로 충족 | `Verified` | 미정 | 미정 | trigger 모델 구현 후 todo 해제 |
+| GAP-IMPL-11 | `FR-PLT-006`의 정지·재개 command와 대상 ID 축 | 구현 action은 START·TERMINATE뿐이고 revoke-result schema에 externalResourceId 필드가 없다. 생성 응답 ID·멱등키 저장은 journal 시험이 고정 | `Verified` | 미정 | 미정 | suspend·resume command와 대상 ID 필드 구현 후 todo 해제 |
+| GAP-IMPL-12 | `FR-PLT-009`(SHOULD)의 tenant·service identity 수명주기 축 | participant↔organization·tenant·service identity binding의 수명주기 관리 표면이 dsaas·caas 시험에서 확인되지 않음. OIDC 계층의 tenant binding 검증(ST-ID-001)과는 층위가 다름 | `Verified` | 미정 | 미정 | binding 수명주기 표면 확인 또는 구현 후 시험화 |
+| GAP-IMPL-13 | `FR-PLT-011`의 활성 자원 종료 전파 축 | 만료·미도래·철회 승인의 신규 dispatch 차단은 단언됨(ST-PLT-004 확장). 이미 활성인 Transfer와 Agreement scope 자원의 종료 전파는 미구현 | `Verified` | 미정 | 미정 | 종료 전파 구현 후 todo 해제 |
 
 ## 5. DSP 상호운용
 

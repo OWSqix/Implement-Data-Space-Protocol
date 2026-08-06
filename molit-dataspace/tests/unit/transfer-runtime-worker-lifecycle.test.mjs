@@ -278,3 +278,31 @@ test("revoked journal finalizes from exact authoritative TERMINATED after an ack
   assert.equal(record.phase, "terminated");
   assert.equal(record.terminationRecoveredFromStatus, true);
 });
+
+
+// A 3차(DSP·PLT·ID) 보강에서 확인된 구현 공백 — 시험으로 닫을 수 없어
+// todo와 검증 계획 §4.2의 GAP-IMPL 항목으로 등록한다.
+
+test(
+  "IT-PLT-003(축 유보): 외부 자원의 scope는 Offering·Agreement·Transfer·Request 중 하나로 기록돼야 한다",
+  { todo: "transfer contracts·binding registry 어디에도 scope 어휘가 없다. 자원-scope 기록이 미구현이다(GAP-IMPL-09)" },
+  () => {},
+);
+
+test(
+  "IT-PLT-004(축 유보): Dataset별 provisioning trigger 선택(FINALIZED ACK·Transfer Request ACK·첫 payload/TTL)이 기록돼야 한다",
+  { todo: "현행 worker는 Connector 승인 뒤 START 단일 경로만 갖는다. trigger 어휘·선택·기록이 미구현이다(GAP-IMPL-10). FINALIZED 전 provision 금지 축은 워커 실행 계약으로 충족" },
+  () => {},
+);
+
+test(
+  "IT-PLT-005(축 유보): 정지·재개 command와 TERMINATE의 대상 external resource ID가 필요하다",
+  { todo: "구현된 action은 START·TERMINATE뿐이고 revoke-result schema에 externalResourceId 필드가 없다(GAP-IMPL-11). 생성 응답 ID·멱등키 저장은 journal 시험이 이미 고정" },
+  () => {},
+);
+
+test(
+  "ST-PLT-004(축 유보): Agreement 만료·철회 시 active Transfer와 Agreement scope 자원이 종료돼야 한다",
+  { todo: "만료·철회 승인의 신규 dispatch 차단은 runtime-approval 시험이 고정했으나, 이미 활성인 Transfer·자원의 종료 전파는 미구현이다(GAP-IMPL-13)" },
+  () => {},
+);

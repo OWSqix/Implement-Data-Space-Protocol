@@ -19,6 +19,39 @@ test("approval binds profile version and validation decision", () => {
   assert.throws(() => operationalEnvelope(record, registry, source), { code: "DISPATCH_APPROVAL_DIGEST_MISMATCH" });
 });
 
+// FR-PLT-011의 만료·철회 축 — operationalEnvelope는 유효기간 밖과 비승인
+// status의 dispatch를 거부하는 코드를 갖고 있었으나 시험이 없었다.
+// Agreement 해지의 TERMINATED 정합은 transfer-runtime-clients가 다루며,
+// 만료·철회 시 active Transfer·자원 종료 축은 GAP-IMPL-13으로 남는다.
+test("ST-PLT-004: expired, not-yet-valid and revoked approvals block dispatch", () => {
+  const metadata = { sha256: "a".repeat(64), profileName: "core", profileVersion: "1.0.0-rc.1", decisionDigest: "sha256:one" };
+  const offering = { assetId: "urn:asset:1" };
+  const source = { sourceSystemId: "p", sourceRecordId: "r", resourceVersion: "1" };
+  const approved = {
+    approvalId: "a1", sourceSystemId: "p", sourceRecordId: "r", resourceVersion: "1",
+    status: "approved", approvedBy: "urn:operator",
+    validFrom: "2026-01-01T00:00:00Z", validUntil: "2099-01-01T00:00:00Z",
+    payloadDigest: digest({ metadata, offering }),
+  };
+  const record = () => ({ dispatchEnvelope: { schemaVersion: "molit.operational-dispatch/1", automaticDispatchAllowed: true, routing: "production-connector", approvalId: "a1", metadata, offering } });
+
+  // 만료 — validUntil이 지난 승인은 dispatch되지 않는다.
+  assert.throws(
+    () => operationalEnvelope(record(), { entries: [{ ...approved, validUntil: "2026-01-02T00:00:00Z" }] }, source),
+    { code: "DISPATCH_APPROVAL_EXPIRED" },
+  );
+  // 미도래 — validFrom 전의 승인도 거부된다.
+  assert.throws(
+    () => operationalEnvelope(record(), { entries: [{ ...approved, validFrom: "2098-01-01T00:00:00Z" }] }, source),
+    { code: "DISPATCH_APPROVAL_EXPIRED" },
+  );
+  // 철회 — approved가 아닌 status는 존재하더라도 승인으로 인정되지 않는다.
+  assert.throws(
+    () => operationalEnvelope(record(), { entries: [{ ...approved, status: "revoked" }] }, source),
+    { code: "DISPATCH_APPROVAL_REQUIRED" },
+  );
+});
+
 test("projector rejects staged RDF that changes across the validation boundary", async () => {
   const directory = await mkdtemp(join(tmpdir(), "molit-projector-digest-"));
   try {
