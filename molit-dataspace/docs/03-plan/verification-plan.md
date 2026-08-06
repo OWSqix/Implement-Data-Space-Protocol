@@ -96,8 +96,8 @@
 | ST-ID-001 | FR-ID-001 | invalid issuer·signature·audience·replay와 유효 인증 성공 경로 | 무효 요청 거부. 유효 OIDC JWT는 issuer·audience·client·tenant·role·MFA·revocation에 binding되고, service account는 cnf x5t#S256 인증서에, introspection token은 mTLS에 binding됨 | auth log, identity unit tests |
 | ST-ID-002 | FR-ID-002 | revoked 기관 credential과 유효 status-checked credential | revoked 거부, pinned issuer의 status-checked credential만 정책 입력으로 수용 | credential trace, DCP adapter unit test |
 | ST-ID-003 | FR-ID-003 | 서명·issuer·audience가 유효한 관리 평면 OIDC·introspection token으로 DSP 참가자 간 Catalog·협상·Transfer 요청 | 세 흐름 모두 참가 자격 검증 전에 거부하고 경계 위반 감사 사건 생성 | auth·policy trace+audit export |
-| OP-AUD-001 | FR-AUD-001 | 종단 transfer — ADR-0006 승인 시 참여자 간 범위 개정 필요 | participant→negotiation PID→Agreement→transfer PID→source request 연결 | trace query |
-| OP-AUD-002 | FR-AUD-002 | 승인·철회·파기 workflow | 증거 완결·무결성 확인 | audit export |
+| OP-AUD-001 | FR-AUD-001 | 종단 transfer — ADR-0006 승인 시 참여자 간 범위 개정 필요 | participant→negotiation PID→Agreement→transfer PID→platform external resource(provisioningId)→source binding 연결. journal 레코드가 사슬 전체를 보존하고 provisioned 단계에서 external resource 누락 저장을 거부 | trace query, journal unit test |
+| OP-AUD-002 | FR-AUD-002 | 승인·철회·파기 workflow와 정책판정·접근 증거 | 증거 완결·무결성 확인. 정책판정 증거는 discovery state의 decision·reasons 보존으로, 접근 증거는 denial audit의 actor·tenant·trace 결속과 WORM export의 내용·보존·수취 결속으로 단언됨 | audit export, denial-audit·WORM·discovery-sync tests |
 | FT-OPS-001 | FR-OPS-001 | timeout·5xx·quota·schema drift | 제한 재시도·격리·경보 | fault report |
 | DOC-OPS-001 | FR-OPS-002 | source outage drill | runbook으로 중단·복구 | drill record |
 
@@ -285,6 +285,12 @@
 | GAP-IMPL-11 | `FR-PLT-006`의 정지·재개 command와 대상 ID 축 | 구현 action은 START·TERMINATE뿐이고 revoke-result schema에 externalResourceId 필드가 없다. 생성 응답 ID·멱등키 저장은 journal 시험이 고정 | `Verified` | 미정 | 미정 | suspend·resume command와 대상 ID 필드 구현 후 todo 해제 |
 | GAP-IMPL-12 | `FR-PLT-009`(SHOULD)의 tenant·service identity 수명주기 축 | participant↔organization·tenant·service identity binding의 수명주기 관리 표면이 dsaas·caas 시험에서 확인되지 않음. OIDC 계층의 tenant binding 검증(ST-ID-001)과는 층위가 다름 | `Verified` | 미정 | 미정 | binding 수명주기 표면 확인 또는 구현 후 시험화 |
 | GAP-IMPL-13 | `FR-PLT-011`의 활성 자원 종료 전파 축 | 만료·미도래·철회 승인의 신규 dispatch 차단은 단언됨(ST-PLT-004 확장). 이미 활성인 Transfer와 Agreement scope 자원의 종료 전파는 미구현 | `Verified` | 미정 | 미정 | 종료 전파 구현 후 todo 해제 |
+
+`MUST` 부분 검증 보강 4차(AUD·OPS, 2026-08-04)에서 확인된 공백이다. `FR-AUD-001`은 journal 상관관계 시험으로, `FR-AUD-002`는 행 정정으로 처리했다.
+
+| ID | 요구 | 확인된 사실 | 상태 | 담당 | 기한 | 종료 조건 |
+| --- | --- | --- | --- | --- | --- | --- |
+| GAP-IMPL-14 | `FR-OPS-002`의 asset×adapter coverage·연락처 축 | asset·adapter별 제공중단·복구·연락처 runbook의 기계 표면이 없다(배포 README·경보 규칙뿐). `DOC-OPS-001`은 drill 기록 문서 통제라 todo 시험을 얹을 모듈이 없어 등록만 한다 | `Verified` | 미정 | 미정 | runbook registry 설계 결정 후 coverage 시험화 |
 
 ## 5. DSP 상호운용
 

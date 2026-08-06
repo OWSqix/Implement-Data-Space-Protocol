@@ -107,3 +107,41 @@ test("stale transfer journal lock fails closed until operator recovery", async (
   await unlink(`${path}.lock`);
   await withTransferJournal(path, async () => {}, INTEGRITY);
 });
+
+
+// FR-AUD-001 — participant, negotiation PID, Agreement, Transfer PID,
+// platform external resource와 source request의 상관관계. journal 레코드가
+// 이 사슬 전체를 보존하며, provisioned 단계에서 platform external
+// resource(provisioningId) 없이는 저장 자체가 거부된다 — 검증 계획
+// OP-AUD-001의 external resource 축.
+test("OP-AUD-001: a provisioned journal record preserves the full correlation chain including the platform external resource", async () => {
+  const directory = await mkdtemp(join(tmpdir(), "molit-journal-correlation-"));
+  const path = join(directory, "journal.json");
+  const bindingSnapshot = { datasetId: "d", format: "f", transferMode: "PULL", provisionerId: "adapter", resourceRef: { object: "x" }, enabled: true };
+  const provisioned = {
+    providerPid: "p", consumerPid: "c", agreementId: "a", datasetId: "d", format: "f",
+    provisionerId: "adapter", bindingSnapshot, bindingDigest: digest(bindingSnapshot),
+    phase: "provisioned", authorizedAt: new Date().toISOString(),
+    provisioningId: "ext-resource-77", provisionIdempotencyKey: "prov-key-1",
+    dataAddressDigest: "0".repeat(64), provisionedAt: new Date().toISOString(),
+  };
+  await withTransferJournal(path, (journal) => { journal.records.p = provisioned; }, INTEGRITY);
+  const record = (await loadTransferJournal(path, INTEGRITY)).records.p;
+  // 사슬의 모든 고리 — 양측 Transfer PID, Agreement, Dataset(원천 요청 결속),
+  // platform external resource, source binding 지문.
+  assert.equal(record.providerPid, "p");
+  assert.equal(record.consumerPid, "c");
+  assert.equal(record.agreementId, "a");
+  assert.equal(record.datasetId, "d");
+  assert.equal(record.provisioningId, "ext-resource-77");
+  assert.equal(record.bindingDigest, digest(bindingSnapshot));
+  assert.equal(record.bindingSnapshot.resourceRef.object, "x");
+
+  // 실패축 — provisioned 단계에서 external resource가 빠지면 사슬이 끊기므로 거부.
+  const broken = { ...provisioned, providerPid: "q" };
+  delete broken.provisioningId;
+  await assert.rejects(
+    withTransferJournal(path, (journal) => { journal.records.q = broken; }, INTEGRITY),
+    { code: "TRANSFER_JOURNAL_INVALID" },
+  );
+});
