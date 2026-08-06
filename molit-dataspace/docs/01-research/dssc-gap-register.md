@@ -60,13 +60,13 @@
 
 | ID | 미결정 항목 | 적용 위치 | 선행 조건 | 현재 처리 |
 | --- | --- | --- | --- | --- |
-| DEF-01 | 운영 법인·기관 지명 | [거버넌스·운영 원칙 §6](../02-design/governance-and-operating-principles.md#6-미결정-주체와-법문화) | 거버넌스 법인 확정·KAIA 위임 확인(OPEN-TOP-06) | 주체 미정 |
-| DEF-02 | 거버넌스 법적 형태·정관 | [거버넌스·운영 원칙 §6](../02-design/governance-and-operating-principles.md#6-미결정-주체와-법문화) | KAIA 확인과 법무 참여 | 법적 형태 미정 |
-| DEF-03 | 회원약정·계약 법문 | [거버넌스·운영 원칙 §6](../02-design/governance-and-operating-principles.md#6-미결정-주체와-법문화) | 법무 참여 | 원칙만 등록 |
-| DEF-04 | issuer·trust anchor·status·credential profile | [참가자 설계 §7](../02-architecture/participant-onboarding-and-assurance.md#7-미결정-등록) | DSGA 체계 확정 후 후속 ADR | DCP 경계 fail-closed |
-| DEF-05 | payload 표준 | [분야 규약 §5](../02-design/sector-rulebook-framework.md#5-payload-표준-결정-gate) | 정산 필드 실물 조사 완료 | 구현 기준선 미선택 |
-| DEF-06 | KPI 수치 목표 | [초기 유즈케이스·KPI §5](../03-plan/initial-usecases-and-kpi.md#5-kpi-초안과-수치-결정) | 실증 착수 | 지표명·중단조건만 등록 |
-| DEF-07 | 재평가 주기·자립 전환 연한 수치 | [참가자 설계 §7](../02-architecture/participant-onboarding-and-assurance.md#7-미결정-등록), [거버넌스 원칙 §3](../02-design/governance-and-operating-principles.md#3-단계-자립-재원-원칙) | 운영 정책 수립 | 수치 미기입 |
+| DEF-01 | 운영 법인·기관 지명 | [거버넌스·운영 원칙 §6](../02-design/governance-and-operating-principles.md#6-미결정-주체와-법문화) | 공식 위임 문서 확인(OPEN-TOP-06) | KAIA 잠정 지명(2026-08-06, 구두 전언 근거 `Unverified`) — 문서 확인 시 확정 |
+| DEF-02 | 거버넌스 법적 형태·정관 | [거버넌스·운영 원칙 §6](../02-design/governance-and-operating-principles.md#6-미결정-주체와-법문화) | KAIA 공식 확인과 법무 참여 | KAIA 위임 전제 진행(잠정) — 법적 형태는 공식 확인 후 |
+| DEF-03 | 회원약정·계약 법문 | [거버넌스·운영 원칙 §6](../02-design/governance-and-operating-principles.md#6-미결정-주체와-법문화) | 법무 참여 | 이 단계 착수하지 않음(Decision, 2026-08-06) — 원칙만 등록 유지 |
+| DEF-04 | issuer·trust anchor·status·credential profile | [참가자 설계 §7](../02-architecture/participant-onboarding-and-assurance.md#7-미결정-등록) | DSGA 공식 확인 후 후속 ADR | DCP 경계 fail-closed — DSGA는 KAIA 잠정 지명(공식 확인 대기) |
+| DEF-05 | payload 표준 | [분야 규약 §5](../02-design/sector-rulebook-framework.md#5-payload-표준-결정-gate) | 리서치·실물 조사(우선 후보 청주, 잠정) 완료 | 범주 골격 승인(2026-08-06) — 필드는 리서치·실물 조사로 확정 |
+| DEF-06 | KPI 수치 목표 | [초기 유즈케이스·KPI §5](../03-plan/initial-usecases-and-kpi.md#5-kpi-초안과-수치-결정) | 기준선 측정과 실증 착수 | 측정 설계 승인(2026-08-06) — 기준선 우선, 수치는 리서치·실증 착수 후 |
+| DEF-07 | 재평가 주기·자립 전환 연한 수치 | [참가자 설계 §7](../02-architecture/participant-onboarding-and-assurance.md#7-미결정-등록), [거버넌스 원칙 §3](../02-design/governance-and-operating-principles.md#3-단계-자립-재원-원칙) | 자립 전환 연한은 파일럿과 함께 | 재평가 주기 연 1회 확정(Decision, 2026-08-06) — 자립 전환 연한만 미기입 |
 | DEF-08 | secure analysis·유상 과금 활성화 | [거버넌스 원칙 §4](../02-design/governance-and-operating-principles.md#4-서비스-portfolio-원칙), [실증 로드맵](../03-plan/pilot-and-roadmap.md) | 2차 출시 결정 | 1차 범위에서 비활성 |
 
 ## 4. 용어 대응 메모
