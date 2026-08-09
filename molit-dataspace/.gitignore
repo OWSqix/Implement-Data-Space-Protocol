@@ -23,6 +23,14 @@ evidence/raw/
 tests/fixtures/identity-tls/*.crt
 tests/fixtures/identity-tls/*.key
 
+# Test-only namespace TLS material, generated at test time by
+# tests/namespace/fixtures/generate.mjs and never committed. This key exists
+# only for the duration of a test run and is registered in no trust store.
+tests/namespace/fixtures/*.crt
+tests/namespace/fixtures/*.key
+tests/namespace/fixtures/*.p12
+tests/namespace/fixtures/*.pfx
+
 # Local Bridge state and generated reports
 .local/
 test-results/

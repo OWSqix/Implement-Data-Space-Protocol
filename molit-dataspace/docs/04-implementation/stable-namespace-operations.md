@@ -211,4 +211,5 @@ namespace 시험은 외부 network를 호출하지 않는다. remote attestation
 npm run test:namespace
 ```
 
-test 인증서와 PKCS#12 파일은 `tests/namespace/fixtures/`에서만 사용한다. 운영 인증서나 운영 private key로 복사하지 않는다.
+test 인증서와 private key는 `tests/namespace/fixtures/generate.mjs`가 시험 프로세스 메모리에서 생성하며 파일로 저장하지 않는다.
+이 키는 시험 실행 중에만 존재하며 어떤 신뢰 저장소·운영 CA에도 등록하지 않는다.

@@ -7,6 +7,61 @@ import test from "node:test";
 
 const execute = promisify(execFile);
 const root = fileURLToPath(new URL("../..", import.meta.url));
+const PKCS7_CONTENT_TYPE_OID_PREFIX = Buffer.from("2a864886f70d0107", "hex");
+
+function readAsn1Element(bytes, offset) {
+  if (offset >= bytes.length) return null;
+  const tag = bytes[offset];
+  const firstLength = bytes[offset + 1];
+  if (firstLength === undefined) return null;
+  if (firstLength === 0x80) return { end: null, indefinite: true, tag, valueStart: offset + 2 };
+
+  let length = firstLength;
+  let valueStart = offset + 2;
+  if ((firstLength & 0x80) !== 0) {
+    const lengthBytes = firstLength & 0x7f;
+    if (lengthBytes === 0 || lengthBytes > 4 || valueStart + lengthBytes > bytes.length) return null;
+    length = 0;
+    for (let index = 0; index < lengthBytes; index += 1) {
+      length = (length * 256) + bytes[valueStart + index];
+    }
+    valueStart += lengthBytes;
+  }
+
+  const end = valueStart + length;
+  if (end > bytes.length) return null;
+  return { end, indefinite: false, tag, valueStart };
+}
+
+function isPkcs12Container(bytes) {
+  const pfx = readAsn1Element(bytes, 0);
+  if (!pfx || pfx.tag !== 0x30 || (!pfx.indefinite && pfx.end !== bytes.length)) return false;
+
+  const version = readAsn1Element(bytes, pfx.valueStart);
+  if (!version || version.indefinite || version.tag !== 0x02) return false;
+  const encodedVersion = bytes.subarray(version.valueStart, version.end);
+  if (encodedVersion.length === 0 || encodedVersion.at(-1) !== 3 || encodedVersion.subarray(0, -1).some((byte) => byte !== 0)) return false;
+
+  const authSafe = readAsn1Element(bytes, version.end);
+  if (!authSafe || authSafe.tag !== 0x30 || (!pfx.indefinite && !authSafe.indefinite && authSafe.end > pfx.end)) return false;
+  const contentType = readAsn1Element(bytes, authSafe.valueStart);
+  if (!contentType || contentType.indefinite || contentType.tag !== 0x06 || (!authSafe.indefinite && contentType.end > authSafe.end)) return false;
+
+  const oid = bytes.subarray(contentType.valueStart, contentType.end);
+  return oid.length === PKCS7_CONTENT_TYPE_OID_PREFIX.length + 1
+    && oid.subarray(0, -1).equals(PKCS7_CONTENT_TYPE_OID_PREFIX)
+    && (oid.at(-1) === 1 || oid.at(-1) === 2);
+}
+
+test("PKCS#12 detector recognizes DER and indefinite-length BER PFX structures", () => {
+  const derPfx = Buffer.from("3010020103300b06092a864886f70d010701", "hex");
+  const berPfxWithPaddedVersion = Buffer.from("301102020003300b06092a864886f70d010701", "hex");
+  const berPfx = Buffer.from("3080020103308006092a864886f70d01070100000000", "hex");
+  assert.equal(isPkcs12Container(derPfx), true);
+  assert.equal(isPkcs12Container(berPfxWithPaddedVersion), true);
+  assert.equal(isPkcs12Container(berPfx), true);
+  assert.equal(isPkcs12Container(Buffer.from("3003020103", "hex")), false);
+});
 
 for (const service of ["caas", "dsaas"]) {
   test(`${service} final image contract is pinned, non-root, and health-checked`, async () => {
@@ -98,12 +153,14 @@ test("release paths cover the fencing webhook and adopted PostgreSQL and Collect
   assert.match(adoption, /verify-attestation/u);
 });
 
-test("tracked project files contain no serialized private signing key", async () => {
+test("tracked project files contain no PEM private keys or PKCS#12 containers", async () => {
   const { stdout } = await execute("git", ["ls-files", "-z", "--", "."], { cwd: root, encoding: null });
   const paths = stdout.toString("utf8").split("\0").filter(Boolean);
-  const privateKeyBlock = /-----BEGIN (?:ED25519 )?PRIVATE KEY-----\s+[A-Za-z0-9+/=\r\n]{64,}-----END (?:ED25519 )?PRIVATE KEY-----/u;
+  const privateKeyBlock = /-----BEGIN ((?:[A-Z0-9]+ )*PRIVATE KEY)-----\s+[A-Za-z0-9+/=\r\n]{64,}-----END \1-----/u;
   for (const path of paths) {
     const content = await readFile(new URL(path.replaceAll("\\", "/"), new URL("../..", import.meta.url))).catch(() => null);
+    assert.equal(/\.(?:p12|pfx)$/iu.test(path), false, "PKCS#12 container is tracked in " + path);
+    if (content) assert.equal(isPkcs12Container(content), false, "PKCS#12 container is tracked in " + path);
     if (content) assert.equal(privateKeyBlock.test(content.toString("utf8")), false, `private key material is tracked in ${path}`);
   }
 });

@@ -11,8 +11,8 @@ import { after, before, test } from "node:test";
 import { loadNamespaceConfig } from "../../src/publication/config.mjs";
 import { attestNamespace } from "../../src/publication/remote-attestation.mjs";
 import { createNamespaceService } from "../../src/publication/server.mjs";
+import { namespaceTlsFixtures } from "./fixtures/generate.mjs";
 
-const FIXTURE_DIRECTORY = path.resolve("tests/namespace/fixtures");
 const SOURCE_RELEASE = path.resolve("profiles/molit-dcat-ap/releases/1.0.0-rc.1");
 const logger = { info() {}, warn() {} };
 let artifactLock;
@@ -51,9 +51,9 @@ before(async () => {
     await copyFile(path.join(SOURCE_RELEASE, artifactPath), path.join(releaseRoot, artifactPath));
   }
 
-  ca = await readFile(path.join(FIXTURE_DIRECTORY, "localhost-test.crt"));
-  const pfx = await readFile(path.join(FIXTURE_DIRECTORY, "localhost-test.p12"));
-  tlsServer = https.createServer({ passphrase: "molit-test-only", pfx }, (request, response) => {
+  const tls = namespaceTlsFixtures();
+  ca = tls.certificate;
+  tlsServer = https.createServer({ cert: tls.certificate, key: tls.privateKey }, (request, response) => {
     const upstream = http.request({
       headers: { ...request.headers, Host: new URL(origin).host },
       host: "127.0.0.1",
