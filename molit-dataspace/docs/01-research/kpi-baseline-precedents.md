@@ -1,7 +1,8 @@
 # KPI 기준선 선례 조사 — DEF-06 리서치
 
 작성일: 2026-08-06  
-작성 기준: 2026-08-06 외부 원문 조사 결과  
+추가 조사일: 2026-08-09  
+작성 기준: 2026-08-06 외부 원문 조사 결과 및 2026-08-09 미확인 항목 추가 조사 결과  
 상태: Draft  
 작성자: 연구 담당  
 관련 결정: `E-25`
@@ -22,27 +23,83 @@
 | 청주 재정지원 규모 | 2023년 재정지원 예산안 655.7억 원 | [1] | Verified | 2022-12 심사 중이던 예산안 제안설명 수치이며 확정액도 집행액도 아님 |
 | 청주 재정지원 집행 추이 | 2021년 510억 → 2022년 660억 → 2023년 686억 원 | [5] | Unverified | 보도 본문 확인, 청주시 1차 자료 미확보 |
 | 감사원 서울 정산 오류 | 차량보험료 89억여 원(2016~2019)·타이어비 98억여 원(2015~2019)·정비비 152억여 원(2015~2019) 과다지급 | [2] | Unverified | 감사원 「지방자치단체 시내버스 준공영제 운영실태」 관련 보도. 보도 본문 확인, 감사보고서 원문 미접근 — `OPEN-KBP-01` |
-| 감사원 부산 운행실적 불일치 | 2017~2020년 미운행 124만여 회 중 신고 35만여 회(보도 기재 28.7%), 미부과 페널티 추산 652억여 원 | [2] | Unverified | 나머지는 미신고. 보도 본문 확인, 감사보고서 원문 미접근 — `OPEN-KBP-01` |
+| 감사원 부산 운행실적 불일치 | 2017년부터 2020년까지 총미운행횟수 1,249,927회·신고 359,218회(28.7%)·미신고 890,709회(71.3%)·페널티 금액 총 65,227백만 원 | [10] | Verified | 부산광역시 공식 게시물의 감사원 처분요구서 PDF 본문 직접 확인, 기준일: 2026-08-09 |
 | 인천 재정지원 추이 | 2010년 446억 원 → 2021년 1,923억 원 | [3] | Unverified | 보도 본문 확인, 인천시 1차 자료 미확보 |
 | 인천 환수·행정소송 | 재정지원금 5억 원 환수 후 행정소송 패소 | [1] | Unverified | 시의원 발언 전언이며 판결문 미확인 |
 | 서울 미지급금 관행 | 재정지원 2021년 4,561억 원 → 2023년 8,915억 원 → 2025년 4,575억 원 | [4] | Unverified | 미지급금(조합 대출 후 사후 보전) 관행이 연도별 정산액을 왜곡. 보도 본문 확인, 서울시 1차 자료 미확보 |
 
+- **(Verified)** 경실련 공식 PDF 1면의 표제는 “[연속기획] 버스 준공영제 실태보고 ⑦ 전국 현황”이다 — 근거: [6], 기준일: 2026-08-09
+- **(Verified)** 같은 PDF의 공문 표기는 “제 목 : [기자회견] 전국 버스 운영실태 및 준공영제 개선방안 발표 (총 18매)”이다 — 근거: [6]
+- **(Verified)** 같은 공문의 표기는 “배포일자 : 2026. 5. 13.(수)”이다 — 근거: [6]
+- **(Verified)** 부산 처분요구서 3면의 미운행 횟수 문언은 아래와 같다 — 근거: [10], 기준일: 2026-08-09
+
+  > 그 결과, [표 16]과 같이 2017년부터 2020년까지 전체 버스의 총미운행횟수는
+  > 1,249,927회(연평균 311,231회, 일평균 856회)인데, 이 중 버스회사가 신고한 건은
+  > 359,218회(28.7%)이고, 나머지 890,709회(71.3%)는 신고하지 않은 것으로 나타났다.
+
+- **(Verified)** 같은 면의 페널티 추정 문언은 아래와 같다 — 근거: [10]
+
+  > 또한, 부산시는 신고된 건에 대해서만 가동비를 감액하였으나, 만약 미신고건 전체에 대하여 이를 확인하여 심사하였다면,
+  > 아래 사례와 [표 16]과 같이 최소한 가동비에 해당하는 페널티 금액 총 65,227백만 원을 부과할 수 있었을 것으로 추정된다.
+
 ## 2. 국내 데이터 사업 KPI 사례
 
-- **(Unverified)** 2023년 공공데이터 품질관리 수준진단·평가 매뉴얼(행안부·NIA, 2023-04)은 700개 기관을 11개 지표로 진단한다 — 근거: [7]
-- **(Unverified)** 같은 매뉴얼의 데이터 오류율 산식은 오류데이터 건수×100/전체 데이터 건수다 — 근거: [7]
-- **(Unverified)** 그 분모는 진단대상 DB 안에서 품질진단을 수행한 전체 데이터 건수로 한정된다 — 근거: [7]
-- **(Unverified)** 오류율 점수 구간은 0.01% 미만 14점·0.1% 미만 12점·0.5% 미만 9점·1.0% 미만 6점·1.0% 이상 3점이다 — 근거: [7]
-- **(Unverified)** 진단 미수행은 0점이다 — 근거: [7]
-- **(Unverified)** 익년 진단 면제는 아래 두 조건을 함께 충족한 연속진단 DB에만 적용된다 — 근거: [7]
-  - **(조건)** 직전년도 진단에서 데이터 품질진단 지표와 품질진단 결과 조치 지표가 모두 만점이다 — 근거: [7]
-  - **(조건)** 오류율이 0.001% 미만이다 — 근거: [7]
-  - **(면제 범위)** 면제 대상은 당해연도 ⑦ 데이터 품질진단 지표와 ⑧ 품질진단 결과 조치 지표 두 개뿐이다 — 근거: [7]
-- **(Unverified)** 근거 [7]은 민간 사단법인이 재게시한 본문이므로 공식 게시본 대조가 남아 있다 — `OPEN-KBP-06`
-- **(Unverified)** 공공데이터법 제27조의 조문 제목은 "공표 제공대상 외의 공공데이터 제공신청 등"이다 — 근거: [8]
-- **(Unverified)** 같은 조 제1항은 제공대상 공공데이터 목록에 포함되지 않는 공공데이터의 제공신청만 대상으로 삼는다 — 근거: [8]
-- **(Unverified)** 같은 조 제3항은 요청일부터 10일 이내 제공 여부 결정을, 제4항은 만료일 다음 날부터 10일 이내 범위의 연장을 정한다 — 근거: [8]
-- **(Inferred)** 연장 상한을 1회로 읽는 것은 해석이다. 제27조 법문에 "1회"라는 표현은 없다 — 근거: [8]
+- **(Unverified)** 2023년 공공데이터 품질관리 수준진단·평가 매뉴얼 재게시본의 표기는 아래와 같다 — 근거: [7]
+
+  > (대상기관) 700개 기관
+  > (진단‧평가항목) 2개 영역(데이터 관리체계, 데이터 값 관리), 11개 지표
+
+- **(Unverified)** 같은 재게시본의 데이터 품질 오류율 산식은 분수로 조판돼 있다 — 근거: [7]
+
+  ```text
+                           오류데이터 건수b)
+  · 데이터 품질 오류율(%) = ─────────────────────────── × 100
+                           진단대상DB 전체 데이터 건수a)
+  ```
+
+  > a) 진단대상DB 내 품질진단을 수행한 전체 데이터 건수
+  > b) 진당대상DB 내 품질진단을 수행한 전체 데이터 중 오류가 발견된 건수
+
+- **(Unverified)** 오류율 점수 표의 행은 아래와 같다 — 근거: [7]
+
+  > | 진단·평가기준 | 점수 |
+  > | --- | --- |
+  > | 오류율 0.01% 미만 | 14점 |
+  > | 오류율 0.1% 미만 | 12점 |
+  > | 오류율 0.5% 미만 | 9점 |
+  > | 오류율 1.0% 미만 | 6점 |
+  > | 오류율 1.0% 이상 | 3점 |
+  > | 미수행 | 0점 |
+- **(Unverified)** 2022년 품질인증 미획득 기관의 면제 문언은 아래와 같다 — 근거: [7]
+
+  > 2022년 품질인증 미획득 기관의 ’22~’23년 연속진단 DB 중 2022년 진단결과 ’데이터 품질진단‘, ’품질진단 결과 조치‘ 지표에서 만점을 획득하고, 오류율이 0.001% 미만인 DB는 ⑦, ⑧번 지표에 대한 진단‧평가 면제
+
+- **(Unverified)** 2022년 품질인증을 획득한 기관에는 별도 면제 경로가 있다 — 근거: [7]
+
+  > 2022년 품질인증을 획득한 기관은 평가 시 별도 근거자료 제출 필요없음.
+  > 다만, DB 단위 지표는 ‘22년 인증 DB에 한하여 면제가 되며, 2023년 품질관리 수준진단‧평가대상 DB 선정기준에 따라 추가되는 DB에 대해서는 평가 근거자료 제출 필요
+
+- **(Unverified)** 근거 [7]의 수치·산식·면제 문언은 재게시본 본문에서 직접 확인했다 — 기준일: 2026-08-06, 재대조일: 2026-08-09
+- **(Unverified)** data.go.kr 자료실 내부 검색과 mois.go.kr·nia.or.kr 관련 공개 페이지·도메인 제한 검색에서 발행기관 원게시본을 찾지 못했다 — 근거: [7], `OPEN-KBP-06`, 재검색일: 2026-08-09
+- **(Unverified)** gooddataedu.com 통합검색의 공개 접근 범위에서도 원게시본을 찾지 못했다 — 근거: [7], `OPEN-KBP-06`, 재검색일: 2026-08-09
+- **(Verified)** 현행 제27조의 조문 제목은 아래와 같다 — 근거: [8], 기준일: 2026-08-09
+
+  > 제27조(공표 제공대상 외의 공공데이터 제공신청 등)
+
+- **(Verified)** 현행 제27조제1항은 아래와 같다 — 근거: [8], 기준일: 2026-08-09
+
+  > ① 제공대상 공공데이터 목록에 포함되지 아니하는 공공데이터를 제공받고자 하는 이용자는 대통령령으로 정하는 바에 따라 소관 공공기관의 장 또는 활용지원센터에 공공데이터 제공을 신청하여야 한다.
+
+- **(Verified)** 현행 제27조제3항은 아래와 같다 — 근거: [8], 기준일: 2026-08-09
+
+  > ③ 제1항 및 제2항에 따라 제공요청을 받은 공공기관의 장은 해당 공공데이터가 제17조제1항 각 호의 정보를 포함하고 있는지를 검토하여 요청을 받은 날부터 10일 이내에 제공 여부를 결정하여야 한다.
+
+- **(Verified)** 현행 제27조제4항은 아래와 같다 — 근거: [8], 기준일: 2026-08-09
+
+  > ④ 공공기관의 장은 부득이한 사유로 제3항에 규정된 기간 이내에 제공 여부를 결정할 수 없는 때에는 그 기간의 만료일 다음 날부터 기산하여 10일 이내의 범위에서 제공 여부 결정기간을 연장할 수 있다.
+  > 이 경우 공공기관의 장은 연장된 사실과 연장사유를 신청인에게 지체 없이 통보하여야 한다.
+
+- **(Inferred)** 연장 상한을 1회로 읽는 것은 해석이다. 제27조 법문에 “1회”라는 표현은 없다 — 근거: [8]
 - **(Verified)** 국가교통 데이터 오픈마켓은 활용사례 200여 종을 게시하며 상품 수·거래 건수 등 KPI 총계는 미공표다 — 근거: [9], 기준일: 2026-08-06
 
 ## 3. EU 데이터 스페이스 파일럿 KPI 사례
@@ -53,8 +110,25 @@
 - **(Verified)** Deutsche Telekom DIH 게시본은 인증 앱·서비스 45개 이상과 DACH 10대 공급사 중 8개 등록을 기술한다 — 근거: [12]
 - **(Unverified)** sovity의 "1분기 내 BMW 공급사 20개 이상 온보딩"은 본문 접근에 실패해 검색 결과 요약 수준이다 — 근거: [13]
 - **(Verified)** IDSA 소개문은 Mobility Data Space가 이해관계자 200개 이상 참여로 구축됐다고 기술한다 — 근거: [14]
-- **(Verified)** MDS 공식 홈·커뮤니티 페이지 본문 확인 범위에서 참여자 수·데이터 오퍼 수 등 KPI 총계는 미공표다 — 근거: [15], [16]
-- **(Unverified)** MDS의 Data Catalogue·Press Releases 섹션은 미확인이므로 부재 증명의 범위는 홈·커뮤니티 페이지에 한정된다 — `OPEN-KBP-08`
+- **(Verified)** acatech 프로젝트 페이지와 MDS 공식 홈·커뮤니티 페이지에서는 2026-08-06 확인 범위에서 참여자 수·데이터 오퍼 수 등 KPI 총계를 발견하지 못했다 — 근거: [15], [16]
+- **(Verified)** MDS 공식 Press & Media FAQ는 현재 회원 수를 아래와 같이 밝힌다 — 근거: [16], 기준일: 2026-08-09
+
+  > Currently, around 165 organisations are members of the Mobility Data Space.
+
+- **(Verified)** Data Catalogue 본문과 Press Releases의 PDF 20건에서 데이터 오퍼·거래·온보딩 완료 총계는 발견되지 않았다 — 근거: [16], 기준일: 2026-08-09
+- **(Verified)** EU 집행위 DG CONNECT가 관리하는 EDM 공식 페이지는 「Story on the Common European Mobility Data Space」를 게시한다 — 근거: [17], 기준일: 2026-08-09
+- **(Verified)** 공식 PDF 표지의 발행월 표기는 “February 2025”이다 — 근거: [17]
+- **(Verified)** 공식 PDF의 저자 표기는 “Author(s) CARSA: Marco Graziadio and Pär Weström”이다 — 근거: [17]
+- **(Verified)** 같은 PDF의 수신 담당자 표기는 아래와 같다 — 근거: [17]
+
+  > Katalin IMREI
+  > Policy Officer
+  > European Commission, DG CONNECT
+  > Unit G1 — Data Policy and Innovation
+
+- **(Verified)** 같은 PDF는 초기 단계 유즈케이스의 정량 성과 자료에 관해 아래와 같이 적는다 — 근거: [17]
+
+  > However, the deployment of the European mobility data space is still in an early phase, so little quantitative data was found in terms of results or impacts linked to the use cases analysed.
 
 ## 4. 기준선 측정 방법론(공식 지침·정부 문서)
 
@@ -84,11 +158,14 @@
    - **(성격)** 이 차액은 표준운송원가 실비정산 계약이 예정한 사후 조정이며 대사 불일치가 아니다 — 근거: [1]
 3. **데이터 대사 오류율**: 정산 차액률과 분리한 별도 지표로 둔다.
    - **(정의)** 대사 결과 불일치 건수를 대사 대상 건수로 나눈 값이다
-   - **(유형 분류)** 감사원 지적 항목을 오류 유형 분류체계 후보로 쓴다 — 근거: [2]
-   - **(한계)** 근거 [2]는 언론 보도이며 감사보고서 원문은 미접근이다 — `OPEN-KBP-01`
+   - **(유형 분류)** 감사원 부산 처분요구서의 지적 항목을 오류 유형 분류체계 후보로 쓴다 — 근거: [10]
+   - **(한계)** 서울 과다지급 세 항목은 보도만 확인했고 감사보고서 원문은 미접근이다 — 근거: [2], `OPEN-KBP-01`
 4. **데이터 제공 리드타임**: 법정 시계는 공표 제공대상 외의 공공데이터 제공신청에만 붙는다.
-   - **(범위)** 제공대상 목록에 포함된 공공데이터는 제26조로 제공되므로 10일 시계가 적용되지 않는다 — 근거: [8]
-   - **(상한)** 목록 외 제공신청은 10일 이내 결정과 10일 이내 연장이 상한이다 — 근거: [8]
+   - **(범위)** 제26조제1항 단서는 아래와 같이 정한다 — 근거: [8]
+
+     > 다만, 공표된 제공대상 공공데이터 목록에 포함되지 아니하는 공공데이터의 경우 제27조에 따라 별도의 제공신청을 하여야 한다.
+
+   - **(기간)** 결정·연장 기간은 2절의 제27조제3항·제4항 축자 인용을 따른다 — 근거: [8]
    - **(실측 정의)** 실측은 요청부터 제공 완료까지로 잡아 법정 범위보다 넓게 둔다
 5. **온보딩 지표**: 절대 수 대신 목표 대비 완료율과 기관당 온보딩 소요일로 설계한다.
    - **(선례)** Catena-X 중국 파일럿이 공표한 것은 목표 온보딩 기업 수와 파일럿 기간이다 — 근거: [11]
@@ -103,39 +180,39 @@
 
 | ID | 내용 | 해소 조건 |
 | --- | --- | --- |
-| `OPEN-KBP-01` | 감사원 「준공영제 운영실태」 감사보고서 원문 미접근. 대한경제 보도 본문만 확인(기준일: 2026-08-06) | bai.go.kr는 JS 전용 SPA라 정적 수집 불가 — 브라우저 렌더링 또는 정보공개청구로 원문 확보 |
+| `OPEN-KBP-01` | 서울 보도 본문 확인(기준일: 2026-08-06), 과다지급 세 항목의 원문은 미확보다. 부산 수치는 부산시 게시 처분요구서 2건으로 대조했다. 감사원·국회/국회도서관·정부간행물/정책연구·서울 공식 도메인에서 전문을 찾지 못했다. 서울시의회 첨부 후보 2개 URL은 모두 본문 취득이 시간 초과됐다 — 근거: [2], [10], [23], 재확인일: 2026-08-09 | 감사원 전문 또는 서울시 게시 사본으로 서울 보험료·타이어비·정비비 대조 |
 | `OPEN-KBP-02` | 청주 사후정산 차액의 비율 산출 불가. 2021년은 준공영제 시행 첫해라 선행 연도 비교치가 구조적으로 부재(기준일: 2026-08-06) | 동일 연도 분모인 운송수입금·재정지원금 합계 확보, 청주시 2022·2023년도분 정산 검사 결과 확보 |
-| `OPEN-KBP-03` | 경실련 전국 준공영제 실태보고 원문 미열람. 자료 서지 특정에도 실패(기준일: 2026-08-06) | 보고서 서지 확정 후 원문 확보 |
-| `OPEN-KBP-04` | sovity의 BMW 공급사 온보딩 사례 본문 접근 실패(기준일: 2026-08-06) | 원문 접근 재시도 또는 대체 출처 확보 |
-| `OPEN-KBP-05` | EDM Study(Common European Mobility Data Space) PDF의 URL 자체 미확보(기준일: 2026-08-06) | 정확한 URL 확정 후 본문 확보. 발행 주체가 EU 집행위인지 함께 확인 |
-| `OPEN-KBP-06` | 2023년 공공데이터 품질관리 매뉴얼의 행안부·NIA 공식 게시 URL 미확보(기준일: 2026-08-06) | data.go.kr 또는 mois.go.kr에서 공식 게시본 확보 후 근거 [7] 교체 |
+| `OPEN-KBP-04` | sovity 본문 접근 실패(기준일: 2026-08-06). 공식 URL 재시도도 리디렉션 뒤 본문 취득 실패(재확인일: 2026-08-09) — 근거: [13] | 원문 응답 본문 또는 대체 1차 출처 확보 |
+| `OPEN-KBP-06` | 행안부·NIA 공식 URL 미확보(기준일: 2026-08-06). data.go.kr·mois.go.kr·nia.or.kr 및 gooddataedu.com의 공개 접근 범위를 재검색했으나 원게시본을 찾지 못했다(재검색일: 2026-08-09) — 근거: [7] | 발행기관 원게시본과 2023-08 수정본 원문 확보 후 근거 [7] 교체 |
 | `OPEN-KBP-07` | Catena-X 중국 파일럿의 실제 온보딩 달성치 미확인(기준일: 2026-08-06) | 파일럿 종료 후 공식 발표 또는 후속 보도자료 확인 |
-| `OPEN-KBP-08` | Mobility Data Space의 Data Catalogue·Press Releases 섹션 미확인(기준일: 2026-08-06) | 두 섹션 본문 확인 후 KPI 공표 여부 재판정 |
-| `OPEN-KBP-09` | 공공데이터법 현행 조문의 law.go.kr 원본 대조 미실시(기준일: 2026-08-06) | law.go.kr 본문 취득 후 근거 [8] 교체 |
 
-## 7. 출처(기준일 2026-08-06)
+## 7. 출처
+
+기존 출처 확인 기준일: 2026-08-06  
+미확인 항목 추가 조사 기준일: 2026-08-09
 
 | # | 출처 | URL | 상태 | 비고 |
 | --- | --- | --- | --- | --- |
 | 1 | 청주시의회 제74회 제5호 재정경제위원회 회의록(2022-12-14) | <https://councilrec.cheongju.go.kr/minutes/svc/web/cms/mnts/SvcMntsViewer.php?schSn=2934> | Verified | 회의록 전문 확인 |
-| 2 | 대한경제, 감사원 준공영제 감사 결과 보도(2021-06-17) | <https://www.dnews.co.kr/uhtml/view.jsp?idxno=202106171351320070440> | Unverified | 보도 본문 확인, 감사보고서 원문 미접근 — `OPEN-KBP-01` |
+| 2 | 대한경제, 감사원 준공영제 감사 결과 보도(2021-06-17) | <https://www.dnews.co.kr/uhtml/view.jsp?idxno=202106171351320070440> | Unverified | 보도 본문 확인. 서울 과다지급 항목의 1차 원문 미접근 — `OPEN-KBP-01` |
 | 3 | 인천투데이, 인천 버스준공영제 재정지원 | <https://www.incheontoday.com/news/articleView.html?idxno=210110> | Unverified | 보도 본문 확인, 인천시 1차 자료 미확보 |
 | 4 | 경향신문, 서울 버스 재정지원 왜곡(2026-03-17) | <https://www.khan.co.kr/article/202603172054035> | Unverified | 보도 본문 확인, 서울시 1차 자료 미확보 |
 | 5 | 충청타임즈, 청주시 시내버스 준공영제 재정 부담 보도(2024-11-25) | <https://www.cctimes.kr/news/articleView.html?idxno=820385> | Unverified | 보도 본문 확인, 청주시 1차 자료 미확보 |
-| 6 | 경실련 전국 준공영제 실태보고 | URL 미확보 — 자료 서지 특정 실패 | Unverified | 본문 미열람 — `OPEN-KBP-03` |
-| 7 | 2023년 공공데이터 품질관리 수준진단·평가 매뉴얼(행안부·NIA, 2023-04) | <https://www.cisp.or.kr/wp-content/uploads/2023/11/2023%EB%85%84-%EA%B3%B5%EA%B3%B5%EB%8D%B0%EC%9D%B4%ED%84%B0-%ED%92%88%EC%A7%88%EA%B4%80%EB%A6%AC-%EC%88%98%EC%A4%80%EC%A7%84%EB%8B%A8%C2%B7%ED%8F%89%EA%B0%80-%EB%A7%A4%EB%89%B4%EC%96%BC.pdf> | Unverified | 게시처는 (사)정보화사회실천연합. 재게시본 전문 확인, 공식 게시본 대조 미실시 — `OPEN-KBP-06` |
-| 8 | 공공데이터의 제공 및 이용 활성화에 관한 법률 | <https://ko.wikisource.org/wiki/%EA%B3%B5%EA%B3%B5%EB%8D%B0%EC%9D%B4%ED%84%B0%EC%9D%98_%EC%A0%9C%EA%B3%B5_%EB%B0%8F_%EC%9D%B4%EC%9A%A9_%ED%99%9C%EC%84%B1%ED%99%94%EC%97%90_%EA%B4%80%ED%95%9C_%EB%B2%95%EB%A5%A0> | Unverified | 위키문헌 전재본(법률 제13723호 판본 표기) 본문 확인, law.go.kr 원본 대조 미실시 — `OPEN-KBP-09` |
+| 6 | 경실련 「[연속기획] 버스 준공영제 실태보고 ⑦ 전국 현황」(2026-05-13) | <https://ccejcity.or.kr/posts/bWty9EL> | Verified | 공식 게시물의 첨부 PDF 18쪽 전문과 공문 제목·배포일 직접 확인, 기준일: 2026-08-09 |
+| 7 | 「2023년 공공데이터 품질관리 수준진단·평가 매뉴얼」(표지 표기 2023. 4.) | [민간 재게시 PDF](https://www.cisp.or.kr/wp-content/uploads/2023/11/2023%EB%85%84-%EA%B3%B5%EA%B3%B5%EB%8D%B0%EC%9D%B4%ED%84%B0-%ED%92%88%EC%A7%88%EA%B4%80%EB%A6%AC-%EC%88%98%EC%A4%80%EC%A7%84%EB%8B%A8%C2%B7%ED%8F%89%EA%B0%80-%EB%A7%A4%EB%89%B4%EC%96%BC.pdf)·[행안부 정책실명제](https://www.mois.go.kr/frt/bbs/type014/commonSelectBoardArticle.do?bbsId=BBSMSTR_000000000003&nttId=102829)·[전북교육청 재게시](https://www.jbe.go.kr/office/board/view.jbe?boardId=BBS_0000191&categoryCode1=Q&categoryCode2=Q_01&dataSid=449127&menuCd=DOM_000000716003000000) | Unverified | 재게시본 본문 대조. 행안부 첨부는 정책이력 HWPX다. data.go.kr·mois.go.kr·nia.or.kr·gooddataedu.com 공개 접근 범위에서 발행기관 원게시본 미확보 — `OPEN-KBP-06`, 재검색일: 2026-08-09 |
+| 8 | 국가법령정보센터, 공공데이터법 제26조·제27조 | [제26조](https://www.law.go.kr/LSW/lsLawLinkInfo.do?chrClsCd=010202&lsJoLnkSeq=900120921)·[제27조](https://www.law.go.kr/lsLawLinkInfo.do?chrClsCd=010202&lsJoLnkSeq=900121114) | Verified | [시행 2023. 11. 17.] [법률 제19408호, 2023. 5. 16., 타법개정] 본문 직접 확인, 기준일: 2026-08-09 |
 | 9 | 국가교통 데이터 오픈마켓 | <https://www.bigdata-transportation.kr/> | Verified | 공식 사이트 본문 확인 |
-| 10 | 국가법령정보센터 공공데이터법 조문 페이지 | <https://www.law.go.kr/lsEfInfoP.do?lsiSeq=162150> | Unverified | 본문 취득 실패. 법률 제12844호 구판 페이지만 반환 |
+| 10 | 부산광역시, 감사원 「지방자치단체 시내버스 준공영제 운영실태」 감사결과 게시물 | <https://www.busan.go.kr/gbinspec02/1497804> | Verified | 게시 본문과 감사원 처분요구서 PDF 2건 직접 확인. 부산 수치는 양쪽 PDF 3~4면에서 동일하게 확인, 기준일: 2026-08-09 |
 | 11 | Catena-X, First China Pilot with 50 Companies | <https://catena-x.net/news/catena-x-caam-and-vda-launch-first-china-pilot-with-50-companies-advancing-global-data-collaboration/> | Verified | 보도자료 본문 확인 |
 | 12 | Deutsche Telekom DIH, Catena-X supplier onboarding | <https://dih.telekom.com/en/t-systems-fast-tracks-catena-x-supplier-onboarding> | Verified | 게시본 본문 확인, Catena-X 공식 통계 대조 미실시 |
-| 13 | sovity, Catena-X onboarding for BMW Group | <https://sovity.de/en/sovity-accelerates-the-catena-x-onboarding-of-suppliers-for-the-bmw-group/> | Unverified | 본문 접근 실패, 검색 결과 요약만 취득 — `OPEN-KBP-04` |
+| 13 | sovity, Catena-X onboarding for BMW Group | <https://sovity.de/en/sovity-accelerates-the-catena-x-onboarding-of-suppliers-for-the-bmw-group/> | Unverified | 본문 접근 실패. 2026-08-09 재시도도 리디렉션 뒤 취득 실패 — `OPEN-KBP-04` |
 | 14 | IDSA, Mobility Data Space 소개 | <https://internationaldataspaces.org/mobility-data-space-sustainable-mobility-data-sovereignty-use-cases-community/> | Verified | 소개문 본문 확인 |
 | 15 | acatech, Mobility Data Space 프로젝트 | <https://en.acatech.de/project/mobility-data-space/> | Verified | 프로젝트 페이지 본문 확인 |
-| 16 | Mobility Data Space 공식 | <https://mobility-dataspace.eu/> | Verified | 홈·커뮤니티 페이지 본문 확인, 데이터 카탈로그·보도자료 섹션 미확인 — `OPEN-KBP-08` |
-| 17 | EDM Study, Common European Mobility Data Space(2025-02) | URL 미확보 — 검색 결과의 절단 주소만 취득 | Unverified | 본문 미열람 — `OPEN-KBP-05` |
+| 16 | Mobility Data Space 공식 | [홈](https://mobility-dataspace.eu/)·[커뮤니티](https://mobility-dataspace.eu/community)·[Data Catalogue](https://mobility-dataspace.eu/data-catalogue)·[Press & Media](https://mobility-dataspace.eu/press-media) | Verified | 홈·커뮤니티 확인(2026-08-06). 카탈로그·보도자료 20건 확인(2026-08-09). 회원 약 165개 조직 확인. 데이터 오퍼·거래·온보딩 완료 총계 미발견 |
+| 17 | EU 집행위 공식 인덱스에 게시된 EDM 2024-2026 「Story on the Common European Mobility Data Space」 | [공식 인덱스](https://digital-strategy.ec.europa.eu/en/library/european-data-market-study-2024-2026)·[PDF](https://ec.europa.eu/newsroom/repository/document/2025-10/EDM_StoryMobility_data_space_vFinal_20250304_2GSBvHwQfflsuSr9DJfBHhoiig_113368.pdf) | Verified | 공식 PDF 77쪽 전문 확인. 저자는 CARSA 2인이고 수신자는 EC DG CONNECT 담당자, 기준일: 2026-08-09 |
 | 18 | 국민권익위 2022년도 성과관리 시행계획(정부업무평가포털) | <https://evaluation.go.kr/upload2/atch/eval/20230307133807050.pdf> | Verified | PDF 전문 확인 |
 | 19 | 2023년도 준정부기관 경영실적 평가보고서(2024-08) | <https://www.evaluation.go.kr/upload2/atch/eval/20250205154052671.pdf> | Verified | PDF 전문 확인 |
 | 20 | 국회예산정책처 「2010회계연도 성과보고서 평가」(2011) | <https://nabo.go.kr/files/con_hwp/8/9836.hwp.files/Sections.html> | Verified | HWP 변환 HTML 본문 확인 |
 | 21 | 기재부 「재정사업 성과지표 개발 매뉴얼」(2012) 발간정보 | <https://www.korea.kr/archive/expDocView.do?docId=30717> | Unverified | 정책브리핑 발간정보만 확인, 본문 미확보 |
 | 22 | 국무조정실 「정부업무 성과관리 운영지침」 PDF | <https://www.evaluation.go.kr/web/atch/atchFileDownload.do?atchId=3414&fileSn=1> | Unverified | PDF는 취득했으나 이미지 스캔본이라 텍스트 추출 실패 |
+| 23 | 감사원·국회·정부간행물·서울 공식 도메인 검색과 서울특별시의회 감사보고서 후보 | [다운로드](https://ms.smc.seoul.kr/record/appendixDownload.do?key=d5062c1d57718b5b7cc39c2b70011486448d7aefdf1fffbd402648d99a3a6abb2bcb0a32ad87ce2f)·[PDF](https://ms.smc.seoul.kr/attach/record/SEOUL/appendix/a10/A0054203.pdf?time=20260606075656) | Unverified | bai.go.kr, assembly.go.kr·likms.assembly.go.kr·dl.nanet.go.kr·clik.nanet.go.kr, policy.nl.go.kr·sejong.nl.go.kr·prism.go.kr·govlib.go.kr·gplib.kr, opengov.seoul.go.kr·seoul.go.kr에서 전문 미발견. 서울시의회 후보는 색인의 표지만 확인했고 두 URL 모두 본문 취득 시간 초과, 기준일: 2026-08-09 — `OPEN-KBP-01` |
