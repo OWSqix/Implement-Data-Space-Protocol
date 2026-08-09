@@ -8,6 +8,7 @@ import pg from "pg";
 import { createPostgresPool } from "../../src/control-store/postgres-json-store.mjs";
 import { PostgresScopedControlStore } from "../../src/control-store/postgres-scoped-control-store.mjs";
 import { prepareScopedControlStoreCutover } from "../../src/control-store/scoped-cutover.mjs";
+import { identityTlsFixtures } from "../fixtures/identity-tls/generate.mjs";
 
 const { Pool } = pg;
 const connectionString = process.env.MOLIT_POSTGRES_INTEGRATION_URL;
@@ -43,8 +44,17 @@ test("P0 scoped runtime negotiates verify-full PostgreSQL TLS and rejects wrong 
   skip: !connectionString,
   timeout: 60_000,
 }, async () => {
-  const rootCa = await readFile(new URL("../fixtures/identity-tls/root.crt", import.meta.url), "utf8");
-  const wrongCa = await readFile(new URL("../fixtures/identity-tls/untrusted.crt", import.meta.url), "utf8");
+  // The PostgreSQL container is started from deploy/control-store/postgres/compose.test.yml,
+  // which bind-mounts tests/fixtures/identity-tls and serves server-one.crt issued by root.crt.
+  // This test must therefore trust the same on-disk anchor the container was handed, so it reads
+  // the materialized file rather than generating a fresh one. Produce it before compose starts:
+  //   node tests/fixtures/identity-tls/generate.mjs
+  const rootCa = await readFile(new URL("../fixtures/identity-tls/root.crt", import.meta.url), "utf8").catch((cause) => {
+    throw new Error("tests/fixtures/identity-tls/root.crt is missing; run `node tests/fixtures/identity-tls/generate.mjs` before starting the PostgreSQL TLS compose stack", { cause });
+  });
+  // The wrong-trust anchor has no such constraint: any CA that did not issue the server
+  // certificate proves the negative, so it is generated in-process and never touches disk.
+  const wrongCa = identityTlsFixtures().untrusted;
   const admin = new Pool({
     connectionString: withHost(connectionString, "localhost"),
     max: 2,

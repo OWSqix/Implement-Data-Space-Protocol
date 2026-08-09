@@ -270,7 +270,11 @@ npm run profile:verify:independent
 npm run profile:validate:example
 ```
 
-기본 `verify`는 운영체제 중립 검사다. win32-x64 release 기술 lane은 별도 명령으로 실행한다.
+기본 `verify`는 운영체제 중립 검사다. Jena parser lane은 이 검사에 넣지 않는다.
+
+`.local/toolchains`가 없는 checkout에서 Jena 의존 시험 세 건은 해결 명령을 담은 사유와 함께 skip한다. 재구성 절차는 [5.3.1 Jena lane 툴체인 재구성](#531-jena-lane-툴체인-재구성)에 있다.
+
+win32-x64 release 기술 lane은 별도 명령으로 실행한다.
 
 ```powershell
 npm run verify:release:win32-x64
@@ -307,6 +311,32 @@ verifier는 archive의 publisher checksum snapshot, archive digest와 설치 tre
 저장소에는 network download·압축 해제 명령을 두지 않는다. clean clone에서는 기관이 승인한 artifact 전달·안전한 압축 해제 절차로 위 경로를 먼저 배치해야 한다.
 
 Discovery 상태를 초기화할 때 `.local` 전체를 삭제하지 않는다. `.local/toolchains`를 삭제하면 release lane의 검토된 archive와 설치 tree도 함께 사라진다.
+
+#### 5.3.1 Jena lane 툴체인 재구성
+
+clean clone에는 `.local/toolchains`가 없다. 이 상태에서도 기본 `verify`는 통과하고 Jena 의존 시험 세 건만 skip한다. 세 건은 다음과 같다.
+
+- `tests/contract/rc-release-lane.test.mjs`의 `CT-RC-MATRIX-002`
+- `tests/contract/rc-release-lane.test.mjs`의 `CT-RC-SERIALIZATION-001`
+- `tests/contract/profile-ontology-semantics.test.mjs`의 RC ontology 의미시험
+
+skip 사유 문자열은 이 절과 `npm run toolchain:verify:jena`를 지시한다. `.local/toolchains`가 있는데 pin한 Java 실행기가 동작하지 않으면 세 시험은 skip하지 않고 실패한다. 환경 미비와 결함을 이 규칙으로 구분한다.
+
+재구성은 다음 단계를 따른다.
+
+1. `standards/toolchains/jena-parser-lane.win32-x64.json`에서 두 artifact의 `name`, `url`, `sha256`, `sha512`, `bytes`, `extractDirectory`를 읽는다. 이 manifest가 정본이고 아래 단계는 그 값을 그대로 쓴다.
+2. 기관이 승인한 전달 경로로 두 archive를 받는다. 저장소는 network download 명령을 두지 않으므로 이 단계는 저장소 밖에서 수행한다.
+3. 두 archive를 manifest의 `name` 그대로 `.local/toolchains/cache/`에 둔다. 하위 디렉터리를 만들지 않는다. verifier는 `cache/<name>`만 찾는다.
+4. 각 archive를 안전한 압축 해제로 풀어 결과가 `.local/toolchains/install/<extractDirectory>/`가 되게 한다. 두 디렉터리 이름은 `jdk-21.0.11+10-jre`와 `apache-jena-6.1.0`이다.
+5. symbolic link, junction과 그 밖의 reparse point를 만들지 않는다. `cache`와 `install` 경로에 하나라도 있으면 verifier가 거부한다.
+6. `npm run toolchain:verify:jena`를 실행한다. 이 명령은 publisher checksum snapshot, archive digest와 설치 tree digest 세 가지를 대조한다.
+7. `npm run verify:release:win32-x64`를 실행한다. 이 lane이 Jena 의존 시험 세 건을 포함한 전체 기술 검사를 돌린다.
+
+6단계의 tree digest 대조 대상은 manifest의 `installedFileCount`, `installedBytes`, `installedContentSha256`이다. 세 값 중 하나라도 어긋나면 `installed toolchain bytes differ`로 실패한다. 압축 해제기가 파일을 추가하거나 개행을 바꾸면 이 대조가 걸린다.
+
+3단계의 archive digest 대조 대상은 manifest의 `bytes`, `sha256`, `sha512`다. publisher checksum snapshot은 `standards/vendor/toolchain-checksums/2026-07-12/` 아래의 커밋된 사본을 읽으며 network에 나가지 않는다.
+
+근거: `tools/dependencies/jena-toolchain.mjs`의 `verifyPublisherChecksum`, `verifyArchive`, `verifyInstall`과 `checkedPathBelow`.
 
 `release:status`는 machine register, Provider authority registry와 ISO 19115 technical Gate를 읽는다. 미해결 항목이 있으면 JSON에 `releaseEligible=false`를 기록하고 exit code 2를 반환한다. 현재 판정과 해소 책임은 [release 차단 Gate 현황](docs/03-plan/release-gate-status.md)에 정리한다.
 

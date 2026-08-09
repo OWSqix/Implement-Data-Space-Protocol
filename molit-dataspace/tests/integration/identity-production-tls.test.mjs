@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import { createHash, X509Certificate } from "node:crypto";
-import { copyFile, mkdtemp, readFile, rm, writeFile } from "node:fs/promises";
+import { mkdtemp, rm, writeFile } from "node:fs/promises";
 import https from "node:https";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
@@ -12,19 +12,19 @@ import { OperationalDsaasAuthenticatorAdapter } from "../../src/dsaas/auth.mjs";
 import { createDsaasServer } from "../../src/dsaas/server.mjs";
 import { IntrospectionAuthenticator } from "../../src/identity/introspection.mjs";
 import { ReloadingTlsContext } from "../../src/identity/tls-runtime.mjs";
+import { identityTlsFixtures } from "../fixtures/identity-tls/generate.mjs";
 
-const FIXTURES = new URL("../fixtures/identity-tls/", import.meta.url);
-const NOW = new Date("2026-07-14T12:00:00Z");
-
-async function fixture(name) {
-  return readFile(new URL(name, FIXTURES));
-}
+// Generated once per test process. NOW is derived from the notBefore the
+// generator actually encoded into the material, so the token clock and the
+// certificate validity window can never drift apart as calendar time passes.
+const TLS = identityTlsFixtures();
+const NOW = TLS.validationClock;
 
 async function prepareTlsDirectory(t) {
   const directory = await mkdtemp(join(tmpdir(), "molit-identity-tls-"));
   t.after(() => rm(directory, { recursive: true, force: true }));
-  for (const [source, target] of [["server-one.crt", "server.crt"], ["server-one.key", "server.key"], ["root.crt", "client-ca.crt"]]) {
-    await copyFile(new URL(source, FIXTURES), join(directory, target));
+  for (const [name, contents] of [["server.crt", TLS.serverOne], ["server.key", TLS.serverOneKey], ["client-ca.crt", TLS.root]]) {
+    await writeFile(join(directory, name), contents, { mode: name.endsWith(".key") ? 0o600 : 0o644 });
   }
   return directory;
 }
@@ -89,7 +89,7 @@ function httpsRequest(port, path, { method = "GET", token, body, cert, key, host
       port,
       path,
       method,
-      ca: [fixtureCache.root],
+      ca: [TLS.root],
       cert,
       key,
       rejectUnauthorized: true,
@@ -117,23 +117,6 @@ function httpsRequest(port, path, { method = "GET", token, body, cert, key, host
   });
 }
 
-const fixtureCache = {};
-
-test.before(async () => {
-  for (const name of ["root", "client", "clientKey", "untrusted", "untrustedKey", "serverTwo", "serverTwoKey"]) {
-    const file = {
-      root: "root.crt",
-      client: "client.crt",
-      clientKey: "client.key",
-      untrusted: "untrusted.crt",
-      untrustedKey: "untrusted.key",
-      serverTwo: "server-two.crt",
-      serverTwoKey: "server-two.key",
-    }[name];
-    fixtureCache[name] = await fixture(file);
-  }
-});
-
 test("CaaS terminates TLS, enforces service mTLS, permits MFA human tokens, and rotates without downtime", async (t) => {
   const directory = await prepareTlsDirectory(t);
   const tlsRuntime = await new ReloadingTlsContext({
@@ -146,7 +129,7 @@ test("CaaS terminates TLS, enforces service mTLS, permits MFA human tokens, and 
   const serviceToken = "service-token-value-001";
   const responses = {
     [humanToken]: claims({ token: humanToken, audience: "molit-caas", roles: ["caas.admin"], tenantIds: ["global-admin"], actorType: "human" }),
-    [serviceToken]: claims({ token: serviceToken, audience: "molit-caas", roles: ["caas.controller"], tenantIds: ["road-operator"], certificate: fixtureCache.client }),
+    [serviceToken]: claims({ token: serviceToken, audience: "molit-caas", roles: ["caas.controller"], tenantIds: ["road-operator"], certificate: TLS.client }),
   };
   const authenticator = introspectionAuthenticator({ audience: "molit-caas", allowedRoles: ["caas.admin", "caas.controller", "caas.tenant"], responses });
   const config = {
@@ -172,24 +155,24 @@ test("CaaS terminates TLS, enforces service mTLS, permits MFA human tokens, and 
   const accepted = await httpsRequest(port, "/v1/connectors/ensure", {
     method: "POST",
     token: serviceToken,
-    cert: fixtureCache.client,
-    key: fixtureCache.clientKey,
+    cert: TLS.client,
+    key: TLS.clientKey,
     body: { caasTenantId: "road-operator" },
   });
   assert.equal(accepted.status, 200);
   assert.equal(controllerActor.role, "controller");
   assert.equal((await httpsRequest(port, "/v1/connectors/ensure", { method: "POST", token: serviceToken, body: { caasTenantId: "road-operator" } })).status, 401);
-  assert.equal((await httpsRequest(port, "/v1/audit", { token: humanToken, cert: fixtureCache.untrusted, key: fixtureCache.untrustedKey })).status, 401);
+  assert.equal((await httpsRequest(port, "/v1/audit", { token: humanToken, cert: TLS.untrusted, key: TLS.untrustedKey })).status, 401);
 
-  await writeFile(join(directory, "client-ca.crt"), fixtureCache.untrusted);
+  await writeFile(join(directory, "client-ca.crt"), TLS.untrusted);
   assert.equal(await tlsRuntime.reload(), true);
   assert.equal((await httpsRequest(port, "/v1/connectors/ensure", {
-    method: "POST", token: serviceToken, cert: fixtureCache.client, key: fixtureCache.clientKey, body: { caasTenantId: "road-operator" },
+    method: "POST", token: serviceToken, cert: TLS.client, key: TLS.clientKey, body: { caasTenantId: "road-operator" },
   })).status, 401);
-  await writeFile(join(directory, "client-ca.crt"), fixtureCache.root);
+  await writeFile(join(directory, "client-ca.crt"), TLS.root);
   assert.equal(await tlsRuntime.reload(), true);
   assert.equal((await httpsRequest(port, "/v1/connectors/ensure", {
-    method: "POST", token: serviceToken, cert: fixtureCache.client, key: fixtureCache.clientKey, body: { caasTenantId: "road-operator" },
+    method: "POST", token: serviceToken, cert: TLS.client, key: TLS.clientKey, body: { caasTenantId: "road-operator" },
   })).status, 200);
 
   const before = await httpsRequest(port, "/healthz");
@@ -200,8 +183,8 @@ test("CaaS terminates TLS, enforces service mTLS, permits MFA human tokens, and 
   assert.equal(degraded.status, 503);
   assert.equal(degraded.peerDigest, before.peerDigest, "invalid rotation must retain the active secure context");
 
-  await writeFile(join(directory, "server.crt"), fixtureCache.serverTwo);
-  await writeFile(join(directory, "server.key"), fixtureCache.serverTwoKey, { mode: 0o600 });
+  await writeFile(join(directory, "server.crt"), TLS.serverTwo);
+  await writeFile(join(directory, "server.key"), TLS.serverTwoKey, { mode: 0o600 });
   const deadline = Date.now() + 3_000;
   while (tlsRuntime.readiness().generation < 4 && Date.now() < deadline) await new Promise((resolve) => setTimeout(resolve, 50));
   assert.equal(tlsRuntime.readiness().ready, true);
@@ -219,7 +202,7 @@ test("DSaaS production request path receives the verified mTLS principal", async
   const operational = introspectionAuthenticator({
     audience: "molit-dsaas",
     allowedRoles: ["dsaas.operator", "dsaas.dataspace-admin", "dsaas.dataspace-reader"],
-    responses: { [token]: claims({ token, audience: "molit-dsaas", roles: ["dsaas.operator"], tenantIds: ["road-space"], certificate: fixtureCache.client }) },
+    responses: { [token]: claims({ token, audience: "molit-dsaas", roles: ["dsaas.operator"], tenantIds: ["road-space"], certificate: TLS.client }) },
   });
   const authenticator = new OperationalDsaasAuthenticatorAdapter({ authenticator: operational });
   let actor;
@@ -243,7 +226,7 @@ test("DSaaS production request path receives the verified mTLS principal", async
   t.after(() => runtime.close({ timeoutMs: 2_000 }));
   const address = await runtime.start();
   const accepted = await httpsRequest(address.port, "/v1/dataspaces", {
-    method: "POST", token, cert: fixtureCache.client, key: fixtureCache.clientKey, host: "dsaas.test", body: { dataspaceId: "road-space" },
+    method: "POST", token, cert: TLS.client, key: TLS.clientKey, host: "dsaas.test", body: { dataspaceId: "road-space" },
   });
   assert.equal(accepted.status, 201);
   assert.deepEqual(actor.dataspaceIds, ["road-space"]);

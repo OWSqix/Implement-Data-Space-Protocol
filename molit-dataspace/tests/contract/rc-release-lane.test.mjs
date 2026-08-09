@@ -1,5 +1,9 @@
 import assert from "node:assert/strict";
+import { spawnSync } from "node:child_process";
+import { existsSync } from "node:fs";
+import path from "node:path";
 import test from "node:test";
+import { fileURLToPath } from "node:url";
 import { DataFactory, Store } from "n3";
 import { loadProfileRelease } from "../../src/profile/registry.mjs";
 import {
@@ -14,6 +18,36 @@ import {
   buildRcSerializationParityCandidate,
   deriveRequirementLinkedSerializationDefinitions,
 } from "../../tools/profile/run-rc-serialization-parity.mjs";
+
+const root = path.resolve(fileURLToPath(new URL("../../", import.meta.url)));
+const jenaLaneRoot = path.join(root, ".local", "toolchains");
+const jenaLaneCache = path.join(jenaLaneRoot, "cache");
+const jenaLaneCommands = path.join(jenaLaneRoot, "install", "apache-jena-6.1.0", "lib");
+const jenaLaneJava = path.join(
+  jenaLaneRoot,
+  "install",
+  "jdk-21.0.11+10-jre",
+  "bin",
+  process.platform === "win32" ? "java.exe" : "java",
+);
+const jenaLaneProvisioned = existsSync(jenaLaneRoot);
+const jenaLaneRunnable = jenaLaneProvisioned
+  && existsSync(jenaLaneCache)
+  && existsSync(jenaLaneCommands)
+  && existsSync(jenaLaneJava)
+  && (() => {
+    const probe = spawnSync(jenaLaneJava, ["-version"], {
+      encoding: "utf8",
+      shell: false,
+      timeout: 60_000,
+      windowsHide: true,
+    });
+    return !probe.error && probe.status === 0;
+  })();
+const jenaLaneSkip = jenaLaneProvisioned
+  ? false
+  : "provision .local/toolchains per README section 5.3, then run `npm run toolchain:verify:jena` to enable the Jena parser lane";
+const JENA_LANE_BROKEN = "`.local/toolchains` exists but does not run the pinned Temurin JRE 21 and Apache Jena 6.1.0 commands; restore it per README section 5.3 instead of deleting it";
 
 test("CT-RC-SERIALIZATION-DEFINITION-001: full parity keeps fixtures from every non-diagnostic profile", async () => {
   const release = await loadProfileRelease("1.0.0-rc.1");
@@ -186,8 +220,10 @@ test("CT-RC-COVERAGE-FAIL-CLOSED-001: runtime and materialized profile gaps are 
 });
 
 test("CT-RC-MATRIX-002: six RC modules agree across Node, pySHACL and Jena", {
+  skip: jenaLaneSkip,
   timeout: 300_000,
 }, async () => {
+  assert.ok(jenaLaneRunnable, JENA_LANE_BROKEN);
   const report = await buildRcShaclMatrixCandidate({ mode: "representative" });
   assert.equal(report.schemaVersion, "molit.rc-shacl-engine-matrix/1");
   assert.equal(report.gatePassed, true);
@@ -230,8 +266,10 @@ test("CT-RC-MATRIX-002: six RC modules agree across Node, pySHACL and Jena", {
 });
 
 test("CT-RC-SERIALIZATION-001: Jena conversions preserve graph and core decision", {
+  skip: jenaLaneSkip,
   timeout: 300_000,
 }, async () => {
+  assert.ok(jenaLaneRunnable, JENA_LANE_BROKEN);
   const report = await buildRcSerializationParityCandidate();
   assert.equal(report.schemaVersion, "molit.rc-serialization-parity/1");
   assert.equal(report.gatePassed, true);

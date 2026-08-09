@@ -13,6 +13,7 @@ import { createDsaasServer } from "../../src/dsaas/server.mjs";
 import { FileDsaasStore } from "../../src/dsaas/store.mjs";
 import { loadApprovalDecisionRegistry } from "../../src/dsaas/approval-registry.mjs";
 import { loadServiceRegistry } from "../../src/dsaas/service-registry.mjs";
+import { identityTlsFixtures } from "../fixtures/identity-tls/generate.mjs";
 
 const PROFILE = { iri: "https://data.molit.go.kr/profile/molit-dcat-ap/1.0.0-rc.1", version: "1.0.0-rc.1", sha256: "a".repeat(64) };
 const GOVERNANCE = { iri: "https://data.molit.go.kr/governance/molit-dataspace/1", version: "1", sha256: "b".repeat(64) };
@@ -568,11 +569,8 @@ test("production server refuses static authentication and a missing direct TLS c
   await assert.rejects(notReady.start(), { code: "DSAAS_PRODUCTION_TLS_REQUIRED" });
   assert.equal(notReady.server.listening, false);
 
-  const [cert, key, ca] = await Promise.all([
-    readFile(new URL("../fixtures/identity-tls/server-one.crt", import.meta.url), "utf8"),
-    readFile(new URL("../fixtures/identity-tls/server-one.key", import.meta.url), "utf8"),
-    readFile(new URL("../fixtures/identity-tls/root.crt", import.meta.url), "utf8"),
-  ]);
+  const identityTls = identityTlsFixtures();
+  const [cert, key, ca] = [identityTls.serverOne, identityTls.serverOneKey, identityTls.root];
   const observationBlocked = createDsaasServer({
     config,
     controlPlane: { async readiness() { return { ready: true, failureCodes: [] }; } },

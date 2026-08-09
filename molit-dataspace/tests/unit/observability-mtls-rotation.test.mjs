@@ -1,17 +1,15 @@
 import assert from "node:assert/strict";
-import { readFile } from "node:fs/promises";
 import test from "node:test";
 
 import { createRotatingMtlsDispatcher } from "../../src/observability/index.mjs";
+import { identityTlsFixtures } from "../fixtures/identity-tls/generate.mjs";
 
-const FIXTURES = new URL("../fixtures/identity-tls/", import.meta.url);
-const [ca, clientCert, clientKey, nextCert, nextKey] = await Promise.all([
-  readFile(new URL("root.crt", FIXTURES), "utf8"),
-  readFile(new URL("client.crt", FIXTURES), "utf8"),
-  readFile(new URL("client.key", FIXTURES), "utf8"),
-  readFile(new URL("server-one.crt", FIXTURES), "utf8"),
-  readFile(new URL("server-one.key", FIXTURES), "utf8"),
-]);
+// TLS material is generated for this process; VALIDATION_CLOCK is derived from
+// the notBefore that generation actually encoded, so the dispatcher's
+// validFromDate <= now <= validToDate check is satisfied on any calendar date.
+const TLS = identityTlsFixtures();
+const VALIDATION_CLOCK = TLS.validationClock;
+const [ca, clientCert, clientKey, nextCert, nextKey] = [TLS.root, TLS.client, TLS.clientKey, TLS.serverOne, TLS.serverOneKey];
 
 test("mTLS dispatcher atomically rotates validated agents without interrupting an in-flight request", async () => {
   const material = new Map([["ca", ca], ["cert", clientCert], ["key", clientKey]]);
@@ -21,7 +19,7 @@ test("mTLS dispatcher atomically rotates validated agents without interrupting a
   const dispatcher = await createRotatingMtlsDispatcher({
     tls: { caRef: "ca", certificateRef: "cert", privateKeyRef: "key", serverName: "collector.example", reloadIntervalMs: 300_000 },
     secretResolver: async (reference) => material.get(reference),
-    clock: () => new Date("2026-07-14T12:00:00.000Z"),
+    clock: () => VALIDATION_CLOCK,
     agentFactory(options) {
       const ordinal = agents.length;
       const agent = {
@@ -58,7 +56,7 @@ test("invalid replacement is never activated, marks readiness down, and recovery
   const dispatcher = await createRotatingMtlsDispatcher({
     tls: { caRef: "ca", certificateRef: "cert", privateKeyRef: "key", serverName: "collector.example", reloadIntervalMs: 300_000 },
     secretResolver: async (reference) => material.get(reference),
-    clock: () => new Date("2026-07-14T12:00:00.000Z"),
+    clock: () => VALIDATION_CLOCK,
     agentFactory(options) { const agent = { options, dispatches: 0, dispatch() { this.dispatches += 1; return true; }, async close() {} }; agents.push(agent); return agent; },
   });
   const activeDigest = dispatcher.readiness().activeDigest;
@@ -69,7 +67,7 @@ test("invalid replacement is never activated, marks readiness down, and recovery
     activeDigest,
     failureCode: "OBS_TLS_ROTATION_FAILED",
     generation: 1,
-    lastSuccessAt: "2026-07-14T12:00:00.000Z",
+    lastSuccessAt: VALIDATION_CLOCK.toISOString(),
     ready: false,
     status: "NOT_READY",
   });

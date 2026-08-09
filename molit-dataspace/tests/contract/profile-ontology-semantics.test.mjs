@@ -1,4 +1,6 @@
 import assert from "node:assert/strict";
+import { spawnSync } from "node:child_process";
+import { existsSync } from "node:fs";
 import { mkdtemp, mkdir, readFile, rm, writeFile } from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
@@ -19,10 +21,40 @@ const RELEASE_ROOT = path.join(
   "releases",
   "1.0.0-rc.1",
 );
+const jenaLaneRoot = path.join(ROOT, ".local", "toolchains");
+const jenaLaneCache = path.join(jenaLaneRoot, "cache");
+const jenaLaneCommands = path.join(jenaLaneRoot, "install", "apache-jena-6.1.0", "lib");
+const jenaLaneJava = path.join(
+  jenaLaneRoot,
+  "install",
+  "jdk-21.0.11+10-jre",
+  "bin",
+  process.platform === "win32" ? "java.exe" : "java",
+);
+const jenaLaneProvisioned = existsSync(jenaLaneRoot);
+const jenaLaneRunnable = jenaLaneProvisioned
+  && existsSync(jenaLaneCache)
+  && existsSync(jenaLaneCommands)
+  && existsSync(jenaLaneJava)
+  && (() => {
+    const probe = spawnSync(jenaLaneJava, ["-version"], {
+      encoding: "utf8",
+      shell: false,
+      timeout: 60_000,
+      windowsHide: true,
+    });
+    return !probe.error && probe.status === 0;
+  })();
+const jenaLaneSkip = jenaLaneProvisioned
+  ? false
+  : "provision .local/toolchains per README section 5.3, then run `npm run toolchain:verify:jena` to enable the Jena parser lane";
+const JENA_LANE_BROKEN = "`.local/toolchains` exists but does not run the pinned Temurin JRE 21 and Apache Jena 6.1.0 commands; restore it per README section 5.3 instead of deleting it";
 
 test("RC ontology semantics are pinned to six modules, nineteen exact CQs and OWL-RL", {
+  skip: jenaLaneSkip,
   timeout: 180_000,
 }, async () => {
+  assert.ok(jenaLaneRunnable, JENA_LANE_BROKEN);
   const report = await verifyOntologySemantics({ releaseRoot: RELEASE_ROOT });
   assert.equal(report.gatePassed, true, JSON.stringify(report.findings, null, 2));
   assert.equal(report.toolchain.verified, true);

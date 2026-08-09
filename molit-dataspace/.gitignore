@@ -17,6 +17,12 @@ evidence/raw/
 .env.*
 !.env.example
 
+# Test-only TLS material, generated at test time by
+# tests/fixtures/identity-tls/generate.mjs and never committed. These keys exist
+# only for the duration of a test run and are registered in no trust store.
+tests/fixtures/identity-tls/*.crt
+tests/fixtures/identity-tls/*.key
+
 # Local Bridge state and generated reports
 .local/
 test-results/

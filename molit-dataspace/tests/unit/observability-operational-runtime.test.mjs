@@ -1,15 +1,12 @@
 import assert from "node:assert/strict";
-import { readFile } from "node:fs/promises";
 import test from "node:test";
 
 import { createOperationalObservability } from "../../src/observability/index.mjs";
+import { identityTlsFixtures } from "../fixtures/identity-tls/generate.mjs";
 
-const FIXTURES = new URL("../fixtures/identity-tls/", import.meta.url);
-const [CA_CERTIFICATE, CERTIFICATE, PRIVATE_KEY] = await Promise.all([
-  readFile(new URL("root.crt", FIXTURES), "utf8"),
-  readFile(new URL("client.crt", FIXTURES), "utf8"),
-  readFile(new URL("client.key", FIXTURES), "utf8"),
-]);
+// Generated for this process only; see tests/fixtures/identity-tls/generate.mjs.
+const TLS = identityTlsFixtures();
+const [CA_CERTIFICATE, CERTIFICATE, PRIVATE_KEY] = [TLS.root, TLS.client, TLS.clientKey];
 
 function config() {
   const tls = { caRef: "file://ca.pem", certificateRef: "file://client.pem", privateKeyRef: "file://client-key.pem", serverName: "collector.example", reloadIntervalMs: 300_000 };

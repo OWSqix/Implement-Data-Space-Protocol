@@ -1,15 +1,14 @@
 import assert from "node:assert/strict";
-import { readFile } from "node:fs/promises";
 import test from "node:test";
 
 import { createOperationalTelemetryFromConfig, operationalTelemetryConfigFromObservability } from "../../src/observability/index.mjs";
+import { identityTlsFixtures } from "../fixtures/identity-tls/generate.mjs";
 
-const FIXTURES = new URL("../fixtures/identity-tls/", import.meta.url);
-const [CA_CERTIFICATE, CERTIFICATE, PRIVATE_KEY] = await Promise.all([
-  readFile(new URL("root.crt", FIXTURES), "utf8"),
-  readFile(new URL("client.crt", FIXTURES), "utf8"),
-  readFile(new URL("client.key", FIXTURES), "utf8"),
-]);
+// Generated for this process only; VALIDATION_CLOCK comes from the notBefore the
+// generator encoded, so the transport's certificate validity check always holds.
+const TLS = identityTlsFixtures();
+const VALIDATION_CLOCK = TLS.validationClock;
+const [CA_CERTIFICATE, CERTIFICATE, PRIVATE_KEY] = [TLS.root, TLS.client, TLS.clientKey];
 
 function config() {
   const tls = { caRef: "file://ca.pem", certificateRef: "file://client.pem", privateKeyRef: "file://client-key.pem", serverName: "collector.example", reloadIntervalMs: 300_000 };
@@ -42,7 +41,7 @@ test("operational metrics and logs use separate mTLS agents and rotating bearer 
     config: config(),
     secretResolver: async (reference) => secrets.get(reference),
     agentFactory,
-    clock: () => new Date("2026-07-14T12:00:00.000Z"),
+    clock: () => VALIDATION_CLOCK,
     fetchImpl: async (url, options) => {
       requests.push({ authorization: options.headers.authorization, dispatcher: options.dispatcher, path: new URL(url).pathname });
       return new Response("{}", { status: 200, headers: { "content-type": "application/json" } });

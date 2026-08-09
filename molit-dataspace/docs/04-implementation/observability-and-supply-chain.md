@@ -320,7 +320,35 @@ Signature 누락, init container의 미서명 image와 repository·runtime class
 
 `verify-admission-policy.ps1`은 임시 registry와 key를 만들고 Kyverno CLI에서 양성·음성 fixture를 실행한다. Timeout, registry 종료와 서명 조회 실패는 통과로 처리하지 않는다. 운영 cluster 적용 결과는 별도 `COM-SUP-001` 증거다.
 
-### 6.3 검증 실패 조건
+### 6.3 신뢰 앵커와 투명성 log 자세
+
+`ImageValidatingPolicy`는 attestor를 `releaseKey` 하나만 둔다. Image signature 검증과 release attestation 검증이 같은 public key 하나를 신뢰 앵커로 쓴다.
+
+근거: `deploy/supply-chain/verify-images.template.yaml`의 `attestors` 항목이 단일 entry이고, `verifyImageSignatures`와 `verifyAttestationSignatures` 판정식이 모두 `attestors.releaseKey`를 참조한다.
+
+통합은 의도한 선택이다. Key 배포 경로와 policy annotation에 기록하는 지문이 하나로 줄어 운영 시 key 불일치 가능성이 낮아진다.
+
+감수하는 위험은 다음과 같다.
+
+- Release key 하나가 침해되면 image signature와 release attestation을 동시에 위조할 수 있다
+- 서명 주체와 attestation 발행 주체를 정책 수준에서 분리할 수 없다
+- Key 교체는 두 검증을 동시에 끊으므로 무중단 rotation 절차를 별도로 확보해야 한다
+
+Rekor 투명성 log는 비활성 자세다. 정책의 `ctlog`는 `url: https://rekor.invalid`과 `insecureIgnoreTlog: true`를 둔다. `apply-admission.ps1`은 적용 결과 object에 `transparencyLog = 'disabled'`를 보고한다.
+
+근거: 같은 template의 `attestors[0].cosign.ctlog` block과 `deploy/supply-chain/apply-admission.ps1`의 결과 object다.
+
+이 자세는 서명 측과 정합한다. `verify-admission-policy.ps1`의 Cosign 호출은 `--tlog-upload=false`를 쓰므로 log entry를 만들지 않는다. 검증 측이 log를 조회하면 항상 실패한다.
+
+감수하는 위험은 다음과 같다.
+
+- 서명 시각을 독립 검증할 공개 append-only 기록이 없다
+- Key 침해 이후의 소급 서명을 외부 관측자가 탐지할 수단이 없다
+- 폐기와 사후 감사가 release key 보관 통제 하나에만 의존한다
+
+기준일: 2026-08-06. 두 자세는 `tests/contract/supply-chain-admission.test.mjs`의 `COM-SUP-ADMISSION-002`가 구조 단언으로 고정한다. 자세를 바꾸면 시험이 실패한다.
+
+### 6.4 검증 실패 조건
 
 다음 조건에서는 bundle 검증이 실패한다.
 
@@ -373,6 +401,9 @@ BuildKit의 native provenance와 SBOM도 registry에 함께 push한다. reposito
 - 운영 release key의 HSM·KMS 보관, rotation, 폐기 기록
 - 실제 image에 대한 최신 scanner database 결과
 - 운영 Kyverno admission controller의 signature·digest·runtime identity 거부 결과
+- EDC Data Plane repository의 runtime identity 판정식에 대한 registry 실증 결과
+
+근거: `deploy/supply-chain/verify-admission-policy.ps1`의 fixture는 승인 repository 8종 중 7종만 push한다. `edc-data-plane` 판정식은 구조 단언으로만 확인했고 Kyverno CLI 실행 경로로는 아직 실증하지 않았다.
 
 ## 8. 기준 규격
 

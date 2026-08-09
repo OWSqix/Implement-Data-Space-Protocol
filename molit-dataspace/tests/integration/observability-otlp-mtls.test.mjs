@@ -1,20 +1,17 @@
 import assert from "node:assert/strict";
-import { readFile } from "node:fs/promises";
 import https from "node:https";
 import test from "node:test";
 
 import { createOperationalTelemetryFromConfig } from "../../src/observability/index.mjs";
+import { identityTlsFixtures } from "../fixtures/identity-tls/generate.mjs";
 
-const FIXTURES = new URL("../fixtures/identity-tls/", import.meta.url);
+// Generated for this process only; VALIDATION_CLOCK comes from the notBefore the
+// generator encoded, so the transport's certificate validity check always holds.
+const TLS = identityTlsFixtures();
+const VALIDATION_CLOCK = TLS.validationClock;
 
 test("COM-OBS-001: OTLP metrics and logs require a trusted client certificate and bearer token", async (t) => {
-  const [serverCert, serverKey, clientCa, clientCert, clientKey] = await Promise.all([
-    readFile(new URL("server-one.crt", FIXTURES), "utf8"),
-    readFile(new URL("server-one.key", FIXTURES), "utf8"),
-    readFile(new URL("root.crt", FIXTURES), "utf8"),
-    readFile(new URL("client.crt", FIXTURES), "utf8"),
-    readFile(new URL("client.key", FIXTURES), "utf8"),
-  ]);
+  const [serverCert, serverKey, clientCa, clientCert, clientKey] = [TLS.serverOne, TLS.serverOneKey, TLS.root, TLS.client, TLS.clientKey];
   const received = [];
   const server = https.createServer({ cert: serverCert, key: serverKey, ca: clientCa, requestCert: true, rejectUnauthorized: true }, async (request, response) => {
     const chunks = [];
@@ -51,13 +48,13 @@ test("COM-OBS-001: OTLP metrics and logs require a trusted client certificate an
   await assert.rejects(createOperationalTelemetryFromConfig({
     config,
     secretResolver: async (reference) => reference === "env://METRICS_TOKEN" ? "wrong-token" : secrets.get(reference),
-    clock: () => new Date("2026-07-14T12:00:00.000Z"),
+    clock: () => VALIDATION_CLOCK,
   }), { code: "OBS_OTLP_REJECTED" });
   received.length = 0;
   const telemetry = await createOperationalTelemetryFromConfig({
     config,
     secretResolver: async (reference) => secrets.get(reference),
-    clock: () => new Date("2026-07-14T12:00:00.000Z"),
+    clock: () => VALIDATION_CLOCK,
   });
   t.after(() => telemetry.close());
   await telemetry.recordRequest({ tenantId: "tenant-seoul-01", operation: "connector.ensure", statusCode: 201, durationMs: 25, correlationId: "corr-mtls-otlp-001", traceId: "a".repeat(32), spanId: "b".repeat(16) });
